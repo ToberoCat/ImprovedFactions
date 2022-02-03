@@ -1,0 +1,27 @@
+name: ImprovedFactions
+version: '${project.version}'
+main: io.github.toberocat.MainIF
+api-version: 1.17
+authors: [ Tobero ]
+website: https://toberocat.github.io/improved-factions/index.html
+softdepend: [PlaceholderAPI, Vault]
+
+commands:
+  faction:
+    description: The faction command
+    aliases:
+      - f
+
+permissions:
+  factions.messages.standby:
+    description: Get notified when the plugin went in standby mode
+    default: op
+
+  factions.admin:
+    default: op
+    children:
+      factions.messages.standby: true
+  factions.*:
+    default: op
+    children:
+      factions.messages.standby: true
