@@ -10,6 +10,7 @@ import io.github.toberocat.core.utility.data.PersistentDataUtility;
 import io.github.toberocat.core.utility.factions.Faction;
 import io.github.toberocat.core.utility.language.LangMessage;
 import io.github.toberocat.core.utility.language.Language;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.persistence.PersistentDataType;
@@ -23,7 +24,6 @@ import java.util.UUID;
  */
 public class FactionMemberManager {
 
-    private static final String PLAYER_NO_FACTION = "NONE";
     public static final String NONE_TIMEOUT = "NONE";
 
 
@@ -49,16 +49,18 @@ public class FactionMemberManager {
      * @param event The event from PlayerJoin
      */
     public static void PlayerJoin(PlayerJoinEvent event) {
+        updateKicks(event.getPlayer());
+    }
+
+    private static void updateKicks(Player player) {
         AsyncCore.Run(() -> {
-            Player player = event.getPlayer();
             Faction faction = FactionUtility.getPlayerFaction(player);
 
             if (faction == null) return new Result(false);
             if (faction.getFactionMemberManager().members.contains(player.getUniqueId()))
                 return new Result(false);
 
-            PersistentDataUtility.write(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
-                    PersistentDataType.STRING, PLAYER_NO_FACTION,
+            PersistentDataUtility.remove(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
                     player.getPersistentDataContainer());
             Language.sendMessage(LangMessage.FACTION_KICKED, player);
             return new Result(true);
@@ -129,6 +131,10 @@ public class FactionMemberManager {
      */
     public Result kick(UUID player) {
         members.remove(player);
+        Player onP = Bukkit.getPlayer(player);
+        if (onP != null && onP.isOnline()) {
+            updateKicks(onP);
+        }
         return new Result(true);
     }
 
