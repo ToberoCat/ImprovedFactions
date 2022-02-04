@@ -53,18 +53,16 @@ public class FactionMemberManager {
     }
 
     private static void updateKicks(Player player) {
-        AsyncCore.Run(() -> {
-            Faction faction = FactionUtility.getPlayerFaction(player);
+        Faction faction = FactionUtility.getPlayerFaction(player);
 
-            if (faction == null) return new Result(false);
-            if (faction.getFactionMemberManager().members.contains(player.getUniqueId()))
-                return new Result(false);
+        if (faction == null) return;
+        if (faction.getFactionMemberManager().members.contains(player.getUniqueId()))
+            return;
 
-            PersistentDataUtility.remove(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
-                    player.getPersistentDataContainer());
-            Language.sendMessage(LangMessage.FACTION_KICKED, player);
-            return new Result(true);
-        });
+        PersistentDataUtility.write(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
+                PersistentDataType.STRING, null,
+                player.getPersistentDataContainer());
+        Language.sendMessage(LangMessage.FACTION_KICKED, player);
     }
 
     /**

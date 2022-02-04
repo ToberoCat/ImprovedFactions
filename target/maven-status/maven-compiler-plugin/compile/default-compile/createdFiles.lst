@@ -10,6 +10,7 @@ io\github\toberocat\core\commands\HelpSubCommand.class
 io\github\toberocat\core\utility\config\Config.class
 io\github\toberocat\core\commands\settings\PlayerSettingsSubCommand$1.class
 io\github\toberocat\core\commands\config\ConfigSubCommand.class
+io\github\toberocat\core\commands\admin\AdminRegenerateSubCommand.class
 io\github\toberocat\core\commands\zones\UnclaimSubCommand.class
 io\github\toberocat\core\listeners\PlayerMoveListener.class
 io\github\toberocat\core\utility\callbacks\ReturnCallback.class
@@ -98,6 +99,7 @@ io\github\toberocat\core\utility\factions\Faction.class
 io\github\toberocat\core\commands\factions\CreateFactionSubCommand.class
 io\github\toberocat\core\gui\config\configure\ConfigConfigureGUI.class
 io\github\toberocat\core\commands\plugin\PluginStandbySubCommand.class
+io\github\toberocat\core\commands\admin\AdminIsPlayerInFactionSubCommand.class
 io\github\toberocat\core\utility\events\ConfigSaveEvent$SaveType.class
 io\github\toberocat\core\commands\config\ConfigConfigureSubCommand$1.class
 io\github\toberocat\core\gui\config\backup\ConfigBackupConfigSubGUI$2.class

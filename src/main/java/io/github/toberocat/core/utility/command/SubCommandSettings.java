@@ -127,11 +127,11 @@ public class SubCommandSettings {
         Faction faction = FactionUtility.getPlayerFaction(player);
 
         if (needsFaction == NYI.No && faction != null) {
-            if (messages) subCommand.SendCommandExecuteError(SubCommand.CommandExecuteError.NoFactionNeed, player);
+            if (messages) subCommand.sendCommandExecuteError(SubCommand.CommandExecuteError.NoFactionNeed, player);
             return false;
         }
         if (needsFaction == NYI.Yes && faction == null) {
-            if (messages) subCommand.SendCommandExecuteError(SubCommand.CommandExecuteError.NoFaction, player);
+            if (messages) subCommand.sendCommandExecuteError(SubCommand.CommandExecuteError.NoFaction, player);
             return false;
         }
         return true;
@@ -143,7 +143,7 @@ public class SubCommandSettings {
             return false;
         }
         if (argLength != -1 && args.length != argLength) {
-            if (messages) subCommand.SendCommandExecuteError(SubCommand.CommandExecuteError.NotEnoughArgs, player);
+            if (messages) subCommand.sendCommandExecuteError(SubCommand.CommandExecuteError.NotEnoughArgs, player);
             return false;
         }
 

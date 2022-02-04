@@ -79,6 +79,7 @@ public class FactionUtility extends PlayerJoinLoader {
      */
     public static boolean isInFaction(Player player) {
         String faction = PersistentDataUtility.read(PersistentDataUtility.PLAYER_FACTION_REGISTRY, PersistentDataType.STRING, player.getPersistentDataContainer());
+        System.out.println(faction);
         return faction != null;
     }
 

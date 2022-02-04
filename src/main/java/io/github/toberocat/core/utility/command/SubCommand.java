@@ -178,7 +178,7 @@ public abstract class SubCommand {
                             }
                         }
                     } else {
-                        SendCommandExecuteError(CommandExecuteError.NoPermission, player);
+                        sendCommandExecuteError(CommandExecuteError.NoPermission, player);
                     }
                 } else {
                     CommandExecute(null, args);
@@ -188,8 +188,8 @@ public abstract class SubCommand {
         });
     }
 
-    // * Callbacks
-    public void SendCommandExecuteError(CommandExecuteError error, Player player) {
+    // Callbacks
+    public void sendCommandExecuteError(CommandExecuteError error, Player player) {
         switch (error) {
             case NoPermission -> player.sendMessage(Language.getPrefix() + "§cYou don't have enough permissions to use this command. Permission: faction.commands." + permission);
             case NoFaction -> player.sendMessage(Language.getPrefix() + "§cYou need to be in a faction to use this command");
@@ -202,7 +202,7 @@ public abstract class SubCommand {
         }
     }
 
-    public void SendCommandExecuteError(Player player, String errorMessage) {
+    public void sendCommandExecuteError(String errorMessage, Player player) {
         Language.sendMessage(LangMessage.ERROR_GENERAL, player, new Parseable("{error}", errorMessage));
     }
 
@@ -217,6 +217,11 @@ public abstract class SubCommand {
     }
 
     private int getCosts() {
+        if (!MainIF.getConfigManager().containConfig("commands." + permission + ".costs") &&
+                MainIF.getConfigManager().getConfig("commands." + permission + ".costs") != null) {
+            return 0;
+        }
+
         return MainIF.getConfigManager().getValue("commands." + permission + ".costs");
     }
 

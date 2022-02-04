@@ -10,7 +10,6 @@ import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.language.Parseable;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class CreateFactionSubCommand extends SubCommand {
@@ -44,7 +43,7 @@ public class CreateFactionSubCommand extends SubCommand {
                 ? Language.format(_name) : _name;
         Result<Faction> factionResult = Faction.CreateFaction(name, player);
         if (!factionResult.isSuccess()) {
-            SendCommandExecuteError(player, factionResult.getPlayerMessage());
+            sendCommandExecuteError(factionResult.getPlayerMessage(), player);
             return;
         }
         Language.sendMessage(LangMessage.COMMAND_FACTION_CREATE_SUCCESS, player,
