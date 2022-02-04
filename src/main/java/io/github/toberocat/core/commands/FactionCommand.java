@@ -5,6 +5,7 @@ import io.github.toberocat.core.commands.config.ConfigSubCommand;
 import io.github.toberocat.core.commands.extension.ExtensionSubCommand;
 import io.github.toberocat.core.commands.factions.CreateFactionSubCommand;
 import io.github.toberocat.core.commands.factions.DeleteFactionSubCommand;
+import io.github.toberocat.core.commands.factions.LeaveFactionSubCommand;
 import io.github.toberocat.core.commands.factions.claim.ClaimSubCommand;
 import io.github.toberocat.core.commands.factions.relation.RelationSubCommand;
 import io.github.toberocat.core.commands.plugin.PluginSubCommand;
@@ -37,6 +38,7 @@ public class FactionCommand implements TabExecutor {
         subCommands.add(new ClaimSubCommand());
         subCommands.add(new RelationSubCommand());
         subCommands.add(new ExtensionSubCommand());
+        subCommands.add(new LeaveFactionSubCommand());
     }
 
     @Override

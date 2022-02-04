@@ -31,7 +31,7 @@ public class AdminIsPlayerInFactionSubCommand extends SubCommand {
         }
 
         boolean inFaction = FactionUtility.isInFaction(player);
-        Language.sendRawMessage("&e" + args[0] + "&f is in " + (inFaction ? " a faction" : " no faction"), player);
+        Language.sendRawMessage("&6" + args[0] + "&f is in " + (inFaction ? "a faction" : "no faction"), player);
     }
 
     @Override

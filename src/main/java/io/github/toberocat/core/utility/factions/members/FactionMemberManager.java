@@ -5,7 +5,6 @@ import io.github.toberocat.MainIF;
 import io.github.toberocat.core.listeners.PlayerJoinListener;
 import io.github.toberocat.core.utility.factions.FactionUtility;
 import io.github.toberocat.core.utility.Result;
-import io.github.toberocat.core.utility.async.AsyncCore;
 import io.github.toberocat.core.utility.data.PersistentDataUtility;
 import io.github.toberocat.core.utility.factions.Faction;
 import io.github.toberocat.core.utility.language.LangMessage;
@@ -24,6 +23,7 @@ import java.util.UUID;
  */
 public class FactionMemberManager {
 
+    public static final String NO_FACTION = "NONE";
     public static final String NONE_TIMEOUT = "NONE";
 
 
@@ -49,20 +49,25 @@ public class FactionMemberManager {
      * @param event The event from PlayerJoin
      */
     public static void PlayerJoin(PlayerJoinEvent event) {
-        updateKicks(event.getPlayer());
+        updatePlayer(event.getPlayer());
     }
 
-    private static void updateKicks(Player player) {
-        Faction faction = FactionUtility.getPlayerFaction(player);
+    private static void updatePlayer(Player player) {
+        String registry = PersistentDataUtility.read(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
+                PersistentDataType.STRING, player.getPersistentDataContainer());
+        if (registry == null || registry.equals(FactionMemberManager.NO_FACTION)) return;
 
-        if (faction == null) return;
-        if (faction.getFactionMemberManager().members.contains(player.getUniqueId()))
-            return;
+        PersistentDataUtility.write(PersistentDataUtility.PLAYER_FACTION_REGISTRY, PersistentDataType.STRING,
+                FactionMemberManager.NO_FACTION, player.getPersistentDataContainer());
+
+        Faction faction = FactionUtility.getFactionByRegistry(registry);
+        if (faction == null) return; // Faction deleted
+
+        if (!faction.getFactionMemberManager().members.contains(player.getUniqueId())) return; //Not in this faction
 
         PersistentDataUtility.write(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
-                PersistentDataType.STRING, null,
+                PersistentDataType.STRING, NO_FACTION,
                 player.getPersistentDataContainer());
-        Language.sendMessage(LangMessage.FACTION_KICKED, player);
     }
 
     /**
@@ -113,8 +118,10 @@ public class FactionMemberManager {
         if (!FactionUtility.isInFaction(player)) return new Result(false).setMessages(
                 "PLAYER_NOT_IN_FACTION", player.getName() + " is in no faction. So nothing can be left");
 
-        PersistentDataUtility.remove(
-                PersistentDataUtility.PLAYER_FACTION_REGISTRY, player.getPersistentDataContainer());
+        PersistentDataUtility.write(PersistentDataUtility.PLAYER_FACTION_REGISTRY, PersistentDataType.STRING, NO_FACTION,
+                player.getPersistentDataContainer());
+
+        updatePlayer(player);
 
         members.remove(player.getUniqueId());
         faction.getPowerManager()
@@ -131,7 +138,7 @@ public class FactionMemberManager {
         members.remove(player);
         Player onP = Bukkit.getPlayer(player);
         if (onP != null && onP.isOnline()) {
-            updateKicks(onP);
+            updatePlayer(onP);
         }
         return new Result(true);
     }

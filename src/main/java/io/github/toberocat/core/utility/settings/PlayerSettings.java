@@ -108,7 +108,7 @@ public class PlayerSettings {
         DEFAULT_SETTINGS.put("displayTitle", new Setting<>(true, Setting.SettingsType.BOOL)
                 .setMaterial(Material.NAME_TAG));
         DEFAULT_SETTINGS.put("titlePosition", new Setting<>(TitlePosition.TITLE, Setting.SettingsType.ENUM)
-                .setMaterial(Material.HEART_OF_THE_SEA).setEnumValues(Utility.getNames(TitlePosition.class)));
+                .setMaterial(Material.AMETHYST_SHARD).setEnumValues(Utility.getNames(TitlePosition.class)));
         DEFAULT_SETTINGS.put("factionJoinTimeout", new Setting<>(FactionMemberManager.NONE_TIMEOUT,
                 Setting.SettingsType.NOT_LISTED));
 

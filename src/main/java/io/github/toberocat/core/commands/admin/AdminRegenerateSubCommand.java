@@ -7,6 +7,7 @@ import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.data.PersistentDataUtility;
 import io.github.toberocat.core.utility.factions.Faction;
 import io.github.toberocat.core.utility.factions.FactionUtility;
+import io.github.toberocat.core.utility.factions.members.FactionMemberManager;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -36,7 +37,7 @@ public class AdminRegenerateSubCommand extends SubCommand {
         Language.sendRawMessage("Generation for all players", player);
         for (Player onP : Bukkit.getOnlinePlayers()) {
             PersistentDataUtility.write(PersistentDataUtility.PLAYER_FACTION_REGISTRY, PersistentDataType.STRING,
-                    null, onP.getPersistentDataContainer());
+                    FactionMemberManager.NO_FACTION, onP.getPersistentDataContainer());
             Language.sendRawMessage("Resetted your data", player);
 
             for (Faction faction : Faction.getLoadedFactions().values()) {
@@ -59,8 +60,9 @@ public class AdminRegenerateSubCommand extends SubCommand {
                         PersistentDataType.STRING, chunk.getPersistentDataContainer());
 
                 if (!FactionUtility.doesFactionExist(registry)) {
-                    PersistentDataUtility.write(PersistentDataUtility.PLAYER_FACTION_REGISTRY, PersistentDataType.STRING,
-                            null, chunk.getPersistentDataContainer());
+                    PersistentDataUtility.write(PersistentDataUtility.FACTION_CLAIMED_KEY,
+                            PersistentDataType.STRING, ClaimManager.UNCLAIMED_CHUNK_REGISTRY,
+                            chunk.getPersistentDataContainer());
                 }
 
             }

@@ -65,8 +65,9 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
     }
 
     public Result protectChunk(String registry, Chunk chunk) {
-        if (PersistentDataUtility.has(PersistentDataUtility.FACTION_CLAIMED_KEY,
-                PersistentDataType.STRING, chunk.getPersistentDataContainer())) {
+        String claimed = PersistentDataUtility.read(PersistentDataUtility.FACTION_CLAIMED_KEY,
+                PersistentDataType.STRING, chunk.getPersistentDataContainer());
+        if (claimed != null && !claimed.equals(UNCLAIMED_CHUNK_REGISTRY)) {
             return new Result(false).setMessages("CHUNK_ALREADY_PROTECTED", "&cThe chunk you want to claim got already claimed");
         }
 

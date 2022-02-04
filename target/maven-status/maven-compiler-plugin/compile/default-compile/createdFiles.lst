@@ -37,6 +37,7 @@ io\github\toberocat\core\utility\sql\SQL$Column.class
 io\github\toberocat\core\utility\events\faction\FactionBanEvent.class
 io\github\toberocat\core\utility\events\faction\FactionUnbanEvent.class
 io\github\toberocat\core\utility\claim\ClaimManager.class
+io\github\toberocat\core\commands\factions\LeaveFactionSubCommand.class
 io\github\toberocat\core\commands\admin\AdminHardResetSubCommand.class
 io\github\toberocat\core\commands\settings\PlayerSettingsSubCommand.class
 io\github\toberocat\core\utility\events\faction\FactionJoinEvent.class
