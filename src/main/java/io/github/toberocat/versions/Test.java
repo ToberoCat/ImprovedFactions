@@ -14,11 +14,6 @@ import java.util.Map;
 public class Test {
     //ToDo: Remove this class
     public static void main(String[] args) throws MalformedURLException {
-        Map<Version, URL> map = new HashMap<>();
-        map.put(Version.from("1.1"), new URL("https://example.com"));
 
-        JsonUtility.SaveObject(new File("C:\\Users\\Tobias\\Documents\\extension.json"),
-                new ExtensionObject("filename", "displayName", "description", map,
-                        Version.from("v1.0"), "Tobero", Material.ACACIA_SAPLING));
     }
 }
