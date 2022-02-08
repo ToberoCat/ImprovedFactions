@@ -12,7 +12,7 @@ import java.util.List;
 public class ConfigBackupSubCommand extends SubCommand  {
 
     public ConfigBackupSubCommand() {
-        super("backup", LangMessage.COMMAND_CONFIG_BACKUP_DESCRIPTION, false);
+        super("backup", "config.backup", LangMessage.COMMAND_CONFIG_BACKUP_DESCRIPTION, false);
     }
 
     @Override

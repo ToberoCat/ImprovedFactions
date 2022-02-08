@@ -6,11 +6,11 @@ import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncCore;
 import io.github.toberocat.core.utility.data.DataAccess;
-import io.github.toberocat.core.utility.events.ConfigSaveEvent;
 import io.github.toberocat.core.utility.events.faction.*;
+import io.github.toberocat.core.utility.factions.bank.FactionBank;
 import io.github.toberocat.core.utility.factions.members.FactionMemberManager;
 import io.github.toberocat.core.utility.factions.power.PowerManager;
-import io.github.toberocat.core.utility.factions.rank.OwnerRank;
+import io.github.toberocat.core.utility.factions.rank.members.OwnerRank;
 import io.github.toberocat.core.utility.factions.rank.Rank;
 import io.github.toberocat.core.utility.factions.relation.RelationManager;
 import io.github.toberocat.core.utility.language.LangMessage;
@@ -34,12 +34,20 @@ public class Faction {
     private PowerManager powerManager;
     private FactionMemberManager factionMemberManager;
     private RelationManager relationManager;
+    private FactionBank factionBank;
 
     private OpenType openType;
-    private String displayName, registryName;
+    private String displayName, registryName, motd;
+    private String[] description;
     private boolean frozen, permanent;
 
+    private UUID owner;
+
+    private int claimedChunks;
+
     public static Result<Faction> CreateFaction(String displayName, Player owner) {
+        if (displayName.length() >= (Integer) MainIF.getConfigManager().getValue("faction.maxNameLen"))
+            return Result.failure("OVER_MAX_LEN", "You reached the maximum length for a faction name");
         String registryName = ChatColor.stripColor(displayName.replaceAll("[^a-zA-Z0-9]", " "));
 
         if (MainIF.getConfigManager().getValue("forbidden.checkFactionNames")) {
@@ -92,7 +100,7 @@ public class Faction {
 
             if (!result.isSuccess()) return result;
         }
-        Faction newFaction = new Faction(displayName, registryName, OpenType.PUBLIC);
+        Faction newFaction = new Faction(displayName, registryName, owner.getUniqueId(), OpenType.PUBLIC);
         boolean canCreate = Utility.callEvent(new FactionCreateEvent(newFaction, owner));
         if (!canCreate) {
             DataAccess.removeFile("Factions", registryName);
@@ -117,17 +125,24 @@ public class Faction {
     public Faction() {
     }
 
-    private Faction(String displayName, String registryName, OpenType openType) {
+    private Faction(String displayName, String registryName, UUID owner, OpenType openType) {
         super();
         this.openType = openType;
         this.registryName = registryName;
         this.displayName = displayName;
+
         this.powerManager = new PowerManager(this,
                MainIF.getConfigManager().getValue("power.maxDefaultFaction"));
         this.factionMemberManager = new FactionMemberManager(this);
         this.relationManager = new RelationManager(this);
+        this.factionBank = new FactionBank();
+
         this.frozen = false;
         this.permanent = MainIF.getConfigManager().getValue("faction.permanent");
+        this.description = new String[] { "A improved factions faction" };
+        this.motd = "";
+        this.claimedChunks = 0;
+        this.owner = owner;
     }
 
     /**
@@ -286,6 +301,46 @@ public class Faction {
 
     public void setPermanent(boolean permanent) {
         this.permanent = permanent;
+    }
+
+    public String[] getDescription() {
+        return description;
+    }
+
+    public void setDescription(String[] description) {
+        this.description = description;
+    }
+
+    public String getMotd() {
+        return motd;
+    }
+
+    public void setMotd(String motd) {
+        this.motd = motd;
+    }
+
+    public int getClaimedChunks() {
+        return claimedChunks;
+    }
+
+    public void setClaimedChunks(int claimedChunks) {
+        this.claimedChunks = claimedChunks;
+    }
+
+    public FactionBank getFactionBank() {
+        return factionBank;
+    }
+
+    public void setFactionBank(FactionBank factionBank) {
+        this.factionBank = factionBank;
+    }
+
+    public UUID getOwner() {
+        return owner;
+    }
+
+    public void setOwner(UUID owner) {
+        this.owner = owner;
     }
 
     //</editor-fold>

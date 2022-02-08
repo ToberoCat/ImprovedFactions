@@ -2,6 +2,9 @@ package io.github.toberocat.core.utility.factions.rank;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.utility.Utility;
+import io.github.toberocat.core.utility.factions.rank.members.AdminRank;
+import io.github.toberocat.core.utility.factions.rank.members.MemberRank;
+import io.github.toberocat.core.utility.factions.rank.members.OwnerRank;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

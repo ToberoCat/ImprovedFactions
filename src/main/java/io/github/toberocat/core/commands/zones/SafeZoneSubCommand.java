@@ -11,7 +11,7 @@ import java.util.List;
 
 public class SafeZoneSubCommand extends SubCommand {
     public SafeZoneSubCommand() {
-        super("safezone", LangMessage.COMMAND_ZONES_SAFEZONE_DESCRIPTION, false);
+        super("safezone", "zones.safezone", LangMessage.COMMAND_ZONES_SAFEZONE_DESCRIPTION, false);
     }
 
     @Override

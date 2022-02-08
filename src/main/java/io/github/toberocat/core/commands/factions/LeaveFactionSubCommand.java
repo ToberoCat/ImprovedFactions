@@ -28,7 +28,6 @@ public class LeaveFactionSubCommand extends SubCommand {
             Language.sendRawMessage("Couldn't leave. " + result.getPlayerMessage(), player);
         } else {
             Language.sendRawMessage("You left your faction", player);
-
         }
     }
 

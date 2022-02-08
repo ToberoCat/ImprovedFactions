@@ -11,7 +11,7 @@ import java.util.List;
 
 public class PlayerSettingsSubCommand extends SubCommand {
     public PlayerSettingsSubCommand() {
-        super("player", LangMessage.COMMAND_SETTINGS_PLAYER_DESCRIPTION, false);
+        super("player", "settings.player", LangMessage.COMMAND_SETTINGS_PLAYER_DESCRIPTION, false);
     }
 
     @Override

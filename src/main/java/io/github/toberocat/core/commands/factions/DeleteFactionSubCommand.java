@@ -4,7 +4,7 @@ import io.github.toberocat.core.utility.factions.FactionUtility;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.factions.Faction;
-import io.github.toberocat.core.utility.factions.rank.OwnerRank;
+import io.github.toberocat.core.utility.factions.rank.members.OwnerRank;
 import io.github.toberocat.core.utility.language.LangMessage;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;

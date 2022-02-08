@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ConfigRemoveAllBackupSubCommand extends SubCommand {
     public ConfigRemoveAllBackupSubCommand() {
-        super("removeBackups", LangMessage.COMMAND_CONFIG_BACKUP_REMOVE_DESCRIPTION, false);
+        super("removeBackups", "config.removeBackups", LangMessage.COMMAND_CONFIG_BACKUP_REMOVE_DESCRIPTION, false);
     }
 
     @Override

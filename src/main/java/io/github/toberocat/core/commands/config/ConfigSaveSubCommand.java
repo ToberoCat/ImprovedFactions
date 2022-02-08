@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ConfigSaveSubCommand extends SubCommand {
     public ConfigSaveSubCommand() {
-        super("save", LangMessage.COMMAND_CONFIG_SAVE_DESCRIPTION, false);
+        super("save", "config.save", LangMessage.COMMAND_CONFIG_SAVE_DESCRIPTION, false);
     }
 
     @Override

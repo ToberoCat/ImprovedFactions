@@ -272,16 +272,9 @@ public final class MainIF extends JavaPlugin {
 
     private void GenerateConfigs() {
         configManager = new ConfigManager(this);
+        configManager.register();
 
-        configManager.AddManager("config.yml", Material.BOOK, "&a&lConfig.yml");
-        configManager.AddManager("commands.yml", Material.COMMAND_BLOCK, "&a&lCommands.yml");
-
-
-        configManager.AddToDefaultConfig("debug.logLevel", new String[] {
-                Level.INFO.toString(), Level.WARNING.toString(), Level.SEVERE.toString()
-        });
-
-
+        //<editor-fold desc="Loading backups">
         File backupFolder = new File (getDataFolder().getPath() + "/.temp/backups");
 
         if (!backupFolder.exists()) backupFolder.mkdirs();
@@ -294,43 +287,8 @@ public final class MainIF extends JavaPlugin {
 
             file.delete();
         }
+        //</editor-fold>
 
-
-        configManager.AddToDefaultConfig("general.prefix", "&e&lImprovedFactions", Utility.createItem(Material.NAME_TAG, "&e&lPrefix"));
-        configManager.AddToDefaultConfig("general.printStacktrace", false, Utility.createItem(Material.YELLOW_DYE, "&e&lPrint Stacktrace"));
-        configManager.AddToDefaultConfig("general.commandDescriptions", true);
-        configManager.AddToDefaultConfig("general.useSQL", false, Material.COBWEB, "&b&lUse sql",
-                "&8Sql is a database", "&8I would recommend to use it", "&8when you have a lot players", "&8on your server", "", "&6&lPerformance: &cHeavy");
-        configManager.AddToDefaultConfig("general.colorConsole", true);
-        configManager.AddToDefaultConfig("general.debugMode", false, Material.COBWEB, "&b&lDebug mode",
-                "&8Get extra infos", "&8Usefull when debugging,", "&8or needing help by moderators");
-
-        configManager.AddToDefaultConfig("gui.wrapLength", 20);
-
-        configManager.AddToDefaultConfig("forbidden.checkFactionNames", true);
-        configManager.AddToDefaultConfig("forbidden.disbandAtPercent", 69.99f);
-        configManager.AddToDefaultConfig("forbidden.reportAtPercent", 39.99f);
-        configManager.AddToDefaultConfig("forbidden.checkLeetspeak", true);
-        configManager.AddToDefaultConfig("forbidden.factionNames", new String[] {
-                "fuck", "ass", "stupid"
-        });
-
-        configManager.AddToDefaultConfig("power.maxPowerPerPlayer", 5);
-        configManager.AddToDefaultConfig("power.maxDefaultFaction", 20);
-        configManager.AddToDefaultConfig("power.regenerationPerHour", 4);
-        configManager.AddToDefaultConfig("power.memberDeathConsume", 10);
-        configManager.AddToDefaultConfig("power.chunkPowerConsume", 3);
-        configManager.AddToDefaultConfig("power.enabled", true);
-
-        configManager.AddToDefaultConfig("history.territoryChange", false);
-
-        configManager.AddToDefaultConfig("faction.configManager", false);
-        configManager.AddToDefaultConfig("faction.permanent", false);
-
-        configManager.AddToDefaultConfig("commands.standby", new String[] { "tellraw @a {\"text\":\"Standby enabled\"}" }, Utility.createItem(Material.COMMAND_BLOCK, "&e&lStandyBy", new String[] {
-                "&8Write a list of commands", "&8That should get executed, when", "&8the plugin goes in standby mode"}));
-        configManager.AddToDefaultConfig("commands.forbidden", new String[] { "tellraw @a {\"text\":\"This word, {word}, is maybe similar to {similar}. Used: {player_name}, {player_uuid} while {task}. {similarityPer}% similar \"}" }, Utility.createItem(Material.COMMAND_BLOCK, "&e&lForbidden name report", new String[] {
-                "&8Write a list of commands", "&8That should get executed, when", "&8the plugin finds a maybe forbidden word"}));
     }
 
     private void LoadListeners() {
@@ -343,10 +301,13 @@ public final class MainIF extends JavaPlugin {
     private boolean LoadPluginVersion() {
         String sVersion = Bukkit.getBukkitVersion();
         NMSInterface nms;
+
         if (sVersion.contains("1.18")) {
             nms = NMSFactory.create_1_18();
         } else if (sVersion.contains("1.17")) {
             nms = NMSFactory.create_1_17();
+        } else if (sVersion.contains("1.16")) {
+            nms = NMSFactory.create_1_16();
         } else {
             SaveShutdown("§cCouldn't load ImprovedFactions &6" + VERSION +
                     "&c. The plugin didn't find a version for your server. Your server version: &6"

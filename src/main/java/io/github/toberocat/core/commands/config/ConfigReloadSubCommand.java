@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ConfigReloadSubCommand extends SubCommand {
     public ConfigReloadSubCommand() {
-        super("reload", LangMessage.COMMAND_CONFIG_RELOAD_DESCRIPTION, false);
+        super("reload", "config.reload", LangMessage.COMMAND_CONFIG_RELOAD_DESCRIPTION, false);
     }
 
     @Override

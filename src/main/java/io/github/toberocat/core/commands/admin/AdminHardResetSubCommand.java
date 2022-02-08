@@ -18,7 +18,7 @@ import java.util.logging.Level;
 
 public class AdminHardResetSubCommand extends SubCommand {
     public AdminHardResetSubCommand() {
-        super("reset", LangMessage.COMMAND_ADMIN_HARD_RESET_DESCRIPTION, false);
+        super("reset", "admin.reset", LangMessage.COMMAND_ADMIN_HARD_RESET_DESCRIPTION, false);
     }
 
     @Override

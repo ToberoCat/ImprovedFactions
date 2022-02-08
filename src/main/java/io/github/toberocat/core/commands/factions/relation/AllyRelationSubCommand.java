@@ -14,7 +14,7 @@ import java.util.List;
 
 public class AllyRelationSubCommand extends SubCommand {
     public AllyRelationSubCommand() {
-        super("ally", LangMessage.COMMAND_RELATION_ALLY_DESCRIPTION, false);
+        super("ally", "relation.ally", LangMessage.COMMAND_RELATION_ALLY_DESCRIPTION, false);
     }
 
     @Override

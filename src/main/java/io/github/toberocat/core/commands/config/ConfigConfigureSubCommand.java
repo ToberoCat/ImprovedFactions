@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ConfigConfigureSubCommand extends SubCommand {
     public ConfigConfigureSubCommand() {
-        super("configure", LangMessage.COMMAND_CONFIG_CONFIGURE_DESCRIPTION, false);
+        super("configure", "config.configure", LangMessage.COMMAND_CONFIG_CONFIGURE_DESCRIPTION, false);
     }
 
     @Override

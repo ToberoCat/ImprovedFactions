@@ -14,6 +14,8 @@ public class AdminSubCommand extends SubCommand  {
         subCommands.add(new AdminGetPlayerFactionSubCommand());
         subCommands.add(new AdminIsPlayerInFactionSubCommand());
         subCommands.add(new AdminRegenerateSubCommand());
+        subCommands.add(new AdminPermanentSubCommand());
+        subCommands.add(new AdminFreezeSubCommand());
     }
 
     @Override

@@ -12,7 +12,7 @@ import java.util.List;
 
 public class UnclaimSubCommand extends SubCommand {
     public UnclaimSubCommand() {
-        super("unclaim", LangMessage.COMMAND_ZONES_UNCLAIM_DESCRIPTION, false);
+        super("unclaim", "zones.unclaim", LangMessage.COMMAND_ZONES_UNCLAIM_DESCRIPTION, false);
     }
 
     @Override

@@ -10,12 +10,14 @@ import io.github.toberocat.core.utility.factions.Faction;
 import io.github.toberocat.core.utility.language.LangMessage;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -53,6 +55,9 @@ public class FactionMemberManager {
     }
 
     private static void updatePlayer(Player player) {
+        if (!PersistentDataUtility.has(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
+                PersistentDataType.STRING, player.getPersistentDataContainer())) return;
+
         String registry = PersistentDataUtility.read(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
                 PersistentDataType.STRING, player.getPersistentDataContainer());
         if (registry == null || registry.equals(FactionMemberManager.NO_FACTION)) return;
@@ -98,7 +103,6 @@ public class FactionMemberManager {
         faction.getPowerManager()
                 .IncreaseMax(MainIF.getConfigManager().getValue("power.maxPowerPerPlayer"));
 
-        Language.sendMessage(LangMessage.COMMAND_FACTION_JOIN_SUCCESS, player);
         System.out.println(Arrays.toString(members.toArray(UUID[]::new)));
         return new Result(true);
     }
@@ -190,5 +194,10 @@ public class FactionMemberManager {
     @JsonIgnore
     public Faction getFaction() {
         return faction;
+    }
+
+    public List<Player> getOnlinePlayers() {
+        return members.stream().filter(uuid -> Bukkit.getOfflinePlayer(uuid).isOnline())
+                .map(uuid -> Bukkit.getOfflinePlayer(uuid).getPlayer()).toList();
     }
 }

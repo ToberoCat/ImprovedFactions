@@ -1,6 +1,9 @@
 package io.github.toberocat.core.listeners;
 
 import io.github.toberocat.MainIF;
+import io.github.toberocat.core.commands.factions.claim.ClaimOneSubCommand;
+import io.github.toberocat.core.commands.factions.unclaim.UnclaimAutoSubCommand;
+import io.github.toberocat.core.commands.factions.unclaim.UnclaimOneSubCommand;
 import io.github.toberocat.core.utility.async.AsyncCore;
 import io.github.toberocat.core.utility.factions.Faction;
 import io.github.toberocat.core.utility.factions.FactionUtility;
@@ -18,9 +21,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 public class PlayerMoveListener implements Listener {
+
+    public static Map<UUID, ClaimAutoType> AUTO_CLAIM_OPERATIONS = new HashMap<>();
+
+    public enum ClaimAutoType { CLAIM, UNCLAIM }
 
     @EventHandler
     public void OnMove(PlayerMoveEvent event) {
@@ -31,6 +41,11 @@ public class PlayerMoveListener implements Listener {
         if (from != to) {
             String fromRegistry = MainIF.getIF().getClaimManager().getFactionRegistry(from);
             String toRegistry = MainIF.getIF().getClaimManager().getFactionRegistry(to);
+
+            if (AUTO_CLAIM_OPERATIONS.containsKey(player.getUniqueId())) {
+                ClaimAutoType operation = AUTO_CLAIM_OPERATIONS.get(player.getUniqueId());
+                claimOp(operation, player);
+            }
 
             if (toRegistry == null && fromRegistry == null) return;
             if (fromRegistry == null) {
@@ -44,6 +59,17 @@ public class PlayerMoveListener implements Listener {
             if (!fromRegistry.equals(toRegistry)) {
                 display(player, fromRegistry, toRegistry, from, to);
             }
+        }
+    }
+
+    private void claimOp(ClaimAutoType auto, Player player) {
+        Faction faction = FactionUtility.getPlayerFaction(player);
+
+        if (faction == null) return;
+
+        switch (auto) {
+            case CLAIM -> ClaimOneSubCommand.claim(player);
+            case UNCLAIM -> UnclaimOneSubCommand.unclaim(player);
         }
     }
 

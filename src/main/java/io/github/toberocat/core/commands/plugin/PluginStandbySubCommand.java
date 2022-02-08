@@ -10,7 +10,7 @@ import java.util.List;
 
 public class PluginStandbySubCommand extends SubCommand  {
     public PluginStandbySubCommand() {
-        super("standby", LangMessage.COMMAND_PLUGIN_DESCRIPTION, false);
+        super("standby", "plugin.standby", LangMessage.COMMAND_PLUGIN_DESCRIPTION, false);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package io.github.toberocat.core.commands.factions.claim;
+package io.github.toberocat.core.commands.factions.unclaim;
 
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -7,11 +7,11 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class ClaimSubCommand extends SubCommand {
-    public ClaimSubCommand() {
-        super("claim", LangMessage.COMMAND_FACTION_CLAIM_ONE_DESCRIPTION, true);
-        subCommands.add(new ClaimOneSubCommand());
-        subCommands.add(new ClaimAutoSubCommand());
+public class UnclaimSubCommand extends SubCommand {
+    public UnclaimSubCommand() {
+        super("unclaim", LangMessage.COMMAND_FACTION_CLAIM_ONE_DESCRIPTION, true);
+        subCommands.add(new UnclaimOneSubCommand());
+        subCommands.add(new UnclaimAutoSubCommand());
     }
 
     @Override

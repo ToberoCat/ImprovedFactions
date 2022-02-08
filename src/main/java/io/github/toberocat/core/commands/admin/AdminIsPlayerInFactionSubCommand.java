@@ -13,7 +13,7 @@ import java.util.List;
 
 public class AdminIsPlayerInFactionSubCommand extends SubCommand {
     public AdminIsPlayerInFactionSubCommand() {
-        super("isinfaction", "", false);
+        super("isinfaction", "admin.isinfaction", "", false);
     }
 
     @Override

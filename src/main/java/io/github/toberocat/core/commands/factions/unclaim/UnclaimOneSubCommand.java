@@ -1,11 +1,11 @@
-package io.github.toberocat.core.commands.factions.claim;
+package io.github.toberocat.core.commands.factions.unclaim;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.utility.factions.FactionUtility;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.factions.Faction;
+import io.github.toberocat.core.utility.factions.FactionUtility;
 import io.github.toberocat.core.utility.language.LangMessage;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.language.Parseable;
@@ -13,9 +13,9 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class ClaimOneSubCommand extends SubCommand {
-    public ClaimOneSubCommand() {
-        super("one", "claim.one", LangMessage.COMMAND_FACTION_CLAIM_DESCRIPTION, false);
+public class UnclaimOneSubCommand extends SubCommand {
+    public UnclaimOneSubCommand() {
+        super("one", "unclaim.one", LangMessage.COMMAND_FACTION_CLAIM_DESCRIPTION, false);
     }
 
     @Override
@@ -25,10 +25,10 @@ public class ClaimOneSubCommand extends SubCommand {
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
-        claim(player);
+        unclaim(player);
     }
 
-    public static void claim(Player player) {
+    public static void unclaim(Player player) {
         Faction faction = FactionUtility.getPlayerFaction(player);
 
         Result result = MainIF.getIF().getClaimManager().claimChunk(faction, player.getLocation().getChunk());

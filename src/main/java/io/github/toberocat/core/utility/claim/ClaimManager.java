@@ -1,10 +1,12 @@
 package io.github.toberocat.core.utility.claim;
 
+import io.github.toberocat.core.utility.async.AsyncCore;
 import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.data.PersistentDataUtility;
 import io.github.toberocat.core.utility.dynamic.loaders.DynamicLoader;
 import io.github.toberocat.core.utility.factions.Faction;
 import io.github.toberocat.core.utility.Result;
+import io.github.toberocat.core.utility.factions.FactionUtility;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
@@ -61,6 +63,7 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
     }
 
     public Result claimChunk(Faction faction, Chunk chunk) {
+        faction.setClaimedChunks(faction.getClaimedChunks() + 1);
         return protectChunk(faction.getRegistryName(), chunk);
     }
 
@@ -94,6 +97,14 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
         String claimRegistry = PersistentDataUtility.read(PersistentDataUtility.FACTION_CLAIMED_KEY,
                 PersistentDataType.STRING,
                 chunk.getPersistentDataContainer());
+
+        AsyncCore.Run(() -> {
+            if (claimRegistry == null) return;
+            Faction faction = FactionUtility.getFactionByRegistry(claimRegistry);
+            if (faction == null) return;
+
+            faction.setClaimedChunks(faction.getClaimedChunks() - 1);
+        });
 
         PersistentDataUtility.write(PersistentDataUtility.FACTION_CLAIMED_KEY,
                 PersistentDataType.STRING,

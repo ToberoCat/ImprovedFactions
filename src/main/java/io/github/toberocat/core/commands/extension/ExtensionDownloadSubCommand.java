@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ExtensionDownloadSubCommand extends SubCommand {
     public ExtensionDownloadSubCommand() {
-        super("download", "", false);
+        super("download", "extension.download", "", false);
     }
 
     @Override

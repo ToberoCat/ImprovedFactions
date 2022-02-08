@@ -119,8 +119,6 @@ public class LangMessage {
     public static final String TERRITORY_ENTERED_SUBTITLE = "territory.entered.subtitle";
     public static final String TERRITORY_WILDERNESS = "territory.wilderness";
 
-    public static final String COMMAND_WHO_LINE = "command.who.line.";
-
 
 
     //<editor-fold desc="Command Settings">
@@ -252,9 +250,6 @@ public class LangMessage {
         messages.put(COMMAND_ADMIN_DISBAND_DESCRIPTION, "&fDelete a faction. &6&lWarning:&f This cannot be undone. If you want to delete your own faction, please use &7/f delete");
         messages.put(COMMAND_ADMIN_DISBAND_SUCCESS, "&a&lSuccessfully &f deleted {faction_display}. &f&nEveryone&f got kicked");
         //</editor-fold>
-
-        messages.put(COMMAND_WHO_LINE + "1", "[len({faction_display}) * 2]");
-        messages.put(COMMAND_WHO_LINE + "2", "===== Faction Name =========");
 
         messages.put(TERRITORY_ENTERED_CHAT, "Entered {relation}{territory}");
         messages.put(TERRITORY_ENTERED_ACTIONBAR, "{relation}{territory}");

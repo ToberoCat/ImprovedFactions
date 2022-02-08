@@ -51,12 +51,12 @@ public class Result<T> {
         return success;
     }
 
-    public static Result success() {
+    public static <T> Result<T> success() {
         return new Result(true);
     }
 
-    public static Result failure(String machineMessage, String playerMessage) {
-        return new Result(false).setMessages(machineMessage, playerMessage);
+    public static <T> Result<T> failure(String machineMessage, String playerMessage) {
+        return new Result<T>(false).setMessages(machineMessage, playerMessage);
     }
 }
 
