@@ -15,6 +15,7 @@ import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.config.ConfigManager;
 import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.factions.Faction;
+import io.github.toberocat.core.utility.factions.rank.Rank;
 import io.github.toberocat.core.utility.json.JsonUtility;
 import io.github.toberocat.core.utility.language.LangMessage;
 import io.github.toberocat.core.utility.language.Language;
@@ -97,6 +98,7 @@ public final class MainIF extends JavaPlugin {
 
         for (Player player : getServer().getOnlinePlayers()) {
             Bukkit.getPluginManager().callEvent(new PlayerJoinOnReloadEvent(player));
+            PlayerJoinListener.PLAYER_JOINS.put(player.getUniqueId(), System.currentTimeMillis());
         }
 
         DynamicLoader.enable();
@@ -116,6 +118,7 @@ public final class MainIF extends JavaPlugin {
         backupFile.clear();
         dataManagers.clear();
         configMap.clear();
+        PlayerJoinListener.PLAYER_JOINS.clear();
 
         INSTANCE = null;
     }
@@ -233,30 +236,32 @@ public final class MainIF extends JavaPlugin {
     }
 
     private void saveConfigBackup(Config config) {
-        LogMessage(Level.WARNING, "&cCouldn't save &6" + config.getPath() + "&c. File got saved in config_backup folder. Please restart the plugin so the files can be compared without data loss");
-        File pathAsFile = new File(getDataFolder().getPath() + "/.temp/config_backups");
+        Utility.run(() -> {
+            LogMessage(Level.WARNING, "&cCouldn't save &6" + config.getPath() + "&c. File got saved in config_backup folder. Please restart the plugin so the files can be compared without data loss");
+            File pathAsFile = new File(getDataFolder().getPath() + "/.temp/config_backups");
 
-        if (!Files.exists(Paths.get(pathAsFile.getPath()))) {
-            Utility.run(() -> {
-                if (!pathAsFile.mkdirs()) {
-                    LogMessage(Level.SEVERE, "&cCouldn't save &6" + pathAsFile.getPath() + "&c to backups");
-                }
-            });
-        }
+            if (!Files.exists(Paths.get(pathAsFile.getPath()))) {
+                Utility.run(() -> {
+                    if (!pathAsFile.mkdirs()) {
+                        LogMessage(Level.SEVERE, "&cCouldn't save &6" + pathAsFile.getPath() + "&c to backups");
+                    }
+                });
+            }
 
-        File backupFile = new File(pathAsFile.getPath() + "/" + config.getManager().getFileName() + "_" + LocalTime.now().toSecondOfDay() + ".backup");
+            File backupFile = new File(pathAsFile.getPath() + "/" + config.getManager().getFileName() + "_" + LocalTime.now().toSecondOfDay() + ".backup");
 
-        List<String> paths = null;
-        if (Files.exists(Paths.get(backupFile.getPath()))) {
-            paths = (List<String>) JsonUtility.ReadObject(backupFile, List.class);
-        }
-        paths = paths == null ? new ArrayList<>() : paths;
+            List<String> paths = null;
+            if (Files.exists(Paths.get(backupFile.getPath()))) {
+                paths = (List<String>) JsonUtility.ReadObject(backupFile, List.class);
+            }
+            paths = paths == null ? new ArrayList<>() : paths;
 
-        String toSave = config.getPath() + ":" + config.getValue();
+            String toSave = config.getPath() + ":" + config.getValue();
 
-        paths.add(toSave);
+            paths.add(toSave);
 
-        JsonUtility.SaveObject(backupFile, paths);
+            JsonUtility.SaveObject(backupFile, paths);
+        });
     }
 
     //</editor-fold>
@@ -271,24 +276,25 @@ public final class MainIF extends JavaPlugin {
     }
 
     private void GenerateConfigs() {
-        configManager = new ConfigManager(this);
-        configManager.register();
+        Utility.run(() -> {
+            configManager = new ConfigManager(this);
+            configManager.register();
 
-        //<editor-fold desc="Loading backups">
-        File backupFolder = new File (getDataFolder().getPath() + "/.temp/backups");
+            //<editor-fold desc="Loading backups">
+            File backupFolder = new File (getDataFolder().getPath() + "/.temp/backups");
 
-        if (!backupFolder.exists()) backupFolder.mkdirs();
+            if (!backupFolder.exists()) backupFolder.mkdirs();
 
-        for (File file : backupFolder.listFiles()) {
-            ArrayList<String> data = (ArrayList<String>) JsonUtility.ReadObject(file, ArrayList.class);
+            for (File file : backupFolder.listFiles()) {
+                ArrayList<String> data = (ArrayList<String>) JsonUtility.ReadObject(file, ArrayList.class);
 
-            LogMessage(Level.WARNING, "&cLoaded " + file.getName() + " backup. Please use &7/f config backup&c to decide what should be finally used");
-            backupFile.put(file.getName(), data);
+                LogMessage(Level.WARNING, "&cLoaded " + file.getName() + " backup. Please use &7/f config backup&c to decide what should be finally used");
+                backupFile.put(file.getName(), data);
 
-            file.delete();
-        }
-        //</editor-fold>
-
+                file.delete();
+            }
+            //</editor-fold>
+        });
     }
 
     private void LoadListeners() {
@@ -354,6 +360,8 @@ public final class MainIF extends JavaPlugin {
         claimManager = new ClaimManager();
         new FactionUtility();
         new MessageSystem();
+
+        Rank.Init();
 
         return true;
     }

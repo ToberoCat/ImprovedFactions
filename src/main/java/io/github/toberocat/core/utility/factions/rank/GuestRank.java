@@ -5,8 +5,9 @@ import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 
 public class GuestRank extends Rank {
+    public static final String register = "Guest";
     public GuestRank() {
-        super("&e&lGuest", "guest", false);
+        super("&e&lGuest", register, false);
     }
 
     @Override

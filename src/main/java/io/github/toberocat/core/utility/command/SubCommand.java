@@ -3,6 +3,7 @@ package io.github.toberocat.core.utility.command;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.utility.async.AsyncCore;
+import io.github.toberocat.core.utility.config.Config;
 import io.github.toberocat.core.utility.language.LangMessage;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.language.Parseable;
@@ -39,7 +40,7 @@ public abstract class SubCommand {
 
         if (getSettings().isAllowAliases()) {
             MainIF.getConfigManager().getDataManager("commands.yml").getConfig().addDefault("commands." + permission + ".aliases", new ArrayList<String>());
-            MainIF.getConfigManager().getDataManager("commands.yml").getConfig().addDefault("commands." + permission + ".costs", new ArrayList<String>());
+            MainIF.getConfigManager().getDataManager("commands.yml").getConfig().addDefault("commands." + permission + ".costs", 0);
             MainIF.getConfigManager().getDataManager("commands.yml").getConfig().options().copyDefaults(true);
             MainIF.getConfigManager().getDataManager("commands.yml").saveConfig();
         }
@@ -222,7 +223,13 @@ public abstract class SubCommand {
             return 0;
         }
 
-        return MainIF.getConfigManager().getValue("commands." + permission + ".costs");
+        Config<Integer> configCost = MainIF.getConfigManager().getConfig("commands." + permission + ".costs");
+        if (configCost == null) {
+            Debugger.logWarning("&fCan't get &ecommands." + permission + ".costs&f. Maybe wrong format or path doesn't exist");
+            return 0;
+        }
+
+        return configCost.getValue();
     }
 
     protected boolean CommandDisplayCondition(Player player, String[] args) {

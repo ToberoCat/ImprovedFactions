@@ -1,24 +1,19 @@
-package io.github.toberocat.core.commands.factions;
+package io.github.toberocat.core.commands.admin;
 
 import io.github.toberocat.core.utility.command.SubCommand;
-import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.factions.Faction;
 import io.github.toberocat.core.utility.factions.FactionUtility;
-import io.github.toberocat.core.utility.factions.rank.members.MemberRank;
 import io.github.toberocat.core.utility.factions.rank.Rank;
+import io.github.toberocat.core.utility.factions.rank.members.AdminRank;
+import io.github.toberocat.core.utility.factions.rank.members.MemberRank;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class JoinFactionSubCommand extends SubCommand {
-    public JoinFactionSubCommand() {
-        super("join", "", false);
-    }
-
-    @Override
-    public SubCommandSettings getSettings() {
-        return super.getSettings().setArgLength(1).setNeedsFaction(SubCommandSettings.NYI.No);
+public class JoinPrivateFactionSubCommand extends SubCommand {
+    public JoinPrivateFactionSubCommand() {
+        super("joinprivate", "admin.joinprivate", "", false);
     }
 
     @Override
@@ -29,12 +24,7 @@ public class JoinFactionSubCommand extends SubCommand {
             return;
         }
 
-        if (faction.getOpenType() == Faction.OpenType.PRIVATE) {
-            Language.sendRawMessage("&cGiven faction is private", player);
-            return;
-        }
-
-        faction.join(player, Rank.fromString(MemberRank.registry));
+        faction.join(player, Rank.fromString(AdminRank.registry));
         Language.sendRawMessage("Joined &e" + faction.getDisplayName(), player);
     }
 

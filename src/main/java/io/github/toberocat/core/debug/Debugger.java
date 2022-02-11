@@ -7,10 +7,18 @@ import org.bukkit.entity.Player;
 import java.util.logging.Level;
 
 public class Debugger {
+
     public static void log(String message) {
         AsyncCore.Run(() -> {
             if (MainIF.getConfigManager().getValue("general.debugMode"))
                 MainIF.LogMessage(Level.INFO, "&7"+message);
+        });
+    }
+
+    public static void logWarning(String message) {
+        AsyncCore.Run(() -> {
+            if (MainIF.getConfigManager().getValue("general.debugMode"))
+                MainIF.LogMessage(Level.WARNING, "&7"+message);
         });
     }
 

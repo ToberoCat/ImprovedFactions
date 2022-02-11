@@ -7,10 +7,12 @@ import io.github.toberocat.core.utility.factions.Faction;
 import io.github.toberocat.core.utility.factions.FactionUtility;
 import io.github.toberocat.core.utility.language.LangMessage;
 import io.github.toberocat.core.utility.language.Language;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class WhoSubCommand extends SubCommand {
     public WhoSubCommand() {
@@ -68,6 +70,12 @@ public class WhoSubCommand extends SubCommand {
 
         Language.sendRawMessage("Ally: " +
                 String.join(", ", faction.getRelationManager().getAllies()), player);
+
+        Language.sendRawMessage("Banned players: &7" + faction.getFactionMemberManager().getBanned().size(), player);
+
+
+        String allBanned = String.join(", ", faction.getFactionMemberManager().getBanned().stream().map(x -> Bukkit.getOfflinePlayer(x).getName()).toArray(String[]::new));
+        Language.sendRawMessage(allBanned, player);
 
         if (faction.getFactionBank().balance() == null) {
             Language.sendRawMessage("Balance: &eFaction economy disabled", player);

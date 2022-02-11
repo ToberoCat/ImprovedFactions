@@ -1,5 +1,6 @@
 package io.github.toberocat.core.commands.admin;
 
+import io.github.toberocat.core.commands.factions.JoinFactionSubCommand;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.language.LangMessage;
 import org.bukkit.entity.Player;
@@ -16,6 +17,7 @@ public class AdminSubCommand extends SubCommand  {
         subCommands.add(new AdminRegenerateSubCommand());
         subCommands.add(new AdminPermanentSubCommand());
         subCommands.add(new AdminFreezeSubCommand());
+        subCommands.add(new JoinPrivateFactionSubCommand());
     }
 
     @Override

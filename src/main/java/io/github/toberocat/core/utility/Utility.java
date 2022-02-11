@@ -1,6 +1,9 @@
 package io.github.toberocat.core.utility;
 
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
 import io.github.toberocat.MainIF;
+import io.github.toberocat.core.listeners.PlayerJoinListener;
 import io.github.toberocat.core.utility.callbacks.ExceptionCallback;
 import io.github.toberocat.core.utility.events.faction.FactionCreateEvent;
 import io.github.toberocat.core.utility.events.faction.FactionEvent;
@@ -10,11 +13,14 @@ import io.github.toberocat.core.utility.language.Language;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.logging.Level;
@@ -154,5 +160,55 @@ public class Utility {
         Bukkit.getScheduler().runTask(MainIF.getIF(), () -> Bukkit.getPluginManager().callEvent(event));
 
         return !event.isCancelled();
+    }
+
+    public static String getTime(long timing) {
+        long time = System.currentTimeMillis() - timing;
+        time /= 1000;
+        int secs= (int) (time%60);
+        time /= 60;
+        int mins = (int) (time%60);
+        time /= 60;
+        int hours = (int) (time%24);
+        time /= 24;
+        int days = (int) time;
+
+        return (days != 0 ? days + "days, " : "") + hours + ":" + mins + ":" + secs + " hours";
+    }
+
+    public static ItemStack getSkull(OfflinePlayer player, int count, String name, String[] lore) {
+        ItemStack item = new ItemStack(Material.PLAYER_HEAD, count, (short) 3);
+        SkullMeta skull = (SkullMeta) item.getItemMeta();
+        skull.setDisplayName(name);
+        skull.setLore(Arrays.asList(lore));
+        skull.setOwningPlayer(player);
+        item.setItemMeta(skull);
+        return item;
+    }
+    public static ItemStack getSkull(String url, int count, String name, String[] lore) {
+        ItemStack head = new ItemStack(Material.PLAYER_HEAD, count);
+        if(url.isEmpty()) return head;
+
+        SkullMeta headMeta = (SkullMeta) head.getItemMeta();
+        GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+        byte[] encodedData = Base64.getEncoder().encode(String.format("{textures:{SKIN:{url:\"%s\"}}}", url).getBytes());
+        profile.getProperties().put("textures", new Property("textures", new String(encodedData)));
+        Field profileField = null;
+        try {
+            assert headMeta != null;
+            profileField = headMeta.getClass().getDeclaredField("profile");
+            profileField.setAccessible(true);
+            profileField.set(headMeta, profile);
+        } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e1) {
+            e1.printStackTrace();
+        }
+        head.setItemMeta(headMeta);
+
+        ItemMeta meta = head.getItemMeta();
+        assert meta != null;
+        meta.setDisplayName(name);
+        if (lore != null) meta.setLore(Arrays.asList(lore));
+        head.setItemMeta(meta);
+        return head;
     }
 }

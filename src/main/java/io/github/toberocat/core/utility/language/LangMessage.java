@@ -118,6 +118,8 @@ public class LangMessage {
     public static final String TERRITORY_ENTERED_TITLE = "territory.entered.title";
     public static final String TERRITORY_ENTERED_SUBTITLE = "territory.entered.subtitle";
     public static final String TERRITORY_WILDERNESS = "territory.wilderness";
+    public static final String TERRITORY_SAFEZONE = "territory.safezone";
+    public static final String TERRITORY_WARZONE= "territory.warzone";
 
 
 
@@ -256,6 +258,8 @@ public class LangMessage {
         messages.put(TERRITORY_ENTERED_TITLE, "{relation}{territory}");
         messages.put(TERRITORY_ENTERED_SUBTITLE, "{relation}{territory}");
         messages.put(TERRITORY_WILDERNESS, "&2Wilderness");
+        messages.put(TERRITORY_SAFEZONE, "&bSafezone");
+        messages.put(TERRITORY_WARZONE, "&4Warzone");
 
         //<editor-fold desc="Command Settings">
         messages.put(COMMAND_SETTINGS_DESCRIPTION, "&fManage faction & player settings");

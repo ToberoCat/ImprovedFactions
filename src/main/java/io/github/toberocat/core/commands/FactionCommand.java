@@ -3,10 +3,7 @@ package io.github.toberocat.core.commands;
 import io.github.toberocat.core.commands.admin.AdminSubCommand;
 import io.github.toberocat.core.commands.config.ConfigSubCommand;
 import io.github.toberocat.core.commands.extension.ExtensionSubCommand;
-import io.github.toberocat.core.commands.factions.CreateFactionSubCommand;
-import io.github.toberocat.core.commands.factions.DeleteFactionSubCommand;
-import io.github.toberocat.core.commands.factions.LeaveFactionSubCommand;
-import io.github.toberocat.core.commands.factions.WhoSubCommand;
+import io.github.toberocat.core.commands.factions.*;
 import io.github.toberocat.core.commands.factions.claim.ClaimSubCommand;
 import io.github.toberocat.core.commands.factions.relation.RelationSubCommand;
 import io.github.toberocat.core.commands.plugin.PluginSubCommand;
@@ -41,6 +38,12 @@ public class FactionCommand implements TabExecutor {
         subCommands.add(new ExtensionSubCommand());
         subCommands.add(new LeaveFactionSubCommand());
         subCommands.add(new WhoSubCommand());
+        subCommands.add(new BanSubCommand());
+        subCommands.add(new UnBanSubCommand());
+        subCommands.add(new KickSubCommand());
+        subCommands.add(new OnlineSubCommand());
+        subCommands.add(new JoinFactionSubCommand());
+        subCommands.add(new MembersSubCommand());
     }
 
     @Override

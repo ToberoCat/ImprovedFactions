@@ -196,6 +196,7 @@ public class FactionMemberManager {
         return faction;
     }
 
+    @JsonIgnore
     public List<Player> getOnlinePlayers() {
         return members.stream().filter(uuid -> Bukkit.getOfflinePlayer(uuid).isOnline())
                 .map(uuid -> Bukkit.getOfflinePlayer(uuid).getPlayer()).toList();

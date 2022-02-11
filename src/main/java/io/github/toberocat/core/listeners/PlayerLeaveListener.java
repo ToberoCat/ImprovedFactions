@@ -13,5 +13,6 @@ public class PlayerLeaveListener implements Listener {
     public void OnLeave(PlayerQuitEvent event) {
         Faction faction = FactionUtility.getPlayerFaction(event.getPlayer());
         PlayerSettings.PlayerLeave(event.getPlayer().getUniqueId());
+        PlayerJoinListener.PLAYER_JOINS.remove(event.getPlayer().getUniqueId());
     }
 }

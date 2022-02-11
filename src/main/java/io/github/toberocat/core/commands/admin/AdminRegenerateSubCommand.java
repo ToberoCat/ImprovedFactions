@@ -36,6 +36,12 @@ public class AdminRegenerateSubCommand extends SubCommand {
 
         Language.sendRawMessage("Generation for all players", player);
         for (Player onP : Bukkit.getOnlinePlayers()) {
+            String currentRegistry = PersistentDataUtility.read(PersistentDataUtility.PLAYER_FACTION_REGISTRY, PersistentDataType.STRING,
+                    onP.getPersistentDataContainer());
+            if (currentRegistry != null && (currentRegistry.equals(ClaimManager.SAFEZONE_REGISTRY) ||
+                    currentRegistry.equals(ClaimManager.WARZONE_REGISTRY) ||
+                    currentRegistry.equals(ClaimManager.UNCLAIMABLE_REGISTRY))) continue;
+
             PersistentDataUtility.write(PersistentDataUtility.PLAYER_FACTION_REGISTRY, PersistentDataType.STRING,
                     FactionMemberManager.NO_FACTION, onP.getPersistentDataContainer());
             Language.sendRawMessage("Resetted your data", player);

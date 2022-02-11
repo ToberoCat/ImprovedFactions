@@ -9,6 +9,7 @@ import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.events.faction.*;
 import io.github.toberocat.core.utility.factions.bank.FactionBank;
 import io.github.toberocat.core.utility.factions.members.FactionMemberManager;
+import io.github.toberocat.core.utility.factions.permission.FactionPerm;
 import io.github.toberocat.core.utility.factions.power.PowerManager;
 import io.github.toberocat.core.utility.factions.rank.members.OwnerRank;
 import io.github.toberocat.core.utility.factions.rank.Rank;
@@ -35,6 +36,7 @@ public class Faction {
     private FactionMemberManager factionMemberManager;
     private RelationManager relationManager;
     private FactionBank factionBank;
+    private FactionPerm factionPerm;
 
     private OpenType openType;
     private String displayName, registryName, motd;
@@ -136,6 +138,7 @@ public class Faction {
         this.factionMemberManager = new FactionMemberManager(this);
         this.relationManager = new RelationManager(this);
         this.factionBank = new FactionBank();
+        this.factionPerm = new FactionPerm();
 
         this.frozen = false;
         this.permanent = MainIF.getConfigManager().getValue("faction.permanent");

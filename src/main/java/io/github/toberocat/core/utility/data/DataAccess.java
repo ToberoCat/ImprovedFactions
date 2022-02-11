@@ -5,6 +5,7 @@ import com.google.common.io.Files;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncCore;
+import io.github.toberocat.core.utility.callbacks.ResultCallback;
 import io.github.toberocat.core.utility.json.JsonUtility;
 import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.utility.sql.MySQL;
@@ -95,7 +96,11 @@ public class DataAccess {
             String filePath = MainIF.getIF().getDataFolder().getPath() + "/Data/" + folder + "/" + filename + ".json";
             File file = new File(filePath);
 
-            return (T) JsonUtility.ReadObject(file, clazz);
+            try {
+                return (T) JsonUtility.ReadObject(file, clazz);
+            } catch (IOException e) {
+                return null;
+            }
         }
     }
 
@@ -170,52 +175,5 @@ public class DataAccess {
 
             return file.exists();
         }
-    }
-
-    public void emptyTable() {
-        try {
-            PreparedStatement ps = sql.getConnection().prepareStatement("TRUNCATE mobpoints");
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void removePlayer(UUID uuid) {
-        try {
-            PreparedStatement ps = sql.getConnection().prepareStatement("DELETE FROM mobpoints WHERE UUID=?");
-            ps.setString(1, uuid.toString());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void addPoints(UUID uuid, int points) {
-        try {
-            PreparedStatement ps = sql.getConnection().prepareStatement("UPDATE mobpoints SET POINTS=? WHERE UUID=?");
-            ps.setInt(1, points);
-            ps.setString(2, uuid.toString());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static int getPoints(UUID uuid) {
-        try {
-            PreparedStatement ps = sql.getConnection().prepareStatement("SELECT POINTS FROM mobpoints WHERE  UUID=?");
-            ps.setString(1, uuid.toString());
-            ResultSet rs = ps.executeQuery();
-            int points = 0;
-            if (rs.next()) {
-                points = rs.getInt("POINTS");
-                return points;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return 0;
     }
 }

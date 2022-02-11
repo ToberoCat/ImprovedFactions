@@ -25,8 +25,6 @@ public class PlayerSettings {
     private static final Map<UUID, PlayerSettings> SETTINGS = new HashMap();
     @JsonIgnore
     public static final Map<String, Setting> DEFAULT_SETTINGS = new HashMap<>();
-    @JsonIgnore
-    private static final ArrayList<UUID> PREPARING = new ArrayList<>();
 
     private UUID playerUUID;
     private String name;
@@ -53,42 +51,35 @@ public class PlayerSettings {
     }
 
     public static Result<PlayerSettings> getSettings(UUID uuid) {
-        if (PREPARING.contains(uuid)) {
-            return new Result<PlayerSettings>(false).setMessages("CURRENTLY_BUSY_PREPERING",
-                    "&cYou can't access this currently. Your data is being prepared. Please try later");
-        }
+        if (SETTINGS.containsKey(uuid)) PlayerJoined(uuid);
 
         return new Result<PlayerSettings>(true).setPaired(SETTINGS.get(uuid));
     }
 
 
     public static void PlayerJoined(final UUID joinedPlayer) {
-        PREPARING.add(joinedPlayer);
-        AsyncCore.Run(() -> {
-            PlayerSettings settings = null;
-            if (DataAccess.exists("Players", joinedPlayer.toString())) {
-                settings = DataAccess.getFile("Players", joinedPlayer.toString(), PlayerSettings.class);
+        PlayerSettings settings = null;
+        if (DataAccess.exists("Players", joinedPlayer.toString())) {
+            settings = DataAccess.getFile("Players", joinedPlayer.toString(), PlayerSettings.class);
 
-                if (settings == null || settings.playerSettings == null) {
-                    Debugger.log("Couldn't load player settings. The old settings got overwritten");
-                    settings = new PlayerSettings(joinedPlayer);
-                } else {
-                    Debugger.log("Loaded player settings for " + Bukkit.getOfflinePlayer(joinedPlayer).getName());
-                    for (String key : DEFAULT_SETTINGS.keySet()) {
-                        Setting defaultSettings = DEFAULT_SETTINGS.get(key);
-
-                        settings.playerSettings.get(key).setType(defaultSettings.getType());
-                        settings.playerSettings.get(key).setMaterial(defaultSettings.getMaterial());
-                        settings.playerSettings.get(key).setEnumValues(defaultSettings.getEnumValues());
-                    }
-                }
-            } else {
-                Debugger.log("Generating new player settings for " + Bukkit.getOfflinePlayer(joinedPlayer).getName());
+            if (settings == null || settings.playerSettings == null) {
+                Debugger.log("Couldn't load player settings. The old settings got overwritten");
                 settings = new PlayerSettings(joinedPlayer);
+            } else {
+                Debugger.log("Loaded player settings for " + Bukkit.getOfflinePlayer(joinedPlayer).getName());
+                for (String key : DEFAULT_SETTINGS.keySet()) {
+                    Setting defaultSettings = DEFAULT_SETTINGS.get(key);
+
+                    settings.playerSettings.get(key).setType(defaultSettings.getType());
+                    settings.playerSettings.get(key).setMaterial(defaultSettings.getMaterial());
+                    settings.playerSettings.get(key).setEnumValues(defaultSettings.getEnumValues());
+                }
             }
-            SETTINGS.put(joinedPlayer, settings);
-            PREPARING.remove(joinedPlayer);
-        });
+        } else {
+            Debugger.log("Generating new player settings for " + Bukkit.getOfflinePlayer(joinedPlayer).getName());
+            settings = new PlayerSettings(joinedPlayer);
+        }
+        SETTINGS.put(joinedPlayer, settings);
     }
     public static void PlayerLeave(UUID leftPlayer) {
         AsyncCore.Run(() -> {

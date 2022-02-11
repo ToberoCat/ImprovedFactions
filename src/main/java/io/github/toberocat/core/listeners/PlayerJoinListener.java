@@ -13,7 +13,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 public class PlayerJoinListener implements Listener {
+
+    public static Map<UUID, Long> PLAYER_JOINS = new HashMap<>();
 
     @EventHandler
     public void Join(PlayerJoinEvent event) {
@@ -26,6 +32,8 @@ public class PlayerJoinListener implements Listener {
 
             FactionMemberManager.PlayerJoin(event);
             PlayerSettings.PlayerJoined(player.getUniqueId());
+
+            PLAYER_JOINS.put(player.getUniqueId(), System.currentTimeMillis());
         });
     }
 }

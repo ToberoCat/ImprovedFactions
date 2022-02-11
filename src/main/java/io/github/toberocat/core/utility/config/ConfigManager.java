@@ -8,18 +8,13 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.logging.Level;
 
-public class ConfigManager {
-    private MainIF plugin;
-
-    public ConfigManager(MainIF plugin) {
-        this.plugin = plugin;
-    }
+public record ConfigManager(MainIF plugin) {
 
     public void register() {
         AddManager("config.yml", Material.BOOK, "&a&lConfig.yml");
         AddManager("commands.yml", Material.COMMAND_BLOCK, "&a&lCommands.yml");
 
-        AddToDefaultConfig("debug.logLevel", new String[] {
+        AddToDefaultConfig("debug.logLevel", new String[]{
                 Level.INFO.toString(), Level.WARNING.toString(), Level.SEVERE.toString()
         });
 
@@ -38,7 +33,7 @@ public class ConfigManager {
         AddToDefaultConfig("forbidden.disbandAtPercent", 69.99f);
         AddToDefaultConfig("forbidden.reportAtPercent", 39.99f);
         AddToDefaultConfig("forbidden.checkLeetspeak", true);
-        AddToDefaultConfig("forbidden.factionNames", new String[] {
+        AddToDefaultConfig("forbidden.factionNames", new String[]{
                 "fuck", "ass", "stupid"
         });
 
@@ -54,9 +49,9 @@ public class ConfigManager {
         AddToDefaultConfig("faction.permanent", false);
         AddToDefaultConfig("faction.maxNameLen", 10);
 
-        AddToDefaultConfig("commands.standby", new String[] { "tellraw @a {\"text\":\"Standby enabled\"}" }, Utility.createItem(Material.COMMAND_BLOCK, "&e&lStandyBy", new String[] {
+        AddToDefaultConfig("commands.standby", new String[]{"tellraw @a {\"text\":\"Standby enabled\"}"}, Utility.createItem(Material.COMMAND_BLOCK, "&e&lStandyBy", new String[]{
                 "&8Write a list of commands", "&8That should get executed, when", "&8the plugin goes in standby mode"}));
-        AddToDefaultConfig("commands.forbidden", new String[] { "tellraw @a {\"text\":\"This word, {word}, is maybe similar to {similar}. Used: {player_name}, {player_uuid} while {task}. {similarityPer}% similar \"}" }, Utility.createItem(Material.COMMAND_BLOCK, "&e&lForbidden name report", new String[] {
+        AddToDefaultConfig("commands.forbidden", new String[]{"tellraw @a {\"text\":\"This word, {word}, is maybe similar to {similar}. Used: {player_name}, {player_uuid} while {task}. {similarityPer}% similar \"}"}, Utility.createItem(Material.COMMAND_BLOCK, "&e&lForbidden name report", new String[]{
                 "&8Write a list of commands", "&8That should get executed, when", "&8the plugin finds a maybe forbidden word"}));
     }
 
@@ -96,6 +91,7 @@ public class ConfigManager {
     public <T> Config<T> AddToDefaultConfig(String path, T defaultValue, ItemStack icon) {
         return AddToDefaultConfig(path, "config.yml", defaultValue, icon);
     }
+
     public <T> Config<T> AddToDefaultConfig(String path, T defaultValue, Material icon, String title, String... lore) {
         return AddToDefaultConfig(path, "config.yml", defaultValue, Utility.createItem(icon, title, lore));
     }
@@ -130,8 +126,7 @@ public class ConfigManager {
         return plugin.getConfigMap().containsKey(path);
     }
 
-    public Config getConfig(String path)
-    {
+    public Config getConfig(String path) {
         if (!plugin.getConfigMap().containsKey(path)) {
             return null;
         }

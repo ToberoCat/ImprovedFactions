@@ -5,6 +5,7 @@ import io.github.toberocat.core.commands.factions.claim.ClaimOneSubCommand;
 import io.github.toberocat.core.commands.factions.unclaim.UnclaimAutoSubCommand;
 import io.github.toberocat.core.commands.factions.unclaim.UnclaimOneSubCommand;
 import io.github.toberocat.core.utility.async.AsyncCore;
+import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.factions.Faction;
 import io.github.toberocat.core.utility.factions.FactionUtility;
 import io.github.toberocat.core.utility.history.History;
@@ -94,6 +95,12 @@ public class PlayerMoveListener implements Listener {
 
             if (faction != null) {
                 text = faction.getDisplayName();
+            } else if (registry.equals(ClaimManager.SAFEZONE_REGISTRY)) {
+                text = Language.getMessage(LangMessage.TERRITORY_SAFEZONE, player);
+            } else if (registry.equals(ClaimManager.WARZONE_REGISTRY)) {
+                text = Language.getMessage(LangMessage.TERRITORY_WARZONE, player);
+            } else if (registry.equals(ClaimManager.UNCLAIMABLE_REGISTRY)) {
+                return;
             } else {
                 text = Language.getMessage(LangMessage.TERRITORY_WILDERNESS, player);
             }

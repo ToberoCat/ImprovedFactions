@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ClaimSubCommand extends SubCommand {
     public ClaimSubCommand() {
-        super("claim", LangMessage.COMMAND_FACTION_CLAIM_ONE_DESCRIPTION, true);
+        super("claim", LangMessage.COMMAND_FACTION_CLAIM_ONE_DESCRIPTION, false);
         subCommands.add(new ClaimOneSubCommand());
         subCommands.add(new ClaimAutoSubCommand());
     }

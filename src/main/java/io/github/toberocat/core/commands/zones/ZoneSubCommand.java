@@ -11,6 +11,7 @@ public class ZoneSubCommand extends SubCommand  {
         super("zones", LangMessage.COMMAND_ZONES_DESCRIPTION, true);
         subCommands.add(new SafeZoneSubCommand());
         subCommands.add(new UnclaimSubCommand());
+        subCommands.add(new WarZoneSubCommand());
     }
 
     @Override
