@@ -1,0 +1,8 @@
+- Faction map
+- Dynmap Extension
+- Home extension
+- Warp extension
+- Faction chest extension
+- Faction power change display using boss bars
+- ChatMessageExtension
+- ChunkParticleExtension
