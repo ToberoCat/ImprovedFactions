@@ -18,37 +18,38 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class FactionCommand implements TabExecutor {
 
-    public static List<SubCommand> subCommands = new ArrayList<>();
+    public static LinkedHashSet<SubCommand> subCommands = new LinkedHashSet<>();
 
     public FactionCommand() {
-        subCommands.add(new ConfigSubCommand());
-        subCommands.add(new PluginSubCommand());
-        subCommands.add(new CreateFactionSubCommand());
-        subCommands.add(new DeleteFactionSubCommand());
-        subCommands.add(new ZoneSubCommand());
-        subCommands.add(new HelpSubCommand());
-        subCommands.add(new AdminSubCommand());
-        subCommands.add(new FactionSettingsSubCommand());
-        subCommands.add(new PlayerSettingsSubCommand());
-        subCommands.add(new ClaimSubCommand());
-        subCommands.add(new RelationSubCommand());
-        subCommands.add(new ExtensionSubCommand());
-        subCommands.add(new LeaveFactionSubCommand());
-        subCommands.add(new WhoSubCommand());
-        subCommands.add(new BanSubCommand());
-        subCommands.add(new UnBanSubCommand());
-        subCommands.add(new KickSubCommand());
-        subCommands.add(new OnlineSubCommand());
-        subCommands.add(new JoinFactionSubCommand());
-        subCommands.add(new MembersSubCommand());
-        subCommands.add(new InviteSubCommand());
-        subCommands.add(new InviteAcceptSubCommand());
-        subCommands.add(new UnclaimSubCommand());
+        subCommands.addAll(Set.of(
+                new ConfigSubCommand(),
+                new PluginSubCommand(),
+                new CreateFactionSubCommand(),
+                new DeleteFactionSubCommand(),
+                new ZoneSubCommand(),
+                new HelpSubCommand(),
+                new AdminSubCommand(),
+                new FactionSettingsSubCommand(),
+                new PlayerSettingsSubCommand(),
+                new ClaimSubCommand(),
+                new RelationSubCommand(),
+                new ExtensionSubCommand(),
+                new LeaveFactionSubCommand(),
+                new WhoSubCommand(),
+                new BanSubCommand(),
+                new UnBanSubCommand(),
+                new KickSubCommand(),
+                new OnlineSubCommand(),
+                new JoinFactionSubCommand(),
+                new MembersSubCommand(),
+                new InviteSubCommand(),
+                new InviteAcceptSubCommand(),
+                new UnclaimSubCommand()
+                ));
     }
 
     @Override

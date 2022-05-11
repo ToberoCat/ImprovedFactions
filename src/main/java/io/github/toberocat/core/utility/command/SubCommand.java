@@ -11,15 +11,12 @@ import io.github.toberocat.core.utility.settings.PlayerSettings;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public abstract class SubCommand {
 
     private static SubCommand lastSubCommand;
-    protected final ArrayList<SubCommand> subCommands;
+    protected final LinkedHashSet<SubCommand> subCommands;
     protected final String subCommand;
     protected final String description;
     protected final boolean manager;
@@ -29,7 +26,7 @@ public abstract class SubCommand {
         this.permission = permission;
         this.description = descriptionKey;
         this.manager = manager;
-        subCommands = new ArrayList<>();
+        subCommands = new LinkedHashSet<>();
 
         if (getSettings().isAllowAliases()) {
             MainIF.getConfigManager().getDataManager("commands.yml").getConfig().addDefault("commands." + permission + ".aliases", new ArrayList<String>());
@@ -44,7 +41,7 @@ public abstract class SubCommand {
         this.permission = subCommand;
         this.description = descriptionKey;
         this.manager = manager;
-        subCommands = new ArrayList<>();
+        subCommands = new LinkedHashSet<>();
 
         if (getSettings().isAllowAliases()) {
             MainIF.getConfigManager().addToDefaultConfig("commands." + permission + ".aliases", new ArrayList<String>(), "commands.yml");
@@ -52,7 +49,7 @@ public abstract class SubCommand {
         }
     }
 
-    public static List<String> CallSubCommandsTab(List<SubCommand> subCommands, Player player, String[] args) {
+    public static List<String> CallSubCommandsTab(HashSet<SubCommand> subCommands, Player player, String[] args) {
         List<String> arguments = new ArrayList<>();
         if (args.length == 1) { //Means: The first subcommand is determined
             for (SubCommand command : subCommands) {
@@ -107,7 +104,7 @@ public abstract class SubCommand {
         return arguments;
     }
 
-    public static AsyncTask<Boolean> CallSubCommands(String commandPath, List<SubCommand> subCommands, Player player, String[] args) {
+    public static AsyncTask<Boolean> CallSubCommands(String commandPath, HashSet<SubCommand> subCommands, Player player, String[] args) {
         return AsyncTask.run(() -> {
             if (args.length == 0) return false;
             for (SubCommand command : subCommands) {
@@ -256,7 +253,7 @@ public abstract class SubCommand {
         return false;
     }
 
-    public ArrayList<SubCommand> getSubCommands() {
+    public LinkedHashSet<SubCommand> getSubCommands() {
         return subCommands;
     }
 

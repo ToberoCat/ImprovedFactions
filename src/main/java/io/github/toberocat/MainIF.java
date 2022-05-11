@@ -146,6 +146,14 @@ public final class MainIF extends JavaPlugin {
         return configManager;
     }
 
+    public static void registerPapi() {
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            FactionExpansion.init();
+            new FactionExpansion().register();
+            MainIF.logMessage(Level.INFO, "&aSuccessfully loaded &6PlaceholderAPI&a support");
+        }
+    }
+
     /**
      * Don't call this manually.
      * This will get called by the minecraft server
@@ -174,10 +182,13 @@ public final class MainIF extends JavaPlugin {
             }
 
 
-
             DynamicLoader.enable();
         });
     }
+
+    //</editor-fold>
+
+    //<editor-fold desc="Loading functions">
 
     /**
      * Don't call this manually.
@@ -207,10 +218,6 @@ public final class MainIF extends JavaPlugin {
             INSTANCE = null;
         });
     }
-
-    //</editor-fold>
-
-    //<editor-fold desc="Loading functions">
 
     /**
      * This saves everything that can be saved to prevent data loss when an error happens.
@@ -287,7 +294,7 @@ public final class MainIF extends JavaPlugin {
             InputStream in = conn.getInputStream();
             return YmlUtility.loadYml(in, ExtensionRegistry.class);
         } catch (IOException e) {
-            logMessage(Level.SEVERE, "&6"+ file.getName() + " &ccouldn't get loaded. Please make sure this extension isn't for a beta version, else redownload it please");
+            logMessage(Level.SEVERE, "&6" + file.getName() + " &ccouldn't get loaded. Please make sure this extension isn't for a beta version, else redownload it please");
         }
 
         return null;
@@ -407,13 +414,19 @@ public final class MainIF extends JavaPlugin {
     }
 
     private void loadListeners() {
-        getPluginManager().registerEvents(new PlayerJoinListener(), this);
-        getPluginManager().registerEvents(new PlayerLeaveListener(), this);
-        getPluginManager().registerEvents(new GuiListener(), this);
-        getPluginManager().registerEvents(new PlayerMoveListener(), this);
-        getPluginManager().registerEvents(new BlockBreakListener(), this);
-        getPluginManager().registerEvents(new BlockPlaceListener(), this);
+        Arrays.asList(
+                new PlayerJoinListener(),
+                new PlayerLeaveListener(),
+                new GuiListener(),
+                new PlayerMoveListener(),
+                new BlockBreakListener(),
+                new BlockPlaceListener())
+                .forEach(listener -> getPluginManager().registerEvents(listener, this));
     }
+
+    //</editor-fold>
+
+    //<editor-fold desc="Getters and Setters">
 
     private boolean loadPluginVersion() {
         String sVersion = Bukkit.getBukkitVersion();
@@ -436,10 +449,6 @@ public final class MainIF extends JavaPlugin {
         nms.EnableInterface();
         return true;
     }
-
-    //</editor-fold>
-
-    //<editor-fold desc="Getters and Setters">
 
     private void loadPluginDependencies() {
         new BukkitRunnable() {
@@ -488,14 +497,6 @@ public final class MainIF extends JavaPlugin {
         Rank.Init();
 
         return true;
-    }
-
-    public static void registerPapi() {
-        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            FactionExpansion.init();
-            new FactionExpansion().register();
-            MainIF.logMessage(Level.INFO, "&aSuccessfully loaded &6PlaceholderAPI&a support");
-        }
     }
 
     /**

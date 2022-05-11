@@ -20,9 +20,7 @@ public class UnclaimSubCommand extends SubCommand {
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
-        if (args.length == 0) {
-            subCommands.get(0).CallSubCommand(player, new String[]{});
-        }
+        // ToDo: Impement unclaiming using auto sub commands
     }
 
     @Override
