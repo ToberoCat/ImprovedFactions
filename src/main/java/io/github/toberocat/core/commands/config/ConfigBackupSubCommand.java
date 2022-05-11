@@ -3,16 +3,15 @@ package io.github.toberocat.core.commands.config;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.gui.config.backup.ConfigBackupGUI;
 import io.github.toberocat.core.utility.command.SubCommand;
-import io.github.toberocat.core.utility.language.LangMessage;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 
-public class ConfigBackupSubCommand extends SubCommand  {
+public class ConfigBackupSubCommand extends SubCommand {
 
     public ConfigBackupSubCommand() {
-        super("backup", "config.backup", LangMessage.COMMAND_CONFIG_BACKUP_DESCRIPTION, false);
+        super("backup", "config.backup", "command.config.backup.description", false);
     }
 
     @Override

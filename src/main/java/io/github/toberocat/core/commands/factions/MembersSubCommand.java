@@ -1,12 +1,11 @@
 package io.github.toberocat.core.commands.factions;
 
 import io.github.toberocat.MainIF;
+import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.gui.faction.MemberGui;
-import io.github.toberocat.core.gui.faction.OnlineGUI;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
-import io.github.toberocat.core.utility.factions.Faction;
-import io.github.toberocat.core.utility.factions.FactionUtility;
 import io.github.toberocat.core.utility.gui.GUISettings;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -15,7 +14,7 @@ import java.util.List;
 
 public class MembersSubCommand extends SubCommand {
     public MembersSubCommand() {
-        super("members", "", false);
+        super("members", "command.members.description", false);
     }
 
     @Override

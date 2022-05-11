@@ -1,11 +1,11 @@
 package io.github.toberocat.core.utility.version;
 
-import com.google.common.base.Objects;
 import io.github.toberocat.core.utility.Utility;
 
 public class Version implements Comparable<Version> {
     private String version;
 
+    public Version() {}
     private Version(String version) {
         this.version = version;
     }

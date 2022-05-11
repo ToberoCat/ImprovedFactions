@@ -1,11 +1,10 @@
 package io.github.toberocat.core.commands.factions;
 
-import io.github.toberocat.core.utility.factions.FactionUtility;
+import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.FactionUtility;
+import io.github.toberocat.core.factions.rank.members.OwnerRank;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
-import io.github.toberocat.core.utility.factions.Faction;
-import io.github.toberocat.core.utility.factions.rank.members.OwnerRank;
-import io.github.toberocat.core.utility.language.LangMessage;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 
@@ -13,7 +12,7 @@ import java.util.List;
 
 public class DeleteFactionSubCommand extends SubCommand {
     public DeleteFactionSubCommand() {
-        super("delete", LangMessage.COMMAND_FACTION_DELETE_DESCRIPTION, false);
+        super("delete", "command.faction.delete.description", false);
     }
 
     @Override
@@ -26,7 +25,7 @@ public class DeleteFactionSubCommand extends SubCommand {
         Faction faction = FactionUtility.getPlayerFaction(player);
         faction.delete();
 
-        Language.sendMessage(LangMessage.COMMAND_FACTION_DELETE_SUCCESS, player);
+        Language.sendMessage("command.faction.delete.success", player);
     }
 
     @Override

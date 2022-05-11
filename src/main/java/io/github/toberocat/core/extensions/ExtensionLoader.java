@@ -9,13 +9,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 
-public class ExtensionLoader<C> {
+public class ExtensionLoader {
 
-    public C LoadClass(File jar, String classpath, Class<C> parentClass) throws ClassNotFoundException {
+    public static <C> C loadClass(File jar, String classpath, Class<C> parentClass) throws ClassNotFoundException {
         try {
             ClassLoader loader = URLClassLoader.newInstance(
-                    new URL[] { jar.toURL() },
-                    getClass().getClassLoader()
+                    new URL[]{jar.toURL()},
+                    ExtensionLoader.class.getClassLoader()
             );
             Class<?> clazz = Class.forName(classpath, true, loader);
             Class<? extends C> newClass = clazz.asSubclass(parentClass);

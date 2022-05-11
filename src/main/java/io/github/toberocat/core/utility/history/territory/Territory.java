@@ -6,7 +6,8 @@ public class Territory {
     private String registry;
     private Chunk chunk;
 
-    public Territory() {}
+    public Territory() {
+    }
 
     public Territory(String registry, Chunk chunk) {
         this.registry = registry;

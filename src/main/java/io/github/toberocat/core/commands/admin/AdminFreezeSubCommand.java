@@ -1,10 +1,10 @@
 package io.github.toberocat.core.commands.admin;
 
+import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.data.DataAccess;
-import io.github.toberocat.core.utility.factions.Faction;
-import io.github.toberocat.core.utility.factions.FactionUtility;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 
@@ -13,12 +13,12 @@ import java.util.List;
 
 public class AdminFreezeSubCommand extends SubCommand {
     public AdminFreezeSubCommand() {
-        super("freeze", "admin.freeze", "", false);
+        super("freeze", "admin.freeze", "command.admin.freeze.discription", false);
     }
 
     @Override
     public SubCommandSettings getSettings() {
-        return super.getSettings().setArgLength(1);
+        return super.getSettings().setArgLength(1).setUseWhenFrozen(true);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class AdminFreezeSubCommand extends SubCommand {
 
         faction.setFrozen(!faction.isFrozen());
         Language.sendRawMessage("The faction &e" +
-                (!faction.isFrozen() ? "isn't frozen any more" : "is now frozen") , player);
+                (!faction.isFrozen() ? "isn't frozen any more" : "is now frozen"), player);
     }
 
     @Override

@@ -1,17 +1,22 @@
 package io.github.toberocat.core.commands.zones;
 
 import io.github.toberocat.core.utility.command.SubCommand;
-import io.github.toberocat.core.utility.language.LangMessage;
+import io.github.toberocat.core.utility.command.SubCommandSettings;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class ZoneSubCommand extends SubCommand  {
+public class ZoneSubCommand extends SubCommand {
     public ZoneSubCommand() {
-        super("zones", LangMessage.COMMAND_ZONES_DESCRIPTION, true);
+        super("zones", "command.zones.description", true);
         subCommands.add(new SafeZoneSubCommand());
         subCommands.add(new UnclaimSubCommand());
         subCommands.add(new WarZoneSubCommand());
+    }
+
+    @Override
+    public SubCommandSettings getSettings() {
+        return super.getSettings().setUseWhenFrozen(true);
     }
 
     @Override

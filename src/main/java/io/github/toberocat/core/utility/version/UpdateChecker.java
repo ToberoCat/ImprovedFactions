@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class UpdateChecker {
-    private Version version;
+    private final Version version;
     private Version newestVersion;
 
     public UpdateChecker(Version version, URL versionJson) {

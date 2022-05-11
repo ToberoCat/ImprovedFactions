@@ -2,10 +2,8 @@ package io.github.toberocat.core.listeners;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.debug.Debugger;
-import io.github.toberocat.core.utility.async.AsyncCore;
-import io.github.toberocat.core.utility.calender.TimeCore;
-import io.github.toberocat.core.utility.factions.members.FactionMemberManager;
-import io.github.toberocat.core.utility.language.LangMessage;
+import io.github.toberocat.core.factions.members.FactionMemberManager;
+import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.settings.PlayerSettings;
 import org.bukkit.entity.Player;
@@ -23,15 +21,15 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void Join(PlayerJoinEvent event) {
-        AsyncCore.Run(() -> {
+        AsyncTask.run(() -> {
             Player player = event.getPlayer();
 
             if (MainIF.getIF().isStandby() && Debugger.hasPermission(player, "factions.messages.standby")) {
-                Language.sendMessage(LangMessage.PLUGIN_STANDBY_MESSAGE, player);
+                Language.sendMessage("message.plugin-standby", player);
             }
 
             FactionMemberManager.PlayerJoin(event);
-            PlayerSettings.PlayerJoined(player.getUniqueId());
+            PlayerSettings.loadPlayer(player.getUniqueId());
 
             PLAYER_JOINS.put(player.getUniqueId(), System.currentTimeMillis());
         });

@@ -12,6 +12,7 @@ public class UnclaimAutoSubCommand extends SubCommand {
 
     public UnclaimAutoSubCommand() {
         super("auto", "unclaim.auto", "", false);
+
     }
 
     @Override

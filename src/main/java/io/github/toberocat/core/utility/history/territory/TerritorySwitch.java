@@ -4,7 +4,8 @@ public class TerritorySwitch {
     private Territory from;
     private Territory to;
 
-    public TerritorySwitch() {}
+    public TerritorySwitch() {
+    }
 
     public TerritorySwitch(Territory from, Territory to) {
         this.from = from;

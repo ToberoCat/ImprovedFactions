@@ -3,20 +3,16 @@ package io.github.toberocat.core.utility.data;
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.utility.Utility;
-import io.github.toberocat.core.utility.async.AsyncCore;
-import io.github.toberocat.core.utility.callbacks.ResultCallback;
-import io.github.toberocat.core.utility.json.JsonUtility;
 import io.github.toberocat.core.debug.Debugger;
+import io.github.toberocat.core.utility.Utility;
+import io.github.toberocat.core.utility.async.AsyncTask;
+import io.github.toberocat.core.utility.jackson.JsonUtility;
 import io.github.toberocat.core.utility.sql.MySQL;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.UUID;
 import java.util.logging.Level;
 
 public class DataAccess {
@@ -48,12 +44,12 @@ public class DataAccess {
         return true;
     }
 
-    public static AsyncCore makeFolder(String folder) {
+    public static AsyncTask makeFolder(String folder) {
         if (sql != null) {
             //ToDo: Add the method for creating tables in mySQL
             return null;
         } else {
-            return AsyncCore.Run(() -> {
+            return AsyncTask.run(() -> {
                 String defPath = MainIF.getIF().getDataFolder().getPath() + "/";
                 Utility.mkdir(defPath + "Data/" + folder);
             });
@@ -97,7 +93,7 @@ public class DataAccess {
             File file = new File(filePath);
 
             try {
-                return (T) JsonUtility.ReadObject(file, clazz);
+                return (T) JsonUtility.readObject(file, clazz);
             } catch (IOException e) {
                 return null;
             }
@@ -116,7 +112,7 @@ public class DataAccess {
             String filePath = MainIF.getIF().getDataFolder().getPath() + "/Data/" + folder + "/" + filename + ".json";
             File file = new File(filePath);
 
-            return JsonUtility.SaveObject(file, object);
+            return JsonUtility.saveObject(file, object);
         }
     }
 
@@ -137,7 +133,7 @@ public class DataAccess {
     public static String[] listRawFiles(String folder) {
         if (sql != null) {
             // ToDO: Add method for sql table listing
-            return new String[] {""};
+            return new String[]{""};
         } else {
             String filePath = MainIF.getIF().getDataFolder().getPath() + "/Data/" + folder;
             File file = new File(filePath);
@@ -153,7 +149,7 @@ public class DataAccess {
     public static String[] listFiles(String folder) {
         if (sql != null) {
             // ToDO: Add method for sql table listing
-            return new String[] {""};
+            return new String[]{""};
         } else {
             String filePath = MainIF.getIF().getDataFolder().getPath() + "/Data/" + folder;
             File file = new File(filePath);
@@ -171,7 +167,7 @@ public class DataAccess {
                     + folder + "/" + filename + ".json";
             File file = new File(filePath);
 
-            Debugger.log(file.exists()+"");
+            Debugger.log(file.exists() + "");
 
             return file.exists();
         }

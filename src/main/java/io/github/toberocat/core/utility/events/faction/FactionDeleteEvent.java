@@ -1,7 +1,6 @@
 package io.github.toberocat.core.utility.events.faction;
 
-import io.github.toberocat.core.utility.factions.Faction;
-import org.bukkit.entity.Player;
+import io.github.toberocat.core.factions.Faction;
 
 public class FactionDeleteEvent extends FactionEventCancelledable {
 

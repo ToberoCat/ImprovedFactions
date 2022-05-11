@@ -3,48 +3,56 @@ package io.github.toberocat.core.utility;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.listeners.PlayerJoinListener;
+import io.github.toberocat.core.utility.async.AsyncTask;
+import io.github.toberocat.core.utility.callbacks.Callback;
 import io.github.toberocat.core.utility.callbacks.ExceptionCallback;
-import io.github.toberocat.core.utility.events.faction.FactionCreateEvent;
 import io.github.toberocat.core.utility.events.faction.FactionEvent;
 import io.github.toberocat.core.utility.events.faction.FactionEventCancelledable;
-import io.github.toberocat.core.utility.factions.Faction;
+import io.github.toberocat.core.utility.gitreport.GitReport;
 import io.github.toberocat.core.utility.language.Language;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.io.File;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 public class Utility {
 
+    public static String printStackToString(Exception e) {
+        StringWriter sw = new StringWriter();
+        e.printStackTrace(new PrintWriter(sw));
+        return sw.toString();
+    }
+
     /**
      * Removed the first element in list and returns it
+     *
      * @param list the list where the item should be removed
-     * @param <T> Type of the list
+     * @param <T>  Type of the list
      * @return A objectPair. First object in there is the shifted element and them second is the new list
      */
     public static <T> ObjectPair<T, T[]> shift(T[] list) {
         List<T> t = Arrays.asList(list);
-        MainIF.logMessage(Level.INFO, ""+list.length);
+        MainIF.logMessage(Level.INFO, "" + list.length);
         T tShift = t.remove(0);
         return new ObjectPair<>(tShift, toArray(t));
     }
 
     /**
      * Make a generic list to an array
+     *
      * @param list for convertion
-     * @param <T> Type of the list
+     * @param <T>  Type of the list
      * @return The list as an array
      */
     public static <T> T[] toArray(List<T> list) {
@@ -58,8 +66,9 @@ public class Utility {
 
     /**
      * Create a item with a simple formatted name
+     *
      * @param material The material for this item
-     * @param name The title. E.g: "&e&lFactionItem"
+     * @param name     The title. E.g: "&e&lFactionItem"
      * @return itemstack with a custom title and your set material
      */
     public static ItemStack createItem(final Material material, final String name) {
@@ -73,11 +82,18 @@ public class Utility {
         return item;
     }
 
+    public static List<String> getLore(ItemStack stack) {
+        ItemMeta meta = stack.getItemMeta();
+        if (meta == null || meta.getLore() == null) return new ArrayList<>();
+        return meta.getLore();
+    }
+
     /**
      * Create a item with a simple formatted name and lore as array
+     *
      * @param material The material for this item
-     * @param name The title. E.g: "&e&lFactionItem"
-     * @param lore The lore the item should have
+     * @param name     The title. E.g: "&e&lFactionItem"
+     * @param lore     The lore the item should have
      * @return itemstack with a custom title, custom lore and your set material
      */
     public static ItemStack createItem(final Material material, final String name, final String[] lore) {
@@ -86,37 +102,34 @@ public class Utility {
 
         meta.setDisplayName(Language.format(name));
 
-        SetLore(lore, meta);
+        meta.setLore(setLore(item, lore).getItemMeta().getLore());
 
         item.setItemMeta(meta);
 
         return item;
     }
 
-
-    private static void SetLore(String[] lore, ItemMeta meta) {
-        if (lore != null) {
-            List<String> formatLore = new ArrayList<>();
-
-            for (String s : lore) {
-                formatLore.add(Language.format(s));
-            }
-
-            meta.setLore(formatLore);
-        }
+    public static ItemStack setLore(ItemStack stack, String[] lore) {
+        ItemStack newStack = new ItemStack(stack);
+        ItemMeta meta = newStack.getItemMeta();
+        assert meta != null;
+        meta.setLore(Arrays.stream(lore).map(Language::format).toList());
+        newStack.setItemMeta(meta);
+        return newStack;
     }
 
     /**
-     * Modify a item with a simple formatted name and lore as set
+     * Modify an item with a simple formatted name and lore as set
+     *
      * @param stack The old stack to modify
      * @param title The title. E.g: "&e&lFactionItem"
-     * @param lore The lore the item should have
+     * @param lore  The lore the item should have
      * @return the old item tags with modified meta
      */
-    public static ItemStack modifyItem(ItemStack stack, String title, String... lore) {
+    public static ItemStack modiflyItem(ItemStack stack, String title, String... lore) {
         ItemMeta meta = stack.getItemMeta();
         meta.setDisplayName(Language.format(title));
-        SetLore(lore, meta);
+        meta.setLore(setLore(stack, lore).getItemMeta().getLore());
         ItemStack item = new ItemStack(stack);
         item.setItemMeta(meta);
         return item;
@@ -131,24 +144,33 @@ public class Utility {
     }
 
     public static void run(ExceptionCallback cb) {
-        cb.callback();
+        cb.run();
     }
 
 
     public static void except(Exception e) {
-        if (MainIF.getConfigManager().getValue("general.printStacktrace")) e.printStackTrace();
+        if (Boolean.TRUE.equals(MainIF.getConfigManager().getValue("general.printStacktrace")))
+            e.printStackTrace();
         MainIF.getIF().saveShutdown(e.getMessage());
-    }
 
-    public static String[] getNames(Class<? extends Enum<?>> e) {
-        return Arrays.stream(e.getEnumConstants()).map(Enum::name).toArray(String[]::new);
-    }
-
-    public static String removeNonDigits(final String str) {
-        if (str == null || str.length() == 0) {
-            return "";
+        if (MainIF.getConfigManager().getValue("general.sendCrashesToGithub")) {
+            MainIF.logMessage(Level.INFO, "Please wait while the crash gets reported to the developer. Don't restart or shutdown the server");
+            AsyncTask.run(() -> GitReport.reportIssue(e)).then((result) -> MainIF.logMessage(Level.INFO,
+                    "Reported the issue"));
         }
-        return str.replaceAll("/[^0-9]/g", "");
+    }
+
+    public static <T> String[] getNames(T enumForNames) {
+        return Arrays.stream(enumForNames.getClass().getEnumConstants()).map(Object::toString).toArray(String[]::new);
+    }
+
+    public static String removeNonDigits(String str) {
+        if (str == null || str.length() == 0) {
+            return "0";
+        }
+        str = str.replaceAll("[^0-9]", "");
+        return str;
+
     }
 
     public static List<String> wrapLines(String text, String prefix) {
@@ -156,24 +178,31 @@ public class Utility {
         return Arrays.stream(wrapped.split("\n")).map(x -> prefix + x).collect(Collectors.toList());
     }
 
-    public static synchronized  <T extends FactionEventCancelledable> boolean callEvent(T event) {
+    public static synchronized <T extends FactionEventCancelledable> boolean callEvent(T event) {
         Bukkit.getScheduler().runTask(MainIF.getIF(), () -> Bukkit.getPluginManager().callEvent(event));
 
         return !event.isCancelled();
     }
 
+    public static synchronized <T extends FactionEvent> void callEvent(T event) {
+        Bukkit.getScheduler().runTask(MainIF.getIF(), () -> Bukkit.getPluginManager().callEvent(event));
+    }
+
     public static String getTime(long timing) {
         long time = System.currentTimeMillis() - timing;
         time /= 1000;
-        int secs= (int) (time%60);
+        int secs = (int) (time % 60);
         time /= 60;
-        int mins = (int) (time%60);
+        int mins = (int) (time % 60);
         time /= 60;
-        int hours = (int) (time%24);
+        int hours = (int) (time % 24);
         time /= 24;
         int days = (int) time;
 
-        return (days != 0 ? days + "days, " : "") + hours + ":" + mins + ":" + secs + " hours";
+        return (days < 10 ? "0" + days : days) + "d " +
+                (hours < 10 ? "0" + hours : hours) + "h " +
+                (mins < 10 ? "0" + mins : mins) + "m " +
+                (secs < 10 ? "0" + secs : secs) + "s";
     }
 
     public static ItemStack getSkull(OfflinePlayer player, int count, String name, String[] lore) {
@@ -185,9 +214,10 @@ public class Utility {
         item.setItemMeta(skull);
         return item;
     }
-    public static ItemStack getSkull(String url, int count, String name, String[] lore) {
+
+    public static ItemStack getSkull(String url, int count, String name, String... lore) {
         ItemStack head = new ItemStack(Material.PLAYER_HEAD, count);
-        if(url.isEmpty()) return head;
+        if (url.isEmpty()) return head;
 
         SkullMeta headMeta = (SkullMeta) head.getItemMeta();
         GameProfile profile = new GameProfile(UUID.randomUUID(), null);
@@ -210,5 +240,15 @@ public class Utility {
         if (lore != null) meta.setLore(Arrays.asList(lore));
         head.setItemMeta(meta);
         return head;
+    }
+
+    public static void run(ExceptionCallback cb, Callback except) {
+        try {
+            cb.ECallback();
+        } catch (Exception e) {
+            except(e);
+            except.callback();
+        }
+
     }
 }

@@ -14,16 +14,29 @@ public class NMSFactory {
     /**
      * A list of all mc versions that are represented in this version
      */
-    public static String[] versions = new String[] {"1.18", "1.17", "1.16", "1.15", "1.14", "1.13"};
+    public static String[] versions = new String[]{"1.18", "1.17", "1.16", "1.15", "1.14", "1.13"};
 
-    public static NMSInterface create_1_18() { return new NMSLoader_1_18(); }
+    public static NMSInterface create_1_18() {
+        return new NMSLoader_1_18();
+    }
+
     public static NMSInterface create_1_17() {
         return new NMSLoader_1_17();
     }
-    public static  NMSInterface create_1_16() {
+
+    public static NMSInterface create_1_16() {
         return new NMSLoader_1_16();
     }
-    public static NMSInterface create_1_15() { return new NMSLoader_1_15(); }
-    public static NMSInterface create_1_14() { return new NMSLoader_1_14(); }
-    public static NMSInterface create_1_13() { return new NMSLoader_1_13(); }
+
+    public static NMSInterface create_1_15() {
+        return new NMSLoader_1_15();
+    }
+
+    public static NMSInterface create_1_14() {
+        return new NMSLoader_1_14();
+    }
+
+    public static NMSInterface create_1_13() {
+        return new NMSLoader_1_13();
+    }
 }

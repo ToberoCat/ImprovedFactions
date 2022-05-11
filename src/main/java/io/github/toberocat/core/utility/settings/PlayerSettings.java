@@ -2,62 +2,59 @@ package io.github.toberocat.core.utility.settings;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.MainIF;
+import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.Utility;
-import io.github.toberocat.core.utility.async.AsyncCore;
+import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.data.DataAccess;
-import io.github.toberocat.core.utility.dynamic.loaders.PlayerJoinLoader;
 import io.github.toberocat.core.utility.events.ConfigSaveEvent;
-import io.github.toberocat.core.utility.factions.members.FactionMemberManager;
-import io.github.toberocat.core.utility.json.JsonUtility;
-import io.github.toberocat.core.debug.Debugger;
+import io.github.toberocat.core.utility.jackson.JsonUtility;
+import io.github.toberocat.core.utility.settings.type.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class PlayerSettings {
 
-    public enum TitlePosition { TITLE, SUBTITLE, ACTIONBAR, CHAT }
-
-    @JsonIgnore
-    private static final Map<UUID, PlayerSettings> SETTINGS = new HashMap();
     @JsonIgnore
     public static final Map<String, Setting> DEFAULT_SETTINGS = new HashMap<>();
-
+    @JsonIgnore
+    private static final Map<UUID, PlayerSettings> SETTINGS = new HashMap();
     private UUID playerUUID;
     private String name;
     private Map<String, Setting> playerSettings;
-
-    public PlayerSettings() {}
+    public PlayerSettings() {
+    }
 
     private PlayerSettings(UUID playerUUID, String name) {
         this.playerUUID = playerUUID;
         this.name = name;
-        this.playerSettings = DEFAULT_SETTINGS;
+        this.playerSettings = new HashMap<>(DEFAULT_SETTINGS);
     }
 
     private PlayerSettings(UUID playerUUID) {
         this.playerUUID = playerUUID;
         this.name = Bukkit.getOfflinePlayer(playerUUID).getName();
-        this.playerSettings = DEFAULT_SETTINGS;
+        this.playerSettings = new HashMap<>(DEFAULT_SETTINGS);
     }
 
     private PlayerSettings(String name) {
         this.playerUUID = Bukkit.getOfflinePlayer(name).getUniqueId();
         this.name = name;
-        this.playerSettings = DEFAULT_SETTINGS;
+        this.playerSettings = new HashMap<>(DEFAULT_SETTINGS);
     }
 
-    public static Result<PlayerSettings> getSettings(UUID uuid) {
-        if (SETTINGS.containsKey(uuid)) PlayerJoined(uuid);
+    public static PlayerSettings getSettings(UUID uuid) {
+        if (!SETTINGS.containsKey(uuid)) loadPlayer(uuid);
 
-        return new Result<PlayerSettings>(true).setPaired(SETTINGS.get(uuid));
+        return SETTINGS.get(uuid);
     }
 
-
-    public static void PlayerJoined(final UUID joinedPlayer) {
+    public static void loadPlayer(final UUID joinedPlayer) {
         PlayerSettings settings = null;
         if (DataAccess.exists("Players", joinedPlayer.toString())) {
             settings = DataAccess.getFile("Players", joinedPlayer.toString(), PlayerSettings.class);
@@ -67,13 +64,7 @@ public class PlayerSettings {
                 settings = new PlayerSettings(joinedPlayer);
             } else {
                 Debugger.log("Loaded player settings for " + Bukkit.getOfflinePlayer(joinedPlayer).getName());
-                for (String key : DEFAULT_SETTINGS.keySet()) {
-                    Setting defaultSettings = DEFAULT_SETTINGS.get(key);
-
-                    settings.playerSettings.get(key).setType(defaultSettings.getType());
-                    settings.playerSettings.get(key).setMaterial(defaultSettings.getMaterial());
-                    settings.playerSettings.get(key).setEnumValues(defaultSettings.getEnumValues());
-                }
+                Setting.populateSettings(DEFAULT_SETTINGS, settings.playerSettings);
             }
         } else {
             Debugger.log("Generating new player settings for " + Bukkit.getOfflinePlayer(joinedPlayer).getName());
@@ -81,31 +72,39 @@ public class PlayerSettings {
         }
         SETTINGS.put(joinedPlayer, settings);
     }
+
     public static void PlayerLeave(UUID leftPlayer) {
-        AsyncCore.Run(() -> {
-           DataAccess.addFile("Players", leftPlayer.toString(), SETTINGS.get(leftPlayer));
-           Debugger.log("Saved " +  Bukkit.getOfflinePlayer(leftPlayer).getName()
-                   + "'s player settings");
-           SETTINGS.remove(leftPlayer);
+        AsyncTask.run(() -> {
+            DataAccess.addFile("Players", leftPlayer.toString(), SETTINGS.get(leftPlayer));
+            Debugger.log("Saved " + Bukkit.getOfflinePlayer(leftPlayer).getName()
+                    + "'s player settings");
+            SETTINGS.remove(leftPlayer);
         });
     }
 
+    public static void register() {
+        add(new BoolSetting("bossBars", true,
+                Utility.createItem(Material.HEART_OF_THE_SEA, "&eDisplay boss bar", new String[]{
+                        "&8The bossbar will appear when", "&8your faction power changes.", "&8Through losing or gaining power"
+                })));
+        add(new BoolSetting("hideCommandDescription",false, Utility.createItem(Material.COMMAND_BLOCK,
+                "&eHide command descriptions", new String[]{"&8You think the auto", "&8descriptions annoy you?",
+                        "&8Disable them" })));
+        add(new BoolSetting("displayTitle", true, Utility.createItem(Material.NAME_TAG,
+                "&eDisplay territory titles")));
+        add(new EnumSetting(TitlePosition.values(), "titlePosition", Utility.createItem(
+                Material.END_PORTAL_FRAME, "&eDisplay position", new String[]{ "&8Change where you want",
+                        "&8Territory changes be announced" })));
+        add(new BoolSetting("showNotifications", true,
+                Utility.createItem(Material.BOOK, "&eShow notifications", new String[] {
+                        "§8Display messages when", "§8your faction status", "§8has been changed"
+                })));
 
-    public static boolean init() {
-        DEFAULT_SETTINGS.put("bossBars", new Setting<>(true, Setting.SettingsType.BOOL)
-                .setMaterial(Material.HEART_OF_THE_SEA));
-        DEFAULT_SETTINGS.put("hideCommandDescription", new Setting<>(false, Setting.SettingsType.BOOL)
-                .setMaterial(Material.COMMAND_BLOCK));
-        DEFAULT_SETTINGS.put("displayTitle", new Setting<>(true, Setting.SettingsType.BOOL)
-                .setMaterial(Material.NAME_TAG));
-        DEFAULT_SETTINGS.put("titlePosition", new Setting<>(TitlePosition.TITLE, Setting.SettingsType.ENUM)
-                .setMaterial(Material.AMETHYST_SHARD).setEnumValues(Utility.getNames(TitlePosition.class)));
-        DEFAULT_SETTINGS.put("factionJoinTimeout", new Setting<>(FactionMemberManager.NONE_TIMEOUT,
-                Setting.SettingsType.NOT_LISTED));
+        add(new HiddenSetting<>("factionJoinTimeout", "-1"));
 
 
         for (Player player : Bukkit.getOnlinePlayers()) {
-            PlayerJoined(player.getUniqueId());
+            loadPlayer(player.getUniqueId());
         }
 
         //ToDo: Stop using save events, use Dynamic loaders
@@ -120,14 +119,21 @@ public class PlayerSettings {
                 for (UUID player : SETTINGS.keySet()) {
                     if (!DataAccess.addFile("Players", player.toString(), SETTINGS.get(player)))
                         return new Result<String>(false)
-                                .setPaired(JsonUtility.SaveObject(player.toString()))
+                                .setPaired(JsonUtility.saveObject(player.toString()))
                                 .setMachineMessage("Players/" + player + ".json");
                 }
                 SETTINGS.clear();
                 return new Result<>(true).setMachineMessage("Players/*.json");
             }
         });
-        return true;
+    }
+
+    public static void add(Setting setting) {
+        DEFAULT_SETTINGS.put(setting.getSettingName(), setting);
+    }
+
+    public static Map<UUID, PlayerSettings> getLoadedSettings() {
+        return SETTINGS;
     }
 
     public Setting getSetting(String key) {
@@ -163,7 +169,19 @@ public class PlayerSettings {
         return this;
     }
 
-    public static Map<UUID, PlayerSettings> getLoadedSettings() {
-        return SETTINGS;
+    public enum TitlePosition implements SettingEnum {
+        TITLE("Title"), SUBTITLE("Subtitle"),
+        ACTIONBAR("Actionbar"), CHAT("Chat");
+
+        String display;
+
+        TitlePosition(String display) {
+            this.display = display;
+        }
+
+        @Override
+        public String getDisplay() {
+            return display;
+        }
     }
 }

@@ -12,7 +12,7 @@ public class GUISettings {
     private boolean clickable;
     private boolean quitIcon;
     private Callback quitCallback;
-    private List<ObjectPair<Integer, Slot>> extraSlots;
+    private final List<ObjectPair<Integer, Slot>> extraSlots;
 
     public GUISettings() {
         this.dragable = false;
@@ -25,13 +25,13 @@ public class GUISettings {
         return quitCallback;
     }
 
-    public List<ObjectPair<Integer, Slot>> getExtraSlots() {
-        return extraSlots;
-    }
-
     public GUISettings setQuitCallback(Callback quitCallback) {
         this.quitCallback = quitCallback;
         return this;
+    }
+
+    public List<ObjectPair<Integer, Slot>> getExtraSlots() {
+        return extraSlots;
     }
 
     public boolean isQuitIcon() {
@@ -43,21 +43,21 @@ public class GUISettings {
         return this;
     }
 
+    public boolean isDragable() {
+        return dragable;
+    }
+
     public GUISettings setDragable(boolean dragable) {
         this.dragable = dragable;
         return this;
     }
 
+    public boolean isClickable() {
+        return clickable;
+    }
+
     public GUISettings setClickable(boolean clickable) {
         this.clickable = clickable;
         return this;
-    }
-
-    public boolean isDragable() {
-        return dragable;
-    }
-
-    public boolean isClickable() {
-        return clickable;
     }
 }

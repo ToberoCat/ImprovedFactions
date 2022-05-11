@@ -29,8 +29,11 @@ public abstract class DynamicLoader<T, E> implements Listener {
     }
 
     protected abstract void loadPlayer(final T value);
+
     protected abstract void unloadPlayer(final E value);
+
     protected abstract void Disable();
+
     protected abstract void Enable();
 
 }

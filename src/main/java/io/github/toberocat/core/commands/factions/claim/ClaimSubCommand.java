@@ -1,17 +1,18 @@
 package io.github.toberocat.core.commands.factions.claim;
 
-import io.github.toberocat.core.utility.command.SubCommand;
+import io.github.toberocat.MainIF;
+import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.FactionUtility;
+import io.github.toberocat.core.utility.Result;
+import io.github.toberocat.core.utility.command.AutoSubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
-import io.github.toberocat.core.utility.language.LangMessage;
+import io.github.toberocat.core.utility.language.Language;
+import io.github.toberocat.core.utility.language.Parseable;
 import org.bukkit.entity.Player;
 
-import java.util.List;
-
-public class ClaimSubCommand extends SubCommand {
+public class ClaimSubCommand extends AutoSubCommand {
     public ClaimSubCommand() {
-        super("claim", LangMessage.COMMAND_FACTION_CLAIM_ONE_DESCRIPTION, false);
-        subCommands.add(new ClaimOneSubCommand());
-        subCommands.add(new ClaimAutoSubCommand());
+        super("claim", "command.faction.claim.description", false);
     }
 
     @Override
@@ -20,15 +21,24 @@ public class ClaimSubCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
-        if (args.length == 0) {
-            List<SubCommand> convertedSubCommands = subCommands.stream().toList();
-            convertedSubCommands.get(0).CallSubCommand(player, new String[]{});
-        }
+    public String getEnabledKey() {
+        return "command.claim.auto.enable";
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
-        return null;
+    public String getDisabledKey() {
+        return "command.claim.auto.disable";
+    }
+
+    @Override
+    public void onSingle(Player player) {
+        Faction faction = FactionUtility.getPlayerFaction(player);
+
+        Result result = MainIF.getIF().getClaimManager().claimChunk(faction, player.getLocation().getChunk());
+
+        if (result.isSuccess()) Language.sendMessage("command.faction.claim.success", player);
+        else
+            Language.sendMessage("command.faction.claim.failed", player,
+                    new Parseable("{error}", result.getPlayerMessage()));
     }
 }

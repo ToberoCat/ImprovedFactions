@@ -7,15 +7,15 @@ import org.bukkit.inventory.ItemStack;
 
 public class Config<T> {
 
-    private String path;
+    private final String path;
     private T value;
 
     private boolean autoSave;
     private boolean changes;
 
-    private ItemStack itemIcon;
+    private final ItemStack itemIcon;
 
-    private String configFile;
+    private final String configFile;
 
     public Config(String path, String configFile, ItemStack icon) {
         this.path = path;

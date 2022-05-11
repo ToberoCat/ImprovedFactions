@@ -1,24 +1,23 @@
 package io.github.toberocat.core.commands.admin;
 
-import io.github.toberocat.core.utility.factions.FactionUtility;
+import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
-import io.github.toberocat.core.utility.factions.Faction;
-import io.github.toberocat.core.utility.language.LangMessage;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.language.Parseable;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class AdminDisbandSubCommand extends SubCommand  {
+public class AdminDisbandSubCommand extends SubCommand {
     public AdminDisbandSubCommand() {
-        super("disband", "admin.disband", LangMessage.COMMAND_ADMIN_DISBAND_DESCRIPTION, false);
+        super("disband", "admin.disband", "command.admin.disband.description", false);
     }
 
     @Override
     public SubCommandSettings getSettings() {
-        return super.getSettings().setArgLength(1);
+        return super.getSettings().setArgLength(1).setUseWhenFrozen(true);
     }
 
     @Override
@@ -29,7 +28,7 @@ public class AdminDisbandSubCommand extends SubCommand  {
             return;
         }
         faction.delete();
-        Language.sendMessage(LangMessage.COMMAND_ADMIN_DISBAND_SUCCESS, player,
+        Language.sendMessage("command.admin.disband.success", player,
                 new Parseable("{faction_display}", faction.getDisplayName()));
     }
 

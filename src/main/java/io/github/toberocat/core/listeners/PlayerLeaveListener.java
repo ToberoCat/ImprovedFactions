@@ -1,7 +1,7 @@
 package io.github.toberocat.core.listeners;
 
-import io.github.toberocat.core.utility.factions.FactionUtility;
-import io.github.toberocat.core.utility.factions.Faction;
+import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.utility.settings.PlayerSettings;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

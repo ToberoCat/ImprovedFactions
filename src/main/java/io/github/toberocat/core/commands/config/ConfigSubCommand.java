@@ -1,22 +1,19 @@
 package io.github.toberocat.core.commands.config;
 
 import io.github.toberocat.core.utility.command.SubCommand;
-import io.github.toberocat.core.utility.language.LangMessage;
 import org.bukkit.entity.Player;
 
 import java.util.List;
-import java.util.Set;
 
 public class ConfigSubCommand extends SubCommand {
 
     public ConfigSubCommand() {
-        super("config", LangMessage.COMMAND_CONFIG_DESCRIPTION, true);
-        subCommands.addAll(Set.of(
-                new ConfigBackupSubCommand(),
-                new ConfigSaveSubCommand(),
-                new ConfigReloadSubCommand(),
-                new ConfigRemoveAllBackupSubCommand(),
-                new ConfigConfigureSubCommand()));
+        super("config", "command.config.description", true);
+        subCommands.add(new ConfigBackupSubCommand());
+        subCommands.add(new ConfigSaveSubCommand());
+        subCommands.add(new ConfigReloadSubCommand());
+        subCommands.add(new ConfigRemoveAllBackupSubCommand());
+        subCommands.add(new ConfigConfigureSubCommand());
     }
 
     @Override

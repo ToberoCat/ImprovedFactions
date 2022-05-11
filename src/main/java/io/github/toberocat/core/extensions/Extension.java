@@ -3,44 +3,38 @@ package io.github.toberocat.core.extensions;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.extensions.list.ExtensionListLoader;
 import io.github.toberocat.core.utility.version.UpdateChecker;
+import io.github.toberocat.core.utility.version.Version;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.logging.Level;
 
 public abstract class Extension {
 
-    protected ExtensionRegistry registry;
+    protected ExtensionRegistry registry = null;
     protected boolean enabled = false;
+
     /**
      * Empty constructor needed, else not able to load .jar
      */
-    public Extension() {
-    }
+    public Extension() {}
 
     /**
      * Gets called to get informations like name, version, dependencies
      */
-    protected abstract ExtensionRegistry register();
-
-    public final void Enable(String filename, MainIF plugin) {
-        registry = register();
-
-        ExtensionListLoader.getExtensionVersion(filename).setFinishCallback((newestVersion) -> {
-            UpdateChecker checker = new UpdateChecker(registry.version(), newestVersion);
-            if (!checker.isNewestVersion()) {
-                MainIF.logMessage(Level.INFO, "&aHey! There is a newer version of "
-                        + registry.displayName() + ". Use &7/f extension update&a to get the newest version");
-            }
-        });
+    public final void enable(@NotNull ExtensionRegistry registry, MainIF plugin) {
+        if (this.registry != null) return;
+        this.registry = registry;
 
         if (canEnable(plugin)) {
-            OnEnable(plugin);
-            if (Arrays.asList(registry.testedVersions()).contains(MainIF.getVersion()))
+            onEnable(plugin);
+            if (Arrays.stream(registry.testedVersions()).map(Version::getVersion).anyMatch(x -> x.equals(MainIF.getVersion().getVersion())))
                 MainIF.logMessage(Level.INFO, "&aLoading &6" + registry.displayName() + "&a with tested " +
                         "version &6" + MainIF.getVersion());
             else
                 MainIF.logMessage(Level.INFO, "&aLoading &6" + registry.displayName() + "&a with version " +
-                        "&6" + MainIF.getVersion() + "&a. &eThere may be problems with this extension");
+                        "&6" + MainIF.getVersion() + "&a. &eThis version could have complications with the extension");
             enabled = true;
         }
     }
@@ -55,9 +49,9 @@ public abstract class Extension {
                 }
             }
         }
-        if (registry.minVersion().versionToInteger() < MainIF.getVersion().versionToInteger()) {
-            MainIF.logMessage(Level.WARNING, "§c &6" + registry.displayName() + "v" + registry.version() + "&a " +
-                    "needs a minimum version of &6" + registry.minVersion() + "&a. Currently on &6" + MainIF.getVersion());
+        if (registry.minVersion().versionToInteger() > MainIF.getVersion().versionToInteger()) {
+            MainIF.logMessage(Level.WARNING, "&6" + registry.displayName() + "&c with version &6" + registry.version() + "&c " +
+                    "needs a minimum version of &6" + registry.minVersion() + "&c. You are currently on &6" + MainIF.getVersion());
             return false;
         }
         return true;
@@ -66,21 +60,24 @@ public abstract class Extension {
     /**
      * This function is called when the extension is enabling.
      * This should add all the functionally needed in this extension
+     *
      * @param plugin the JavaPlugin
      */
-    protected void OnEnable(MainIF plugin) {
+    protected void onEnable(MainIF plugin) {
 
     }
 
-    public final void Disable(MainIF plugin) {
-        OnDisable(plugin);
+    public final void disable(MainIF plugin) {
+        onDisable(plugin);
     }
+
     /**
      * This function is called when the extension is disabling.
      * This should remove all the functionally needed in this extension
+     *
      * @param plugin the JavaPlugin
      */
-    protected void OnDisable(MainIF plugin) {
+    protected void onDisable(MainIF plugin) {
 
     }
 

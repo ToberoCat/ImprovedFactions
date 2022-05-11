@@ -3,6 +3,7 @@ package io.github.toberocat.core.utility;
 /* I release this code into the public domain.
  * http://unlicense.org/UNLICENSE
  */
+
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 import java.util.concurrent.locks.LockSupport;
 
@@ -12,17 +13,20 @@ import java.util.concurrent.locks.LockSupport;
  */
 public class SignalBarrier {
     /**
+     * Used to update the owner atomically
+     */
+    private static final AtomicReferenceFieldUpdater<SignalBarrier, Thread> ownerAccess =
+            AtomicReferenceFieldUpdater.newUpdater(SignalBarrier.class, Thread.class, "_owner");
+    /**
      * The Thread that is currently awaiting the signal.
      * !!! Don't call this directly !!!
      */
     @SuppressWarnings("unused")
     private volatile Thread _owner;
 
-    /** Used to update the owner atomically */
-    private static final AtomicReferenceFieldUpdater<SignalBarrier, Thread> ownerAccess =
-            AtomicReferenceFieldUpdater.newUpdater(SignalBarrier.class, Thread.class, "_owner");
-
-    /** Create a new SignalBarrier without an owner. */
+    /**
+     * Create a new SignalBarrier without an owner.
+     */
     public SignalBarrier() {
         _owner = null;
     }
@@ -45,7 +49,7 @@ public class SignalBarrier {
      * Claim the SignalBarrier and block until signaled.
      *
      * @throws IllegalStateException If the SignalBarrier already has an owner.
-     * @throws InterruptedException If the thread is interrupted while waiting.
+     * @throws InterruptedException  If the thread is interrupted while waiting.
      */
     public void await() throws InterruptedException {
         // Get the thread that would like to await the signal.
@@ -75,11 +79,10 @@ public class SignalBarrier {
     /**
      * Claim the SignalBarrier and block until signaled or the timeout expires.
      *
-     * @throws IllegalStateException If the SignalBarrier already has an owner.
-     * @throws InterruptedException If the thread is interrupted while waiting.
-     *
      * @param timeout The timeout duration in nanoseconds.
      * @return The timeout minus the number of nanoseconds that passed while waiting.
+     * @throws IllegalStateException If the SignalBarrier already has an owner.
+     * @throws InterruptedException  If the thread is interrupted while waiting.
      */
     public long awaitNanos(long timeout) throws InterruptedException {
         if (timeout <= 0)

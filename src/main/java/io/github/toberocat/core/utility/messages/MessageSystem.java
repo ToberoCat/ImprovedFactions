@@ -1,6 +1,6 @@
 package io.github.toberocat.core.utility.messages;
 
-import io.github.toberocat.core.utility.async.AsyncCore;
+import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.dynamic.loaders.PlayerJoinLoader;
 import org.bukkit.Bukkit;
@@ -21,20 +21,20 @@ public class MessageSystem extends PlayerJoinLoader {
     }
 
     public static void sendMessage(UUID uuid, String message) {
-        AsyncCore.Run(() -> {
+        AsyncTask.run(() -> {
             OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
-           if (player.isOnline()) {
-               player.getPlayer().sendMessage(message);
-           } else {
-               ArrayList<String> messages = MESSAGES.putIfAbsent(uuid, new ArrayList<>());
-               messages.add(message);
-           }
+            if (player.isOnline()) {
+                player.getPlayer().sendMessage(message);
+            } else {
+                ArrayList<String> messages = MESSAGES.putIfAbsent(uuid, new ArrayList<>());
+                messages.add(message);
+            }
         });
     }
 
     @Override
     protected void loadPlayer(Player player) {
-        AsyncCore.Run(() -> {
+        AsyncTask.run(() -> {
             UUID uuid = player.getUniqueId();
             if (MESSAGES.containsKey(uuid)) {
                 for (String message : MESSAGES.get(uuid)) {

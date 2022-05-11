@@ -1,15 +1,14 @@
 package io.github.toberocat.core.utility.command;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.utility.factions.FactionUtility;
-import io.github.toberocat.core.utility.factions.Faction;
+import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.FactionUtility;
+import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 
 import java.util.logging.Level;
 
 public class SubCommandSettings {
-
-    public enum NYI { No, Yes, Ignore }
 
     private String factionPermission;
     private boolean needsAdmin;
@@ -18,7 +17,7 @@ public class SubCommandSettings {
     private int argLength;
     private String rank;
     private boolean canUseInConsole;
-
+    private boolean useWhenFrozen;
     private Object[] eventParameters;
     private boolean isCancellable;
 
@@ -31,6 +30,7 @@ public class SubCommandSettings {
         eventParameters = null;
         argLength = -1;
         canUseInConsole = false;
+        useWhenFrozen = false;
     }
 
     public String getRank() {
@@ -114,16 +114,25 @@ public class SubCommandSettings {
         return this;
     }
 
+    public boolean isUseWhenFrozen() {
+        return useWhenFrozen;
+    }
+
+    public SubCommandSettings setUseWhenFrozen(boolean useWhenFrozen) {
+        this.useWhenFrozen = useWhenFrozen;
+        return this;
+    }
+
     public boolean canDisplay(SubCommand subCommand, Player player, String[] args, boolean messages) {
         if (player == null && !canUseInConsole) {
             if (messages) MainIF.logMessage(Level.INFO, "&cYou can't use this command in the console");
             return false;
         }
 
-        return getFactionNYI(subCommand, player, messages);
+        return getFactionOperations(subCommand, player, messages);
     }
 
-    private boolean getFactionNYI(SubCommand subCommand, Player player, boolean messages) {
+    private boolean getFactionOperations(SubCommand subCommand, Player player, boolean messages) {
         Faction faction = FactionUtility.getPlayerFaction(player);
 
         if (needsFaction == NYI.No && faction != null) {
@@ -134,6 +143,12 @@ public class SubCommandSettings {
             if (messages) subCommand.sendCommandExecuteError(SubCommand.CommandExecuteError.NoFaction, player);
             return false;
         }
+
+        if (faction != null && faction.isFrozen() && !useWhenFrozen) {
+            if (messages) Language.sendRawMessage("Faction is frozen. You can't use that", player);
+            return false;
+        }
+
         return true;
     }
 
@@ -147,7 +162,7 @@ public class SubCommandSettings {
             return false;
         }
 
-        return getFactionNYI(subCommand, player, messages);
+        return getFactionOperations(subCommand, player, messages);
 
         /*
         Faction faction = FactionUtils.getFaction(player);
@@ -189,4 +204,6 @@ public class SubCommandSettings {
         return result;
          */
     }
+
+    public enum NYI {No, Yes, Ignore}
 }

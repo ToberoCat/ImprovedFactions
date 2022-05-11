@@ -1,10 +1,9 @@
 package io.github.toberocat.core.commands.factions.relation;
 
-import io.github.toberocat.core.utility.factions.FactionUtility;
+import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
-import io.github.toberocat.core.utility.factions.Faction;
-import io.github.toberocat.core.utility.language.LangMessage;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.language.Parseable;
 import org.bukkit.entity.Player;
@@ -14,7 +13,7 @@ import java.util.List;
 
 public class AllyRelationSubCommand extends SubCommand {
     public AllyRelationSubCommand() {
-        super("ally", "relation.ally", LangMessage.COMMAND_RELATION_ALLY_DESCRIPTION, false);
+        super("ally", "relation.ally", "command.relation.ally.description", false);
     }
 
     @Override
@@ -33,12 +32,12 @@ public class AllyRelationSubCommand extends SubCommand {
         Faction playerFaction = FactionUtility.getPlayerFaction(player);
 
         if (addressedFaction.getRegistryName().equals(playerFaction.getRegistryName())) {
-            Language.sendMessage(LangMessage.COMMAND_RELATION_ALLY_FAIL, player,
+            Language.sendMessage("command.relation.ally.fail", player,
                     new Parseable("{faction}", addressedFaction.getDisplayName()));
             return;
         }
         addressedFaction.getRelationManager().MakeAlly(playerFaction);
-        Language.sendMessage(LangMessage.COMMAND_RELATION_ALLY_SUCCESS, player,
+        Language.sendMessage("command.relation.ally.success", player,
                 new Parseable("{faction}", addressedFaction.getDisplayName()));
     }
 

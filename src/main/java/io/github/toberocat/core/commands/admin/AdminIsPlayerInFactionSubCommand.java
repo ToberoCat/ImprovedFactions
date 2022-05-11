@@ -1,8 +1,8 @@
 package io.github.toberocat.core.commands.admin;
 
+import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
-import io.github.toberocat.core.utility.factions.FactionUtility;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -13,12 +13,13 @@ import java.util.List;
 
 public class AdminIsPlayerInFactionSubCommand extends SubCommand {
     public AdminIsPlayerInFactionSubCommand() {
-        super("isinfaction", "admin.isinfaction", "", false);
+        super("isinfaction", "admin.isinfaction", "command.admin.if-player-faction.discription", false);
     }
+
 
     @Override
     public SubCommandSettings getSettings() {
-        return super.getSettings().setArgLength(1);
+        return super.getSettings().setArgLength(1).setUseWhenFrozen(true);
     }
 
     @Override

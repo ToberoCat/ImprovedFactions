@@ -7,7 +7,7 @@ import io.github.toberocat.MainIF;
 import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.utility.ObjectPair;
 import io.github.toberocat.core.utility.Utility;
-import io.github.toberocat.core.utility.async.AsyncCore;
+import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.dynamic.loaders.PlayerJoinLoader;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -38,7 +38,7 @@ public class Language extends PlayerJoinLoader {
             return false;
         }
 
-        LangMessage defaultMessages = new LangMessage();
+        LangMessage defaultMessages = LangMessage.createNewLang();
         try {
             File en_us = new File(langDir.getPath() + "/en_us.lang");
 
@@ -83,7 +83,7 @@ public class Language extends PlayerJoinLoader {
         return true;
     }
 
-    private static void LoadLanguage(File file) {
+    private static void loadLanguage(File file) {
         String[] split = file.getName().split("\\.");
         if (split.length > 1 && split[1].equals("lang")) {
             try {
@@ -99,39 +99,6 @@ public class Language extends PlayerJoinLoader {
         }
     }
 
-    @Override
-    protected void loadPlayer(final Player player) {
-        AsyncCore.Run(() -> {
-            String locale = player.getLocale();
-            if (LOADED_LANGUAGES.containsKey(locale)) {
-                ObjectPair<Integer, LangMessage> pair = LOADED_LANGUAGES.get(locale);
-                pair.setT(pair.getT() + 1);
-                return;
-            }
-
-            String langPath = MainIF.getIF().getDataFolder().getPath() + "/lang";
-            File langDir = new File(langPath);
-            if (!Arrays.stream(langDir.listFiles()).anyMatch(x -> x.getName().equals(locale + ".lang"))) return;
-
-            Debugger.log("Loading " + locale + " for " + player.getName());
-
-            LoadLanguage(new File(langPath + "/" + locale + ".lang"));
-        });
-    }
-
-    @Override
-    protected void unloadPlayer(Player player) {
-        String locale = player.getLocale();
-
-        if (LOADED_LANGUAGES.get(locale).getT() == 1) {
-            Debugger.log("Removing " + locale + " for " + player.getName());
-            LOADED_LANGUAGES.remove(locale);
-        } else {
-            ObjectPair<Integer, LangMessage> pair = LOADED_LANGUAGES.get(locale);
-            pair.setT(pair.getT() - 1);
-        }
-    }
-
     public static String getMessage(String msgKey, Player player, Parseable... parseables) {
         String locale = player.getLocale();
         return getMessage(msgKey, locale, parseables);
@@ -141,7 +108,7 @@ public class Language extends PlayerJoinLoader {
         LangMessage langMessage;
         if (LOADED_LANGUAGES.containsKey(file)) {
             langMessage = LOADED_LANGUAGES.get(file).getE();
-        } else if (LOADED_LANGUAGES.containsKey("en_us")){
+        } else if (LOADED_LANGUAGES.containsKey("en_us")) {
             langMessage = LOADED_LANGUAGES.get("en_us").getE();
         } else {
             MainIF.getIF().saveShutdown("Wasn't able to find &6en_us&c translation file");
@@ -149,7 +116,7 @@ public class Language extends PlayerJoinLoader {
         }
 
         if (langMessage.getMessages().containsKey(msgKey)) {
-           return format(parse(langMessage.getMessages().get(msgKey), parseables));
+            return format(parse(langMessage.getMessages().get(msgKey), parseables));
         } else {
             return format("&cThere went something wrong. If this happens more than two times, please report it to an admin. Error: NoLocalizationFound");
         }
@@ -166,6 +133,7 @@ public class Language extends PlayerJoinLoader {
     /**
      * This function will convert any text with numbers instead of letters (e.g: e => 3) back into normal language.
      * Note that this will also replace numbers not meant as leeters. E.g: I'm number 1 => I'm number i
+     *
      * @param leetString The string with the numbers (e.g: 4bcd3f6h1jklmn0pqr57uvwxyz)
      * @return The string without the numbers (e.g: abcdefghijklmnopqrstuvwxyz)
      */
@@ -182,6 +150,7 @@ public class Language extends PlayerJoinLoader {
 
     /**
      * Does the same as @see {@link #similarity(String, String)}, but now also removes stylised text and leetspeak
+     *
      * @param _s1 first string for comparison
      * @param _s2 second string for comparison
      * @return The difference between the two string as double
@@ -196,6 +165,7 @@ public class Language extends PlayerJoinLoader {
     /**
      * Calculates the similarity (a number within 0 and 1) between two strings.
      * It won't do anything beside
+     *
      * @param s1 first string for comparison
      * @param s2 second string for comparison
      * @return The difference between the two string as double
@@ -203,10 +173,13 @@ public class Language extends PlayerJoinLoader {
     public static float similarity(String s1, String s2) {
         String longer = Normalizer.normalize(s1, Normalizer.Form.NFKC), shorter = Normalizer.normalize(s2, Normalizer.Form.NFKC);
         if (s1.length() < s2.length()) {
-            longer = s2; shorter = s1;
+            longer = s2;
+            shorter = s1;
         }
         int longerLength = longer.length();
-        if (longerLength == 0) { return 1.0f;}
+        if (longerLength == 0) {
+            return 1.0f;
+        }
 
         return (longerLength - editDistance(longer, shorter)) / (float) longerLength;
 
@@ -267,7 +240,7 @@ public class Language extends PlayerJoinLoader {
         return ChatColor.translateAlternateColorCodes('&', msg);
     }
 
-    public static String escape(String s){
+    public static String escape(String s) {
         if (s == null) return null;
         return s.replace("\\", "\\\\")
                 .replace("\t", "\\t")
@@ -275,9 +248,43 @@ public class Language extends PlayerJoinLoader {
                 .replace("\n", "\\n")
                 .replace("\r", "\\r")
                 .replace("\f", "\\f")
-                .replace("\'", "\\'")
+                .replace("'", "\\'")
                 .replace("\"", "\\\"")
                 .replace("{", "\\{")
                 .replace("}", "\\}");
+    }
+
+    @Override
+    protected void loadPlayer(final Player player) {
+        AsyncTask.run(() -> {
+            String locale = player.getLocale();
+            if (LOADED_LANGUAGES.containsKey(locale)) {
+                ObjectPair<Integer, LangMessage> pair = LOADED_LANGUAGES.get(locale);
+                pair.setT(pair.getT() + 1);
+                return;
+            }
+
+            String langPath = MainIF.getIF().getDataFolder().getPath() + "/lang";
+            File langDir = new File(langPath);
+            if (!Arrays.stream(langDir.listFiles()).anyMatch(x -> x.getName().equals(locale + ".lang"))) return;
+
+            Debugger.log("Loading " + locale + " for " + player.getName());
+
+            loadLanguage(new File(langPath + "/" + locale + ".lang"));
+        });
+    }
+
+    @Override
+    protected void unloadPlayer(Player player) {
+        String locale = player.getLocale();
+        if (!LOADED_LANGUAGES.containsKey(locale)) return;
+
+        if (LOADED_LANGUAGES.get(locale).getT() == 1) {
+            Debugger.log("Removing " + locale + " for " + player.getName());
+            LOADED_LANGUAGES.remove(locale);
+        } else {
+            ObjectPair<Integer, LangMessage> pair = LOADED_LANGUAGES.get(locale);
+            pair.setT(pair.getT() - 1);
+        }
     }
 }

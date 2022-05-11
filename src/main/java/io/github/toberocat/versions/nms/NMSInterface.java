@@ -19,6 +19,7 @@ public interface NMSInterface {
 
     /**
      * Define what version this interface should get loaded to
+     *
      * @return The version string. E.g: "1.17.x"
      */
     String getVersion();
