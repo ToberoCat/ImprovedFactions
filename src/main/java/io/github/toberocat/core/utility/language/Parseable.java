@@ -10,8 +10,9 @@ public class Parseable {
 
     /**
      * Create a new parseable
+     *
      * @param parse The string sequence that needs to be replaced
-     * @param to The sequence the old should be replaced with
+     * @param to    The sequence the old should be replaced with
      */
     public Parseable(String parse, String to) {
         this.parse = parse;

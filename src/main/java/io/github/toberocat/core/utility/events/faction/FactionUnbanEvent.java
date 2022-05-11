@@ -1,8 +1,7 @@
 package io.github.toberocat.core.utility.events.faction;
 
-import io.github.toberocat.core.utility.factions.Faction;
+import io.github.toberocat.core.factions.Faction;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 
 public class FactionUnbanEvent extends FactionEventCancelledable {
 

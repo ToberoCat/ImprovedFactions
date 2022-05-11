@@ -1,9 +1,9 @@
 package io.github.toberocat.core.utility.events;
 
-import io.github.toberocat.core.utility.config.Config;
 import io.github.toberocat.core.utility.Result;
+import io.github.toberocat.core.utility.config.Config;
 
-public interface ConfigSaveEvent  {
+public interface ConfigSaveEvent {
     default SaveType isSingleCall() {
         return SaveType.Config;
     }
@@ -14,7 +14,6 @@ public interface ConfigSaveEvent  {
     }
 
     /**
-     *
      * @param configFile The config that needs to get saved
      * @return The result, where if success false, backup will be created
      */
@@ -23,12 +22,11 @@ public interface ConfigSaveEvent  {
     }
 
     /**
-     *
      * @return A result, where paired needs to be the value, that would got saved and machineError the path. E.g: Factions/registry.json @FactionType
      */
     default Result SaveDataAccess() {
         return new Result<>(true);
     }
 
-    enum SaveType {Config, DataAccess }
+    enum SaveType {Config, DataAccess}
 }

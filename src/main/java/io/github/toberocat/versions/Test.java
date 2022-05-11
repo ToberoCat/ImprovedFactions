@@ -1,19 +1,22 @@
 package io.github.toberocat.versions;
 
-import io.github.toberocat.core.extensions.ExtensionObject;
-import io.github.toberocat.core.utility.json.JsonUtility;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import io.github.toberocat.core.extensions.ExtensionRegistry;
+import io.github.toberocat.core.utility.jackson.YmlUtility;
 import io.github.toberocat.core.utility.version.Version;
-import org.bukkit.Material;
+import org.apache.commons.io.IOUtils;
 
-import java.io.File;
-import java.net.MalformedURLException;
+import java.io.*;
+import java.net.JarURLConnection;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import java.nio.charset.StandardCharsets;
+
 
 public class Test {
-    //ToDo: Remove this class
-    public static void main(String[] args) throws MalformedURLException {
-
+    public static void main(String[] args) throws IOException {
+        String str = "1.0";
+        str = str.replaceAll("[^0-9]", "");
+        System.out.println(str);
     }
 }

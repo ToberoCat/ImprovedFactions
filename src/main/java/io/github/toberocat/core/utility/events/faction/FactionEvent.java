@@ -1,7 +1,6 @@
 package io.github.toberocat.core.utility.events.faction;
 
-import io.github.toberocat.core.utility.factions.Faction;
-import org.bukkit.event.Cancellable;
+import io.github.toberocat.core.factions.Faction;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
@@ -15,12 +14,12 @@ public abstract class FactionEvent extends Event {
         this.faction = faction;
     }
 
-    @Override
-    public HandlerList getHandlers() {
+    public static HandlerList getHandlerList() {
         return HANDLERS;
     }
 
-    public static HandlerList getHandlerList() {
+    @Override
+    public HandlerList getHandlers() {
         return HANDLERS;
     }
 

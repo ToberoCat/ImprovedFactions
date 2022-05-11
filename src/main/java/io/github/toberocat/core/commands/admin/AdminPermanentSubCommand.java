@@ -1,9 +1,10 @@
 package io.github.toberocat.core.commands.admin;
 
+import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.utility.command.SubCommand;
+import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.data.DataAccess;
-import io.github.toberocat.core.utility.factions.Faction;
-import io.github.toberocat.core.utility.factions.FactionUtility;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 
@@ -12,7 +13,12 @@ import java.util.List;
 
 public class AdminPermanentSubCommand extends SubCommand {
     public AdminPermanentSubCommand() {
-        super("permanent", "admin.permanent", "", false);
+        super("permanent", "admin.permanent", "command.admin.permanent.discription", false);
+    }
+
+    @Override
+    public SubCommandSettings getSettings() {
+        return super.getSettings().setUseWhenFrozen(true);
     }
 
     @Override
@@ -25,14 +31,11 @@ public class AdminPermanentSubCommand extends SubCommand {
 
         faction.setPermanent(!faction.isPermanent());
         Language.sendRawMessage("The faction &e" +
-                (!faction.isPermanent() ? "isn't permanent any more" : "is now permanent") , player);
+                (!faction.isPermanent() ? "isn't permanent any more" : "is now permanent"), player);
     }
 
     @Override
     protected List<String> CommandTab(Player player, String[] args) {
-        List<String> ar = Arrays.asList(DataAccess.listFiles("Factions"));
-        ar.addAll(Faction.getLoadedFactions().values().stream().map(Faction::getRegistryName).toList());
-
-        return ar;
+        return Arrays.asList(DataAccess.listFiles("Factions"));
     }
 }

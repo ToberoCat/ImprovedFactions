@@ -7,14 +7,15 @@ import org.bukkit.entity.Player;
 
 public class PlayerMessageBuilder {
 
-    private BaseComponent[] component;
+    private final BaseComponent[] component;
 
     /**
      * This class got writen to make it easy to send hoverable & clickable messages.
      * Message layout: Use normal color formatting.
      * For hoverEvent use: {HOVER(index)}, where index an integer is. E.g: {HOVER(0)}. Index is used later for setting the event callback
      * For clickEvent use: {CLICK(index)}, where index an integer is. E.g: {CLICK(1)}. Note: Index should never be the same as another one. Used later for event callback
-     * @param message The message. E.g: %&cHello;{HOVER}% &e&lworld %&c!;{CLICK(0)}{HOVER}%
+     *
+     * @param message  The message. E.g: %&cHello;{HOVER}% &e&lworld %&c!;{CLICK(0)}{HOVER}%
      * @param commands Order the callbacks like you made the indexes. Index 0 in the () is equal to callbacks[0]
      */
     public PlayerMessageBuilder(String message, String... commands) {

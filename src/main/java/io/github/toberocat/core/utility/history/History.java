@@ -1,6 +1,6 @@
 package io.github.toberocat.core.utility.history;
 
-import io.github.toberocat.core.utility.async.AsyncCore;
+import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.history.territory.Territory;
 import io.github.toberocat.core.utility.history.territory.TerritorySwitch;
@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class History {
 
     public static void logTerritorySwitch(Player player, Territory from, Territory to) {
-        AsyncCore.Run(() -> {
+        AsyncTask.run(() -> {
             HashMap<String, TerritorySwitch> data;
             if (DataAccess.exists("History/Territory", player.getUniqueId().toString())) {
                 data = DataAccess.getFile("History/Territory", player.getUniqueId().toString(), HashMap.class);

@@ -1,19 +1,30 @@
 package io.github.toberocat.core.commands.factions;
 
+import io.github.toberocat.MainIF;
+import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.FactionUtility;
+import io.github.toberocat.core.factions.rank.Rank;
+import io.github.toberocat.core.factions.rank.members.MemberRank;
+import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
-import io.github.toberocat.core.utility.factions.Faction;
-import io.github.toberocat.core.utility.factions.FactionUtility;
-import io.github.toberocat.core.utility.factions.rank.members.MemberRank;
-import io.github.toberocat.core.utility.factions.rank.Rank;
+import io.github.toberocat.core.utility.date.DateCore;
 import io.github.toberocat.core.utility.language.Language;
+import io.github.toberocat.core.utility.settings.PlayerSettings;
+import io.github.toberocat.core.utility.settings.type.HiddenSetting;
 import org.bukkit.entity.Player;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.Period;
+import org.joda.time.ReadableInstant;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.List;
 
 public class JoinFactionSubCommand extends SubCommand {
     public JoinFactionSubCommand() {
-        super("join", "", false);
+        super("join", "command.join.description", false);
     }
 
     @Override
@@ -29,13 +40,30 @@ public class JoinFactionSubCommand extends SubCommand {
             return;
         }
 
-        if (faction.getOpenType() == Faction.OpenType.PRIVATE) {
+        if (faction.getOpenType() == Faction.OpenType.CLOSED) {
             Language.sendRawMessage("&cGiven faction is private", player);
             return;
         }
 
-        faction.join(player, Rank.fromString(MemberRank.registry));
-        Language.sendRawMessage("Joined &e" + faction.getDisplayName(), player);
+        String timeout = (String) PlayerSettings.getSettings(player.getUniqueId()).getSetting("factionJoinTimeout").getSelected();
+        if (!timeout.equals("-1")) {
+            DateTimeFormatter fmt = DateCore.TIME_FORMAT;
+            DateTime until = fmt.parseDateTime(timeout);
+            System.out.println(DateTime.now().isAfter(until));
+
+            if (!DateTime.now().isAfter(until)) {
+                Period diff = new Period(DateTime.now(), until);
+
+                Language.sendRawMessage("Can't join. You are in timeout until " + until.toString(fmt) + "&f. Please wait &6" + diff.toString(DateCore.PERIOD_FORMAT) + "&f until you can join again", player);
+                return;
+            }
+        }
+        Result result = faction.join(player, Rank.fromString(MemberRank.registry));
+        if (result.isSuccess()) {
+            Language.sendRawMessage("Joined &e" + faction.getDisplayName(), player);
+        } else {
+            Language.sendRawMessage(result.getPlayerMessage(), player);
+        }
     }
 
     @Override

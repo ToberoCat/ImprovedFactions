@@ -4,7 +4,6 @@ import io.github.toberocat.MainIF;
 import io.github.toberocat.core.gui.config.configure.ConfigConfigureGUI;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
-import io.github.toberocat.core.utility.language.LangMessage;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -13,7 +12,7 @@ import java.util.List;
 
 public class ConfigConfigureSubCommand extends SubCommand {
     public ConfigConfigureSubCommand() {
-        super("configure", "config.configure", LangMessage.COMMAND_CONFIG_CONFIGURE_DESCRIPTION, false);
+        super("configure", "config.configure", "command.config.configure.description", false);
     }
 
     @Override

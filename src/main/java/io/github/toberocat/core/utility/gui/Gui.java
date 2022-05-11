@@ -1,9 +1,10 @@
 package io.github.toberocat.core.utility.gui;
 
 import io.github.toberocat.core.listeners.GuiListener;
+import io.github.toberocat.core.utility.callbacks.Callback;
 import io.github.toberocat.core.utility.gui.page.Page;
 import io.github.toberocat.core.utility.gui.slot.Slot;
-import io.github.toberocat.core.utility.callbacks.Callback;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -26,7 +27,9 @@ public class Gui {
     protected List<Page> slots;
 
     public Gui(Player player, Inventory inventory, GUISettings settings) {
-        GuiListener.guis.add(this);
+        assert player != null && inventory != null && settings != null;
+
+        GuiListener.GUIS.add(this);
 
         this.inventory = inventory;
         this.settings = settings;
@@ -37,7 +40,7 @@ public class Gui {
         openInventory(player);
 
         slots.add(new Page());
-        slots.get(0).Render(0, slots.size(), inventory, settings);
+        slots.get(0).render(0, slots.size(), inventory, settings);
     }
 
     private void openInventory(Player player) {
@@ -54,38 +57,61 @@ public class Gui {
             return;
         }
         if (lastCurrentPage != currentPage) {
-            slots.get(currentPage).Render(currentPage, slots.size(), inventory, settings);
+            slots.get(currentPage).render(currentPage, slots.size(), inventory, settings);
         }
     }
+
+    protected void close() {
+    }
+
     public void onInventoryDrag(InventoryDragEvent event, Iterator<Gui> iterator) {
         event.setCancelled(!settings.isDragable());
     }
-    public  void onInventoryClose(InventoryCloseEvent event, Iterator<Gui> iterator) {
+
+    public void onInventoryClose(InventoryCloseEvent event, Iterator<Gui> iterator) {
         if (event.getInventory().equals(inventory)) {
+            close();
             iterator.remove();
         }
     }
 
-    public void AddSlot(ItemStack stack, Callback callback) {
-        if (slots.get(slots.size() - 1).AddSlot(new Slot(stack) {
+    public void clear() {
+        slots.remove(currentPage);
+        slots.add(currentPage, new Page());
+    }
+
+    public void addSlot(Slot slot) {
+        if (slot == null) return;
+        if (slots.get(slots.size() - 1).addSlot(slot)) slots.add(new Page());
+
+        slots.get(currentPage).render(currentPage, slots.size(), inventory, settings);
+    }
+
+    public void addSlot(Slot slot, int page, int invSlot) {
+        slots.get(page).addSlot(slot, invSlot);
+        slots.get(currentPage).render(currentPage, slots.size(), inventory, settings);
+    }
+
+    public void addSlot(ItemStack stack, Callback callback) {
+        if (slots.get(slots.size() - 1).addSlot(new Slot(stack) {
             @Override
-            public void OnClick() {
+            public void OnClick(HumanEntity entity) {
                 callback.callback();
             }
         })) {
-           slots.add(new Page());
+            slots.add(new Page());
         }
-        slots.get(currentPage).Render(currentPage, slots.size(), inventory, settings);
+        slots.get(currentPage).render(currentPage, slots.size(), inventory, settings);
     }
 
-    public void AddSlot(ItemStack stack, int page, int slot, Callback callback) {
-        slots.get(page).AddSlot(new Slot(stack) {
+    public void addSlot(ItemStack stack, int page, int slot, Callback callback) {
+        slots.get(page).addSlot(new Slot(stack) {
             @Override
-            public void OnClick() {
+            public void OnClick(HumanEntity entity) {
                 callback.callback();
             }
         }, slot);
-        slots.get(currentPage).Render(currentPage, slots.size(), inventory, settings);
+        slots.get(currentPage).render(currentPage, slots.size(), inventory, settings);
     }
 
     public Inventory getInventory() {

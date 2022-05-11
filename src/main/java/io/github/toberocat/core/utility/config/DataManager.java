@@ -18,10 +18,10 @@ import java.util.List;
 public class DataManager {
 
     private final JavaPlugin plugin;
+    private final String fileName;
     private FileConfiguration dataConfig = null;
     private File configFile = null;
-    private final String fileName;
-    private ItemStack itemIcon;
+    private final ItemStack itemIcon;
 
     public DataManager(JavaPlugin plugin, ItemStack itemIcon, String fileName) {
         this.plugin = plugin;
@@ -34,7 +34,7 @@ public class DataManager {
             }
             lore.add("&8Click to configure");
 
-            this.itemIcon = Utility.modifyItem(itemIcon, itemIcon.getItemMeta().getDisplayName(), lore.toArray(String[]::new));
+            this.itemIcon = Utility.modiflyItem(itemIcon, itemIcon.getItemMeta().getDisplayName(), lore.toArray(String[]::new));
         } else {
             this.itemIcon = Utility.createItem(Material.GRASS_BLOCK, "&e&l" + fileName);
         }
@@ -78,7 +78,7 @@ public class DataManager {
     }
 
     public void saveDefaultConfig() {
-        if(this.configFile == null)
+        if (this.configFile == null)
             this.configFile = new File(this.plugin.getDataFolder(), fileName);
         if (!this.configFile.exists()) {
             this.plugin.saveResource(fileName, false);

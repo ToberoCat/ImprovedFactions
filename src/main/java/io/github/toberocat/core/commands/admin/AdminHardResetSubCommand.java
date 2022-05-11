@@ -1,30 +1,31 @@
 package io.github.toberocat.core.commands.admin;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.utility.Utility;
-import io.github.toberocat.core.utility.async.AsyncCore;
 import io.github.toberocat.core.utility.command.SubCommand;
+import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.data.DataAccess;
-import io.github.toberocat.core.utility.language.LangMessage;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.settings.PlayerSettings;
 import org.bukkit.entity.Player;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStreamReader;
 import java.util.List;
 import java.util.logging.Level;
 
 public class AdminHardResetSubCommand extends SubCommand {
     public AdminHardResetSubCommand() {
-        super("reset", "admin.reset", LangMessage.COMMAND_ADMIN_HARD_RESET_DESCRIPTION, false);
+        super("reset", "admin.reset", "command.admin.hardreset.description", false);
+    }
+
+    @Override
+    public SubCommandSettings getSettings() {
+        return super.getSettings().setUseWhenFrozen(true);
     }
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
         if (args.length == 0) {
-            Language.sendMessage(LangMessage.COMMAND_ADMIN_HARD_RESET_CONFIRM_PLAYER, player);
+            Language.sendMessage("command.admin.hardreset.confirm_player", player);
         } else if (args[0].equals("confirm")) {
             DataAccess.clearFolder("Factions");
             DataAccess.clearFolder("Chunks");
@@ -42,7 +43,7 @@ public class AdminHardResetSubCommand extends SubCommand {
 
             MainIF.getIF().getSaveEvents().clear();
             MainIF.logMessage(Level.SEVERE, "&cImprovedFactions got a reset. Please reload / restart the server");
-            Language.sendMessage(LangMessage.COMMAND_ADMIN_HARD_RESET_SUCCESS, player);
+            Language.sendMessage("command.admin.hardreset.success", player);
             MainIF.getIF().getPluginLoader().disablePlugin(MainIF.getIF());
         }
     }

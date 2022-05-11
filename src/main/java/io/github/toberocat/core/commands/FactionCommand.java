@@ -7,49 +7,58 @@ import io.github.toberocat.core.commands.factions.*;
 import io.github.toberocat.core.commands.factions.claim.ClaimSubCommand;
 import io.github.toberocat.core.commands.factions.relation.RelationSubCommand;
 import io.github.toberocat.core.commands.plugin.PluginSubCommand;
-import io.github.toberocat.core.commands.settings.SettingsSubCommand;
+import io.github.toberocat.core.commands.settings.FactionSettingsSubCommand;
+import io.github.toberocat.core.commands.settings.PlayerSettingsSubCommand;
+import io.github.toberocat.core.commands.zones.UnclaimSubCommand;
 import io.github.toberocat.core.commands.zones.ZoneSubCommand;
 import io.github.toberocat.core.utility.command.SubCommand;
-import io.github.toberocat.core.utility.language.LangMessage;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FactionCommand implements TabExecutor {
 
-    public static HashSet<SubCommand> subCommands = new HashSet<>();
+    public static List<SubCommand> subCommands = new ArrayList<>();
 
     public FactionCommand() {
-        subCommands.addAll(Set.of(
-                new ConfigSubCommand(),
-                new PluginSubCommand(),
-                new CreateFactionSubCommand(),
-                new DeleteFactionSubCommand(),
-                new ZoneSubCommand(),
-                new HelpSubCommand(),
-                new AdminSubCommand(),
-                new SettingsSubCommand(),
-                new ClaimSubCommand(),
-                new RelationSubCommand(),
-                new ExtensionSubCommand(),
-                new LeaveFactionSubCommand(),
-                new WhoSubCommand(),
-                new BanSubCommand(),
-                new UnBanSubCommand(),
-                new KickSubCommand(),
-                new OnlineSubCommand(),
-                new JoinFactionSubCommand(),
-                new MembersSubCommand()));
+        subCommands.add(new ConfigSubCommand());
+        subCommands.add(new PluginSubCommand());
+        subCommands.add(new CreateFactionSubCommand());
+        subCommands.add(new DeleteFactionSubCommand());
+        subCommands.add(new ZoneSubCommand());
+        subCommands.add(new HelpSubCommand());
+        subCommands.add(new AdminSubCommand());
+        subCommands.add(new FactionSettingsSubCommand());
+        subCommands.add(new PlayerSettingsSubCommand());
+        subCommands.add(new ClaimSubCommand());
+        subCommands.add(new RelationSubCommand());
+        subCommands.add(new ExtensionSubCommand());
+        subCommands.add(new LeaveFactionSubCommand());
+        subCommands.add(new WhoSubCommand());
+        subCommands.add(new BanSubCommand());
+        subCommands.add(new UnBanSubCommand());
+        subCommands.add(new KickSubCommand());
+        subCommands.add(new OnlineSubCommand());
+        subCommands.add(new JoinFactionSubCommand());
+        subCommands.add(new MembersSubCommand());
+        subCommands.add(new InviteSubCommand());
+        subCommands.add(new InviteAcceptSubCommand());
+        subCommands.add(new UnclaimSubCommand());
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         //Player is null if commandblock or console
-        Player player = sender instanceof Player ? (Player) sender : null;
+        Player player = null;
+
+        if (sender instanceof Player) {
+            player = (Player) sender;
+        }
 
         if (args.length == 0 && player != null) {
             HelpSubCommand.Help(player);
@@ -57,8 +66,8 @@ public class FactionCommand implements TabExecutor {
         }
 
         Player finalPlayer = player;
-        SubCommand.CallSubCommands("", subCommands, player, args).setFinishCallback((result) -> {
-            if (!result) Language.sendMessage(LangMessage.THIS_COMMAND_DOES_NOT_EXIST, finalPlayer);
+        SubCommand.CallSubCommands("", subCommands, player, args).then((result) -> {
+            if (!result) Language.sendMessage("command.not-exist", finalPlayer);
 
         });
         return true;
@@ -66,10 +75,12 @@ public class FactionCommand implements TabExecutor {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        //Player is null if commandblock or console
-        Player player = sender instanceof Player ? (Player) sender : null;
+        Player player = null;
+        if (sender instanceof Player) {
+            player = (Player) sender;
+        }
 
-        Set<String> arguments = SubCommand.CallSubCommandsTab(FactionCommand.subCommands, player, args);
+        List<String> arguments = SubCommand.CallSubCommandsTab(FactionCommand.subCommands, player, args);
 
         if (arguments == null) return null;
 

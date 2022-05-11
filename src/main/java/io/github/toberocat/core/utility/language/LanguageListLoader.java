@@ -14,9 +14,9 @@ public class LanguageListLoader {
             LangContainer container = mapper.readValue(new URL("https://raw.githubusercontent.com/ToberoCat/ImprovedFaction/master/languages.json"),
                     LangContainer.class);
             return container.getLanguages().keySet().toArray(new String[0]);
-        } catch (IOException e){
+        } catch (IOException e) {
             Utility.except(e);
-            return new String[] {""};
+            return new String[]{""};
         }
     }
 

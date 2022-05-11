@@ -9,16 +9,19 @@ import java.util.Map;
 public class ExtensionObject {
     private String fileName;
     private String displayName;
-    private String description;
+    private String registryName;
+    private String[] description;
     private Material guiIcon;
-    private Map<Version, URL> downloadLinks;
+    private Map<String, URL> downloadLinks;
     private Version newestVersion;
     private String author;
+    private String sha256;
 
-    public ExtensionObject() {}
+    public ExtensionObject() {
+    }
 
-    public ExtensionObject(String fileName, String displayName, String description, Map<Version,
-            URL> downloadLinks, Version newestVersion, String author, Material guiIcon) {
+    public ExtensionObject(String fileName, String displayName, String[] description, Map<String,
+            URL> downloadLinks, Version newestVersion, String author, Material guiIcon, String sha256) {
         this.fileName = fileName;
         this.displayName = displayName;
         this.description = description;
@@ -26,6 +29,15 @@ public class ExtensionObject {
         this.newestVersion = newestVersion;
         this.author = author;
         this.guiIcon = guiIcon;
+        this.sha256 = sha256;
+    }
+
+    public String getSha256() {
+        return sha256;
+    }
+
+    public void setSha256(String sha256) {
+        this.sha256 = sha256;
     }
 
     public String getFileName() {
@@ -44,19 +56,19 @@ public class ExtensionObject {
         this.displayName = displayName;
     }
 
-    public String getDescription() {
+    public String[] getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String[] description) {
         this.description = description;
     }
 
-    public Map<Version, URL> getDownloadLinks() {
+    public Map<String, URL> getDownloadLinks() {
         return downloadLinks;
     }
 
-    public void setDownloadLinks(Map<Version, URL> downloadLinks) {
+    public void setDownloadLinks(Map<String, URL> downloadLinks) {
         this.downloadLinks = downloadLinks;
     }
 
@@ -82,5 +94,13 @@ public class ExtensionObject {
 
     public void setGuiIcon(Material guiIcon) {
         this.guiIcon = guiIcon;
+    }
+
+    public String getRegistryName() {
+        return registryName;
+    }
+
+    public void setRegistryName(String registryName) {
+        this.registryName = registryName;
     }
 }

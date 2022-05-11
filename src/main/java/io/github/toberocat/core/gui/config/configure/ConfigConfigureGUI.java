@@ -15,7 +15,7 @@ public class ConfigConfigureGUI extends Gui {
 
         for (Config config : MainIF.getIF().getConfigMap().values()) {
             if (config.getManager().getFileName().equals(configFile)) {
-                AddSlot(config.getItemIcon(), () -> {
+                addSlot(config.getItemIcon(), () -> {
                     //ToDo: Add NMS book opening
                 });
             }

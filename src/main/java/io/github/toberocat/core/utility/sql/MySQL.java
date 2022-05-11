@@ -7,12 +7,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MySQL {
-    private String host = "localhost";
-    private String port = "3306"; // 3308
-    private String database = "improved-factions";
-    private String username = "root";
-    private String password = "";
-    private boolean useSSL = false;
+    private final String host = "localhost";
+    private final String port = "3306"; // 3308
+    private final String database = "improved-factions";
+    private final String username = "root";
+    private final String password = "";
+    private final boolean useSSL = false;
 
     private Connection connection;
     private SQL sql;
@@ -20,11 +20,12 @@ public class MySQL {
     public boolean isConnected() {
         return connection != null;
     }
+
     public void connect() throws SQLException, ClassNotFoundException {
         if (isConnected()) return;
 
         connection = DriverManager.getConnection("jdbc:mysql://" +
-                host + ":" + port + "/" + database + "?useSSL=" + useSSL,
+                        host + ":" + port + "/" + database + "?useSSL=" + useSSL,
                 username, password);
         sql = new SQL(connection);
     }

@@ -2,7 +2,6 @@ package io.github.toberocat.core.commands.config;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.utility.command.SubCommand;
-import io.github.toberocat.core.utility.language.LangMessage;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.language.Parseable;
 import org.bukkit.entity.Player;
@@ -12,7 +11,7 @@ import java.util.List;
 
 public class ConfigSaveSubCommand extends SubCommand {
     public ConfigSaveSubCommand() {
-        super("save", "config.save", LangMessage.COMMAND_CONFIG_SAVE_DESCRIPTION, false);
+        super("save", "config.save", "command.config.save.description", false);
     }
 
     @Override
@@ -22,11 +21,11 @@ public class ConfigSaveSubCommand extends SubCommand {
         differences.removeAll(savedConfigs);
 
         for (String savedConfig : savedConfigs) {
-            Language.sendMessage(LangMessage.COMMAND_CONFIG_SAVE_SUCCESS, player, new Parseable("{config}", savedConfig));
+            Language.sendMessage("command.config.save.success", player, new Parseable("{config}", savedConfig));
         }
 
         for (String backupConfig : differences) {
-            Language.sendMessage(LangMessage.COMMAND_CONFIG_SAVE_BACKUP, player, new Parseable("{config}", backupConfig));
+            Language.sendMessage("command.config.save.backup", player, new Parseable("{config}", backupConfig));
 
         }
     }

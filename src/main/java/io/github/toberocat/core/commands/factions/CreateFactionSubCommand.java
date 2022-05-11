@@ -1,12 +1,11 @@
 package io.github.toberocat.core.commands.factions;
 
 import io.github.toberocat.MainIF;
+import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
-import io.github.toberocat.core.utility.factions.Faction;
-import io.github.toberocat.core.utility.factions.FactionUtility;
-import io.github.toberocat.core.utility.language.LangMessage;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.language.Parseable;
 import org.bukkit.entity.Player;
@@ -17,10 +16,10 @@ import java.util.UUID;
 
 public class CreateFactionSubCommand extends SubCommand {
 
-    private ArrayList<UUID> PLAYER_WARNINGS;
+    private final ArrayList<UUID> PLAYER_WARNINGS;
 
     public CreateFactionSubCommand() {
-        super("create", LangMessage.COMMAND_FACTION_CREATE_DESCRIPTION, false);
+        super("create", "command.faction.create.description", false);
         PLAYER_WARNINGS = new ArrayList<>();
     }
 
@@ -32,10 +31,10 @@ public class CreateFactionSubCommand extends SubCommand {
     @Override
     protected void CommandExecute(Player player, String[] args) {
 
-        if(!FactionUtility.doesFactionExist(FactionUtility.factionDisplayToRegistry(args[0]))) {
+        if (!FactionUtility.doesFactionExist(FactionUtility.factionDisplayToRegistry(args[0]))) {
             CreateFaction(player, args[0]);
         } else {
-            Language.sendMessage(LangMessage.COMMAND_FACTION_CREATE_FAILED, player,
+            Language.sendMessage("command.faction.create.failed", player,
                     new Parseable("{error}", "The faction already exists"));
         }
 
@@ -65,12 +64,12 @@ public class CreateFactionSubCommand extends SubCommand {
     private void CreateFaction(Player player, String _name) {
         String name = player.hasPermission("faction.colors.colorInFactionName")
                 ? Language.format(_name) : _name;
-        Result<Faction> factionResult = Faction.CreateFaction(name, player);
+        Result<Faction> factionResult = Faction.createFaction(name, player);
         if (!factionResult.isSuccess()) {
             sendCommandExecuteError(factionResult.getPlayerMessage(), player);
             return;
         }
-        Language.sendMessage(LangMessage.COMMAND_FACTION_CREATE_SUCCESS, player,
+        Language.sendMessage("command.faction.create.success", player,
                 new Parseable("{faction_name}", factionResult.getPaired().getDisplayName()));
     }
 }

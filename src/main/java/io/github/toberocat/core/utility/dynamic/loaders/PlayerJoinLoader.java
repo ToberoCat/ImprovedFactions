@@ -12,10 +12,12 @@ public abstract class PlayerJoinLoader extends DynamicLoader<Player, Player> {
     public void OnPlayerJoin(PlayerJoinEvent event) {
         loadPlayer(event.getPlayer());
     }
+
     @EventHandler
     public void OnPlayerReloadJoin(PlayerJoinOnReloadEvent event) {
         loadPlayer(event.getPlayer());
     }
+
     @EventHandler
     public void OnPlayerQuit(PlayerQuitEvent event) {
         unloadPlayer(event.getPlayer());
@@ -27,6 +29,7 @@ public abstract class PlayerJoinLoader extends DynamicLoader<Player, Player> {
             unloadPlayer(player);
         }
     }
+
     @Override
     protected void Enable() {
 

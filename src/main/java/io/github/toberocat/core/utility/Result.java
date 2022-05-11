@@ -14,6 +14,14 @@ public class Result<T> {
         this.success = success;
     }
 
+    public static <T> Result<T> success() {
+        return new Result(true);
+    }
+
+    public static <T> Result<T> failure(String machineMessage, String playerMessage) {
+        return new Result<T>(false).setMessages(machineMessage, playerMessage);
+    }
+
     public T getPaired() {
         return paired;
     }
@@ -49,14 +57,6 @@ public class Result<T> {
 
     public boolean isSuccess() {
         return success;
-    }
-
-    public static <T> Result<T> success() {
-        return new Result(true);
-    }
-
-    public static <T> Result<T> failure(String machineMessage, String playerMessage) {
-        return new Result<T>(false).setMessages(machineMessage, playerMessage);
     }
 }
 

@@ -2,20 +2,25 @@ package io.github.toberocat.core.commands.plugin;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.utility.command.SubCommand;
-import io.github.toberocat.core.utility.language.LangMessage;
+import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class PluginStandbySubCommand extends SubCommand  {
+public class PluginStandbySubCommand extends SubCommand {
     public PluginStandbySubCommand() {
-        super("standby", "plugin.standby", LangMessage.COMMAND_PLUGIN_DESCRIPTION, false);
+        super("standby", "plugin.standby", "command.plugin.description", false);
+    }
+
+    @Override
+    public SubCommandSettings getSettings() {
+        return super.getSettings().setUseWhenFrozen(true);
     }
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
-        Language.sendMessage(LangMessage.COMMAND_PLUGIN_STANDBY_SUCCESS, player);
+        Language.sendMessage("command.plugin.standby.success", player);
         MainIF.getIF().saveShutdown("&cUser " + player.getName() + " requested standby. Everything was working correctly");
     }
 

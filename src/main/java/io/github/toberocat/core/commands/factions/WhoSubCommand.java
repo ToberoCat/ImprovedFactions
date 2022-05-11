@@ -1,22 +1,24 @@
 package io.github.toberocat.core.commands.factions;
 
 import io.github.toberocat.MainIF;
+import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.utility.command.SubCommand;
-import io.github.toberocat.core.utility.data.DataAccess;
-import io.github.toberocat.core.utility.factions.Faction;
-import io.github.toberocat.core.utility.factions.FactionUtility;
-import io.github.toberocat.core.utility.language.LangMessage;
+import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 public class WhoSubCommand extends SubCommand {
     public WhoSubCommand() {
-        super("who", "", false);
+        super("who", "command.who.descriptions", false);
+    }
+
+    @Override
+    public SubCommandSettings getSettings() {
+        return super.getSettings().setUseWhenFrozen(true);
     }
 
     @Override
@@ -45,13 +47,18 @@ public class WhoSubCommand extends SubCommand {
         String displayName = faction.getDisplayName();
 
         String topBottomMessage = "=".repeat(displayName.length() + 10);
-        Language.sendRawMessage(topBottomMessage, player);
-        Language.sendRawMessage("====  " + displayName + "  ====", player);
-        Language.sendRawMessage(topBottomMessage, player);
+        Language.sendRawMessage("&f" + topBottomMessage, player);
+        Language.sendRawMessage("&f====  &e" + displayName + "&f  ====", player);
+        Language.sendRawMessage("&f" + topBottomMessage, player);
+        Language.sendRawMessage("Motd: &e" + faction.getMotd(), player);
 
         for (String description : faction.getDescription()) {
             Language.sendRawMessage("Description: " + description, player);
         }
+        Language.sendRawMessage("Registry: &e" + factionRegistry, player);
+
+
+        Language.sendRawMessage("Owner: &e" + Bukkit.getOfflinePlayer(faction.getOwner()).getName(), player);
 
         Language.sendRawMessage("Members online: " +
                 faction.getFactionMemberManager().getOnlinePlayers().size() + "/" +
@@ -65,17 +72,12 @@ public class WhoSubCommand extends SubCommand {
                 faction.getClaimedChunks() + "/" +
                 faction.getPowerManager().getCurrentPower(), player);
 
-        Language.sendRawMessage("Wars: " +
-                String.join(", ", faction.getRelationManager().getEnemies()), player);
+        Language.sendRawMessage("Wars: &7" + faction.getRelationManager().getEnemies().size(), player);
 
-        Language.sendRawMessage("Ally: " +
-                String.join(", ", faction.getRelationManager().getAllies()), player);
+        Language.sendRawMessage("Ally: &7" + faction.getRelationManager().getAllies().size(), player);
 
-        Language.sendRawMessage("Banned players: &7" + faction.getFactionMemberManager().getBanned().size(), player);
-
-
-        String allBanned = String.join(", ", faction.getFactionMemberManager().getBanned().stream().map(x -> Bukkit.getOfflinePlayer(x).getName()).toArray(String[]::new));
-        Language.sendRawMessage(allBanned, player);
+        Language.sendRawMessage("Banned players: &7"
+                + faction.getFactionMemberManager().getBanned().size(), player);
 
         if (faction.getFactionBank().balance() == null) {
             Language.sendRawMessage("Balance: &eFaction economy disabled", player);

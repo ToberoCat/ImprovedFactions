@@ -9,10 +9,60 @@ import java.sql.SQLException;
 
 public class SQL {
 
-    public enum Value {
-        VARCHAR(100),INT(100);
+    private final Connection connection;
 
-        private int value;
+    public SQL(Connection connection) {
+        this.connection = connection;
+    }
+
+    public SQLTable select(String table) {
+        return new SQLTable(table, connection);
+    }
+
+    public SQLTable createTable(String table, Column... columns) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + table + " " + columnsToString(columns));
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            Utility.except(e);
+        }
+        return new SQLTable(table, connection).setColumns(columns);
+    }
+
+    private String columnsToString(Column[] columns) {
+        StringBuilder output = new StringBuilder("(");
+        for (Column column : columns) {
+            output.append(column.getColumnName()).append(" ").append(column.getValue().toString()).append("(").append(column.getValue().getValue()).append(")").append(",");
+        }
+
+        output.append("PRIMARY KEY (").append(columns[0].getValue().toString()).append(")");
+        output.append(")");
+
+        return output.toString();
+    }
+
+    private String columnsToRowA(Column[] columns) {
+        StringBuilder output = new StringBuilder("(");
+
+        for (int i = 0; i < columns.length; i++) {
+            output.append(columns[i].getColumnName()).append(i != columns.length - 1 ? "," : "");
+        }
+        return output + ")";
+    }
+
+    private String columnsToRowA(String fill, Column[] columns) {
+        StringBuilder output = new StringBuilder("(");
+
+        for (int i = 0; i < columns.length; i++) {
+            output.append(fill).append(i != columns.length - 1 ? "," : "");
+        }
+        return output + ")";
+    }
+
+    public enum Value {
+        VARCHAR(100), INT(100);
+
+        private final int value;
 
         Value(int value) {
             this.value = value;
@@ -65,12 +115,12 @@ public class SQL {
         }
 
         public <T> SQLTable addRow(T... columnValues) throws SQLValueError {
-            if (columnValues.length != columns.length){
+            if (columnValues.length != columns.length) {
                 throw new SQLValueError("Expecting " + columns.length + ". Received " + columnValues.length);
             }
             try {
                 PreparedStatement ps = connection.prepareStatement("INSERT IGNORE INTO " + tableName +
-                        " "+columnsToRowA(columns)+" VALUES " + columnsToRowA("?", columns));
+                        " " + columnsToRowA(columns) + " VALUES " + columnsToRowA("?", columns));
                 for (int i = 1; i <= columnValues.length; i++) {
                     ps.setObject(i, columnValues[i]);
                 }
@@ -84,7 +134,7 @@ public class SQL {
 
         private <T> boolean exists(Column column, T value) {
             try {
-                PreparedStatement ps = connection.prepareStatement("SELECT * FROM "+tableName+" WHERE "+column.columnName+"=?");
+                PreparedStatement ps = connection.prepareStatement("SELECT * FROM " + tableName + " WHERE " + column.columnName + "=?");
                 ps.setString(1, value.toString());
                 ResultSet result = ps.executeQuery();
                 return result.next();
@@ -93,55 +143,5 @@ public class SQL {
                 return false;
             }
         }
-    }
-
-    private Connection connection;
-
-    public SQL(Connection connection) {
-        this.connection = connection;
-    }
-
-    public SQLTable select(String table) {
-        return new SQLTable(table, connection);
-    }
-
-    public SQLTable createTable(String table, Column... columns) {
-        try {
-            PreparedStatement ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS "+table+" "+columnsToString(columns));
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            Utility.except(e);
-        }
-        return new SQLTable(table, connection).setColumns(columns);
-    }
-
-    private String columnsToString(Column[] columns) {
-        StringBuilder output = new StringBuilder("(");
-        for (Column column : columns) {
-            output.append(column.getColumnName()).append(" ").append(column.getValue().toString()).append("(").append(column.getValue().getValue()).append(")").append(",");
-        }
-
-        output.append("PRIMARY KEY (").append(columns[0].getValue().toString()).append(")");
-        output.append(")");
-
-        return output.toString();
-    }
-
-    private String columnsToRowA(Column[] columns) {
-        StringBuilder output = new StringBuilder("(");
-
-        for (int i = 0; i < columns.length; i++) {
-            output.append(columns[i].getColumnName()).append(i != columns.length - 1 ? "," : "");
-        }
-        return output + ")";
-    }
-
-    private String columnsToRowA(String fill, Column[] columns) {
-        StringBuilder output = new StringBuilder("(");
-
-        for (int i = 0; i < columns.length; i++) {
-            output.append(fill).append(i != columns.length - 1 ? "," : "");
-        }
-        return output + ")";
     }
 }
