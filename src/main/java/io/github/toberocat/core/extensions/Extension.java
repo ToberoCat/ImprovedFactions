@@ -28,7 +28,7 @@ public abstract class Extension {
         ExtensionListLoader.getExtensionVersion(filename).setFinishCallback((newestVersion) -> {
             UpdateChecker checker = new UpdateChecker(registry.version(), newestVersion);
             if (!checker.isNewestVersion()) {
-                MainIF.LogMessage(Level.INFO, "&aHey! There is a newer version of "
+                MainIF.logMessage(Level.INFO, "&aHey! There is a newer version of "
                         + registry.displayName() + ". Use &7/f extension update&a to get the newest version");
             }
         });
@@ -36,10 +36,10 @@ public abstract class Extension {
         if (canEnable(plugin)) {
             OnEnable(plugin);
             if (Arrays.asList(registry.testedVersions()).contains(MainIF.getVersion()))
-                MainIF.LogMessage(Level.INFO, "&aLoading &6" + registry.displayName() + "&a with tested " +
+                MainIF.logMessage(Level.INFO, "&aLoading &6" + registry.displayName() + "&a with tested " +
                         "version &6" + MainIF.getVersion());
             else
-                MainIF.LogMessage(Level.INFO, "&aLoading &6" + registry.displayName() + "&a with version " +
+                MainIF.logMessage(Level.INFO, "&aLoading &6" + registry.displayName() + "&a with version " +
                         "&6" + MainIF.getVersion() + "&a. &eThere may be problems with this extension");
             enabled = true;
         }
@@ -49,14 +49,14 @@ public abstract class Extension {
         if (registry.dependencies() != null) {
             for (String depend : registry.dependencies()) {
                 if (plugin.getServer().getPluginManager().getPlugin(depend) == null) {
-                    MainIF.LogMessage(Level.WARNING, "&cDidn't find " + depend + ". "
+                    MainIF.logMessage(Level.WARNING, "&cDidn't find " + depend + ". "
                             + registry.displayName() + " requires " + Arrays.toString(registry.dependencies()));
                     return false;
                 }
             }
         }
         if (registry.minVersion().versionToInteger() < MainIF.getVersion().versionToInteger()) {
-            MainIF.LogMessage(Level.WARNING, "§c &6" + registry.displayName() + "v" + registry.version() + "&a " +
+            MainIF.logMessage(Level.WARNING, "§c &6" + registry.displayName() + "v" + registry.version() + "&a " +
                     "needs a minimum version of &6" + registry.minVersion() + "&a. Currently on &6" + MainIF.getVersion());
             return false;
         }

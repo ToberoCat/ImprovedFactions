@@ -25,7 +25,7 @@ public class PluginDisableSubCommand extends SubCommand {
         if (player != null) {
             Language.sendMessage(LangMessage.COMMAND_PLUGIN_DISABLE_SUCCESS, player);
         } else {
-            MainIF.LogMessage(Level.INFO, Language.getMessage(LangMessage.COMMAND_PLUGIN_DISABLE_SUCCESS, "en_us"));
+            MainIF.logMessage(Level.INFO, Language.getMessage(LangMessage.COMMAND_PLUGIN_DISABLE_SUCCESS, "en_us"));
         }
         MainIF.getIF().getPluginLoader().disablePlugin(MainIF.getIF());
     }
