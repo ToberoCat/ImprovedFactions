@@ -9,3 +9,4 @@
 - Relation commands
 - Custom rank names
 - Rank assignment using the manage member gui
+- Make all messages, Gui texts, titles, etc... translateable using lang files
