@@ -6,3 +6,5 @@
 - Faction power change display using boss bars
 - ChatMessageExtension
 - ChunkParticleExtension
+- Relation commands
+- Custom rank names
