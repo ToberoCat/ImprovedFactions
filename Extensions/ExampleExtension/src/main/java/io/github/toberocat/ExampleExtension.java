@@ -29,6 +29,6 @@ public class ExampleExtension extends Extension {
 
     @Override
     protected void onDisable(MainIF plugin) {
-
+        // A disable methode
     }
 }
