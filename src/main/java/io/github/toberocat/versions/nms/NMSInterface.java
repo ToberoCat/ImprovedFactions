@@ -13,7 +13,7 @@ public interface NMSInterface {
      * This will send a message by default, telling the user what version he currently is using of this plugin
      */
     default void EnableInterface() {
-        MainIF.LogMessage(Level.INFO, "&aDetected version &6" + Bukkit.getBukkitVersion() +
+        MainIF.logMessage(Level.INFO, "&aDetected version &6" + Bukkit.getBukkitVersion() +
                 "&a running on server. Loaded IF version support &6" + getVersion());
     }
 

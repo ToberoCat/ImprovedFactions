@@ -36,7 +36,7 @@ public class Utility {
      */
     public static <T> ObjectPair<T, T[]> shift(T[] list) {
         List<T> t = Arrays.asList(list);
-        MainIF.LogMessage(Level.INFO, ""+list.length);
+        MainIF.logMessage(Level.INFO, ""+list.length);
         T tShift = t.remove(0);
         return new ObjectPair<>(tShift, toArray(t));
     }
@@ -113,7 +113,7 @@ public class Utility {
      * @param lore The lore the item should have
      * @return the old item tags with modified meta
      */
-    public static ItemStack modiflyItem(ItemStack stack, String title, String... lore) {
+    public static ItemStack modifyItem(ItemStack stack, String title, String... lore) {
         ItemMeta meta = stack.getItemMeta();
         meta.setDisplayName(Language.format(title));
         SetLore(lore, meta);
@@ -137,7 +137,7 @@ public class Utility {
 
     public static void except(Exception e) {
         if (MainIF.getConfigManager().getValue("general.printStacktrace")) e.printStackTrace();
-        MainIF.getIF().SaveShutdown(e.getMessage());
+        MainIF.getIF().saveShutdown(e.getMessage());
     }
 
     public static String[] getNames(Class<? extends Enum<?>> e) {

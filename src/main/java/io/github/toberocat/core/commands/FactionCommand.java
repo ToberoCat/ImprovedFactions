@@ -17,43 +17,39 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class FactionCommand implements TabExecutor {
 
-    public static List<SubCommand> subCommands = new ArrayList<>();
+    public static HashSet<SubCommand> subCommands = new HashSet<>();
 
     public FactionCommand() {
-        subCommands.add(new ConfigSubCommand());
-        subCommands.add(new PluginSubCommand());
-        subCommands.add(new CreateFactionSubCommand());
-        subCommands.add(new DeleteFactionSubCommand());
-        subCommands.add(new ZoneSubCommand());
-        subCommands.add(new HelpSubCommand());
-        subCommands.add(new AdminSubCommand());
-        subCommands.add(new SettingsSubCommand());
-        subCommands.add(new ClaimSubCommand());
-        subCommands.add(new RelationSubCommand());
-        subCommands.add(new ExtensionSubCommand());
-        subCommands.add(new LeaveFactionSubCommand());
-        subCommands.add(new WhoSubCommand());
-        subCommands.add(new BanSubCommand());
-        subCommands.add(new UnBanSubCommand());
-        subCommands.add(new KickSubCommand());
-        subCommands.add(new OnlineSubCommand());
-        subCommands.add(new JoinFactionSubCommand());
-        subCommands.add(new MembersSubCommand());
+        subCommands.addAll(Set.of(
+                new ConfigSubCommand(),
+                new PluginSubCommand(),
+                new CreateFactionSubCommand(),
+                new DeleteFactionSubCommand(),
+                new ZoneSubCommand(),
+                new HelpSubCommand(),
+                new AdminSubCommand(),
+                new SettingsSubCommand(),
+                new ClaimSubCommand(),
+                new RelationSubCommand(),
+                new ExtensionSubCommand(),
+                new LeaveFactionSubCommand(),
+                new WhoSubCommand(),
+                new BanSubCommand(),
+                new UnBanSubCommand(),
+                new KickSubCommand(),
+                new OnlineSubCommand(),
+                new JoinFactionSubCommand(),
+                new MembersSubCommand()));
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         //Player is null if commandblock or console
-        Player player = null;
-
-        if (sender instanceof Player) {
-            player = (Player) sender;
-        }
+        Player player = sender instanceof Player ? (Player) sender : null;
 
         if (args.length == 0 && player != null) {
             HelpSubCommand.Help(player);
@@ -70,12 +66,10 @@ public class FactionCommand implements TabExecutor {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        Player player = null;
-        if (sender instanceof Player) {
-            player = (Player) sender;
-        }
+        //Player is null if commandblock or console
+        Player player = sender instanceof Player ? (Player) sender : null;
 
-        List<String> arguments = SubCommand.CallSubCommandsTab(FactionCommand.subCommands, player, args);
+        Set<String> arguments = SubCommand.CallSubCommandsTab(FactionCommand.subCommands, player, args);
 
         if (arguments == null) return null;
 

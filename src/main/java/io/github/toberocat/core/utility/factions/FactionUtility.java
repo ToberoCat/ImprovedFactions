@@ -27,7 +27,7 @@ public class FactionUtility extends PlayerJoinLoader {
 
     @Override
     protected void loadPlayer(Player player) {
-        MainIF.LogMessage(Level.INFO, "Loading player");
+        MainIF.logMessage(Level.INFO, "Loading player");
         String registry = getPlayerFactionRegistry(player);
         if (registry == null) return; // Player not in faction
         if (Faction.getLoadedFactions().containsKey(registry)) return; // Faction already loaded
@@ -119,7 +119,7 @@ public class FactionUtility extends PlayerJoinLoader {
         faction.getPowerManager().setFaction(faction);
         faction.getRelationManager().setFaction(faction);
 
-        MainIF.LogMessage(Level.INFO, "Loaded &e" + faction.getRegistryName());
+        MainIF.logMessage(Level.INFO, "Loaded &e" + faction.getRegistryName());
         Faction.getLoadedFactions().put(registry, faction);
         return faction;
     }

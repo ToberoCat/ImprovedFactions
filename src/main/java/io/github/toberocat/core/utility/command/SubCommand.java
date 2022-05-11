@@ -16,7 +16,7 @@ import java.util.*;
 
 public abstract class SubCommand {
 
-    protected final ArrayList<SubCommand> subCommands;
+    protected final HashSet<SubCommand> subCommands;
 
     private static SubCommand lastSubCommand;
 
@@ -36,7 +36,7 @@ public abstract class SubCommand {
         this.permission = permission;
         this.description = descriptionKey;
         this.manager = manager;
-        subCommands = new ArrayList<>();
+        subCommands = new HashSet<>();
 
         if (getSettings().isAllowAliases()) {
             MainIF.getConfigManager().getDataManager("commands.yml").getConfig().addDefault("commands." + permission + ".aliases", new ArrayList<String>());
@@ -51,7 +51,7 @@ public abstract class SubCommand {
         this.permission = subCommand;
         this.description = descriptionKey;
         this.manager = manager;
-        subCommands = new ArrayList<>();
+        subCommands = new HashSet<>();
 
         if (getSettings().isAllowAliases()) {
             MainIF.getConfigManager().AddToDefaultConfig("commands." + permission + ".aliases", new ArrayList<String>(),"commands.yml");
@@ -67,8 +67,8 @@ public abstract class SubCommand {
         return "usage";
     }
 
-    public static List<String> CallSubCommandsTab(List<SubCommand> subCommands, Player player, String[] args) {
-        List<String> arguments = new ArrayList<>();
+    public static HashSet<String> CallSubCommandsTab(HashSet<SubCommand> subCommands, Player player, String[] args) {
+        HashSet<String> arguments = new HashSet<>();
         if (args.length == 1) { //Means: The first subcommand is determined
             for (SubCommand command : subCommands) {
                 String[] newArguments = Arrays.copyOfRange(args, 1, args.length);
@@ -86,7 +86,7 @@ public abstract class SubCommand {
                         if (str == null) {
                             str = new ArrayList<>();
                         }
-                        List<String> subCommandStr = SubCommand.CallSubCommandsTab(command.subCommands, player, newArguments);
+                        HashSet<String> subCommandStr = SubCommand.CallSubCommandsTab(command.subCommands, player, newArguments);
                         if (subCommandStr != null) {
                             str.addAll(subCommandStr);
                         }
@@ -126,7 +126,7 @@ public abstract class SubCommand {
         return new SubCommandSettings();
     }
 
-    public static AsyncCore<Boolean> CallSubCommands(String commandPath, List<SubCommand> subCommands, Player player, String[] args) {
+    public static AsyncCore<Boolean> CallSubCommands(String commandPath, Set<SubCommand> subCommands, Player player, String[] args) {
         return AsyncCore.Run(() -> {
             if (args.length == 0) return false;
             for (SubCommand command : subCommands) {
@@ -250,7 +250,7 @@ public abstract class SubCommand {
 
         while(subs.hasNext()) {
             SubCommand cmd = subs.next();
-            if (cmd.getSubCommand() == command) {
+            if (cmd.getSubCommand().equals(command)) {
                 subs.remove();
                 return true;
             }
@@ -259,7 +259,7 @@ public abstract class SubCommand {
         return false;
     }
 
-    public ArrayList<SubCommand> getSubCommands() {
+    public HashSet<SubCommand> getSubCommands() {
         return subCommands;
     }
 

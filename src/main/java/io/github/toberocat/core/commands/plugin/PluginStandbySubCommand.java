@@ -16,7 +16,7 @@ public class PluginStandbySubCommand extends SubCommand  {
     @Override
     protected void CommandExecute(Player player, String[] args) {
         Language.sendMessage(LangMessage.COMMAND_PLUGIN_STANDBY_SUCCESS, player);
-        MainIF.getIF().SaveShutdown("&cUser " + player.getName() + " requested standby. Everything was working correctly");
+        MainIF.getIF().saveShutdown("&cUser " + player.getName() + " requested standby. Everything was working correctly");
     }
 
     @Override

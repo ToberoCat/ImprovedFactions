@@ -34,7 +34,7 @@ public class DataManager {
             }
             lore.add("&8Click to configure");
 
-            this.itemIcon = Utility.modiflyItem(itemIcon, itemIcon.getItemMeta().getDisplayName(), lore.toArray(String[]::new));
+            this.itemIcon = Utility.modifyItem(itemIcon, itemIcon.getItemMeta().getDisplayName(), lore.toArray(String[]::new));
         } else {
             this.itemIcon = Utility.createItem(Material.GRASS_BLOCK, "&e&l" + fileName);
         }

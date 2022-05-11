@@ -83,14 +83,14 @@ public final class MainIF extends JavaPlugin {
     public void onEnable() {
         INSTANCE = this;
 
-        GenerateConfigs();
+        generateConfigs();
 
-        LoadListeners();
+        loadListeners();
 
-        if (!InitializeCores()) return;
-        if (!LoadPluginVersion()) return;
+        if (!initializeCores()) return;
+        if (!loadPluginVersion()) return;
 
-        LoadPluginDependencies();
+        loadPluginDependencies();
 
         FactionCommand command = new FactionCommand();
         getServer().getPluginCommand("faction").setExecutor(command);
@@ -110,7 +110,7 @@ public final class MainIF extends JavaPlugin {
      */
     @Override
     public void onDisable() {
-        SaveConfigs();
+        saveConfigs();
         DataAccess.disable();
         DynamicLoader.disable();
 
@@ -132,15 +132,15 @@ public final class MainIF extends JavaPlugin {
      * @see Language#format(String)
      * @param shutdownMessage This message will be printed to console before disabling the plugin
      */
-    public void SaveShutdown(String shutdownMessage) {
+    public void saveShutdown(String shutdownMessage) {
         if (standby) {
-            LogMessage(Level.SEVERE, "&c"+shutdownMessage);
+            logMessage(Level.SEVERE, "&c"+shutdownMessage);
             return;
         }
         standby = true;
 
-        LogMessage(Level.SEVERE, "&c"+shutdownMessage);
-        LogMessage(Level.WARNING, "ImprovedFactions put it self in standby. All commands will be disabled. Only simple claim protection is working");
+        logMessage(Level.SEVERE, "&c"+shutdownMessage);
+        logMessage(Level.WARNING, "ImprovedFactions put it self in standby. All commands will be disabled. Only simple claim protection is working");
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (standby && player.hasPermission("factions.messages.standby")) {
@@ -163,7 +163,7 @@ public final class MainIF extends JavaPlugin {
      * @param level That's the level you want to log
      * @param message The message you want to get logged
      */
-    public static void LogMessage(Level level, String message) {
+    public static void logMessage(Level level, String message) {
         List<String> values = null;
         if (!INSTANCE.isEnabled()) {
             values = Arrays.asList("INFO", "WARNING", "SEVERE");
@@ -187,7 +187,7 @@ public final class MainIF extends JavaPlugin {
      * That can seen when using /f config backup ingame
      * @return Returns a list of all successfully saved configs
      */
-    public List<String> SaveConfigs() {
+    public List<String> saveConfigs() {
         List<String> savedConfigs = new ArrayList<>();
 
         for (Config config : configMap.values()) {
@@ -195,7 +195,7 @@ public final class MainIF extends JavaPlugin {
             config.setAutoSave(false);
             config.setChanges(false);
 
-            if (!CallSaveEvents(config)) {
+            if (!callSaveEvents(config)) {
                 saveConfigBackup(config);
             } else if (!savedConfigs.contains(config.getConfigFile())) {
                 savedConfigs.add(config.getConfigFile());
@@ -221,13 +221,13 @@ public final class MainIF extends JavaPlugin {
     }
 
     private <T> void saveDataAccessBackup(String file, T value) {
-        LogMessage(Level.WARNING, "&cCouldn't save &6" + file + "&c. File got saved in datAcc_backup folder. Please restart the plugin so the files can be compared without data loss");
+        logMessage(Level.WARNING, "&cCouldn't save &6" + file + "&c. File got saved in datAcc_backup folder. Please restart the plugin so the files can be compared without data loss");
         File pathAsFile = new File(getDataFolder().getPath() + "/.temp/datAcc_backups/");
 
         if (!pathAsFile.exists()) {
             Utility.run(() -> {
                 if (!pathAsFile.mkdirs() || !new File(pathAsFile.getPath() + "/" + file).createNewFile()) {
-                    LogMessage(Level.SEVERE, "&cCouldn't save &6" + pathAsFile.getPath() + "&c to backups");
+                    logMessage(Level.SEVERE, "&cCouldn't save &6" + pathAsFile.getPath() + "&c to backups");
                 }
             });
         }
@@ -237,13 +237,13 @@ public final class MainIF extends JavaPlugin {
 
     private void saveConfigBackup(Config config) {
         Utility.run(() -> {
-            LogMessage(Level.WARNING, "&cCouldn't save &6" + config.getPath() + "&c. File got saved in config_backup folder. Please restart the plugin so the files can be compared without data loss");
+            logMessage(Level.WARNING, "&cCouldn't save &6" + config.getPath() + "&c. File got saved in config_backup folder. Please restart the plugin so the files can be compared without data loss");
             File pathAsFile = new File(getDataFolder().getPath() + "/.temp/config_backups");
 
             if (!Files.exists(Paths.get(pathAsFile.getPath()))) {
                 Utility.run(() -> {
                     if (!pathAsFile.mkdirs()) {
-                        LogMessage(Level.SEVERE, "&cCouldn't save &6" + pathAsFile.getPath() + "&c to backups");
+                        logMessage(Level.SEVERE, "&cCouldn't save &6" + pathAsFile.getPath() + "&c to backups");
                     }
                 });
             }
@@ -268,14 +268,14 @@ public final class MainIF extends JavaPlugin {
 
     //<editor-fold desc="Loading functions">
 
-    private boolean CallSaveEvents(Config config) {
+    private boolean callSaveEvents(Config config) {
         for (ConfigSaveEvent event : saveEvents) {
             if (event.isSingleCall() == ConfigSaveEvent.SaveType.Config && !event.Save(config).isSuccess()) return false;
         }
         return true;
     }
 
-    private void GenerateConfigs() {
+    private void generateConfigs() {
         Utility.run(() -> {
             configManager = new ConfigManager(this);
             configManager.register();
@@ -288,7 +288,7 @@ public final class MainIF extends JavaPlugin {
             for (File file : backupFolder.listFiles()) {
                 ArrayList<String> data = (ArrayList<String>) JsonUtility.ReadObject(file, ArrayList.class);
 
-                LogMessage(Level.WARNING, "&cLoaded " + file.getName() + " backup. Please use &7/f config backup&c to decide what should be finally used");
+                logMessage(Level.WARNING, "&cLoaded " + file.getName() + " backup. Please use &7/f config backup&c to decide what should be finally used");
                 backupFile.put(file.getName(), data);
 
                 file.delete();
@@ -297,14 +297,16 @@ public final class MainIF extends JavaPlugin {
         });
     }
 
-    private void LoadListeners() {
-        getPluginManager().registerEvents(new PlayerJoinListener(), this);
-        getPluginManager().registerEvents(new PlayerLeaveListener(), this);
-        getPluginManager().registerEvents(new GuiListener(), this);
-        getPluginManager().registerEvents(new PlayerMoveListener(), this);
+    private void loadListeners() {
+        Arrays.asList(
+                new PlayerJoinListener(),
+                new PlayerLeaveListener(),
+                new GuiListener(),
+                new PlayerMoveListener()).
+                forEach(listener -> getPluginManager().registerEvents(listener, this));
     }
 
-    private boolean LoadPluginVersion() {
+    private boolean loadPluginVersion() {
         String sVersion = Bukkit.getBukkitVersion();
         NMSInterface nms;
 
@@ -315,7 +317,7 @@ public final class MainIF extends JavaPlugin {
         } else if (sVersion.contains("1.16")) {
             nms = NMSFactory.create_1_16();
         } else {
-            SaveShutdown("§cCouldn't load ImprovedFactions &6" + VERSION +
+            saveShutdown("§cCouldn't load ImprovedFactions &6" + VERSION +
                     "&c. The plugin didn't find a version for your server. Your server version: &6"
                     + sVersion + "&c. Available versions: &6" + Arrays.toString(NMSFactory.versions));
             getPluginManager().disablePlugin(this);
@@ -326,15 +328,15 @@ public final class MainIF extends JavaPlugin {
         return true;
     }
 
-    private void LoadPluginDependencies() {
+    private void loadPluginDependencies() {
         new BukkitRunnable() {
             @Override
             public void run() {
                 if (!setupEconomy()) {
-                    LogMessage(Level.WARNING, "&eDisabled faction economy! Needs Vault and an Economy plugin" +
+                    logMessage(Level.WARNING, "&eDisabled faction economy! Needs Vault and an Economy plugin" +
                             " installed to enable it");
                 } else {
-                    LogMessage(Level.INFO, "&aEnabled faction economy");
+                    logMessage(Level.INFO, "&aEnabled faction economy");
                 }
             }
         }.runTaskLater(this, 0);
@@ -351,7 +353,7 @@ public final class MainIF extends JavaPlugin {
         return economy != null;
     }
 
-    private boolean InitializeCores() {
+    private boolean initializeCores() {
         if (!Language.init(this, getDataFolder())) return false;
         if (!TimeCore.init()) return false;
         if (!DataAccess.init()) return false;
@@ -371,6 +373,7 @@ public final class MainIF extends JavaPlugin {
      * NOTE: This could cause some troubles if the event is getting called while adding
      * @param listener The listener that should be added
      */
+    @Deprecated
     public void RegisterListener(Listener listener) {
         getPluginManager().registerEvents(listener, this);
     }

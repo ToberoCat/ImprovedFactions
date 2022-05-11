@@ -41,7 +41,7 @@ public class AdminHardResetSubCommand extends SubCommand {
             PlayerSettings.getLoadedSettings().clear();
 
             MainIF.getIF().getSaveEvents().clear();
-            MainIF.LogMessage(Level.SEVERE, "&cImprovedFactions got a reset. Please reload / restart the server");
+            MainIF.logMessage(Level.SEVERE, "&cImprovedFactions got a reset. Please reload / restart the server");
             Language.sendMessage(LangMessage.COMMAND_ADMIN_HARD_RESET_SUCCESS, player);
             MainIF.getIF().getPluginLoader().disablePlugin(MainIF.getIF());
         }

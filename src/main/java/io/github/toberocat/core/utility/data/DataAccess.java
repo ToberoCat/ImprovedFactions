@@ -29,13 +29,13 @@ public class DataAccess {
             try {
                 sql.connect();
             } catch (SQLException | ClassNotFoundException e) {
-                MainIF.getIF().SaveShutdown("&cDatabase not connected. Please check if your login information are right");
+                MainIF.getIF().saveShutdown("&cDatabase not connected. Please check if your login information are right");
                 return false;
             }
 
             if (!sql.isConnected()) return false;
 
-            MainIF.LogMessage(Level.INFO, "&aSuccessfully &fconnected to database");
+            MainIF.logMessage(Level.INFO, "&aSuccessfully &fconnected to database");
         }
 
         makeFolder("Factions");

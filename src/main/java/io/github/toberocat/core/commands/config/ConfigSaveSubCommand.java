@@ -17,7 +17,7 @@ public class ConfigSaveSubCommand extends SubCommand {
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
-        List<String> savedConfigs = MainIF.getIF().SaveConfigs();
+        List<String> savedConfigs = MainIF.getIF().saveConfigs();
         List<String> differences = new ArrayList<>(MainIF.getIF().getDataManagers().keySet());
         differences.removeAll(savedConfigs);
 

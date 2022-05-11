@@ -34,7 +34,7 @@ public class Language extends PlayerJoinLoader {
     public static boolean init(MainIF plugin, File datatDir) {
         File langDir = new File(datatDir.getPath() + "/lang");
         if (!langDir.exists() && !langDir.mkdir()) {
-            MainIF.getIF().SaveShutdown("Couldn't create folder &6" + langDir.getPath());
+            MainIF.getIF().saveShutdown("Couldn't create folder &6" + langDir.getPath());
             return false;
         }
 
@@ -65,14 +65,14 @@ public class Language extends PlayerJoinLoader {
 
                     for (String key : keysOnlyInSource) {
                         langMessage.getMessages().put(key, defaultMessages.getMessages().get(key));
-                        MainIF.LogMessage(Level.INFO, "&cAdded &6" + key + "&c from default to &6" + file.getName() + "&c, &cbecause it was missing");
+                        MainIF.logMessage(Level.INFO, "&cAdded &6" + key + "&c from default to &6" + file.getName() + "&c, &cbecause it was missing");
                     }
 
                     ObjectMapper saveMapper = new ObjectMapper();
                     saveMapper.writerWithDefaultPrettyPrinter().writeValue(file, langMessage);
                 } catch (IOException e) {
                     if (MainIF.getConfigManager().getValue("general.printStacktrace")) e.printStackTrace();
-                    MainIF.getIF().SaveShutdown("&cCouldn't read language file " + file.getName() + ". Error: &6" + e.getMessage());
+                    MainIF.getIF().saveShutdown("&cCouldn't read language file " + file.getName() + ". Error: &6" + e.getMessage());
                     return false;
                 }
             }
@@ -94,7 +94,7 @@ public class Language extends PlayerJoinLoader {
                 saveMapper.writerWithDefaultPrettyPrinter().writeValue(file, langMessage);
                 LOADED_LANGUAGES.put(split[0], new ObjectPair<>(1, langMessage));
             } catch (IOException e) {
-                MainIF.getIF().SaveShutdown("&cCouldn't read language file " + file.getName() + ". Error: &6" + e.getMessage());
+                MainIF.getIF().saveShutdown("&cCouldn't read language file " + file.getName() + ". Error: &6" + e.getMessage());
             }
         }
     }
@@ -144,7 +144,7 @@ public class Language extends PlayerJoinLoader {
         } else if (LOADED_LANGUAGES.containsKey("en_us")){
             langMessage = LOADED_LANGUAGES.get("en_us").getE();
         } else {
-            MainIF.getIF().SaveShutdown("Wasn't able to find &6en_us&c translation file");
+            MainIF.getIF().saveShutdown("Wasn't able to find &6en_us&c translation file");
             return "";
         }
 

@@ -116,7 +116,7 @@ public class SubCommandSettings {
 
     public boolean canDisplay(SubCommand subCommand, Player player, String[] args, boolean messages) {
         if (player == null && !canUseInConsole) {
-            if (messages) MainIF.LogMessage(Level.INFO, "&cYou can't use this command in the console");
+            if (messages) MainIF.logMessage(Level.INFO, "&cYou can't use this command in the console");
             return false;
         }
 
@@ -139,7 +139,7 @@ public class SubCommandSettings {
 
     public boolean canExecute(SubCommand subCommand, Player player, String[] args, boolean messages) {
         if (player == null && !canUseInConsole) {
-            if (messages) MainIF.LogMessage(Level.INFO, "&cYou can't use this command in the console");
+            if (messages) MainIF.logMessage(Level.INFO, "&cYou can't use this command in the console");
             return false;
         }
         if (argLength != -1 && args.length != argLength) {
