@@ -8,3 +8,4 @@
 - ChunkParticleExtension
 - Relation commands
 - Custom rank names
+- Rank assignment using the manage member gui
