@@ -10,3 +10,31 @@
 - Custom rank names
 - Rank assignment using the manage member gui
 - Make all messages, Gui texts, titles, etc... translateable using lang files
+- Faction icons (Looper GUI, desigin own banner) Extension
+- List factions command
+- Jail command (Like home, just for jails) Extension
+- Rule command (Add rule, remove rule, modify rule, set rule, ...)
+- Faction map command
+- More extension management commands
+- Language file sharing system (Like extensions, just with uploads from users directly)
+- Faction tutorial command
+- Faction tutorial extension (A none chat version of the tutorial)
+- Mass claim extension
+- Dynmap custom colored factio stuff
+- Papi faction get player rank
+- Faction fly command
+- Top command (Balance)
+- Value command, to see balance of faction
+- Spawners extension
+- Shop extension
+- Shield extension
+- More data logging (Extension)
+- Faction chat
+- Raid command (Teleports you to a nearby faction you can raid)
+- Transfer ownership
+- Prevent owner form leaving if faction isn't permanent
+- Faciton perks
+- Faction missions (Extension; A battle pass like thing, idk really)
+- Mute (Player in f chat)
+- Unmute
+- Wildness command (Tps to random location) (Extension)
