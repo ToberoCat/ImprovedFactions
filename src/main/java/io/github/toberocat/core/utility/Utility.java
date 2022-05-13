@@ -147,7 +147,6 @@ public class Utility {
         cb.run();
     }
 
-
     public static void except(Exception e) {
         if (Boolean.TRUE.equals(MainIF.getConfigManager().getValue("general.printStacktrace")))
             e.printStackTrace();
@@ -250,5 +249,13 @@ public class Utility {
             except.callback();
         }
 
+    }
+
+    public static float lerp(float point1, float point2, float alpha) {
+        return point1 + alpha * (point2 - point1);
+    }
+
+    public static double lerp(double point1, double point2, double alpha) {
+        return point1 + alpha * (point2 - point1);
     }
 }
