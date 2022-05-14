@@ -113,7 +113,7 @@ public class AsyncTask<T> {
     }
 
     public static void runLaterSync(long milliseconds, Runnable callback) {
-        Bukkit.getScheduler().runTaskLater(MainIF.getIF(), callback, milliseconds);
+        Bukkit.getScheduler().runTaskLater(MainIF.getIF(), callback, milliseconds / 1000 * 20L);
     }
 
     /**

@@ -13,6 +13,7 @@ import io.github.toberocat.core.papi.FactionExpansion;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
+import io.github.toberocat.core.utility.bossbar.AnimatedBossBar;
 import io.github.toberocat.core.utility.calender.TimeCore;
 import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.config.Config;
@@ -209,14 +210,19 @@ public final class MainIF extends JavaPlugin {
             DataAccess.disable();
             DynamicLoader.disable();
 
-            saveEvents.clear();
-            backupFile.clear();
-            dataManagers.clear();
-            configMap.clear();
-            PlayerJoinListener.PLAYER_JOINS.clear();
+            cleanup();
 
             INSTANCE = null;
         });
+    }
+
+    private void cleanup() {
+        saveEvents.clear();
+        backupFile.clear();
+        dataManagers.clear();
+        configMap.clear();
+        AnimatedBossBar.cleanup();
+        PlayerJoinListener.PLAYER_JOINS.clear();
     }
 
     /**

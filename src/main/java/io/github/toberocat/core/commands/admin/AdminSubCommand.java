@@ -20,6 +20,7 @@ public class AdminSubCommand extends SubCommand {
         subCommands.add(new AdminTimeoutSubCommand());
         subCommands.add(new AdminRemoveTimeoutSubCommand());
         subCommands.add(new AdminBypassSubCommand());
+        subCommands.add(new AdminPowerCommand());
     }
 
     @Override

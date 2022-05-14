@@ -35,6 +35,7 @@ io\github\toberocat\core\commands\factions\LeaveFactionSubCommand.class
 io\github\toberocat\core\commands\admin\AdminHardResetSubCommand.class
 io\github\toberocat\core\extensions\ExtensionRegistry.class
 io\github\toberocat\core\commands\settings\PlayerSettingsSubCommand.class
+io\github\toberocat\core\commands\admin\AdminPowerCommand.class
 io\github\toberocat\core\utility\events\faction\FactionJoinEvent.class
 io\github\toberocat\core\commands\admin\AdminGetPlayerFactionSubCommand.class
 io\github\toberocat\versions\v1_14\NMSLoader_1_14.class
@@ -94,6 +95,7 @@ io\github\toberocat\core\utility\map\MapHandler.class
 io\github\toberocat\core\factions\rank\members\ElderRank.class
 io\github\toberocat\core\gui\faction\ManagePlayerRankGui.class
 io\github\toberocat\core\utility\language\LanguageListLoader.class
+io\github\toberocat\core\commands\TestCmd.class
 io\github\toberocat\versions\v1_15\NMSLoader_1_15.class
 io\github\toberocat\core\listeners\ExplodeListener.class
 io\github\toberocat\core\utility\gui\Gui.class
@@ -109,6 +111,7 @@ io\github\toberocat\core\commands\factions\claim\ClaimSubCommand.class
 io\github\toberocat\MainIF$1.class
 io\github\toberocat\core\utility\version\UpdateChecker.class
 io\github\toberocat\core\commands\factions\OnlineSubCommand.class
+io\github\toberocat\core\utility\bossbar\AnimatedBossBar$2.class
 io\github\toberocat\core\gui\faction\MemberManageGui.class
 io\github\toberocat\core\utility\settings\PlayerSettings$TitlePosition.class
 io\github\toberocat\versions\nms\NMSInterface.class

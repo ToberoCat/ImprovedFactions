@@ -28,6 +28,16 @@ import java.util.stream.Collectors;
 
 public class Utility {
 
+    @SuppressWarnings("unused")
+    public static boolean isNumber(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
     public static String printStackToString(Exception e) {
         StringWriter sw = new StringWriter();
         e.printStackTrace(new PrintWriter(sw));
@@ -258,4 +268,13 @@ public class Utility {
     public static double lerp(double point1, double point2, double alpha) {
         return point1 + alpha * (point2 - point1);
     }
+
+    public static float clamp(float value, float min, float max) {
+        return Math.max(Math.min(value, max), min);
+    }
+
+    public static double clamp(double value, double min, double max) {
+        return Math.max(Math.min(value, max), min);
+    }
+
 }
