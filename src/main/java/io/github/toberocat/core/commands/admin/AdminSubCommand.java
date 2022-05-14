@@ -1,5 +1,6 @@
 package io.github.toberocat.core.commands.admin;
 
+import io.github.toberocat.core.commands.admin.power.AdminPowerCommand;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import org.bukkit.entity.Player;

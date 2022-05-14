@@ -1,4 +1,4 @@
-package io.github.toberocat.core.commands.admin;
+package io.github.toberocat.core.commands.admin.power;
 
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
@@ -10,9 +10,9 @@ import org.bukkit.entity.Player;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AdminPowerCommand extends SubCommand {
-    public AdminPowerCommand() {
-        super("addPower", "admin.addPower", false);
+public class AdminRemovePowerCommand extends SubCommand {
+    public AdminRemovePowerCommand() {
+        super("remove", "admin.power.remove", "command.admin.power.remove.description", false);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class AdminPowerCommand extends SubCommand {
 
         Faction faction = FactionUtility.getFactionByRegistry(args[0]);
 
-        faction.getPowerManager().setCurrentPower(faction.getPowerManager().getCurrentPower() + amount);
+        faction.getPowerManager().setCurrentPower(faction.getPowerManager().getCurrentPower() - amount);
     }
 
     @Override
