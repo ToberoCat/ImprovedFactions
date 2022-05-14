@@ -1,5 +1,6 @@
 package io.github.toberocat.core.commands.admin;
 
+import io.github.toberocat.core.commands.admin.maxpower.AdminMaxPowerCommand;
 import io.github.toberocat.core.commands.admin.power.AdminPowerCommand;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -22,6 +23,7 @@ public class AdminSubCommand extends SubCommand {
         subCommands.add(new AdminRemoveTimeoutSubCommand());
         subCommands.add(new AdminBypassSubCommand());
         subCommands.add(new AdminPowerCommand());
+        subCommands.add(new AdminMaxPowerCommand());
     }
 
     @Override

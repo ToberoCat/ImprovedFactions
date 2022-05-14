@@ -12,18 +12,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AnimatedBossBar {
 
     public static final long ANIMATION_TIME = 1;
     public static final int ANIMATION_SPEED = 10000;
-    public static final int ANIMATION_MS_FADE = 3000;
+    public static final int ANIMATION_MS_FADE = 700;
     public static final double EPS = 0.001;
 
     private static final ArrayList<AnimatedBossBar> BOSS_BARS = new ArrayList<>();
 
     private final BossBar bossBar;
-    private final double min, max;
+    private double min, max;
     private int taskId = -1;
     private final Ease ease;
     private Runnable finishCallback;
@@ -41,9 +42,25 @@ public class AnimatedBossBar {
         BOSS_BARS.add(this);
     }
 
-    public void fade(Player player, double value) {
-        addPlayer(player);
-        finishCallback = () -> AsyncTask.runLaterSync(ANIMATION_MS_FADE, () -> removePlayer(player));
+    public void fade(double value, Player... players) {
+        if (players == null) return;
+
+        for (Player player : players) addPlayer(player);
+
+        finishCallback = () -> AsyncTask.runLaterSync(ANIMATION_MS_FADE, () -> {
+            for (Player player : players) removePlayer(player);
+        });
+        AsyncTask.runLaterSync(ANIMATION_MS_FADE, () -> setValueAnimated(value));
+    }
+
+    public void fade(double value, List<Player> players) {
+        if (players == null) return;
+
+        for (Player player : players) addPlayer(player);
+
+        finishCallback = () -> AsyncTask.runLaterSync(ANIMATION_MS_FADE, () -> {
+            for (Player player : players) removePlayer(player);
+        });
         AsyncTask.runLaterSync(ANIMATION_MS_FADE, () -> setValueAnimated(value));
     }
 
@@ -120,5 +137,27 @@ public class AnimatedBossBar {
                 }
             }
         }.runTaskTimer(MainIF.getIF(), 0, ANIMATION_TIME).getTaskId();
+    }
+
+    public double getMin() {
+        return min;
+    }
+
+    public AnimatedBossBar setMin(double min) {
+        this.min = min;
+        return this;
+    }
+
+    public double getMax() {
+        return max;
+    }
+
+    public AnimatedBossBar setMax(double max) {
+        this.max = max;
+        return this;
+    }
+
+    public void setTitle(String title) {
+        bossBar.setTitle(Language.format(title));
     }
 }

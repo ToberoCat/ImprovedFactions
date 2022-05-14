@@ -1,4 +1,4 @@
-package io.github.toberocat.core.commands.admin.power;
+package io.github.toberocat.core.commands.admin.maxpower;
 
 import io.github.toberocat.core.utility.command.SubCommand;
 import org.bukkit.entity.Player;
@@ -6,9 +6,9 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.Set;
 
-public class AdminPowerCommand extends SubCommand {
-    public AdminPowerCommand() {
-        super("power", "admin.power", "command.admin.power.description", true);
+public class AdminMaxPowerCommand extends SubCommand {
+    public AdminMaxPowerCommand() {
+        super("maxpower", "admin.maxpower", "command.admin.maxpower.description", true);
         subCommands.addAll(Set.of(
                 new AdminGivePowerCommand(),
                 new AdminRemovePowerCommand(),

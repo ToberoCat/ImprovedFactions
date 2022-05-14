@@ -1,4 +1,4 @@
-package io.github.toberocat.core.commands.admin.power;
+package io.github.toberocat.core.commands.admin.maxpower;
 
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
@@ -13,7 +13,7 @@ import java.util.List;
 public class AdminSetPowerCommand extends SubCommand {
 
     public AdminSetPowerCommand() {
-        super("set", "admin.power.set", "command.admin.power.set.description", false);
+        super("set", "admin.maxpower.set", "command.admin.maxpower.set.description", false);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class AdminSetPowerCommand extends SubCommand {
 
         Faction faction = FactionUtility.getFactionByRegistry(args[0]);
 
-        faction.getPowerManager().setCurrentPower(amount);
+        faction.getPowerManager().setMaxPower(amount);
     }
 
     @Override

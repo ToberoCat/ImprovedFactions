@@ -134,7 +134,7 @@ public class FactionMemberManager {
         faction.getFactionPerm().setRank(player, MemberRank.registry);
         members.add(player.getUniqueId());
         faction.getPowerManager()
-                .IncreaseMax(MainIF.getConfigManager().getValue("power.maxPowerPerPlayer"));
+                .increaseMax(MainIF.getConfigManager().getValue("power.maxPowerPerPlayer"));
 
         return new Result(true);
     }
@@ -165,7 +165,7 @@ public class FactionMemberManager {
         faction.getFactionPerm().setRank(player, null);
         members.remove(player.getUniqueId());
         faction.getPowerManager()
-                .IncreaseMax(MainIF.getConfigManager().getValue("power.maxPowerPerPlayer"));
+                .increaseMax(MainIF.getConfigManager().getValue("power.maxPowerPerPlayer"));
         return new Result(true);
     }
 

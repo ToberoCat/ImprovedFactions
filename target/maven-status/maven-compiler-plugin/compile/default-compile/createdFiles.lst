@@ -35,7 +35,6 @@ io\github\toberocat\core\commands\factions\LeaveFactionSubCommand.class
 io\github\toberocat\core\commands\admin\AdminHardResetSubCommand.class
 io\github\toberocat\core\extensions\ExtensionRegistry.class
 io\github\toberocat\core\commands\settings\PlayerSettingsSubCommand.class
-io\github\toberocat\core\commands\admin\AdminPowerCommand.class
 io\github\toberocat\core\utility\events\faction\FactionJoinEvent.class
 io\github\toberocat\core\commands\admin\AdminGetPlayerFactionSubCommand.class
 io\github\toberocat\versions\v1_14\NMSLoader_1_14.class
@@ -89,13 +88,14 @@ io\github\toberocat\core\commands\factions\MembersSubCommand.class
 io\github\toberocat\core\factions\rank\allies\AllyMemberRank.class
 io\github\toberocat\core\gui\config\configure\ConfigConfigureGUI.class
 io\github\toberocat\core\commands\admin\AdminIsPlayerInFactionSubCommand.class
+io\github\toberocat\core\commands\admin\power\AdminPowerCommand.class
 io\github\toberocat\core\extensions\ExtensionLoader.class
 io\github\toberocat\core\utility\events\ConfigSaveEvent$SaveType.class
 io\github\toberocat\core\utility\map\MapHandler.class
 io\github\toberocat\core\factions\rank\members\ElderRank.class
 io\github\toberocat\core\gui\faction\ManagePlayerRankGui.class
+io\github\toberocat\core\commands\admin\maxpower\AdminSetPowerCommand.class
 io\github\toberocat\core\utility\language\LanguageListLoader.class
-io\github\toberocat\core\commands\TestCmd.class
 io\github\toberocat\versions\v1_15\NMSLoader_1_15.class
 io\github\toberocat\core\listeners\ExplodeListener.class
 io\github\toberocat\core\utility\gui\Gui.class
@@ -118,6 +118,7 @@ io\github\toberocat\versions\nms\NMSInterface.class
 io\github\toberocat\core\commands\factions\InviteAcceptSubCommand.class
 io\github\toberocat\core\gui\config\backup\ConfigBackupConfigSubGUI$1.class
 io\github\toberocat\core\utility\sql\SQL$Value.class
+io\github\toberocat\core\commands\admin\power\AdminSetPowerCommand.class
 io\github\toberocat\core\utility\config\Config.class
 io\github\toberocat\core\commands\settings\PlayerSettingsSubCommand$1.class
 io\github\toberocat\core\utility\messages\PlayerMessageBuilder.class
@@ -125,12 +126,14 @@ io\github\toberocat\core\utility\settings\type\SettingEnum.class
 io\github\toberocat\core\commands\config\ConfigSubCommand.class
 io\github\toberocat\core\extensions\ExtensionDownloader.class
 io\github\toberocat\core\commands\admin\AdminRegenerateSubCommand.class
+io\github\toberocat\core\commands\admin\maxpower\AdminGivePowerCommand.class
 io\github\toberocat\core\gui\extensions\DownloadGUI.class
 io\github\toberocat\core\extensions\ExtensionObject.class
 io\github\toberocat\core\utility\settings\type\BoolSetting.class
 io\github\toberocat\core\utility\date\DateCore.class
 io\github\toberocat\core\utility\gui\slot\Slot.class
 io\github\toberocat\core\gui\faction\ManageRankSettingGui.class
+io\github\toberocat\core\commands\admin\maxpower\AdminRemovePowerCommand.class
 io\github\toberocat\core\commands\factions\JoinFactionSubCommand.class
 io\github\toberocat\core\commands\factions\KickSubCommand.class
 io\github\toberocat\core\utility\events\faction\FactionKickEvent.class
@@ -212,8 +215,10 @@ io\github\toberocat\core\gui\config\backup\ConfigBackupConfigSubGUI$2.class
 io\github\toberocat\core\bstat\Metrics.class
 io\github\toberocat\core\utility\command\AutoSubCommand.class
 io\github\toberocat\core\utility\command\SubCommandSettings.class
+io\github\toberocat\core\commands\admin\maxpower\AdminMaxPowerCommand.class
 io\github\toberocat\core\utility\history\territory\TerritorySwitch.class
 io\github\toberocat\core\utility\gitreport\GitReport.class
+io\github\toberocat\core\commands\admin\power\AdminGivePowerCommand.class
 io\github\toberocat\core\listeners\PlayerJoinListener.class
 io\github\toberocat\versions\nms\NMSFactory.class
 io\github\toberocat\core\bstat\Metrics$SingleLineChart.class
@@ -225,4 +230,5 @@ io\github\toberocat\core\bstat\Metrics$AdvancedPie.class
 io\github\toberocat\core\commands\plugin\PluginDisableSubCommand.class
 io\github\toberocat\core\utility\callbacks\ExceptionCallback.class
 io\github\toberocat\core\commands\admin\AdminFreezeSubCommand.class
+io\github\toberocat\core\commands\admin\power\AdminRemovePowerCommand.class
 io\github\toberocat\core\gui\faction\MemberGui.class

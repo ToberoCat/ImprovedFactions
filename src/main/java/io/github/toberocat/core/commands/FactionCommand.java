@@ -17,8 +17,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 public class FactionCommand implements TabExecutor {
 
@@ -48,13 +52,12 @@ public class FactionCommand implements TabExecutor {
                 new MembersSubCommand(),
                 new InviteSubCommand(),
                 new InviteAcceptSubCommand(),
-                new UnclaimSubCommand(),
-                new TestCmd()
-                ));
+                new UnclaimSubCommand()
+        ));
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         //Player is null if commandblock or console
         Player player = null;
 
