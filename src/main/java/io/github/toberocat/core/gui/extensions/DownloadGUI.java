@@ -1,5 +1,6 @@
 package io.github.toberocat.core.gui.extensions;
 
+import io.github.toberocat.MainIF;
 import io.github.toberocat.core.extensions.ExtensionDownloadCallback;
 import io.github.toberocat.core.extensions.ExtensionDownloader;
 import io.github.toberocat.core.extensions.ExtensionObject;
@@ -9,7 +10,9 @@ import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.gui.GUISettings;
 import io.github.toberocat.core.utility.gui.Gui;
 import io.github.toberocat.core.utility.language.Language;
+import io.github.toberocat.core.utility.version.Version;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
@@ -28,15 +31,27 @@ public class DownloadGUI extends Gui {
                 Language.sendRawMessage("Finished downloading. Will now list extensions", player);
 
                 for (ExtensionObject extension : extensions) {
+                    boolean compatible = MainIF.getVersion().versionToInteger() >= Version.from(extension.getMinVersion()).versionToInteger();
                     List<String> loreList = new ArrayList<>(Arrays.stream(extension.getDescription()).map(x -> Language.format("&8" + x)).toList());
                     loreList.add("");
+                    loreList.add("§7Compatible: " + (compatible ? "§aYes" : "§cNo"));
+                    if (compatible) {
+                        loreList.add("§7Tested in your version: " + (Arrays.stream(extension.getTestVersions())
+                                .anyMatch(x -> x
+                                        .equals(MainIF.getVersion().getVersion())) ? "§aYes" : "§eNot yet"));
+                    }
+
                     loreList.add("§7Version: §d" + extension.getNewestVersion());
                     loreList.add("§7Author: §d" + extension.getAuthor());
 
-                    addSlot(Utility.createItem(extension.getGuiIcon(), "§e" +
-                            extension.getDisplayName(), loreList.toArray(String[]::new)), () -> {
-                        downloadExtension(extension, player, false);
-                    });
+                    if (compatible) {
+                        addSlot(Utility.createItem(extension.getGuiIcon(), "§e" +
+                                extension.getDisplayName(), loreList.toArray(String[]::new)), () -> {
+                            downloadExtension(extension, player, false);
+                        });
+                    } else {
+                        Language.sendRawMessage("This version isn't compatible with ours, so you can't download it", player);
+                    }
                 }
             });
         });

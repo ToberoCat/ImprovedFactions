@@ -2,11 +2,13 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\I
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\versions\nms\NMSInterface.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\gui\player\PlayerSettingsGui.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\command\AutoSubCommand.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\admin\maxpower\AdminMaxPowerCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\SignalBarrier.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\items\ItemCore.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\settings\PlayerSettingsSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\exceptions\AlreadyRunException.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\gitreport\GitReport.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\bossbar\SimpleBar.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\extension\ExtensionDownloadSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\admin\AdminPermanentSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\factions\relation\RelationManager.java
@@ -44,6 +46,8 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\I
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\papi\Placeholder.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\versions\v1_17\NMSLoader_1_17.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\admin\power\AdminPowerCommand.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\jackson\deserializer\LocationDeserializer.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\jackson\serializer\LocationSerializer.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\admin\AdminTimeoutSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\listeners\PlayerJoinListener.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\settings\type\SettingEnum.java
@@ -57,6 +61,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\I
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\factions\JoinFactionSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\factions\UnBanSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\command\SubCommandSettings.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\admin\maxpower\AdminSetPowerCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\zones\WarZoneSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\Result.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\factions\DeleteFactionSubCommand.java
@@ -75,6 +80,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\I
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\MainIF.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\gui\extensions\DownloadGUI.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\gui\config\configure\ConfigConfigureGUI.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\factions\FactionModule.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\factions\KickSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\language\LangContainer.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\gui\faction\ManagePlayerRankGui.java
@@ -128,10 +134,12 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\I
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\admin\AdminHardResetSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\listeners\BlockPlaceListener.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\language\LanguageListLoader.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\events\faction\FactionLoadEvent.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\settings\type\EnumSetting.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\events\faction\FactionJoinEvent.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\factions\CreateFactionSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\admin\power\AdminRemovePowerCommand.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\admin\maxpower\AdminRemovePowerCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\zones\ZoneSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\dynamic\loaders\PlayerJoinLoader.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\factions\LeaveFactionSubCommand.java
@@ -166,6 +174,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\I
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\plugin\PluginDisableSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\config\ConfigSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\versions\v1_14\NMSLoader_1_14.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\admin\maxpower\AdminGivePowerCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\gui\faction\FactionSettingsGui.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\versions\nms\NMSFactory.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\factions\relation\RelationSubCommand.java

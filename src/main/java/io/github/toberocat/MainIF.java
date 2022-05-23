@@ -2,9 +2,11 @@ package io.github.toberocat;
 
 import io.github.toberocat.core.bstat.Bstat;
 import io.github.toberocat.core.commands.FactionCommand;
+import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.extensions.Extension;
 import io.github.toberocat.core.extensions.ExtensionLoader;
 import io.github.toberocat.core.extensions.ExtensionRegistry;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.factions.permission.FactionPerm;
 import io.github.toberocat.core.factions.rank.Rank;
@@ -13,7 +15,7 @@ import io.github.toberocat.core.papi.FactionExpansion;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
-import io.github.toberocat.core.utility.bossbar.AnimatedBossBar;
+import io.github.toberocat.core.utility.bossbar.SimpleBar;
 import io.github.toberocat.core.utility.calender.TimeCore;
 import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.config.Config;
@@ -26,6 +28,7 @@ import io.github.toberocat.core.utility.events.bukkit.PlayerJoinOnReloadEvent;
 import io.github.toberocat.core.utility.items.ItemCore;
 import io.github.toberocat.core.utility.jackson.JsonUtility;
 import io.github.toberocat.core.utility.jackson.YmlUtility;
+import io.github.toberocat.core.utility.language.LangMessage;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.map.MapHandler;
 import io.github.toberocat.core.utility.messages.MessageSystem;
@@ -62,7 +65,7 @@ import static org.bukkit.Bukkit.getPluginManager;
  */
 public final class MainIF extends JavaPlugin {
 
-    public static final Version VERSION = Version.from("1.2");
+    public static final Version VERSION = Version.from("1.3");
 
     public static final HashMap<String, Extension> LOADED_EXTENSIONS = new HashMap<>();
 
@@ -183,6 +186,18 @@ public final class MainIF extends JavaPlugin {
             }
 
 
+            Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+                Debugger.log("Unloading unused factions...");
+                List<String> unused = new ArrayList<>();
+                for (Faction faction : Faction.getLoadedFactions().values())
+                    if (faction.getFactionMemberManager().getOnlinePlayers().size() == 0)
+                        unused.add(faction.getRegistryName());
+
+
+                for (String registry : unused) Faction.getLoadedFactions().remove(registry);
+
+            }, 0, 20 * 60 * 5);
+
             DynamicLoader.enable();
         });
     }
@@ -221,7 +236,7 @@ public final class MainIF extends JavaPlugin {
         backupFile.clear();
         dataManagers.clear();
         configMap.clear();
-        AnimatedBossBar.cleanup();
+        SimpleBar.cleanup();
         PlayerJoinListener.PLAYER_JOINS.clear();
     }
 
@@ -272,11 +287,16 @@ public final class MainIF extends JavaPlugin {
         File[] extensions = extFolder.listFiles();
         if (extensions == null) return true;
 
+        List<LangMessage> langMessages = new ArrayList<>();
         for (File jar : extensions) {
             if (!jar.getName().endsWith(".jar")) continue;
 
             ExtensionRegistry registry = loadRegistry(jar);
             if (registry == null) continue;
+
+            LangMessage extensionLang = getExtensionLangFile(jar);
+            if (extensionLang != null) langMessages.add(extensionLang);
+
 
             //Extension extension = loader.LoadClass(jar, "extension.Main", Extension.class);
             Extension extension = ExtensionLoader.loadClass(jar, registry.main(), Extension.class);
@@ -287,7 +307,24 @@ public final class MainIF extends JavaPlugin {
             LOADED_EXTENSIONS.put(extension.getRegistry().registry(), extension);
         }
 
+        for (LangMessage message : langMessages) LangMessage.addDefault(message);
+
         return true;
+    }
+
+    private LangMessage getExtensionLangFile(File file) throws MalformedURLException {
+        String path = "jar:file:\\" + file.getAbsolutePath() + "!/en_us.lang";
+
+        URL inputURL = new URL(path);
+        JarURLConnection conn = null;
+        try {
+            conn = (JarURLConnection) inputURL.openConnection();
+            InputStream in = conn.getInputStream();
+            return JsonUtility.readObject(in, LangMessage.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private ExtensionRegistry loadRegistry(File file) throws MalformedURLException {
@@ -421,12 +458,12 @@ public final class MainIF extends JavaPlugin {
 
     private void loadListeners() {
         Arrays.asList(
-                new PlayerJoinListener(),
-                new PlayerLeaveListener(),
-                new GuiListener(),
-                new PlayerMoveListener(),
-                new BlockBreakListener(),
-                new BlockPlaceListener())
+                        new PlayerJoinListener(),
+                        new PlayerLeaveListener(),
+                        new GuiListener(),
+                        new PlayerMoveListener(),
+                        new BlockBreakListener(),
+                        new BlockPlaceListener())
                 .forEach(listener -> getPluginManager().registerEvents(listener, this));
     }
 
@@ -482,11 +519,12 @@ public final class MainIF extends JavaPlugin {
     }
 
     private boolean initializeCores() throws IOException, ClassNotFoundException {
+        if (!loadExtensions()) return false;
+
         if (!Language.init(this, getDataFolder())) return false;
         if (!TimeCore.init()) return false;
         if (!DataAccess.init()) return false;
 
-        if (!loadExtensions()) return false;
 
         FactionSettings.register();
         PlayerSettings.register();

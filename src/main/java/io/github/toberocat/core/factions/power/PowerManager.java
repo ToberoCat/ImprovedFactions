@@ -19,6 +19,7 @@ public class PowerManager {
      * Don't use this. It's for jackson (json).
      */
     public PowerManager() {
+        this.bossBar = new AnimatedBossBar("&bPower " + 0 + "/" + 0, BarColor.BLUE, 0, 0, new EaseInOutSine());
     }
 
     public PowerManager(Faction faction, int maxPower) {
@@ -67,6 +68,7 @@ public class PowerManager {
         this.currentPower = currentPower;
         if (currentPower > maxPower) maxPower = currentPower;
 
+        if (faction == null) return;
         bossBar.setTitle("&bPower " + currentPower + "/" + maxPower);
         bossBar.fade(currentPower, faction.getFactionMemberManager().getOnlinePlayers());
     }
@@ -79,6 +81,7 @@ public class PowerManager {
         this.maxPower = maxPower;
         if (maxPower < currentPower) currentPower = maxPower;
 
+        if (faction == null) return;
         bossBar.setMax(maxPower);
         bossBar.setTitle("&bPower " + currentPower + "/" + maxPower);
         bossBar.fade(currentPower, faction.getFactionMemberManager().getOnlinePlayers());

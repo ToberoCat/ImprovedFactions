@@ -12,6 +12,7 @@ import io.github.toberocat.core.utility.dynamic.loaders.PlayerJoinLoader;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +30,6 @@ public class Language extends PlayerJoinLoader {
     private static boolean gotInitialized = false;
 
     private static Map<String, ObjectPair<Integer, LangMessage>> LOADED_LANGUAGES;
-
 
     public static boolean init(MainIF plugin, File datatDir) {
         File langDir = new File(datatDir.getPath() + "/lang");
@@ -217,7 +217,13 @@ public class Language extends PlayerJoinLoader {
 
         for (Parseable parseable : parables) {
             if (parseable != null) {
-                message = message.replaceAll(escape(parseable.getParse()), escape(parseable.getTo()));
+                String to = parseable.getTo();
+                String from = parseable.getParse();
+
+                to = to == null ? "" : to;
+                from = from == null ? "" : from;
+
+                message = message.replaceAll(escape(from), escape(to));
             }
         }
         return message;
@@ -240,8 +246,7 @@ public class Language extends PlayerJoinLoader {
         return ChatColor.translateAlternateColorCodes('&', msg);
     }
 
-    public static String escape(String s) {
-        if (s == null) return null;
+    public static String escape(@NotNull String s) {
         return s.replace("\\", "\\\\")
                 .replace("\t", "\\t")
                 .replace("\b", "\\b")

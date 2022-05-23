@@ -6,8 +6,6 @@ import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.claim.ClaimManager;
-import io.github.toberocat.core.utility.history.History;
-import io.github.toberocat.core.utility.history.territory.Territory;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.language.Parseable;
 import io.github.toberocat.core.utility.settings.PlayerSettings;
@@ -52,22 +50,13 @@ public class PlayerMoveListener implements Listener {
                 }
             }
 
-            if (toRegistry == null && fromRegistry == null) return;
-
             if (!FactionUtility.doesFactionExist(toRegistry)) {
                 MainIF.getIF().getClaimManager().removeProtection(to);
             }
 
-            if (fromRegistry == null) {
-                display(player, "wildness", toRegistry, from, to);
-                return;
-            } else if (toRegistry == null) {
-                display(player, fromRegistry, "wildness", from, to);
-                return;
-            }
 
             if (!fromRegistry.equals(toRegistry)) {
-                display(player, fromRegistry, toRegistry, from, to);
+                display(player, toRegistry);
             }
         }
     }
@@ -82,66 +71,64 @@ public class PlayerMoveListener implements Listener {
         }
     }
 
-    private void display(Player player, String fromRegistry, String toRegistry, Chunk from, Chunk to) {
-        History.logTerritorySwitch(player, new Territory(fromRegistry, from),
-                new Territory(toRegistry, to));
-
+    private void display(Player player, String toRegistry) {
         PlayerSettings settings = PlayerSettings.getSettings(player.getUniqueId());
         if (!(Boolean) settings.getSetting("displayTitle").getSelected()) return;
 
         PlayerSettings.TitlePosition position = PlayerSettings.TitlePosition.values()[(int) settings.getSetting("titlePosition").getSelected()];
 
-        String registry = MainIF.getIF().getClaimManager().getFactionRegistry(to);
-
-        sendTitle(position, player, registry);
+        sendTitle(position, player, toRegistry);
     }
 
     private void sendTitle(PlayerSettings.TitlePosition pos, Player player, String registry) {
-        Faction faction = FactionUtility.getFactionByRegistry(registry);
-        Faction playerFaction = FactionUtility.getPlayerFaction(player);
-
         AsyncTask.run(() -> {
-            String text = null;
-
             if (registry == null) {
-                text = Language.getMessage("territory.wilderness", player);
-            } else if (faction != null) {
-                text = faction.getDisplayName();
-            } else if (registry.equals(ClaimManager.SAFEZONE_REGISTRY)) {
-                text = Language.getMessage("territory.safezone", player);
-            } else if (registry.equals(ClaimManager.WARZONE_REGISTRY)) {
-                text = Language.getMessage("territory.warzone", player);
-            } else if (registry.equals(ClaimManager.UNCLAIMABLE_REGISTRY)) {
+                send(pos, player, Language.getMessage("territory.wilderness", player), "");
                 return;
             }
 
+            Faction faction = FactionUtility.getFactionByRegistry(registry);
+            Faction playerFaction = FactionUtility.getPlayerFaction(player);
+
+            String text = null;
+
+            if (faction != null) text = faction.getDisplayName();
+            else if (registry.equals(ClaimManager.SAFEZONE_REGISTRY))
+                text = Language.getMessage("territory.safezone", player);
+            else if (registry.equals(ClaimManager.WARZONE_REGISTRY))
+                text = Language.getMessage("territory.warzone", player);
+            else if (registry.equals(ClaimManager.UNCLAIMABLE_REGISTRY)) return;
+
             String relation = "&e";
             if (playerFaction != null && faction != null) {
-                if (playerFaction.getRegistryName().equals(registry)) {
-                    relation = "&a";
-                } else if (playerFaction.getRelationManager().getAllies().contains(faction.getRegistryName())) {
+                if (playerFaction.getRegistryName().equals(registry)) relation = "&a";
+                else if (playerFaction.getRelationManager().getAllies().contains(faction.getRegistryName()))
                     relation = "&b";
-                } else if (playerFaction.getRelationManager().getEnemies().contains(faction.getRegistryName())) {
+                else if (playerFaction.getRelationManager().getEnemies().contains(faction.getRegistryName()))
                     relation = "&c";
-                }
             }
 
-            if (text == null) return;
-
-            Parseable[] parses = new Parseable[]{new Parseable("{territory}", text),
-                    new Parseable("{relation}", relation)};
-
-            switch (pos) {
-                case CHAT -> Language.sendMessage("territory.entered.chat", player, parses);
-                case ACTIONBAR -> player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
-                        TextComponent.fromLegacyText(Language.getMessage("territory.entered.actionbar",
-                                player, parses)));
-                case TITLE -> player.sendTitle(Language.getMessage("territory.entered.title",
-                        player, parses), "", 5, 20, 5);
-                case SUBTITLE -> player.sendTitle(" ", Language.getMessage("territory.entered.subtitle",
-                        player, parses), 5, 20, 5);
-            }
+            if (text == null) text = Language.getMessage("territory.wilderness", player); // There is still a claim, but the faction got deleted
+            send(pos, player, text, relation);
         });
+    }
+
+    private void send(PlayerSettings.TitlePosition pos, Player player, String text, String relation) {
+        Parseable[] parses = new Parseable[] {
+                new Parseable("{territory}", text),
+                new Parseable("{relation}", relation == null || relation.length() == 0 ? "&r" : relation)
+        };
+
+        switch (pos) {
+            case CHAT -> Language.sendMessage("territory.entered.chat", player, parses);
+            case ACTIONBAR -> player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
+                    TextComponent.fromLegacyText(Language.getMessage("territory.entered.actionbar",
+                            player, parses)));
+            case TITLE -> player.sendTitle(Language.getMessage("territory.entered.title",
+                    player, parses), "", 5, 20, 5);
+            case SUBTITLE -> player.sendTitle(" ", Language.getMessage("territory.entered.subtitle",
+                    player, parses), 5, 20, 5);
+        }
     }
 
     public enum ClaimAutoType {CLAIM, UNCLAIM}

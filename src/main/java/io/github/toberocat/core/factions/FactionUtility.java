@@ -6,14 +6,13 @@ import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.data.PersistentDataUtility;
 import io.github.toberocat.core.utility.dynamic.loaders.PlayerJoinLoader;
+import io.github.toberocat.core.utility.events.faction.FactionLoadEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.logging.Level;
 
 /**
@@ -98,6 +97,11 @@ public class FactionUtility extends PlayerJoinLoader {
         faction.getRelationManager().setFaction(faction);
         faction.getFactionPerm().setFaction(faction);
 
+        for (Map.Entry<String, FactionModule> module : faction.getModules().entrySet()) {
+            if (module.getValue() == null) faction.getModules().remove(module.getKey());
+        }
+        for (FactionModule module : faction.getModules().values()) if (module != null) module.setFaction(faction);
+
         MainIF.logMessage(Level.INFO, "Loaded &e" + faction.getRegistryName());
         Faction.getLoadedFactions().put(registry, faction);
         return faction;
@@ -138,7 +142,13 @@ public class FactionUtility extends PlayerJoinLoader {
                 return;
             }
 
-            getFactionByRegistry(registry);
+            Faction faction = getFactionByRegistry(registry);
+            if (faction == null) {
+                MainIF.logMessage(Level.SEVERE, "Couldn't load faction " + registry + ". This faction should have get loaded, but had problems while doing so");
+                return;
+            }
+
+            Bukkit.getPluginManager().callEvent(new FactionLoadEvent(faction));
         });
     }
 

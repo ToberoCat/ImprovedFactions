@@ -68,6 +68,10 @@ public class FactionPerm {
         }, ItemCore.create(INTERACT_PERM, Material.CHEST, "&eInteract permission")));
     }
 
+    public static void registerPermission(RankSetting setting) {
+        DEFAULT_RANKS.put(setting.getSettingName(), setting);
+    }
+
     public Rank getPlayerRank(Player player) {
         if (!faction.isMember(player)) return Rank.fromString(GuestRank.register);
 

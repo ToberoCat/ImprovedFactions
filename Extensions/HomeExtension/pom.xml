@@ -4,12 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.toberocat.improved-factions</groupId>
-    <artifactId>ExampleExtension</artifactId>
-    <version>1.0</version>
+    <groupId>io.github.toberocat.improvedfactions</groupId>
+    <artifactId>HomeExtension</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>ExampleExtension</name>
+    <name>HomeExtension</name>
 
     <properties>
         <java.version>1.8</java.version>
@@ -23,8 +23,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>16</source>
+                    <target>16</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -38,8 +38,9 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputFile>C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Server1.16.5\plugins\ImprovedFactions\Extensions\ExampleExtension.jar</outputFile>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <outputFile>C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Server1.16.5\plugins\ImprovedFactions\Extensions\HomeExtension.jar</outputFile>
+
                         </configuration>
                     </execution>
                 </executions>
@@ -71,12 +72,10 @@
             <version>1.16.5-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
-
-        <!-- Download & Build ImprovedFactions from source code -->
         <dependency>
             <groupId>io.github.toberocat</groupId>
             <artifactId>ImprovedFactions</artifactId>
-            <version>1.0</version>
+            <version>1.3</version>
         </dependency>
     </dependencies>
 </project>

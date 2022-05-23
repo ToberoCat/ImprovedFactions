@@ -38,3 +38,4 @@
 - Mute (Player in f chat)
 - Unmute
 - Wildness command (Tps to random location) (Extension)
+- %faction_rank% as papi placeholder to get the players rank

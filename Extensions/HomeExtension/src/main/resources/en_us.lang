@@ -1,0 +1,18 @@
+{
+  "messages": {
+    "command.faction.sethome": "Set the home for your faction",
+    "command.faction.sethome.success": "You have set your factions home",
+    "command.faction.sethome.not-in-faction-claim": "&cCan't st the home outside of your faction claim",
+
+    "command.faction.home": "Teleport to your faction home",
+    "command.faction.home.no-home": "&cYour faction hasn't set a home yet",
+    "command.faction.home.teleported": "&aYou have been teleported to your faction home",
+    "command.faction.home.teleport-cancelled": "&cYou have moved and because of this the teleportation has been cancelled",
+    "command.faction.home.teleport-scheduled.default": "&aYou will be teleported to your factions home in &6{seconds}&a seconds.",
+    "command.faction.home.teleport-scheduled.no-move": "&aYou will be teleported to your factions home in &6{seconds}&a seconds. &cDon't move, else your teleportation will be cancelled",
+    "command.faction.home.teleporting": "&aTeleporting in {seconds}s"
+  },
+  "author": "Tobero",
+  "credits": "Thanks for this amazing support from everyone who uses this plugin",
+  "version": "1.0"
+}

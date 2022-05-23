@@ -95,6 +95,7 @@ public class DataAccess {
             try {
                 return (T) JsonUtility.readObject(file, clazz);
             } catch (IOException e) {
+                e.printStackTrace();
                 return null;
             }
         }

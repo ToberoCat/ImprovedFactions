@@ -47,6 +47,11 @@ public class ExtensionDownloader {
         AsyncTask.run((ExceptionCallback) () -> {
             for (int i = 0; i < 10; i++) {
                 URL url = extension.getDownloadLinks().get(MainIF.getVersion().getVersion());
+                if (url == null)
+                    url = extension.getDownloadLinks().get(extension.getMinVersion());
+
+                if (url == null) return;
+
                 String fileName = "Extensions/" + extension.getFileName() + ".jar";
 
                 HttpURLConnection http = (HttpURLConnection) url.openConnection();

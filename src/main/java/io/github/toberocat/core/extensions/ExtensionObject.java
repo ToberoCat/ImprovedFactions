@@ -16,12 +16,14 @@ public class ExtensionObject {
     private Version newestVersion;
     private String author;
     private String sha256;
+    private String minVersion;
+    private String[] testVersions;
 
     public ExtensionObject() {
     }
 
     public ExtensionObject(String fileName, String displayName, String[] description, Map<String,
-            URL> downloadLinks, Version newestVersion, String author, Material guiIcon, String sha256) {
+            URL> downloadLinks, Version newestVersion, String author, Material guiIcon, String sha256, String minVersion, String[] testVersions) {
         this.fileName = fileName;
         this.displayName = displayName;
         this.description = description;
@@ -30,6 +32,8 @@ public class ExtensionObject {
         this.author = author;
         this.guiIcon = guiIcon;
         this.sha256 = sha256;
+        this.minVersion = minVersion;
+        this.testVersions = testVersions;
     }
 
     public String getSha256() {
@@ -102,5 +106,23 @@ public class ExtensionObject {
 
     public void setRegistryName(String registryName) {
         this.registryName = registryName;
+    }
+
+    public String getMinVersion() {
+        return minVersion;
+    }
+
+    public ExtensionObject setMinVersion(String minVersion) {
+        this.minVersion = minVersion;
+        return this;
+    }
+
+    public String[] getTestVersions() {
+        return testVersions;
+    }
+
+    public ExtensionObject setTestVersions(String[] testVersions) {
+        this.testVersions = testVersions;
+        return this;
     }
 }

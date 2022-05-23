@@ -1,7 +1,9 @@
 package io.github.toberocat.core.factions;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.factions.bank.FactionBank;
@@ -32,11 +34,7 @@ import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Faction {
@@ -53,6 +51,7 @@ public class Faction {
     private String createdAt;
     private UUID owner;
     private int claimedChunks;
+    private LinkedHashMap<String, FactionModule> modules = new LinkedHashMap<>();
 
     /**
      * Don't use this. it's for jackson (json).
@@ -145,6 +144,7 @@ public class Faction {
 
             if (!result.isSuccess()) return result;
         }
+
         Faction newFaction = new Faction(displayName, registryName, owner.getUniqueId(), OpenType.PUBLIC);
         boolean canCreate = Utility.callEvent(new FactionCreateEvent(newFaction, owner));
         if (!canCreate) {
@@ -162,7 +162,12 @@ public class Faction {
             return result;
         }
 
-        DataAccess.addFile("Factions", registryName, newFaction);
+        newFaction.getFactionPerm().setRank(owner, OwnerRank.registry);
+
+        AsyncTask.runLaterSync(0, () -> {
+            Bukkit.getPluginManager().callEvent(new FactionLoadEvent(newFaction));
+            DataAccess.addFile("Factions", registryName, newFaction);
+        });
         return result.setPaired(newFaction);
     }
 
@@ -174,6 +179,7 @@ public class Faction {
     public Rank getPlayerRank(Player player) {
         return factionPerm.getPlayerRank(player);
     }
+
 
     public boolean hasPermission(Player player, String permission) {
         Validate.notNull(player);
@@ -465,6 +471,15 @@ public class Faction {
     }
 
     public enum OpenType {PUBLIC, INVITE_ONLY, CLOSED}
+
+    public LinkedHashMap<String, FactionModule> getModules() {
+        return modules;
+    }
+
+    public Faction setModules(LinkedHashMap<String, FactionModule> modules) {
+        this.modules = modules;
+        return this;
+    }
 
     //</editor-fold>
 }

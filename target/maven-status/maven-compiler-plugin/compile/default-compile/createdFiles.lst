@@ -29,6 +29,8 @@ io\github\toberocat\core\factions\rank\allies\AllyElderRank.class
 io\github\toberocat\core\utility\config\ConfigManager.class
 io\github\toberocat\core\utility\sql\SQL$Column.class
 io\github\toberocat\core\utility\events\faction\FactionBanEvent.class
+io\github\toberocat\core\utility\bossbar\eases\EaseInOutSine.class
+io\github\toberocat\core\utility\bossbar\SimpleBar.class
 io\github\toberocat\core\utility\claim\ClaimManager.class
 io\github\toberocat\core\utility\Result.class
 io\github\toberocat\core\commands\factions\LeaveFactionSubCommand.class
@@ -75,6 +77,7 @@ io\github\toberocat\core\factions\rank\allies\AllyModeratorRank.class
 io\github\toberocat\core\utility\settings\PlayerSettings$1.class
 io\github\toberocat\core\bstat\Metrics$AdvancedBarChart.class
 io\github\toberocat\core\factions\OpenType.class
+io\github\toberocat\core\utility\events\faction\FactionLoadEvent.class
 io\github\toberocat\core\utility\command\SubCommand.class
 io\github\toberocat\core\utility\settings\type\Setting$4.class
 io\github\toberocat\core\utility\events\faction\FactionEventCancelledable.class
@@ -103,6 +106,7 @@ io\github\toberocat\core\commands\config\ConfigBackupSubCommand$1.class
 io\github\toberocat\core\factions\bank\FactionBank.class
 io\github\toberocat\core\gui\config\backup\ConfigBackupGUI.class
 io\github\toberocat\core\factions\members\FactionMemberManager.class
+io\github\toberocat\core\utility\bossbar\AnimatedBossBar$1.class
 io\github\toberocat\core\utility\events\faction\FactionLeaveEvent.class
 io\github\toberocat\core\commands\admin\AdminBypassSubCommand.class
 io\github\toberocat\core\commands\factions\unclaim\UnclaimAutoSubCommand.class
@@ -117,6 +121,7 @@ io\github\toberocat\core\utility\settings\PlayerSettings$TitlePosition.class
 io\github\toberocat\versions\nms\NMSInterface.class
 io\github\toberocat\core\commands\factions\InviteAcceptSubCommand.class
 io\github\toberocat\core\gui\config\backup\ConfigBackupConfigSubGUI$1.class
+io\github\toberocat\core\utility\bossbar\AnimatedBossBar.class
 io\github\toberocat\core\utility\sql\SQL$Value.class
 io\github\toberocat\core\commands\admin\power\AdminSetPowerCommand.class
 io\github\toberocat\core\utility\config\Config.class
@@ -146,6 +151,7 @@ io\github\toberocat\core\utility\settings\type\EnumSetting.class
 io\github\toberocat\core\extensions\ExtensionDownloadCallback.class
 io\github\toberocat\core\factions\power\PowerManager.class
 io\github\toberocat\versions\v1_13\NMSLoader_1_13.class
+io\github\toberocat\core\factions\FactionModule.class
 io\github\toberocat\core\utility\events\faction\FactionUnbanEvent.class
 io\github\toberocat\core\commands\zones\WarZoneSubCommand.class
 io\github\toberocat\core\utility\color\FactionColors.class
@@ -156,6 +162,7 @@ io\github\toberocat\core\bstat\Bstat.class
 io\github\toberocat\core\utility\gui\GUISettings.class
 io\github\toberocat\core\utility\sql\SQL$SQLTable.class
 io\github\toberocat\core\utility\settings\type\Setting$3.class
+io\github\toberocat\core\utility\bossbar\Ease.class
 io\github\toberocat\core\utility\callbacks\ResultCallback.class
 io\github\toberocat\core\utility\items\ItemCore.class
 io\github\toberocat\core\utility\language\Language.class
@@ -215,6 +222,7 @@ io\github\toberocat\core\gui\config\backup\ConfigBackupConfigSubGUI$2.class
 io\github\toberocat\core\bstat\Metrics.class
 io\github\toberocat\core\utility\command\AutoSubCommand.class
 io\github\toberocat\core\utility\command\SubCommandSettings.class
+io\github\toberocat\core\utility\jackson\deserializer\LocationDeserializer.class
 io\github\toberocat\core\commands\admin\maxpower\AdminMaxPowerCommand.class
 io\github\toberocat\core\utility\history\territory\TerritorySwitch.class
 io\github\toberocat\core\utility\gitreport\GitReport.class
@@ -225,6 +233,7 @@ io\github\toberocat\core\bstat\Metrics$SingleLineChart.class
 io\github\toberocat\core\commands\factions\InviteSubCommand.class
 io\github\toberocat\core\utility\SignalBarrier.class
 io\github\toberocat\core\utility\language\LangContainer.class
+io\github\toberocat\core\utility\jackson\serializer\LocationSerializer.class
 io\github\toberocat\core\utility\jackson\YmlUtility.class
 io\github\toberocat\core\bstat\Metrics$AdvancedPie.class
 io\github\toberocat\core\commands\plugin\PluginDisableSubCommand.class

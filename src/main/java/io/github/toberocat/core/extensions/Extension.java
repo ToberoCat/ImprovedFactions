@@ -20,6 +20,24 @@ public abstract class Extension {
      */
     public Extension() {}
 
+    public final <T> T configValue(String section) {
+        if (registry == null) {
+            MainIF.logMessage(Level.WARNING, "Cannot read value at section " + section + " while registry hasn't set (yet)");
+            return null;
+        }
+
+        return MainIF.getConfigManager().getValue(registry.registry() + "." + section);
+    }
+
+    public final <T> void setConfigDefaultValue(String section, T value) {
+        if (registry == null) {
+            MainIF.logMessage(Level.WARNING, "Cannot register value at section " + section + " while registry hasn't set (yet)");
+            return;
+        }
+        MainIF.getConfigManager().addToDefaultConfig(registry.registry() + "." + section, value);
+    }
+
+
     /**
      * Gets called to get informations like name, version, dependencies
      */
@@ -78,6 +96,10 @@ public abstract class Extension {
      * @param plugin the JavaPlugin
      */
     protected void onDisable(MainIF plugin) {
+
+    }
+
+    public void reloadConfigs() {
 
     }
 

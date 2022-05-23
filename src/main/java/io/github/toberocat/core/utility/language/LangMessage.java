@@ -11,6 +11,8 @@ import java.util.logging.Level;
 
 public class LangMessage {
 
+    private static final Map<String, String> defaults = new HashMap<>();
+
     private Map<String, String> messages;
     private String author;
     private String credits;
@@ -163,11 +165,19 @@ public class LangMessage {
 
     }
 
+    public static void addDefault(LangMessage message) {
+        defaults.putAll(message.messages);
+    }
+
     public static LangMessage createNewLang() {
         InputStream stream = LangMessage.class.getResourceAsStream("/lang/en_us.lang");
         ObjectMapper om = new ObjectMapper();
         try {
-            return om.readValue(stream, LangMessage.class);
+            LangMessage message = om.readValue(stream, LangMessage.class);
+            if (message == null) throw new IOException();
+
+            message.messages.putAll(defaults);
+            return message;
         } catch (IOException e) {
             MainIF.logMessage(Level.WARNING, "&cCouldn't create base instance of the lang files");
             return new LangMessage();
