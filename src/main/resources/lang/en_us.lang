@@ -2,6 +2,7 @@
   "author": "Tobero",
   "credits": "Thanks for this amazing support from everyone who uses this plugin",
   "messages": {
+    "command.faction.invite-accept.failed": "&cSorry, but you have no invite from this faction",
     "rank.ally-owner.title": "&bAlly owner rank",
     "rank.ally-owner.lore.0": "&8A owner of your allied",
     "rank.ally-owner.lore.1": "&8faction. You should probably trust him",
@@ -88,7 +89,7 @@
     "command.faction.join.success": "&a&lSuccessfully&f joined the faction",
     "command.faction.leave.success": "&a&lSuccessfully&f left the faction",
     "command.help.description": "&fGet a list of all first layer commands",
-    "command.invite.accept.description": "Accept a invite",
+    "command.invite-accept.description": "Accept a invite",
     "command.invite.description": "Invite someone to your faction",
     "command.invite.player-has-timeout": "&fThe player you wanted to invite has a timeout",
     "command.join.description": "Join a public faction",

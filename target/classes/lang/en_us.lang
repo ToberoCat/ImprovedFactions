@@ -2,6 +2,51 @@
   "author": "Tobero",
   "credits": "Thanks for this amazing support from everyone who uses this plugin",
   "messages": {
+    "command.faction.invite-accept.failed": "&cSorry, but you have no invite from this faction",
+    "rank.ally-owner.title": "&bAlly owner rank",
+    "rank.ally-owner.lore.0": "&8A owner of your allied",
+    "rank.ally-owner.lore.1": "&8faction. You should probably trust him",
+
+    "rank.ally-moderator.title": "&bAlly moderator rank",
+    "rank.ally-moderator.lore.0": "&8A peacekeeper of your",
+    "rank.ally-moderator.lore.1": "&8your allied faction",
+
+
+    "rank.ally-member.title": "&bAlly member rank",
+    "rank.ally-member.lore.0": "&8A member of an allied faction",
+
+    "rank.ally-admin.title": "&bAlly admin rank",
+    "rank.ally-admin.lore.0": "&8The admin of a allied faction",
+
+    "rank.ally-elder.title": "&bAlly elder rank",
+    "rank.ally-elder.lore.0": "&8A person your allied faction",
+    "rank.ally-elder.lore.1": "&8can trust",
+
+    "rank.guest.title": "&eGuest rank",
+    "rank.guest.lore.0": "&8A guest is everyone that has no",
+    "rank.guest.lore.1": "&8relation to your faction",
+
+    "rank.member.title": "&eMember rank",
+    "rank.member.lore.0": "&8A member is everyone, whom",
+    "rank.member.lore.1": "&8just joined or has been in",
+    "rank.member.lore.2": "&8your faction for a long time",
+
+    "rank.elder.title": "&eElder rank",
+    "rank.elder.lore.0": "&8A elders has been long",
+    "rank.elder.lore.1": "&8in your faction",
+
+    "rank.moderator.title": "&eModerator rank",
+    "rank.moderator.lore.0": "&8A moderator is like a",
+    "rank.moderator.lore.1": "&8peacekeeper for your faction",
+
+    "rank.admin.title": "&eAdmin rank",
+    "rank.admin.lore.0": "&8A admin is the right",
+    "rank.admin.lore.1": "&8hand of the owner",
+
+    "rank.owner.title": "&eOwner rank",
+    "rank.owner.lore.0": "&8The owner is the head",
+    "rank.owner.lore.1": "&8of your faction",
+
     "command.admin.description": "&fThis command allows access to command that should be used to moderate your server. &8Note: &fThis can also be used to delete the entire faction data",
     "command.admin.disband.description": "&fDelete a faction. &6&lWarning:&f This cannot be undone. If you want to delete your own faction, please use &7/f delete",
     "command.admin.disband.success": "&a&lSuccessfully &f deleted {faction_display}. &f&nEveryone&f got kicked",
@@ -44,7 +89,7 @@
     "command.faction.join.success": "&a&lSuccessfully&f joined the faction",
     "command.faction.leave.success": "&a&lSuccessfully&f left the faction",
     "command.help.description": "&fGet a list of all first layer commands",
-    "command.invite.accept.description": "Accept a invite",
+    "command.invite-accept.description": "Accept a invite",
     "command.invite.description": "Invite someone to your faction",
     "command.invite.player-has-timeout": "&fThe player you wanted to invite has a timeout",
     "command.join.description": "Join a public faction",

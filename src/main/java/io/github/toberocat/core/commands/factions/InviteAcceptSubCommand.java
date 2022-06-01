@@ -5,6 +5,7 @@ import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.factions.rank.Rank;
 import io.github.toberocat.core.factions.rank.members.MemberRank;
 import io.github.toberocat.core.utility.Result;
+import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.language.Language;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class InviteAcceptSubCommand extends SubCommand {
     public InviteAcceptSubCommand() {
-        super("inviteaccept", "command.invite.accept.description", false);
+        super("inviteaccept", "command.invite-accept.description", false);
     }
 
     @Override
@@ -27,6 +28,12 @@ public class InviteAcceptSubCommand extends SubCommand {
         Faction faction = FactionUtility.getFactionByRegistry(args[0]);
         if (faction == null) {
             Language.sendRawMessage("&cCan't find given faction", player);
+            return;
+        }
+
+        if (AsyncTask.find(Faction.getLoadedFactions().values(),
+                x -> x.getFactionMemberManager().getInvitations().contains(player.getUniqueId())) == null) {
+            Language.sendMessage("command.faction.invite-accept.failed", player);
             return;
         }
 

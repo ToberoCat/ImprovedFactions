@@ -7,11 +7,14 @@ import io.github.toberocat.core.utility.callbacks.ReturnCallback;
 import io.github.toberocat.core.utility.exceptions.AlreadyRunException;
 import org.bukkit.Bukkit;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
 import java.util.logging.Level;
+import java.util.stream.Stream;
 
 /**
  * It allows you to run code on a separate thread
@@ -48,7 +51,14 @@ public class AsyncTask<T> {
             alreadyFinished.getAndIncrement();
             if (alreadyFinished.intValue() >= tasks.size()) callback.run();
         }));
+    }
 
+    public static <T> T find(T[] array, Predicate<T> predicate) {
+        return Stream.of(array).parallel().filter(predicate).findFirst().orElse(null);
+    }
+
+    public static <T> T find(Collection<T> list, Predicate<T> predicate) {
+        return list.parallelStream().filter(predicate).findFirst().orElse(null);
     }
 
     public static void waitForAllThreads() {

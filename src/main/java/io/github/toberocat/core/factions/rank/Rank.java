@@ -28,18 +28,15 @@ public abstract class Rank {
 
     public static void Init() {
         new OwnerRank();
-        new AllyOwnerRank();
-
         new AdminRank();
-        new AllyAdminRank();
-
         new ModeratorRank();
-        new AllyModeratorRank();
-
         new ElderRank();
-        new AllyElderRank();
-
         new MemberRank();
+
+        new AllyOwnerRank();
+        new AllyAdminRank();
+        new AllyModeratorRank();
+        new AllyElderRank();
         new AllyMemberRank();
 
         new GuestRank();
