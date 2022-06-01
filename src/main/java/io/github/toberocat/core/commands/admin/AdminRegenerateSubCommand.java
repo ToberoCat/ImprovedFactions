@@ -45,8 +45,8 @@ public class AdminRegenerateSubCommand extends SubCommand {
                     currentRegistry.equals(ClaimManager.WARZONE_REGISTRY) ||
                     currentRegistry.equals(ClaimManager.UNCLAIMABLE_REGISTRY))) continue;
 
-            PersistentDataUtility.write(PersistentDataUtility.PLAYER_FACTION_REGISTRY, PersistentDataType.STRING,
-                    FactionMemberManager.NO_FACTION, onP.getPersistentDataContainer());
+            PersistentDataUtility.remove(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
+                    onP.getPersistentDataContainer());
             Language.sendRawMessage("Resetted your data", player);
 
             for (Faction faction : Faction.getLoadedFactions().values()) {

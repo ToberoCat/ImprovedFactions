@@ -51,6 +51,7 @@ public class FactionSettings {
                     })
                     .onComplete((user, text) -> {
                         faction.setDisplayName(Language.format(text.replaceAll(" ", "_")));
+                        new FactionSettingsGui(player);
                         return AnvilGUI.Response.close();
                     }).text(faction.getDisplayName())
                     .itemLeft(new ItemStack(Material.GRAY_BANNER))
@@ -68,6 +69,7 @@ public class FactionSettings {
                     })
                     .onComplete((user, text) -> {
                         faction.setMotd(Language.format(text));
+                        new FactionSettingsGui(player);
                         return AnvilGUI.Response.close();
                     }).text(faction.getMotd())
                     .itemLeft(new ItemStack(Material.GRAY_BANNER))
@@ -90,6 +92,7 @@ public class FactionSettings {
                         String fText = Language.format(text);
                         fText = fText.substring(0, Math.min(fText.length(), tagLen));
                         faction.setTag(fText);
+                        new FactionSettingsGui(player);
                         return AnvilGUI.Response.close();
                     }).text(faction.getTag())
                     .itemLeft(new ItemStack(Material.GRAY_BANNER))
@@ -133,11 +136,6 @@ public class FactionSettings {
                             new FactionSettingsGui(player))));
         }, "open?ranks", "Gui", Utility.getSkull("http://textures.minecraft.net/texture/5b34b4896e434ec4ef1669d6343b6da06cd830dc92927d61e3d883017683c422",
                 1, "Manage ranks", "&8Manage your player ranks")));
-
-        boolean default_explosion = Boolean.TRUE.equals(MainIF.getConfigManager().getValue("general.allowExplosions"));
-
-        add(new BoolSetting("explosions", default_explosion, Utility.createItem(Material.TNT, "Allow explosions",
-                new String[]{"&8Enable & Disable explosions", "&8Like &cTnt"})));
     }
 
     public static void add(Setting setting) {

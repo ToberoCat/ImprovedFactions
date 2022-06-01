@@ -10,6 +10,7 @@ import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.date.DateCore;
 import io.github.toberocat.core.utility.language.Language;
+import io.github.toberocat.core.utility.language.Parser;
 import io.github.toberocat.core.utility.settings.PlayerSettings;
 import io.github.toberocat.core.utility.settings.type.HiddenSetting;
 import org.bukkit.entity.Player;
@@ -45,19 +46,11 @@ public class JoinFactionSubCommand extends SubCommand {
             return;
         }
 
-        String timeout = (String) PlayerSettings.getSettings(player.getUniqueId()).getSetting("factionJoinTimeout").getSelected();
-        if (!timeout.equals("-1")) {
-            DateTimeFormatter fmt = DateCore.TIME_FORMAT;
-            DateTime until = fmt.parseDateTime(timeout);
-            System.out.println(DateTime.now().isAfter(until));
+        Period difference = DateCore.leftTimeDifference(player);
+        Parser.run("command.faction.join.in-timeout")
+                .parse("{time}", DateCore.formatPeriod(difference))
+                .send(player);
 
-            if (!DateTime.now().isAfter(until)) {
-                Period diff = new Period(DateTime.now(), until);
-
-                Language.sendRawMessage("Can't join. You are in timeout until " + until.toString(fmt) + "&f. Please wait &6" + diff.toString(DateCore.PERIOD_FORMAT) + "&f until you can join again", player);
-                return;
-            }
-        }
         Result result = faction.join(player, Rank.fromString(MemberRank.registry));
         if (result.isSuccess()) {
             Language.sendRawMessage("Joined &e" + faction.getDisplayName(), player);

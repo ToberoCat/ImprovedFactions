@@ -56,8 +56,7 @@ public class FactionUtility extends PlayerJoinLoader {
 
         String faction = PersistentDataUtility.read(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
                 PersistentDataType.STRING, player.getPersistentDataContainer());
-        if (faction == null) return false;
-        return !faction.equals(FactionMemberManager.NO_FACTION);
+        return faction != null;
     }
 
     public static String getPlayerFactionRegistry(Player player) {
@@ -137,8 +136,8 @@ public class FactionUtility extends PlayerJoinLoader {
             if (registry == null) return; // Player not in faction
             if (Faction.getLoadedFactions().containsKey(registry)) return; // Faction already loaded
             if (!doesFactionExist(registry)) { // Faction got deleted
-                PersistentDataUtility.write(PersistentDataUtility.PLAYER_FACTION_REGISTRY, PersistentDataType.STRING,
-                        FactionMemberManager.NO_FACTION, player.getPersistentDataContainer());
+                PersistentDataUtility.remove(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
+                        player.getPersistentDataContainer());
                 return;
             }
 

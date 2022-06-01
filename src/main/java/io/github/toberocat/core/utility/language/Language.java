@@ -17,10 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.text.Normalizer;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -102,6 +99,26 @@ public class Language extends PlayerJoinLoader {
     public static String getMessage(String msgKey, Player player, Parseable... parseables) {
         String locale = player.getLocale();
         return getMessage(msgKey, locale, parseables);
+    }
+
+    public static String[] getLore(String msgKey, Player player, Parseable... parseables) {
+        LangMessage langMessage;
+        if (LOADED_LANGUAGES.containsKey(player.getLocale())) {
+            langMessage = LOADED_LANGUAGES.get(player.getLocale()).getE();
+        } else if (LOADED_LANGUAGES.containsKey("en_us")) {
+            langMessage = LOADED_LANGUAGES.get("en_us").getE();
+        } else {
+            MainIF.getIF().saveShutdown("Wasn't able to find &6en_us&c translation file");
+            return new String[0];
+        }
+        int lastIndex = 0;
+        LinkedList<String> items = new LinkedList<>();
+        while (langMessage.getMessages().containsKey(msgKey + "." + lastIndex)) {
+            items.add(parse(langMessage.getMessages().get(msgKey + "." + lastIndex), parseables));
+            lastIndex++;
+        }
+
+        return items.toArray(String[]::new);
     }
 
     public static String getMessage(String msgKey, String file, Parseable... parseables) {

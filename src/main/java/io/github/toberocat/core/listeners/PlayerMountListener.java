@@ -1,0 +1,27 @@
+package io.github.toberocat.core.listeners;
+
+import io.github.toberocat.MainIF;
+import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.FactionUtility;
+import io.github.toberocat.core.factions.permission.FactionPerm;
+import io.github.toberocat.core.factions.rank.Rank;
+import org.bukkit.Chunk;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.spigotmc.event.entity.EntityMountEvent;
+
+public class PlayerMountListener implements Listener {
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void mount(EntityMountEvent event) {
+        if (event.getEntity() instanceof Player player) {
+            Chunk chunk = player.getLocation().getChunk();
+            String registry = MainIF.getIF().getClaimManager().getFactionRegistry(chunk);
+            if (registry == null) return;
+            Faction faction = FactionUtility.getFactionByRegistry(registry);
+            if (!faction.hasPermission(player, FactionPerm.MOUNT_PERM)) event.setCancelled(true);
+        }
+    }
+}

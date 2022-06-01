@@ -7,6 +7,7 @@ import io.github.toberocat.core.utility.gui.GUISettings;
 import io.github.toberocat.core.utility.gui.Gui;
 import io.github.toberocat.core.utility.settings.type.RankSetting;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -27,6 +28,7 @@ public class RankGui extends Gui {
         for (String key : faction.getFactionPerm().getRankSetting().keySet()) {
             RankSetting setting = faction.getFactionPerm().getRankSetting().get(key);
             ItemStack stack = setting.getDisplay();
+            if (stack == null) stack = Utility.createItem(Material.GRASS_BLOCK, "Undefined setting");
             List<String> lore = Utility.getLore(stack);
             lore.add("");
             lore.add("§8Click to manage");

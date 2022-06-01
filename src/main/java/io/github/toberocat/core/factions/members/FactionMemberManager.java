@@ -25,7 +25,6 @@ import java.util.UUID;
  */
 public class FactionMemberManager {
 
-    public static final String NO_FACTION = "NONE";
 
     private ArrayList<UUID> members;
     private ArrayList<UUID> banned;
@@ -57,18 +56,16 @@ public class FactionMemberManager {
     }
 
     private static void updatePlayer(Player player) {
-        if (player == null || !player.isOnline()) return;
+        if (player == null) return;
 
         String registry = PersistentDataUtility.read(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
                 PersistentDataType.STRING, player.getPersistentDataContainer());
-        if (registry == null || registry.equals(NO_FACTION)) return;
+        if (registry == null) return;
 
         Faction faction = FactionUtility.getFactionByRegistry(registry);
         if (faction != null) return;
 
-        PersistentDataUtility.write(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
-                PersistentDataType.STRING,
-                NO_FACTION, player.getPersistentDataContainer());
+        PersistentDataUtility.remove(PersistentDataUtility.PLAYER_FACTION_REGISTRY, player.getPersistentDataContainer());
 
     }
 
@@ -156,8 +153,7 @@ public class FactionMemberManager {
                 "PLAYER_NOT_IN_FACTION", player.getName()
                         + " is in no faction. So nothing can be left");
 
-        PersistentDataUtility.write(PersistentDataUtility.PLAYER_FACTION_REGISTRY, PersistentDataType.STRING,
-                NO_FACTION,
+        PersistentDataUtility.remove(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
                 player.getPersistentDataContainer());
 
         updatePlayer(player);
@@ -180,8 +176,9 @@ public class FactionMemberManager {
         faction.getFactionPerm().setRank(player, null);
         if (!player.isOnline()) return new Result(true);
         Player onP = player.getPlayer();
-        updatePlayer(onP);
 
+        PersistentDataUtility.remove(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
+                onP.getPersistentDataContainer());
         return new Result(true);
     }
 

@@ -1,9 +1,7 @@
 package io.github.toberocat.core.factions;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.factions.bank.FactionBank;
@@ -18,6 +16,7 @@ import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.claim.Claim;
 import io.github.toberocat.core.utility.claim.ClaimManager;
+import io.github.toberocat.core.utility.config.DataManager;
 import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.events.faction.*;
 import io.github.toberocat.core.utility.language.Language;
@@ -35,6 +34,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.*;
+import java.util.logging.Level;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Faction {
@@ -80,6 +80,115 @@ public class Faction {
         this.owner = owner;
         DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss");
         this.createdAt = fmt.print(new LocalDateTime());
+    }
+
+    public static void migrateFaction() {
+        DataManager factions = new DataManager(MainIF.getIF(), "Data/factions.yml");
+
+        if (factions.getConfig().getConfigurationSection("f") == null) return;
+        for (String key : factions.getConfig().getConfigurationSection("f").getKeys(false)) {
+            String displayName = ChatColor.translateAlternateColorCodes('&', factions.getConfig().getString("f." + key + ".displayName"));
+
+            String owner = factions.getConfig().getString("f." + key + ".owner");
+            if (owner == null) {
+                MainIF.logMessage(Level.WARNING, "Couldn't read owner from " + key + ". Faction couldn't get loaded, due too this error. Please fix it int he original file to be able to load it into this version");
+                continue;
+            }
+
+            UUID ownerUUID = UUID.fromString(owner);
+
+            Faction faction = new Faction(displayName, key, ownerUUID, OpenType.INVITE_ONLY);
+
+            // Adding players
+            List<String> raw = factions.getConfig().getStringList("f." + key + ".members");
+            for (int i = 0; i < raw.size(); i++) {
+                String rawMember = raw.get(i);
+                Map.Entry<UUID, String> member = getFromFactionMember(rawMember);
+                if (Bukkit.getOfflinePlayer(member.getKey()).isOnline()) {
+                    faction.getFactionMemberManager().join(Bukkit.getPlayer(member.getKey()));
+                } else {
+                    // ToDo: Add a way to set persistent data for offline players
+                    faction.getFactionMemberManager().getMembers().add(member.getKey());
+                    faction.getFactionPerm().getMemberRanks().put(member.getKey(), member.getValue());
+                    faction.getPowerManager()
+                            .increaseMax(MainIF.getConfigManager().getValue("power.maxPowerPerPlayer"));
+                }
+            }
+
+
+            List<String> rawBanned = factions.getConfig().getStringList("f." + key + ".banned");
+            ArrayList<UUID> banned = new ArrayList<>();
+
+            for (String rawBan : rawBanned) {
+                try {
+                    rawBan = rawBan.replace("]", "").replace("[", "");
+                    banned.add(UUID.fromString(rawBan.trim()));
+                } catch (IllegalArgumentException exception) {
+                    MainIF.logMessage(Level.WARNING, "&cCouldn't load banned for " + key + ". ");
+                }
+            }
+
+            faction.getRelationManager().getAllies().addAll(factions.getConfig().getStringList("f." + key + ".allies"));
+            faction.getRelationManager().getEnemies().addAll(factions.getConfig().getStringList("f." + key + ".enemies"));
+
+            if (factions.getConfig().contains("f." + key + ".permanent"))
+                faction.setPermanent(factions.getConfig().getBoolean("f." + key + ".permanent"));
+            if (factions.getConfig().contains("f." + key + ".frozen"))
+                faction.setFrozen(factions.getConfig().getBoolean("f." + key + ".frozen"));
+
+
+            faction.getPowerManager().setCurrentPower(factions.getConfig().getInt("f." + key + ".power"));
+            faction.setClaimedChunks(factions.getConfig().getInt("f." + key + ".claimedChunks"));
+            faction.getFactionMemberManager().setBanned(banned);
+            faction.setMotd(factions.getConfig().getString("f." + key + ".motd"));
+            faction.setDescription(Collections.singletonList(factions.getConfig().getString("f." + key + ".description")).toArray(String[]::new));
+
+            faction.setRegistryName(key);
+            faction.setDisplayName(displayName);
+
+            AsyncTask.runLaterSync(0, () -> {
+                Bukkit.getPluginManager().callEvent(new FactionLoadEvent(faction));
+                DataAccess.addFile("Factions", key, faction);
+                Faction.getLoadedFactions().put(key, faction);
+            });
+        }
+
+        MainIF.logMessage(Level.INFO, "You can now safely delete the file factions.yml from the Data folder, if no warnings popped up before");
+    }
+
+    private static Map.Entry<UUID, String> getFromFactionMember(String str) {
+        UUID uuid = null;
+        String rank = null;
+        String[] parms = str.split("[,=]");
+        for (int i = 0; i < parms.length; i++) {
+            String parm = parms[i];
+            if (parm.contains("uuid")) {
+                uuid = UUID.fromString(parms[i + 1]);
+            }
+
+            if (parm.contains("rank")) {
+                rank = parms[i + 1];
+            }
+        }
+
+        UUID finalUuid = uuid;
+        String finalRank = rank;
+        return new Map.Entry<>() {
+            @Override
+            public UUID getKey() {
+                return finalUuid;
+            }
+
+            @Override
+            public String getValue() {
+                return finalRank;
+            }
+
+            @Override
+            public String setValue(String value) {
+                return null;
+            }
+        };
     }
 
     /**
@@ -241,6 +350,10 @@ public class Faction {
         if (!canKick) return Result.failure("EVENT_CANCEL",
                 "Couldn't kick §e" + player.getName());
 
+
+        Result result = factionMemberManager.kick(player);
+
+        if (!result.isSuccess()) return result;
         if (player.isOnline()) {
             Language.sendMessage("faction.kick.success", player.getPlayer(),
                     new Parseable("{faction_display}", displayName));
@@ -248,10 +361,6 @@ public class Faction {
             MessageSystem.sendMessage(player.getUniqueId(), Language.getMessage("faction.kick.success",
                     "en_us", new Parseable("{faction_display}", displayName)));
         }
-
-        Result result = factionMemberManager.kick(player);
-
-        if (!result.isSuccess()) return result;
         return new Result(true).setMessages("KICKED", "You kicked &e" + player.getName());
     }
 
@@ -312,7 +421,8 @@ public class Faction {
                 kick(Bukkit.getOfflinePlayer(member));
             }
 
-            ClaimManager manager = MainIF.getIF().getClaimManager();;
+            ClaimManager manager = MainIF.getIF().getClaimManager();
+            ;
             Map<String, ArrayList<Claim>> claims = manager.CLAIMS;
             for (World world : Bukkit.getWorlds()) {
                 claims.get(world.getName()).parallelStream()
@@ -470,8 +580,6 @@ public class Faction {
         this.tag = tag;
     }
 
-    public enum OpenType {PUBLIC, INVITE_ONLY, CLOSED}
-
     public LinkedHashMap<String, FactionModule> getModules() {
         return modules;
     }
@@ -480,6 +588,8 @@ public class Faction {
         this.modules = modules;
         return this;
     }
+
+    public enum OpenType {PUBLIC, INVITE_ONLY, CLOSED}
 
     //</editor-fold>
 }

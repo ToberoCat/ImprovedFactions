@@ -1,21 +1,24 @@
 package io.github.toberocat.core.utility.claim;
 
+import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.async.AsyncTask;
+import io.github.toberocat.core.utility.config.DataManager;
 import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.data.PersistentDataUtility;
 import io.github.toberocat.core.utility.dynamic.loaders.DynamicLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
+import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.awt.*;
 import java.util.List;
 import java.util.*;
+import java.util.logging.Level;
 
 public class ClaimManager extends DynamicLoader<Player, Player> {
 
@@ -46,6 +49,32 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
         }
 
         Subscribe(this);
+    }
+
+    public static void migrate() {
+        NamespacedKey persistentData = new NamespacedKey(MainIF.getIF(), "faction-claimed");
+
+        DataManager chunks = new DataManager(MainIF.getIF(), "Data/chunkData.yml");
+        for (String raw : chunks.getConfig().getStringList("claimedChunks")) {
+            int x = Integer.parseInt(raw.split(" ")[0]);
+            int z = Integer.parseInt(raw.split(" ")[1]);
+
+            String registry = null;
+            Chunk chunk = null;
+            for (World world : Bukkit.getWorlds()) {
+                chunk = world.getChunkAt(x, z);
+                registry = chunk.getPersistentDataContainer().get(persistentData, PersistentDataType.STRING);
+                if (registry != null) break;
+            }
+
+            if (registry == null) continue;
+
+            if (registry.equals("safezone")) registry = SAFEZONE_REGISTRY;
+
+            MainIF.getIF().getClaimManager().protectChunk(registry, chunk);
+        }
+
+        MainIF.logMessage(Level.INFO, "Migrated every chunk. You can now delete the chunkData.yml file in Data folder safely without worrying, if no warnings / errors appear above");
     }
 
     public static boolean isManageableZone(String registry) {
@@ -114,10 +143,7 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
             CLAIMS.get(chunk.getWorld().getName()).removeIf(x -> x.getX() == chunk.getX() && x.getY() == chunk.getZ());
         });
 
-        PersistentDataUtility.write(PersistentDataUtility.FACTION_CLAIMED_KEY,
-                PersistentDataType.STRING,
-                UNCLAIMED_CHUNK_REGISTRY,
-                chunk.getPersistentDataContainer());
+        PersistentDataUtility.remove(PersistentDataUtility.FACTION_CLAIMED_KEY, chunk.getPersistentDataContainer());
 
         return new Result<String>(true).setPaired(claimRegistry);
     }

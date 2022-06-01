@@ -18,11 +18,12 @@ public record ConfigManager(MainIF plugin) {
                 Level.INFO.toString(), Level.WARNING.toString(), Level.SEVERE.toString()
         });
 
+        addToDefaultConfig("general.autoMigrate", true);
         addToDefaultConfig("general.mapViewDistanceW", 4);
         addToDefaultConfig("general.mapViewDistanceH", 4);
         addToDefaultConfig("general.sendCrashesToGithub", true);
         addToDefaultConfig("general.prefix", "&e&lImprovedFactions", Utility.createItem(Material.NAME_TAG, "&e&lPrefix"));
-        addToDefaultConfig("general.printStacktrace", false, Utility.createItem(Material.YELLOW_DYE, "&e&lPrint Stacktrace"));
+        addToDefaultConfig("general.printStacktrace", true, Utility.createItem(Material.YELLOW_DYE, "&e&lPrint Stacktrace"));
         addToDefaultConfig("general.commandDescriptions", true);
         addToDefaultConfig("general.useSQL", false, Material.COBWEB, "&b&lUse sql",
                 "&8Sql is a database", "&8I would recommend to use it", "&8when you have a lot players", "&8on your server", "", "&6&lPerformance: &cHeavy");

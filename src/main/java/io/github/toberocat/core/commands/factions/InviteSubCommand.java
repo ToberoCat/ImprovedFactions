@@ -5,9 +5,14 @@ import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.factions.members.FactionMemberManager;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
+import io.github.toberocat.core.utility.date.DateCore;
 import io.github.toberocat.core.utility.language.Language;
+import io.github.toberocat.core.utility.settings.PlayerSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.List;
 
@@ -24,12 +29,17 @@ public class InviteSubCommand extends SubCommand {
     @Override
     protected void CommandExecute(Player player, String[] args) {
         Faction faction = FactionUtility.getPlayerFaction(player);
+        if (faction == null) sendCommandExecuteError(CommandExecuteError.NoFaction, player);
+
         Player invited = Bukkit.getPlayer(args[0]);
 
         if (invited == null) {
             sendCommandExecuteError(CommandExecuteError.PlayerNotFound, player);
             return;
         }
+
+        if (DateCore.hasTimeout(player))
+            Language.sendMessage("command.invite.player-has-timeout", player);
 
         faction.getFactionMemberManager().invitePlayer(invited);
         Language.sendRawMessage("You invited " + args[0] + ". Invitation will be rejected after 5 minutes", player);

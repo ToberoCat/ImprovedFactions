@@ -24,6 +24,7 @@ public class AdminSubCommand extends SubCommand {
         subCommands.add(new AdminBypassSubCommand());
         subCommands.add(new AdminPowerCommand());
         subCommands.add(new AdminMaxPowerCommand());
+        subCommands.add(new AdminMigrateCommand());
     }
 
     @Override

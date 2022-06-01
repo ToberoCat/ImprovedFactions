@@ -52,11 +52,6 @@ public abstract class Rank {
         return null;
     }
 
-    public String[] getDescription(Player player) {
-        String lines = WordUtils.wrap(description(player), MainIF.getConfigManager().getValue("gui.wrapLength"));
-        return lines.split("\\n");
-    }
-
     public boolean isAdmin() {
         return isAdmin;
     }
@@ -71,7 +66,7 @@ public abstract class Rank {
 
     public abstract String description(Player player);
 
-    public ItemStack getItem() {
+    public ItemStack getItem(Player player) {
         return Utility.createItem(Material.GRASS_BLOCK, getDisplayName());
     }
 

@@ -50,14 +50,23 @@ public class PlayerMoveListener implements Listener {
                 }
             }
 
+            if (toRegistry == null) {
+                if (fromRegistry != null) {
+                    PlayerSettings settings = PlayerSettings.getSettings(player.getUniqueId());
+                    if (!(Boolean) settings.getSetting("displayTitle").getSelected()) return;
+                    PlayerSettings.TitlePosition position = PlayerSettings.TitlePosition.values()[(int) settings.getSetting("titlePosition").getSelected()];
+                    send(position, player, Language.getMessage("territory.wilderness", player), "");
+                }
+                return;
+            }
+
             if (!FactionUtility.doesFactionExist(toRegistry)) {
                 MainIF.getIF().getClaimManager().removeProtection(to);
+                return;
             }
 
+            if (!toRegistry.equals(fromRegistry)) display(player, toRegistry);
 
-            if (!fromRegistry.equals(toRegistry)) {
-                display(player, toRegistry);
-            }
         }
     }
 
@@ -108,13 +117,14 @@ public class PlayerMoveListener implements Listener {
                     relation = "&c";
             }
 
-            if (text == null) text = Language.getMessage("territory.wilderness", player); // There is still a claim, but the faction got deleted
+            if (text == null)
+                text = Language.getMessage("territory.wilderness", player); // There is still a claim, but the faction got deleted
             send(pos, player, text, relation);
         });
     }
 
     private void send(PlayerSettings.TitlePosition pos, Player player, String text, String relation) {
-        Parseable[] parses = new Parseable[] {
+        Parseable[] parses = new Parseable[]{
                 new Parseable("{territory}", text),
                 new Parseable("{relation}", relation == null || relation.length() == 0 ? "&r" : relation)
         };

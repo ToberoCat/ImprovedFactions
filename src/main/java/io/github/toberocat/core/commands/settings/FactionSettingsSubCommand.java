@@ -1,6 +1,7 @@
 package io.github.toberocat.core.commands.settings;
 
 import io.github.toberocat.MainIF;
+import io.github.toberocat.core.factions.permission.FactionPerm;
 import io.github.toberocat.core.gui.faction.FactionSettingsGui;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -16,7 +17,9 @@ public class FactionSettingsSubCommand extends SubCommand {
 
     @Override
     public SubCommandSettings getSettings() {
-        return super.getSettings().setNeedsFaction(SubCommandSettings.NYI.Yes);
+        return super.getSettings()
+                .setNeedsFaction(SubCommandSettings.NYI.Yes)
+                .setFactionPermission(FactionPerm.FACTION_SETTING_PERM);
     }
 
     @Override

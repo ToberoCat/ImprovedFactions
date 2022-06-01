@@ -21,6 +21,7 @@ io\github\toberocat\core\commands\admin\AdminPermanentSubCommand.class
 io\github\toberocat\core\commands\factions\unclaim\UnclaimSubCommand.class
 io\github\toberocat\core\commands\factions\DeleteFactionSubCommand.class
 io\github\toberocat\core\commands\zones\ZoneSubCommand.class
+io\github\toberocat\core\factions\Faction$1.class
 io\github\toberocat\core\factions\rank\allies\AllyAdminRank.class
 io\github\toberocat\core\utility\config\DataManager.class
 io\github\toberocat\core\utility\language\LangContainer$LangWeb.class
@@ -67,7 +68,6 @@ io\github\toberocat\core\utility\history\History.class
 io\github\toberocat\core\bstat\Metrics$SimpleBarChart.class
 io\github\toberocat\core\utility\events\faction\FactionDeleteEvent.class
 io\github\toberocat\core\commands\config\ConfigSaveSubCommand.class
-io\github\toberocat\core\migration\Migrator.class
 io\github\toberocat\core\debug\Debugger.class
 io\github\toberocat\core\utility\exceptions\AlreadyRunException.class
 io\github\toberocat\core\utility\map\MapHandler$1.class
@@ -169,6 +169,7 @@ io\github\toberocat\core\utility\language\Language.class
 io\github\toberocat\core\gui\faction\FactionSettingsGui.class
 io\github\toberocat\core\utility\language\LangMessage.class
 io\github\toberocat\core\gui\player\PlayerSettingsGui.class
+io\github\toberocat\core\utility\language\Parser.class
 io\github\toberocat\core\commands\FactionCommand.class
 io\github\toberocat\core\utility\settings\type\Setting$2.class
 io\github\toberocat\versions\v1_17\NMSLoader_1_17.class
@@ -189,6 +190,7 @@ io\github\toberocat\core\listeners\BlockBreakListener.class
 io\github\toberocat\core\gui\faction\OnlineGUI.class
 io\github\toberocat\core\factions\Faction.class
 io\github\toberocat\core\utility\sql\SQLValueError.class
+io\github\toberocat\core\listeners\PlayerMountListener.class
 io\github\toberocat\core\bstat\Metrics$JsonObjectBuilder.class
 io\github\toberocat\core\utility\version\Version.class
 io\github\toberocat\core\commands\admin\AdminDisbandSubCommand.class

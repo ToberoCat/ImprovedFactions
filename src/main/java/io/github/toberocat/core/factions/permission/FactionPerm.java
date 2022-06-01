@@ -5,6 +5,7 @@ import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.factions.rank.GuestRank;
 import io.github.toberocat.core.factions.rank.Rank;
+import io.github.toberocat.core.factions.rank.allies.*;
 import io.github.toberocat.core.factions.rank.members.*;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.events.faction.FactionUpdateMemberRankEvent;
@@ -26,6 +27,8 @@ public class FactionPerm {
     public static final String BREAK_PERM = "permission.break";
     public static final String PLACE_PERM = "permission.place";
     public static final String INTERACT_PERM = "permission.interact";
+    public static final String MOUNT_PERM = "permission.mount";
+    public static final String FACTION_SETTING_PERM = "permission.settings";
 
     private FactionSettings factionSettings;
     private Map<String, RankSetting> rankSetting;
@@ -66,6 +69,18 @@ public class FactionPerm {
         DEFAULT_RANKS.put(INTERACT_PERM, new RankSetting(INTERACT_PERM, new String[]{OwnerRank.registry, AdminRank.registry,
                 ElderRank.registry, MemberRank.registry, ModeratorRank.registry
         }, ItemCore.create(INTERACT_PERM, Material.CHEST, "&eInteract permission")));
+
+        DEFAULT_RANKS.put(MOUNT_PERM, new RankSetting(MOUNT_PERM, new String[] {
+                OwnerRank.registry, AdminRank.registry, ElderRank.registry, MemberRank.registry,
+                ModeratorRank.registry, AllyAdminRank.registry,
+                AllyElderRank.registry, AllyMemberRank.registry, AllyOwnerRank.registry, AllyModeratorRank.registry,
+                GuestRank.register
+        }, ItemCore.create(MOUNT_PERM, Material.SADDLE, "&eMount permission", "&8Allows users to ride a lore, boat, horse, etc")));
+
+        DEFAULT_RANKS.put(FACTION_SETTING_PERM, new RankSetting(FACTION_SETTING_PERM, new String[]{
+                OwnerRank.registry, ModeratorRank.registry, AdminRank.registry
+        }, ItemCore.create(FACTION_SETTING_PERM, Material.NETHER_STAR,
+                "&eSetting permission", "&8Allows user to change ", "&8faction settings")));
     }
 
     public static void registerPermission(RankSetting setting) {
@@ -102,6 +117,17 @@ public class FactionPerm {
 
     public void setRankSetting(Map<String, RankSetting> rankSetting) {
         this.rankSetting = rankSetting;
+        for (String key : DEFAULT_RANKS.keySet()) {
+            RankSetting defaultSettings = DEFAULT_RANKS.get(key);
+
+            if (!rankSetting.containsKey(key)) rankSetting.put(key, DEFAULT_RANKS.get(key));
+
+            String[] selected = rankSetting.get(key).getSelected();
+            rankSetting.replace(key, defaultSettings);
+            rankSetting.get(key).setSelected(selected);
+
+            rankSetting.get(key).setDisplay(defaultSettings.getDisplay());
+        }
     }
 
     public Map<UUID, String> getMemberRanks() {

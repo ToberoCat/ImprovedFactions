@@ -3,7 +3,6 @@ package io.github.toberocat.core.factions.rank.members;
 import io.github.toberocat.core.factions.rank.Rank;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.language.Language;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -20,7 +19,9 @@ public class MemberRank extends Rank {
     }
 
     @Override
-    public ItemStack getItem() {
-        return Utility.createItem(Material.GRASS_BLOCK, getDisplayName());
+    public ItemStack getItem(Player player) {
+        return Utility.getSkull("https://textures.minecraft.net/texture/fe8fc22eb8a994f669fb64ff8c5bb153874f471a159c34f8916c7adea998ff", 1,
+                Language.getMessage("rank.member.title", player),
+                Language.getLore("rank.member.lore", player));
     }
 }

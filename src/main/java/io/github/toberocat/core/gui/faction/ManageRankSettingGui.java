@@ -33,7 +33,7 @@ public class ManageRankSettingGui extends Gui {
         clear();
 
         for (Rank rank : Rank.ranks) {
-            ItemStack stack = rank.getItem();
+            ItemStack stack = rank.getItem(player);
             List<String> lore = Utility.getLore(stack);
             lore.add("§7Type: §eSelector");
             lore.add(selected(rank, setting) ? "§a§nenabled" : "§aenabled");

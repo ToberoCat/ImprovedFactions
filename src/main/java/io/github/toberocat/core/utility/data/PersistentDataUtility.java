@@ -17,11 +17,11 @@ public class PersistentDataUtility {
         return (E) object.get(key, type);
     }
 
-    public static <T extends PersistentDataContainer, E> boolean has(NamespacedKey key, PersistentDataType type, T object) {
+    public static <T extends PersistentDataContainer> boolean has(NamespacedKey key, PersistentDataType type, T object) {
         return object.has(key, type);
     }
 
-    public static <T extends PersistentDataContainer, E> void remove(NamespacedKey key, T object) {
+    public static <T extends PersistentDataContainer> void remove(NamespacedKey key, T object) {
         object.remove(key);
     }
 }

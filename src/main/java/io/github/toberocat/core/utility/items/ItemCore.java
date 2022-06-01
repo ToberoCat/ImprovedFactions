@@ -14,11 +14,6 @@ public class ItemCore {
     }
 
     public static ItemStack create(String path, Material material, String title, String... lore) {
-        path = "gui." + path;
-
-        if (!ITEMS.getConfig().contains(path)) {
-            ITEMS.getConfig().set(path, Utility.createItem(material, title, lore));
-        }
-        return ITEMS.getConfig().getItemStack(path);
+        return Utility.createItem(material, title, lore);
     }
 }

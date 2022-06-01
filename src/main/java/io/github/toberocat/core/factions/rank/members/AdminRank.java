@@ -20,8 +20,9 @@ public class AdminRank extends Rank {
     }
 
     @Override
-    public ItemStack getItem() {
-        return Utility.createItem(Material.GRASS_BLOCK, getDisplayName());
-        //return Utils.getSkull("http://textures.minecraft.net/texture/9631597dce4e4051e8d5a543641966ab54fbf25a0ed6047f11e6140d88bf48f", 1, getDisplayName());
+    public ItemStack getItem(Player player) {
+        return Utility.getSkull("https://textures.minecraft.net/texture/a890f37539e2d64fc9115ad05a4d2e9c76c10e5749ecdc2d4ad555fe46b63774", 1,
+                Language.getMessage("rank.admin.title", player),
+                Language.getLore("rank.admin.lore", player));
     }
 }

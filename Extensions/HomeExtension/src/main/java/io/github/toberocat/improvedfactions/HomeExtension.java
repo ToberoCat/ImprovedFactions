@@ -42,8 +42,6 @@ public final class HomeExtension extends Extension {
         registerListener(plugin);
         registerCommands();
         registerPermissions();
-
-
     }
 
     @Override

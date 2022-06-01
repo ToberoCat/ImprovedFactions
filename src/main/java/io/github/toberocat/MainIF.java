@@ -199,6 +199,8 @@ public final class MainIF extends JavaPlugin {
             }, 0, 20 * 60 * 5);
 
             DynamicLoader.enable();
+
+            if (Boolean.TRUE.equals(getConfigManager().getValue("general.autoMigrate"))) tryMigration();
         });
     }
 
@@ -238,6 +240,17 @@ public final class MainIF extends JavaPlugin {
         configMap.clear();
         SimpleBar.cleanup();
         PlayerJoinListener.PLAYER_JOINS.clear();
+    }
+
+    private void tryMigration() {
+        if (new File(getDataFolder().getPath() + "/Data/factions.yml").exists() &&
+                new File(getDataFolder().getPath() + "/Data/chunkData.yml").exists()) {
+            Faction.migrateFaction();
+            logMessage(Level.INFO, "Please don't stop the server. Chunks are getting migrated. This can take some time, depending on your file size. If you don't want it, disable &6general.autoMigrate &7in the config.yml and reload the server");
+            ClaimManager.migrate();
+
+            logMessage(Level.INFO, "&aAuto-Migrated your old beta files to the newest version. This process will restart every server reload if you don't delete factions.yml and chunkData.yml in the Data folder only if no errors / warnings appeared while migration. Please fix them before deleting your old files");
+        }
     }
 
     /**
@@ -436,6 +449,16 @@ public final class MainIF extends JavaPlugin {
 
     private void generateConfigs() {
         Utility.run(() -> {
+            DataManager oldConfig = new DataManager(this, "config.yml");
+            String version = oldConfig.getConfig().getString("version");
+            if (version != null && version.toLowerCase().contains("betav")) {
+                logMessage(Level.INFO, "&cDeleting old config files, as they aren't needed anymore. Lang files will stay, but please consider cleaning them from the unused paths. Compare them to up-to-date ones or delete them completely, if they aren't needed anymore");
+                new File(getDataFolder().getPath() + "/config.yml").delete();
+                new File(getDataFolder().getPath() + "/language.yml").delete();
+                new File(getDataFolder().getPath() + "/extConfig.yml").delete();
+                new File(getDataFolder().getPath() + "/commands.yml").delete();
+            }
+
             configManager = new ConfigManager(this);
             configManager.register();
 
@@ -463,7 +486,8 @@ public final class MainIF extends JavaPlugin {
                         new GuiListener(),
                         new PlayerMoveListener(),
                         new BlockBreakListener(),
-                        new BlockPlaceListener())
+                        new BlockPlaceListener(),
+                        new PlayerMountListener())
                 .forEach(listener -> getPluginManager().registerEvents(listener, this));
     }
 
