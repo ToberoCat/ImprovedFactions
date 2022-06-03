@@ -1,6 +1,7 @@
 package io.github.toberocat.core.extensions;
 
 import io.github.toberocat.MainIF;
+import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.callbacks.ExceptionCallback;
 
@@ -33,10 +34,12 @@ public class ExtensionDownloader {
 
         byte[] mdbytes = md.digest();
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < mdbytes.length; i++) {
             sb.append(Integer.toString((mdbytes[i] & 0xff) + 0x100, 16).substring(1));
         }
+
+        Debugger.log("SHA256 for " + file.getAbsolutePath() + " is " + sb);
 
         return sb.toString();
     }

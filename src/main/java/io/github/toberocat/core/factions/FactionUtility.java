@@ -7,6 +7,8 @@ import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.data.PersistentDataUtility;
 import io.github.toberocat.core.utility.dynamic.loaders.PlayerJoinLoader;
 import io.github.toberocat.core.utility.events.faction.FactionLoadEvent;
+import io.github.toberocat.core.utility.events.faction.FactionMemberOfflineEvent;
+import io.github.toberocat.core.utility.events.faction.FactionMemberOnlineEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -27,19 +29,20 @@ public class FactionUtility extends PlayerJoinLoader {
     /**
      * This will unload a faction if it is not in use anymore
      */
-    public static void unload(String registry) {
-        AsyncTask.run(() -> {
+    public static AsyncTask<Boolean> unload(String registry) {
+        return AsyncTask.run(() -> {
             Faction faction = getFactionByRegistry(registry);
-            if (faction == null) return;
+            if (faction == null) return false;
 
             int online = 0;
             for (UUID uuid : faction.getFactionMemberManager().getMembers()) {
                 if (Bukkit.getOfflinePlayer(uuid).isOnline()) online++;
-                if (online >= 2) return;
+                if (online >= 2) return false;
             }
 
             DataAccess.addFile("Factions", faction.getRegistryName(), faction);
             Faction.getLoadedFactions().remove(faction.getRegistryName());
+            return true;
         });
     }
 
@@ -134,7 +137,11 @@ public class FactionUtility extends PlayerJoinLoader {
         AsyncTask.runLaterSync(0, () -> {
             String registry = getPlayerFactionRegistry(player);
             if (registry == null) return; // Player not in faction
-            if (Faction.getLoadedFactions().containsKey(registry)) return; // Faction already loaded
+            if (Faction.getLoadedFactions().containsKey(registry)) {
+                Bukkit.getPluginManager().callEvent(new FactionMemberOnlineEvent(Faction
+                        .getLoadedFactions().get(registry), player));
+                return; // Faction already loaded
+            }
             if (!doesFactionExist(registry)) { // Faction got deleted
                 PersistentDataUtility.remove(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
                         player.getPersistentDataContainer());
@@ -155,7 +162,10 @@ public class FactionUtility extends PlayerJoinLoader {
     protected void unloadPlayer(Player player) {
         Faction faction = getPlayerFaction(player);
         if (faction == null) return; // Player wasn't in a faction
-        unload(faction.getRegistryName());
+        unload(faction.getRegistryName()).then((unloaded) -> {
+            if (unloaded) return;
+            Bukkit.getPluginManager().callEvent(new FactionMemberOfflineEvent(faction, player));
+        });
     }
 
     @Override

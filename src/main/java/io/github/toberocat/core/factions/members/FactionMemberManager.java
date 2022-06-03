@@ -19,6 +19,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 /**
  * This is for managing the members of a specific faction
@@ -247,5 +248,10 @@ public class FactionMemberManager {
     public List<Player> getOnlinePlayers() {
         return members.stream().filter(uuid -> Bukkit.getOfflinePlayer(uuid).isOnline())
                 .map(uuid -> Bukkit.getOfflinePlayer(uuid).getPlayer()).toList();
+    }
+
+    @JsonIgnore
+    public Stream<OfflinePlayer> getOfflinePlayers() {
+        return members.stream().map(Bukkit::getOfflinePlayer);
     }
 }

@@ -343,13 +343,17 @@ public final class MainIF extends JavaPlugin {
     private ExtensionRegistry loadRegistry(File file) throws MalformedURLException {
         String path = "jar:file:\\" + file.getAbsolutePath() + "!/extension.yml";
 
+        System.out.println("File path: " + file.getAbsolutePath() + "; Exists: " + file.exists());
+
         URL inputURL = new URL(path);
-        JarURLConnection conn = null;
+        JarURLConnection conn;
         try {
             conn = (JarURLConnection) inputURL.openConnection();
             InputStream in = conn.getInputStream();
+            System.out.println("Failed reading yml");
             return YmlUtility.loadYml(in, ExtensionRegistry.class);
         } catch (IOException e) {
+            e.printStackTrace();
             logMessage(Level.SEVERE, "&6" + file.getName() + " &ccouldn't get loaded. Please make sure this extension isn't for a beta version, else redownload it please");
         }
 
