@@ -9,6 +9,7 @@ io\github\toberocat\core\commands\HelpSubCommand.class
 io\github\toberocat\core\utility\async\Promise.class
 io\github\toberocat\core\factions\rank\Rank.class
 io\github\toberocat\core\factions\Faction$OpenType.class
+io\github\toberocat\core\utility\events\faction\FactionTransferOwnershipEvent.class
 io\github\toberocat\core\commands\zones\UnclaimSubCommand.class
 io\github\toberocat\core\listeners\PlayerMoveListener.class
 io\github\toberocat\core\factions\rank\members\AdminRank.class

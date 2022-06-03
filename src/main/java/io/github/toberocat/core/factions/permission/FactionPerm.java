@@ -30,6 +30,8 @@ public class FactionPerm {
     public static final String MOUNT_PERM = "permission.mount";
     public static final String FACTION_SETTING_PERM = "permission.settings";
     public static final String MANAGE_RANKS_PERM = "permission.manage-rank";
+    public static final String KICK_PERM= "permission.kick";
+    public static final String BAN_PERM = "permission.ban";
 
 
     private FactionSettings factionSettings;
@@ -86,8 +88,18 @@ public class FactionPerm {
 
         DEFAULT_RANKS.put(MANAGE_RANKS_PERM, new RankSetting(MANAGE_RANKS_PERM, new String[]{
                 OwnerRank.registry, ModeratorRank.registry, AdminRank.registry
-        }, ItemCore.create(MANAGE_RANKS_PERM, Material.BEACON,
+        }, ItemCore.create(MANAGE_RANKS_PERM, Material.BEACON, "&eManage ranks",
                 "&8Allows user to modify ranks")));
+
+        DEFAULT_RANKS.put(KICK_PERM, new RankSetting(KICK_PERM, new String[]{
+                OwnerRank.registry, ModeratorRank.registry, AdminRank.registry
+        }, ItemCore.create(KICK_PERM, Material.YELLOW_DYE, "&eKick members",
+                "&8Kick a member for misbehaving")));
+
+        DEFAULT_RANKS.put(BAN_PERM, new RankSetting(BAN_PERM, new String[]{
+                OwnerRank.registry, AdminRank.registry
+        }, ItemCore.create(BAN_PERM, Material.RED_DYE, "&eBan members",
+                "&8Ban members for there lifetime - and unban them")));
     }
 
     public static void registerPermission(RankSetting setting) {

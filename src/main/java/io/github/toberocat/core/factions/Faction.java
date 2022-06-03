@@ -9,6 +9,7 @@ import io.github.toberocat.core.factions.members.FactionMemberManager;
 import io.github.toberocat.core.factions.permission.FactionPerm;
 import io.github.toberocat.core.factions.power.PowerManager;
 import io.github.toberocat.core.factions.rank.Rank;
+import io.github.toberocat.core.factions.rank.members.AdminRank;
 import io.github.toberocat.core.factions.rank.members.OwnerRank;
 import io.github.toberocat.core.factions.relation.RelationManager;
 import io.github.toberocat.core.utility.Result;
@@ -289,16 +290,20 @@ public class Faction {
         return factionPerm.getPlayerRank(player);
     }
 
+    public void transferOwnership(Player current, OfflinePlayer next) {
+        owner = next.getUniqueId();
 
-    public boolean hasPermission(Player player, String permission) {
-        Validate.notNull(player);
-        Validate.notNull(permission);
+        factionPerm.setRank(next, OwnerRank.registry);
+        factionPerm.setRank(current, AdminRank.registry);
 
+        Bukkit.getServer().getPluginManager().callEvent(new FactionTransferOwnershipEvent(this,
+                current, next));
+    }
+
+    public boolean hasPermission(OfflinePlayer player, String permission) {
         Rank rank = getPlayerRank(player);
-        if (rank == null) {
-            Debugger.logWarning("Wasn't able to get rank for " + player.getName());
-            return false;
-        }
+        if (rank == null) return false;
+        if (!factionPerm.getRankSetting().containsKey(permission)) return false;
         return factionPerm.getRankSetting().get(permission).hasPermission(rank);
     }
 

@@ -149,6 +149,11 @@ public class SubCommandSettings {
             return false;
         }
 
+        if (faction != null && factionPermission != null && !faction.hasPermission(player, factionPermission)) {
+            if (messages) Language.sendRawMessage("&cYou don't have enough permissions", player);
+            return false;
+        }
+
         return true;
     }
 

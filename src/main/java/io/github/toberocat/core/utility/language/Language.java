@@ -81,14 +81,12 @@ public class Language extends PlayerJoinLoader {
     }
 
     private static void loadLanguage(File file) {
+        ObjectMapper mapper = new ObjectMapper();
+
         String[] split = file.getName().split("\\.");
         if (split.length > 1 && split[1].equals("lang")) {
             try {
-                ObjectMapper mapper = new ObjectMapper();
                 LangMessage langMessage = mapper.readValue(file, LangMessage.class);
-
-                ObjectMapper saveMapper = new ObjectMapper();
-                saveMapper.writerWithDefaultPrettyPrinter().writeValue(file, langMessage);
                 LOADED_LANGUAGES.put(split[0], new ObjectPair<>(1, langMessage));
             } catch (IOException e) {
                 MainIF.getIF().saveShutdown("&cCouldn't read language file " + file.getName() + ". Error: &6" + e.getMessage());
@@ -115,7 +113,7 @@ public class Language extends PlayerJoinLoader {
         int lastIndex = 0;
         LinkedList<String> items = new LinkedList<>();
         while (langMessage.getMessages().containsKey(msgKey + "." + lastIndex)) {
-            items.add(parse(langMessage.getMessages().get(msgKey + "." + lastIndex), parseables));
+            items.add(format(parse(langMessage.getMessages().get(msgKey + "." + lastIndex), parseables)));
             lastIndex++;
         }
 
