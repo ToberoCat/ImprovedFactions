@@ -83,7 +83,6 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\I
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\factions\FactionModule.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\factions\KickSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\language\LangContainer.java
-C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\gui\faction\ManagePlayerRankGui.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\factions\InviteSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\events\faction\FactionUnbanEvent.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\dynamic\loaders\DynamicLoader.java
@@ -189,6 +188,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\I
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\listeners\PlayerLeaveListener.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\config\ConfigManager.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\extension\ExtensionSubCommand.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\events\faction\FactionTransferOwnershipEvent.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\versions\v1_16\NMSLoader_1_16.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\settings\type\HiddenSetting.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\extensions\ExtensionDownloader.java

@@ -65,7 +65,7 @@ import static org.bukkit.Bukkit.getPluginManager;
  */
 public final class MainIF extends JavaPlugin {
 
-    public static final Version VERSION = Version.from("1.3");
+    public static final Version VERSION = Version.from("1.3.1");
 
     public static final HashMap<String, Extension> LOADED_EXTENSIONS = new HashMap<>();
 
@@ -343,14 +343,11 @@ public final class MainIF extends JavaPlugin {
     private ExtensionRegistry loadRegistry(File file) throws MalformedURLException {
         String path = "jar:file:\\" + file.getAbsolutePath() + "!/extension.yml";
 
-        System.out.println("File path: " + file.getAbsolutePath() + "; Exists: " + file.exists());
-
         URL inputURL = new URL(path);
         JarURLConnection conn;
         try {
             conn = (JarURLConnection) inputURL.openConnection();
             InputStream in = conn.getInputStream();
-            System.out.println("Failed reading yml");
             return YmlUtility.loadYml(in, ExtensionRegistry.class);
         } catch (IOException e) {
             e.printStackTrace();
