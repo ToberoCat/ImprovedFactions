@@ -17,19 +17,18 @@ import java.util.List;
 
 public class ManageRankSettingGui extends Gui {
     public ManageRankSettingGui(Player player, Faction faction, String permission, RankSetting setting, GUISettings rankGuiSettings) {
-        super(player, createInventory(player, permission),
-                new GUISettings().setQuitIcon(true).setQuitCallback(() -> {
-                    new RankGui(player, faction, rankGuiSettings);
-                }));
+        super(player, createInventory(player, permission), new GUISettings()
+                .setQuitIcon(true)
+                .setQuitCallback(() -> new RankGui(player, faction, rankGuiSettings)));
 
-        update(player, faction, permission, setting);
+        render(player, faction, permission, setting);
     }
 
     private static Inventory createInventory(Player player, String permission) {
         return Bukkit.createInventory(player, 54, "§e§l" + permission);
     }
 
-    private void update(Player player, Faction faction, String permission, RankSetting setting) {
+    private void render(Player player, Faction faction, String permission, RankSetting setting) {
         clear();
 
         for (Rank rank : Rank.ranks) {
@@ -49,7 +48,7 @@ public class ManageRankSettingGui extends Gui {
                 }
                 setting.setSelected(selected.toArray(String[]::new));
 
-                update(player, faction, permission, setting);
+                render(player, faction, permission, setting);
             });
         }
     }

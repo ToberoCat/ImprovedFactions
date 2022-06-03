@@ -92,6 +92,7 @@ public class Language extends PlayerJoinLoader {
                 LOADED_LANGUAGES.put(split[0], new ObjectPair<>(1, langMessage));
             } catch (IOException e) {
                 MainIF.getIF().saveShutdown("&cCouldn't read language file " + file.getName() + ". Error: &6" + e.getMessage());
+                Utility.except(e);
             }
         }
     }

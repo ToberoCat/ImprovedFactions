@@ -106,6 +106,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\I
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\extensions\ExtensionLoader.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\gui\faction\MemberManageGui.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\listeners\ExplodeListener.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\events\faction\FactionMemberOfflineEvent.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\history\territory\Territory.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\callbacks\ResultCallback.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\extensions\ExtensionDownloadCallback.java
@@ -163,6 +164,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\I
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\data\PersistentDataUtility.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\config\ConfigSaveSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\history\territory\TerritorySwitch.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\events\faction\FactionMemberOnlineEvent.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\factions\claim\ClaimSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\factions\rank\members\ElderRank.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\version\UpdateChecker.java

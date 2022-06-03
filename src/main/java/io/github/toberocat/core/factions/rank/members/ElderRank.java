@@ -10,8 +10,8 @@ public class ElderRank extends Rank {
 
     public static final String registry = "Elder";
 
-    public ElderRank() {
-        super("Elder", registry, false);
+    public ElderRank(int priority) {
+        super("Elder", registry, priority, false);
     }
 
     @Override

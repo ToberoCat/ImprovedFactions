@@ -40,3 +40,4 @@
 - Wildness command (Tps to random location) (Extension)
 - %faction_rank% as papi placeholder to get the players rank
 - Recommendation system (Allows faction to search for users. Users can search for factions too, using a gui)
+- Dynmap add option to appear as one unit

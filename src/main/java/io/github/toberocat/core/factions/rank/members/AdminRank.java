@@ -10,8 +10,8 @@ import org.bukkit.inventory.ItemStack;
 public class AdminRank extends Rank {
     public static final String registry = "Admin";
 
-    public AdminRank() {
-        super("Admin", registry, true);
+    public AdminRank(int priority) {
+        super("Admin", registry,  priority,true);
     }
 
     @Override

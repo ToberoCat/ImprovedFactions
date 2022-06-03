@@ -8,8 +8,8 @@ import org.bukkit.inventory.ItemStack;
 public class GuestRank extends Rank {
     public static final String register = "Guest";
 
-    public GuestRank() {
-        super("&e&lGuest", register, false);
+    public GuestRank(int priority) {
+        super("&e&lGuest", register, priority, false);
     }
 
     @Override

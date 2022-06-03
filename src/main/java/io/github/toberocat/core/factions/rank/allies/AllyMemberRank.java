@@ -10,8 +10,8 @@ public class AllyMemberRank extends Rank {
 
     public static final String registry = "AllyMember";
 
-    public AllyMemberRank() {
-        super("Ally Member", registry, false);
+    public AllyMemberRank(int priority) {
+        super("Ally Member", registry, priority, false);
     }
 
     @Override

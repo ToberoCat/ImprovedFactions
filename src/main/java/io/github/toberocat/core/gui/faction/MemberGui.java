@@ -21,7 +21,8 @@ public class MemberGui extends Gui {
             String lastTimeSeen = off.isOnline() ? "§aOnline" : "§e" + Utility.getTime(off.getLastPlayed());
 
             addSlot(Utility.getSkull(off, 1, "§e" + off.getName(), new String[]{
-                    "§8Last time seen: " + lastTimeSeen
+                    "§8Last time seen: " + lastTimeSeen,
+                    "§8Rank: §e" + faction.getPlayerRank(off).getDisplayName()
             }), () -> AsyncTask.runLaterSync(1, () ->
                     new MemberManageGui(player, off, faction, settings)));
         }

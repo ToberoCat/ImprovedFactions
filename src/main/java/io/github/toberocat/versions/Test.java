@@ -11,12 +11,22 @@ import java.io.*;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Stream;
 
 
 public class Test {
     public static void main(String[] args) throws IOException {
-        String str = "1.0";
-        str = str.replaceAll("[^0-9]", "");
-        System.out.println(str);
+
+        ArrayList<UUID> arrayList = new ArrayList<>();
+
+        for (int i = 0; i < 100; i++) arrayList.add(UUID.randomUUID());
+
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 100000; i++) {
+            String[] array = arrayList.stream().map(x -> x.toString() + x.getMostSignificantBits()).toArray(String[]::new);
+        }
     }
 }

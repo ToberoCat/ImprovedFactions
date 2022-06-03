@@ -285,7 +285,7 @@ public class Faction {
         return LOADED_FACTIONS;
     }
 
-    public Rank getPlayerRank(Player player) {
+    public Rank getPlayerRank(OfflinePlayer player) {
         return factionPerm.getPlayerRank(player);
     }
 

@@ -9,8 +9,8 @@ import org.bukkit.inventory.ItemStack;
 public class MemberRank extends Rank {
     public static final String registry = "Member";
 
-    public MemberRank() {
-        super("Member", registry, false);
+    public MemberRank(int priority) {
+        super("Member", registry, priority, false);
     }
 
     @Override

@@ -79,6 +79,7 @@ io\github\toberocat\core\bstat\Metrics$AdvancedBarChart.class
 io\github\toberocat\core\factions\OpenType.class
 io\github\toberocat\core\utility\events\faction\FactionLoadEvent.class
 io\github\toberocat\core\utility\command\SubCommand.class
+io\github\toberocat\core\utility\events\faction\FactionMemberOfflineEvent.class
 io\github\toberocat\core\utility\settings\type\Setting$4.class
 io\github\toberocat\core\utility\events\faction\FactionEventCancelledable.class
 io\github\toberocat\core\utility\config\ConfigAccessException.class
@@ -96,7 +97,6 @@ io\github\toberocat\core\extensions\ExtensionLoader.class
 io\github\toberocat\core\utility\events\ConfigSaveEvent$SaveType.class
 io\github\toberocat\core\utility\map\MapHandler.class
 io\github\toberocat\core\factions\rank\members\ElderRank.class
-io\github\toberocat\core\gui\faction\ManagePlayerRankGui.class
 io\github\toberocat\core\commands\admin\maxpower\AdminSetPowerCommand.class
 io\github\toberocat\core\utility\language\LanguageListLoader.class
 io\github\toberocat\versions\v1_15\NMSLoader_1_15.class
@@ -156,6 +156,7 @@ io\github\toberocat\core\utility\events\faction\FactionUnbanEvent.class
 io\github\toberocat\core\commands\zones\WarZoneSubCommand.class
 io\github\toberocat\core\utility\color\FactionColors.class
 io\github\toberocat\core\commands\admin\JoinPrivateFactionSubCommand.class
+io\github\toberocat\core\utility\events\faction\FactionMemberOnlineEvent.class
 io\github\toberocat\core\factions\rank\GuestRank.class
 io\github\toberocat\core\bstat\Metrics$DrilldownPie.class
 io\github\toberocat\core\bstat\Bstat.class

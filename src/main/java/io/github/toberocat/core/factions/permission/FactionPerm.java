@@ -29,6 +29,8 @@ public class FactionPerm {
     public static final String INTERACT_PERM = "permission.interact";
     public static final String MOUNT_PERM = "permission.mount";
     public static final String FACTION_SETTING_PERM = "permission.settings";
+    public static final String MANAGE_RANKS_PERM = "permission.manage-rank";
+
 
     private FactionSettings factionSettings;
     private Map<String, RankSetting> rankSetting;
@@ -70,7 +72,7 @@ public class FactionPerm {
                 ElderRank.registry, MemberRank.registry, ModeratorRank.registry
         }, ItemCore.create(INTERACT_PERM, Material.CHEST, "&eInteract permission")));
 
-        DEFAULT_RANKS.put(MOUNT_PERM, new RankSetting(MOUNT_PERM, new String[] {
+        DEFAULT_RANKS.put(MOUNT_PERM, new RankSetting(MOUNT_PERM, new String[]{
                 OwnerRank.registry, AdminRank.registry, ElderRank.registry, MemberRank.registry,
                 ModeratorRank.registry, AllyAdminRank.registry,
                 AllyElderRank.registry, AllyMemberRank.registry, AllyOwnerRank.registry, AllyModeratorRank.registry,
@@ -81,19 +83,28 @@ public class FactionPerm {
                 OwnerRank.registry, ModeratorRank.registry, AdminRank.registry
         }, ItemCore.create(FACTION_SETTING_PERM, Material.NETHER_STAR,
                 "&eSetting permission", "&8Allows user to change ", "&8faction settings")));
+
+        DEFAULT_RANKS.put(MANAGE_RANKS_PERM, new RankSetting(MANAGE_RANKS_PERM, new String[]{
+                OwnerRank.registry, ModeratorRank.registry, AdminRank.registry
+        }, ItemCore.create(MANAGE_RANKS_PERM, Material.BEACON,
+                "&8Allows user to modify ranks")));
     }
 
     public static void registerPermission(RankSetting setting) {
         DEFAULT_RANKS.put(setting.getSettingName(), setting);
     }
 
-    public Rank getPlayerRank(Player player) {
-        if (!faction.isMember(player)) return Rank.fromString(GuestRank.register);
+    public Rank getPlayerRank(OfflinePlayer player) {
+        if (faction.isMember(player)) return Rank.fromString(memberRanks.get(player.getUniqueId()));
 
-        String playerFaction = FactionUtility.getPlayerFactionRegistry(player);
+        Player on = player.getPlayer();
+        if (on == null) return Rank.fromString(GuestRank.register);
+
+        String playerFaction = FactionUtility.getPlayerFactionRegistry(on);
         if (faction.getRelationManager().getAllies().contains(playerFaction))
             return FactionUtility.getFactionByRegistry(playerFaction).getPlayerRank(player);
-        return Rank.fromString(memberRanks.get(player.getUniqueId()));
+
+        return Rank.fromString(GuestRank.register);
     }
 
     public void setRank(OfflinePlayer player, String rank) {

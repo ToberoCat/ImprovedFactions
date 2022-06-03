@@ -10,8 +10,8 @@ import org.bukkit.inventory.ItemStack;
 public class OwnerRank extends Rank {
     public static final String registry = "Owner";
 
-    public OwnerRank() {
-        super("Owner", registry, true);
+    public OwnerRank(int priority) {
+        super("Owner", registry, priority, true);
     }
 
     @Override

@@ -198,7 +198,7 @@ public final class MainIF extends JavaPlugin {
 
             }, 0, 20 * 60 * 5);
 
-            DynamicLoader.enable();
+            AsyncTask.runLaterSync(1, DynamicLoader::enable);
 
             if (Boolean.TRUE.equals(getConfigManager().getValue("general.autoMigrate"))) tryMigration();
         });
