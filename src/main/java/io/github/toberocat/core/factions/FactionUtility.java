@@ -164,9 +164,12 @@ public class FactionUtility extends PlayerJoinLoader {
         if (faction == null) return; // Player wasn't in a faction
         unload(faction.getRegistryName()).then((unloaded) -> {
             if (unloaded) return;
-            Bukkit.getPluginManager().callEvent(new FactionMemberOfflineEvent(faction, player));
+
+            AsyncTask.runSync(() -> Bukkit.getPluginManager()
+                    .callEvent(new FactionMemberOfflineEvent(faction, player)));
         });
     }
+
 
     @Override
     protected void Disable() {

@@ -53,6 +53,10 @@ public class AsyncTask<T> {
         }));
     }
 
+    public static void runSync(Runnable runnable) {
+        runLaterSync(0, runnable);
+    }
+
     public static <T> T find(T[] array, Predicate<T> predicate) {
         return Stream.of(array).parallel().filter(predicate).findFirst().orElse(null);
     }

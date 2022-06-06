@@ -77,14 +77,14 @@ public class FactionMemberManager {
      * @return A Result object.
      */
     public Result invitePlayer(Player player) {
+        if (invitations == null) invitations = new ArrayList<>();
         invitations.add(player.getUniqueId());
 
         new PlayerMessageBuilder("%;{CLICK(0)}%You got invited by &e" + faction.getDisplayName() +
                 ". &7Click to join\n&fInvitation will run out in &e5 &fminutes",
                 "/f inviteaccept " + faction.getRegistryName()).send(player);
-        Bukkit.getScheduler().runTaskLater(MainIF.getIF(), () -> {
-            removeInvite(player);
-        }, 5 * 60 * 20);
+        Bukkit.getScheduler().runTaskLater(MainIF.getIF(), () ->
+                removeInvite(player), 5 * 60 * 20);
         return Result.success();
     }
 

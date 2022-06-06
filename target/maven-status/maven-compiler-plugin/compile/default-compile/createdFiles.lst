@@ -130,6 +130,7 @@ io\github\toberocat\core\commands\settings\PlayerSettingsSubCommand$1.class
 io\github\toberocat\core\utility\messages\PlayerMessageBuilder.class
 io\github\toberocat\core\utility\settings\type\SettingEnum.class
 io\github\toberocat\core\commands\config\ConfigSubCommand.class
+io\github\toberocat\core\utility\events\faction\claim\ChunkProtectEvent.class
 io\github\toberocat\core\extensions\ExtensionDownloader.class
 io\github\toberocat\core\commands\admin\AdminRegenerateSubCommand.class
 io\github\toberocat\core\commands\admin\maxpower\AdminGivePowerCommand.class
@@ -235,6 +236,7 @@ io\github\toberocat\core\listeners\PlayerJoinListener.class
 io\github\toberocat\versions\nms\NMSFactory.class
 io\github\toberocat\core\bstat\Metrics$SingleLineChart.class
 io\github\toberocat\core\commands\factions\InviteSubCommand.class
+io\github\toberocat\core\utility\events\faction\claim\ChunkRemoveProtectionEvent.class
 io\github\toberocat\core\utility\SignalBarrier.class
 io\github\toberocat\core\utility\language\LangContainer.class
 io\github\toberocat\core\utility\jackson\serializer\LocationSerializer.class

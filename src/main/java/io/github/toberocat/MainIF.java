@@ -25,6 +25,7 @@ import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.dynamic.loaders.DynamicLoader;
 import io.github.toberocat.core.utility.events.ConfigSaveEvent;
 import io.github.toberocat.core.utility.events.bukkit.PlayerJoinOnReloadEvent;
+import io.github.toberocat.core.utility.gui.Gui;
 import io.github.toberocat.core.utility.items.ItemCore;
 import io.github.toberocat.core.utility.jackson.JsonUtility;
 import io.github.toberocat.core.utility.jackson.YmlUtility;
@@ -65,7 +66,7 @@ import static org.bukkit.Bukkit.getPluginManager;
  */
 public final class MainIF extends JavaPlugin {
 
-    public static final Version VERSION = Version.from("1.3.1");
+    public static final Version VERSION = Version.from("1.3.2");
 
     public static final HashMap<String, Extension> LOADED_EXTENSIONS = new HashMap<>();
 
@@ -226,6 +227,7 @@ public final class MainIF extends JavaPlugin {
             saveConfigs();
             DataAccess.disable();
             DynamicLoader.disable();
+            for (Player player : Bukkit.getOnlinePlayers()) player.closeInventory();
 
             cleanup();
 

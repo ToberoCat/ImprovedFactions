@@ -26,11 +26,19 @@ public class BlockBreakListener implements Listener {
         if (claim == null) return; // Chunk isn't protected
         if (MainIF.getIF().isStandby() || !MainIF.getIF().isEnabled()) {
             Language.sendRawMessage("Factions is in standby. Protection is enabled for claimed chunk", event.getPlayer());
+
             event.setCancelled(true);
+            event.setDropItems(false);
+            event.getBlock().getDrops().clear();
+
             return;
         }
         if (ClaimManager.isManageableZone(claim)) {
+
             event.setCancelled(true);
+            event.setDropItems(false);
+            event.getBlock().getDrops().clear();
+
             return;
         }
         if (!FactionUtility.doesFactionExist(claim)) return;
@@ -43,10 +51,18 @@ public class BlockBreakListener implements Listener {
                     "Player: &e" + event.getPlayer().getName());
             MainIF.getIF().saveShutdown("Wasn't able to find faction that claimed chunk &6"
                     + blockChunk.getX() + ", " + blockChunk.getZ());
+
             event.setCancelled(true);
+            event.setDropItems(false);
+            event.getBlock().getDrops().clear();
+
             return;
         }
 
-        if (!claimFaction.hasPermission(event.getPlayer(), FactionPerm.BREAK_PERM)) event.setCancelled(true);
+        if (!claimFaction.hasPermission(event.getPlayer(), FactionPerm.BREAK_PERM)) {
+            event.setCancelled(true);
+            event.setDropItems(false);
+            event.getBlock().getDrops().clear();
+        }
     }
 }
