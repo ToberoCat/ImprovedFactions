@@ -21,6 +21,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\I
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\zones\UnclaimSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\bossbar\eases\EaseInOutSine.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\date\DateCore.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\events\faction\claim\ChunkProtectEvent.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\listeners\BlockBreakListener.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\events\ConfigSaveEvent.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\factions\rank\allies\AllyOwnerRank.java
@@ -40,6 +41,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\I
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\settings\type\RankSetting.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\claim\Claim.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\factions\rank\Rank.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\events\faction\claim\ChunkRemoveProtectionEvent.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\factions\Faction.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\settings\FactionSettingsSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\papi\Placeholder.java

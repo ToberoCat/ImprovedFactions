@@ -91,6 +91,7 @@ public class DataAccess {
         } else {
             String filePath = MainIF.getIF().getDataFolder().getPath() + "/Data/" + folder + "/" + filename + ".json";
             File file = new File(filePath);
+            if (!file.exists()) return null;
 
             try {
                 return (T) JsonUtility.readObject(file, clazz);

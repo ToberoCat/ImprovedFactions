@@ -2,6 +2,7 @@ package io.github.toberocat.core.utility.async;
 
 
 import io.github.toberocat.MainIF;
+import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.callbacks.ResultCallback;
 import io.github.toberocat.core.utility.callbacks.ReturnCallback;
 import io.github.toberocat.core.utility.exceptions.AlreadyRunException;
@@ -222,10 +223,15 @@ public class AsyncTask<T> {
                 throw new AlreadyRunException("The runnable got called twice. Please make sure that you didn't called it manually");
             }
             id = addTask(this);
-            threadResult = callback.Callback();
-            hasFinished = true;
-            if (onFinish != null) onFinish.call(threadResult);
-            removeTask(id);
+            try {
+                threadResult = callback.Callback();
+                hasFinished = true;
+                if (onFinish != null) onFinish.call(threadResult);
+            } catch (Exception e) {
+                Utility.except(e);
+            } finally {
+                removeTask(id);
+            }
         });
     }
 }

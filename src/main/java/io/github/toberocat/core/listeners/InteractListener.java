@@ -8,31 +8,36 @@ import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.factions.permission.FactionPerm;
 import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.language.Language;
+import org.apache.logging.log4j.core.net.Priority;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityInteractEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 public class InteractListener implements Listener {
 
-    @EventHandler
-    public void Interaction(EntityInteractEvent event) {
-        if (AdminBypassSubCommand.BYPASSING.contains(event.getEntity().getUniqueId())) return;
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void Interaction(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        if (AdminBypassSubCommand.BYPASSING.contains(player.getUniqueId())) return;
 
         ClaimManager claimManager = MainIF.getIF().getClaimManager();
-        Chunk blockChunk = event.getBlock().getChunk();
+        if (event.getClickedBlock() == null) return;
+
+        Chunk blockChunk = event.getClickedBlock().getChunk();
 
         String claim = claimManager.getFactionRegistry(blockChunk);
         if (claim == null) return; // Chunk isn't protected
         if (MainIF.getIF().isStandby() || !MainIF.getIF().isEnabled()) {
-            if (event.getEntity() instanceof Player player) Language.sendRawMessage("Factions is in standby." +
-                    " Protection is enabled for claimed chunk", player);
+            Language.sendRawMessage("Factions is in standby. Protection is enabled for claimed chunk", player);
+
             event.setCancelled(true);
             return;
         }
-
         if (ClaimManager.isManageableZone(claim)) {
+
             event.setCancelled(true);
             return;
         }
@@ -40,18 +45,18 @@ public class InteractListener implements Listener {
 
         Faction claimFaction = FactionUtility.getFactionByRegistry(claim);
         if (claimFaction == null) {
-            if (event.getEntity() instanceof Player player) Language.sendRawMessage("You have encountered a problem" +
-                    " with improved factions! Go ahead and tell the admins about the save shutdown. " +
-                    "Error: BlockPlace wasn't able to find required faction", player);
-            Debugger.logWarning("BlockPlaceListener.java wasn't able to find claimfaction. Entering savemode.\nInfo: " +
-                    "Entity: &e" + event.getEntity().getName());
+            Language.sendRawMessage("You have encountered a problem with improved factions! Go ahead " +
+                    "and tell the admins about the save shutdown. Error: Interaction wasn't able to find required faction", player);
+            Debugger.logWarning("InteractionListener.java wasn't able to find claimfaction. Entering savemode.\nInfo: " +
+                    "Player: &e" + player.getName());
             MainIF.getIF().saveShutdown("Wasn't able to find faction that claimed chunk &6"
                     + blockChunk.getX() + ", " + blockChunk.getZ());
+
             event.setCancelled(true);
             return;
         }
 
-        if (event.getEntity() instanceof Player player && !claimFaction.hasPermission(player, FactionPerm.INTERACT_PERM))
+        if (!claimFaction.hasPermission(player, FactionPerm.BREAK_PERM))
             event.setCancelled(true);
     }
 }

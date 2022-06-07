@@ -10,6 +10,7 @@ import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.data.PersistentDataUtility;
 import io.github.toberocat.core.utility.dynamic.loaders.DynamicLoader;
 import io.github.toberocat.core.utility.events.faction.claim.ChunkProtectEvent;
+import io.github.toberocat.core.utility.events.faction.claim.ChunkRemoveProtectionEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.NamespacedKey;
@@ -117,7 +118,8 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
                 chunk.getPersistentDataContainer());
 
         CLAIMS.get(chunk.getWorld().getName()).add(new Claim(chunk.getX(), chunk.getZ(), registry));
-        Bukkit.getPluginManager().callEvent(new ChunkProtectEvent(registry, chunk));
+        AsyncTask.runSync(() -> Bukkit.getPluginManager()
+                .callEvent(new ChunkProtectEvent(registry, chunk)));
         return new Result(true);
     }
 
@@ -146,7 +148,8 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
         });
 
         PersistentDataUtility.remove(PersistentDataUtility.FACTION_CLAIMED_KEY, chunk.getPersistentDataContainer());
-        Bukkit.getPluginManager().callEvent(new ChunkProtectEvent(claimRegistry, chunk));
+        AsyncTask.runSync(() -> Bukkit.getPluginManager()
+                .callEvent(new ChunkRemoveProtectionEvent(claimRegistry, chunk)));
         return new Result<String>(true).setPaired(claimRegistry);
     }
 
