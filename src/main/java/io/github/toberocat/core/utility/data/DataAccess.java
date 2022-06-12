@@ -19,7 +19,7 @@ public class DataAccess {
     private static MySQL sql;
 
     public static boolean init() {
-        if (MainIF.getConfigManager().getValue("general.useSQL")) {
+        if (Boolean.TRUE.equals(MainIF.getConfigManager().getValue("general.useSQL"))) {
             sql = new MySQL();
 
             try {
@@ -77,8 +77,13 @@ public class DataAccess {
         if (sql != null) {
             //ToDo: Add the method for clearing the file in mySQL
         } else {
-            for (File file : new File(
-                    MainIF.getIF().getDataFolder().getPath() + "/Data/" + folder).listFiles()) {
+            File dat = new File(
+                    MainIF.getIF().getDataFolder().getPath() + "/Data/" + folder);
+
+            File[] listed = dat.listFiles();
+            if (listed == null) return;
+
+            for (File file : listed) {
                 file.delete();
             }
         }
@@ -141,6 +146,8 @@ public class DataAccess {
             File file = new File(filePath);
 
             File[] listed = file.listFiles();
+            if (listed == null) return new String[0];
+
             return Arrays.stream(listed).map(File::getName).toArray(String[]::new);
         }
     }
@@ -151,12 +158,14 @@ public class DataAccess {
     public static String[] listFiles(String folder) {
         if (sql != null) {
             // ToDO: Add method for sql table listing
-            return new String[]{""};
+            return new String[0];
         } else {
             String filePath = MainIF.getIF().getDataFolder().getPath() + "/Data/" + folder;
             File file = new File(filePath);
 
             File[] listed = file.listFiles();
+            if (listed == null) return new String[0];
+
             return Arrays.stream(listed).map(x -> x.getName().split("\\.")[0]).toArray(String[]::new);
         }
     }

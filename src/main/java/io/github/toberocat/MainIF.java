@@ -550,7 +550,6 @@ public final class MainIF extends JavaPlugin {
     }
 
     private boolean initializeCores() throws IOException, ClassNotFoundException {
-        claimManager = new ClaimManager();
         if (!loadExtensions()) return false;
 
         if (!Language.init(this, getDataFolder())) return false;
@@ -566,6 +565,7 @@ public final class MainIF extends JavaPlugin {
         Bstat.register(this);
         registerPapi();
 
+        claimManager = new ClaimManager();
         new FactionUtility();
         new MessageSystem();
 

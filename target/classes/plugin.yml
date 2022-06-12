@@ -1,9 +1,9 @@
 name: ImprovedFactions
-version: '1.3.2'
+version: '1.3.3'
 main: io.github.toberocat.MainIF
 api-version: 1.16
 authors: [ Tobero ]
-softdepend: [ PlaceholderAPI, Vault ]
+softdepend: [ PlaceholderAPI, Vault, Dynmap ]
 
 commands:
   faction:
