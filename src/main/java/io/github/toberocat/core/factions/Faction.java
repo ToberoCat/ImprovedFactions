@@ -17,6 +17,7 @@ import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.claim.Claim;
 import io.github.toberocat.core.utility.claim.ClaimManager;
+import io.github.toberocat.core.utility.color.FactionColors;
 import io.github.toberocat.core.utility.config.DataManager;
 import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.events.faction.*;
@@ -592,6 +593,15 @@ public class Faction {
     public Faction setModules(LinkedHashMap<String, FactionModule> modules) {
         this.modules = modules;
         return this;
+    }
+
+    @JsonIgnore
+    public int getColor() {
+        if (getFactionPerm().getFactionSettings().get("universal_color") instanceof EnumSetting setting) {
+            FactionColors color = FactionColors.values()[setting.getSelected()];
+            return color.getColor();
+        }
+        return FactionColors.RED.getColor();
     }
 
     public enum OpenType {PUBLIC, INVITE_ONLY, CLOSED}

@@ -16,13 +16,9 @@ public class ConfigReloadSubCommand extends SubCommand {
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
-        for (Config config : MainIF.getIF().getConfigMap().values()) {
-            config.Reload();
-        }
+        for (Config config : MainIF.getIF().getConfigMap().values()) config.Reload();
+        for (Extension extension : MainIF.LOADED_EXTENSIONS.values()) extension.reloadConfigs();
 
-        for (Extension extension : MainIF.LOADED_EXTENSIONS.values()) {
-            extension.reloadConfigs();
-        }
         Language.sendMessage("command.config.reload.success", player);
     }
 

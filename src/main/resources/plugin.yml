@@ -3,7 +3,7 @@ version: '${project.version}'
 main: io.github.toberocat.MainIF
 api-version: 1.16
 authors: [ Tobero ]
-softdepend: [ PlaceholderAPI, Vault ]
+softdepend: [ PlaceholderAPI, Vault, Dynmap ]
 
 commands:
   faction:

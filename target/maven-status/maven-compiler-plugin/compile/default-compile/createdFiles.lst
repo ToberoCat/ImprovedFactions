@@ -3,6 +3,7 @@ io\github\toberocat\core\utility\gui\Gui$2.class
 io\github\toberocat\core\bstat\Metrics$JsonObjectBuilder$JsonObject.class
 io\github\toberocat\core\commands\config\ConfigBackupSubCommand.class
 io\github\toberocat\core\utility\settings\type\CallbackSettings.class
+io\github\toberocat\versions\v1_19\NMSLoader_1_19.class
 io\github\toberocat\versions\Test.class
 io\github\toberocat\core\papi\Placeholder.class
 io\github\toberocat\core\commands\HelpSubCommand.class

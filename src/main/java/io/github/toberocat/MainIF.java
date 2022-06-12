@@ -66,7 +66,7 @@ import static org.bukkit.Bukkit.getPluginManager;
  */
 public final class MainIF extends JavaPlugin {
 
-    public static final Version VERSION = Version.from("1.3.2");
+    public static final Version VERSION = Version.from("1.3.3");
 
     public static final HashMap<String, Extension> LOADED_EXTENSIONS = new HashMap<>();
 
@@ -501,7 +501,7 @@ public final class MainIF extends JavaPlugin {
 
     private boolean loadPluginVersion() {
         String sVersion = Bukkit.getBukkitVersion();
-        NMSInterface nms;
+        NMSInterface nms = null;
 
         if (sVersion.contains("1.18")) {
             nms = NMSFactory.create_1_18();
@@ -509,15 +509,18 @@ public final class MainIF extends JavaPlugin {
             nms = NMSFactory.create_1_17();
         } else if (sVersion.contains("1.16")) {
             nms = NMSFactory.create_1_16();
+        } else if (sVersion.contains("1.19")) {
+            nms = NMSFactory.create_1_19();
         } else {
-            saveShutdown("§cCouldn't load ImprovedFactions &6" + VERSION +
-                    "&c. The plugin didn't find a version for your server. Your server version: &6"
-                    + sVersion + "&c. Available versions: &6" + Arrays.toString(NMSFactory.versions));
-            getPluginManager().disablePlugin(this);
+            logMessage(Level.WARNING, "&aUsing a none tested version");
+            // saveShutdown("§cCouldn't load ImprovedFactions &6" + VERSION +
+            //        "&c. The plugin didn't find a version for your server. Your server version: &6"
+            //        + sVersion + "&c. Available versions: &6" + Arrays.toString(NMSFactory.versions));
+            //getPluginManager().disablePlugin(this);
             return false;
         }
 
-        nms.EnableInterface();
+        if (nms != null) nms.EnableInterface();
         return true;
     }
 
@@ -547,6 +550,7 @@ public final class MainIF extends JavaPlugin {
     }
 
     private boolean initializeCores() throws IOException, ClassNotFoundException {
+        claimManager = new ClaimManager();
         if (!loadExtensions()) return false;
 
         if (!Language.init(this, getDataFolder())) return false;
@@ -562,7 +566,6 @@ public final class MainIF extends JavaPlugin {
         Bstat.register(this);
         registerPapi();
 
-        claimManager = new ClaimManager();
         new FactionUtility();
         new MessageSystem();
 

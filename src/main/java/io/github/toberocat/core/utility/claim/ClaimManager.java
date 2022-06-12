@@ -5,6 +5,7 @@ import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.async.AsyncTask;
+import io.github.toberocat.core.utility.color.FactionColors;
 import io.github.toberocat.core.utility.config.DataManager;
 import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.data.PersistentDataUtility;
@@ -17,6 +18,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.*;
@@ -51,6 +53,24 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
         }
 
         Subscribe(this);
+    }
+
+    public static int getRegistryColor(@NotNull String registry) {
+        return FactionColors.parseColor(switch (registry) {
+            case SAFEZONE_REGISTRY -> "#00bfff";
+            case WARZONE_REGISTRY -> "#b30000";
+            case UNCLAIMABLE_REGISTRY -> "#88858e";
+            default -> throw new IllegalArgumentException("Registry didn't fit any color");
+        });
+    }
+
+    public static String getDisplay(@NotNull String registry) {
+        return switch (registry) {
+            case SAFEZONE_REGISTRY -> "Safezone";
+            case WARZONE_REGISTRY -> "Warzone";
+            case UNCLAIMABLE_REGISTRY -> "Unclaimable";
+            default -> "";
+        };
     }
 
     public static void migrate() {
