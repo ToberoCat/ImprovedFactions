@@ -517,7 +517,6 @@ public final class MainIF extends JavaPlugin {
             //        "&c. The plugin didn't find a version for your server. Your server version: &6"
             //        + sVersion + "&c. Available versions: &6" + Arrays.toString(NMSFactory.versions));
             //getPluginManager().disablePlugin(this);
-            return false;
         }
 
         if (nms != null) nms.EnableInterface();
