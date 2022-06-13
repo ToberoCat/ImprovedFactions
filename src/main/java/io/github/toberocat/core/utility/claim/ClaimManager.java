@@ -137,7 +137,10 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
                 registry,
                 chunk.getPersistentDataContainer());
 
-        CLAIMS.get(chunk.getWorld().getName()).add(new Claim(chunk.getX(), chunk.getZ(), registry));
+        String worldName = chunk.getWorld().getName();
+        if (!CLAIMS.containsKey(worldName)) CLAIMS.put(worldName, new ArrayList<>());
+
+        CLAIMS.get(worldName).add(new Claim(chunk.getX(), chunk.getZ(), registry));
         AsyncTask.runSync(() -> Bukkit.getPluginManager()
                 .callEvent(new ChunkProtectEvent(registry, chunk)));
         return new Result(true);
@@ -164,7 +167,10 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
             if (faction == null) return;
 
             faction.setClaimedChunks(faction.getClaimedChunks() - 1);
-            CLAIMS.get(chunk.getWorld().getName()).removeIf(x -> x.getX() == chunk.getX() && x.getY() == chunk.getZ());
+
+            String worldName = chunk.getWorld().getName();
+            if (!CLAIMS.containsKey(worldName)) CLAIMS.put(worldName, new ArrayList<>());
+            CLAIMS.get(worldName).removeIf(x -> x.getX() == chunk.getX() && x.getY() == chunk.getZ());
         });
 
         PersistentDataUtility.remove(PersistentDataUtility.FACTION_CLAIMED_KEY, chunk.getPersistentDataContainer());
