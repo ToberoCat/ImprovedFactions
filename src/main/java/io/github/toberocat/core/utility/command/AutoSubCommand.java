@@ -40,6 +40,11 @@ public abstract class AutoSubCommand extends SubCommand {
                     PlayerMoveListener.MOVE_OPERATIONS.get(player.getUniqueId()).put(id.toString(), this::onSingle);
                     Language.sendMessage(getEnabledKey(), player);
                 } else {
+                    if (!PlayerMoveListener.MOVE_OPERATIONS.containsKey(player.getUniqueId())) {
+                        Language.sendMessage(getDisabledKey(), player);
+                        return;
+                    }
+
                     PlayerMoveListener.MOVE_OPERATIONS.get(player.getUniqueId()).remove(id.toString());
                     if (PlayerMoveListener.MOVE_OPERATIONS.get(player.getUniqueId()).size() == 0)
                         PlayerMoveListener.MOVE_OPERATIONS.remove(player.getUniqueId());

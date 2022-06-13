@@ -4,7 +4,6 @@ import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.utility.command.AutoSubCommand;
-import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.language.Language;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -13,23 +12,55 @@ import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+import static java.lang.Math.ceil;
 
 public class FactionMapSubCommand extends AutoSubCommand {
-    public FactionMapSubCommand(String subCommand, String permission, String descriptionKey, boolean manager) {
-        super(subCommand, permission, descriptionKey, manager);
+    public FactionMapSubCommand() {
+        super("map", "command.faction.map.description", false);
+    }
+
+    public static TextComponent getChunk(Chunk chunk, Player player) {
+        if (chunk == null) return new TextComponent("");
+
+        String factionRegistry = MainIF.getIF().getClaimManager().getFactionRegistry(chunk);
+        String color = "";
+        String hover;
+        String symbol = "■";
+        if (factionRegistry == null) { //Wildness
+            color = "§2";
+            hover = color + "Wildness";
+        } else {
+            String playerRegistry = FactionUtility.getPlayerFactionRegistry(player);
+            if (playerRegistry == null) return new TextComponent();
+
+            color = factionRegistry.equals(playerRegistry) ? "§a" : "§c";
+
+            Faction registryFaction = FactionUtility.getFactionByRegistry(factionRegistry);
+            if (registryFaction == null) return new TextComponent();
+
+            hover = color + registryFaction.getDisplayName();
+        }
+
+        if (player.getLocation().getChunk() == chunk) {
+            hover = color + "You";
+            symbol = "o";
+        }
+
+        TextComponent com = new TextComponent(color + symbol);
+        com.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(
+                hover + "\n§7" + chunk.getX() + "; " + chunk.getZ()).create()));
+
+        return com;
     }
 
     @Override
     public String getEnabledKey() {
-        return null;
+        return "command.faction.map.auto-enable";
     }
 
     @Override
     public String getDisabledKey() {
-        return null;
+        return "command.faction.map.auto-disable";
     }
 
     @Override
@@ -38,55 +69,32 @@ public class FactionMapSubCommand extends AutoSubCommand {
         int dstH = MainIF.getConfigManager().getValue("general.mapViewDistanceW");
         int dstW = MainIF.getConfigManager().getValue("general.mapViewDistanceH");
 
-        int leftTopX = center.getX() - dstW/2;
-        int leftTopZ = center.getZ() - dstH/2;
+        int leftTopX = (int) (center.getX() - ceil(dstW / 2f));
+        int leftTopZ = (int) (center.getZ() - ceil(dstH / 2f));
 
-        int rightDownX = center.getX() + dstW/2;
-        int rightDownZ = center.getZ() + dstH/2;
+        int rightDownX = (int) (center.getX() + ceil(dstW / 2f));
+        int rightDownZ = (int) (center.getZ() + ceil(dstH / 2f));
 
-        Chunk[][] chunks = new Chunk[dstW][dstH];
+        Chunk[][] chunks = new Chunk[dstW + 1][dstH + 1];
 
-        for (int x = rightDownX; x > leftTopX; x--) {
-            for (int z = rightDownZ; z > leftTopZ; z--) {
-                chunks[x-leftTopX][z-leftTopZ] = player.getLocation().getWorld().getChunkAt(x, z);
-            }
-        }
+        World world = player.getLocation().getWorld();
+        if (world == null) return;
 
-        TextComponent map = new TextComponent(Language.getPrefix() + "§fMap for §7"+ center.getX() + "; " + center.getZ() +"\n");
+        for (int x = rightDownX; x > leftTopX; x--)
+            for (int z = rightDownZ; z > leftTopZ; z--)
+                chunks[x - leftTopX][z - leftTopZ] = world.getChunkAt(x, z);
+
+
+        TextComponent map = new TextComponent(Language.getPrefix() + "§fMap for §7" + center.getX() + "; " + center.getZ() + "\n");
         for (int i = 0; i < dstW; i++) {
             map.addExtra(Language.getPrefix());
             for (int j = 0; j < dstH; j++) {
-                //MapSubCommand.getChunk(chunks[i][j],player, map::addExtra);
+                map.addExtra(getChunk(chunks[i][j], player));
             }
-            if (i < (dstW-1)) {
+            if (i < (dstW - 1)) {
                 map.addExtra("\n");
             }
         }
         player.spigot().sendMessage(map);
-    }
-
-    public static void getChunk(Chunk chunk, Player player) {
-        String factionRegistry = MainIF.getIF().getClaimManager().getFactionRegistry(chunk);
-        String color = "";
-        String hover;
-        String symbol = "■";
-        if (factionRegistry == null) { //Wildness
-            color = "§2";
-            hover = color + "Wildness";
-        }
-        else {
-            color = factionRegistry.equals(FactionUtility.getPlayerFactionRegistry(player)) ? "§a" : "§c";
-            hover = color + FactionUtility.getFactionByRegistry(factionRegistry).getDisplayName();
-        }
-
-        if (player.getLocation().getChunk() == chunk) {
-            hover = color +  "You";
-            symbol = "o";
-        }
-
-        TextComponent com = new TextComponent(color + symbol);
-        com.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(
-                hover+"\n§7"+chunk.getX()+"; "+chunk.getZ()).create()));
-        //callback.Callback(com);
     }
 }

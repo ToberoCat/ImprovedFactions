@@ -2,6 +2,11 @@
   "author": "Tobero",
   "credits": "Thanks for this amazing support from everyone who uses this plugin",
   "messages": {
+    "command.faction.map.description": "Display a map of your surrounding chunks",
+    "command.faction.map.auto-enable": "&a&lEnabled&f the auto map",
+    "command.faction.map.auto-disable": "&c&lDisabled&f the auto map",
+
+
     "command.faction.invite-accept.failed": "&cSorry, but you have no invite from this faction",
     "rank.ally-owner.title": "&bAlly owner rank",
     "rank.ally-owner.lore.0": "&8A owner of your allied",
