@@ -111,7 +111,7 @@ public class Faction {
                 } else {
                     // ToDo: Add a way to set persistent data for offline players
                     faction.getFactionMemberManager().getMembers().add(member.getKey());
-                    faction.getFactionPerm().getMemberRanks().put(member.getKey(), member.getValue());
+                    faction.getFactionPerm().getMemberRanks().put(member.getKey(), member.getValue().replace("}", ""));
                     faction.getPowerManager()
                             .increaseMax(MainIF.getConfigManager().getValue("power.maxPowerPerPlayer"));
                 }
