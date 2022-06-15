@@ -12,7 +12,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.stream.Stream;
@@ -23,14 +28,17 @@ import java.util.stream.Stream;
 public class AsyncTask<T> {
 
     protected final static HashMap<Integer, AsyncTask> TASKS = new HashMap<>();
-    protected final ReturnCallback<T> callback;
+    protected final AsyncRunnable<T> callback;
     protected final Thread thread;
     protected int id;
+
     protected ResultCallback<T> onFinish;
+    protected Consumer<Exception> onError;
+
     protected boolean hasFinished;
     protected T threadResult;
 
-    private AsyncTask(ReturnCallback<T> callback) {
+    private AsyncTask(AsyncRunnable<T> callback) {
         this.callback = callback;
         this.onFinish = null;
         this.thread = runThread();
@@ -69,8 +77,15 @@ public class AsyncTask<T> {
     public static void waitForAllThreads() {
         if (TASKS.size() <= 0) return;
         synchronized (TASKS) {
+
+            ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+            ScheduledFuture<?> scheduledFuture = executor.scheduleAtFixedRate(() -> {
+                if (TASKS.size() <= 0) TASKS.notifyAll();
+            }, 0, 1, TimeUnit.SECONDS);
+
             try {
                 TASKS.wait();
+                scheduledFuture.cancel(false);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -101,13 +116,22 @@ public class AsyncTask<T> {
      * You could also use {@link AsyncTask#then(ResultCallback)} to get the result when the thread has finished
      */
     public static <T> AsyncTask<T> run(ReturnCallback<T> callback) {
-        AsyncTask<T> core = new AsyncTask<>(callback);
+        AsyncTask<T> core = new AsyncTask<>(new AsyncRunnable<>() {
+            @Override
+            public void run() {
+                result(callback.Callback());
+            }
+        });
         core.thread.start();
         return core;
     }
 
     public static <T> AsyncTask<T> returnItem(T item) {
-        AsyncTask<T> core = new AsyncTask<>(() -> null);
+        AsyncTask<T> core = new AsyncTask<>(new AsyncRunnable<T>() {
+            @Override
+            public void run() {
+            }
+        });
         core.id = addTask(core);
         core.threadResult = item;
         core.hasFinished = true;
@@ -134,10 +158,21 @@ public class AsyncTask<T> {
     /**
      * Execute a code piece on a separate thread
      */
+    public static <T> AsyncTask<T> run(AsyncRunnable<T> callback) {
+        AsyncTask<T> core = new AsyncTask<>(callback);
+        core.thread.start();
+        return core;
+    }
+
+    /**
+     * Execute a code piece on a separate thread
+     */
     public static <T> AsyncTask<T> run(Runnable callback) {
-        AsyncTask<T> core = new AsyncTask<>(() -> {
-            callback.run();
-            return null;
+        AsyncTask<T> core = new AsyncTask<>(new AsyncRunnable<T>() {
+            @Override
+            public void run() {
+                callback.run();
+            }
         });
         core.thread.start();
         return core;
@@ -213,6 +248,12 @@ public class AsyncTask<T> {
         return this;
     }
 
+    public AsyncTask<T> except(Consumer<Exception> onError) {
+        this.onError = onError;
+
+        return this;
+    }
+
     public int getId() {
         return id;
     }
@@ -224,7 +265,10 @@ public class AsyncTask<T> {
             }
             id = addTask(this);
             try {
-                threadResult = callback.Callback();
+                callback.instance(this);
+                callback.run();
+
+                threadResult = callback.result();
                 hasFinished = true;
                 if (onFinish != null) onFinish.call(threadResult);
             } catch (Exception e) {

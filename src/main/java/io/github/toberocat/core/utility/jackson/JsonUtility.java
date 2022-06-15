@@ -71,11 +71,11 @@ public class JsonUtility {
         return null;
     }
 
-    public static Object readObject(File file, Class clazz) throws IOException {
+    public static <T> T readObject(File file, Class<T> clazz) throws IOException {
         return OBJECT_MAPPER.readValue(file, clazz);
     }
 
-    public static Object readObjectFromURL(URL url, Class clazz) {
+    public static <T> T readObjectFromURL(URL url, Class<T> clazz) {
         try {
             return OBJECT_MAPPER.readValue(url, clazz);
         } catch (IOException e) {

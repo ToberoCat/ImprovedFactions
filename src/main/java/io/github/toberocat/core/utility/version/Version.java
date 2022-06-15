@@ -14,8 +14,11 @@ public class Version implements Comparable<Version> {
         return new Version(version);
     }
 
-    public int versionToInteger() {
-        return Integer.parseInt(Utility.removeNonDigits(version));
+    public double versionToInteger() {
+        if (version.length() == 0) return 0;
+        int n0 = Character.getNumericValue(version.charAt(0));
+
+        return n0 + Integer.parseInt(Utility.removeNonDigits(version.substring(1))) * Math.pow(10, -version.length() - 1);
     }
 
     public String getVersion() {
@@ -28,8 +31,8 @@ public class Version implements Comparable<Version> {
 
     @Override
     public int compareTo(Version o) {
-        int first = versionToInteger();
-        int second = o.versionToInteger();
+        double first = versionToInteger();
+        double second = o.versionToInteger();
 
         if (first == second) return 0;
         else if (first < second) return -1;

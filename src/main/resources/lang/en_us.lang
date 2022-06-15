@@ -2,6 +2,7 @@
   "author": "Tobero",
   "credits": "Thanks for this amazing support from everyone who uses this plugin",
   "messages": {
+    "command.extension.remove.description": "Remove a extension",
     "command.faction.map.description": "Display a map of your surrounding chunks",
     "command.faction.map.auto-enable": "&a&lEnabled&f the auto map",
     "command.faction.map.auto-disable": "&c&lDisabled&f the auto map",

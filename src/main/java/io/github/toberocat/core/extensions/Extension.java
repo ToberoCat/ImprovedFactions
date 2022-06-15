@@ -2,12 +2,14 @@ package io.github.toberocat.core.extensions;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.extensions.list.ExtensionListLoader;
+import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.version.UpdateChecker;
 import io.github.toberocat.core.utility.version.Version;
+import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.Objects;
+import java.util.HashMap;
 import java.util.logging.Level;
 
 public abstract class Extension {
@@ -18,7 +20,8 @@ public abstract class Extension {
     /**
      * Empty constructor needed, else not able to load .jar
      */
-    public Extension() {}
+    public Extension() {
+    }
 
     public final <T> T configValue(String section) {
         if (registry == null) {
@@ -45,16 +48,53 @@ public abstract class Extension {
         if (this.registry != null) return;
         this.registry = registry;
 
-        if (canEnable(plugin)) {
-            onEnable(plugin);
-            if (Arrays.stream(registry.testedVersions()).map(Version::getVersion).anyMatch(x -> x.equals(MainIF.getVersion().getVersion())))
-                MainIF.logMessage(Level.INFO, "&aLoading &6" + registry.displayName() + "&a with tested " +
-                        "version &6" + MainIF.getVersion());
-            else
-                MainIF.logMessage(Level.INFO, "&aLoading &6" + registry.displayName() + "&a with version " +
-                        "&6" + MainIF.getVersion() + "&a. &eThis version could have complications with the extension");
-            enabled = true;
-        }
+        if (!canEnable(plugin)) return;
+
+        onEnable(plugin);
+        if (Arrays.stream(registry.testedVersions()).map(Version::getVersion).anyMatch(x -> x.equals(MainIF.getVersion().getVersion())))
+            MainIF.logMessage(Level.INFO, "&aLoading &6" + registry.displayName() + "&a with tested " +
+                    "version &6" + MainIF.getVersion());
+        else
+            MainIF.logMessage(Level.INFO, "&aLoading &6" + registry.displayName() + "&a with version " +
+                    "&6" + MainIF.getVersion() + "&a. &eThis version could have complications with the extension");
+
+        AsyncTask.runLater(0, this::updateExtension);
+        enabled = true;
+    }
+
+    private void updateExtension() {
+        HashMap<String, ExtensionObject> map = ExtensionListLoader.getMap().await();
+        if (latestVersion(map)) return;
+
+        ExtensionDownloader.downloadExtension(map.get(registry.registry()), new ExtensionDownloadCallback() {
+            @Override
+            public void startDownload(ExtensionObject extension) {
+                MainIF.logMessage(Level.INFO, "&a&lStarted&f extension update for &e" + registry.displayName() +
+                        "&a. Don't restart the server!");
+            }
+
+            @Override
+            public void cancelDownload(ExtensionObject extension) {
+                MainIF.logMessage(Level.WARNING, "&c&lSomething&f went wrong while updating &e" + registry.displayName() +
+                        "&a. File could be corrupted");
+            }
+
+            @Override
+            public void finishedDownload(ExtensionObject extension) {
+                MainIF.logMessage(Level.INFO, "&a&lInstalled&f extension update for &e" + registry.displayName() +
+                        "&a. Reloading the server now");
+                Bukkit.reload();
+            }
+        });
+    }
+
+    private boolean latestVersion(HashMap<String, ExtensionObject> map) {
+        if (!map.containsKey(registry.registry())) return true;
+
+        Version newest = map.get(registry.registry()).getNewestVersion();
+        Version current = registry.version();
+
+        return new UpdateChecker(current, newest).isNewestVersion();
     }
 
     public boolean canEnable(MainIF plugin) {

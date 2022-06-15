@@ -1,6 +1,7 @@
 package io.github.toberocat.core.commands.extension;
 
 import io.github.toberocat.core.extensions.ExtensionObject;
+import io.github.toberocat.core.extensions.list.ExtensionList;
 import io.github.toberocat.core.extensions.list.ExtensionListLoader;
 import io.github.toberocat.core.gui.extensions.DownloadGUI;
 import io.github.toberocat.core.utility.async.AsyncTask;
@@ -10,6 +11,7 @@ import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class ExtensionDownloadSubCommand extends SubCommand {
@@ -19,7 +21,7 @@ public class ExtensionDownloadSubCommand extends SubCommand {
 
     @Override
     public SubCommandSettings getSettings() {
-        return super.getSettings().setArgLength(0).setUseWhenFrozen(true);
+        return super.getSettings().setUseWhenFrozen(true);
     }
 
     @Override
@@ -29,16 +31,18 @@ public class ExtensionDownloadSubCommand extends SubCommand {
                 new DownloadGUI(player);
             });
         } else {
-            ExtensionObject[] extensions = ExtensionListLoader.readListSync();
-            ExtensionObject[] filtered = Arrays.stream(extensions).filter(x -> x.getRegistryName()
-                    .equals(args[0])).toArray(ExtensionObject[]::new);
-            if (filtered.length > 0) DownloadGUI.downloadExtension(filtered[0], player, true);
-            else Language.sendRawMessage("Couldn't find extension you where searching for", player);
+            ExtensionListLoader.getMap().then((map) -> {
+                if (!map.containsKey(args[0]))
+                    Language.sendRawMessage("Couldn't find extension you where searching for", player);
+                else
+                    DownloadGUI.downloadExtension(map.get(args[0]), player);
+            });
         }
     }
 
     @Override
     protected List<String> CommandTab(Player player, String[] args) {
-        return Arrays.stream(ExtensionListLoader.readListSync()).map(ExtensionObject::getRegistryName).toList();
+        return Arrays.stream(ExtensionListLoader.readExtensions().await())
+                .map(ExtensionObject::getRegistryName).toList();
     }
 }

@@ -2,6 +2,7 @@ package io.github.toberocat;
 
 import io.github.toberocat.core.bstat.Bstat;
 import io.github.toberocat.core.commands.FactionCommand;
+import io.github.toberocat.core.commands.extension.ExtensionRemoveSubCommand;
 import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.extensions.Extension;
 import io.github.toberocat.core.extensions.ExtensionLoader;
@@ -22,10 +23,10 @@ import io.github.toberocat.core.utility.config.Config;
 import io.github.toberocat.core.utility.config.ConfigManager;
 import io.github.toberocat.core.utility.config.DataManager;
 import io.github.toberocat.core.utility.data.DataAccess;
+import io.github.toberocat.core.utility.data.PluginInfo;
 import io.github.toberocat.core.utility.dynamic.loaders.DynamicLoader;
 import io.github.toberocat.core.utility.events.ConfigSaveEvent;
 import io.github.toberocat.core.utility.events.bukkit.PlayerJoinOnReloadEvent;
-import io.github.toberocat.core.utility.gui.Gui;
 import io.github.toberocat.core.utility.items.ItemCore;
 import io.github.toberocat.core.utility.jackson.JsonUtility;
 import io.github.toberocat.core.utility.jackson.YmlUtility;
@@ -35,10 +36,12 @@ import io.github.toberocat.core.utility.map.MapHandler;
 import io.github.toberocat.core.utility.messages.MessageSystem;
 import io.github.toberocat.core.utility.settings.FactionSettings;
 import io.github.toberocat.core.utility.settings.PlayerSettings;
+import io.github.toberocat.core.utility.version.UpdateChecker;
 import io.github.toberocat.core.utility.version.Version;
 import io.github.toberocat.versions.nms.NMSFactory;
 import io.github.toberocat.versions.nms.NMSInterface;
 import net.milkbowl.vault.economy.Economy;
+import org.apache.commons.lang.SystemUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -51,7 +54,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.JarURLConnection;
-import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -66,7 +69,7 @@ import static org.bukkit.Bukkit.getPluginManager;
  */
 public final class MainIF extends JavaPlugin {
 
-    public static final Version VERSION = Version.from("1.3.3");
+    public static final Version VERSION = Version.from("1.4");
 
     public static final HashMap<String, Extension> LOADED_EXTENSIONS = new HashMap<>();
 
@@ -168,6 +171,8 @@ public final class MainIF extends JavaPlugin {
         Utility.run(() -> {
             INSTANCE = this;
 
+            deleteExtensions();
+
             generateConfigs();
 
             loadListeners();
@@ -186,7 +191,6 @@ public final class MainIF extends JavaPlugin {
                 PlayerJoinListener.PLAYER_JOINS.put(player.getUniqueId(), System.currentTimeMillis());
             }
 
-
             Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
                 Debugger.log("Unloading unused factions...");
                 List<String> unused = new ArrayList<>();
@@ -202,6 +206,7 @@ public final class MainIF extends JavaPlugin {
             AsyncTask.runLaterSync(1, DynamicLoader::enable);
 
             if (Boolean.TRUE.equals(getConfigManager().getValue("general.autoMigrate"))) tryMigration();
+            checkVersion();
         });
     }
 
@@ -216,8 +221,6 @@ public final class MainIF extends JavaPlugin {
     @Override
     public void onDisable() {
         Utility.run(() -> {
-            AsyncTask.cleanup();
-
             for (Extension extension : LOADED_EXTENSIONS.values()) {
                 if (extension.isEnabled()) extension.disable(this);
             }
@@ -231,6 +234,9 @@ public final class MainIF extends JavaPlugin {
 
             cleanup();
 
+            JsonUtility.saveObject(new File(getDataFolder().getPath() + "/.temp/remove.json"),
+                    ExtensionRemoveSubCommand.PATHS_TO_DELETE.toArray(String[]::new));
+
             INSTANCE = null;
         });
     }
@@ -242,6 +248,16 @@ public final class MainIF extends JavaPlugin {
         configMap.clear();
         SimpleBar.cleanup();
         PlayerJoinListener.PLAYER_JOINS.clear();
+    }
+
+    private void deleteExtensions() {
+        File file = new File(getDataFolder().getPath() + "/.temp/remove.json");
+        if (!file.exists()) return;
+        try {
+            for (String path : JsonUtility.readObject(file, String[].class)) new File(path).delete();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void tryMigration() {
@@ -327,36 +343,63 @@ public final class MainIF extends JavaPlugin {
         return true;
     }
 
-    private LangMessage getExtensionLangFile(File file) throws MalformedURLException {
-        String path = "jar:file:\\" + file.getAbsolutePath() + "!/en_us.lang";
+    private LangMessage getExtensionLangFile(File file) {
+        String path;
+        if (SystemUtils.IS_OS_LINUX)
+            path = "jar:file:///" + file.getAbsolutePath() + "!/en_us.lang";
+        else
+            path = "jar:file:\\" + file.getAbsolutePath() + "!/en_us.lang";
 
-        URL inputURL = new URL(path);
-        JarURLConnection conn = null;
         try {
-            conn = (JarURLConnection) inputURL.openConnection();
+            URL inputURL = new URL(path);
+            if (SystemUtils.IS_OS_LINUX) inputURL = inputURL.toURI().toURL();
+
+            JarURLConnection conn = (JarURLConnection) inputURL.openConnection();
             InputStream in = conn.getInputStream();
             return JsonUtility.readObject(in, LangMessage.class);
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            logMessage(Level.SEVERE, "&6" + file.getName() + " &ccouldn't loaded. Couldn't create file url to lang file");
         }
+
+        return null;
     }
 
-    private ExtensionRegistry loadRegistry(File file) throws MalformedURLException {
-        String path = "jar:file:\\" + file.getAbsolutePath() + "!/extension.yml";
+    private ExtensionRegistry loadRegistry(File file) {
+        String path;
+        if (SystemUtils.IS_OS_LINUX)
+            path = "jar:file:///" + file.getAbsolutePath() + "!/extension.yml";
+        else
+            path = "jar:file:\\" + file.getAbsolutePath() + "!/extension.yml";
 
-        URL inputURL = new URL(path);
-        JarURLConnection conn;
         try {
+            URL inputURL = new URL(path);
+            if (SystemUtils.IS_OS_LINUX) inputURL = inputURL.toURI().toURL();
+
+            JarURLConnection conn;
             conn = (JarURLConnection) inputURL.openConnection();
             InputStream in = conn.getInputStream();
             return YmlUtility.loadYml(in, ExtensionRegistry.class);
         } catch (IOException e) {
             e.printStackTrace();
             logMessage(Level.SEVERE, "&6" + file.getName() + " &ccouldn't get loaded. Please make sure this extension isn't for a beta version, else redownload it please");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            logMessage(Level.SEVERE, "&6" + file.getName() + " &ccouldn't loaded. Couldn't create file url");
         }
 
         return null;
+    }
+
+    public void checkVersion() {
+        if (new UpdateChecker(VERSION, Version.from(PluginInfo.read().getLatestVersion())).isNewestVersion())
+            logMessage(Level.INFO, "&aYou have the latest version of this plugin");
+        else
+            logMessage(Level.WARNING, "&aYour current version is &6" + VERSION.getVersion()
+                    + " &athe latest is &6" + PluginInfo.read().getLatestVersion()
+                    + "&a download it now - &6https://www.spigotmc.org/resources/improved-factions.95617/");
     }
 
     /**
@@ -522,6 +565,7 @@ public final class MainIF extends JavaPlugin {
         if (nms != null) nms.EnableInterface();
         return true;
     }
+
 
     private void loadPluginDependencies() {
         new BukkitRunnable() {

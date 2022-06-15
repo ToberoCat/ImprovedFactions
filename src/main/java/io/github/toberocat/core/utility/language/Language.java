@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.BufferUnderflowException;
 import java.text.Normalizer;
 import java.util.*;
 import java.util.logging.Level;
@@ -251,7 +252,10 @@ public class Language extends PlayerJoinLoader {
 
     public static String format(String _msg) {
         String msg = _msg;
-        if (Bukkit.getVersion().contains("1.16") || Bukkit.getVersion().contains("1.17")) {
+        if (Bukkit.getVersion().contains("1.16") ||
+                Bukkit.getVersion().contains("1.17") ||
+                Bukkit.getVersion().contains("1.18") ||
+                Bukkit.getVersion().contains("1.19")) {
             Matcher matcher = pattern.matcher(msg);
             while (matcher.find()) {
                 String color = msg.substring(matcher.start(), matcher.end());

@@ -2,15 +2,18 @@ package io.github.toberocat.core.commands.extension;
 
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
-import io.github.toberocat.core.utility.language.LangMessage;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.Set;
 
 public class ExtensionSubCommand extends SubCommand {
     public ExtensionSubCommand() {
         super("extension", "command.extension.description", true);
-        subCommands.add(new ExtensionDownloadSubCommand());
+        subCommands.addAll(Set.of(
+                new ExtensionDownloadSubCommand()
+                //new ExtensionRemoveSubCommand()
+        ));
     }
 
     @Override

@@ -432,7 +432,8 @@ public class Faction {
             Map<String, ArrayList<Claim>> claims = manager.CLAIMS;
             for (World world : Bukkit.getWorlds()) {
                 if (!claims.containsKey(world.getName())) continue;
-                claims.get(world.getName()).parallelStream()
+                ArrayList<Claim> c = new ArrayList<>(claims.get(world.getName()));
+                c.parallelStream()
                         .filter(x -> x.getRegistry().equals(registryName))
                         .forEach((claim) -> manager.removeProtection(world.getChunkAt(claim.getX(), claim.getY())));
             }

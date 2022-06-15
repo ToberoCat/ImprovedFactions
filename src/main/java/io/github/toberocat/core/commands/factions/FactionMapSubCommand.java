@@ -69,32 +69,26 @@ public class FactionMapSubCommand extends AutoSubCommand {
         int dstH = MainIF.getConfigManager().getValue("general.mapViewDistanceW");
         int dstW = MainIF.getConfigManager().getValue("general.mapViewDistanceH");
 
-        int leftTopX = (int) (center.getX() - ceil(dstW / 2f));
-        int leftTopZ = (int) (center.getZ() - ceil(dstH / 2f));
-
-        int rightDownX = (int) (center.getX() + ceil(dstW / 2f));
-        int rightDownZ = (int) (center.getZ() + ceil(dstH / 2f));
-
+        int leftCornerX = (int) (center.getX() - ceil(dstW / 2f));
+        int leftCornerZ = (int) (center.getZ() - ceil(dstH / 2f));
         Chunk[][] chunks = new Chunk[dstW + 1][dstH + 1];
 
         World world = player.getLocation().getWorld();
         if (world == null) return;
 
-        for (int x = rightDownX; x > leftTopX; x--)
-            for (int z = rightDownZ; z > leftTopZ; z--)
-                chunks[x - leftTopX][z - leftTopZ] = world.getChunkAt(x, z);
+        for (int x = 0; x < dstW; x++)
+            for (int z = 0; z < dstW; z++)
+                chunks[x][z] = world.getChunkAt(leftCornerX + x, leftCornerZ + z);
 
 
-        TextComponent map = new TextComponent(Language.getPrefix() + "§fMap for §7" + center.getX() + "; " + center.getZ() + "\n");
+        player.spigot().sendMessage(new TextComponent(Language.getPrefix() + "§fMap for §7" +
+                center.getX() + "; " + center.getZ() + "\n"));
         for (int i = 0; i < dstW; i++) {
-            map.addExtra(Language.getPrefix());
-            for (int j = 0; j < dstH; j++) {
+            TextComponent map = new TextComponent(Language.getPrefix());
+            for (int j = 0; j < dstH; j++)
                 map.addExtra(getChunk(chunks[i][j], player));
-            }
-            if (i < (dstW - 1)) {
-                map.addExtra("\n");
-            }
+
+            player.spigot().sendMessage(map);
         }
-        player.spigot().sendMessage(map);
     }
 }
