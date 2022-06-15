@@ -9,6 +9,8 @@ public class RelationSubCommand extends SubCommand {
     public RelationSubCommand() {
         super("relation", "command.relation.description", true);
         subCommands.add(new AllyRelationSubCommand());
+        subCommands.add(new WarRelationSubCommand());
+        subCommands.add(new NeutralRelationSubCommand());
     }
 
     @Override

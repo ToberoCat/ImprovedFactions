@@ -2,6 +2,11 @@
   "author": "Tobero",
   "credits": "Thanks for this amazing support from everyone who uses this plugin",
   "messages": {
+    "command.relation.neutral.description": "&fReset a faciotn relation",
+    "command.relation.neutral.fail": "&c&lFailed&f to reset {faction}. Caused by {error}",
+    "command.relation.neutral.success": "&a&lSuccessfully&f resetted {faction} relation",
+
+    "command.extension.remove.description": "Remove a extension",
     "command.faction.map.description": "Display a map of your surrounding chunks",
     "command.faction.map.auto-enable": "&a&lEnabled&f the auto map",
     "command.faction.map.auto-disable": "&c&lDisabled&f the auto map",
