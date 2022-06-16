@@ -40,7 +40,15 @@ public class PowerManager {
     }
 
     public void addClaimedChunk() {
+        faction.setClaimedChunks(faction.getClaimedChunks() + 1);
+    }
 
+    public void removeClaimedChunk() {
+        faction.setClaimedChunks(faction.getClaimedChunks() - 1);
+    }
+
+    public boolean overclaimable() {
+        return faction.getClaimedChunks() >= currentPower;
     }
 
     public void addFactionMember() {

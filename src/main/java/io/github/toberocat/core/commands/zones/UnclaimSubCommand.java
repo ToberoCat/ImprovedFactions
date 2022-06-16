@@ -12,7 +12,8 @@ import java.util.List;
 
 public class UnclaimSubCommand extends SubCommand {
     public UnclaimSubCommand() {
-        super("unclaim", "zones.unclaim", "command.zones.unclaim.description", false);
+        super("unclaim", "zones.unclaim",
+                "command.zones.unclaim.description", false);
     }
 
     @Override

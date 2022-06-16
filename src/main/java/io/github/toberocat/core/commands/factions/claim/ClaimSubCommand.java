@@ -22,12 +22,12 @@ public class ClaimSubCommand extends AutoSubCommand {
 
     @Override
     public String getEnabledKey() {
-        return "command.claim.auto.enable";
+        return "command.faction.claim.auto.enable";
     }
 
     @Override
     public String getDisabledKey() {
-        return "command.claim.auto.disable";
+        return "command.faction.claim.auto.disable";
     }
 
     @Override

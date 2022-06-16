@@ -13,7 +13,7 @@ public class PluginInfo {
     private Version latestVersion;
     private Version latestExtensionRegistry;
 
-    public static PluginInfo read() {
+    public static PluginInfo fetch() {
         if (instance == null) {
             try {
                 instance = JsonUtility.readObjectFromURL(

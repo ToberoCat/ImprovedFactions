@@ -69,7 +69,7 @@ import static org.bukkit.Bukkit.getPluginManager;
  */
 public final class MainIF extends JavaPlugin {
 
-    public static final Version VERSION = Version.from("1.4");
+    public static final Version VERSION = Version.from("1.4.1");
 
     public static final HashMap<String, Extension> LOADED_EXTENSIONS = new HashMap<>();
 
@@ -394,11 +394,11 @@ public final class MainIF extends JavaPlugin {
     }
 
     public void checkVersion() {
-        if (new UpdateChecker(VERSION, Version.from(PluginInfo.read().getLatestVersion())).isNewestVersion())
+        if (new UpdateChecker(VERSION, Version.from(PluginInfo.fetch().getLatestVersion())).isNewestVersion())
             logMessage(Level.INFO, "&aYou have the latest version of this plugin");
         else
             logMessage(Level.WARNING, "&aYour current version is &6" + VERSION.getVersion()
-                    + " &athe latest is &6" + PluginInfo.read().getLatestVersion()
+                    + " &athe latest is &6" + PluginInfo.fetch().getLatestVersion()
                     + "&a download it now - &6https://www.spigotmc.org/resources/improved-factions.95617/");
     }
 

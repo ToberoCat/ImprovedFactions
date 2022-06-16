@@ -3,6 +3,7 @@ io\github\toberocat\core\utility\events\bukkit\PlayerJoinOnReloadEvent.class
 io\github\toberocat\core\utility\gui\Gui$2.class
 io\github\toberocat\core\bstat\Metrics$JsonObjectBuilder$JsonObject.class
 io\github\toberocat\core\commands\config\ConfigBackupSubCommand.class
+io\github\toberocat\core\utility\events\faction\FactionOverclaimEvent.class
 io\github\toberocat\core\utility\settings\type\CallbackSettings.class
 io\github\toberocat\versions\v1_19\NMSLoader_1_19.class
 io\github\toberocat\versions\Test.class
@@ -70,6 +71,7 @@ io\github\toberocat\versions\v1_18\NMSLoader_1_18.class
 io\github\toberocat\core\commands\settings\FactionSettingsSubCommand$1.class
 io\github\toberocat\core\utility\history\History.class
 io\github\toberocat\core\bstat\Metrics$SimpleBarChart.class
+io\github\toberocat\core\commands\factions\relation\WarRelationSubCommand.class
 io\github\toberocat\core\utility\events\faction\FactionDeleteEvent.class
 io\github\toberocat\core\commands\config\ConfigSaveSubCommand.class
 io\github\toberocat\core\debug\Debugger.class
@@ -88,6 +90,7 @@ io\github\toberocat\core\utility\settings\type\Setting$4.class
 io\github\toberocat\core\utility\events\faction\FactionEventCancelledable.class
 io\github\toberocat\core\utility\config\ConfigAccessException.class
 io\github\toberocat\core\utility\Utility.class
+io\github\toberocat\core\commands\factions\PowerSubCommand.class
 io\github\toberocat\core\commands\plugin\PluginSubCommand.class
 io\github\toberocat\core\commands\factions\FactionMapSubCommand.class
 io\github\toberocat\core\utility\callbacks\Callback.class
@@ -113,7 +116,6 @@ io\github\toberocat\core\factions\members\FactionMemberManager.class
 io\github\toberocat\core\utility\bossbar\AnimatedBossBar$1.class
 io\github\toberocat\core\utility\events\faction\FactionLeaveEvent.class
 io\github\toberocat\core\commands\admin\AdminBypassSubCommand.class
-io\github\toberocat\core\commands\factions\unclaim\UnclaimAutoSubCommand.class
 io\github\toberocat\core\factions\rank\members\MemberRank.class
 io\github\toberocat\core\commands\factions\claim\ClaimSubCommand.class
 io\github\toberocat\MainIF$1.class
@@ -166,6 +168,7 @@ io\github\toberocat\core\utility\events\faction\FactionMemberOnlineEvent.class
 io\github\toberocat\core\factions\rank\GuestRank.class
 io\github\toberocat\core\bstat\Metrics$DrilldownPie.class
 io\github\toberocat\core\bstat\Bstat.class
+io\github\toberocat\core\commands\factions\relation\NeutralRelationSubCommand.class
 io\github\toberocat\core\utility\gui\GUISettings.class
 io\github\toberocat\core\utility\sql\SQL$SQLTable.class
 io\github\toberocat\core\utility\settings\type\Setting$3.class
@@ -210,7 +213,6 @@ io\github\toberocat\core\utility\events\faction\FactionCreateEvent.class
 io\github\toberocat\core\listeners\GuiListener.class
 io\github\toberocat\core\utility\settings\type\Setting$1.class
 io\github\toberocat\core\extensions\list\ExtensionList.class
-io\github\toberocat\core\commands\factions\unclaim\UnclaimOneSubCommand.class
 io\github\toberocat\versions\v1_16\NMSLoader_1_16.class
 io\github\toberocat\core\utility\settings\FactionSettings.class
 io\github\toberocat\core\utility\language\Parseable.class
@@ -230,7 +232,6 @@ io\github\toberocat\MainIF.class
 io\github\toberocat\core\commands\admin\AdminTimeoutSubCommand.class
 io\github\toberocat\core\commands\config\ConfigConfigureSubCommand$1.class
 io\github\toberocat\core\utility\jackson\JsonUtility.class
-io\github\toberocat\core\listeners\PlayerMoveListener$ClaimAutoType.class
 io\github\toberocat\core\gui\config\backup\ConfigBackupConfigSubGUI$2.class
 io\github\toberocat\core\bstat\Metrics.class
 io\github\toberocat\core\utility\command\AutoSubCommand.class

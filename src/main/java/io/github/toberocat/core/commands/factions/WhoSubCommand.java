@@ -69,6 +69,7 @@ public class WhoSubCommand extends SubCommand {
                 faction.getPowerManager().getMaxPower(), player);
 
         Language.sendRawMessage("Chunk claim: " +
+                (faction.getPowerManager().overclaimable() ? "&f" : "&c") +
                 faction.getClaimedChunks() + "/" +
                 faction.getPowerManager().getCurrentPower(), player);
 

@@ -1,7 +1,6 @@
 package io.github.toberocat.core.listeners;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.commands.factions.unclaim.UnclaimOneSubCommand;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.utility.async.AsyncTask;
@@ -25,7 +24,6 @@ import java.util.function.Consumer;
 
 public class PlayerMoveListener implements Listener {
 
-    public static Map<UUID, ClaimAutoType> AUTO_CLAIM_OPERATIONS = new HashMap<>();
     public static Map<UUID, HashMap<String, Consumer<Player>>> MOVE_OPERATIONS = new HashMap<>();
 
     @EventHandler
@@ -37,11 +35,6 @@ public class PlayerMoveListener implements Listener {
         if (from != to) {
             String fromRegistry = MainIF.getIF().getClaimManager().getFactionRegistry(from);
             String toRegistry = MainIF.getIF().getClaimManager().getFactionRegistry(to);
-
-            if (AUTO_CLAIM_OPERATIONS.containsKey(player.getUniqueId())) {
-                ClaimAutoType operation = AUTO_CLAIM_OPERATIONS.get(player.getUniqueId());
-                claimOp(operation, player);
-            }
 
             if (MOVE_OPERATIONS.containsKey(player.getUniqueId())) {
                 HashMap<String, Consumer<Player>> use = MOVE_OPERATIONS.get(player.getUniqueId());
@@ -67,16 +60,6 @@ public class PlayerMoveListener implements Listener {
 
             if (!toRegistry.equals(fromRegistry)) display(player, toRegistry);
 
-        }
-    }
-
-    private void claimOp(ClaimAutoType auto, Player player) {
-        Faction faction = FactionUtility.getPlayerFaction(player);
-
-        if (faction == null) return;
-
-        if (auto == ClaimAutoType.UNCLAIM) {
-            UnclaimOneSubCommand.unclaim(player);
         }
     }
 
@@ -140,6 +123,4 @@ public class PlayerMoveListener implements Listener {
                     player, parses), 5, 20, 5);
         }
     }
-
-    public enum ClaimAutoType {CLAIM, UNCLAIM}
 }

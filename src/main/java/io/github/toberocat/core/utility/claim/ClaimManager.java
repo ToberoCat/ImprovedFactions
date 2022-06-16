@@ -10,6 +10,7 @@ import io.github.toberocat.core.utility.config.DataManager;
 import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.data.PersistentDataUtility;
 import io.github.toberocat.core.utility.dynamic.loaders.DynamicLoader;
+import io.github.toberocat.core.utility.events.faction.FactionOverclaimEvent;
 import io.github.toberocat.core.utility.events.faction.claim.ChunkProtectEvent;
 import io.github.toberocat.core.utility.events.faction.claim.ChunkRemoveProtectionEvent;
 import org.bukkit.Bukkit;
@@ -20,7 +21,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -118,18 +118,58 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
     }
 
     public Result claimChunk(Faction faction, Chunk chunk) {
-        Result result = protectChunk(faction.getRegistryName(), chunk);
+        String registry = getFactionRegistry(chunk);
+        if (registry != null) {
+            Faction claim = FactionUtility.getFactionByRegistry(registry);
+            int power = claim.getPowerManager().getCurrentPower();
+            int claims = claim.getClaimedChunks();
 
-        if (result.isSuccess()) faction.setClaimedChunks(faction.getClaimedChunks() + 1);
+            if (power > claims) return Result.failure("CHUNK_ALREADY_PROTECTED",
+                    "&cThe chunk you want to claim got already claimed");
+
+            if (isCorner(chunk, faction.getRegistryName())) return Result.failure("CHUNK_NO_CORNER",
+                    "&cThe chunk isn't a corner, so you can't overclaim it");
+            removeClaim(faction, chunk);
+            Bukkit.getPluginManager().callEvent(new FactionOverclaimEvent(claim, chunk));
+        }
+
+        Result result = protectChunk(faction.getRegistryName(), chunk);
+        if (!result.isSuccess()) return result;
+
+        faction.getPowerManager().addClaimedChunk();
 
         return result;
+    }
+
+    private boolean isCorner(Chunk chunk, String rg) {
+        Chunk[] neighbours = getNeighbourChunks(chunk);
+        for (Chunk neighbour : neighbours) {
+            String registry = getFactionRegistry(neighbour);
+            if (registry == null || registry.equals(rg)) return true;
+        }
+        return false;
+    }
+
+    private Chunk[] getNeighbourChunks(Chunk chunk) {
+        Chunk[] neighbours = new Chunk[4];
+        int centerX = chunk.getX();
+        int centerZ = chunk.getZ();
+
+        neighbours[0] = chunk.getWorld().getChunkAt(centerX - 1, centerZ);
+        neighbours[2] = chunk.getWorld().getChunkAt(centerX + 1, centerZ);
+
+        neighbours[1] = chunk.getWorld().getChunkAt(centerX, centerZ - 1);
+        neighbours[3] = chunk.getWorld().getChunkAt(centerX, centerZ + 1);
+
+        return neighbours;
     }
 
     public Result protectChunk(String registry, Chunk chunk) {
         String claimed = PersistentDataUtility.read(PersistentDataUtility.FACTION_CLAIMED_KEY,
                 PersistentDataType.STRING, chunk.getPersistentDataContainer());
         if (claimed != null && !claimed.equals(UNCLAIMED_CHUNK_REGISTRY)) {
-            return new Result(false).setMessages("CHUNK_ALREADY_PROTECTED", "&cThe chunk you want to claim got already claimed");
+            return new Result(false).setMessages("CHUNK_ALREADY_PROTECTED",
+                    "&cThe chunk you want to claim got already claimed");
         }
 
         PersistentDataUtility.write(PersistentDataUtility.FACTION_CLAIMED_KEY,
@@ -150,6 +190,15 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
         return PersistentDataUtility.read(PersistentDataUtility.FACTION_CLAIMED_KEY,
                 PersistentDataType.STRING,
                 chunk.getPersistentDataContainer());
+    }
+
+    public Result<String> removeClaim(Faction faction, Chunk chunk) {
+        Result result = removeProtection(chunk);
+        if (!result.isSuccess()) return result;
+
+        faction.getPowerManager().removeClaimedChunk();
+
+        return result;
     }
 
     public Result<String> removeProtection(Chunk chunk) {

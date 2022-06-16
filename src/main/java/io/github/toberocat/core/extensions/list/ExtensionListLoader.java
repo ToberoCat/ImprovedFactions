@@ -48,7 +48,7 @@ public class ExtensionListLoader {
 
         if (list == null) return null;
         Version current = list.version();
-        Version latest = Version.from(PluginInfo.read().getLatestExtensionRegistry());
+        Version latest = Version.from(PluginInfo.fetch().getLatestExtensionRegistry());
 
         if (latest.versionToInteger() > current.versionToInteger()) {
             MainIF.logMessage(Level.INFO, "&aUpdating extension registry...");
@@ -74,7 +74,7 @@ public class ExtensionListLoader {
 
         ExtensionList list = new ExtensionList();
         list.setExtensionObject(array);
-        list.setVersion(PluginInfo.read().getLatestExtensionRegistry());
+        list.setVersion(PluginInfo.fetch().getLatestExtensionRegistry());
         JsonUtility.saveObject(path, list);
 
         return list;
