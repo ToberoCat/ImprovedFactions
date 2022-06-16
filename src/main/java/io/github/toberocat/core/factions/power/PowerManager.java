@@ -5,6 +5,8 @@ import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.utility.bossbar.AnimatedBossBar;
 import io.github.toberocat.core.utility.bossbar.eases.EaseInOutSine;
+import io.github.toberocat.core.utility.events.faction.FactionLosePowerEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
 
 public class PowerManager {
@@ -43,6 +45,16 @@ public class PowerManager {
         faction.setClaimedChunks(faction.getClaimedChunks() + 1);
     }
 
+    public void death() {
+        int powerPerPlayer = MainIF.getConfigManager().getValue("power.memberDeathConsume");
+        currentPower = Math.min(currentPower - powerPerPlayer, maxPower);
+
+        bossBar.setTitle("&bPower " + currentPower + "/" + maxPower);
+        bossBar.fade(currentPower, faction.getFactionMemberManager().getOnlinePlayers());
+
+        Bukkit.getPluginManager().callEvent(new FactionLosePowerEvent(faction, powerPerPlayer));
+    }
+
     public void removeClaimedChunk() {
         faction.setClaimedChunks(faction.getClaimedChunks() - 1);
     }
@@ -53,7 +65,7 @@ public class PowerManager {
 
     public void addFactionMember() {
         int powerPerPlayer = MainIF.getConfigManager().getValue("power.powerPerPlayer");
-        currentPower += Math.min(currentPower, maxPower);
+        currentPower = Math.min(currentPower + powerPerPlayer, maxPower);
 
         bossBar.setTitle("&bPower " + currentPower + "/" + maxPower);
         bossBar.fade(currentPower, faction.getFactionMemberManager().getOnlinePlayers());
@@ -61,7 +73,7 @@ public class PowerManager {
 
     public void removeFactionMember() {
         int powerPerPlayer = MainIF.getConfigManager().getValue("power.powerPerPlayer");
-        currentPower -= Math.min(currentPower, maxPower);
+        currentPower = Math.min(currentPower - powerPerPlayer, maxPower);
 
         bossBar.setTitle("&bPower " + currentPower + "/" + maxPower);
         bossBar.fade(currentPower, faction.getFactionMemberManager().getOnlinePlayers());

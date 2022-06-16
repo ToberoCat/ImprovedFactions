@@ -10,4 +10,8 @@ public class FactionOverclaimEvent extends FactionEvent {
         super(faction);
         this.chunk = chunk;
     }
+
+    public Chunk getChunk() {
+        return chunk;
+    }
 }

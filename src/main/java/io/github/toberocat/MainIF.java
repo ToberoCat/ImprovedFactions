@@ -534,7 +534,8 @@ public final class MainIF extends JavaPlugin {
                         new BlockBreakListener(),
                         new BlockPlaceListener(),
                         new InteractListener(),
-                        new PlayerMountListener())
+                        new PlayerMountListener(),
+                        new PlayerDeathListener())
                 .forEach(listener -> getPluginManager().registerEvents(listener, this));
     }
 
