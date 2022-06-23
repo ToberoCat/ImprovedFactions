@@ -6,12 +6,14 @@ import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import static io.github.toberocat.core.utility.config.ConfigManager.getValue;
+
 public class AllyMemberRank extends Rank {
 
     public static final String registry = "AllyMember";
 
     public AllyMemberRank(int priority) {
-        super("Ally Member", registry, priority, false);
+        super(getValue("faction.ranks.ally-member", "Ally member"), registry, priority, false);
     }
 
     @Override

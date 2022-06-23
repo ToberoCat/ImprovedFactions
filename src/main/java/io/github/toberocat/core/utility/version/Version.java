@@ -18,7 +18,9 @@ public class Version implements Comparable<Version> {
         if (version.length() == 0) return 0;
         int n0 = Character.getNumericValue(version.charAt(0));
 
-        return n0 + Integer.parseInt(Utility.removeNonDigits(version.substring(1))) * Math.pow(10, -version.length() - 1);
+        String g = Utility.removeNonDigits(version.substring(1));
+
+        return n0 + Integer.parseInt(g) * Math.pow(10, -g.length() - 1);
     }
 
     public String getVersion() {

@@ -7,11 +7,14 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import static io.github.toberocat.core.utility.config.ConfigManager.getValue;
+
 public class OwnerRank extends Rank {
     public static final String registry = "Owner";
 
     public OwnerRank(int priority) {
-        super("Owner", registry, priority, true);
+        super(getValue("faction.ranks.owner", "Owner"),
+                registry, priority, true);
     }
 
     @Override

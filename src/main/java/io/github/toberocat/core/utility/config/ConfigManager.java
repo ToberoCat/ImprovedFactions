@@ -30,6 +30,10 @@ public record ConfigManager(MainIF plugin) {
         addToDefaultConfig("general.colorConsole", true);
         addToDefaultConfig("general.debugMode", false, Material.COBWEB, "&b&lDebug mode",
                 "&8Get extra infos", "&8Usefull when debugging,", "&8or needing help by moderators");
+        addToDefaultConfig("general.disabledWorlds", new String[] {
+                "FactionsWontWorkHere"
+        });
+        addToDefaultConfig("general.limit-chunks-to-power", false);
 
         addToDefaultConfig("gui.maxCps", 5);
         addToDefaultConfig("gui.closeGuiCps", 10);
@@ -44,6 +48,7 @@ public record ConfigManager(MainIF plugin) {
         });
 
         addToDefaultConfig("power.maxPowerPerPlayer", 5);
+        addToDefaultConfig("power.powerPerPlayer", 5);
         addToDefaultConfig("power.maxDefaultFaction", 20);
         addToDefaultConfig("power.regenerationPerHour", 4);
         addToDefaultConfig("power.memberDeathConsume", 10);
@@ -59,6 +64,17 @@ public record ConfigManager(MainIF plugin) {
         addToDefaultConfig("faction.maxTagLen", 3);
         addToDefaultConfig("faction.invitationTimeout", 300, Material.ALLIUM, "&5",
                 "&8Get extra infos", "&8Usefull when debugging,", "&8or needing help by moderators");
+        addToDefaultConfig("faction.ranks.owner", "Owner");
+        addToDefaultConfig("faction.ranks.admin", "Admin");
+        addToDefaultConfig("faction.ranks.moderator", "Moderator");
+        addToDefaultConfig("faction.ranks.elder", "Elder");
+        addToDefaultConfig("faction.ranks.member", "Member");
+        addToDefaultConfig("faction.ranks.ally-owner", "Ally owner");
+        addToDefaultConfig("faction.ranks.ally-admin", "Ally admin");
+        addToDefaultConfig("faction.ranks.ally-moderator", "Ally moderator");
+        addToDefaultConfig("faction.ranks.ally-elder", "Ally elder");
+        addToDefaultConfig("faction.ranks.ally-member", "Ally member");
+        addToDefaultConfig("faction.ranks.guest", "Guest");
 
         addToDefaultConfig("commands.standby", new String[]{"tellraw @a {\"text\":\"Standby enabled\"}"}, Utility.createItem(Material.COMMAND_BLOCK, "&e&lStandyBy", new String[]{
                 "&8Write a list of commands", "&8That should get executed, when", "&8the plugin goes in standby mode"}));
@@ -145,10 +161,17 @@ public record ConfigManager(MainIF plugin) {
         return plugin.getConfigMap().get(path);
     }
 
-    public <T> T getValue(String path) {
-        Config config = getConfig(path);
+    public static <T> T getValue(String path) {
+        Config<T> config = MainIF.getConfigManager().getConfig(path);
         if (config == null)
             return null;
-        return (T) config.getValue();
+        return config.getValue();
+    }
+
+    public static <T> T getValue(String path, T def) {
+        Config<T> config = MainIF.getConfigManager().getConfig(path);
+        if (config == null)
+            return def;
+        return config.getValue();
     }
 }

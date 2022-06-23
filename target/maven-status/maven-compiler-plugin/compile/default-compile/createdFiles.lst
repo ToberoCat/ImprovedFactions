@@ -16,6 +16,7 @@ io\github\toberocat\core\factions\Faction$OpenType.class
 io\github\toberocat\core\utility\events\faction\FactionTransferOwnershipEvent.class
 io\github\toberocat\core\commands\zones\UnclaimSubCommand.class
 io\github\toberocat\core\listeners\PlayerMoveListener.class
+io\github\toberocat\core\utility\events\faction\FactionAllyEvent.class
 io\github\toberocat\core\factions\rank\members\AdminRank.class
 io\github\toberocat\core\utility\callbacks\ReturnCallback.class
 io\github\toberocat\core\commands\factions\UnBanSubCommand.class
@@ -51,6 +52,7 @@ io\github\toberocat\core\factions\rank\members\ModeratorRank.class
 io\github\toberocat\core\utility\data\DataAccess.class
 io\github\toberocat\core\commands\zones\SafeZoneSubCommand.class
 io\github\toberocat\core\listeners\BlockPlaceListener.class
+io\github\toberocat\core\listeners\PlayerDeathListener.class
 io\github\toberocat\core\commands\admin\AdminMigrateCommand.class
 io\github\toberocat\core\utility\history\territory\Territory.class
 io\github\toberocat\core\listeners\PlayerMoveListener$1.class
@@ -107,6 +109,7 @@ io\github\toberocat\core\factions\rank\members\ElderRank.class
 io\github\toberocat\core\commands\admin\maxpower\AdminSetPowerCommand.class
 io\github\toberocat\core\utility\language\LanguageListLoader.class
 io\github\toberocat\versions\v1_15\NMSLoader_1_15.class
+io\github\toberocat\core\utility\events\faction\FactionPowerEvent.class
 io\github\toberocat\core\listeners\ExplodeListener.class
 io\github\toberocat\core\utility\gui\Gui.class
 io\github\toberocat\core\commands\config\ConfigBackupSubCommand$1.class
@@ -115,6 +118,7 @@ io\github\toberocat\core\gui\config\backup\ConfigBackupGUI.class
 io\github\toberocat\core\factions\members\FactionMemberManager.class
 io\github\toberocat\core\utility\bossbar\AnimatedBossBar$1.class
 io\github\toberocat\core\utility\events\faction\FactionLeaveEvent.class
+io\github\toberocat\core\utility\events\faction\power\PowerCause.class
 io\github\toberocat\core\commands\admin\AdminBypassSubCommand.class
 io\github\toberocat\core\factions\rank\members\MemberRank.class
 io\github\toberocat\core\commands\factions\claim\ClaimSubCommand.class
@@ -155,6 +159,7 @@ io\github\toberocat\core\bstat\Metrics$CustomChart.class
 io\github\toberocat\core\utility\command\SubCommandSettings$NYI.class
 io\github\toberocat\core\bstat\Metrics$MetricsBase.class
 io\github\toberocat\core\commands\factions\relation\AllyRelationSubCommand.class
+io\github\toberocat\core\commands\factions\relation\AllyAcceptSubCommand.class
 io\github\toberocat\core\utility\settings\type\EnumSetting.class
 io\github\toberocat\core\extensions\ExtensionDownloadCallback.class
 io\github\toberocat\core\factions\power\PowerManager.class

@@ -6,12 +6,14 @@ import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import static io.github.toberocat.core.utility.config.ConfigManager.getValue;
+
 public class ElderRank extends Rank {
 
     public static final String registry = "Elder";
 
     public ElderRank(int priority) {
-        super("Elder", registry, priority, false);
+        super(getValue("faction.ranks.elder", "Elder"), registry, priority, false);
     }
 
     @Override

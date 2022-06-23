@@ -13,6 +13,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\I
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\extension\ExtensionDownloadSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\admin\AdminPermanentSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\factions\relation\RelationManager.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\events\faction\FactionPowerEvent.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\listeners\PlayerMoveListener.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\gui\faction\MemberGui.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\HelpSubCommand.java
@@ -45,6 +46,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\I
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\events\faction\claim\ChunkRemoveProtectionEvent.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\factions\Faction.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\settings\FactionSettingsSubCommand.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\events\faction\FactionAllyEvent.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\papi\Placeholder.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\versions\v1_17\NMSLoader_1_17.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\admin\power\AdminPowerCommand.java
@@ -111,6 +113,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\I
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\listeners\ExplodeListener.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\events\faction\FactionMemberOfflineEvent.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\history\territory\Territory.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\events\faction\power\PowerCause.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\callbacks\ResultCallback.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\extensions\ExtensionDownloadCallback.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\admin\AdminDisbandSubCommand.java
@@ -133,6 +136,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\I
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\messages\MessageSystem.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\Utility.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\config\ConfigReloadSubCommand.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\factions\relation\AllyAcceptSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\extensions\ExtensionRegistry.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\factions\rank\members\ModeratorRank.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\admin\AdminHardResetSubCommand.java
@@ -197,6 +201,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\I
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\commands\extension\ExtensionSubCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\events\faction\FactionTransferOwnershipEvent.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\versions\v1_16\NMSLoader_1_16.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\listeners\PlayerDeathListener.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\utility\settings\type\HiddenSetting.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\extensions\ExtensionDownloader.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\ImprovedFactions_new\src\main\java\io\github\toberocat\core\factions\rank\GuestRank.java

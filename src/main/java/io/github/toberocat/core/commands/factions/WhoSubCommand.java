@@ -69,7 +69,7 @@ public class WhoSubCommand extends SubCommand {
                 faction.getPowerManager().getMaxPower(), player);
 
         Language.sendRawMessage("Chunk claim: " +
-                (faction.getPowerManager().overclaimable() ? "&f" : "&c") +
+                (faction.getPowerManager().overclaimable() ? "&c" : "&f") +
                 faction.getClaimedChunks() + "/" +
                 faction.getPowerManager().getCurrentPower(), player);
 
@@ -80,11 +80,10 @@ public class WhoSubCommand extends SubCommand {
         Language.sendRawMessage("Banned players: &7"
                 + faction.getFactionMemberManager().getBanned().size(), player);
 
-        if (faction.getFactionBank().balance() == null) {
-            Language.sendRawMessage("Balance: &eFaction economy disabled", player);
-        } else {
-            Language.sendRawMessage("Balance: &e" + MainIF.getEconomy().format(faction.getFactionBank().balance().balance), player);
+        if (faction.getFactionBank().balance() != null) {
+            //Language.sendRawMessage("Balance: &e" + MainIF.getEconomy().format(faction.getFactionBank().balance().balance), player);
         }
+
         if (faction.isFrozen()) Language.sendRawMessage("&bFrozen", player);
     }
 

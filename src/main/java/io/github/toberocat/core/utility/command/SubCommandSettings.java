@@ -163,7 +163,13 @@ public class SubCommandSettings {
             return false;
         }
         if (argLength != -1 && args.length != argLength) {
-            if (messages) subCommand.sendCommandExecuteError(SubCommand.CommandExecuteError.NotEnoughArgs, player);
+            if (messages) {
+                if (args.length < argLength) {
+                    subCommand.sendCommandExecuteError(SubCommand.CommandExecuteError.ToLessArgs, player);
+                } else {
+                    subCommand.sendCommandExecuteError(SubCommand.CommandExecuteError.ToLessArgs, player);
+                }
+            }
             return false;
         }
 

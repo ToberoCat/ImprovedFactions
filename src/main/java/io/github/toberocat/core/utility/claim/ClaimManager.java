@@ -66,9 +66,9 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
 
     public static String getDisplay(@NotNull String registry) {
         return switch (registry) {
-            case SAFEZONE_REGISTRY -> "Safezone";
-            case WARZONE_REGISTRY -> "Warzone";
-            case UNCLAIMABLE_REGISTRY -> "Unclaimable";
+            case SAFEZONE_REGISTRY -> "territory.safezone";
+            case WARZONE_REGISTRY -> "territory.warzone";
+            case UNCLAIMABLE_REGISTRY -> "";
             default -> "";
         };
     }
@@ -100,7 +100,7 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
     }
 
     public static boolean isManageableZone(String registry) {
-        return registry.equals(WARZONE_REGISTRY) || registry.equals(SAFEZONE_REGISTRY);
+        return WARZONE_REGISTRY.equals(registry) || SAFEZONE_REGISTRY.equals(registry);
     }
 
     @Override
@@ -124,13 +124,19 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
             int power = claim.getPowerManager().getCurrentPower();
             int claims = claim.getClaimedChunks();
 
+            if (Boolean.TRUE.equals(MainIF.getConfigManager()
+                    .getValue("general.limit-chunks-to-power")) && claims >= power) return Result
+                    .failure("NO_CLAIM_POWER",
+                            "&cYou don't have enough power to claim this chunk1");
+
             if (power > claims) return Result.failure("CHUNK_ALREADY_PROTECTED",
                     "&cThe chunk you want to claim got already claimed");
 
-            if (isCorner(chunk, faction.getRegistryName())) return Result.failure("CHUNK_NO_CORNER",
+            if (!isCorner(chunk)) return Result.failure("CHUNK_NO_CORNER",
                     "&cThe chunk isn't a corner, so you can't overclaim it");
             removeClaim(faction, chunk);
-            Bukkit.getPluginManager().callEvent(new FactionOverclaimEvent(claim, chunk));
+            AsyncTask.runSync(() ->
+                    Bukkit.getPluginManager().callEvent(new FactionOverclaimEvent(claim, chunk)));
         }
 
         Result result = protectChunk(faction.getRegistryName(), chunk);
@@ -141,11 +147,11 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
         return result;
     }
 
-    private boolean isCorner(Chunk chunk, String rg) {
+    private boolean isCorner(Chunk chunk) {
         Chunk[] neighbours = getNeighbourChunks(chunk);
         for (Chunk neighbour : neighbours) {
             String registry = getFactionRegistry(neighbour);
-            if (registry == null || registry.equals(rg)) return true;
+            if (registry == null || registry.startsWith("__glb:")) return true;
         }
         return false;
     }

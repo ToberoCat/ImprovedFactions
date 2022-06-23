@@ -14,6 +14,7 @@ import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -42,6 +43,11 @@ public class Utility {
         StringWriter sw = new StringWriter();
         e.printStackTrace(new PrintWriter(sw));
         return sw.toString();
+    }
+
+    public static boolean isDisabled(World world) {
+        List<String> disabledWorlds = MainIF.getConfigManager().getValue("general.disabledWorlds");
+        return disabledWorlds != null && world != null && disabledWorlds.contains(world.getName());
     }
 
     /**

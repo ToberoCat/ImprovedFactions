@@ -113,8 +113,17 @@ public class FactionPerm {
         if (on == null) return Rank.fromString(GuestRank.register);
 
         String playerFaction = FactionUtility.getPlayerFactionRegistry(on);
-        if (faction.getRelationManager().getAllies().contains(playerFaction))
-            return FactionUtility.getFactionByRegistry(playerFaction).getPlayerRank(player);
+        if (faction.getRelationManager().getAllies().contains(playerFaction)) {
+            Rank rank = FactionUtility.getFactionByRegistry(playerFaction).getPlayerRank(player);
+            return Rank.fromString(switch (rank.getRegistryName()) {
+                case OwnerRank.registry -> AllyOwnerRank.registry;
+                case AdminRank.registry -> AllyAdminRank.registry;
+                case ElderRank.registry -> AllyElderRank.registry;
+                case MemberRank.registry -> AllyMemberRank.registry;
+                case ModeratorRank.registry -> AllyModeratorRank.registry;
+                default -> GuestRank.register;
+            });
+        }
 
         return Rank.fromString(GuestRank.register);
     }

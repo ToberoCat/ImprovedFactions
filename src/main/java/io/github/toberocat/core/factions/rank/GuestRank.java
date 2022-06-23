@@ -5,11 +5,13 @@ import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import static io.github.toberocat.core.utility.config.ConfigManager.getValue;
+
 public class GuestRank extends Rank {
     public static final String register = "Guest";
 
     public GuestRank(int priority) {
-        super("&e&lGuest", register, priority, false);
+        super(getValue("faction.ranks.guest", "Guest"), register, priority, false);
     }
 
     @Override

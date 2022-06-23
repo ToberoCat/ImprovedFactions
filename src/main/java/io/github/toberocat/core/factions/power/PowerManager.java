@@ -3,9 +3,11 @@ package io.github.toberocat.core.factions.power;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.bossbar.AnimatedBossBar;
 import io.github.toberocat.core.utility.bossbar.eases.EaseInOutSine;
-import io.github.toberocat.core.utility.events.faction.FactionLosePowerEvent;
+import io.github.toberocat.core.utility.events.faction.FactionPowerEvent;
+import io.github.toberocat.core.utility.events.faction.power.PowerCause;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
 
@@ -15,30 +17,31 @@ public class PowerManager {
 
     private Faction faction;
 
-    private AnimatedBossBar bossBar;
 
     /**
      * Don't use this. It's for jackson (json).
      */
     public PowerManager() {
-        this.bossBar = new AnimatedBossBar("&bPower " + 0 + "/" + 0, BarColor.BLUE, 0, 0, new EaseInOutSine());
     }
 
     public PowerManager(Faction faction, int maxPower) {
         this.maxPower = maxPower;
         this.currentPower = maxPower;
         this.faction = faction;
-
-        this.bossBar = new AnimatedBossBar("&bPower " + currentPower + "/" + maxPower, BarColor.BLUE, 0, maxPower, new EaseInOutSine());
-        bossBar.setValue(currentPower);
     }
 
     public void increaseMax(int amount) {
+        int old = maxPower;
         maxPower += amount;
         currentPower = Math.min(currentPower + amount, maxPower);
-        bossBar.setMax(maxPower);
-        bossBar.setTitle("&bPower " + currentPower + "/" + maxPower);
+
+        AnimatedBossBar bossBar = new AnimatedBossBar("&bPower " + currentPower + "/" + maxPower,
+                BarColor.BLUE, 0, maxPower);
+        bossBar.setValue(old);
         bossBar.fade(currentPower, faction.getFactionMemberManager().getOnlinePlayers());
+
+        AsyncTask.runSync(() -> Bukkit.getPluginManager()
+                .callEvent(new FactionPowerEvent(faction, amount, PowerCause.MAX_POWER)));
     }
 
     public void addClaimedChunk() {
@@ -47,12 +50,16 @@ public class PowerManager {
 
     public void death() {
         int powerPerPlayer = MainIF.getConfigManager().getValue("power.memberDeathConsume");
+        int old = currentPower;
         currentPower = Math.min(currentPower - powerPerPlayer, maxPower);
 
-        bossBar.setTitle("&bPower " + currentPower + "/" + maxPower);
+        AnimatedBossBar bossBar = new AnimatedBossBar("&bPower " + currentPower + "/" + maxPower,
+                BarColor.BLUE, 0, maxPower);
+        bossBar.setValue(old);
         bossBar.fade(currentPower, faction.getFactionMemberManager().getOnlinePlayers());
 
-        Bukkit.getPluginManager().callEvent(new FactionLosePowerEvent(faction, powerPerPlayer));
+        AsyncTask.runSync(() -> Bukkit.getPluginManager()
+                .callEvent(new FactionPowerEvent(faction, powerPerPlayer, PowerCause.PLAYER_KILLED)));
     }
 
     public void removeClaimedChunk() {
@@ -65,19 +72,30 @@ public class PowerManager {
 
     public void addFactionMember() {
         int powerPerPlayer = MainIF.getConfigManager().getValue("power.powerPerPlayer");
+        int old = currentPower;
         currentPower = Math.min(currentPower + powerPerPlayer, maxPower);
 
-        bossBar.setTitle("&bPower " + currentPower + "/" + maxPower);
+        AnimatedBossBar bossBar = new AnimatedBossBar("&bPower " + currentPower + "/" + maxPower,
+                BarColor.BLUE, 0, maxPower);
+        bossBar.setValue(old);
         bossBar.fade(currentPower, faction.getFactionMemberManager().getOnlinePlayers());
+
+        AsyncTask.runSync(() -> Bukkit.getPluginManager()
+                .callEvent(new FactionPowerEvent(faction, powerPerPlayer, PowerCause.PLAYER_JOIN)));
     }
 
     public void removeFactionMember() {
         int powerPerPlayer = MainIF.getConfigManager().getValue("power.powerPerPlayer");
+        int old = currentPower;
         currentPower = Math.min(currentPower - powerPerPlayer, maxPower);
 
-        bossBar.setTitle("&bPower " + currentPower + "/" + maxPower);
+        AnimatedBossBar bossBar = new AnimatedBossBar("&bPower " + currentPower + "/" + maxPower,
+                BarColor.BLUE, 0, maxPower);
+        bossBar.setValue(old);
         bossBar.fade(currentPower, faction.getFactionMemberManager().getOnlinePlayers());
 
+        AsyncTask.runSync(() -> Bukkit.getPluginManager()
+                .callEvent(new FactionPowerEvent(faction, powerPerPlayer, PowerCause.PLAYER_LEFT)));
     }
 
     public int getCurrentPower() {
@@ -85,11 +103,14 @@ public class PowerManager {
     }
 
     public void setCurrentPower(int currentPower) {
+        int old = this.currentPower;
         this.currentPower = currentPower;
         if (currentPower > maxPower) maxPower = currentPower;
 
         if (faction == null) return;
-        bossBar.setTitle("&bPower " + currentPower + "/" + maxPower);
+        AnimatedBossBar bossBar = new AnimatedBossBar("&bPower " + currentPower + "/" + maxPower,
+                BarColor.BLUE, 0, maxPower);
+        bossBar.setValue(old);
         bossBar.fade(currentPower, faction.getFactionMemberManager().getOnlinePlayers());
     }
 
@@ -98,12 +119,14 @@ public class PowerManager {
     }
 
     public void setMaxPower(int maxPower) {
+        int old = this.maxPower;
         this.maxPower = maxPower;
         if (maxPower < currentPower) currentPower = maxPower;
 
         if (faction == null) return;
-        bossBar.setMax(maxPower);
-        bossBar.setTitle("&bPower " + currentPower + "/" + maxPower);
+        AnimatedBossBar bossBar = new AnimatedBossBar("&bPower " + currentPower + "/" + maxPower,
+                BarColor.BLUE, 0, maxPower);
+        bossBar.setValue(old);
         bossBar.fade(currentPower, faction.getFactionMemberManager().getOnlinePlayers());
     }
 

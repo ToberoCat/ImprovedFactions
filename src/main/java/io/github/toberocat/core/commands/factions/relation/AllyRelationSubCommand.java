@@ -2,6 +2,7 @@ package io.github.toberocat.core.commands.factions.relation;
 
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
+import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.language.Language;
@@ -36,9 +37,13 @@ public class AllyRelationSubCommand extends SubCommand {
                     new Parseable("{faction}", addressedFaction.getDisplayName()));
             return;
         }
-        addressedFaction.getRelationManager().MakeAlly(playerFaction);
-        Language.sendMessage("command.relation.ally.success", player,
+        Result result = playerFaction.getRelationManager().inviteAlly(addressedFaction);
+
+        if (result.isSuccess()) Language.sendMessage("command.relation.ally.success", player,
                 new Parseable("{faction}", addressedFaction.getDisplayName()));
+        else {
+            sendCommandExecuteError(result.getPlayerMessage(), player);
+        }
     }
 
     @Override

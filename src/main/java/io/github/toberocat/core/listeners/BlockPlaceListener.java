@@ -6,6 +6,7 @@ import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.factions.permission.FactionPerm;
+import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.Chunk;
@@ -24,6 +25,7 @@ public class BlockPlaceListener implements Listener {
     @EventHandler
     public void Place(BlockPlaceEvent event) {
         if (AdminBypassSubCommand.BYPASSING.contains(event.getPlayer().getUniqueId())) return;
+        if (Utility.isDisabled(event.getPlayer().getWorld())) return;
 
         ClaimManager claimManager = MainIF.getIF().getClaimManager();
         Chunk blockChunk = event.getBlock().getChunk();

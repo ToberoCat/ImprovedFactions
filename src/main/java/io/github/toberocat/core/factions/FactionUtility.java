@@ -99,7 +99,8 @@ public class FactionUtility extends PlayerJoinLoader {
         faction.getRelationManager().setFaction(faction);
         faction.getFactionPerm().setFaction(faction);
 
-        for (Map.Entry<String, FactionModule> module : faction.getModules().entrySet()) {
+        for (Map.Entry<String, FactionModule> module :
+                new LinkedHashSet<>(faction.getModules().entrySet())) {
             if (module.getValue() == null) faction.getModules().remove(module.getKey());
         }
         for (FactionModule module : faction.getModules().values()) if (module != null) module.setFaction(faction);

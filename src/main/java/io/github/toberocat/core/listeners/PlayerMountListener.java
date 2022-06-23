@@ -5,6 +5,7 @@ import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.factions.permission.FactionPerm;
 import io.github.toberocat.core.factions.rank.Rank;
+import io.github.toberocat.core.utility.Utility;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,6 +17,8 @@ public class PlayerMountListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void mount(EntityMountEvent event) {
+        if (Utility.isDisabled(event.getEntity().getWorld())) return;
+
         if (event.getEntity() instanceof Player player) {
             Chunk chunk = player.getLocation().getChunk();
             String registry = MainIF.getIF().getClaimManager().getFactionRegistry(chunk);

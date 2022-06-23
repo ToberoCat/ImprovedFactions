@@ -25,6 +25,8 @@ import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.language.Parseable;
 import io.github.toberocat.core.utility.messages.MessageSystem;
 import io.github.toberocat.core.utility.settings.type.EnumSetting;
+import io.github.toberocat.improvedfactions.ChatMessageExtension;
+import io.github.toberocat.improvedfactions.modules.MessageModule;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -204,6 +206,14 @@ public class Faction {
         if (displayName.length() >= (Integer) MainIF.getConfigManager().getValue("faction.maxNameLen"))
             return Result.failure("OVER_MAX_LEN", "You reached the maximum length for a faction name");
         String registryName = ChatColor.stripColor(displayName.replaceAll("[^a-zA-Z0-9]", ""));
+
+        if (registryName.equalsIgnoreCase("safezone") ||
+                displayName.equalsIgnoreCase("safezone") ||
+        registryName.equalsIgnoreCase("warzone") || displayName.equalsIgnoreCase("warzone"))
+        {
+            return Result.failure("CANT_NAME_LIKE_SYSTEM_CLAIMS",
+                    "You can't name your faction like a system defined faction. Choose another name");
+        }
 
         if (MainIF.getConfigManager().getValue("forbidden.checkFactionNames")) {
             Result result = AsyncTask.run(() -> {

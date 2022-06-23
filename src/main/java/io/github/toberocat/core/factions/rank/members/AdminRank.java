@@ -7,11 +7,14 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import static io.github.toberocat.core.utility.config.ConfigManager.getValue;
+
 public class AdminRank extends Rank {
     public static final String registry = "Admin";
 
     public AdminRank(int priority) {
-        super("Admin", registry,  priority,true);
+        super(getValue("faction.ranks.admin", "Admin"),
+                registry,  priority,true);
     }
 
     @Override

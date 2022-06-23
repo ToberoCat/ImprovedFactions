@@ -21,6 +21,7 @@ public abstract class SubCommand {
     protected final String description;
     protected final boolean manager;
     protected final String permission;
+
     public SubCommand(String subCommand, String permission, String descriptionKey, boolean manager) {
         this.subCommand = subCommand;
         this.permission = permission;
@@ -188,12 +189,13 @@ public abstract class SubCommand {
         switch (error) {
             case NoPermission -> player.sendMessage(Language.getPrefix() + "§cYou don't have enough permissions to use this command. Permission: faction.commands." + permission);
             case NoFaction -> player.sendMessage(Language.getPrefix() + "§cYou need to be in a faction to use this command");
-            case NotEnoughArgs -> player.sendMessage(Language.getPrefix() + "§cThis command needs more arguments. Please check the usage if you don't know what arguments");
+            case ToLessArgs -> Language.sendRawMessage("&cThis command needs more arguments", player);
             case OtherError -> player.sendMessage(Language.getPrefix() + "§cAn error occurred while running the " + subCommand + " command");
-            case PlayerNotFound -> player.sendMessage(Language.getPrefix() + "§cCoudn't find player");
+            case PlayerNotFound -> player.sendMessage(Language.getPrefix() + "§cCouldn't find player");
             case OnlyAdminCommand -> player.sendMessage(Language.getPrefix() + "§cYou need admin rights to execute this command");
             case NoFactionPermission -> player.sendMessage(Language.getPrefix() + "§cYou don't have enough permissions to use this command. If you think you should be allowed, ask a faction admin");
-            case NoFactionNeed -> player.sendMessage(Language.getPrefix() + "§cYou don't need to be in a faction to use this command");
+            case NoFactionNeed -> Language.sendRawMessage("§cYou don't need to be in a faction to use this command", player);
+            case ToManyArgs -> Language.sendRawMessage("&cYou gave too many arguments", player);
         }
     }
 
@@ -269,5 +271,5 @@ public abstract class SubCommand {
         return description;
     }
 
-    protected enum CommandExecuteError {NoPermission, NoFaction, NotEnoughArgs, OtherError, PlayerNotFound, OnlyAdminCommand, NoFactionPermission, NoFactionNeed}
+    protected enum CommandExecuteError {NoPermission, NoFaction, ToLessArgs, ToManyArgs, OtherError, PlayerNotFound, OnlyAdminCommand, NoFactionPermission, NoFactionNeed}
 }

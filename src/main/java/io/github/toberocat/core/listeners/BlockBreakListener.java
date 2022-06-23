@@ -6,19 +6,24 @@ import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.factions.permission.FactionPerm;
+import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.Chunk;
+import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+
+import java.util.List;
 
 public class BlockBreakListener implements Listener {
 
     @EventHandler
     public void Break(BlockBreakEvent event) {
         if (AdminBypassSubCommand.BYPASSING.contains(event.getPlayer().getUniqueId())) return;
+        if (Utility.isDisabled(event.getPlayer().getWorld())) return;
 
         ClaimManager claimManager = MainIF.getIF().getClaimManager();
         Chunk blockChunk = event.getBlock().getChunk();

@@ -9,6 +9,7 @@ import io.github.toberocat.core.gui.faction.FactionSettingsGui;
 import io.github.toberocat.core.gui.faction.MemberGui;
 import io.github.toberocat.core.gui.faction.OnlineGUI;
 import io.github.toberocat.core.gui.faction.RankGui;
+import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.color.FactionColors;
@@ -19,6 +20,7 @@ import io.github.toberocat.core.utility.settings.type.CallbackSettings;
 import io.github.toberocat.core.utility.settings.type.EnumSetting;
 import io.github.toberocat.core.utility.settings.type.Setting;
 import net.wesjd.anvilgui.AnvilGUI;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -50,8 +52,15 @@ public class FactionSettings {
             new AnvilGUI.Builder().onClose((user) -> {
                     })
                     .onComplete((user, text) -> {
-                        faction.setDisplayName(Language.format(text.replaceAll(" ", "_")));
-                        new FactionSettingsGui(player);
+                        String rawText = ChatColor.stripColor(Language.format(text));
+                        if (rawText.equalsIgnoreCase("safezone") ||
+                                rawText.equalsIgnoreCase("warzone"))
+                        {
+                            Language.sendRawMessage("Can't use a system name as faction name. Please choose another one", player);
+                        } else {
+                            faction.setDisplayName(Language.format(text.replaceAll(" ", "_")));
+                            new FactionSettingsGui(player);
+                        }
                         return AnvilGUI.Response.close();
                     }).text(faction.getDisplayName())
                     .itemLeft(new ItemStack(Material.GRAY_BANNER))

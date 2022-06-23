@@ -1,18 +1,16 @@
 package io.github.toberocat.core.utility.bossbar;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
-import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarStyle;
-import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static io.github.toberocat.core.utility.Utility.clamp;
+import static io.github.toberocat.core.utility.Utility.lerp;
 
 public class AnimatedBossBar extends SimpleBar {
 
@@ -20,9 +18,8 @@ public class AnimatedBossBar extends SimpleBar {
     public static final int ANIMATION_SPEED = 10000;
     public static final int ANIMATION_MS_FADE = 700;
     public static final double EPS = 0.001;
-
-    private int taskId = -1;
     private final Ease ease;
+    private int taskId = -1;
     private Runnable finishCallback;
 
     public AnimatedBossBar(String title, BarColor color, double min, double max) {
@@ -33,6 +30,18 @@ public class AnimatedBossBar extends SimpleBar {
     public AnimatedBossBar(String title, BarColor color, double min, double max, Ease ease) {
         super(title, color, min, max);
         this.ease = ease;
+    }
+
+    public void fadeInstantly(double value, Player... players) {
+        if (players == null) return;
+
+        for (Player player : players) addPlayer(player);
+
+        finishCallback = () -> {
+            for (Player player : players) removePlayer(player);
+        };
+
+        setValueAnimated(value);
     }
 
     public void fade(double value, Player... players) {
@@ -70,7 +79,7 @@ public class AnimatedBossBar extends SimpleBar {
 
     private void animateDropping(double value) {
         double start = bossBar.getProgress();
-        double end = Utility.clamp((value - min) / (max - min), min, max);
+        double end = clamp((value - min) / (max - min), min, max);
 
         double lastMs = System.currentTimeMillis();
 
@@ -79,7 +88,7 @@ public class AnimatedBossBar extends SimpleBar {
             public void run() {
                 long now = System.currentTimeMillis();
                 double elapsed = ease.evaluate((now - lastMs) / ANIMATION_SPEED / ANIMATION_TIME);
-                double update = Math.max(bossBar.getProgress() - Utility.lerp(end, start, elapsed), 0);
+                double update = Math.max(bossBar.getProgress() - lerp(end, start, elapsed), 0);
 
                 bossBar.setProgress(update);
 
@@ -93,7 +102,7 @@ public class AnimatedBossBar extends SimpleBar {
 
     private void animateRising(double value) {
         double start = bossBar.getProgress();
-        double end = Utility.clamp((value - min) / (max - min), min, max);
+        double end = clamp((value - min) / (max - min), min, max);
 
         final double lastMs = System.currentTimeMillis();
 
@@ -102,7 +111,7 @@ public class AnimatedBossBar extends SimpleBar {
             public void run() {
                 long now = System.currentTimeMillis();
                 double elapsed = ease.evaluate((now - lastMs) / ANIMATION_SPEED / ANIMATION_TIME);
-                double update = Math.min(bossBar.getProgress() + Utility.lerp(start, end, elapsed), 1);
+                double update = Math.min(bossBar.getProgress() + lerp(start, end, elapsed), 1);
 
                 bossBar.setProgress(update);
 

@@ -11,6 +11,7 @@ public class RelationSubCommand extends SubCommand {
         subCommands.add(new AllyRelationSubCommand());
         subCommands.add(new WarRelationSubCommand());
         subCommands.add(new NeutralRelationSubCommand());
+        subCommands.add(new AllyAcceptSubCommand());
     }
 
     @Override

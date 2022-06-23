@@ -1,6 +1,5 @@
 package io.github.toberocat.core.utility.bossbar;
 
-import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
@@ -9,13 +8,17 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
+import static io.github.toberocat.core.utility.Utility.clamp;
+import static io.github.toberocat.core.utility.language.Language.format;
+
+
 public class SimpleBar {
     private static final ArrayList<SimpleBar> BOSS_BARS = new ArrayList<>();
     protected final BossBar bossBar;
     protected double min, max;
 
     public SimpleBar(String title, BarColor color, double min, double max) {
-        this.bossBar = Bukkit.createBossBar(Language.format(title), color, BarStyle.SOLID);
+        this.bossBar = Bukkit.createBossBar(format(title), color, BarStyle.SOLID);
         this.min = min;
         this.max = max;
 
@@ -33,7 +36,7 @@ public class SimpleBar {
     }
 
     public void setValue(double value) {
-        bossBar.setProgress((value - min) / (max - min));
+        bossBar.setProgress(clamp((value - min) / (max - min), 0, 1));
     }
 
 
@@ -62,6 +65,6 @@ public class SimpleBar {
     }
 
     public void setTitle(String title) {
-        bossBar.setTitle(Language.format(title));
+        bossBar.setTitle(format(title));
     }
 }

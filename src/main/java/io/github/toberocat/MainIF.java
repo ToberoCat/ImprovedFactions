@@ -69,7 +69,7 @@ import static org.bukkit.Bukkit.getPluginManager;
  */
 public final class MainIF extends JavaPlugin {
 
-    public static final Version VERSION = Version.from("1.4.1");
+    public static final Version VERSION = Version.from("1.4.2");
 
     public static final HashMap<String, Extension> LOADED_EXTENSIONS = new HashMap<>();
 

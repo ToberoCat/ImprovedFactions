@@ -3,6 +3,7 @@ package io.github.toberocat.core.listeners;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
+import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.language.Language;
@@ -28,6 +29,8 @@ public class PlayerMoveListener implements Listener {
 
     @EventHandler
     public void OnMove(PlayerMoveEvent event) {
+        if (Utility.isDisabled(event.getPlayer().getWorld())) return;
+
         Chunk from = event.getFrom().getChunk();
         Chunk to = Objects.requireNonNull(event.getTo()).getChunk();
         Player player = event.getPlayer();
@@ -50,6 +53,18 @@ public class PlayerMoveListener implements Listener {
                     PlayerSettings.TitlePosition position = PlayerSettings.TitlePosition.values()[(int) settings.getSetting("titlePosition").getSelected()];
                     send(position, player, Language.getMessage("territory.wilderness", player), "");
                 }
+                return;
+            }
+
+            if (ClaimManager.isManageableZone(toRegistry)) {
+                String display = ClaimManager.getDisplay(toRegistry);
+                if (display.isEmpty()) return;
+
+                display = Language.getMessage(display, player);
+                PlayerSettings settings = PlayerSettings.getSettings(player.getUniqueId());
+                if (!(Boolean) settings.getSetting("displayTitle").getSelected()) return;
+                PlayerSettings.TitlePosition position = PlayerSettings.TitlePosition.values()[(int) settings.getSetting("titlePosition").getSelected()];
+                send(position, player, display, "");
                 return;
             }
 
