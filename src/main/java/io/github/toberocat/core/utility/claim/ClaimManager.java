@@ -23,6 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.logging.Level;
+import java.util.stream.Stream;
 
 public class ClaimManager extends DynamicLoader<Player, Player> {
 
@@ -54,6 +55,20 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
 
         Subscribe(this);
     }
+
+    public Stream<Claim> registryClaims(String registry) {
+        return CLAIMS.values()
+                .stream()
+                .flatMap(Collection::stream)
+                .filter(x -> x.getRegistry().equals(registry));
+    }
+
+    public Stream<Claim> registryClaims(String registry, String world) {
+        if (!CLAIMS.containsKey(world))
+            throw new IllegalArgumentException("The world you gave wasn't represented in the claims list");
+        return CLAIMS.get(world).stream().filter(x -> x.getRegistry().equals(registry));
+    }
+
 
     public static int getRegistryColor(@NotNull String registry) {
         return FactionColors.parseColor(switch (registry) {

@@ -21,6 +21,7 @@ public class MessageSystem extends PlayerJoinLoader {
     }
 
     public static void sendMessage(UUID uuid, String message) {
+        /*
         AsyncTask.run(() -> {
             OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
             if (player.isOnline()) {
@@ -30,6 +31,7 @@ public class MessageSystem extends PlayerJoinLoader {
                 messages.add(message);
             }
         });
+         */
     }
 
     @Override
