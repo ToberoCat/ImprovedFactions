@@ -16,6 +16,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
 import java.util.logging.Level;
+import java.util.stream.Stream;
 
 /**
  * This class is responsible for handling the faction loading & unloading for RAM savage
@@ -110,10 +111,6 @@ public class FactionUtility extends PlayerJoinLoader {
         return faction;
     }
 
-    public static List<String> getAllFactions() {
-        return Arrays.stream(DataAccess.listRawFiles("Factions")).map(registry -> registry.split("\\.")[0]).toList();
-    }
-
     /**
      * Get if the plugin finds a file with the registry name
      * Use to check if a faction exists, but isn't loaded
@@ -123,6 +120,15 @@ public class FactionUtility extends PlayerJoinLoader {
      */
     public static boolean doesFactionExist(String registry) {
         return Arrays.asList(DataAccess.listRawFiles("Factions")).contains(registry + ".json");
+    }
+
+
+    public static List<String> getAllFactions() {
+        return Arrays.stream(DataAccess.listRawFiles("Factions")).map(registry -> registry.split("\\.")[0]).toList();
+    }
+
+    public static Stream<String> getAllFactionsStream() {
+        return Arrays.stream(DataAccess.listRawFiles("Factions")).map(x -> x.split("\\.")[0]);
     }
 
     public static boolean isFactionLoaded(String registryName) {

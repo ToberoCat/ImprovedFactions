@@ -79,6 +79,13 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
         });
     }
 
+    public static ArrayList<String> getZones(boolean includeUnclaimable) {
+        ArrayList<String> zones = new ArrayList<>(List.of(SAFEZONE_REGISTRY, WARZONE_REGISTRY));
+        if (includeUnclaimable) zones.add(UNCLAIMABLE_REGISTRY);
+
+        return zones;
+    }
+
     public static String getDisplay(@NotNull String registry) {
         return switch (registry) {
             case SAFEZONE_REGISTRY -> "territory.safezone";

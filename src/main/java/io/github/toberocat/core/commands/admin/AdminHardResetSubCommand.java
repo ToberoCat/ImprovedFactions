@@ -4,8 +4,11 @@ import io.github.toberocat.MainIF;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.data.DataAccess;
+import io.github.toberocat.core.utility.data.PersistentDataUtility;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.settings.PlayerSettings;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.io.File;
@@ -27,6 +30,14 @@ public class AdminHardResetSubCommand extends SubCommand {
         if (args.length == 0) {
             Language.sendMessage("command.admin.hardreset.confirm_player", player);
         } else if (args[0].equals("confirm")) {
+            MainIF.getIF().getClaimManager().CLAIMS.forEach((key, value) -> {
+                World world = Bukkit.getWorld(key);
+                value.forEach((claim) -> {
+                    PersistentDataUtility.remove(PersistentDataUtility.FACTION_CLAIMED_KEY,
+                            world.getChunkAt(claim.getX(), claim.getY()).getPersistentDataContainer());
+                });
+            });
+
             DataAccess.clearFolder("Factions");
             DataAccess.clearFolder("Chunks");
             DataAccess.clearFolder("History");
