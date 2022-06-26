@@ -3,16 +3,20 @@ package io.github.toberocat.core.factions;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.members.FactionMemberManager;
 import io.github.toberocat.core.utility.async.AsyncTask;
+import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.data.PersistentDataUtility;
 import io.github.toberocat.core.utility.dynamic.loaders.PlayerJoinLoader;
 import io.github.toberocat.core.utility.events.faction.FactionLoadEvent;
 import io.github.toberocat.core.utility.events.faction.FactionMemberOfflineEvent;
 import io.github.toberocat.core.utility.events.faction.FactionMemberOnlineEvent;
+import io.github.toberocat.core.utility.exceptions.FactionNotFoundException;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -80,6 +84,13 @@ public class FactionUtility extends PlayerJoinLoader {
         return getFactionByRegistry(PersistentDataUtility
                 .read(PersistentDataUtility.PLAYER_FACTION_REGISTRY, PersistentDataType.STRING,
                         player.getPersistentDataContainer()));
+    }
+
+    public static Color getRegistryColor(@NotNull String registry) {
+        if (ClaimManager.isManageableZone(registry)) return Color.fromRGB(ClaimManager.getRegistryColor(registry));
+        Faction faction = getFactionByRegistry(registry);
+        if (faction == null) throw new FactionNotFoundException(registry);
+        return Color.fromRGB(faction.getColor());
     }
 
     /**

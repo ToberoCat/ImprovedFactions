@@ -2,19 +2,16 @@ package io.github.toberocat.core.commands.zones;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.utility.Result;
+import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.command.AutoSubCommand;
-import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.language.Language;
-import io.github.toberocat.core.utility.language.Parseable;
 import org.bukkit.entity.Player;
 
-import java.util.List;
-
-public class UnclaimSubCommand extends AutoSubCommand {
-    public UnclaimSubCommand() {
-        super("unclaim", "zones.unclaim",
-                "command.zones.unclaim.description", false);
+public class UnclaimableZoneSubCommand extends AutoSubCommand {
+    public UnclaimableZoneSubCommand() {
+        super("unclaimable", "zones.unclaimable",
+                "command.zones.unclaimable.description", false);
     }
 
     @Override
@@ -22,23 +19,24 @@ public class UnclaimSubCommand extends AutoSubCommand {
         return super.getSettings().setUseWhenFrozen(true);
     }
 
-
     @Override
     public String getEnabledKey() {
-        return "command.zones.unclaim.auto-enabled";
+        return "command.zones.unclaimable.auto-enabled";
     }
 
     @Override
     public String getDisabledKey() {
-        return "command.zones.unclaim.auto-disabled";
+        return "command.zones.unclaimable.auto-disabled";
     }
 
     @Override
     public void onSingle(Player player) {
-        Result result = MainIF.getIF().getClaimManager().removeProtection(player.getLocation().getChunk());
+        Result result = MainIF.getIF().getClaimManager().protectChunk(ClaimManager.UNCLAIMABLE_REGISTRY,
+                player.getLocation().getChunk());
 
-        if (result.isSuccess()) Language.sendMessage("command.zones.unclaim", player,
-                new Parseable("{chunktype}", (String) result.getPaired()));
+        if (result.isSuccess())
+            Language.sendMessage("command.zones.unclaimable.claim", player);
         else Language.sendRawMessage(result.getPlayerMessage(), player);
+
     }
 }

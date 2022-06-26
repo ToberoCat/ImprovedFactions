@@ -3,9 +3,14 @@ package io.github.toberocat.core.listeners;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.factions.members.FactionMemberManager;
+import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.settings.PlayerSettings;
+import io.github.toberocat.core.utility.settings.type.BoolSetting;
+import io.github.toberocat.core.utility.settings.type.Setting;
+import io.github.toberocat.core.utility.tips.TipOfTheDay;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -32,6 +37,15 @@ public class PlayerJoinListener implements Listener {
             PlayerSettings.loadPlayer(player.getUniqueId());
 
             PLAYER_JOINS.put(player.getUniqueId(), System.currentTimeMillis());
+
+            AsyncTask.runLater(1, () -> {
+                if (!Utility.isDisabled(player.getWorld())) {
+                    Setting setting = PlayerSettings.getSettings(player.getUniqueId()).getSetting("showTips");
+                    if (setting instanceof BoolSetting bool) if (!bool.getSelected()) return;
+
+                    TipOfTheDay.sendTipOfTheDay(player);
+                }
+            });
         });
     }
 }

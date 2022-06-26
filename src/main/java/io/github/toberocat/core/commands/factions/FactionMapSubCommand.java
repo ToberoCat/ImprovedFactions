@@ -81,10 +81,10 @@ public class FactionMapSubCommand extends AutoSubCommand {
                 chunks[x][z] = world.getChunkAt(leftCornerX + x, leftCornerZ + z);
 
 
-        player.spigot().sendMessage(new TextComponent(Language.getPrefix() + "§fMap for §7" +
+        player.spigot().sendMessage(new TextComponent(Language.getPrefix(player) + "§fMap for §7" +
                 center.getX() + "; " + center.getZ() + "\n"));
         for (int i = 0; i < dstW; i++) {
-            TextComponent map = new TextComponent(Language.getPrefix());
+            TextComponent map = new TextComponent(Language.getPrefix(player));
             for (int j = 0; j < dstH; j++)
                 map.addExtra(getChunk(chunks[i][j], player));
 

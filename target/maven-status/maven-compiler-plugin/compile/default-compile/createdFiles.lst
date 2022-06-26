@@ -6,6 +6,7 @@ io\github\toberocat\core\commands\config\ConfigBackupSubCommand.class
 io\github\toberocat\core\utility\events\faction\FactionOverclaimEvent.class
 io\github\toberocat\core\utility\settings\type\CallbackSettings.class
 io\github\toberocat\versions\v1_19\NMSLoader_1_19.class
+io\github\toberocat\core\utility\command\ConfirmSubCommand.class
 io\github\toberocat\versions\Test.class
 io\github\toberocat\core\papi\Placeholder.class
 io\github\toberocat\core\commands\HelpSubCommand.class
@@ -106,6 +107,7 @@ io\github\toberocat\core\extensions\ExtensionLoader.class
 io\github\toberocat\core\utility\events\ConfigSaveEvent$SaveType.class
 io\github\toberocat\core\utility\map\MapHandler.class
 io\github\toberocat\core\factions\rank\members\ElderRank.class
+io\github\toberocat\core\commands\factions\TipSubCommand.class
 io\github\toberocat\core\commands\admin\maxpower\AdminSetPowerCommand.class
 io\github\toberocat\core\utility\language\LanguageListLoader.class
 io\github\toberocat\versions\v1_15\NMSLoader_1_15.class
@@ -212,6 +214,7 @@ io\github\toberocat\core\commands\admin\AdminDisbandSubCommand.class
 io\github\toberocat\core\commands\config\ConfigRemoveAllBackupSubCommand.class
 io\github\toberocat\core\commands\extension\ExtensionRemoveSubCommand.class
 io\github\toberocat\core\bstat\Metrics$MultiLineChart.class
+io\github\toberocat\core\utility\tips\TipOfTheDay.class
 io\github\toberocat\core\commands\config\ConfigConfigureSubCommand.class
 io\github\toberocat\core\utility\calender\TimeCore.class
 io\github\toberocat\core\utility\events\faction\FactionCreateEvent.class
@@ -229,6 +232,7 @@ io\github\toberocat\core\utility\async\AsyncTask$2.class
 io\github\toberocat\core\utility\sql\SQL.class
 io\github\toberocat\core\commands\factions\WhoSubCommand.class
 io\github\toberocat\core\utility\claim\Claim.class
+io\github\toberocat\core\commands\zones\UnclaimableZoneSubCommand.class
 io\github\toberocat\core\commands\factions\CreateFactionSubCommand.class
 io\github\toberocat\core\listeners\InteractListener.class
 io\github\toberocat\core\commands\plugin\PluginStandbySubCommand.class
@@ -253,6 +257,7 @@ io\github\toberocat\core\bstat\Metrics$SingleLineChart.class
 io\github\toberocat\core\commands\factions\InviteSubCommand.class
 io\github\toberocat\core\utility\events\faction\claim\ChunkRemoveProtectionEvent.class
 io\github\toberocat\core\utility\SignalBarrier.class
+io\github\toberocat\core\listeners\PlayerChangeWorld.class
 io\github\toberocat\core\utility\language\LangContainer.class
 io\github\toberocat\core\utility\jackson\serializer\LocationSerializer.class
 io\github\toberocat\core\utility\jackson\YmlUtility.class
@@ -260,5 +265,6 @@ io\github\toberocat\core\bstat\Metrics$AdvancedPie.class
 io\github\toberocat\core\commands\plugin\PluginDisableSubCommand.class
 io\github\toberocat\core\utility\callbacks\ExceptionCallback.class
 io\github\toberocat\core\commands\admin\AdminFreezeSubCommand.class
+io\github\toberocat\core\utility\exceptions\FactionNotFoundException.class
 io\github\toberocat\core\commands\admin\power\AdminRemovePowerCommand.class
 io\github\toberocat\core\gui\faction\MemberGui.class

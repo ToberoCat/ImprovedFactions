@@ -206,7 +206,8 @@ public final class MainIF extends JavaPlugin {
             AsyncTask.runLaterSync(1, DynamicLoader::enable);
 
             if (Boolean.TRUE.equals(getConfigManager().getValue("general.autoMigrate"))) tryMigration();
-            checkVersion();
+
+            AsyncTask.runLaterSync(2, this::checkVersion);
         });
     }
 
@@ -535,7 +536,8 @@ public final class MainIF extends JavaPlugin {
                         new BlockPlaceListener(),
                         new InteractListener(),
                         new PlayerMountListener(),
-                        new PlayerDeathListener())
+                        new PlayerDeathListener(),
+                        new PlayerChangeWorld())
                 .forEach(listener -> getPluginManager().registerEvents(listener, this));
     }
 
@@ -658,7 +660,7 @@ public final class MainIF extends JavaPlugin {
     /**
      * Get all loaded config settings
      *
-     * @return config map. String is for path. E.g: general.prefix
+     * @return config map. String is for path.
      */
     public Map<String, Config> getConfigMap() {
         return configMap;

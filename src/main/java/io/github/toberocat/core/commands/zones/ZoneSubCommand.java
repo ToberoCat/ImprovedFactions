@@ -12,6 +12,7 @@ public class ZoneSubCommand extends SubCommand {
         subCommands.add(new SafeZoneSubCommand());
         subCommands.add(new UnclaimSubCommand());
         subCommands.add(new WarZoneSubCommand());
+        subCommands.add(new UnclaimableZoneSubCommand());
     }
 
     @Override

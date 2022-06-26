@@ -5,6 +5,7 @@ import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.factions.rank.members.OwnerRank;
 import io.github.toberocat.core.utility.Result;
+import io.github.toberocat.core.utility.command.ConfirmSubCommand;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.date.DateCore;
@@ -20,7 +21,7 @@ import org.joda.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
-public class LeaveFactionSubCommand extends SubCommand {
+public class LeaveFactionSubCommand extends ConfirmSubCommand {
     public LeaveFactionSubCommand() {
         super("leave", "command.leave.description", false);
     }
@@ -31,7 +32,12 @@ public class LeaveFactionSubCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected String confirmMessage(Player player) {
+        return "command.faction.leave.confirm";
+    }
+
+    @Override
+    protected void confirmExecute(Player player) {
         Faction faction = FactionUtility.getPlayerFaction(player);
 
         if (!faction.isPermanent() && faction.getPlayerRank(player).getRegistryName().equals(OwnerRank.registry)) {
@@ -53,10 +59,5 @@ public class LeaveFactionSubCommand extends SubCommand {
             PlayerSettings.getSettings(player.getUniqueId()).getSetting("factionJoinTimeout").setSelected(fmt.print(now));
             Language.sendRawMessage("You left your faction. You can't join another until &6" + fmt.print(now), player);
         }
-    }
-
-    @Override
-    protected List<String> CommandTab(Player player, String[] args) {
-        return null;
     }
 }

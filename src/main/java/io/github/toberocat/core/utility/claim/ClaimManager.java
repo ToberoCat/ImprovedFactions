@@ -71,12 +71,12 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
 
 
     public static int getRegistryColor(@NotNull String registry) {
-        return FactionColors.parseColor(switch (registry) {
-            case SAFEZONE_REGISTRY -> "#00bfff";
-            case WARZONE_REGISTRY -> "#b30000";
-            case UNCLAIMABLE_REGISTRY -> "#88858e";
+        return switch (registry) {
+            case SAFEZONE_REGISTRY -> 0x00bfff;
+            case WARZONE_REGISTRY -> 0xb30000;
+            case UNCLAIMABLE_REGISTRY -> 0x88858e;
             default -> throw new IllegalArgumentException("Registry didn't fit any color");
-        });
+        };
     }
 
     public static ArrayList<String> getZones(boolean includeUnclaimable) {
@@ -122,7 +122,8 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
     }
 
     public static boolean isManageableZone(String registry) {
-        return WARZONE_REGISTRY.equals(registry) || SAFEZONE_REGISTRY.equals(registry);
+        return WARZONE_REGISTRY.equals(registry) || SAFEZONE_REGISTRY.equals(registry) ||
+                UNCLAIMABLE_REGISTRY.equals(registry);
     }
 
     @Override
@@ -141,7 +142,7 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
 
     public Result claimChunk(Faction faction, Chunk chunk) {
         String registry = getFactionRegistry(chunk);
-        if (registry != null) {
+        if (registry != null && !isManageableZone(registry)) {
             Faction claim = FactionUtility.getFactionByRegistry(registry);
             int power = claim.getPowerManager().getCurrentPower();
             int claims = claim.getClaimedChunks();

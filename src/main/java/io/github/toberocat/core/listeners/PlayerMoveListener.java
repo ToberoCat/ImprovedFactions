@@ -41,9 +41,9 @@ public class PlayerMoveListener implements Listener {
 
             if (MOVE_OPERATIONS.containsKey(player.getUniqueId())) {
                 HashMap<String, Consumer<Player>> use = MOVE_OPERATIONS.get(player.getUniqueId());
-                for (Consumer<Player> run : use.values()) {
-                    run.accept(player);
-                }
+                AsyncTask.runLaterSync(1, () -> {
+                    for (Consumer<Player> run : use.values()) run.accept(player);
+                });
             }
 
             if (toRegistry == null) {
@@ -57,14 +57,16 @@ public class PlayerMoveListener implements Listener {
             }
 
             if (ClaimManager.isManageableZone(toRegistry)) {
-                String display = ClaimManager.getDisplay(toRegistry);
-                if (display.isEmpty()) return;
+                if (!toRegistry.equals(fromRegistry)) {
+                    String display = ClaimManager.getDisplay(toRegistry);
+                    if (display.isEmpty()) return;
 
-                display = Language.getMessage(display, player);
-                PlayerSettings settings = PlayerSettings.getSettings(player.getUniqueId());
-                if (!(Boolean) settings.getSetting("displayTitle").getSelected()) return;
-                PlayerSettings.TitlePosition position = PlayerSettings.TitlePosition.values()[(int) settings.getSetting("titlePosition").getSelected()];
-                send(position, player, display, "");
+                    display = Language.getMessage(display, player);
+                    PlayerSettings settings = PlayerSettings.getSettings(player.getUniqueId());
+                    if (!(Boolean) settings.getSetting("displayTitle").getSelected()) return;
+                    PlayerSettings.TitlePosition position = PlayerSettings.TitlePosition.values()[(int) settings.getSetting("titlePosition").getSelected()];
+                    send(position, player, display, "");
+                }
                 return;
             }
 

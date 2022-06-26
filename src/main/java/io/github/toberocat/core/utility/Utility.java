@@ -6,6 +6,7 @@ import io.github.toberocat.MainIF;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.callbacks.Callback;
 import io.github.toberocat.core.utility.callbacks.ExceptionCallback;
+import io.github.toberocat.core.utility.config.ConfigManager;
 import io.github.toberocat.core.utility.events.faction.FactionEvent;
 import io.github.toberocat.core.utility.events.faction.FactionEventCancelledable;
 import io.github.toberocat.core.utility.gitreport.GitReport;
@@ -37,6 +38,14 @@ public class Utility {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public static boolean supportsHex() {
+        String version = Bukkit.getVersion();
+        return version.contains("1.16") ||
+                version.contains("1.17") ||
+                version.contains("1.18") ||
+                version.contains("1.19");
     }
 
     public static String printStackToString(Exception e) {

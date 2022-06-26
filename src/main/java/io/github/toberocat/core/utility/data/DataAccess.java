@@ -89,7 +89,7 @@ public class DataAccess {
         }
     }
 
-    public static <T> T getFile(String folder, String filename, Class clazz) {
+    public static <T> T getFile(String folder, String filename, Class<T> clazz) {
         if (sql != null) {
             //ToDo: Add the method for storing the file in mySQL
             return null;
@@ -99,11 +99,24 @@ public class DataAccess {
             if (!file.exists()) return null;
 
             try {
-                return (T) JsonUtility.readObject(file, clazz);
+                return JsonUtility.readObject(file, clazz);
             } catch (IOException e) {
                 e.printStackTrace();
                 return null;
             }
+        }
+    }
+
+    public static <T> T getFileExceptions(String folder, String filename, Class<T> clazz) throws IOException {
+        if (sql != null) {
+            //ToDo: Add the method for storing the file in mySQL
+            return null;
+        } else {
+            String filePath = MainIF.getIF().getDataFolder().getPath() + "/Data/" + folder + "/" + filename + ".json";
+            File file = new File(filePath);
+            if (!file.exists()) return null;
+
+            return JsonUtility.readObject(file, clazz);
         }
     }
 

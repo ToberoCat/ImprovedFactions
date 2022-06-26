@@ -1,6 +1,7 @@
 package io.github.toberocat.core.utility.settings;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.utility.Result;
@@ -8,12 +9,14 @@ import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.events.ConfigSaveEvent;
+import io.github.toberocat.core.utility.gitreport.GitReport;
 import io.github.toberocat.core.utility.jackson.JsonUtility;
 import io.github.toberocat.core.utility.settings.type.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -57,7 +60,9 @@ public class PlayerSettings {
     public static void loadPlayer(final UUID joinedPlayer) {
         PlayerSettings settings = null;
         if (DataAccess.exists("Players", joinedPlayer.toString())) {
-            settings = DataAccess.getFile("Players", joinedPlayer.toString(), PlayerSettings.class);
+            try {
+                settings = DataAccess.getFileExceptions("Players", joinedPlayer.toString(), PlayerSettings.class);
+            } catch (IOException ignored) {}
 
             if (settings == null || settings.playerSettings == null) {
                 Debugger.log("Couldn't load player settings. The old settings got overwritten");
@@ -99,6 +104,9 @@ public class PlayerSettings {
                 Utility.createItem(Material.BOOK, "&eShow notifications", new String[] {
                         "§8Display messages when", "§8your faction status", "§8has been changed"
                 })));
+
+        add(new BoolSetting("showTips", true,
+                Utility.createItem(Material.FEATHER, "&eShow tips")));
 
         add(new HiddenSetting<>("factionJoinTimeout", "-1"));
 
@@ -155,9 +163,11 @@ public class PlayerSettings {
         return playerSettings;
     }
 
-    public PlayerSettings setPlayerSetting(Map<String, Setting> playerSetting) {
+    public void setPlayerSetting(Map<String, Setting> playerSetting) {
         this.playerSettings = playerSetting;
-        return this;
+        DEFAULT_SETTINGS.forEach((key, setting) -> {
+            if (!playerSetting.containsKey(key)) playerSetting.put(key, setting);
+        });
     }
 
     public String getName() {

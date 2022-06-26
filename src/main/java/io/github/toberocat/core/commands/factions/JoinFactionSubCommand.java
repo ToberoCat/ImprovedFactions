@@ -46,16 +46,18 @@ public class JoinFactionSubCommand extends SubCommand {
             return;
         }
 
-        Period difference = DateCore.leftTimeDifference(player);
-        Parser.run("command.faction.join.in-timeout")
-                .parse("{time}", DateCore.formatPeriod(difference))
-                .send(player);
-
-        Result result = faction.join(player, Rank.fromString(MemberRank.registry));
-        if (result.isSuccess()) {
-            Language.sendRawMessage("Joined &e" + faction.getDisplayName(), player);
+        if (!DateCore.hasTimeout(player)) {
+            Result result = faction.join(player, Rank.fromString(MemberRank.registry));
+            if (result.isSuccess()) {
+                Language.sendRawMessage("Joined &e" + faction.getDisplayName(), player);
+            } else {
+                Language.sendRawMessage(result.getPlayerMessage(), player);
+            }
         } else {
-            Language.sendRawMessage(result.getPlayerMessage(), player);
+            Period difference = DateCore.leftTimeDifference(player);
+            Parser.run("command.faction.join.in-timeout")
+                    .parse("{time}", DateCore.formatPeriod(difference))
+                    .send(player);
         }
     }
 

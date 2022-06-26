@@ -57,7 +57,8 @@ public class FactionCommand implements TabExecutor {
                 new InviteAcceptSubCommand(),
                 new UnclaimSubCommand(),
                 new FactionMapSubCommand(),
-                new PowerSubCommand()
+                new PowerSubCommand(),
+                new TipSubCommand()
         ));
     }
 

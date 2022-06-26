@@ -73,6 +73,7 @@ public class PowerManager {
     public void addFactionMember() {
         int powerPerPlayer = MainIF.getConfigManager().getValue("power.powerPerPlayer");
         int old = currentPower;
+        maxPower += currentPower;
         currentPower = Math.min(currentPower + powerPerPlayer, maxPower);
 
         AnimatedBossBar bossBar = new AnimatedBossBar("&bPower " + currentPower + "/" + maxPower,
@@ -87,6 +88,7 @@ public class PowerManager {
     public void removeFactionMember() {
         int powerPerPlayer = MainIF.getConfigManager().getValue("power.powerPerPlayer");
         int old = currentPower;
+        maxPower -= currentPower;
         currentPower = Math.min(currentPower - powerPerPlayer, maxPower);
 
         AnimatedBossBar bossBar = new AnimatedBossBar("&bPower " + currentPower + "/" + maxPower,

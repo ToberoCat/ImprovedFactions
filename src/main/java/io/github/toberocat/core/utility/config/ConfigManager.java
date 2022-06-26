@@ -22,7 +22,6 @@ public record ConfigManager(MainIF plugin) {
         addToDefaultConfig("general.mapViewDistanceW", 4);
         addToDefaultConfig("general.mapViewDistanceH", 4);
         addToDefaultConfig("general.sendCrashesToGithub", true);
-        addToDefaultConfig("general.prefix", "&e&lImprovedFactions", Utility.createItem(Material.NAME_TAG, "&e&lPrefix"));
         addToDefaultConfig("general.printStacktrace", true, Utility.createItem(Material.YELLOW_DYE, "&e&lPrint Stacktrace"));
         addToDefaultConfig("general.commandDescriptions", true);
         addToDefaultConfig("general.useSQL", false, Material.COBWEB, "&b&lUse sql",

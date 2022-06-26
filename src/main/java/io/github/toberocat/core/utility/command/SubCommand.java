@@ -166,11 +166,11 @@ public abstract class SubCommand {
 
                             if (response.transactionSuccess()) {
                                 if (response.amount != 0) {
-                                    player.sendMessage(Language.getPrefix() + Language.format("&fYou paid &6" + response.amount + "&f for using this command. Your current balance is &a" + response.balance));
+                                    player.sendMessage(Language.getPrefix(player) + Language.format("&fYou paid &6" + response.amount + "&f for using this command. Your current balance is &a" + response.balance));
                                 }
                                 CommandExecute(player, args);
                             } else {
-                                player.sendMessage(Language.getPrefix() + Language.format(response.errorMessage));
+                                player.sendMessage(Language.getPrefix(player) + Language.format(response.errorMessage));
                             }
                         }
                     } else {
@@ -187,13 +187,13 @@ public abstract class SubCommand {
     // Callbacks
     public void sendCommandExecuteError(CommandExecuteError error, Player player) {
         switch (error) {
-            case NoPermission -> player.sendMessage(Language.getPrefix() + "§cYou don't have enough permissions to use this command. Permission: faction.commands." + permission);
-            case NoFaction -> player.sendMessage(Language.getPrefix() + "§cYou need to be in a faction to use this command");
+            case NoPermission -> player.sendMessage(Language.getPrefix(player) + "§cYou don't have enough permissions to use this command. Permission: faction.commands." + permission);
+            case NoFaction -> player.sendMessage(Language.getPrefix(player) + "§cYou need to be in a faction to use this command");
             case ToLessArgs -> Language.sendRawMessage("&cThis command needs more arguments", player);
-            case OtherError -> player.sendMessage(Language.getPrefix() + "§cAn error occurred while running the " + subCommand + " command");
-            case PlayerNotFound -> player.sendMessage(Language.getPrefix() + "§cCouldn't find player");
-            case OnlyAdminCommand -> player.sendMessage(Language.getPrefix() + "§cYou need admin rights to execute this command");
-            case NoFactionPermission -> player.sendMessage(Language.getPrefix() + "§cYou don't have enough permissions to use this command. If you think you should be allowed, ask a faction admin");
+            case OtherError -> player.sendMessage(Language.getPrefix(player) + "§cAn error occurred while running the " + subCommand + " command");
+            case PlayerNotFound -> player.sendMessage(Language.getPrefix(player) + "§cCouldn't find player");
+            case OnlyAdminCommand -> player.sendMessage(Language.getPrefix(player) + "§cYou need admin rights to execute this command");
+            case NoFactionPermission -> player.sendMessage(Language.getPrefix(player) + "§cYou don't have enough permissions to use this command. If you think you should be allowed, ask a faction admin");
             case NoFactionNeed -> Language.sendRawMessage("§cYou don't need to be in a faction to use this command", player);
             case ToManyArgs -> Language.sendRawMessage("&cYou gave too many arguments", player);
         }

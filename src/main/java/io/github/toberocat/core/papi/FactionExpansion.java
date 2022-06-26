@@ -20,6 +20,39 @@ public class FactionExpansion extends PlaceholderExpansion {
 
 
     public static void init() {
+        PLACEHOLDERS.put("rank", (offlinePlayer) -> {
+            if (!offlinePlayer.isOnline()) return null;
+
+            Player player = offlinePlayer.getPlayer();
+            if (player == null) return null;
+
+            Faction faction = FactionUtility.getPlayerFaction(player);
+            if (faction == null) return Language.getMessage("papi.no-faction", player);
+
+            return faction.getPlayerRank(offlinePlayer).getDisplayName();
+        });
+        PLACEHOLDERS.put("tag", (offlinePlayer) -> {
+            if (!offlinePlayer.isOnline()) return null;
+
+            Player player = offlinePlayer.getPlayer();
+            if (player == null) return null;
+
+            Faction faction = FactionUtility.getPlayerFaction(player);
+            if (faction == null) return Language.getMessage("papi.no-faction", player);
+
+            return faction.getTag();
+        });
+        PLACEHOLDERS.put("motd", (offlinePlayer) -> {
+            if (!offlinePlayer.isOnline()) return null;
+
+            Player player = offlinePlayer.getPlayer();
+            if (player == null) return null;
+
+            Faction faction = FactionUtility.getPlayerFaction(player);
+            if (faction == null) return Language.getMessage("papi.no-faction", player);
+
+            return faction.getMotd();
+        });
         PLACEHOLDERS.put("name", (offlinePlayer) -> {
             if (!offlinePlayer.isOnline()) return null;
 

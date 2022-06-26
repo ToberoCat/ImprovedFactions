@@ -1,15 +1,19 @@
 package io.github.toberocat.core.utility.settings.type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import static io.github.toberocat.core.utility.language.Language.format;
 
 public class EnumSetting extends Setting<Integer> {
 
     public String[] values;
+    private BiConsumer<Player, Integer> update;
 
     public EnumSetting() {
     }
@@ -24,15 +28,21 @@ public class EnumSetting extends Setting<Integer> {
         this.values = values;
     }
 
-    public int rotateSelection() {
+    public void rotateSelection(Player player) {
         selected++;
 
         if (selected >= values.length) {
             selected = 0;
         }
 
-        return selected;
+        if (update != null) update.accept(player, selected);
     }
+
+    @JsonIgnore
+    public void setUpdate(BiConsumer<Player, Integer> update) {
+        this.update = update;
+    }
+
 
     @JsonIgnore
     public String[] getValues() {

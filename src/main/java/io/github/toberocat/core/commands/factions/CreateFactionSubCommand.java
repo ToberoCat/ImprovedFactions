@@ -11,6 +11,7 @@ import io.github.toberocat.core.utility.language.Parseable;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,7 +33,7 @@ public class CreateFactionSubCommand extends SubCommand {
     protected void CommandExecute(Player player, String[] args) {
 
         if (!FactionUtility.doesFactionExist(FactionUtility.factionDisplayToRegistry(args[0]))) {
-            CreateFaction(player, args[0]);
+            createFaction(player, args[0]);
         } else {
             Language.sendMessage("command.faction.create.failed", player,
                     new Parseable("{error}", "The faction already exists"));
@@ -61,7 +62,7 @@ public class CreateFactionSubCommand extends SubCommand {
         return List.of("Name");
     }
 
-    private void CreateFaction(Player player, String _name) {
+    private void createFaction(Player player, String _name) {
         String name = player.hasPermission("faction.colors.colorInFactionName")
                 ? Language.format(_name) : _name;
         Result<Faction> factionResult = Faction.createFaction(name, player);
@@ -71,5 +72,9 @@ public class CreateFactionSubCommand extends SubCommand {
         }
         Language.sendMessage("command.faction.create.success", player,
                 new Parseable("{faction_name}", factionResult.getPaired().getDisplayName()));
+
+        // Send what's next message
+        String[] msgs = Language.getLore("command.faction.create.whats-next", player);
+        for (String msg : msgs) Language.sendRawMessage(msg, player);
     }
 }

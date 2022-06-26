@@ -157,5 +157,8 @@ public class FactionSettings {
 
     public void setFactionSettings(Map<String, Setting> factionSettings) {
         this.factionSettings = factionSettings;
+        DEFAULT_SETTINGS.forEach((key, setting) -> {
+            if (!factionSettings.containsKey(key)) factionSettings.put(key, setting);
+        });
     }
 }

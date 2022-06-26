@@ -47,13 +47,13 @@ public class AdminRegenerateSubCommand extends SubCommand {
 
             PersistentDataUtility.remove(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
                     onP.getPersistentDataContainer());
-            Language.sendRawMessage("Resetted your data", player);
+            Language.sendRawMessage("Resetted your data", onP);
 
             for (Faction faction : Faction.getLoadedFactions().values()) {
                 if (faction.getFactionMemberManager().getMembers().contains(onP.getUniqueId())) {
                     PersistentDataUtility.write(PersistentDataUtility.PLAYER_FACTION_REGISTRY, PersistentDataType.STRING,
                             faction.getRegistryName(), onP.getPersistentDataContainer());
-                    Language.sendRawMessage("Loaded data from storage", player);
+                    Language.sendRawMessage("Loaded data from storage", onP);
                     break;
                 }
             }

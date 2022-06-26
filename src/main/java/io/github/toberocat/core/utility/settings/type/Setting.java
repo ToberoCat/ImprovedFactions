@@ -51,9 +51,15 @@ public class Setting<T> {
     }
 
     public static Map<String, Setting> populateSettings(Map<String, Setting> defaulted, Map<String, Setting> current) {
+        if (current == null) current = defaulted;
+
         for (String key : defaulted.keySet()) {
             Setting defaultSettings = defaulted.get(key);
-            Object selected = current.get(key).getSelected();
+            Setting set = current.get(key);
+            if (set == null) {
+                throw new IllegalArgumentException("Setting was't found - " + key);
+            }
+            Object selected = set.getSelected();
             current.replace(key, defaultSettings);
             current.get(key).setSelected(selected);
 
@@ -137,7 +143,7 @@ public class Setting<T> {
                 public void OnClick(HumanEntity entity) {
                     if (setting.isLocked && !Debugger.hasPermission(player, "factions.gui.unlock-settings")) return;
 
-                    enumSetting.rotateSelection();
+                    enumSetting.rotateSelection(player);
                     render.callback();
                 }
             };

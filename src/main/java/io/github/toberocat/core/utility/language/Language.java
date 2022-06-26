@@ -133,11 +133,11 @@ public class Language extends PlayerJoinLoader {
     }
 
     public static void sendRawMessage(String message, Player player) {
-        player.sendMessage(getPrefix() + format(message));
+        player.sendMessage(getPrefix(player) + format(message));
     }
 
     public static void sendMessage(String msgKey, Player player, Parseable... parseables) {
-        player.sendMessage(getPrefix() + getMessage(msgKey, player, parseables));
+        player.sendMessage(getPrefix(player) + getMessage(msgKey, player, parseables));
     }
 
     /**
@@ -239,16 +239,14 @@ public class Language extends PlayerJoinLoader {
         return message;
     }
 
-    public static String getPrefix() {
-        return gotInitialized ? format(MainIF.getConfigManager().getValue("general.prefix") + ": &f") : format("&e&lImprovedFactions: &f");
+    public static String getPrefix(Player player) {
+        return (gotInitialized ? getMessage("command.prefix", player) :
+                format("&7[&eIF&7]")) + " ";
     }
 
     public static String format(String _msg) {
         String msg = _msg;
-        if (Bukkit.getVersion().contains("1.16") ||
-                Bukkit.getVersion().contains("1.17") ||
-                Bukkit.getVersion().contains("1.18") ||
-                Bukkit.getVersion().contains("1.19")) {
+        if (Utility.supportsHex()) {
             Matcher matcher = pattern.matcher(msg);
             while (matcher.find()) {
                 String color = msg.substring(matcher.start(), matcher.end());

@@ -51,16 +51,14 @@ public abstract class AutoSubCommand extends SubCommand {
 
                     Language.sendMessage(getDisabledKey(), player);
                 }
+                onSingle(player);
             }
         }
     }
 
     @Override
     protected List<String> CommandTab(Player player, String[] args) {
-        LinkedList<String> tabs = new LinkedList<>();
-        tabs.add("one");
-        tabs.add("auto");
-        return tabs;
+        return List.of("one", "auto");
     }
 
 
