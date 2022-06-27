@@ -39,6 +39,7 @@ public abstract class AutoSubCommand extends SubCommand {
 
                     PlayerMoveListener.MOVE_OPERATIONS.get(player.getUniqueId()).put(id.toString(), this::onSingle);
                     Language.sendMessage(getEnabledKey(), player);
+                    onSingle(player);
                 } else {
                     if (!PlayerMoveListener.MOVE_OPERATIONS.containsKey(player.getUniqueId())) {
                         Language.sendMessage(getDisabledKey(), player);
@@ -50,8 +51,8 @@ public abstract class AutoSubCommand extends SubCommand {
                         PlayerMoveListener.MOVE_OPERATIONS.remove(player.getUniqueId());
 
                     Language.sendMessage(getDisabledKey(), player);
+                    id = null;
                 }
-                onSingle(player);
             }
         }
     }
