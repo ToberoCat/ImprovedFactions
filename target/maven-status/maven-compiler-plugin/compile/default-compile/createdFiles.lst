@@ -41,6 +41,7 @@ io\github\toberocat\core\utility\bossbar\eases\EaseInOutSine.class
 io\github\toberocat\core\utility\bossbar\SimpleBar.class
 io\github\toberocat\core\utility\claim\ClaimManager.class
 io\github\toberocat\core\utility\Result.class
+io\github\toberocat\core\utility\settings\SettingActions.class
 io\github\toberocat\core\commands\factions\LeaveFactionSubCommand.class
 io\github\toberocat\core\commands\admin\AdminHardResetSubCommand.class
 io\github\toberocat\core\extensions\ExtensionRegistry.class

@@ -3,7 +3,6 @@ package io.github.toberocat.core.factions;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.factions.bank.FactionBank;
 import io.github.toberocat.core.factions.members.FactionMemberManager;
 import io.github.toberocat.core.factions.permission.FactionPerm;
@@ -25,9 +24,6 @@ import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.language.Parseable;
 import io.github.toberocat.core.utility.messages.MessageSystem;
 import io.github.toberocat.core.utility.settings.type.EnumSetting;
-import io.github.toberocat.improvedfactions.ChatMessageExtension;
-import io.github.toberocat.improvedfactions.modules.MessageModule;
-import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -209,8 +205,7 @@ public class Faction {
 
         if (registryName.equalsIgnoreCase("safezone") ||
                 displayName.equalsIgnoreCase("safezone") ||
-        registryName.equalsIgnoreCase("warzone") || displayName.equalsIgnoreCase("warzone"))
-        {
+                registryName.equalsIgnoreCase("warzone") || displayName.equalsIgnoreCase("warzone")) {
             return Result.failure("CANT_NAME_LIKE_SYSTEM_CLAIMS",
                     "You can't name your faction like a system defined faction. Choose another name");
         }
@@ -438,15 +433,20 @@ public class Faction {
             }
 
             ClaimManager manager = MainIF.getIF().getClaimManager();
-            ;
+
             Map<String, ArrayList<Claim>> claims = manager.CLAIMS;
-            for (World world : Bukkit.getWorlds()) {
-                if (!claims.containsKey(world.getName())) continue;
-                ArrayList<Claim> c = new ArrayList<>(claims.get(world.getName()));
-                c.parallelStream()
-                        .filter(x -> x.getRegistry().equals(registryName))
-                        .forEach((claim) -> manager.removeProtection(world.getChunkAt(claim.getX(), claim.getY())));
-            }
+            claims.entrySet().stream()
+                    .filter(x -> x != null && x.getKey() != null &&
+                            Bukkit.getWorld(x.getKey()) != null && x.getValue() != null)
+                    .forEach((entry) -> {
+                        World world = Bukkit.getWorld(entry.getKey());
+                        if (world == null) return;
+
+                        entry.getValue().stream()
+                                .filter(x -> Objects.nonNull(x) && x.getRegistry().equals(registryName))
+                                .forEach(c -> manager.removeProtection(world.getChunkAt(c.getX(), c.getY())));
+
+                    });
 
             LOADED_FACTIONS.remove(registryName);
             DataAccess.removeFile("Factions", registryName);
