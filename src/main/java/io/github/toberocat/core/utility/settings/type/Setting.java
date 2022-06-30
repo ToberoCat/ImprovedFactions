@@ -107,7 +107,7 @@ public class Setting<T> {
 
             return new Slot(Utility.setLore(boolSetting.getDisplay(), defaultLore.toArray(String[]::new))) {
                 @Override
-                public void OnClick(HumanEntity entity) {
+                public void click(Player user) {
                     if (setting.isLocked && !Debugger.hasPermission(player, "factions.gui.unlock-settings")) return;
 
                     setting.setSelected(!(Boolean) setting.getSelected());
@@ -140,7 +140,7 @@ public class Setting<T> {
 
             return new Slot(Utility.setLore(enumSetting.getDisplay(), lore.toArray(String[]::new))) {
                 @Override
-                public void OnClick(HumanEntity entity) {
+                public void click(Player user) {
                     if (setting.isLocked && !Debugger.hasPermission(player, "factions.gui.unlock-settings")) return;
 
                     enumSetting.rotateSelection(player);
@@ -167,17 +167,17 @@ public class Setting<T> {
 
             return new Slot(Utility.setLore(callbackSettings.getDisplay(), lore.toArray(String[]::new))) {
                 @Override
-                public void OnClick(HumanEntity clicker) {
+                public void click(Player user) {
                     if (setting.isLocked && !Debugger.hasPermission(player, "factions.gui.unlock-settings")) return;
 
-                    AsyncTask.runLaterSync(0, () -> callbackSettings.execute((Player) clicker));
+                    AsyncTask.runLaterSync(0, () -> callbackSettings.execute(user));
                 }
             };
         }
 
         return new Slot(setting.getDisplay()) {
             @Override
-            public void OnClick(HumanEntity entity) {
+            public void click(Player user) {
                 if (setting.isLocked && !Debugger.hasPermission(player, "factions.gui.unlock-settings")) return;
 
                 render.callback();

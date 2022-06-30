@@ -6,7 +6,7 @@ import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.gui.faction.MemberGui;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
-import io.github.toberocat.core.utility.gui.GUISettings;
+import io.github.toberocat.core.utility.gui.settings.GuiSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -26,7 +26,7 @@ public class MembersSubCommand extends SubCommand {
     protected void CommandExecute(Player player, String[] args) {
         Bukkit.getScheduler().runTask(MainIF.getIF(), () -> {
             Faction faction = FactionUtility.getPlayerFaction(player);
-            new MemberGui(player, faction, new GUISettings());
+            new MemberGui(player, faction, new GuiSettings());
         });
     }
 

@@ -19,6 +19,7 @@ import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -26,6 +27,8 @@ import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.logging.Level;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Utility {
@@ -274,6 +277,27 @@ public class Utility {
             except.callback();
         }
 
+    }
+
+    public static @NotNull String replace(@NotNull String string, @NotNull Map<String, String>  placeholders, boolean caseSensitive) {
+        for (Map.Entry<String, String> entry : placeholders.entrySet()) {
+            String key = entry.getKey();
+            String val = entry.getValue();
+
+            if (key == null) continue;
+            if (val == null) val = "";
+
+            if (caseSensitive) {
+                string = string.replace(key, val);
+            } else {
+                if (key.startsWith("{")) key = "\\{" + key.substring(1);
+                Matcher match = Pattern.compile(key, Pattern.CASE_INSENSITIVE).matcher(string);
+                while (match.find()) string = string.replace(match.group(), val);
+            }
+
+        }
+
+        return string;
     }
 
     public static float lerp(float point1, float point2, float alpha) {

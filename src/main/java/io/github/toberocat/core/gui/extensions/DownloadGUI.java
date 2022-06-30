@@ -7,23 +7,20 @@ import io.github.toberocat.core.extensions.ExtensionObject;
 import io.github.toberocat.core.extensions.list.ExtensionListLoader;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
-import io.github.toberocat.core.utility.gui.GUISettings;
-import io.github.toberocat.core.utility.gui.Gui;
+import io.github.toberocat.core.utility.gui.TabbedGui;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.version.Version;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
-public class DownloadGUI extends Gui {
+public class DownloadGUI extends TabbedGui {
     public DownloadGUI(Player player) {
-        super(player, createInventory(player), new GUISettings());
+        super(player, createInventory(player));
         Language.sendMessage("Downloading extension registry from the internet. Please wait", player);
         AsyncTask.run(() -> {
             ExtensionObject[] extensions = ExtensionListLoader.readExtensions().await();
@@ -45,9 +42,8 @@ public class DownloadGUI extends Gui {
 
                 if (compatible) {
                     addSlot(Utility.createItem(extension.getGuiIcon(), "§e" +
-                            extension.getDisplayName(), loreList.toArray(String[]::new)), () -> {
-                        downloadExtension(extension, player);
-                    });
+                                    extension.getDisplayName(), loreList.toArray(String[]::new)),
+                            (user) -> downloadExtension(extension, player));
                 } else {
                     Language.sendRawMessage("This version isn't compatible with ours, so you can't download it", player);
                 }
@@ -83,10 +79,5 @@ public class DownloadGUI extends Gui {
     private static Inventory createInventory(Player player) {
         return Bukkit.createInventory(player, 54,
                 Language.getMessage("gui.extension.download.title", player));
-    }
-
-    @Override
-    public void onInventoryClose(InventoryCloseEvent event, Iterator<Gui> iterator) {
-        super.onInventoryClose(event, iterator);
     }
 }

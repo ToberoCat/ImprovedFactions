@@ -9,11 +9,9 @@ public class ConfigSubCommand extends SubCommand {
 
     public ConfigSubCommand() {
         super("config", "command.config.description", true);
-        subCommands.add(new ConfigBackupSubCommand());
         subCommands.add(new ConfigSaveSubCommand());
         subCommands.add(new ConfigReloadSubCommand());
         subCommands.add(new ConfigRemoveAllBackupSubCommand());
-        subCommands.add(new ConfigConfigureSubCommand());
     }
 
     @Override

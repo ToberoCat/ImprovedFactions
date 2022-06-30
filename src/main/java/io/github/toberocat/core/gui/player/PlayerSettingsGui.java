@@ -1,18 +1,16 @@
 package io.github.toberocat.core.gui.player;
 
-import io.github.toberocat.core.utility.gui.GUISettings;
-import io.github.toberocat.core.utility.gui.Gui;
-import io.github.toberocat.core.utility.gui.page.Page;
+import io.github.toberocat.core.utility.gui.TabbedGui;
 import io.github.toberocat.core.utility.settings.PlayerSettings;
 import io.github.toberocat.core.utility.settings.type.Setting;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-public class PlayerSettingsGui extends Gui {
+public class PlayerSettingsGui extends TabbedGui {
 
     public PlayerSettingsGui(Player player) {
-        super(player, createInventory(player), new GUISettings());
+        super(player, createInventory(player));
         updateGui(player);
     }
 
@@ -22,16 +20,13 @@ public class PlayerSettingsGui extends Gui {
     }
 
     private void updateGui(Player player) {
+        clear();
         PlayerSettings result = PlayerSettings.getSettings(player.getUniqueId());
 
         for (String key : result.getPlayerSetting().keySet()) {
             Setting set = result.getPlayerSetting().get(key);
 
-            addSlot(Setting.getSlot(set, player, () -> {
-                slots.remove(currentPage);
-                slots.add(currentPage, new Page());
-                updateGui(player);
-            }));
+            addSlot(Setting.getSlot(set, player, () -> updateGui(player)));
         }
     }
 }

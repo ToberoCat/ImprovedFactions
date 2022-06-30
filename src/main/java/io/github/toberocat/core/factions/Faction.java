@@ -24,10 +24,7 @@ import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.language.Parseable;
 import io.github.toberocat.core.utility.messages.MessageSystem;
 import io.github.toberocat.core.utility.settings.type.EnumSetting;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -435,6 +432,8 @@ public class Faction {
             ClaimManager manager = MainIF.getIF().getClaimManager();
 
             Map<String, ArrayList<Claim>> claims = manager.CLAIMS;
+            LinkedList<Chunk> rmProtection = new LinkedList<>();
+
             claims.entrySet().stream()
                     .filter(x -> x != null && x.getKey() != null &&
                             Bukkit.getWorld(x.getKey()) != null && x.getValue() != null)
@@ -444,9 +443,11 @@ public class Faction {
 
                         entry.getValue().stream()
                                 .filter(x -> Objects.nonNull(x) && x.getRegistry().equals(registryName))
-                                .forEach(c -> manager.removeProtection(world.getChunkAt(c.getX(), c.getY())));
-
+                                .forEach(c -> rmProtection.add(world.getChunkAt(c.getX(), c.getY())));
                     });
+
+            rmProtection.forEach(manager::removeProtection);
+            rmProtection.clear();
 
             LOADED_FACTIONS.remove(registryName);
             DataAccess.removeFile("Factions", registryName);

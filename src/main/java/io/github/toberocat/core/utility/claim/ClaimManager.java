@@ -5,7 +5,6 @@ import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.async.AsyncTask;
-import io.github.toberocat.core.utility.color.FactionColors;
 import io.github.toberocat.core.utility.config.DataManager;
 import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.data.PersistentDataUtility;
@@ -55,20 +54,6 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
 
         Subscribe(this);
     }
-
-    public Stream<Claim> registryClaims(String registry) {
-        return CLAIMS.values()
-                .stream()
-                .flatMap(Collection::stream)
-                .filter(x -> x.getRegistry().equals(registry));
-    }
-
-    public Stream<Claim> registryClaims(String registry, String world) {
-        if (!CLAIMS.containsKey(world))
-            throw new IllegalArgumentException("The world you gave wasn't represented in the claims list");
-        return CLAIMS.get(world).stream().filter(x -> x.getRegistry().equals(registry));
-    }
-
 
     public static int getRegistryColor(@NotNull String registry) {
         return switch (registry) {
@@ -124,6 +109,19 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
     public static boolean isManageableZone(String registry) {
         return WARZONE_REGISTRY.equals(registry) || SAFEZONE_REGISTRY.equals(registry) ||
                 UNCLAIMABLE_REGISTRY.equals(registry);
+    }
+
+    public Stream<Claim> registryClaims(String registry) {
+        return CLAIMS.values()
+                .stream()
+                .flatMap(Collection::stream)
+                .filter(x -> x.getRegistry().equals(registry));
+    }
+
+    public Stream<Claim> registryClaims(String registry, String world) {
+        if (!CLAIMS.containsKey(world))
+            throw new IllegalArgumentException("The world you gave wasn't represented in the claims list");
+        return CLAIMS.get(world).stream().filter(x -> x.getRegistry().equals(registry));
     }
 
     @Override
@@ -239,17 +237,16 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
                 PersistentDataType.STRING,
                 chunk.getPersistentDataContainer());
 
-        AsyncTask.run(() -> {
-            if (claimRegistry == null) return;
+        if (claimRegistry != null) {
             Faction faction = FactionUtility.getFactionByRegistry(claimRegistry);
-            if (faction == null) return;
+            if (faction != null) {
+                faction.setClaimedChunks(faction.getClaimedChunks() - 1);
 
-            faction.setClaimedChunks(faction.getClaimedChunks() - 1);
-
-            String worldName = chunk.getWorld().getName();
-            if (!CLAIMS.containsKey(worldName)) CLAIMS.put(worldName, new ArrayList<>());
-            CLAIMS.get(worldName).removeIf(x -> x.getX() == chunk.getX() && x.getY() == chunk.getZ());
-        });
+                String worldName = chunk.getWorld().getName();
+                if (!CLAIMS.containsKey(worldName)) CLAIMS.put(worldName, new ArrayList<>());
+                CLAIMS.get(worldName).removeIf(x -> x.getX() == chunk.getX() && x.getY() == chunk.getZ());
+            }
+        }
 
         PersistentDataUtility.remove(PersistentDataUtility.FACTION_CLAIMED_KEY, chunk.getPersistentDataContainer());
         AsyncTask.runSync(() -> Bukkit.getPluginManager()

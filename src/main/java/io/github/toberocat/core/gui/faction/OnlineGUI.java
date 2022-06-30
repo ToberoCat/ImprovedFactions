@@ -4,20 +4,28 @@ import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.listeners.PlayerJoinListener;
 import io.github.toberocat.core.utility.Utility;
-import io.github.toberocat.core.utility.gui.GUISettings;
-import io.github.toberocat.core.utility.gui.Gui;
-import io.github.toberocat.core.utility.gui.page.Page;
+import io.github.toberocat.core.utility.gui.TabbedGui;
+import io.github.toberocat.core.utility.gui.settings.GuiSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
+import org.jetbrains.annotations.NotNull;
 
-public class OnlineGUI extends Gui {
+public class OnlineGUI extends TabbedGui {
     private final int task;
+    private final Runnable close;
 
-    public OnlineGUI(Player player, Faction faction, GUISettings settings) {
-        super(player, createInv(faction, player), settings);
+    public OnlineGUI(Player player, Faction faction, Runnable close) {
+        super(player, createInv(faction, player));
+        this.close = close;
 
         task = Bukkit.getScheduler().runTaskTimer(MainIF.getIF(), () -> update(player, faction), 0, 20).getTaskId();
+    }
+
+    @Override
+    protected GuiSettings readSettings() {
+        return super.readSettings().setQuitGui(close);
     }
 
     private static Inventory createInv(Faction faction, Player player) {
@@ -25,19 +33,18 @@ public class OnlineGUI extends Gui {
     }
 
     @Override
-    protected void close() {
+    protected void inventoryClosed(@NotNull InventoryCloseEvent event) {
         Bukkit.getScheduler().cancelTask(task);
     }
 
     private void update(Player player, Faction faction) {
-        slots.remove(currentPage);
-        slots.add(currentPage, new Page());
+        clear();
 
         for (Player online : faction.getFactionMemberManager().getOnlinePlayers()) {
             String time = Utility.getTime(PlayerJoinListener.PLAYER_JOINS.get(online.getUniqueId()));
             String totalTime = time + "§8 online";
             addSlot(Utility.getSkull(online, 1, player.getDisplayName(),
-                    new String[]{"§8Player is now §e" + totalTime}), () -> {
+                    new String[]{"§8Player is now §e" + totalTime}), (user) -> {
             });
         }
     }

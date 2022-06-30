@@ -3,8 +3,8 @@ package io.github.toberocat.core.gui.faction;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
-import io.github.toberocat.core.utility.gui.GUISettings;
-import io.github.toberocat.core.utility.gui.Gui;
+import io.github.toberocat.core.utility.gui.TabbedGui;
+import io.github.toberocat.core.utility.gui.settings.GuiSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -12,9 +12,9 @@ import org.bukkit.inventory.Inventory;
 
 import java.util.UUID;
 
-public class MemberGui extends Gui {
-    public MemberGui(Player player, Faction faction, GUISettings settings) {
-        super(player, createInventory(player, faction), settings);
+public class MemberGui extends TabbedGui {
+    public MemberGui(Player player, Faction faction, GuiSettings settings) {
+        super(player, createInventory(player, faction));
 
         for (UUID uuid : faction.getFactionMemberManager().getMembers()) {
             OfflinePlayer off = Bukkit.getOfflinePlayer(uuid);
@@ -23,7 +23,7 @@ public class MemberGui extends Gui {
             addSlot(Utility.getSkull(off, 1, "§e" + off.getName(), new String[]{
                     "§8Last time seen: " + lastTimeSeen,
                     "§8Rank: §e" + faction.getPlayerRank(off).getDisplayName()
-            }), () -> AsyncTask.runLaterSync(1, () ->
+            }), (user) -> AsyncTask.runLaterSync(1, () ->
                     new MemberManageGui(player, off, faction, settings)));
         }
     }

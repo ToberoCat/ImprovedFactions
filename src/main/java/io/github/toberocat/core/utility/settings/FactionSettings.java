@@ -1,26 +1,14 @@
 package io.github.toberocat.core.utility.settings;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.factions.OpenType;
-import io.github.toberocat.core.gui.faction.FactionSettingsGui;
-import io.github.toberocat.core.gui.faction.MemberGui;
-import io.github.toberocat.core.gui.faction.OnlineGUI;
-import io.github.toberocat.core.gui.faction.RankGui;
 import io.github.toberocat.core.utility.Utility;
-import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.color.FactionColors;
 import io.github.toberocat.core.utility.config.ConfigManager;
-import io.github.toberocat.core.utility.gui.GUISettings;
-import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.settings.type.CallbackSettings;
 import io.github.toberocat.core.utility.settings.type.EnumSetting;
 import io.github.toberocat.core.utility.settings.type.Setting;
-import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -64,16 +52,16 @@ public class FactionSettings {
 
         add(new CallbackSettings(actions::openMembers, "open?members", "Gui",
                 Utility.getSkull("https://textures.minecraft.net/texture/a05a32bbab24f84db679df637b7769fbf8f26e8f5765d0fbdbdea288cb6548f8",
-                1, "Manage your members", "&8Manage your members",
-                "&7Tip: Click on the head to manage them individually")));
+                        1, "Manage your members", "&8Manage your members",
+                        "&7Tip: Click on the head to manage them individually")));
 
         add(new CallbackSettings(actions::openOnline, "open?online", "Gui",
                 Utility.getSkull("https://textures.minecraft.net/texture/fa6d51c22c8958285c00aaaf93b621c15be10aa04838afe1d89cd9c3603144df",
-                1, "See online members", "&8See your members online time")));
+                        1, "See online members", "&8See your members online time")));
 
         add(new CallbackSettings(actions::openRanks, "open?ranks", "Gui",
                 Utility.getSkull("https://textures.minecraft.net/texture/5b34b4896e434ec4ef1669d6343b6da06cd830dc92927d61e3d883017683c422",
-                1, "Manage ranks", "&8Manage your player ranks")));
+                        1, "Manage ranks", "&8Manage your player ranks")));
     }
 
 

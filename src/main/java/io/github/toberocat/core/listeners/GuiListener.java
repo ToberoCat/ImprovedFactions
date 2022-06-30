@@ -1,9 +1,8 @@
 package io.github.toberocat.core.listeners;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.utility.gui.Gui;
+import io.github.toberocat.core.utility.gui.AbstractGui;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -14,7 +13,7 @@ import java.util.*;
 
 public class GuiListener implements Listener {
 
-    public static final List<Gui> GUIS = new ArrayList<>();
+    public static final List<AbstractGui> GUIS = new ArrayList<>();
     private static final Map<UUID, Integer> currentTests = new HashMap<>();
     private static int taskId = -1;
     private final int maxCps = MainIF.getConfigManager().getValue("gui.maxCps");
@@ -24,7 +23,7 @@ public class GuiListener implements Listener {
     public void onInventoryClick(final InventoryClickEvent e) {
         if (GUIS.stream().noneMatch(x -> x.getInventory() == e.getClickedInventory())) return;
 
-        Iterator<Gui> it = GUIS.iterator();
+        Iterator<AbstractGui> it = GUIS.iterator();
         if (updateCps(e.getWhoClicked().getUniqueId()) >= maxCps) {
             e.setCancelled(true);
             if (currentTests.get(e.getWhoClicked().getUniqueId()) >= closeGuiCps) e.getWhoClicked().closeInventory();
@@ -33,26 +32,22 @@ public class GuiListener implements Listener {
 
 
         while (it.hasNext()) {
-            Gui gui = it.next();
-            gui.onInventoryClick(e, it);
+            AbstractGui gui = it.next();
+            gui.click(e);
         }
     }
 
     @EventHandler
     public void onInventoryDrag(final InventoryDragEvent e) {
-        Iterator<Gui> it = GUIS.iterator();
-        while (it.hasNext()) {
-            Gui gui = it.next();
-            gui.onInventoryDrag(e, it);
+        for (AbstractGui gui : GUIS) {
+            gui.drag(e);
         }
     }
 
     @EventHandler
     public void onInventoryClose(final InventoryCloseEvent e) {
-        Iterator<Gui> it = GUIS.iterator();
-        while (it.hasNext()) {
-            Gui gui = it.next();
-            gui.onInventoryClose(e, it);
+        for (AbstractGui gui : GUIS) {
+            gui.close(e);
         }
     }
 

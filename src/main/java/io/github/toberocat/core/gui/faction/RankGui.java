@@ -3,8 +3,8 @@ package io.github.toberocat.core.gui.faction;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
-import io.github.toberocat.core.utility.gui.GUISettings;
-import io.github.toberocat.core.utility.gui.Gui;
+import io.github.toberocat.core.utility.gui.TabbedGui;
+import io.github.toberocat.core.utility.gui.settings.GuiSettings;
 import io.github.toberocat.core.utility.settings.type.RankSetting;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -14,14 +14,24 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
-public class RankGui extends Gui {
-    public RankGui(Player player, Faction faction, GUISettings settings) {
-        super(player, createInventory(player, faction), settings);
+public class RankGui extends TabbedGui {
+
+    private final Runnable close;
+
+    public RankGui(Player player, Faction faction, Runnable close) {
+        super(player, createInventory(player, faction));
+        this.close = close;
         update(player, faction);
     }
 
+    @Override
+    protected GuiSettings readSettings() {
+        return super.readSettings().setQuitGui(close);
+    }
+
     private static Inventory createInventory(Player player, Faction faction) {
-        return Bukkit.createInventory(player, 54, "§e§l" + faction.getDisplayName() + " permissions");
+        return Bukkit.createInventory(player, 54, "§e§l" +
+                faction.getDisplayName() + " permissions");
     }
 
     private void update(Player player, Faction faction) {
@@ -33,8 +43,9 @@ public class RankGui extends Gui {
             lore.add("");
             lore.add("§8Click to manage");
 
-            addSlot(Utility.setLore(stack, lore.toArray(String[]::new)), () -> AsyncTask.runLaterSync(0,
-                    () -> new ManageRankSettingGui(player, faction, key, setting, this.settings)));
+            addSlot(Utility.setLore(stack, lore.toArray(String[]::new)), (user) ->
+                    AsyncTask.runLaterSync(0,
+                            () -> new ManageRankSettingGui(player, faction, key, setting, this.settings)));
         }
     }
 }
