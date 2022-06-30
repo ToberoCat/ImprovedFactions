@@ -1,15 +1,14 @@
 package io.github.toberocat.core.factions;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.members.FactionMemberManager;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.data.PersistentDataUtility;
 import io.github.toberocat.core.utility.dynamic.loaders.PlayerJoinLoader;
 import io.github.toberocat.core.utility.events.faction.FactionLoadEvent;
-import io.github.toberocat.core.utility.events.faction.FactionMemberOfflineEvent;
-import io.github.toberocat.core.utility.events.faction.FactionMemberOnlineEvent;
+import io.github.toberocat.core.utility.events.faction.member.FactionMemberOfflineEvent;
+import io.github.toberocat.core.utility.events.faction.member.FactionMemberOnlineEvent;
 import io.github.toberocat.core.utility.exceptions.FactionNotFoundException;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

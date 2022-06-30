@@ -1,6 +1,7 @@
-package io.github.toberocat.core.utility.events.faction;
+package io.github.toberocat.core.utility.events.faction.power;
 
 import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.utility.events.faction.FactionEvent;
 import io.github.toberocat.core.utility.events.faction.power.PowerCause;
 
 public class FactionPowerEvent extends FactionEvent {

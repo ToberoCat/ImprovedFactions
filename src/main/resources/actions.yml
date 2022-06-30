@@ -1,0 +1,42 @@
+# An action is nothing else than code that gets run when a
+# event got called
+# All available actions:
+# - "[actionbar] This will be seen in actionbar"
+# - "[broadcast] Message will be sent to everyone"
+# - "[close]" # Closes currently open gui
+# - "[console] give @a minecraft:dirt 64" # Executes a command as console
+# - "[message] A message sent to player"
+# - "[player] give @s minecraft:dirt 64" # Runs code as player
+# - "[sound] ENTITY_VILLAGER_HURT" # Plays a sound for the player
+# - "[title] Title Subtitle" # Displays a title for the player
+# - "[message-factions-broadcast] Message for all faction members" # Broadcasts a message to every faction player
+# - "[message-factions-broadcast-ally] Message for all faction members and allies" # Broadcasts a message to every faction player and ally
+# - "[lang-message] action.run.test" # Gets the translation from the players lang file and displays it to the player
+
+faction: # Provided: {faction} -> display
+  create: # Provided: {creator} -> name
+    #- "[title] &aCreated your faction"
+  ally: # Provided: {allied-faction} -> display
+  ban: # Provided: {banned} -> name
+  delete: # Provided: {deletor} -> name
+  join: # Provided: {joined} -> name
+  kick: # Provided: {kicked} -> name
+  leave: # Provided: {left} -> name
+  load: # Gets called whenever a faction gets loaded from storage
+  member: # Provided: {member} -> name
+    offline:
+    online:
+  overclaim: # Provided: {overclaim-faction} -> display, {chunk-x} -> number and {chunk-z} -> number
+  power: # Provided: {change} -> number
+    player-killed: # Provided: {killer} -> name and {killed} -> name
+    player-left: # Provided: {left} -> name
+    player-joined: # Provided: {joined} -> name
+    regeneration-tick: # Provided: {regenerator} -> name
+    max-power:
+  transfer-ownership: # Provided: {old} -> name and {new} -> name
+  pardon: # Provided: {unbanned} -> name
+  update-rank: # Provided: {player} -> name and {rank} -> displayname
+
+chunks: # Provided: {chunk-x} -> number, {chunk_z} -> number and {registry} -> registry
+  protect:
+  rm-protection: # Called when chunk gets unclaimed from any faction / zone, etc
