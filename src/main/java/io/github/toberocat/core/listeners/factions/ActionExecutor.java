@@ -1,9 +1,7 @@
 package io.github.toberocat.core.listeners.factions;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.rank.Rank;
-import io.github.toberocat.core.utility.action.ActionCore;
 import io.github.toberocat.core.utility.action.Actions;
 import io.github.toberocat.core.utility.config.DataManager;
 import io.github.toberocat.core.utility.events.faction.*;
@@ -22,7 +20,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ActionExecutor implements Listener {
@@ -161,7 +158,7 @@ public class ActionExecutor implements Listener {
         String oldRank = event.getOldRank();
         String newRank = event.getNewRank();
 
-        if (oldRank == null){
+        if (oldRank == null) {
             send("faction.rank.initial", player, // Initial
                     new Parseable("{faction}", event.getFaction().getDisplayName()),
                     new Parseable("{old-rank}", "no"));

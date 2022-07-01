@@ -1,0 +1,64 @@
+# An action is nothing else than code that gets run when a
+# event got called
+# All available actions:
+# - "[actionbar] This will be seen in actionbar"
+# - "[broadcast] Message will be sent to everyone"
+# - "[close]" # Closes currently open gui
+# - "[console] give @a minecraft:dirt 64" # Executes a command as console
+# - "[message] A message sent to player"
+# - "[player] give @s minecraft:dirt 64" # Runs code as player
+# - "[sound] ENTITY_VILLAGER_HURT" # Plays a sound for the player
+# - "[title] Title Subtitle" # Displays a title for the player
+# - "[message-factions-broadcast] Message for all faction members" # Broadcasts a message to every faction player
+# - "[message-factions-broadcast-ally] Message for all faction members and allies" # Broadcasts a message to every faction player and ally
+# - "[lang-message] action.run.test" # Gets the translation from the players lang file and displays it to the player
+
+faction: # Provided: {faction} -> display
+  create:
+    - "[lang-message] command.faction.create.whats-next.0"
+    - "[lang-message] command.faction.create.whats-next.1"
+    - "[title] &eCreated &e{faction}"
+    - "[sound] ENTITY_FIREWORK_ROCKET_BLAST"
+  ally: # Provided: {allied-faction} -> display
+    - "[message-factions-broadcast-ally] &e{faction} &7 and &e{allied-faction} &7 are now best friends!"
+  ban: # Provided: {banned} -> name
+    - "[message-factions-broadcast] &c{banned}&7 got banned from your faction"
+  delete: # Provided: {deletor} -> name
+  join: # Provided: {joined} -> name
+    - "[message-factions-broadcast] &e{joined} joined your faction"
+  kick: # Provided: {kicked} -> name
+    - "[message-factions-broadcast] &c{kicked}&7 got kicked from your faction"
+  leave: # Provided: {left} -> name
+    - "[message-factions-broadcast] &e{left} left your faction"
+  load: # Gets called whenever a faction gets loaded from storage
+  member: # Provided: {member} -> name
+    offline:
+    online:
+  overclaim: # Provided: {overclaim-faction} -> display, {chunk-x} -> number and {chunk-z} -> number
+    - "[message-factions-broadcast-ally]&6&lWarning: &e{overclaim-faction} &7 overclaimed the chunk from &e{faction}&7 at &ex: {chunk-x} z: {chunk-z}"
+  power: # Provided: {change} -> number
+    player-killed:
+      - "[message-factions-broadcast] &7A member got eliminated. Your faction lost &b{change}&7 of power"
+    player-left:
+      - "[message-factions-broadcast] &eYour faction lost &b{change}&e of power because a member left it"
+    player-joined:
+      - "[message-factions-broadcast] &eYour faction gained &b{change}&e power because a new member joined"
+    regeneration-tick:
+      - "[message-factions-broadcast] &b{change} power&7 regnerated"
+    max-power:
+      - "[message-factions-broadcast] Max power increased by &b{change}"
+  transfer-ownership: # Provided: {old} -> name and {new} -> name
+    - "[message-factions-broadcast-ally] &eThe new owner of {faction} is now {new}"
+  pardon: # Provided: {unbanned} -> name
+    - "[message-factions-broadcast] &c{unbanned}&7 got unbanned"
+  rank: # Provided: {player} -> name, {old-rank} -> displayname and {new-rank} -> displayname
+    initial:
+      - "[message] Your rank got set to &e{new-rank}"
+    promotion:
+      - "[message] You got a promotion. You are now a &e{new-rank}"
+    degradation:
+      - "[message] You got degraded from {old-rank} to &e{new-rank}"
+
+chunks: # Provided: {chunk-x} -> number, {chunk_z} -> number and {registry} -> registry
+  protect:
+  rm-protection: # Called when chunk gets unclaimed from any faction / zone, etc
