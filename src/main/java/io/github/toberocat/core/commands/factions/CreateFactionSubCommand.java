@@ -66,15 +66,6 @@ public class CreateFactionSubCommand extends SubCommand {
         String name = player.hasPermission("faction.colors.colorInFactionName")
                 ? Language.format(_name) : _name;
         Result<Faction> factionResult = Faction.createFaction(name, player);
-        if (!factionResult.isSuccess()) {
-            sendCommandExecuteError(factionResult.getPlayerMessage(), player);
-            return;
-        }
-        Language.sendMessage("command.faction.create.success", player,
-                new Parseable("{faction_name}", factionResult.getPaired().getDisplayName()));
-
-        // Send what's next message
-        String[] msgs = Language.getLore("command.faction.create.whats-next", player);
-        for (String msg : msgs) Language.sendRawMessage(msg, player);
+        if (!factionResult.isSuccess()) sendCommandExecuteError(factionResult.getPlayerMessage(), player);
     }
 }

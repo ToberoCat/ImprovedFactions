@@ -5,10 +5,16 @@ import org.bukkit.Chunk;
 
 public class FactionOverclaimEvent extends FactionEvent {
     private final Chunk chunk;
+    private final Faction newOwners;
 
-    public FactionOverclaimEvent(Faction faction, Chunk chunk) {
-        super(faction);
+    public FactionOverclaimEvent(Faction original, Faction newOwner, Chunk chunk) {
+        super(original);
+        this.newOwners = newOwner;
         this.chunk = chunk;
+    }
+
+    public Faction getNewOwners() {
+        return newOwners;
     }
 
     public Chunk getChunk() {

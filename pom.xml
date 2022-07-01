@@ -168,13 +168,5 @@
             <version>1.0.1</version>
             <scope>compile</scope>
         </dependency>
-
-        <!-- Chat message extension -->
-        <dependency>
-            <groupId>io.github.toberocat.improved-factions</groupId>
-            <artifactId>ChatMessageExtension</artifactId>
-            <version>1.0</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 </project>

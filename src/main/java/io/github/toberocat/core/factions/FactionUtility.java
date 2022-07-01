@@ -1,6 +1,7 @@
 package io.github.toberocat.core.factions;
 
 import io.github.toberocat.MainIF;
+import io.github.toberocat.core.factions.modules.FactionModule;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.data.DataAccess;

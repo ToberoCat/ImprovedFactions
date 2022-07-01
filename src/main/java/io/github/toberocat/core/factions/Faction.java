@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.bank.FactionBank;
 import io.github.toberocat.core.factions.members.FactionMemberManager;
+import io.github.toberocat.core.factions.modules.FactionModule;
+import io.github.toberocat.core.factions.modules.MessageModule;
 import io.github.toberocat.core.factions.permission.FactionPerm;
 import io.github.toberocat.core.factions.power.PowerManager;
 import io.github.toberocat.core.factions.rank.Rank;
@@ -462,6 +464,14 @@ public class Faction {
     @JsonIgnore
     public OpenType getOpenType() {
         return OpenType.values()[((EnumSetting) factionPerm.getFactionSettings().get("openType")).getSelected()];
+    }
+
+    @JsonIgnore
+    public MessageModule getMessageModule() {
+        if (!modules.containsKey(FactionModule.MESSAGE_MODULE_ID))
+            modules.put(FactionModule.MESSAGE_MODULE_ID, new MessageModule(this));
+
+        return (MessageModule) modules.get(FactionModule.MESSAGE_MODULE_ID);
     }
 
     public String getDisplayName() {

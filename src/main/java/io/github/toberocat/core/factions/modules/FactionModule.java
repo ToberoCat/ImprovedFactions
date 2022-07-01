@@ -1,11 +1,12 @@
-package io.github.toberocat.core.factions;
+package io.github.toberocat.core.factions.modules;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import io.github.toberocat.core.factions.Faction;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 public class FactionModule {
+    public static final String MESSAGE_MODULE_ID = "message_module";
     @JsonIgnore
     protected Faction faction;
 

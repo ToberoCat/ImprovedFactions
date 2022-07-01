@@ -157,7 +157,7 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
                     "&cThe chunk isn't a corner, so you can't overclaim it");
             removeClaim(faction, chunk);
             AsyncTask.runSync(() ->
-                    Bukkit.getPluginManager().callEvent(new FactionOverclaimEvent(claim, chunk)));
+                    Bukkit.getPluginManager().callEvent(new FactionOverclaimEvent(claim, faction, chunk)));
         }
 
         Result result = protectChunk(faction.getRegistryName(), chunk);

@@ -11,10 +11,12 @@ import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.factions.permission.FactionPerm;
 import io.github.toberocat.core.factions.rank.Rank;
-import io.github.toberocat.core.listeners.*;
+import io.github.toberocat.core.listeners.chunks.*;
+import io.github.toberocat.core.listeners.factions.ActionExecutor;
 import io.github.toberocat.core.papi.FactionExpansion;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.Utility;
+import io.github.toberocat.core.utility.action.provided.*;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.bossbar.SimpleBar;
 import io.github.toberocat.core.utility.calender.TimeCore;
@@ -44,6 +46,7 @@ import net.milkbowl.vault.economy.Economy;
 import org.apache.commons.lang.SystemUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -537,7 +540,8 @@ public final class MainIF extends JavaPlugin {
                         new InteractListener(),
                         new PlayerMountListener(),
                         new PlayerDeathListener(),
-                        new PlayerChangeWorld())
+                        new PlayerChangeWorld(),
+                        new ActionExecutor(this))
                 .forEach(listener -> getPluginManager().registerEvents(listener, this));
     }
 
@@ -610,6 +614,7 @@ public final class MainIF extends JavaPlugin {
         MapHandler.register();
         Bstat.register(this);
         registerPapi();
+        registerActions();
 
         claimManager = new ClaimManager();
         new FactionUtility();
@@ -618,6 +623,20 @@ public final class MainIF extends JavaPlugin {
         Rank.Init();
 
         return true;
+    }
+
+    private void registerActions() {
+        new ActionbarAction().register();
+        new BroadcastAction().register();
+        new CloseAction().register();
+        new ConsoleCommandAction().register();
+        new MessageAction().register();
+        new PlayerCommandAction().register();
+        new SoundAction().register();
+        new TitleAction().register();
+        new BroadcastAction().register();
+        new BroadcastAllyAction().register();
+        new LangMessageAction().register();
     }
 
     /**

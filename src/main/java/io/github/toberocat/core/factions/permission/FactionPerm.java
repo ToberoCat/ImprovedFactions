@@ -32,6 +32,7 @@ public class FactionPerm {
     public static final String MANAGE_RANKS_PERM = "permission.manage-rank";
     public static final String KICK_PERM= "permission.kick";
     public static final String BAN_PERM = "permission.ban";
+    public static final String MEMBER_RECEIVE_BROADCAST = "permission.broadcast-receive";
 
 
     private FactionSettings factionSettings;
@@ -100,6 +101,10 @@ public class FactionPerm {
                 OwnerRank.registry, AdminRank.registry
         }, ItemCore.create(BAN_PERM, Material.RED_DYE, "&eBan members",
                 "&8Ban members for there lifetime - and unban them")));
+
+        DEFAULT_RANKS.put(MEMBER_RECEIVE_BROADCAST, new RankSetting(MEMBER_RECEIVE_BROADCAST, new String[]{
+                OwnerRank.registry, AdminRank.registry, MemberRank.registry, ElderRank.registry, ModeratorRank.registry
+        },Utility.createItem(Material.ENCHANTED_BOOK, "&eReceive broadcasts")));
     }
 
     public static void registerPermission(RankSetting setting) {
@@ -129,8 +134,8 @@ public class FactionPerm {
     }
 
     public void setRank(OfflinePlayer player, String rank) {
-        memberRanks.put(player.getUniqueId(), rank);
-        Utility.callEvent(new FactionUpdateMemberRankEvent(faction, player, rank));
+        String old = memberRanks.put(player.getUniqueId(), rank);
+        Utility.callEvent(new FactionUpdateMemberRankEvent(faction, player, rank, old));
     }
 
     public Map<String, Setting> getFactionSettings() {

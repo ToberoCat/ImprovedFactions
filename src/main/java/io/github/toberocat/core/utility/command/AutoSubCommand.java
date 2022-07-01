@@ -1,12 +1,10 @@
 package io.github.toberocat.core.utility.command;
 
-import io.github.toberocat.core.listeners.PlayerMoveListener;
+import io.github.toberocat.core.listeners.chunks.PlayerMoveListener;
 import io.github.toberocat.core.utility.language.Language;
-import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
