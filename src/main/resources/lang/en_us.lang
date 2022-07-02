@@ -3,6 +3,9 @@
   "credits": "Thanks for this amazing support from everyone who uses this plugin",
   "messages": {
     "command.prefix": "&7[&eIF&7]",
+    "faction.broadcast.prefix": "&7[&e{faction}&7] &r{message}",
+    "faction.broadcast.allies": "&b{allied}&7 is now an ally of this faction",
+    "faction.broadcast.banned-member": "&e{banned}&7 is now banned from your faction",
 
     "tip-of-the-day.0": "Use &b/f user &7to open the user preferences",
     "tip-of-the-day.1": "Use &b/f who <faction> &7to see various information about a faction",

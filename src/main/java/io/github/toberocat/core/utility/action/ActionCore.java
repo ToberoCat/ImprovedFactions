@@ -1,5 +1,6 @@
 package io.github.toberocat.core.utility.action;
 
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.command.CommandSender;
@@ -11,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public final class ActionCore {
 
@@ -30,13 +32,6 @@ public final class ActionCore {
      * @return if the action was found or not
      */
     public static boolean run(@NotNull String string, @NotNull CommandSender commandSender) {
-
-        /* Placeholders */
-
-        if (commandSender instanceof Player player) {
-            string = PlaceholderAPI.setPlaceholders(player, string);
-        }
-
         /* Args */
 
         String[] argsWithLabel = string.split("\\s+");
@@ -90,6 +85,44 @@ public final class ActionCore {
 
         return success;
     }
+
+    public static boolean runAsFaction(@NotNull String string, @NotNull Faction faction) {
+        /* Args */
+
+        String[] argsWithLabel = string.split("\\s+");
+
+        if (argsWithLabel.length == 0) return false;
+
+        String label = argsWithLabel[0];
+        String[] args = new String[argsWithLabel.length - 1];
+
+        System.arraycopy(argsWithLabel, 1, args, 0, argsWithLabel.length - 1);
+
+        /* Provided */
+
+        String provided = string.substring(label.length()).stripLeading();
+
+        /* Action */
+
+        Action action = getAction(label);
+        if (action == null) return false;
+
+        /* Run */
+
+        action.run(faction, args);
+        action.run(faction, provided);
+
+        return true;
+    }
+
+    public static void runAsFaction(@NotNull List<String> strings, @NotNull Faction faction) {
+        for (String string : strings) runAsFaction(string, faction);
+    }
+
+    public static void runAsFaction(@NotNull Stream<String> strings, @NotNull Faction faction) {
+        strings.forEachOrdered(action -> runAsFaction(action, faction));
+    }
+
 
     private static @NotNull String formatLabel(@NotNull String string) {
         return '[' + string.toLowerCase().replace(' ', '-') + ']';
