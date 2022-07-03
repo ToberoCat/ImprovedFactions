@@ -26,6 +26,8 @@ public class MemberGui extends TabbedGui {
             }), (user) -> AsyncTask.runLaterSync(1, () ->
                     new MemberManageGui(player, off, faction, settings)));
         }
+
+        render();
     }
 
     private static Inventory createInventory(Player player, Faction faction) {

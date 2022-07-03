@@ -47,5 +47,7 @@ public class RankGui extends TabbedGui {
                     AsyncTask.runLaterSync(0,
                             () -> new ManageRankSettingGui(player, faction, key, setting, this.settings)));
         }
+
+        render();
     }
 }

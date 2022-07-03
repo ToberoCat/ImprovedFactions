@@ -1,6 +1,6 @@
 package io.github.toberocat.core.utility.command;
 
-import io.github.toberocat.core.listeners.chunks.PlayerMoveListener;
+import io.github.toberocat.core.listeners.PlayerMoveListener;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 

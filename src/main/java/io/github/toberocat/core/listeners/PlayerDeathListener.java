@@ -1,4 +1,4 @@
-package io.github.toberocat.core.listeners.chunks;
+package io.github.toberocat.core.listeners;
 
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;

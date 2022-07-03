@@ -5,7 +5,7 @@ import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.factions.rank.members.MemberRank;
-import io.github.toberocat.core.listeners.chunks.PlayerJoinListener;
+import io.github.toberocat.core.listeners.PlayerJoinListener;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.data.PersistentDataUtility;
 import io.github.toberocat.core.utility.language.Language;

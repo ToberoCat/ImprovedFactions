@@ -75,13 +75,7 @@ public class JsonUtility {
         return OBJECT_MAPPER.readValue(file, clazz);
     }
 
-    public static <T> T readObjectFromURL(URL url, Class<T> clazz) {
-        try {
-            return OBJECT_MAPPER.readValue(url, clazz);
-        } catch (IOException e) {
-            MainIF.logMessage(Level.WARNING, "Couldn't read url because of " + e.getMessage());
-            if (Boolean.TRUE.equals(MainIF.getConfigManager().getValue("general.printStacktrace"))) e.printStackTrace();
-        }
-        return null;
+    public static <T> T readObjectFromURL(URL url, Class<T> clazz) throws IOException {
+        return OBJECT_MAPPER.readValue(url, clazz);
     }
 }

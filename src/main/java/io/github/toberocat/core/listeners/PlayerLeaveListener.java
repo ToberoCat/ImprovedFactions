@@ -1,4 +1,4 @@
-package io.github.toberocat.core.listeners.chunks;
+package io.github.toberocat.core.listeners;
 
 import io.github.toberocat.core.utility.settings.PlayerSettings;
 import io.github.toberocat.core.utility.tips.TipOfTheDay;

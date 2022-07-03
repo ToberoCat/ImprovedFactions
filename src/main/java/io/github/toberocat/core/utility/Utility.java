@@ -22,9 +22,13 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
@@ -39,6 +43,20 @@ public class Utility {
             Integer.parseInt(str);
             return true;
         } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private static boolean isInternetAvailable() {
+        try {
+            final URL url = new URL("https://www.github.com");
+            final URLConnection conn = url.openConnection();
+            conn.connect();
+            conn.getInputStream().close();
+            return true;
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             return false;
         }
     }

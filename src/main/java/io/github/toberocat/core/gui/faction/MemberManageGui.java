@@ -146,6 +146,7 @@ public class MemberManageGui extends TabbedGui {
                 self.closeInventory();
             }));
         }
+        render();
     }
 
     @Override

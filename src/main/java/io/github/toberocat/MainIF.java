@@ -11,8 +11,8 @@ import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.factions.permission.FactionPerm;
 import io.github.toberocat.core.factions.rank.Rank;
-import io.github.toberocat.core.listeners.chunks.*;
-import io.github.toberocat.core.listeners.factions.ActionExecutor;
+import io.github.toberocat.core.listeners.*;
+import io.github.toberocat.core.listeners.actions.ActionExecutor;
 import io.github.toberocat.core.papi.FactionExpansion;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.Utility;
@@ -46,12 +46,12 @@ import net.milkbowl.vault.economy.Economy;
 import org.apache.commons.lang.SystemUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -323,28 +323,39 @@ public final class MainIF extends JavaPlugin {
         if (extensions == null) return true;
 
         List<LangMessage> langMessages = new ArrayList<>();
-        for (File jar : extensions) {
-            if (!jar.getName().endsWith(".jar")) continue;
-
-            ExtensionRegistry registry = loadRegistry(jar);
-            if (registry == null) continue;
-
-            LangMessage extensionLang = getExtensionLangFile(jar);
-            if (extensionLang != null) langMessages.add(extensionLang);
-
-
-            //Extension extension = loader.LoadClass(jar, "extension.Main", Extension.class);
-            Extension extension = ExtensionLoader.loadClass(jar, registry.main(), Extension.class);
-            extension.enable(registry, this);
-
-            if (!extension.isEnabled()) continue;
-
-            LOADED_EXTENSIONS.put(extension.getRegistry().registry(), extension);
-        }
+        for (File jar : extensions) langMessages.addAll(enableExtension(jar, extFolder));
 
         for (LangMessage message : langMessages) LangMessage.addDefault(message);
 
         return true;
+    }
+
+    private LinkedList<LangMessage> enableExtension(@NotNull File extensionJar, @NotNull File extensionFolder) throws ClassNotFoundException {
+        if (!extensionJar.getName().endsWith(".jar")) return new LinkedList<>();
+
+        ExtensionRegistry registry = loadRegistry(extensionJar);
+        if (registry == null || LOADED_EXTENSIONS.containsKey(registry.registry())) return new LinkedList<>();
+
+        LinkedList<LangMessage> messages = new LinkedList<>();
+        LangMessage extensionLang = getExtensionLangFile(extensionJar);
+        if (extensionLang != null) messages.add(extensionLang);
+
+        // Load dependencies first
+        for (String extensionDependency : registry.extensionDependencies()) {
+            File jar = new File(extensionFolder, extensionDependency + ".jar");
+            if (!jar.exists()) continue;
+
+            messages.addAll(enableExtension(jar, extensionFolder));
+        }
+
+        Extension extension = ExtensionLoader.loadClass(extensionJar, registry.main(), Extension.class);
+        extension.enable(registry, this);
+
+        if (!extension.isEnabled()) return new LinkedList<>();
+
+        LOADED_EXTENSIONS.put(extension.getRegistry().registry(), extension);
+
+        return messages;
     }
 
     private LangMessage getExtensionLangFile(File file) {
@@ -398,12 +409,14 @@ public final class MainIF extends JavaPlugin {
     }
 
     public void checkVersion() {
-        if (new UpdateChecker(VERSION, Version.from(PluginInfo.fetch().getLatestVersion())).isNewestVersion())
-            logMessage(Level.INFO, "&aYou have the latest version of this plugin");
-        else
-            logMessage(Level.WARNING, "&aYour current version is &6" + VERSION.getVersion()
-                    + " &athe latest is &6" + PluginInfo.fetch().getLatestVersion()
-                    + "&a download it now - &6https://www.spigotmc.org/resources/improved-factions.95617/");
+        PluginInfo.fetch().then((info) -> {
+            if (new UpdateChecker(VERSION, Version.from(info.getLatestVersion())).isNewestVersion())
+                logMessage(Level.INFO, "&aYou have the latest version of this plugin");
+            else
+                logMessage(Level.WARNING, "&aYour current version is &6" + VERSION.getVersion()
+                        + " &athe latest is &6" + info.getLatestVersion()
+                        + "&a download it now - &6https://www.spigotmc.org/resources/improved-factions.95617/");
+        });
     }
 
     /**

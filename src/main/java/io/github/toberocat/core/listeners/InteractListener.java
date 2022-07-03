@@ -1,4 +1,4 @@
-package io.github.toberocat.core.listeners.chunks;
+package io.github.toberocat.core.listeners;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.commands.admin.AdminBypassSubCommand;
@@ -6,39 +6,38 @@ import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.factions.permission.FactionPerm;
-import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.language.Language;
+import org.apache.logging.log4j.core.net.Priority;
 import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 
-import java.util.Map;
+public class InteractListener implements Listener {
 
-public class BlockPlaceListener implements Listener {
-
-    public static Map<Location, Block> TNT_PLACE_LOCATIONS;
-
-    @EventHandler
-    public void Place(BlockPlaceEvent event) {
-        if (AdminBypassSubCommand.BYPASSING.contains(event.getPlayer().getUniqueId())) return;
-        if (Utility.isDisabled(event.getPlayer().getWorld())) return;
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void Interaction(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        if (AdminBypassSubCommand.BYPASSING.contains(player.getUniqueId())) return;
 
         ClaimManager claimManager = MainIF.getIF().getClaimManager();
-        Chunk blockChunk = event.getBlock().getChunk();
+        if (event.getClickedBlock() == null) return;
+
+        Chunk blockChunk = event.getClickedBlock().getChunk();
 
         String claim = claimManager.getFactionRegistry(blockChunk);
         if (claim == null) return; // Chunk isn't protected
         if (MainIF.getIF().isStandby() || !MainIF.getIF().isEnabled()) {
-            Language.sendRawMessage("Factions is in standby. Protection is enabled for claimed chunk", event.getPlayer());
+            Language.sendRawMessage("Factions is in standby. Protection is enabled for claimed chunk", player);
+
             event.setCancelled(true);
             return;
         }
-
         if (ClaimManager.isManageableZone(claim)) {
+
             event.setCancelled(true);
             return;
         }
@@ -47,15 +46,17 @@ public class BlockPlaceListener implements Listener {
         Faction claimFaction = FactionUtility.getFactionByRegistry(claim);
         if (claimFaction == null) {
             Language.sendRawMessage("You have encountered a problem with improved factions! Go ahead " +
-                    "and tell the admins about the save shutdown. Error: BlockPlace wasn't able to find required faction", event.getPlayer());
-            Debugger.logWarning("BlockPlaceListener.java wasn't able to find claimfaction. Entering savemode.\nInfo: " +
-                    "Player: &e" + event.getPlayer().getName());
+                    "and tell the admins about the save shutdown. Error: Interaction wasn't able to find required faction", player);
+            Debugger.logWarning("InteractionListener.java wasn't able to find claimfaction. Entering savemode.\nInfo: " +
+                    "Player: &e" + player.getName());
             MainIF.getIF().saveShutdown("Wasn't able to find faction that claimed chunk &6"
                     + blockChunk.getX() + ", " + blockChunk.getZ());
+
             event.setCancelled(true);
             return;
         }
 
-        if (!claimFaction.hasPermission(event.getPlayer(), FactionPerm.PLACE_PERM)) event.setCancelled(true);
+        if (!claimFaction.hasPermission(player, FactionPerm.BREAK_PERM))
+            event.setCancelled(true);
     }
 }

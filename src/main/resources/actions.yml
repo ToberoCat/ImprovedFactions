@@ -19,15 +19,20 @@ faction: # Provided: {faction} -> registry
     - "[lang-message] command.faction.create.whats-next.0"
     - "[lang-message] command.faction.create.whats-next.1"
     - "[title] &eCreated &e{faction}"
-    - "[sound] ENTITY_FIREWORK_ROCKET_BLAST"
-  ally: # Provided: {allied-faction} -> registry
-    - "[broadcast-lang] faction.broadcast.allies {allied}:{allied-faction}"
-    - "{allied-faction}[broadcast-lang] faction.broadcast.allies {allied}:{faction}"
+    - "[sound] ENTITY_FIREWORK_ROCKET_TWINKLE"
+  ally-accepted: # Provided: {allied-faction} -> registry
+    faction:
+      - "[broadcast-lang] faction.broadcast.allies {allied}:{allied-faction}"
+      - "[sound] BLOCK_NOTE_BLOCK_BELL 1 0.4"
+    allied-faction:
+      - "[broadcast-lang] faction.broadcast.allies {allied}:{faction}"
+      - "[sound] BLOCK_NOTE_BLOCK_BELL 1 0.4"
   ban: # Provided: {banned} -> name
-    - "[broadcast-lang] faction.broadcast.banned-member {banned}:{banned}"
+    - "[broadcast-lang] faction.broadcast.banned-member {ban}:{banned}"
+    - "[sound] ENTITY_LIGHTNING_BOLT_IMPACT"
   delete: # Provided: {deletor} -> name
   join: # Provided: {joined} -> name
-    - "[message-factions-broadcast] &e{joined} joined your faction"
+    - "[broadcast-lang] faction.broadcast.member-joined {join}:{joined}"
   kick: # Provided: {kicked} -> name
     - "[message-factions-broadcast] &c{kicked}&7 got kicked from your faction"
   leave: # Provided: {left} -> name
@@ -60,6 +65,8 @@ faction: # Provided: {faction} -> registry
       - "[message] You got a promotion. You are now a &e{new-rank}"
     degradation:
       - "[message] You got degraded from {old-rank} to &e{new-rank}"
+  lost-war:
+    - "[sound] MUSIC_CREDITS"
 
 chunks: # Provided: {chunk-x} -> number, {chunk_z} -> number and {registry} -> registry
   protect:

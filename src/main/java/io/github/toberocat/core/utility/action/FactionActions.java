@@ -43,19 +43,7 @@ public class FactionActions {
         return this;
     }
 
-    public void run(@NotNull Faction defaultFaction) {
-        strings.forEach(x -> runAs(x, defaultFaction));
-    }
-
-    private void runAs(@NotNull String action,  @NotNull Faction def) {
-        Faction faction = def;
-        if (action.startsWith("{")) {
-            int end = action.indexOf("}");
-            String asRegistry = action.substring(1, end);
-            faction = FactionUtility.getFactionByRegistry(asRegistry);
-            action = action.substring(end);
-        }
-
-        ActionCore.runAsFaction(action, faction);
+    public void run(@NotNull Faction faction) {
+        strings.forEach(x -> ActionCore.runAsFaction(x, faction));
     }
 }

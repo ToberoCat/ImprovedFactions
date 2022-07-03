@@ -1,6 +1,6 @@
 package io.github.toberocat.core.utility.gui;
 
-import io.github.toberocat.core.listeners.chunks.GuiListener;
+import io.github.toberocat.core.listeners.GuiListener;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.gui.page.Page;
 import io.github.toberocat.core.utility.gui.settings.GuiSettings;

@@ -35,5 +35,6 @@ public class FactionSettingsGui extends TabbedGui {
                 renderGui(settings, player);
             }));
         }
+        render();
     }
 }

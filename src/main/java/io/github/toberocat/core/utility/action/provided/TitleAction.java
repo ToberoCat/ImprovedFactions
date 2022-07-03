@@ -1,6 +1,7 @@
 package io.github.toberocat.core.utility.action.provided;
 
 import io.github.toberocat.core.utility.action.Action;
+import io.github.toberocat.core.utility.language.Language;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -18,10 +19,11 @@ public class TitleAction extends Action {
         if (args.length < 1) return;
 
         String title = args[0].replace("_", " ");
+        title = Language.format(title);
 
         String subtitle = null;
 
-        if (length >= 2) subtitle = args[1];
+        if (length >= 2) subtitle = Language.format(args[1]);
 
         int in = 20;
 

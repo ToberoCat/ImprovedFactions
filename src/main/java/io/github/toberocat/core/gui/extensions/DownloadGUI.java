@@ -11,6 +11,7 @@ import io.github.toberocat.core.utility.gui.TabbedGui;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.version.Version;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
@@ -22,6 +23,10 @@ public class DownloadGUI extends TabbedGui {
     public DownloadGUI(Player player) {
         super(player, createInventory(player));
         Language.sendMessage("Downloading extension registry from the internet. Please wait", player);
+        display();
+    }
+
+    private void display() {
         AsyncTask.run(() -> {
             ExtensionObject[] extensions = ExtensionListLoader.readExtensions().await();
             Language.sendRawMessage("Finished downloading. Will now list extensions", player);
@@ -39,7 +44,6 @@ public class DownloadGUI extends TabbedGui {
 
                 loreList.add("§7Version: §d" + extension.getNewestVersion());
                 loreList.add("§7Author: §d" + extension.getAuthor());
-
                 if (compatible) {
                     addSlot(Utility.createItem(extension.getGuiIcon(), "§e" +
                                     extension.getDisplayName(), loreList.toArray(String[]::new)),
@@ -48,6 +52,7 @@ public class DownloadGUI extends TabbedGui {
                     Language.sendRawMessage("This version isn't compatible with ours, so you can't download it", player);
                 }
             }
+            render();
         });
     }
 

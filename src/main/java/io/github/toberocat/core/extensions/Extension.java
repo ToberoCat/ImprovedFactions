@@ -63,28 +63,29 @@ public abstract class Extension {
     }
 
     private void updateExtension() {
-        HashMap<String, ExtensionObject> map = ExtensionListLoader.getMap().await();
-        if (latestVersion(map)) return;
+        ExtensionListLoader.getMap().then((map) -> {
+            if (latestVersion(map)) return;
 
-        ExtensionDownloader.downloadExtension(map.get(registry.registry()), new ExtensionDownloadCallback() {
-            @Override
-            public void startDownload(ExtensionObject extension) {
-                MainIF.logMessage(Level.INFO, "&a&lStarted&f extension update for &e" + registry.displayName() +
-                        "&a. Don't restart the server!");
-            }
+            ExtensionDownloader.downloadExtension(map.get(registry.registry()), new ExtensionDownloadCallback() {
+                @Override
+                public void startDownload(ExtensionObject extension) {
+                    MainIF.logMessage(Level.INFO, "&a&lStarted&f extension update for &e" + registry.displayName() +
+                            "&a. Don't restart the server!");
+                }
 
-            @Override
-            public void cancelDownload(ExtensionObject extension) {
-                MainIF.logMessage(Level.WARNING, "&c&lSomething&f went wrong while updating &e" + registry.displayName() +
-                        "&a. File could be corrupted");
-            }
+                @Override
+                public void cancelDownload(ExtensionObject extension) {
+                    MainIF.logMessage(Level.WARNING, "&c&lSomething&f went wrong while updating &e" + registry.displayName() +
+                            "&a. File could be corrupted");
+                }
 
-            @Override
-            public void finishedDownload(ExtensionObject extension) {
-                MainIF.logMessage(Level.INFO, "&a&lInstalled&f extension update for &e" + registry.displayName() +
-                        "&a. Reloading the server now");
-                Bukkit.reload();
-            }
+                @Override
+                public void finishedDownload(ExtensionObject extension) {
+                    MainIF.logMessage(Level.INFO, "&a&lInstalled&f extension update for &e" + registry.displayName() +
+                            "&a. Reloading the server now");
+                    Bukkit.reload();
+                }
+            });
         });
     }
 
@@ -103,6 +104,15 @@ public abstract class Extension {
                 if (plugin.getServer().getPluginManager().getPlugin(depend) == null) {
                     MainIF.logMessage(Level.WARNING, "&cDidn't find " + depend + ". "
                             + registry.displayName() + " requires " + Arrays.toString(registry.dependencies()));
+                    return false;
+                }
+            }
+        }
+        if (registry.extensionDependencies() != null) {
+            for (String extension : registry.extensionDependencies()) {
+                if (!MainIF.LOADED_EXTENSIONS.containsKey(extension)) {
+                    MainIF.logMessage(Level.WARNING, "&c" + registry.displayName() +
+                            " requires the extension " + extension + " to work");
                     return false;
                 }
             }

@@ -2,7 +2,7 @@ package io.github.toberocat.core.gui.faction;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.listeners.chunks.PlayerJoinListener;
+import io.github.toberocat.core.listeners.PlayerJoinListener;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.gui.TabbedGui;
 import io.github.toberocat.core.utility.gui.settings.GuiSettings;
@@ -47,5 +47,7 @@ public class OnlineGUI extends TabbedGui {
                     new String[]{"§8Player is now §e" + totalTime}), (user) -> {
             });
         }
+
+        render();
     }
 }

@@ -60,6 +60,8 @@ public class ManageRankSettingGui extends TabbedGui {
                 render(player, faction, permission, setting);
             });
         }
+
+        render();
     }
 
     private boolean selected(Rank rank, RankSetting setting) {

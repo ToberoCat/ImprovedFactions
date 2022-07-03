@@ -1,8 +1,10 @@
-package io.github.toberocat.core.listeners.factions;
+package io.github.toberocat.core.listeners.actions;
 
 import io.github.toberocat.MainIF;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.rank.Rank;
 import io.github.toberocat.core.utility.action.Actions;
+import io.github.toberocat.core.utility.action.FactionActions;
 import io.github.toberocat.core.utility.config.DataManager;
 import io.github.toberocat.core.utility.events.faction.*;
 import io.github.toberocat.core.utility.events.faction.claim.ChunkProtectEvent;
@@ -13,6 +15,7 @@ import io.github.toberocat.core.utility.events.faction.power.FactionPowerEvent;
 import io.github.toberocat.core.utility.language.Parseable;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -36,9 +39,15 @@ public class ActionExecutor implements Listener {
 
     private void send(@NotNull String path, @NotNull CommandSender sender, Parseable... parseables) {
         Actions actions = new Actions(getAction(path));
-
         for (Parseable parseable : parseables) actions.placeholder(parseable.getParse(), parseable.getTo());
         actions.run(sender);
+    }
+
+    private void send(@NotNull String path, @NotNull Faction faction, Parseable... parseables) {
+        FactionActions actions = new FactionActions(getAction(path));
+
+        for (Parseable parseable : parseables) actions.placeholder(parseable.getParse(), parseable.getTo());
+        actions.run(faction);
     }
 
     @EventHandler

@@ -21,12 +21,14 @@ public class PlayerSettingsGui extends TabbedGui {
 
     private void updateGui(Player player) {
         clear();
-        PlayerSettings result = PlayerSettings.getSettings(player.getUniqueId());
 
+        PlayerSettings result = PlayerSettings.getSettings(player.getUniqueId());
         for (String key : result.getPlayerSetting().keySet()) {
             Setting set = result.getPlayerSetting().get(key);
 
             addSlot(Setting.getSlot(set, player, () -> updateGui(player)));
         }
+
+        render();
     }
 }

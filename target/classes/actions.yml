@@ -10,19 +10,21 @@
 # - "[sound] ENTITY_VILLAGER_HURT" # Plays a sound for the player
 # - "[title] Title Subtitle" # Displays a title for the player
 # - "[message-factions-broadcast] Message for all faction members" # Broadcasts a message to every faction player
+# - "[broadcast-lang] faction.broadcast.test" # Broadcasts a message to every faction player for their fitting selected language
 # - "[message-factions-broadcast-ally] Message for all faction members and allies" # Broadcasts a message to every faction player and ally
 # - "[lang-message] action.run.test" # Gets the translation from the players lang file and displays it to the player
 
-faction: # Provided: {faction} -> display
+faction: # Provided: {faction} -> registry
   create:
     - "[lang-message] command.faction.create.whats-next.0"
     - "[lang-message] command.faction.create.whats-next.1"
     - "[title] &eCreated &e{faction}"
     - "[sound] ENTITY_FIREWORK_ROCKET_BLAST"
-  ally: # Provided: {allied-faction} -> display
-    - "[message-factions-broadcast-ally] &e{faction} &7 and &e{allied-faction} &7 are now best friends!"
+  ally: # Provided: {allied-faction} -> registry
+    - "[broadcast-lang] faction.broadcast.allies {allied}:{allied-faction}"
+    - "{allied-faction}[broadcast-lang] faction.broadcast.allies {allied}:{faction}"
   ban: # Provided: {banned} -> name
-    - "[message-factions-broadcast] &c{banned}&7 got banned from your faction"
+    - "[broadcast-lang] faction.broadcast.banned-member {banned}:{banned}"
   delete: # Provided: {deletor} -> name
   join: # Provided: {joined} -> name
     - "[message-factions-broadcast] &e{joined} joined your faction"

@@ -7,6 +7,7 @@ import io.github.toberocat.core.utility.callbacks.ResultCallback;
 import io.github.toberocat.core.utility.callbacks.ReturnCallback;
 import io.github.toberocat.core.utility.exceptions.AlreadyRunException;
 import org.bukkit.Bukkit;
+import org.bukkit.event.Event;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -64,6 +65,12 @@ public class AsyncTask<T> {
 
     public static void runSync(Runnable runnable) {
         runLaterSync(0, runnable);
+    }
+
+
+
+    public static void callEventSync(Event event) {
+        runSync(() -> Bukkit.getPluginManager().callEvent(event));
     }
 
     public static <T> T find(T[] array, Predicate<T> predicate) {
