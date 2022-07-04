@@ -1,2 +1,2 @@
 # Factions
-A modern GUI-Based Factions plugin written for SpivakNetwork
+A modern GUI-Based Factions plugin written from scratch
