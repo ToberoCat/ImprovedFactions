@@ -1,0 +1,175 @@
+[
+  {
+    "fileName": "ExampleExtension",
+    "displayName": "Example extension",
+    "registryName": "example_extension",
+    "description": [
+      "This extension is",
+      "a example for other devs"
+    ],
+    "guiIcon": "ACACIA_SAPLING",
+    "downloadLinks": {
+      "1.0": "https://github.com/ToberoCat/ImprovedFaction/blob/master/Extensions_v1/ExampleExtension.jar?raw=true",
+      "1.1": "https://github.com/ToberoCat/ImprovedFaction/blob/master/Extensions_v1/ExampleExtension.jar?raw=true"
+    },
+    "newestVersion": {
+      "version": "Snap-1.0"
+    },
+    "author": "Tobero",
+    "sha256": "5a9f2caa43e760efa2934a559ef4d20de6a92307a9ca2cfb4e1e7e13f03fed8d",
+    "minVersion": "1.2",
+    "testVersions": [
+      "1.2"
+    ]
+  },
+  {
+    "fileName": "HomeExtension",
+    "displayName": "Home extension",
+    "registryName": "home_extension",
+    "description": [
+      "This extension allows",
+      "every faction to have",
+      "a home, they can teleport",
+      "to whenever they want"
+    ],
+    "guiIcon": "RED_BED",
+    "downloadLinks": {
+      "1.3": "https://github.com/ToberoCat/ImprovedFaction/blob/master/Extensions_v1/HomeExtension.jar?raw=true",
+      "1.3.3": "https://github.com/ToberoCat/ImprovedFaction/blob/master/Extensions_v1/HomeExtension.jar?raw=true",
+      "1.4": "https://github.com/ToberoCat/ImprovedFaction/blob/master/Extensions_v1/HomeExtension.jar?raw=true",
+      "1.4.1": "https://github.com/ToberoCat/ImprovedFaction/blob/master/Extensions_v1/HomeExtension.jar?raw=true"
+    },
+    "newestVersion": {
+      "version": "1.3"
+    },
+    "author": "Tobero",
+    "sha256": "12647cc740f31952a0b5739881c30f961c03b04792948414308c09a9a1e69bcc",
+    "minVersion": "1.3",
+    "testVersions": [
+      "1.3",
+      "1.3.3",
+      "1.4.1"
+    ]
+  },
+  {
+    "fileName": "DynmapExtension",
+    "displayName": "Dynmap extension",
+    "registryName": "dynmap_extension",
+    "description": [
+      "This extension displays",
+      "factions on dynmap"
+    ],
+    "guiIcon": "COARSE_DIRT",
+    "downloadLinks": {
+      "1.3.3": "https://github.com/ToberoCat/ImprovedFaction/blob/master/Extensions_v1/DynmapExtension.jar?raw=true",
+      "1.4": "https://github.com/ToberoCat/ImprovedFaction/blob/master/Extensions_v1/DynmapExtension.jar?raw=true"
+    },
+    "newestVersion": {
+      "version": "1.0"
+    },
+    "author": "Tobero",
+    "sha256": "76632eef315eb48e41173cf00564c1730e09cd7ed936f8267a7bc0498f1c97a5",
+    "minVersion": "1.3.3",
+    "testVersions": [
+      "1.3.3"
+    ]
+  },
+  {
+    "fileName": "FactionMapGui",
+    "displayName": "Map gui extension",
+    "registryName": "faction_map_gui_extension",
+    "description": [
+      "This extension displays",
+      "the faction claims now in a gui",
+      "instead of the chat box"
+    ],
+    "guiIcon": "MAP",
+    "downloadLinks": {
+      "1.3.3": "https://github.com/ToberoCat/ImprovedFaction/blob/master/Extensions_v1/FactionMapGui.jar?raw=true",
+      "1.4": "https://github.com/ToberoCat/ImprovedFaction/blob/master/Extensions_v1/FactionMapGui.jar?raw=true"
+    },
+    "newestVersion": {
+      "version": "1.0"
+    },
+    "author": "Tobero",
+    "sha256": "61b9a2884bc2995d213eb98fd6937939c07c000f0a5f4ff3f8c49cc6cfac9f54",
+    "minVersion": "1.3.3",
+    "testVersions": [
+      "1.3.3"
+    ]
+  },
+  {
+    "fileName": "MassClaimExtension",
+    "displayName": "Mass claim extension",
+    "registryName": "mass_claim_extension",
+    "description": [
+      "This extension allows the user",
+      "to claim chunks with a wand",
+      "just like worldedit"
+    ],
+    "guiIcon": "WOODEN_AXE",
+    "downloadLinks": {
+      "1.3.3": "https://github.com/ToberoCat/ImprovedFaction/blob/master/Extensions_v1/MassClaimExtension.jar?raw=true",
+      "1.4": "https://github.com/ToberoCat/ImprovedFaction/blob/master/Extensions_v1/MassClaimExtension.jar?raw=true"
+    },
+    "newestVersion": {
+      "version": "1.0"
+    },
+    "author": "Tobero",
+    "sha256": "1f3cbf5dd4aed8b65b9b3408802be0055503e9be5ea43d7eb891efa657a5150f",
+    "minVersion": "1.4",
+    "testVersions": [
+      "1.4"
+    ]
+  },
+  {
+    "fileName": "ChatMessageExtension",
+    "displayName": "Chat message extension",
+    "registryName": "chat_message_extension",
+    "description": [
+      "This extension adds two",
+      "new chats, faction and allied",
+      "",
+      "Factions can get message broadcasts too",
+      "used for important notifications, like",
+      "new member joins, new allies, etc"
+    ],
+    "guiIcon": "KNOWLEDGE_BOOK",
+    "downloadLinks": {
+      "1.4.2": "https://github.com/ToberoCat/ImprovedFaction/blob/master/Extensions_v1/ChatMessageExtension.jar?raw=true"
+    },
+    "newestVersion": {
+      "version": "1.3"
+    },
+    "author": "Tobero",
+    "sha256": "e950ebbb02b847069c136690e523b346f73bc955559ae38d2efc204f164771c5",
+    "minVersion": "1.4.2",
+    "testVersions": [
+      "1.4.2"
+    ]
+  },
+  {
+    "fileName": "ChunkParticleExtension",
+    "displayName": "Particle border extension",
+    "registryName": "chunk_particles_extension",
+    "description": [
+      "This extension adds particle",
+      "borders around the claims",
+      "",
+      "&6&lWarning: &7This can cause server performance issues"
+    ],
+    "guiIcon": "SUGAR",
+    "downloadLinks": {
+      "1.5": "https://github.com/ToberoCat/ImprovedFaction/blob/master/Extensions_v1/ChunkParticleExtension.jar?raw=true"
+    },
+    "newestVersion": {
+      "version": "1.0"
+    },
+    "author": "Tobero",
+    "sha256": "47369a64b95341eab1f1947814c9afe35914cbb1cb6af7cc26313af727b3b44d",
+    "minVersion": "1.5",
+    "testVersions": [
+      "1.5"
+    ]
+  }
+]
