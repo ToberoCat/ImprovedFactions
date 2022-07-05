@@ -1,0 +1,46 @@
+- [x] Faction map
+- [ ] Faction map rotation fix
+- [ ] Faction map show zones
+- [x] Dynmap Extension
+- [x] Home extension
+- [ ] Warp extension
+- [ ] Faction chest extension
+- [ ] Faction power change display using boss bars
+- [x] ChatMessageExtension
+- [x] ChunkParticleExtension
+- [x] Relation commands
+- [x] Custom rank names
+- [x] Rank assignment using the manage member gui
+- [ ] Make all messages, Gui texts, titles, etc... translateable using lang files
+- [ ] Faction icons (Looper GUI, desigin own banner) Extension
+- [ ] List factions command
+- [ ] Jail command (Like home, just for jails) Extension
+- [ ] Rule command (Add rule, remove rule, modify rule, set rule, ...)
+- [x] Faction map command
+- [ ] More extension management commands
+- [ ] Language file sharing system (Like extensions, just with uploads from users directly)
+- [ ] Faction tutorial command
+- [ ] Faction tutorial extension (A none chat version of the tutorial)
+- [x] Mass claim extension
+- [x] Dynmap custom colored faction stuff
+- [x] Papi faction get player rank
+- [ ] Faction fly command
+- [ ] Top command (Balance)
+- [ ] Value command, to see balance of faction
+- [ ] Spawners extension
+- [ ] Shop extension
+- [ ] Shield extension
+- [ ] More data logging (Extension)
+- [x] Faction chat
+- [ ] Raid command (Teleports you to a nearby faction you can raid)
+- [x] Transfer ownership
+- [ ] Prevent owner form leaving if faction isn't permanent
+- [ ] Faction perks
+- [ ] Faction missions (Extension; A battle pass like thing, idk really)
+- [ ] Mute (Player in f chat)
+- [ ] Unmute
+- [ ] Wildness command (Tps to random location) (Extension)
+- [x] %faction_rank% as papi placeholder to get the players rank
+- [ ] Recommendation system (Allows faction to search for users. Users can search for factions too, using a gui)
+- [ ] Dynmap add option to appear as one unit
+- [ ] Buffs for having a power
