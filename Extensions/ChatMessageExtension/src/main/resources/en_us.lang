@@ -1,0 +1,9 @@
+{
+  "messages": {
+    "command.chat.switched": "&fYou switched to {chat}&f chat",
+    "command.chat.description": "&fChange the chat you type in"
+  },
+  "author": "Tobero",
+  "credits": "Thanks for this amazing support from everyone who uses this plugin",
+  "version": "1.0"
+}

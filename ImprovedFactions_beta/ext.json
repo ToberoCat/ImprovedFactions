@@ -1,0 +1,10 @@
+{
+  "name" : "ExampleExtension",
+  "description" : "Description",
+  "download" : "https://www.youtube.com/watch?v=Yu72xH9lVe0",
+  "version" : "1.0",
+  "author" : "Tobero",
+  "info" : "other infos to know",
+  "requiresVersion" : [ "BETAv2.1.1" ],
+  "dependencies" : [ "Dynmap", "Worldedit" ]
+}

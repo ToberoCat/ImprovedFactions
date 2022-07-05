@@ -1,0 +1,9 @@
+{
+  "messages": {
+    "gui.map-gui.title": "&eMap gui",
+    "command.map.description": "Open the map gui"
+  },
+  "author": "Tobero",
+  "credits": "Thanks for this amazing support from everyone who uses this plugin",
+  "version": "1.0"
+}
