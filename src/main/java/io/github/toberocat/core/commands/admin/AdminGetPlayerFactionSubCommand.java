@@ -12,7 +12,7 @@ import java.util.List;
 
 public class AdminGetPlayerFactionSubCommand extends SubCommand {
     public AdminGetPlayerFactionSubCommand() {
-        super("playerfaction", "admin.playerfaction", "command.admin.get-player-faction.discription", false);
+        super("playerfaction", "admin.playerfaction", "command.admin.get-player-faction.description", false);
     }
 
     @Override

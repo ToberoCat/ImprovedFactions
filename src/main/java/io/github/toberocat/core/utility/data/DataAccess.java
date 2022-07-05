@@ -6,8 +6,10 @@ import io.github.toberocat.MainIF;
 import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
+import io.github.toberocat.core.utility.config.ConfigManager;
 import io.github.toberocat.core.utility.jackson.JsonUtility;
-import io.github.toberocat.core.utility.sql.MySQL;
+import io.github.toberocat.core.utility.sql.MySql;
+import io.github.toberocat.core.utility.sql.MySqlData;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,47 +18,56 @@ import java.util.Arrays;
 import java.util.logging.Level;
 
 public class DataAccess {
-    private static MySQL sql;
+    private static MySql sql;
 
     public static boolean init() {
-        if (Boolean.TRUE.equals(MainIF.getConfigManager().getValue("general.useSQL"))) {
-            sql = new MySQL();
+        if (Boolean.TRUE.equals(ConfigManager.getValue("general.useSQL"))) {
+            String host = ConfigManager.getValue("sql.host", "localhost");
+            int port = ConfigManager.getValue("sql.port", 3306);
+            String user = ConfigManager.getValue("sql.user", "root");
+            String password = ConfigManager.getValue("sql.password", "1234");
+
+            sql = new MySql(host, port, "improved_factions");
 
             try {
-                sql.connect();
+                sql.login(user, password);
             } catch (SQLException | ClassNotFoundException e) {
-                MainIF.getIF().saveShutdown("&cDatabase not connected. Please check if your login information are right");
+                MainIF.getIF().saveShutdown("&cDatabase not connected. " +
+                        "Please check if your login informations, host and port are right");
                 return false;
             }
 
-            if (!sql.isConnected()) return false;
+            if (!sql.isConnected()) {
+                MainIF.getIF().saveShutdown("&cCouldn't connect to database");
+                return false;
+            }
 
-            MainIF.logMessage(Level.INFO, "&aSuccessfully &fconnected to database");
+            MainIF.logMessage(Level.INFO, "&aConnection established to &6mysql");
         }
 
-        makeFolder("Factions");
-        makeFolder("History");
-        makeFolder("History/Territory");
-        makeFolder("Chunks");
-        makeFolder("Players");
-        makeFolder("Messages");
+        create("Factions");
+        create("History");
+        create("History/Territory");
+        create("Chunks");
+        create("Players");
+        create("Messages");
 
         return true;
     }
 
-    public static AsyncTask makeFolder(String folder) {
+    public static AsyncTask<?> create(String table) {
         if (sql != null) {
             //ToDo: Add the method for creating tables in mySQL
             return null;
         } else {
             return AsyncTask.run(() -> {
                 String defPath = MainIF.getIF().getDataFolder().getPath() + "/";
-                Utility.mkdir(defPath + "Data/" + folder);
+                Utility.mkdir(defPath + "Data/" + table);
             });
         }
     }
 
-    public static String getRawFile(String folder, String filename) {
+    public static String getRaw(String folder, String filename) {
         if (sql != null) {
             //ToDo: Add the method for storing the file in mySQL
             return "";
@@ -73,7 +84,7 @@ public class DataAccess {
         }
     }
 
-    public static void clearFolder(String folder) {
+    public static void clear(String folder) {
         if (sql != null) {
             //ToDo: Add the method for clearing the file in mySQL
         } else {
@@ -89,7 +100,7 @@ public class DataAccess {
         }
     }
 
-    public static <T> T getFile(String folder, String filename, Class<T> clazz) {
+    public static <T extends MySqlData<T>> T get(String folder, String filename, Class<T> clazz) {
         if (sql != null) {
             //ToDo: Add the method for storing the file in mySQL
             return null;
@@ -107,7 +118,7 @@ public class DataAccess {
         }
     }
 
-    public static <T> T getFileExceptions(String folder, String filename, Class<T> clazz) throws IOException {
+    public static <T extends MySqlData<T>> T getWithExceptions(String folder, String filename, Class<T> clazz) throws IOException {
         if (sql != null) {
             //ToDo: Add the method for storing the file in mySQL
             return null;
@@ -121,10 +132,16 @@ public class DataAccess {
     }
 
     public static void disable() {
-        if (sql != null) sql.disconnect();
+        if (sql != null) {
+            try {
+                sql.disconnect();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    public static <T> boolean addFile(String folder, String filename, T object) {
+    public static <T extends MySqlData<T>> boolean write(String folder, String filename, T object) {
         if (sql != null) {
             //ToDo: Add the method for storing the file in mySQL
             return true;
@@ -136,7 +153,7 @@ public class DataAccess {
         }
     }
 
-    public static boolean removeFile(String folder, String filename) {
+    public static boolean delete(String folder, String filename) {
         if (sql != null) {
             //ToDo: Remove file in table
             return true;
@@ -150,7 +167,7 @@ public class DataAccess {
     /**
      * Raw file names. No .json removing
      */
-    public static String[] listRawFiles(String folder) {
+    public static String[] listRaw(String folder) {
         if (sql != null) {
             // ToDO: Add method for sql table listing
             return new String[]{""};

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class AdminRemoveTimeoutSubCommand extends SubCommand {
     public AdminRemoveTimeoutSubCommand() {
-        super("deltimeout", "admin.deltimeout", "command.admin.deltimeout.discription", false);
+        super("deltimeout", "admin.deltimeout", "command.admin.deltimeout.description", false);
     }
 
     @Override

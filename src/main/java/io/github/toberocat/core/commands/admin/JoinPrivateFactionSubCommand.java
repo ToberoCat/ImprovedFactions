@@ -13,7 +13,7 @@ import java.util.List;
 
 public class JoinPrivateFactionSubCommand extends SubCommand {
     public JoinPrivateFactionSubCommand() {
-        super("joinprivate", "admin.joinprivate", "command.admin.join-private.discription", false);
+        super("joinprivate", "admin.joinprivate", "command.admin.join-private.description", false);
     }
 
     @Override

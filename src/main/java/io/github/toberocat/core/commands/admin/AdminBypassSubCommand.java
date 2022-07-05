@@ -11,7 +11,7 @@ import java.util.*;
 public class AdminBypassSubCommand extends SubCommand {
     public static final List<UUID> BYPASSING = new ArrayList<>();
     public AdminBypassSubCommand() {
-        super("bypass", "admin.bypass", "command.admin.bypass.discription", false);
+        super("bypass", "admin.bypass", "command.admin.bypass.description", false);
     }
 
     @Override

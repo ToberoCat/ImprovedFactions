@@ -32,23 +32,21 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
 
     public static final String UNCLAIMED_CHUNK_REGISTRY = "NONE";
 
-    public final Map<String, ArrayList<Claim>> CLAIMS;
+    public final Map<String, WorldClaims> CLAIMS;
 
     public ClaimManager() {
         CLAIMS = new HashMap<>();
 
         for (String world : DataAccess.listFiles("Chunks")) {
-            Claim[] claims = DataAccess.getFile("Chunks", world, Claim[].class);
+            WorldClaims claims = DataAccess.get("Chunks", world, WorldClaims.class);
             if (claims == null) continue;
 
-            List<Claim> rawTargetList = Arrays.asList(claims);
-
-            CLAIMS.put(world, new ArrayList<>(rawTargetList));
+            CLAIMS.put(world, claims);
         }
 
         for (World world : Bukkit.getWorlds()) {
             if (!CLAIMS.containsKey(world.getName())) {
-                CLAIMS.put(world.getName(), new ArrayList<>());
+                CLAIMS.put(world.getName(), new WorldClaims());
             }
         }
 
@@ -75,7 +73,6 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
         return switch (registry) {
             case SAFEZONE_REGISTRY -> "territory.safezone";
             case WARZONE_REGISTRY -> "territory.warzone";
-            case UNCLAIMABLE_REGISTRY -> "";
             default -> "";
         };
     }
@@ -126,9 +123,7 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
 
     @Override
     protected void Disable() {
-        for (String world : CLAIMS.keySet()) {
-            DataAccess.addFile("Chunks", world, CLAIMS.get(world).toArray(Claim[]::new));
-        }
+        for (String world : CLAIMS.keySet()) DataAccess.write("Chunks", world, CLAIMS.get(world));
 
         CLAIMS.clear();
     }
@@ -138,7 +133,7 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
 
     }
 
-    public Result claimChunk(Faction faction, Chunk chunk) {
+    public Result<?> claimChunk(Faction faction, Chunk chunk) {
         String registry = getFactionRegistry(chunk);
         if (registry != null && !isManageableZone(registry)) {
             Faction claim = FactionUtility.getFactionByRegistry(registry);
@@ -191,11 +186,11 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
         return neighbours;
     }
 
-    public Result protectChunk(String registry, Chunk chunk) {
+    public Result<?> protectChunk(String registry, Chunk chunk) {
         String claimed = PersistentDataUtility.read(PersistentDataUtility.FACTION_CLAIMED_KEY,
                 PersistentDataType.STRING, chunk.getPersistentDataContainer());
         if (claimed != null && !claimed.equals(UNCLAIMED_CHUNK_REGISTRY)) {
-            return new Result(false).setMessages("CHUNK_ALREADY_PROTECTED",
+            return new Result<>(false).setMessages("CHUNK_ALREADY_PROTECTED",
                     "&cThe chunk you want to claim got already claimed");
         }
 
@@ -205,12 +200,12 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
                 chunk.getPersistentDataContainer());
 
         String worldName = chunk.getWorld().getName();
-        if (!CLAIMS.containsKey(worldName)) CLAIMS.put(worldName, new ArrayList<>());
+        if (!CLAIMS.containsKey(worldName)) CLAIMS.put(worldName, new WorldClaims());
 
         CLAIMS.get(worldName).add(new Claim(chunk.getX(), chunk.getZ(), registry));
         AsyncTask.runSync(() -> Bukkit.getPluginManager()
                 .callEvent(new ChunkProtectEvent(registry, chunk)));
-        return new Result(true);
+        return new Result<>(true);
     }
 
     public String getFactionRegistry(Chunk chunk) {
@@ -231,7 +226,7 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
     public Result<String> removeProtection(Chunk chunk) {
         if (!PersistentDataUtility.has(PersistentDataUtility.FACTION_CLAIMED_KEY,
                 PersistentDataType.STRING, chunk.getPersistentDataContainer())) {
-            return new Result(true);
+            return new Result<>(true);
         }
         String claimRegistry = PersistentDataUtility.read(PersistentDataUtility.FACTION_CLAIMED_KEY,
                 PersistentDataType.STRING,
@@ -243,7 +238,7 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
                 faction.setClaimedChunks(faction.getClaimedChunks() - 1);
 
                 String worldName = chunk.getWorld().getName();
-                if (!CLAIMS.containsKey(worldName)) CLAIMS.put(worldName, new ArrayList<>());
+                if (!CLAIMS.containsKey(worldName)) CLAIMS.put(worldName, new WorldClaims());
                 CLAIMS.get(worldName).removeIf(x -> x.getX() == chunk.getX() && x.getY() == chunk.getZ());
             }
         }

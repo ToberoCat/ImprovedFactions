@@ -16,9 +16,10 @@ import io.github.toberocat.core.factions.relation.RelationManager;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
-import io.github.toberocat.core.utility.claim.Claim;
 import io.github.toberocat.core.utility.claim.ClaimManager;
+import io.github.toberocat.core.utility.claim.WorldClaims;
 import io.github.toberocat.core.utility.color.FactionColors;
+import io.github.toberocat.core.utility.config.ConfigManager;
 import io.github.toberocat.core.utility.config.DataManager;
 import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.events.faction.*;
@@ -26,17 +27,23 @@ import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.language.Parseable;
 import io.github.toberocat.core.utility.messages.MessageSystem;
 import io.github.toberocat.core.utility.settings.type.EnumSetting;
+import io.github.toberocat.core.utility.sql.MySql;
+import io.github.toberocat.core.utility.sql.MySqlData;
+import io.github.toberocat.core.utility.sql.SqlCode;
+import io.github.toberocat.core.utility.sql.SqlHandler;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.sql.SQLException;
 import java.util.*;
 import java.util.logging.Level;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class Faction {
+public class Faction implements MySqlData<Faction> {
 
     private static final Map<String, Faction> LOADED_FACTIONS = new HashMap<>();
     private PowerManager powerManager;
@@ -147,7 +154,7 @@ public class Faction {
 
             AsyncTask.runLaterSync(0, () -> {
                 Bukkit.getPluginManager().callEvent(new FactionLoadEvent(faction));
-                DataAccess.addFile("Factions", key, faction);
+                DataAccess.write("Factions", key, faction);
                 Faction.getLoadedFactions().put(key, faction);
             });
         }
@@ -263,7 +270,7 @@ public class Faction {
         Faction newFaction = new Faction(displayName, registryName, owner.getUniqueId(), OpenType.PUBLIC);
         boolean canCreate = Utility.callEvent(new FactionCreateEvent(newFaction, owner));
         if (!canCreate) {
-            DataAccess.removeFile("Factions", registryName);
+            DataAccess.delete("Factions", registryName);
 
             return new Result<Faction>(false).setMessages("EVENT_CANCEL",
                     "Couldn't create your faction");
@@ -281,7 +288,7 @@ public class Faction {
 
         AsyncTask.runLaterSync(0, () -> {
             Bukkit.getPluginManager().callEvent(new FactionLoadEvent(newFaction));
-            DataAccess.addFile("Factions", registryName, newFaction);
+            DataAccess.write("Factions", registryName, newFaction);
         });
         return result.setPaired(newFaction);
     }
@@ -420,7 +427,7 @@ public class Faction {
      *
      * @return A Result object.
      */
-    public Result delete() {
+    public Result<?> delete() {
         if (frozen) return Result.failure("FROZEN", "This faction is frozen. You can't kick");
         AsyncTask.run(() -> {
             boolean canDelete = Utility.callEvent(new FactionDeleteEvent(this));
@@ -433,7 +440,7 @@ public class Faction {
 
             ClaimManager manager = MainIF.getIF().getClaimManager();
 
-            Map<String, ArrayList<Claim>> claims = manager.CLAIMS;
+            Map<String, WorldClaims> claims = manager.CLAIMS;
             LinkedList<Chunk> rmProtection = new LinkedList<>();
 
             claims.entrySet().stream()
@@ -452,7 +459,7 @@ public class Faction {
             rmProtection.clear();
 
             LOADED_FACTIONS.remove(registryName);
-            DataAccess.removeFile("Factions", registryName);
+            DataAccess.delete("Factions", registryName);
         });
         return Result.success();
     }
@@ -625,6 +632,45 @@ public class Faction {
             return color.getColor();
         }
         return FactionColors.RED.getColor();
+    }
+
+    /**
+     * Save the faction to the mysql database
+     */
+    @Override
+    public boolean save(@NotNull MySql sql) {
+        if (!sql.isConnected()) return logSaveError(null);
+
+        SqlHandler handler = sql.getHandler();
+        int maxNameLen = ConfigManager.getValue("faction.maxNameLen", 10);
+        SqlCode.execute(sql, SqlCode.CREATE_FACTION_TABLE,
+                maxNameLen,
+                maxNameLen,
+                ConfigManager.getValue("maxTagLen", 3))
+                .get(ignored -> {})
+                .except(this::logSaveError);
+
+        sql.evalTry("INSERT INTO factions")
+                .get(ignored -> {})
+                .except(this::logSaveError);
+
+        return true;
+    }
+
+    private boolean logSaveError(Exception e) {
+        if (e == null) MainIF.logMessage(Level.SEVERE, "Tried to save faction " +
+                registryName + " to sql, but sql seams like it isn't connected");
+        else {
+            MainIF.logMessage(Level.SEVERE, "Tried to save faction " +
+                    registryName + " to sql. Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public Faction read(@NotNull MySql sql) {
+        return null;
     }
 
     public enum OpenType {PUBLIC, INVITE_ONLY, CLOSED}

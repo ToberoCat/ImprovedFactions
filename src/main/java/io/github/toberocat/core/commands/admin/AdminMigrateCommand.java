@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public class AdminMigrateCommand extends SubCommand {
     public AdminMigrateCommand() {
-        super("migrate", "admin.migrate", "command.admin.migrate.discription", false);
+        super("migrate", "admin.migrate", "command.admin.migrate.description", false);
     }
 
 

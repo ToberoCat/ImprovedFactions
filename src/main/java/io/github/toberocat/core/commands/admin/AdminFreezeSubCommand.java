@@ -13,7 +13,7 @@ import java.util.List;
 
 public class AdminFreezeSubCommand extends SubCommand {
     public AdminFreezeSubCommand() {
-        super("freeze", "admin.freeze", "command.admin.freeze.discription", false);
+        super("freeze", "admin.freeze", "command.admin.freeze.description", false);
     }
 
     @Override

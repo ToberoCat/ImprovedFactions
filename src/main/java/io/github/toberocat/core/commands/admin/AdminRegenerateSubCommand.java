@@ -20,7 +20,7 @@ import java.util.List;
 
 public class AdminRegenerateSubCommand extends SubCommand {
     public AdminRegenerateSubCommand() {
-        super("regenerate", "admin.regenerate", "command.admin.regenerate.discription", false);
+        super("regenerate", "admin.regenerate", "command.admin.regenerate.description", false);
     }
 
     @Override

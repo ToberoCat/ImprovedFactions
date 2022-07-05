@@ -1,7 +1,6 @@
 package io.github.toberocat.core.utility.settings;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.utility.Result;
@@ -9,19 +8,21 @@ import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.events.ConfigSaveEvent;
-import io.github.toberocat.core.utility.gitreport.GitReport;
 import io.github.toberocat.core.utility.jackson.JsonUtility;
 import io.github.toberocat.core.utility.settings.type.*;
+import io.github.toberocat.core.utility.sql.MySql;
+import io.github.toberocat.core.utility.sql.MySqlData;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class PlayerSettings {
+public class PlayerSettings implements MySqlData<PlayerSettings> {
 
     @JsonIgnore
     public static final Map<String, Setting> DEFAULT_SETTINGS = new HashMap<>();
@@ -61,7 +62,7 @@ public class PlayerSettings {
         PlayerSettings settings = null;
         if (DataAccess.exists("Players", joinedPlayer.toString())) {
             try {
-                settings = DataAccess.getFileExceptions("Players", joinedPlayer.toString(), PlayerSettings.class);
+                settings = DataAccess.getWithExceptions("Players", joinedPlayer.toString(), PlayerSettings.class);
             } catch (IOException ignored) {}
 
             if (settings == null || settings.playerSettings == null) {
@@ -80,7 +81,7 @@ public class PlayerSettings {
 
     public static void PlayerLeave(UUID leftPlayer) {
         AsyncTask.run(() -> {
-            DataAccess.addFile("Players", leftPlayer.toString(), SETTINGS.get(leftPlayer));
+            DataAccess.write("Players", leftPlayer.toString(), SETTINGS.get(leftPlayer));
             Debugger.log("Saved " + Bukkit.getOfflinePlayer(leftPlayer).getName()
                     + "'s player settings");
             SETTINGS.remove(leftPlayer);
@@ -125,7 +126,7 @@ public class PlayerSettings {
             @Override
             public Result SaveDataAccess() {
                 for (UUID player : SETTINGS.keySet()) {
-                    if (!DataAccess.addFile("Players", player.toString(), SETTINGS.get(player)))
+                    if (!DataAccess.write("Players", player.toString(), SETTINGS.get(player)))
                         return new Result<String>(false)
                                 .setPaired(JsonUtility.saveObject(player.toString()))
                                 .setMachineMessage("Players/" + player + ".json");
@@ -177,6 +178,16 @@ public class PlayerSettings {
     public PlayerSettings setName(String name) {
         this.name = name;
         return this;
+    }
+
+    @Override
+    public boolean save(@NotNull MySql sql) {
+        return false;
+    }
+
+    @Override
+    public PlayerSettings read(@NotNull MySql sql) {
+        return null;
     }
 
     public enum TitlePosition implements SettingEnum {

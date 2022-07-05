@@ -566,20 +566,22 @@ public final class MainIF extends JavaPlugin {
         String sVersion = Bukkit.getBukkitVersion();
         NMSInterface nms = null;
 
-        if (sVersion.contains("1.18")) {
-            nms = NMSFactory.create_1_18();
-        } else if (sVersion.contains("1.17")) {
-            nms = NMSFactory.create_1_17();
+        if (sVersion.contains("1.13")) {
+            nms = NMSFactory.create_1_13();
+        } else if (sVersion.contains("1.14")) {
+            nms = NMSFactory.create_1_14();
+        } else if (sVersion.contains("1.15")) {
+            nms = NMSFactory.create_1_15();
         } else if (sVersion.contains("1.16")) {
             nms = NMSFactory.create_1_16();
+        } else if (sVersion.contains("1.17")) {
+            nms = NMSFactory.create_1_17();
+        } else if (sVersion.contains("1.18")) {
+            nms = NMSFactory.create_1_18();
         } else if (sVersion.contains("1.19")) {
             nms = NMSFactory.create_1_19();
         } else {
             logMessage(Level.WARNING, "&aUsing a none tested version");
-            // saveShutdown("§cCouldn't load ImprovedFactions &6" + VERSION +
-            //        "&c. The plugin didn't find a version for your server. Your server version: &6"
-            //        + sVersion + "&c. Available versions: &6" + Arrays.toString(NMSFactory.versions));
-            //getPluginManager().disablePlugin(this);
         }
 
         if (nms != null) nms.EnableInterface();

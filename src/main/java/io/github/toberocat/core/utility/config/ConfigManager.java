@@ -23,7 +23,6 @@ public record ConfigManager(MainIF plugin) {
         addToDefaultConfig("general.mapViewDistanceH", 4);
         addToDefaultConfig("general.sendCrashesToGithub", true);
         addToDefaultConfig("general.printStacktrace", true, Utility.createItem(Material.YELLOW_DYE, "&e&lPrint Stacktrace"));
-        addToDefaultConfig("general.commandDescriptions", true);
         addToDefaultConfig("general.useSQL", false, Material.COBWEB, "&b&lUse sql",
                 "&8Sql is a database", "&8I would recommend to use it", "&8when you have a lot players", "&8on your server", "", "&6&lPerformance: &cHeavy");
         addToDefaultConfig("general.colorConsole", true);
@@ -33,6 +32,11 @@ public record ConfigManager(MainIF plugin) {
                 "FactionsWontWorkHere"
         });
         addToDefaultConfig("general.limit-chunks-to-power", false);
+
+        addToDefaultConfig("sql.host", "localhost");
+        addToDefaultConfig("sql.port", 3306);
+        addToDefaultConfig("sql.user", "root");
+        addToDefaultConfig("sql.password", "1234");
 
         addToDefaultConfig("gui.maxCps", 5);
         addToDefaultConfig("gui.closeGuiCps", 10);

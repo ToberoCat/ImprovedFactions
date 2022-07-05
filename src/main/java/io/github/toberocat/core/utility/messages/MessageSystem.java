@@ -3,14 +3,13 @@ package io.github.toberocat.core.utility.messages;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.dynamic.loaders.PlayerJoinLoader;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
+// ToDo: Make message system useful
 public class MessageSystem extends PlayerJoinLoader {
 
     private static HashMap<UUID, ArrayList<String>> MESSAGES;
@@ -44,7 +43,7 @@ public class MessageSystem extends PlayerJoinLoader {
                 }
                 MESSAGES.remove(uuid);
             } else if (DataAccess.exists("Messages", uuid.toString())) {
-                ArrayList<String> messages = DataAccess.getFile("Messages", uuid.toString(), ArrayList.class);
+                //ArrayList<String> messages = DataAccess.get("Messages", uuid.toString(), ArrayList.class);
                 for (String message : MESSAGES.get(uuid)) {
                     player.sendMessage(message);
                 }
@@ -57,7 +56,7 @@ public class MessageSystem extends PlayerJoinLoader {
     protected void unloadPlayer(Player player) {
         UUID uuid = player.getUniqueId();
         if (MESSAGES.containsKey(uuid)) {
-            DataAccess.addFile("Messages", uuid.toString(), MESSAGES.get(uuid));
+            //DataAccess.write("Messages", uuid.toString(), MESSAGES.get(uuid));
             MESSAGES.remove(uuid);
         }
     }
@@ -66,7 +65,7 @@ public class MessageSystem extends PlayerJoinLoader {
     protected void Disable() {
         super.Disable();
         for (UUID uuid : MESSAGES.keySet()) {
-            DataAccess.addFile("Messages", uuid.toString(), MESSAGES.get(uuid));
+            //DataAccess.write("Messages", uuid.toString(), MESSAGES.get(uuid));
         }
         MESSAGES.clear();
     }

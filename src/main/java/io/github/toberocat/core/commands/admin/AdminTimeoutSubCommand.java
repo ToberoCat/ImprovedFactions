@@ -16,7 +16,7 @@ import java.util.List;
 
 public class AdminTimeoutSubCommand extends SubCommand {
     public AdminTimeoutSubCommand() {
-        super("timeout", "admin.timeout", "command.admin.timeout.discription", false);
+        super("timeout", "admin.timeout", "command.admin.timeout.description", false);
     }
 
     @Override

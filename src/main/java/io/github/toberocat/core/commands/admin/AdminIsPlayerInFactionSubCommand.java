@@ -13,7 +13,7 @@ import java.util.List;
 
 public class AdminIsPlayerInFactionSubCommand extends SubCommand {
     public AdminIsPlayerInFactionSubCommand() {
-        super("isinfaction", "admin.isinfaction", "command.admin.if-player-faction.discription", false);
+        super("isinfaction", "admin.isinfaction", "command.admin.if-player-faction.description", false);
     }
 
 

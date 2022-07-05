@@ -13,7 +13,7 @@ import java.util.List;
 
 public class AdminPermanentSubCommand extends SubCommand {
     public AdminPermanentSubCommand() {
-        super("permanent", "admin.permanent", "command.admin.permanent.discription", false);
+        super("permanent", "admin.permanent", "command.admin.permanent.description", false);
     }
 
     @Override
