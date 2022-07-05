@@ -13,8 +13,10 @@ public class SqlCode {
 
     public static final String CREATE_LAYOUT = readFileSql("sql/create_table_layout.sql");
 
-    public static final String CREATE_FACTION = readFileSql("sql/faction/create/create_faction.sql");
-    public static final String CREATE_DESCRIPTION = readFileSql("sql/faction/create/create_descriptions.sql");
+    public static final String CREATE_FACTION = readFileSql("sql/create/create_faction.sql");
+    public static final String CREATE_DESCRIPTION = readFileSql("sql/create/create_descriptions.sql");
+
+    public static final String UPDATE_FACTION = readFileSql("sql/update/update_faction.sql");
 
     public static TryRunnable<PreparedStatement> execute(@NotNull final MySql sql, @NotNull String code, final Parseable... placeholders) {
         // Replace all placeholders

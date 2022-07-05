@@ -32,10 +32,14 @@ public abstract class TryRunnable<T> implements Runnable {
         return result;
     }
 
-    public TryRunnable<T> get(Consumer<T> r) {
+    public TryRunnable<T> get(ExceptConsumer<T> r) {
         AsyncTask.runLater(0, () -> {
             run();
-            r.accept(result);
+            try {
+                r.run(result);
+            } catch (Exception e) {
+                c.accept(e);
+            }
         });
 
         return this;

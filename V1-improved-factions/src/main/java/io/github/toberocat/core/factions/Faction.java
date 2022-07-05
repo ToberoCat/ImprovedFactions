@@ -36,6 +36,7 @@ import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.sql.PreparedStatement;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -636,36 +637,7 @@ public class Faction implements MySqlData<Faction> {
      */
     @Override
     public boolean save(@NotNull MySql sql) {
-        if (!sql.isConnected()) return logSaveError(null);
-
-        // Write faction directly
-        SqlCode.execute(sql, SqlCode.CREATE_FACTION,
-                new Parseable("@registry", registryName),
-                new Parseable("@display", displayName),
-                new Parseable("@motd", motd),
-                new Parseable("@tag", tag),
-                new Parseable("@frozen", frozen),
-                new Parseable("@permanent", permanent),
-                new Parseable("@created-at", createdAt),
-                new Parseable("@owner", owner.toString()),
-                new Parseable("@claimed_chunks", claimedChunks),
-                new Parseable("@balance", getBalance()),
-                new Parseable("@current_power", powerManager.getCurrentPower()),
-                new Parseable("@max_power", powerManager.getMaxPower())
-        );
-
-        return true;
-    }
-
-    private boolean logSaveError(Exception e) {
-        if (e == null) MainIF.logMessage(Level.SEVERE, "Tried to save faction " +
-                registryName + " to sql, but sql seams like it isn't connected");
-        else {
-            MainIF.logMessage(Level.SEVERE, "Tried to save faction " +
-                    registryName + " to sql. Error: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return false;
+        return new FactionDatabaseHandler(sql, this).save();
     }
 
     @Override

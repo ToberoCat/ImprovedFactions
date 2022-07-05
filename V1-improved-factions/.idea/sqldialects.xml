@@ -4,5 +4,6 @@
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/create_table_layout.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/faction/create/create_descriptions.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/faction/create/create_faction.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/faction/update/update_faction.sql" dialect="GenericSQL" />
   </component>
 </project>

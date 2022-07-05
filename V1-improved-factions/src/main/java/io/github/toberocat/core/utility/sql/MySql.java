@@ -33,8 +33,7 @@ public class MySql {
         SqlCode.execute(this, SqlCode.CREATE_LAYOUT,
                         new Parseable("@max_len", ConfigManager.getValue("faction.maxNameLen", 10)),
                         new Parseable("@max_tag", ConfigManager.getValue("maxTagLen", 3)))
-                .get(ignored -> {
-                })
+                .get(PreparedStatement::executeUpdate)
                 .except(Throwable::printStackTrace);
     }
 
