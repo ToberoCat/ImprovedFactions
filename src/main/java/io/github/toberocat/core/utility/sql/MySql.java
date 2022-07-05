@@ -1,6 +1,8 @@
 package io.github.toberocat.core.utility.sql;
 
 import io.github.toberocat.core.utility.callbacks.TryRunnable;
+import io.github.toberocat.core.utility.config.ConfigManager;
+import io.github.toberocat.core.utility.language.Parseable;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
@@ -12,14 +14,11 @@ public class MySql {
     private final String database;
     private final String address;
 
-    private final SqlHandler handler;
-
     private Connection connection;
 
     public MySql(@NotNull String host, int port, @NotNull String database) {
         this.database = database;
         this.address = host + ":" + port;
-        this.handler = new SqlHandler(this);
     }
 
     public boolean isConnected() {
@@ -31,7 +30,12 @@ public class MySql {
 
         connection = DriverManager.getConnection("jdbc:mysql://" + address + "/"
                 + database + "?useSSL=false", user, password);
-        handler.createSchema(database);
+        SqlCode.execute(this, SqlCode.CREATE_LAYOUT,
+                        new Parseable("@max_len", ConfigManager.getValue("faction.maxNameLen", 10)),
+                        new Parseable("@max_tag", ConfigManager.getValue("maxTagLen", 3)))
+                .get(ignored -> {
+                })
+                .except(Throwable::printStackTrace);
     }
 
     public void disconnect() throws SQLException {
@@ -54,9 +58,5 @@ public class MySql {
                 return connection.prepareStatement(String.format(sql, args));
             }
         };
-    }
-
-    public SqlHandler getHandler() {
-        return handler;
     }
 }

@@ -19,6 +19,40 @@ public class Parseable {
         this.to = to;
     }
 
+    /**
+     * Create a new parseable
+     *
+     * @param parse The string sequence that needs to be replaced
+     * @param to    The sequence the old should be replaced with
+     */
+    public Parseable(String parse, int to) {
+        this.parse = parse;
+        this.to = String.valueOf(to);
+    }
+
+    /**
+     * Create a new parseable
+     *
+     * @param parse The string sequence that needs to be replaced
+     * @param to    The sequence the old should be replaced with
+     */
+    public Parseable(String parse, double to) {
+        this.parse = parse;
+        this.to = String.valueOf(to);
+    }
+
+    /**
+     * Create a new parseable
+     *
+     * @param parse The string sequence that needs to be replaced
+     * @param to    The sequence the old should be replaced with
+     */
+    public Parseable(String parse, boolean to) {
+        this.parse = parse;
+        this.to = String.valueOf(to);
+    }
+
+
     public String getParse() {
         return parse;
     }

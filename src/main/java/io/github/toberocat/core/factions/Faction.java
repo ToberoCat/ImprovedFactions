@@ -19,7 +19,6 @@ import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.claim.WorldClaims;
 import io.github.toberocat.core.utility.color.FactionColors;
-import io.github.toberocat.core.utility.config.ConfigManager;
 import io.github.toberocat.core.utility.config.DataManager;
 import io.github.toberocat.core.utility.data.DataAccess;
 import io.github.toberocat.core.utility.events.faction.*;
@@ -30,7 +29,6 @@ import io.github.toberocat.core.utility.settings.type.EnumSetting;
 import io.github.toberocat.core.utility.sql.MySql;
 import io.github.toberocat.core.utility.sql.MySqlData;
 import io.github.toberocat.core.utility.sql.SqlCode;
-import io.github.toberocat.core.utility.sql.SqlHandler;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -38,7 +36,6 @@ import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.sql.SQLException;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -84,7 +81,7 @@ public class Faction implements MySqlData<Faction> {
         this.tag = "IFF";
         this.claimedChunks = 0;
         this.owner = owner;
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss");
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
         this.createdAt = fmt.print(new LocalDateTime());
     }
 
@@ -595,7 +592,7 @@ public class Faction implements MySqlData<Faction> {
     }
 
     public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+        this.createdAt = createdAt.replace('T', ' ');
     }
 
     @JsonIgnore
@@ -641,18 +638,21 @@ public class Faction implements MySqlData<Faction> {
     public boolean save(@NotNull MySql sql) {
         if (!sql.isConnected()) return logSaveError(null);
 
-        SqlHandler handler = sql.getHandler();
-        int maxNameLen = ConfigManager.getValue("faction.maxNameLen", 10);
-        SqlCode.execute(sql, SqlCode.CREATE_FACTION_TABLE,
-                maxNameLen,
-                maxNameLen,
-                ConfigManager.getValue("maxTagLen", 3))
-                .get(ignored -> {})
-                .except(this::logSaveError);
-
-        sql.evalTry("INSERT INTO factions")
-                .get(ignored -> {})
-                .except(this::logSaveError);
+        // Write faction directly
+        SqlCode.execute(sql, SqlCode.CREATE_FACTION,
+                new Parseable("@registry", registryName),
+                new Parseable("@display", displayName),
+                new Parseable("@motd", motd),
+                new Parseable("@tag", tag),
+                new Parseable("@frozen", frozen),
+                new Parseable("@permanent", permanent),
+                new Parseable("@created-at", createdAt),
+                new Parseable("@owner", owner.toString()),
+                new Parseable("@claimed_chunks", claimedChunks),
+                new Parseable("@balance", getBalance()),
+                new Parseable("@current_power", powerManager.getCurrentPower()),
+                new Parseable("@max_power", powerManager.getMaxPower())
+        );
 
         return true;
     }
