@@ -36,7 +36,7 @@ public class AdminFreezeSubCommand extends SubCommand {
 
     @Override
     protected List<String> CommandTab(Player player, String[] args) {
-        List<String> ar = Arrays.asList(DataAccess.listFiles("Factions"));
+        List<String> ar = Arrays.asList(DataAccess.listFilesFolder("Factions"));
         ar.addAll(Faction.getLoadedFactions().values().stream().map(Faction::getRegistryName).toList());
 
         return ar;

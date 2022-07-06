@@ -36,6 +36,6 @@ public class AdminPermanentSubCommand extends SubCommand {
 
     @Override
     protected List<String> CommandTab(Player player, String[] args) {
-        return Arrays.asList(DataAccess.listFiles("Factions"));
+        return Arrays.asList(DataAccess.listFilesFolder("Factions"));
     }
 }

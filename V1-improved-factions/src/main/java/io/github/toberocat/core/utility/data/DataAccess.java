@@ -1,7 +1,5 @@
 package io.github.toberocat.core.utility.data;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.Files;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.utility.Utility;
@@ -10,9 +8,11 @@ import io.github.toberocat.core.utility.config.ConfigManager;
 import io.github.toberocat.core.utility.jackson.JsonUtility;
 import io.github.toberocat.core.utility.sql.MySql;
 import io.github.toberocat.core.utility.sql.MySqlData;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -55,55 +55,65 @@ public class DataAccess {
         return true;
     }
 
-    public static AsyncTask<?> create(String table) {
-        if (sql != null) {
-            //ToDo: Add the method for creating tables in mySQL
-            return null;
+    public static AsyncTask<?> create(String folder) {
+        if (sql != null) return AsyncTask.run(() -> {
+        });
+        return AsyncTask.run(() -> {
+            String defPath = MainIF.getIF().getDataFolder().getPath() + "/";
+            Utility.mkdir(defPath + "Data/" + folder);
+        });
+    }
+
+    public static void reset() {
+        if (sql == null) {
+            DataAccess.clearFolder("Factions");
+            DataAccess.clearFolder("Chunks");
+            DataAccess.clearFolder("History");
+            DataAccess.clearFolder("Players");
         } else {
-            return AsyncTask.run(() -> {
-                String defPath = MainIF.getIF().getDataFolder().getPath() + "/";
-                Utility.mkdir(defPath + "Data/" + table);
-            });
+            clearTable("faction_bans");
+            clearTable("faction_descriptions");
+            clearTable("faction_relations");
+            clearTable("faction_settings");
+            clearTable("factions");
+            clearTable("players");
         }
     }
 
-    public static String getRaw(String folder, String filename) {
-        if (sql != null) {
-            //ToDo: Add the method for storing the file in mySQL
-            return "";
-        } else {
-            String filePath = MainIF.getIF().getDataFolder().getPath() + "/Data/" + folder + "/" + filename;
-            File file = new File(filePath);
+    public static void clearFolder(String folder) {
+        if (sql != null) return;
+        File dat = new File(
+                MainIF.getIF().getDataFolder().getPath() + "/Data/" + folder);
 
+        File[] listed = dat.listFiles();
+        if (listed == null) return;
+
+        for (File file : listed) {
+            file.delete();
+        }
+    }
+
+    public static void clearTable(@NotNull String table) {
+        if (sql == null || !sql.isConnected()) return;
+
+        try {
+            sql.eval("TRUNCATE %s", table);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static <T extends MySqlData<T>> T get(@NotNull String folder,
+                                                 @NotNull String filename,
+                                                 @NotNull Class<T> clazz) {
+        if (sql != null) {
             try {
-                return Files.asCharSource(file, Charsets.UTF_8).read();
-            } catch (IOException e) {
-                Utility.except(e);
-                return null;
+                T t = clazz.getConstructor().newInstance();
+                return t.read(sql);
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                e.printStackTrace();
             }
-        }
-    }
-
-    public static void clear(String folder) {
-        if (sql != null) {
-            //ToDo: Add the method for clearing the file in mySQL
-        } else {
-            File dat = new File(
-                    MainIF.getIF().getDataFolder().getPath() + "/Data/" + folder);
-
-            File[] listed = dat.listFiles();
-            if (listed == null) return;
-
-            for (File file : listed) {
-                file.delete();
-            }
-        }
-    }
-
-    public static <T extends MySqlData<T>> T get(String folder, String filename, Class<T> clazz) {
-        if (sql != null) {
-            //ToDo: Add the method for storing the file in mySQL
-            return null;
         } else {
             String filePath = MainIF.getIF().getDataFolder().getPath() + "/Data/" + folder + "/" + filename + ".json";
             File file = new File(filePath);
@@ -113,15 +123,17 @@ public class DataAccess {
                 return JsonUtility.readObject(file, clazz);
             } catch (IOException e) {
                 e.printStackTrace();
-                return null;
             }
         }
+        return null;
     }
 
-    public static <T extends MySqlData<T>> T getWithExceptions(String folder, String filename, Class<T> clazz) throws IOException {
+    public static <T extends MySqlData<T>> T getWithExceptions(@NotNull String folder,
+                                                               @NotNull String filename,
+                                                               @NotNull Class<T> clazz) throws IOException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         if (sql != null) {
-            //ToDo: Add the method for storing the file in mySQL
-            return null;
+            T t = clazz.getConstructor().newInstance();
+            return t.read(sql);
         } else {
             String filePath = MainIF.getIF().getDataFolder().getPath() + "/Data/" + folder + "/" + filename + ".json";
             File file = new File(filePath);
@@ -132,19 +144,18 @@ public class DataAccess {
     }
 
     public static void disable() {
-        if (sql != null) {
-            try {
-                sql.disconnect();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        if (sql == null) return;
+
+        try {
+            sql.disconnect();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
     public static <T extends MySqlData<T>> boolean write(String folder, String filename, T object) {
         if (sql != null) {
-            //ToDo: Add the method for storing the file in mySQL
-            return true;
+            return object.save(sql);
         } else {
             String filePath = MainIF.getIF().getDataFolder().getPath() + "/Data/" + folder + "/" + filename + ".json";
             File file = new File(filePath);
@@ -153,10 +164,11 @@ public class DataAccess {
         }
     }
 
-    public static boolean delete(String folder, String filename) {
+    public static <T extends MySqlData<T>> boolean delete(@NotNull String folder,
+                                                          @NotNull String filename,
+                                                          T object) {
         if (sql != null) {
-            //ToDo: Remove file in table
-            return true;
+            return object.delete(sql);
         } else {
             String filePath = MainIF.getIF().getDataFolder().getPath() + "/Data/" + folder + "/" + filename + ".json";
             File file = new File(filePath);
@@ -167,7 +179,7 @@ public class DataAccess {
     /**
      * Raw file names. No .json removing
      */
-    public static String[] listRaw(String folder) {
+    public static String[] listRawFolder(String folder) {
         if (sql != null) {
             // ToDO: Add method for sql table listing
             return new String[]{""};
@@ -185,7 +197,7 @@ public class DataAccess {
     /**
      * Raw file names. .json got removed
      */
-    public static String[] listFiles(String folder) {
+    public static String[] listFilesFolder(String folder) {
         if (sql != null) {
             // ToDO: Add method for sql table listing
             return new String[0];
@@ -200,7 +212,7 @@ public class DataAccess {
         }
     }
 
-    public static boolean exists(String folder, String filename) {
+    public static boolean existsFolder(@NotNull String folder, @NotNull String filename) {
         if (sql != null) {
             return false;
         } else {
@@ -212,5 +224,13 @@ public class DataAccess {
 
             return file.exists();
         }
+    }
+
+    public static boolean isSql() {
+        return sql != null && sql.isConnected();
+    }
+
+    public static MySql getSql() {
+        return sql;
     }
 }

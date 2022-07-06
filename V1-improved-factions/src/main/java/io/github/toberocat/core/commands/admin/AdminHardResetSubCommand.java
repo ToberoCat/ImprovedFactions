@@ -38,10 +38,7 @@ public class AdminHardResetSubCommand extends SubCommand {
                 });
             });
 
-            DataAccess.clear("Factions");
-            DataAccess.clear("Chunks");
-            DataAccess.clear("History");
-            DataAccess.clear("Players");
+            DataAccess.reset();
 
             String path = MainIF.getIF().getDataFolder().getPath() + "/";
             new File(path + "config.yml").delete();

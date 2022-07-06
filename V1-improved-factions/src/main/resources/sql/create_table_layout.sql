@@ -27,11 +27,10 @@ CREATE TABLE IF NOT EXISTS factions
 -- Create faction description table
 create table faction_descriptions
 (
-    id          int auto_increment,
     registry_id VARCHAR(@max_len) not null,
+    line          int               not null,
     content     TEXT              not null,
-    constraint faction_descriptions
-        primary key (id)
+    PRIMARY KEY (registry_id, line)
 );
 
 -- Create faction bans
@@ -71,4 +70,14 @@ CREATE TABLE IF NOT EXISTS players
     member_rank TEXT              NOT NULL,
     CONSTRAINT players_pk
         PRIMARY KEY (uuid)
+);
+
+-- Create player settings
+create table IF NOT EXISTS player_settings
+(
+    uuid CHAR(36) not null,
+    setting TEXT not null,
+    value TEXT not null,
+    constraint player_settings_pk
+        primary key (uuid)
 );

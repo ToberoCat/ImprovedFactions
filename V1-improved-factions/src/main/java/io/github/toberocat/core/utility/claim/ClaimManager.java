@@ -37,7 +37,7 @@ public class ClaimManager extends DynamicLoader<Player, Player> {
     public ClaimManager() {
         CLAIMS = new HashMap<>();
 
-        for (String world : DataAccess.listFiles("Chunks")) {
+        for (String world : DataAccess.listFilesFolder("Chunks")) {
             WorldClaims claims = DataAccess.get("Chunks", world, WorldClaims.class);
             if (claims == null) continue;
 

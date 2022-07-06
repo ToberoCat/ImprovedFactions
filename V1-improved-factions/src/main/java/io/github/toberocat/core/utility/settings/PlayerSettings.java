@@ -18,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -27,26 +28,26 @@ public class PlayerSettings implements MySqlData<PlayerSettings> {
     @JsonIgnore
     public static final Map<String, Setting> DEFAULT_SETTINGS = new HashMap<>();
     @JsonIgnore
-    private static final Map<UUID, PlayerSettings> SETTINGS = new HashMap();
+    protected static final Map<UUID, PlayerSettings> SETTINGS = new HashMap();
     private UUID playerUUID;
     private String name;
     private Map<String, Setting> playerSettings;
     public PlayerSettings() {
     }
 
-    private PlayerSettings(UUID playerUUID, String name) {
+    protected PlayerSettings(UUID playerUUID, String name) {
         this.playerUUID = playerUUID;
         this.name = name;
         this.playerSettings = new HashMap<>(DEFAULT_SETTINGS);
     }
 
-    private PlayerSettings(UUID playerUUID) {
+    protected PlayerSettings(UUID playerUUID) {
         this.playerUUID = playerUUID;
         this.name = Bukkit.getOfflinePlayer(playerUUID).getName();
         this.playerSettings = new HashMap<>(DEFAULT_SETTINGS);
     }
 
-    private PlayerSettings(String name) {
+    protected PlayerSettings(String name) {
         this.playerUUID = Bukkit.getOfflinePlayer(name).getUniqueId();
         this.name = name;
         this.playerSettings = new HashMap<>(DEFAULT_SETTINGS);
@@ -58,26 +59,12 @@ public class PlayerSettings implements MySqlData<PlayerSettings> {
         return SETTINGS.get(uuid);
     }
 
-    public static void loadPlayer(final UUID joinedPlayer) {
-        PlayerSettings settings = null;
-        if (DataAccess.exists("Players", joinedPlayer.toString())) {
-            try {
-                settings = DataAccess.getWithExceptions("Players", joinedPlayer.toString(), PlayerSettings.class);
-            } catch (IOException ignored) {}
-
-            if (settings == null || settings.playerSettings == null) {
-                Debugger.log("Couldn't load player settings. The old settings got overwritten");
-                settings = new PlayerSettings(joinedPlayer);
-            } else {
-                Debugger.log("Loaded player settings for " + Bukkit.getOfflinePlayer(joinedPlayer).getName());
-                Setting.populateSettings(DEFAULT_SETTINGS, settings.playerSettings);
-            }
-        } else {
-            Debugger.log("Generating new player settings for " + Bukkit.getOfflinePlayer(joinedPlayer).getName());
-            settings = new PlayerSettings(joinedPlayer);
-        }
+    public static void loadPlayer(@NotNull final UUID joinedPlayer) {
+        PlayerSettings settings = new PlayerSettingDatabaseHandler(DataAccess.getSql(),
+                joinedPlayer).createSettings();
         SETTINGS.put(joinedPlayer, settings);
     }
+
 
     public static void PlayerLeave(UUID leftPlayer) {
         AsyncTask.run(() -> {
@@ -182,6 +169,11 @@ public class PlayerSettings implements MySqlData<PlayerSettings> {
 
     @Override
     public boolean save(@NotNull MySql sql) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(@NotNull MySql sql) {
         return false;
     }
 

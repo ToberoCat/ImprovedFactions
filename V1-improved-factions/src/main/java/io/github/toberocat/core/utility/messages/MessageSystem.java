@@ -42,7 +42,7 @@ public class MessageSystem extends PlayerJoinLoader {
                     player.sendMessage(message);
                 }
                 MESSAGES.remove(uuid);
-            } else if (DataAccess.exists("Messages", uuid.toString())) {
+            } else if (DataAccess.existsFolder("Messages", uuid.toString())) {
                 //ArrayList<String> messages = DataAccess.get("Messages", uuid.toString(), ArrayList.class);
                 for (String message : MESSAGES.get(uuid)) {
                     player.sendMessage(message);

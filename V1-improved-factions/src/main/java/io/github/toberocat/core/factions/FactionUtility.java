@@ -11,7 +11,6 @@ import io.github.toberocat.core.utility.events.faction.FactionLoadEvent;
 import io.github.toberocat.core.utility.events.faction.member.FactionMemberOfflineEvent;
 import io.github.toberocat.core.utility.events.faction.member.FactionMemberOnlineEvent;
 import io.github.toberocat.core.utility.exceptions.FactionNotFoundException;
-import io.github.toberocat.core.utility.sql.MySqlData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -131,16 +130,16 @@ public class FactionUtility extends PlayerJoinLoader {
      * @return True if a file with the registryName exists in ImprovedFactions/Data/Factions
      */
     public static boolean doesFactionExist(String registry) {
-        return Arrays.asList(DataAccess.listRaw("Factions")).contains(registry + ".json");
+        return Arrays.asList(DataAccess.listRawFolder("Factions")).contains(registry + ".json");
     }
 
 
     public static List<String> getAllFactions() {
-        return Arrays.stream(DataAccess.listRaw("Factions")).map(registry -> registry.split("\\.")[0]).toList();
+        return Arrays.stream(DataAccess.listRawFolder("Factions")).map(registry -> registry.split("\\.")[0]).toList();
     }
 
     public static Stream<String> getAllFactionsStream() {
-        return Arrays.stream(DataAccess.listRaw("Factions")).map(x -> x.split("\\.")[0]);
+        return Arrays.stream(DataAccess.listRawFolder("Factions")).map(x -> x.split("\\.")[0]);
     }
 
     public static boolean isFactionLoaded(String registryName) {

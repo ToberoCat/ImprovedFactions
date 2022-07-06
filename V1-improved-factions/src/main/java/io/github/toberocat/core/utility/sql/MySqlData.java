@@ -10,5 +10,8 @@ public interface MySqlData<T> {
      * @return If successfully saved
      */
     boolean save(@NotNull MySql sql);
+
+    boolean delete(@NotNull MySql sql);
+
     T read(@NotNull MySql sql);
 }

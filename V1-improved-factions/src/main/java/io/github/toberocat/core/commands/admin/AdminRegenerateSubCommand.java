@@ -2,7 +2,6 @@ package io.github.toberocat.core.commands.admin;
 
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
-import io.github.toberocat.core.factions.members.FactionMemberManager;
 import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -33,7 +32,7 @@ public class AdminRegenerateSubCommand extends SubCommand {
         Language.sendRawMessage("Started regeneration of the data. This will repair corrupted registries for the worlds", player);
 
         Language.sendRawMessage("Loading all factions", player);
-        for (String registry : DataAccess.listFiles("Factions")) {
+        for (String registry : DataAccess.listFilesFolder("Factions")) {
             FactionUtility.getFactionByRegistry(registry);
         }
 
