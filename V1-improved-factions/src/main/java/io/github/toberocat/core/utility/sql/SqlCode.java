@@ -1,7 +1,6 @@
 package io.github.toberocat.core.utility.sql;
 
 import io.github.toberocat.core.utility.callbacks.TryRunnable;
-import io.github.toberocat.core.utility.language.Parseable;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -13,7 +12,6 @@ public class SqlCode {
 
     public static final String CREATE_LAYOUT = readFileSql("sql/create_table_layout.sql");
 
-
     //<editor-fold desc="Factions">
     public static final String CREATE_FACTION = readFileSql("sql/create/faction.sql");
     public static final String UPDATE_FACTION = readFileSql("sql/update/faction.sql");
@@ -22,18 +20,27 @@ public class SqlCode {
 
     //<editor-fold desc="Description">
     public static final String ADD_DESCRIPTION = readFileSql("sql/create/description.sql");
-    public static final String UPDATE_DESCRIPTION = readFileSql("sql/update/description.sql");
     public static final String DELETE_DESCRIPTION = readFileSql("sql/delete/description.sql");
+    //</editor-fold>
 
+    //<editor-fold desc="Bans">
+    public static final String ADD_BANS = readFileSql("sql/create/bans.sql");
+    public static final String DELETE_BANS = readFileSql("sql/delete/bans.sql");
+    //</editor-fold>
+
+    //<editor-fold desc="Relations">
+    public static final String ADD_RELATION = readFileSql("sql/create/relations.sql");
+    public static final String DELETE_RELATION = readFileSql("sql/delete/relations.sql");
     //</editor-fold>
 
 
-    public static TryRunnable<PreparedStatement> execute(@NotNull final MySql sql, @NotNull String code, final Parseable... placeholders) {
+    public static TryRunnable<PreparedStatement> execute(@NotNull final MySql sql,
+                                                         @NotNull String code,
+                                                         final SqlVar<?>... vars) {
         // Replace all placeholders
-        if (placeholders != null) {
-            for (Parseable placeholder : placeholders)
-                code = code.replaceAll(placeholder.getParse(), placeholder.getTo());
-        }
+        if (vars != null) for (SqlVar<?> placeholder : vars)
+            code = code.replaceAll(placeholder.from(), placeholder.to());
+
 
         return sql.evalTry(code);
     }

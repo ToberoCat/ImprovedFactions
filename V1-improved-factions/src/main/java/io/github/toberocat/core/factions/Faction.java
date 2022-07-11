@@ -268,7 +268,7 @@ public class Faction implements MySqlData<Faction> {
         Faction newFaction = new Faction(displayName, registryName, owner.getUniqueId(), OpenType.PUBLIC);
         boolean canCreate = Utility.callEvent(new FactionCreateEvent(newFaction, owner));
         if (!canCreate) {
-            DataAccess.delete("Factions", registryName);
+            DataAccess.delete("Factions", registryName, newFaction);
 
             return new Result<Faction>(false).setMessages("EVENT_CANCEL",
                     "Couldn't create your faction");
@@ -457,7 +457,7 @@ public class Faction implements MySqlData<Faction> {
             rmProtection.clear();
 
             LOADED_FACTIONS.remove(registryName);
-            DataAccess.delete("Factions", registryName);
+            DataAccess.delete("Factions", registryName, this);
         });
         return Result.success();
     }
@@ -641,8 +641,13 @@ public class Faction implements MySqlData<Faction> {
     }
 
     @Override
+    public boolean delete(@NotNull MySql sql) {
+        return new FactionDatabaseHandler(sql, this).delete();
+    }
+
+    @Override
     public Faction read(@NotNull MySql sql) {
-        return null;
+        return new FactionDatabaseHandler(sql, this).read();
     }
 
     public enum OpenType {PUBLIC, INVITE_ONLY, CLOSED}

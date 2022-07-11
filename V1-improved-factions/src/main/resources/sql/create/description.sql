@@ -3,4 +3,4 @@
 -- SET @line := 1;
 
 INSERT INTO faction_descriptions
-VALUE (@registry, @line, @content)
+    VALUE (@registry, @line, @content)

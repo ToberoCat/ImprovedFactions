@@ -13,15 +13,15 @@
 
 -- Write factions
 UPDATE factions
-    SET display_name = @display, -- Display
-        motd = @motd, -- Motd
-        tag = @tag, -- Tag
-        frozen = @frozen, -- Frozen
-        permanent = @permanent, -- Permanent
-        created_at = @created_at, -- CreatedAt
-        owner = @owner, -- Owner
-        claimed_chunks = @claimed_chunks, -- ClaimedChunks
-        balance = @balance, -- Balance
-        current_power = @current_power, -- Current power
-        max_power = @max_power -- Max power
-    WHERE registry_id = @registry
+SET display_name   = @display,        -- Display
+    motd           = @motd,           -- Motd
+    tag            = @tag,            -- Tag
+    frozen         = @frozen,         -- Frozen
+    permanent      = @permanent,      -- Permanent
+    created_at     = @created_at,     -- CreatedAt
+    owner          = @owner,          -- Owner
+    claimed_chunks = @claimed_chunks, -- ClaimedChunks
+    balance        = @balance,        -- Balance
+    current_power  = @current_power,  -- Current power
+    max_power      = @max_power       -- Max power
+WHERE registry_id = @registry

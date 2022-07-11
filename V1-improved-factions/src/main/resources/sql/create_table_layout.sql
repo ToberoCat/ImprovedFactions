@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS factions
 create table faction_descriptions
 (
     registry_id VARCHAR(@max_len) not null,
-    line          int               not null,
+    line        int               not null,
     content     TEXT              not null,
     PRIMARY KEY (registry_id, line)
 );
@@ -45,9 +45,9 @@ create table IF NOT EXISTS faction_bans
 -- Faction relation table
 create table IF NOT EXISTS faction_relations
 (
-    registry_id          VARCHAR(@max_len)            not null,
-    relation_registry_id VARCHAR(@max_len)            not null,
-    relation_status      VARCHAR(7) default 'neutral' not null,
+    registry_id          VARCHAR(@max_len) not null,
+    relation_registry_id VARCHAR(@max_len) not null,
+    relation_status      INT(3) default 1  not null, -- Only options: 0 - ally, 1 neutral, 2 enemy
     constraint faction_relations_pk
         primary key (relation_registry_id)
 );
@@ -75,9 +75,9 @@ CREATE TABLE IF NOT EXISTS players
 -- Create player settings
 create table IF NOT EXISTS player_settings
 (
-    uuid CHAR(36) not null,
-    setting TEXT not null,
-    value TEXT not null,
+    uuid    CHAR(36) not null,
+    setting TEXT     not null,
+    value   TEXT     not null,
     constraint player_settings_pk
         primary key (uuid)
 );
