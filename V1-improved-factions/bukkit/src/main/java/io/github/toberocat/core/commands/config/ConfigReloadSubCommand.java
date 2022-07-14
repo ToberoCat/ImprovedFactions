@@ -3,7 +3,6 @@ package io.github.toberocat.core.commands.config;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.extensions.Extension;
 import io.github.toberocat.core.utility.command.SubCommand;
-import io.github.toberocat.core.utility.config.Config;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 

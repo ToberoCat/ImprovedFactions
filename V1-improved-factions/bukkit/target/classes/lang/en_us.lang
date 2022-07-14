@@ -209,7 +209,8 @@
     "territory.entered.title": "{relation}{territory}",
     "territory.safezone": "&bSafezone",
     "territory.warzone": "&4Warzone",
-    "territory.wilderness": "&2Wilderness"
+    "territory.wilderness": "&2Wilderness",
+    "command.faction.claim.one.description": "Unclaim one chunk"
   },
   "version": "1.0"
 }

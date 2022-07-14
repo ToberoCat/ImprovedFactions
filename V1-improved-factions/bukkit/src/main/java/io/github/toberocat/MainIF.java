@@ -17,15 +17,12 @@ import io.github.toberocat.core.factions.rank.Rank;
 import io.github.toberocat.core.listeners.*;
 import io.github.toberocat.core.listeners.actions.ActionExecutor;
 import io.github.toberocat.core.papi.FactionExpansion;
-import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.action.provided.*;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.bossbar.SimpleBar;
 import io.github.toberocat.core.utility.calender.TimeCore;
 import io.github.toberocat.core.utility.claim.ClaimManager;
-import io.github.toberocat.core.utility.config.Config;
-import io.github.toberocat.core.utility.config.ConfigManager;
 import io.github.toberocat.core.utility.config.DataManager;
 import io.github.toberocat.core.utility.data.access.AbstractAccess;
 import io.github.toberocat.core.utility.data.access.FileAccess;
@@ -50,6 +47,7 @@ import net.milkbowl.vault.economy.Economy;
 import org.apache.commons.lang.SystemUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -80,15 +78,12 @@ public final class MainIF extends JavaPlugin {
 
     public static final HashMap<String, Extension> LOADED_EXTENSIONS = new HashMap<>();
 
-    private final Map<String, Config> configMap = new HashMap<>();
     private final Map<String, ArrayList<String>> backupFile = new HashMap<>(); // Delete the backup map after backup got restored
     private final Map<String, DataManager> dataManagers = new HashMap<>();
 
     private static MainIF INSTANCE;
 
     private static Economy economy;
-
-    private static ConfigManager configManager;
 
     private final List<ConfigSaveEvent> saveEvents = new ArrayList<>();
 
@@ -109,19 +104,18 @@ public final class MainIF extends JavaPlugin {
      * @param level   That's the level you want to log
      * @param message The message you want to get logged
      */
-    public static void logMessage(Level level, String message) {
+    public static void logMessage(@NotNull Level level, @NotNull String message) {
         Utility.run(() -> {
             List<String> values;
             if (!INSTANCE.isEnabled()) {
                 values = Arrays.asList("INFO", "WARNING", "SEVERE");
             } else {
-                values = configManager.getValue("debug.logLevel");
+                values = config().getStringList("debug.logLevel");
             }
 
             if (!values.contains(level.toString())) return;
 
-            if (configManager.getValue("general.colorConsole")) {
-                //Bukkit.getLogger().log(level, );
+            if (config().getBoolean("general.colorConsole")) {
                 Bukkit.getLogger().log(level, Language.format("&7[&e&lImprovedFactions&7] " + message));
             } else {
                 Bukkit.getLogger().log(level,
@@ -157,15 +151,6 @@ public final class MainIF extends JavaPlugin {
      */
     public static Version getVersion() {
         return VERSION;
-    }
-
-    /**
-     * Get the manager to add, load and reload config data
-     *
-     * @return The configManager instance
-     */
-    public static ConfigManager getConfigManager() {
-        return configManager;
     }
 
     public static void registerPapi() {
@@ -219,7 +204,7 @@ public final class MainIF extends JavaPlugin {
 
             AsyncTask.runLaterSync(1, DynamicLoader::enable);
 
-            if (Boolean.TRUE.equals(getConfigManager().getValue("general.autoMigrate"))) tryMigration();
+            if (Boolean.TRUE.equals(getConfig().getBoolean("general.autoMigrate"))) tryMigration();
 
             AsyncTask.runLaterSync(2, this::checkVersion);
         });
@@ -242,7 +227,6 @@ public final class MainIF extends JavaPlugin {
 
             LOADED_EXTENSIONS.clear();
 
-            saveConfigs();
             FileAccess.disable();
             DynamicLoader.disable();
             for (Player player : Bukkit.getOnlinePlayers()) player.closeInventory();
@@ -260,7 +244,6 @@ public final class MainIF extends JavaPlugin {
         saveEvents.clear();
         backupFile.clear();
         dataManagers.clear();
-        configMap.clear();
         SimpleBar.cleanup();
         PlayerJoinListener.PLAYER_JOINS.clear();
     }
@@ -311,10 +294,9 @@ public final class MainIF extends JavaPlugin {
                 }
             }
 
-            ArrayList<String> standbyCommands = configManager.getValue("commands.standby");
+            List<String> standbyCommands = getConfig().getStringList("commands.standby");
 
             if (!isEnabled()) return;
-            if (standbyCommands == null) return;
 
             AsyncTask.runLaterSync(0, () -> {
                 for (String command : standbyCommands) {
@@ -430,45 +412,6 @@ public final class MainIF extends JavaPlugin {
         });
     }
 
-    /**
-     * Save all configs and extra data. If something happens while saving, it will save a backup.
-     * That can seen when using /f config backup ingame
-     *
-     * @return Returns a list of all successfully saved configs
-     */
-    public List<String> saveConfigs() {
-        List<String> savedConfigs = new ArrayList<>();
-
-        for (Config config : configMap.values()) {
-            boolean autoSave = config.isAutoSave();
-            config.setAutoSave(false);
-            config.setChanges(false);
-
-            if (!callSaveEvents(config)) {
-                saveConfigBackup(config);
-            } else if (!savedConfigs.contains(config.getConfigFile())) {
-                savedConfigs.add(config.getConfigFile());
-            }
-
-            if (config.hasChanged()) {
-                config.getManager().saveConfig();
-            }
-            config.setChanges(false);
-            config.setAutoSave(autoSave);
-        }
-
-        for (ConfigSaveEvent event : saveEvents) {
-            if (event.isSingleCall() == ConfigSaveEvent.SaveType.DataAccess) {
-                Result result = event.Save(null);
-                if (!result.isSuccess())
-                    saveDataAccessBackup(result.getMachineMessage(), result.getPaired());
-                else savedConfigs.add(result.getMachineMessage());
-            }
-        }
-
-        return savedConfigs;
-    }
-
     private <T> void saveDataAccessBackup(String file, T value) {
         logMessage(Level.WARNING, "&cCouldn't save &6" + file + "&c. File got saved in datAcc_backup folder. Please restart the plugin so the files can be compared without data loss");
         File pathAsFile = new File(getDataFolder().getPath() + "/.temp/datAcc_backups");
@@ -484,43 +427,6 @@ public final class MainIF extends JavaPlugin {
         if (pathAsFile.exists()) JsonUtility.saveObject(new File(pathAsFile.getPath() + "/" + file), value);
     }
 
-    private void saveConfigBackup(Config config) {
-        Utility.run(() -> {
-            logMessage(Level.WARNING, "&cCouldn't save &6" + config.getPath() + "&c. File got saved in config_backup folder. Please restart the plugin so the files can be compared without data loss");
-            File pathAsFile = new File(getDataFolder().getPath() + "/.temp/config_backups");
-
-            if (!Files.exists(Paths.get(pathAsFile.getPath()))) {
-                Utility.run(() -> {
-                    if (!pathAsFile.mkdirs()) {
-                        logMessage(Level.SEVERE, "&cCouldn't save &6" + pathAsFile.getPath() + "&c to backups");
-                    }
-                });
-            }
-
-            File backupFile = new File(pathAsFile.getPath() + "/" + config.getManager().getFileName() + "_" + LocalTime.now().toSecondOfDay() + ".backup");
-
-            List<String> paths = null;
-            if (Files.exists(Paths.get(backupFile.getPath()))) {
-                paths = (List<String>) JsonUtility.readObject(backupFile, List.class);
-            }
-            paths = paths == null ? new ArrayList<>() : paths;
-
-            String toSave = config.getPath() + ":" + config.getValue();
-
-            paths.add(toSave);
-
-            JsonUtility.saveObject(backupFile, paths);
-        });
-    }
-
-    private boolean callSaveEvents(Config config) {
-        for (ConfigSaveEvent event : saveEvents) {
-            if (event.isSingleCall() == ConfigSaveEvent.SaveType.Config && !event.Save(config).isSuccess())
-                return false;
-        }
-        return true;
-    }
-
     private void generateConfigs() {
         Utility.run(() -> {
             DataManager oldConfig = new DataManager(this, "config.yml");
@@ -532,24 +438,6 @@ public final class MainIF extends JavaPlugin {
                 new File(getDataFolder().getPath() + "/extConfig.yml").delete();
                 new File(getDataFolder().getPath() + "/commands.yml").delete();
             }
-
-            configManager = new ConfigManager(this);
-            configManager.register();
-
-            //<editor-fold desc="Loading backups">
-            File backupFolder = new File(getDataFolder().getPath() + "/.temp/backups");
-
-            if (!backupFolder.exists()) backupFolder.mkdirs();
-
-            for (File file : backupFolder.listFiles()) {
-                ArrayList<String> data = (ArrayList<String>) JsonUtility.readObject(file, ArrayList.class);
-
-                logMessage(Level.WARNING, "&cLoaded " + file.getName() + " backup. Please use &7/f config backup&c to decide what should be finally used");
-                backupFile.put(file.getName(), data);
-
-                file.delete();
-            }
-            //</editor-fold>
         });
     }
 
@@ -702,15 +590,6 @@ public final class MainIF extends JavaPlugin {
     }
 
     /**
-     * Get all loaded config settings
-     *
-     * @return config map. String is for path.
-     */
-    public Map<String, Config> getConfigMap() {
-        return configMap;
-    }
-
-    /**
      * Get the save events that will be called when something gets saved.
      * You can tell if the file should be saved as backup, or add your own backup system
      *
@@ -725,6 +604,10 @@ public final class MainIF extends JavaPlugin {
     }
     public static <T> TaskChain<T> newSharedChain(String name) {
         return taskChainFactory.newSharedChain(name);
+    }
+
+    public static FileConfiguration config() {
+        return MainIF.getIF().getConfig();
     }
 
     //</editor-fold>

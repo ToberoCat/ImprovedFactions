@@ -3,7 +3,6 @@ package io.github.toberocat.core.utility.command;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.utility.async.AsyncTask;
-import io.github.toberocat.core.utility.config.Config;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.language.Parseable;
 import io.github.toberocat.core.utility.messages.PlayerMessageBuilder;

@@ -5,7 +5,6 @@ import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionUtility;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.async.AsyncTask;
-import io.github.toberocat.core.utility.config.ConfigManager;
 import io.github.toberocat.core.utility.config.DataManager;
 import io.github.toberocat.core.utility.data.PersistentDataUtility;
 import io.github.toberocat.core.utility.data.access.FileAccess;

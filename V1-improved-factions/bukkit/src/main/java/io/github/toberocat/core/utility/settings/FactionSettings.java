@@ -5,7 +5,6 @@ import io.github.toberocat.core.factions.OpenType;
 import io.github.toberocat.core.player.SettingActions;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.color.FactionColors;
-import io.github.toberocat.core.utility.config.ConfigManager;
 import io.github.toberocat.core.utility.settings.type.CallbackSettings;
 import io.github.toberocat.core.utility.settings.type.EnumSetting;
 import io.github.toberocat.core.utility.settings.type.Setting;

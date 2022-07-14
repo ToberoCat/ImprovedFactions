@@ -4,7 +4,6 @@ import io.github.toberocat.MainIF;
 import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
-import io.github.toberocat.core.utility.config.ConfigManager;
 import io.github.toberocat.core.utility.jackson.JsonUtility;
 import io.github.toberocat.core.utility.data.database.sql.MySqlDatabase;
 import org.jetbrains.annotations.NotNull;
@@ -14,7 +13,6 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.logging.Level;
 
 public class FileAccess extends AbstractAccess {
     public static boolean init() {

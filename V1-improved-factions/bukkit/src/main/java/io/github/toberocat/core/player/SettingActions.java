@@ -8,7 +8,6 @@ import io.github.toberocat.core.gui.faction.MemberGui;
 import io.github.toberocat.core.gui.faction.OnlineGUI;
 import io.github.toberocat.core.gui.faction.RankGui;
 import io.github.toberocat.core.utility.async.AsyncTask;
-import io.github.toberocat.core.utility.config.ConfigManager;
 import io.github.toberocat.core.utility.gui.settings.GuiSettings;
 import io.github.toberocat.core.utility.language.Language;
 import net.wesjd.anvilgui.AnvilGUI;

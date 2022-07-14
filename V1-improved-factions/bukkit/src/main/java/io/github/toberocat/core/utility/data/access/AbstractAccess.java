@@ -1,7 +1,6 @@
 package io.github.toberocat.core.utility.data.access;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.utility.config.ConfigManager;
 import io.github.toberocat.core.utility.data.Table;
 import io.github.toberocat.core.utility.data.database.DatabaseAccess;
 import org.jetbrains.annotations.NotNull;
@@ -28,7 +27,7 @@ public abstract class AbstractAccess {
     }
 
     public static boolean registerAccessType() {
-        if (Boolean.TRUE.equals(ConfigManager.getValue("sql.useSql"))) return new DatabaseAccess().accessible;
+        if (Boolean.TRUE.equals(MainIF.config().getBoolean("sql.useSql", false))) return new DatabaseAccess().accessible;
         return new FileAccess().accessible;
     }
 
@@ -43,6 +42,16 @@ public abstract class AbstractAccess {
     public abstract Stream<String> listInTableStream(@NotNull Table table);
 
     public abstract List<String> listInTable(@NotNull Table table);
+
+    public abstract void restoreDefault();
+
+    public abstract <T> T read(@NotNull Table table, @NotNull String byKey, @NotNull Class<T> clazz);
+
+    public abstract <T> void write(@NotNull Table table, T instance);
+
+    public abstract void delete(@NotNull Table table, @NotNull String byKey);
+
+    public abstract void has(@NotNull Table table, @NotNull String byKey);
 
     protected abstract AccessPipeline<?> createPipeline();
 

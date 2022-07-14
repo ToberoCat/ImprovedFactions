@@ -1,7 +1,6 @@
 package io.github.toberocat.core.utility.events;
 
 import io.github.toberocat.core.utility.Result;
-import io.github.toberocat.core.utility.config.Config;
 
 public interface ConfigSaveEvent {
     default SaveType isSingleCall() {

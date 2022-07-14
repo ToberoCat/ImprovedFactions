@@ -21,23 +21,10 @@ public class DataManager {
     private final String fileName;
     private FileConfiguration dataConfig = null;
     private File configFile = null;
-    private final ItemStack itemIcon;
 
     public DataManager(JavaPlugin plugin, ItemStack itemIcon, String fileName) {
         this.plugin = plugin;
         this.fileName = fileName;
-
-        if (itemIcon != null) {
-            List<String> lore = itemIcon.getItemMeta().getLore();
-            if (lore == null) {
-                lore = new ArrayList<>();
-            }
-            lore.add("&8Click to configure");
-
-            this.itemIcon = Utility.modiflyItem(itemIcon, itemIcon.getItemMeta().getDisplayName(), lore.toArray(String[]::new));
-        } else {
-            this.itemIcon = Utility.createItem(Material.GRASS_BLOCK, "&e&l" + fileName);
-        }
 
         saveDefaultConfig();
         saveConfig();
@@ -87,9 +74,5 @@ public class DataManager {
 
     public String getFileName() {
         return fileName;
-    }
-
-    public ItemStack getItemIcon() {
-        return itemIcon;
     }
 }

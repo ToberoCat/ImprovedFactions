@@ -1,0 +1,68 @@
+commands:
+  forbidden:
+    - 'tellraw @a {"text":"This word, {word}, is maybe similar to {similar}. Used: {player_name},
+    {player_uuid} while {task}. {similarityPer}% similar "}'
+  standby:
+    - tellraw @a {"text":"Standby enabled"}
+faction:
+  ranks:
+    guest: Guest
+    ally-member: Ally member
+    ally-elder: Ally elder
+    ally-moderator: Ally moderator
+    ally-admin: Ally admin
+    ally-owner: Ally owner
+    member: Member
+    elder: Elder
+    moderator: Moderator
+    admin: Admin
+    owner: Owner
+  invitationTimeout: 300
+  maxTagLen: 3
+  maxNameLen: 10
+  allowExplosions: true
+  joinTimeout: 24
+  permanent: false
+history:
+  territoryChange: false
+power:
+  enabled: true
+  chunkPowerConsume: 3
+  memberDeathConsume: 10
+  regenerationPerHour: 4
+  maxDefaultFaction: 20
+  powerPerPlayer: 5
+  maxPowerPerPlayer: 5
+forbidden:
+  factionNames:
+    - fuck
+    - ass
+    - stupid
+  checkLeetspeak: true
+  reportAtPercent: 39.99
+  disbandAtPercent: 69.99
+  checkFactionNames: true
+gui:
+  wrapLength: 20
+  closeGuiCps: 10
+  maxCps: 5
+general:
+  limit-chunks-to-power: false
+  disabledWorlds:
+    - FactionsWontWorkHere
+  debugMode: false
+  colorConsole: true
+  useSQL: false
+  commandDescriptions: true
+  printStacktrace: true
+  prefix: '&e&lImprovedFactions'
+  sendCrashesToGithub: true
+  mapViewDistanceH: 4
+  mapViewDistanceW: 4
+  autoMigrate: true
+debug:
+  logLevel:
+    - INFO
+    - WARNING
+    - SEVERE
+version: 1.5.1
