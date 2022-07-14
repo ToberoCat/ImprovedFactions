@@ -1,15 +1,14 @@
 package io.github.toberocat.core.utility.events.faction.power;
 
-import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.local.LocalFaction;
 import io.github.toberocat.core.utility.events.faction.FactionEvent;
-import io.github.toberocat.core.utility.events.faction.power.PowerCause;
 
 public class FactionPowerEvent extends FactionEvent {
 
     private final int change;
     private final PowerCause cause;
 
-    public FactionPowerEvent(Faction faction, int change, PowerCause cause) {
+    public FactionPowerEvent(LocalFaction faction, int change, PowerCause cause) {
         super(faction);
         this.change = change;
         this.cause = cause;

@@ -1,8 +1,8 @@
 package io.github.toberocat.core.player;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionUtility;
+import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.gui.faction.FactionSettingsGui;
 import io.github.toberocat.core.gui.faction.MemberGui;
 import io.github.toberocat.core.gui.faction.OnlineGUI;
@@ -19,7 +19,7 @@ import org.bukkit.inventory.ItemStack;
 public class SettingActions {
 
     public void renameFaction(Player player) {
-        Faction faction = FactionUtility.getPlayerFaction(player);
+        LocalFaction faction = FactionUtility.getPlayerFaction(player);
         if (faction == null) return;
 
         new AnvilGUI.Builder().onClose((user) -> {
@@ -42,7 +42,7 @@ public class SettingActions {
     }
 
     public void changeMotd(Player player) {
-        Faction faction = FactionUtility.getPlayerFaction(player);
+        LocalFaction faction = FactionUtility.getPlayerFaction(player);
         if (faction == null) return;
 
         new AnvilGUI.Builder().onClose((user) -> {
@@ -59,7 +59,7 @@ public class SettingActions {
     }
 
     public void changeTag(Player player) {
-        Faction faction = FactionUtility.getPlayerFaction(player);
+        LocalFaction faction = FactionUtility.getPlayerFaction(player);
         if (faction == null) return;
 
         new AnvilGUI.Builder().onClose((user) -> {
@@ -81,7 +81,7 @@ public class SettingActions {
     }
 
     public void openMembers(Player player) {
-        Faction faction = FactionUtility.getPlayerFaction(player);
+        LocalFaction faction = FactionUtility.getPlayerFaction(player);
         if (faction == null) return;
 
         AsyncTask.runLaterSync(0, () -> new MemberGui(player, faction, new GuiSettings()
@@ -89,7 +89,7 @@ public class SettingActions {
     }
 
     public void openOnline(Player player) {
-        Faction faction = FactionUtility.getPlayerFaction(player);
+        LocalFaction faction = FactionUtility.getPlayerFaction(player);
         if (faction == null) return;
 
         AsyncTask.runLaterSync(0, () -> new OnlineGUI(player, faction, () ->
@@ -97,7 +97,7 @@ public class SettingActions {
     }
 
     public void openRanks(Player player) {
-        Faction faction = FactionUtility.getPlayerFaction(player);
+        LocalFaction faction = FactionUtility.getPlayerFaction(player);
         if (faction == null) return;
 
         AsyncTask.runLaterSync(0, () -> new RankGui(player, faction, () ->

@@ -1,7 +1,7 @@
 package io.github.toberocat.core.commands.admin;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.local.LocalFaction;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.command.SubCommand;
@@ -27,7 +27,7 @@ public class AdminMigrateCommand extends SubCommand {
         }
         Language.sendRawMessage("Migration will now run on a separate thread. Please don't stop the server until you received the message that migration finished", player);
         AsyncTask.run(() -> {
-            Faction.migrateFaction();
+            LocalFaction.migrateFaction();
             ClaimManager.migrate();
             Language.sendRawMessage("Migrated old beta data into the new format. Please check the console for any errors", player);
         });

@@ -3,20 +3,16 @@ package io.github.toberocat.core.listeners;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.commands.admin.AdminBypassSubCommand;
 import io.github.toberocat.core.debug.Debugger;
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionUtility;
-import io.github.toberocat.core.factions.permission.FactionPerm;
+import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.local.permission.FactionPerm;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.Chunk;
-import org.bukkit.World;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-
-import java.util.List;
 
 public class BlockBreakListener implements Listener {
 
@@ -49,7 +45,7 @@ public class BlockBreakListener implements Listener {
         }
         if (!FactionUtility.doesFactionExist(claim)) return;
 
-        Faction claimFaction = FactionUtility.getFactionByRegistry(claim);
+        LocalFaction claimFaction = FactionUtility.getFactionByRegistry(claim);
         if (claimFaction == null) {
             Language.sendRawMessage("You have encountered a problem with improved factions! Go ahead " +
                     "and tell the admins about the save shutdown. Error: BlockBreak wasn't able to find required faction", event.getPlayer());

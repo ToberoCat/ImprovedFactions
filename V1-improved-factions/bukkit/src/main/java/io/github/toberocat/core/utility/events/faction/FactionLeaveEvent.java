@@ -1,13 +1,13 @@
 package io.github.toberocat.core.utility.events.faction;
 
-import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.local.LocalFaction;
 import org.bukkit.entity.Player;
 
 public class FactionLeaveEvent extends FactionEventCancelledable {
 
     protected Player player;
 
-    public FactionLeaveEvent(Faction faction, Player player) {
+    public FactionLeaveEvent(LocalFaction faction, Player player) {
         super(faction);
         this.player = player;
     }

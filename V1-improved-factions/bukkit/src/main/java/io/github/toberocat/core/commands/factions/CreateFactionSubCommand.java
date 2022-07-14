@@ -1,8 +1,8 @@
 package io.github.toberocat.core.commands.factions;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionUtility;
+import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -11,7 +11,6 @@ import io.github.toberocat.core.utility.language.Parseable;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -65,7 +64,7 @@ public class CreateFactionSubCommand extends SubCommand {
     private void createFaction(Player player, String _name) {
         String name = player.hasPermission("faction.colors.colorInFactionName")
                 ? Language.format(_name) : _name;
-        Result<Faction> factionResult = Faction.createFaction(name, player);
+        Result<LocalFaction> factionResult = LocalFaction.createFaction(name, player);
         if (!factionResult.isSuccess()) sendCommandExecuteError(factionResult.getPlayerMessage(), player);
     }
 }

@@ -1,9 +1,9 @@
 package io.github.toberocat.core.gui.faction;
 
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.permission.FactionPerm;
-import io.github.toberocat.core.factions.rank.Rank;
-import io.github.toberocat.core.factions.rank.members.OwnerRank;
+import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.local.permission.FactionPerm;
+import io.github.toberocat.core.factions.local.rank.Rank;
+import io.github.toberocat.core.factions.local.rank.members.OwnerRank;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 public class MemberManageGui extends TabbedGui {
     private final Player self;
     private final OfflinePlayer managed;
-    private final Faction faction;
+    private final LocalFaction faction;
     private final EnumSetting rankSelector;
     private final String[] ranks;
     private final Rank selfRank;
@@ -33,7 +33,7 @@ public class MemberManageGui extends TabbedGui {
     private GuiSettings memberGuiSettings;
 
     public MemberManageGui(Player player, OfflinePlayer managedPlayer,
-                           Faction faction, GuiSettings memberGUISettings) {
+                           LocalFaction faction, GuiSettings memberGUISettings) {
         super(player, createInventory(player, managedPlayer));
 
         this.faction = faction;
@@ -53,7 +53,7 @@ public class MemberManageGui extends TabbedGui {
         render(memberGUISettings);
     }
 
-    private static void goBack(Player player, Faction faction, GuiSettings settings) {
+    private static void goBack(Player player, LocalFaction faction, GuiSettings settings) {
         new MemberGui(player, faction, settings);
     }
 

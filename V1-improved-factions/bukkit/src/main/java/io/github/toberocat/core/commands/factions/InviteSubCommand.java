@@ -1,8 +1,8 @@
 package io.github.toberocat.core.commands.factions;
 
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionUtility;
-import io.github.toberocat.core.factions.members.FactionMemberManager;
+import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.local.members.FactionMemberManager;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.date.DateCore;
@@ -24,7 +24,7 @@ public class InviteSubCommand extends SubCommand {
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
-        Faction faction = FactionUtility.getPlayerFaction(player);
+        LocalFaction faction = FactionUtility.getPlayerFaction(player);
         if (faction == null) sendCommandExecuteError(CommandExecuteError.NoFaction, player);
 
         Player invited = Bukkit.getPlayer(args[0]);

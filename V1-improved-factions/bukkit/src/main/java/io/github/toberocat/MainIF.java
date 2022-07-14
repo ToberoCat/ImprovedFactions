@@ -10,10 +10,10 @@ import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.extensions.Extension;
 import io.github.toberocat.core.extensions.ExtensionLoader;
 import io.github.toberocat.core.extensions.ExtensionRegistry;
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionUtility;
-import io.github.toberocat.core.factions.permission.FactionPerm;
-import io.github.toberocat.core.factions.rank.Rank;
+import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.local.permission.FactionPerm;
+import io.github.toberocat.core.factions.local.rank.Rank;
 import io.github.toberocat.core.listeners.*;
 import io.github.toberocat.core.listeners.actions.ActionExecutor;
 import io.github.toberocat.core.papi.FactionExpansion;
@@ -61,9 +61,6 @@ import java.io.InputStream;
 import java.net.JarURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.LocalTime;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -193,12 +190,12 @@ public final class MainIF extends JavaPlugin {
             Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
                 Debugger.log("Unloading unused factions...");
                 List<String> unused = new ArrayList<>();
-                for (Faction faction : Faction.getLoadedFactions().values())
+                for (LocalFaction faction : LocalFaction.getLoadedFactions().values())
                     if (faction.getFactionMemberManager().getOnlinePlayers().size() == 0)
                         unused.add(faction.getRegistryName());
 
 
-                for (String registry : unused) Faction.getLoadedFactions().remove(registry);
+                for (String registry : unused) LocalFaction.getLoadedFactions().remove(registry);
 
             }, 0, 20 * 60 * 5);
 
@@ -261,7 +258,7 @@ public final class MainIF extends JavaPlugin {
     private void tryMigration() {
         if (new File(getDataFolder().getPath() + "/Data/factions.yml").exists() &&
                 new File(getDataFolder().getPath() + "/Data/chunkData.yml").exists()) {
-            Faction.migrateFaction();
+            LocalFaction.migrateFaction();
             logMessage(Level.INFO, "Please don't stop the server. Chunks are getting migrated. This can take some time, depending on your file size. If you don't want it, disable &6general.autoMigrate &7in the config.yml and reload the server");
             ClaimManager.migrate();
 

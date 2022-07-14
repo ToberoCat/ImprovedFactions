@@ -1,7 +1,7 @@
 package io.github.toberocat.core.gui.faction;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.local.LocalFaction;
 import io.github.toberocat.core.listeners.PlayerJoinListener;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.gui.TabbedGui;
@@ -16,7 +16,7 @@ public class OnlineGUI extends TabbedGui {
     private final int task;
     private final Runnable close;
 
-    public OnlineGUI(Player player, Faction faction, Runnable close) {
+    public OnlineGUI(Player player, LocalFaction faction, Runnable close) {
         super(player, createInv(faction, player));
         this.close = close;
 
@@ -28,7 +28,7 @@ public class OnlineGUI extends TabbedGui {
         return super.readSettings().setQuitGui(close);
     }
 
-    private static Inventory createInv(Faction faction, Player player) {
+    private static Inventory createInv(LocalFaction faction, Player player) {
         return Bukkit.createInventory(player, 54, "§e" + faction.getDisplayName() + "'s online members");
     }
 
@@ -37,7 +37,7 @@ public class OnlineGUI extends TabbedGui {
         Bukkit.getScheduler().cancelTask(task);
     }
 
-    private void update(Player player, Faction faction) {
+    private void update(Player player, LocalFaction faction) {
         clear();
 
         for (Player online : faction.getFactionMemberManager().getOnlinePlayers()) {

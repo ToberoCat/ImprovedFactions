@@ -1,10 +1,9 @@
 package io.github.toberocat.core.commands.factions;
 
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionUtility;
+import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
-import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.language.Parser;
 import org.bukkit.entity.Player;
 
@@ -23,7 +22,7 @@ public class PowerSubCommand extends SubCommand {
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
-        Faction faction = FactionUtility.getPlayerFaction(player);
+        LocalFaction faction = FactionUtility.getPlayerFaction(player);
         if (faction == null) return;
 
         Parser.run("command.power.success")

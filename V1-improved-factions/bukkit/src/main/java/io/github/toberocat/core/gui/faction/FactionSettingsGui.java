@@ -1,7 +1,7 @@
 package io.github.toberocat.core.gui.faction;
 
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionUtility;
+import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.utility.gui.TabbedGui;
 import io.github.toberocat.core.utility.settings.type.Setting;
 import org.bukkit.Bukkit;
@@ -15,14 +15,14 @@ public class FactionSettingsGui extends TabbedGui {
     public FactionSettingsGui(Player player) {
         super(player, createInventory(player));
 
-        Faction faction = FactionUtility.getPlayerFaction(player);
+        LocalFaction faction = FactionUtility.getPlayerFaction(player);
         assert faction != null;
 
         renderGui(faction.getFactionPerm().getFactionSettings(), player);
     }
 
     private static @NotNull Inventory createInventory(Player player) {
-        Faction faction = FactionUtility.getPlayerFaction(player);
+        LocalFaction faction = FactionUtility.getPlayerFaction(player);
         if (faction == null) return Bukkit.createInventory(player, 54, "§cError - No faction");
 
         return Bukkit.createInventory(player, 54, "§e§l" + faction.getDisplayName() + "'s §esettings");

@@ -1,8 +1,8 @@
 package io.github.toberocat.core.listeners.actions;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.rank.Rank;
+import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.local.rank.Rank;
 import io.github.toberocat.core.utility.action.Actions;
 import io.github.toberocat.core.utility.action.FactionActions;
 import io.github.toberocat.core.utility.config.DataManager;
@@ -15,7 +15,6 @@ import io.github.toberocat.core.utility.events.faction.power.FactionPowerEvent;
 import io.github.toberocat.core.utility.language.Parseable;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -43,7 +42,7 @@ public class ActionExecutor implements Listener {
         actions.run(sender);
     }
 
-    private void send(@NotNull String path, @NotNull Faction faction, Parseable... parseables) {
+    private void send(@NotNull String path, @NotNull LocalFaction faction, Parseable... parseables) {
         FactionActions actions = new FactionActions(getAction(path));
 
         for (Parseable parseable : parseables) actions.placeholder(parseable.getParse(), parseable.getTo());

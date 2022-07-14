@@ -1,7 +1,7 @@
 package io.github.toberocat.core.commands.admin.maxpower;
 
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionUtility;
+import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -25,7 +25,7 @@ public class AdminRemovePowerCommand extends SubCommand {
         if (!Utility.isNumber(args[1])) return;
         int amount = Integer.parseInt(args[1]);
 
-        Faction faction = FactionUtility.getFactionByRegistry(args[0]);
+        LocalFaction faction = FactionUtility.getFactionByRegistry(args[0]);
 
         faction.getPowerManager().setMaxPower(faction.getPowerManager().getMaxPower() - amount);
     }

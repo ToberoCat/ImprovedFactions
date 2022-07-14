@@ -1,7 +1,7 @@
 package io.github.toberocat.core.commands.settings;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.permission.FactionPerm;
+import io.github.toberocat.core.factions.local.permission.FactionPerm;
 import io.github.toberocat.core.gui.faction.FactionSettingsGui;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;

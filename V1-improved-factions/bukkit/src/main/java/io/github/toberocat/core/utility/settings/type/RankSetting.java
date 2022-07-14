@@ -1,6 +1,6 @@
 package io.github.toberocat.core.utility.settings.type;
 
-import io.github.toberocat.core.factions.rank.Rank;
+import io.github.toberocat.core.factions.local.rank.Rank;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;

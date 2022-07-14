@@ -5,7 +5,7 @@ import io.github.toberocat.core.utility.data.Table;
 import io.github.toberocat.core.utility.data.access.AbstractAccess;
 import io.github.toberocat.core.utility.data.access.AccessPipeline;
 import io.github.toberocat.core.utility.data.annotation.DatabaseField;
-import io.github.toberocat.core.utility.data.annotation.ReflectUtility;
+import io.github.toberocat.core.utility.ReflectUtility;
 import io.github.toberocat.core.utility.data.annotation.TableKey;
 import io.github.toberocat.core.utility.data.database.sql.MySqlDatabase;
 import io.github.toberocat.core.utility.data.database.sql.SqlCode;
@@ -15,7 +15,6 @@ import io.github.toberocat.core.utility.exceptions.DatabaseAccessException;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Set;
@@ -97,7 +96,9 @@ public class DatabaseAccess extends AbstractAccess {
     @Override
     public <T> void write(@NotNull Table table, T instance) {
         Set<Field> fields =  ReflectUtility.findFields(instance.getClass(), DatabaseField.class);
-        fields.
+        fields.forEach(field -> {
+            field.
+        });
     }
 
     @Override
@@ -122,6 +123,16 @@ public class DatabaseAccess extends AbstractAccess {
         }
 
         @Override
+        public @NotNull AccessPipeline<DatabaseAccess> delete(@NotNull Table table, @NotNull String byKey) {
+            return this;
+        }
+
+        @Override
+        public @NotNull AccessPipeline<DatabaseAccess> restoreDefault() {
+            return this;
+        }
+
+        @Override
         public @NotNull AccessPipelineResult<Stream<String>, DatabaseAccess> listInTableStream(@NotNull Table table) {
             return new AccessPipelineResult<>(DatabaseAccess.this.listInTableStream(table), this);
         }
@@ -132,15 +143,13 @@ public class DatabaseAccess extends AbstractAccess {
         }
 
         @Override
-        public @NotNull <C> AccessPipelineResult<C, DatabaseAccess> read(@NotNull Table table,
-                                                                         @NotNull Class<C> clazz) {
-            try {
-                clazz.getConstructor().newInstance();
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                e.printStackTrace();
-            }
-            return new AccessPipelineResult<>(null, this);
+        public @NotNull AccessPipelineResult<Boolean, DatabaseAccess> has(@NotNull Table table, @NotNull String byKey) {
+            return new AccessPipelineResult<>(true, this);
         }
 
+        @Override
+        public @NotNull <C> AccessPipelineResult<C, DatabaseAccess> read(@NotNull Table table, @NotNull String byKey, @NotNull Class<C> clazz) {
+            return new AccessPipelineResult<>(null, this);
+        }
     }
 }

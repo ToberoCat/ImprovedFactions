@@ -1,9 +1,9 @@
 package io.github.toberocat.core.commands.factions;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionUtility;
-import io.github.toberocat.core.factions.rank.members.OwnerRank;
+import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.local.rank.members.OwnerRank;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.command.ConfirmSubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -31,7 +31,7 @@ public class LeaveFactionSubCommand extends ConfirmSubCommand {
 
     @Override
     protected void confirmExecute(Player player) {
-        Faction faction = FactionUtility.getPlayerFaction(player);
+        LocalFaction faction = FactionUtility.getPlayerFaction(player);
 
         if (!faction.isPermanent() && faction.getPlayerRank(player).getRegistryName().equals(OwnerRank.registry)) {
             Language.sendRawMessage("Can't leave your own faction. Delete it or transfer ownership", player);

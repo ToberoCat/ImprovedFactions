@@ -1,7 +1,7 @@
 package io.github.toberocat.core.commands.admin;
 
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionUtility;
+import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -48,7 +48,7 @@ public class AdminRegenerateSubCommand extends SubCommand {
                     onP.getPersistentDataContainer());
             Language.sendRawMessage("Resetted your data", onP);
 
-            for (Faction faction : Faction.getLoadedFactions().values()) {
+            for (LocalFaction faction : LocalFaction.getLoadedFactions().values()) {
                 if (faction.getFactionMemberManager().getMembers().contains(onP.getUniqueId())) {
                     PersistentDataUtility.write(PersistentDataUtility.PLAYER_FACTION_REGISTRY, PersistentDataType.STRING,
                             faction.getRegistryName(), onP.getPersistentDataContainer());

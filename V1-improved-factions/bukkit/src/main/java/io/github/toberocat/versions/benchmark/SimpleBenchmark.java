@@ -1,7 +1,7 @@
 package io.github.toberocat.versions.benchmark;
 
 import io.github.toberocat.core.utility.data.annotation.DatabaseField;
-import io.github.toberocat.core.utility.data.annotation.ReflectUtility;
+import io.github.toberocat.core.utility.ReflectUtility;
 
 import java.lang.reflect.Field;
 import java.util.Set;

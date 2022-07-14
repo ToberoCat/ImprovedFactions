@@ -1,7 +1,7 @@
 package io.github.toberocat.core.gui.faction;
 
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.rank.Rank;
+import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.local.rank.Rank;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.gui.TabbedGui;
 import io.github.toberocat.core.utility.gui.settings.GuiSettings;
@@ -17,10 +17,10 @@ import java.util.List;
 
 public class ManageRankSettingGui extends TabbedGui {
 
-    private final Faction faction;
+    private final LocalFaction faction;
     private final GuiSettings rankSettings;
 
-    public ManageRankSettingGui(Player player, Faction faction, String permission, RankSetting setting, GuiSettings rankGuiSettings) {
+    public ManageRankSettingGui(Player player, LocalFaction faction, String permission, RankSetting setting, GuiSettings rankGuiSettings) {
         super(player, createInventory(player, permission));
         this.faction = faction;
         this.rankSettings = rankGuiSettings;
@@ -38,7 +38,7 @@ public class ManageRankSettingGui extends TabbedGui {
                 .setQuitGui(() -> new RankGui(player, faction, rankSettings::getQuitGui));
     }
 
-    private void render(Player player, Faction faction, String permission, RankSetting setting) {
+    private void render(Player player, LocalFaction faction, String permission, RankSetting setting) {
         clear();
 
         for (Rank rank : Rank.ranks) {

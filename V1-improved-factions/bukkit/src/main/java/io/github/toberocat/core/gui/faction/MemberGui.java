@@ -1,6 +1,6 @@
 package io.github.toberocat.core.gui.faction;
 
-import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.local.LocalFaction;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.gui.TabbedGui;
@@ -13,7 +13,7 @@ import org.bukkit.inventory.Inventory;
 import java.util.UUID;
 
 public class MemberGui extends TabbedGui {
-    public MemberGui(Player player, Faction faction, GuiSettings settings) {
+    public MemberGui(Player player, LocalFaction faction, GuiSettings settings) {
         super(player, createInventory(player, faction));
 
         for (UUID uuid : faction.getFactionMemberManager().getMembers()) {
@@ -30,7 +30,7 @@ public class MemberGui extends TabbedGui {
         render();
     }
 
-    private static Inventory createInventory(Player player, Faction faction) {
+    private static Inventory createInventory(Player player, LocalFaction faction) {
         return Bukkit.createInventory(player, 54, "§e" + faction.getDisplayName() + "'s members");
     }
 }

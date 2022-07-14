@@ -1,10 +1,9 @@
 package io.github.toberocat.core.listeners;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionUtility;
-import io.github.toberocat.core.factions.permission.FactionPerm;
-import io.github.toberocat.core.factions.rank.Rank;
+import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.local.permission.FactionPerm;
 import io.github.toberocat.core.utility.Utility;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
@@ -23,7 +22,7 @@ public class PlayerMountListener implements Listener {
             Chunk chunk = player.getLocation().getChunk();
             String registry = MainIF.getIF().getClaimManager().getFactionRegistry(chunk);
             if (registry == null) return;
-            Faction faction = FactionUtility.getFactionByRegistry(registry);
+            LocalFaction faction = FactionUtility.getFactionByRegistry(registry);
             if (!faction.hasPermission(player, FactionPerm.MOUNT_PERM)) event.setCancelled(true);
         }
     }

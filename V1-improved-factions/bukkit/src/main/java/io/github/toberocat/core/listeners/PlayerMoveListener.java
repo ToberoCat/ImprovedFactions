@@ -1,8 +1,8 @@
 package io.github.toberocat.core.listeners;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionUtility;
+import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.claim.ClaimManager;
@@ -96,8 +96,8 @@ public class PlayerMoveListener implements Listener {
                 return;
             }
 
-            Faction faction = FactionUtility.getFactionByRegistry(registry);
-            Faction playerFaction = FactionUtility.getPlayerFaction(player);
+            LocalFaction faction = FactionUtility.getFactionByRegistry(registry);
+            LocalFaction playerFaction = FactionUtility.getPlayerFaction(player);
 
             String text = null;
 

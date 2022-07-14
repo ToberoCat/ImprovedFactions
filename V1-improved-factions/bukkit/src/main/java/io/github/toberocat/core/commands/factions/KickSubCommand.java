@@ -1,7 +1,7 @@
 package io.github.toberocat.core.commands.factions;
 
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionUtility;
+import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.language.Language;
@@ -23,7 +23,7 @@ public class KickSubCommand extends SubCommand {
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
-        Faction faction = FactionUtility.getPlayerFaction(player);
+        LocalFaction faction = FactionUtility.getPlayerFaction(player);
         OfflinePlayer kick = Bukkit.getOfflinePlayer(args[0]);
 
         if (kick == null) {
@@ -37,7 +37,7 @@ public class KickSubCommand extends SubCommand {
 
     @Override
     protected List<String> CommandTab(Player player, String[] args) {
-        Faction faction = FactionUtility.getPlayerFaction(player);
+        LocalFaction faction = FactionUtility.getPlayerFaction(player);
         if (faction == null) return null;
 
         return faction.getFactionMemberManager().getMembers().stream().map(x -> Bukkit.getOfflinePlayer(x).getName()).toList();

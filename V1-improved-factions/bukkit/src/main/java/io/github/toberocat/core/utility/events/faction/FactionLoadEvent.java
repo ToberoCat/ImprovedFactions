@@ -1,9 +1,9 @@
 package io.github.toberocat.core.utility.events.faction;
 
-import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.local.LocalFaction;
 
 public class FactionLoadEvent extends FactionEvent {
-    public FactionLoadEvent(Faction faction) {
+    public FactionLoadEvent(LocalFaction faction) {
         super(faction);
     }
 }

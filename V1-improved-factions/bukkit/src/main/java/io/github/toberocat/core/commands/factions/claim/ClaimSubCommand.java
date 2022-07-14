@@ -1,8 +1,8 @@
 package io.github.toberocat.core.commands.factions.claim;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionUtility;
+import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.command.AutoSubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -32,7 +32,7 @@ public class ClaimSubCommand extends AutoSubCommand {
 
     @Override
     public void onSingle(Player player) {
-        Faction faction = FactionUtility.getPlayerFaction(player);
+        LocalFaction faction = FactionUtility.getPlayerFaction(player);
 
         Result result = MainIF.getIF().getClaimManager().claimChunk(faction, player.getLocation().getChunk());
 

@@ -1,9 +1,9 @@
 package io.github.toberocat.core.commands.factions;
 
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionUtility;
-import io.github.toberocat.core.factions.rank.Rank;
-import io.github.toberocat.core.factions.rank.members.MemberRank;
+import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.local.rank.Rank;
+import io.github.toberocat.core.factions.local.rank.members.MemberRank;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.command.SubCommand;
@@ -25,13 +25,13 @@ public class InviteAcceptSubCommand extends SubCommand {
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
-        Faction faction = FactionUtility.getFactionByRegistry(args[0]);
+        LocalFaction faction = FactionUtility.getFactionByRegistry(args[0]);
         if (faction == null) {
             Language.sendRawMessage("&cCan't find given faction", player);
             return;
         }
 
-        if (AsyncTask.find(Faction.getLoadedFactions().values(),
+        if (AsyncTask.find(LocalFaction.getLoadedFactions().values(),
                 x -> x.getFactionMemberManager().getInvitations().contains(player.getUniqueId())) == null) {
             Language.sendMessage("command.faction.invite-accept.failed", player);
             return;
@@ -47,7 +47,7 @@ public class InviteAcceptSubCommand extends SubCommand {
 
     @Override
     protected List<String> CommandTab(Player player, String[] args) {
-        return Faction.getLoadedFactions().values().stream().filter(x -> x.getFactionMemberManager()
-                .getInvitations().contains(player.getUniqueId())).map(Faction::getRegistryName).toList();
+        return LocalFaction.getLoadedFactions().values().stream().filter(x -> x.getFactionMemberManager()
+                .getInvitations().contains(player.getUniqueId())).map(LocalFaction::getRegistryName).toList();
     }
 }
