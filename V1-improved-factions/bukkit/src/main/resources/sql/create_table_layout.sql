@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS factions
     display_name   varchar(@max_len)             not null, -- Display max size
     motd           text    default 'New faction' not null,
     tag            varchar(@max_tag)             not null, -- Tag max size
+    open_type      int(3)                        not null,
     frozen         boolean default false         not null,
     permanent      boolean default false         not null,
     created_at     datetime                      not null,

@@ -30,11 +30,16 @@ public interface Faction {
     @NotNull Description getDescription();
     @NotNull String getCreatedAt();
     @NotNull OpenType getType();
+    boolean isPermanent();
+    boolean isFrozen();
 
     /* Setter */
     void setDisplay(@NotNull String display);
     void setMotd(@NotNull String motd);
     void setTag(@NotNull String tag);
+    void setType(@NotNull OpenType type);
+    void setPermanent(boolean permanent);
+    void setFrozen(boolean frozen);
 
     /* Rank management */
     @NotNull Rank getPlayerRank(@Nullable OfflinePlayer player);

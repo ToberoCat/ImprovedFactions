@@ -2,7 +2,6 @@ package io.github.toberocat.core.utility.data.access;
 
 import io.github.toberocat.core.utility.data.Table;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,26 +31,25 @@ public interface AccessPipeline<T extends AbstractAccess<T>> {
             }
 
             @Override
-            public @NotNull AccessPipelineResult<Stream<String>, C> listInTableStream(@NotNull Table table) {
-                return new AccessPipelineResult<>(Stream.empty(), this);
+            public @NotNull Stream<String> listInTableStream(@NotNull Table table) {
+                return Stream.empty();
             }
 
             @Override
-            public @NotNull AccessPipelineResult<List<String>, C> listInTable(@NotNull Table table) {
-                return new AccessPipelineResult<>(Collections.emptyList(), this);
+            public @NotNull List<String> listInTable(@NotNull Table table) {
+                return Collections.emptyList();
             }
 
             @Override
-            public @NotNull AccessPipelineResult<Boolean, C> has(@NotNull Table table, @NotNull String byKey) {
-                return new AccessPipelineResult<>(false, this);
+            public boolean has(@NotNull Table table, @NotNull String byKey) {
+                return false;
             }
 
             @Override
-            public @NotNull <C1> AccessPipelineResult<C1, C> read(@NotNull Table table, @NotNull String byKey) {
-                return new AccessPipelineResult<>(null, this);
+            public <R> R read(@NotNull Table table, @NotNull String byKey) {
+                return null;
             }
         };
-
     }
 
     @NotNull <R> AccessPipeline<T> write(@NotNull Table table, @NotNull R instance);
@@ -60,14 +58,12 @@ public interface AccessPipeline<T extends AbstractAccess<T>> {
 
     @NotNull AccessPipeline<T> restoreDefault();
 
-    @NotNull AccessPipelineResult<Stream<String>, T> listInTableStream(@NotNull Table table);
+    @NotNull Stream<String> listInTableStream(@NotNull Table table);
 
-    @NotNull AccessPipelineResult<List<String>, T> listInTable(@NotNull Table table);
+    @NotNull List<String> listInTable(@NotNull Table table);
 
-    @NotNull AccessPipelineResult<Boolean, T> has(@NotNull Table table, @NotNull String byKey);
+    boolean has(@NotNull Table table, @NotNull String byKey);
 
-    <C> @NotNull AccessPipelineResult<C, T> read(@NotNull Table table, @NotNull String byKey);
+    <R> R read(@NotNull Table table, @NotNull String byKey);
 
-    record AccessPipelineResult<C, T extends AbstractAccess<T>>(C item, @NotNull AccessPipeline<T> pipeline) {
-    }
 }

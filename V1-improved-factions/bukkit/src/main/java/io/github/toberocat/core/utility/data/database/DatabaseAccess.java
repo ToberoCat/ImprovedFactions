@@ -1,11 +1,11 @@
 package io.github.toberocat.core.utility.data.database;
 
 import io.github.toberocat.MainIF;
+import io.github.toberocat.core.utility.ReflectUtility;
 import io.github.toberocat.core.utility.data.Table;
 import io.github.toberocat.core.utility.data.access.AbstractAccess;
 import io.github.toberocat.core.utility.data.access.AccessPipeline;
 import io.github.toberocat.core.utility.data.annotation.DatabaseField;
-import io.github.toberocat.core.utility.ReflectUtility;
 import io.github.toberocat.core.utility.data.annotation.TableKey;
 import io.github.toberocat.core.utility.data.database.sql.MySqlDatabase;
 import io.github.toberocat.core.utility.data.database.sql.SqlCode;
@@ -61,11 +61,10 @@ public class DatabaseAccess extends AbstractAccess<DatabaseAccess> {
     }
 
     @Override
-    public @NotNull AccessPipelineResult<Stream<String>, DatabaseAccess> listInTableStream(@NotNull Table table) {
-        if (isUnusable()) return sendProblem(new AccessPipelineResult<>(Stream.empty(),
-                this), "The database access wasn't able to establish a " +
+    public @NotNull Stream<String> listInTableStream(@NotNull Table table) {
+        if (isUnusable()) return sendProblem(Stream.empty(), "The database access wasn't able to establish a " +
                 "connection while listing files in %s", table);
-        return new AccessPipelineResult<>(database.rowSelect(new Select()
+        return database.rowSelect(new Select()
                         .setTable(table.getTable()))
                 .getRows()
                 .stream()
@@ -74,16 +73,16 @@ public class DatabaseAccess extends AbstractAccess<DatabaseAccess> {
                     if (key == null) throw new DatabaseAccessException("No key got specified for the class " +
                             table.getDatabaseClass().getName());
                     return row.get(key.key()).toString();
-                }), this);
+                });
     }
 
     @Override
-    public @NotNull AccessPipelineResult<List<String>, DatabaseAccess> listInTable(@NotNull Table table) {
-        return new AccessPipelineResult<>(listInTableStream(table).item().toList(), this);
+    public @NotNull List<String> listInTable(@NotNull Table table) {
+        return listInTableStream(table).toList();
     }
 
     @Override
-    public @NotNull AccessPipeline<DatabaseAccess> restoreDefault() {
+    public @NotNull DatabaseAccess restoreDefault() {
         database.evalTry("DROP DATABASE IF EXISTS %s", SCHEMA)
                 .get(PreparedStatement::executeUpdate);
         register();
@@ -91,13 +90,13 @@ public class DatabaseAccess extends AbstractAccess<DatabaseAccess> {
     }
 
     @Override
-    public @NotNull <T> AccessPipelineResult<T, DatabaseAccess> read(@NotNull Table table, @NotNull String sql) {
-        return new AccessPipelineResult<>(null, this);
+    public <T> T read(@NotNull Table table, @NotNull String sql) {
+        return null;
     }
 
     @Override
-    public @NotNull <T> AccessPipeline<DatabaseAccess> write(@NotNull Table table, T instance) {
-        Set<Field> fields =  ReflectUtility.findFields(instance.getClass(), DatabaseField.class);
+    public @NotNull <T> DatabaseAccess write(@NotNull Table table, T instance) {
+        Set<Field> fields = ReflectUtility.findFields(instance.getClass(), DatabaseField.class);
         fields.forEach(field -> {
             field.
         });
@@ -105,17 +104,17 @@ public class DatabaseAccess extends AbstractAccess<DatabaseAccess> {
     }
 
     @Override
-    public @NotNull AccessPipeline<DatabaseAccess> delete(@NotNull Table table, @NotNull String byKey) {
+    public @NotNull DatabaseAccess delete(@NotNull Table table, @NotNull String byKey) {
         return this;
     }
 
     @Override
-    public @NotNull AccessPipelineResult<Boolean, DatabaseAccess> has(@NotNull Table table, @NotNull String byKey) {
-        return new AccessPipelineResult<>(false, this);
+    public @NotNull boolean has(@NotNull Table table, @NotNull String byKey) {
+        return false;
     }
 
-    public @NotNull AccessPipelineResult<MySqlDatabase, DatabaseAccess> database() {
-        return new AccessPipelineResult<>(database, this);
+    public @NotNull MySqlDatabase database() {
+        return database;
     }
 
     @Override

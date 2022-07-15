@@ -34,7 +34,7 @@ public class Select {
         return this;
     }
 
-    public Select setFilter(String filter, String... placeholders) {
+    public Select setFilter(String filter, Object... placeholders) {
         this.filter = String.format(filter, placeholders);
         return this;
     }

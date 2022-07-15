@@ -73,7 +73,7 @@ public class LocalFaction {
         this.factionPerm = new FactionPerm(this);
 
         this.frozen = false;
-        this.permanent = Boolean.TRUE.equals(MainIF.getConfigManager().getValue("faction.permanent"));
+        this.permanent = MainIF.config().getBoolean("faction.default.permanent", true);
         this.description = new String[]{"&eCool &cfaction"};
         this.motd = "New faction";
         this.tag = "IFF";
