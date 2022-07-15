@@ -88,6 +88,7 @@
     "command.faction.create.description": "&fCreate a new faction",
     "command.faction.create.failed": "&c&lFailed&f to create your faction. {error}",
     "command.faction.create.success": "&a&lSuccessfully&f created your faction {faction_name}",
+    "command.faction.create.no-color-perms": "You aren't allowed to use color in your faction name",
     "command.faction.delete.description": "&fDelete a faction if you are the owner of it",
     "command.faction.delete.failed": "&c&lFailed&f to delete the faction. {error}",
     "command.faction.delete.success": "&a&lSuccessfully&f deleted your faction",

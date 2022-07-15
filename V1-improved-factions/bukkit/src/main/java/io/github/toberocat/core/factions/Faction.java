@@ -1,7 +1,9 @@
 package io.github.toberocat.core.factions;
 
+import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.claim.FactionClaims;
 import io.github.toberocat.core.factions.local.rank.Rank;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -11,10 +13,28 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 public interface Faction {
-    /* Faction identifier */
+    /* Static voids */
+    static @NotNull String displayToRegistry(@NotNull String display) {
+        return display
+                .substring(0, MainIF.config().getInt("faction.maxNameLen"))
+                .toLowerCase()
+                .transform(ChatColor::stripColor)
+                .replaceAll("[^a-z]", "");
+    }
+    /* Faction infos */
+    /* Getters */
     @NotNull String getRegistry();
     @NotNull String getDisplay();
+    @NotNull String getMotd();
+    @NotNull String getTag();
+    @NotNull Description getDescription();
+    @NotNull String getCreatedAt();
     @NotNull OpenType getType();
+
+    /* Setter */
+    void setDisplay(@NotNull String display);
+    void setMotd(@NotNull String motd);
+    void setTag(@NotNull String tag);
 
     /* Rank management */
     @NotNull Rank getPlayerRank(@Nullable OfflinePlayer player);

@@ -21,7 +21,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.stream.Stream;
 
-public class DatabaseAccess extends AbstractAccess {
+public class DatabaseAccess extends AbstractAccess<DatabaseAccess> {
     private static final String SCHEMA = "improved_factions";
     protected MySqlDatabase database;
 
@@ -61,95 +61,65 @@ public class DatabaseAccess extends AbstractAccess {
     }
 
     @Override
-    public Stream<String> listInTableStream(@NotNull Table table) {
-        if (isUnusable()) return sendProblem(Stream.of(), "The database access wasn't able " +
-                "to establish a connection while listing files in %s", table);
-        return database.rowSelect(new Select()
+    public @NotNull AccessPipelineResult<Stream<String>, DatabaseAccess> listInTableStream(@NotNull Table table) {
+        if (isUnusable()) return sendProblem(new AccessPipelineResult<>(Stream.empty(),
+                this), "The database access wasn't able to establish a " +
+                "connection while listing files in %s", table);
+        return new AccessPipelineResult<>(database.rowSelect(new Select()
                         .setTable(table.getTable()))
                 .getRows()
                 .stream()
                 .map(row -> {
-                    TableKey key = table.getDefaultClass().getAnnotation(TableKey.class);
+                    TableKey key = table.getDatabaseClass().getAnnotation(TableKey.class);
                     if (key == null) throw new DatabaseAccessException("No key got specified for the class " +
-                            table.getDefaultClass().getName());
+                            table.getDatabaseClass().getName());
                     return row.get(key.key()).toString();
-                });
+                }), this);
     }
 
     @Override
-    public List<String> listInTable(@NotNull Table table) {
-        return listInTableStream(table).toList();
+    public @NotNull AccessPipelineResult<List<String>, DatabaseAccess> listInTable(@NotNull Table table) {
+        return new AccessPipelineResult<>(listInTableStream(table).item().toList(), this);
     }
 
     @Override
-    public void restoreDefault() {
+    public @NotNull AccessPipeline<DatabaseAccess> restoreDefault() {
         database.evalTry("DROP DATABASE IF EXISTS %s", SCHEMA)
                 .get(PreparedStatement::executeUpdate);
         register();
+        return this;
     }
 
     @Override
-    public <T> T read(@NotNull Table table, @NotNull String byKey, @NotNull Class<T> clazz) {
-        return null;
+    public @NotNull <T> AccessPipelineResult<T, DatabaseAccess> read(@NotNull Table table, @NotNull String sql) {
+        return new AccessPipelineResult<>(null, this);
     }
 
     @Override
-    public <T> void write(@NotNull Table table, T instance) {
+    public @NotNull <T> AccessPipeline<DatabaseAccess> write(@NotNull Table table, T instance) {
         Set<Field> fields =  ReflectUtility.findFields(instance.getClass(), DatabaseField.class);
         fields.forEach(field -> {
             field.
         });
+        return this;
     }
 
     @Override
-    public void delete(@NotNull Table table, @NotNull String byKey) {
-
+    public @NotNull AccessPipeline<DatabaseAccess> delete(@NotNull Table table, @NotNull String byKey) {
+        return this;
     }
 
     @Override
-    public void has(@NotNull Table table, @NotNull String byKey) {
+    public @NotNull AccessPipelineResult<Boolean, DatabaseAccess> has(@NotNull Table table, @NotNull String byKey) {
+        return new AccessPipelineResult<>(false, this);
+    }
 
+    public @NotNull AccessPipelineResult<MySqlDatabase, DatabaseAccess> database() {
+        return new AccessPipelineResult<>(database, this);
     }
 
     @Override
-    protected AccessPipeline<DatabaseAccess> createPipeline() {
-        return new DatabasePipeline();
-    }
-
-    public class DatabasePipeline implements AccessPipeline<DatabaseAccess> {
-        @Override
-        public @NotNull AccessPipeline<DatabaseAccess> write(@NotNull Table table, @NotNull Object object) {
-            return this;
-        }
-
-        @Override
-        public @NotNull AccessPipeline<DatabaseAccess> delete(@NotNull Table table, @NotNull String byKey) {
-            return this;
-        }
-
-        @Override
-        public @NotNull AccessPipeline<DatabaseAccess> restoreDefault() {
-            return this;
-        }
-
-        @Override
-        public @NotNull AccessPipelineResult<Stream<String>, DatabaseAccess> listInTableStream(@NotNull Table table) {
-            return new AccessPipelineResult<>(DatabaseAccess.this.listInTableStream(table), this);
-        }
-
-        @Override
-        public @NotNull AccessPipelineResult<List<String>, DatabaseAccess> listInTable(@NotNull Table table) {
-            return new AccessPipelineResult<>(DatabaseAccess.this.listInTable(table), this);
-        }
-
-        @Override
-        public @NotNull AccessPipelineResult<Boolean, DatabaseAccess> has(@NotNull Table table, @NotNull String byKey) {
-            return new AccessPipelineResult<>(true, this);
-        }
-
-        @Override
-        public @NotNull <C> AccessPipelineResult<C, DatabaseAccess> read(@NotNull Table table, @NotNull String byKey, @NotNull Class<C> clazz) {
-            return new AccessPipelineResult<>(null, this);
-        }
+    protected DatabaseAccess createPipeline() {
+        return this;
     }
 }

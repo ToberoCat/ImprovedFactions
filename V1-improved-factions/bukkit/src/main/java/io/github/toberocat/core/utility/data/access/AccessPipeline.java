@@ -4,47 +4,54 @@ import io.github.toberocat.core.utility.data.Table;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
-public interface AccessPipeline<T extends AbstractAccess> {
-    static AccessPipeline<?> empty() {
-        return new AccessPipeline<>() {
+public interface AccessPipeline<T extends AbstractAccess<T>> {
+    static <C extends AbstractAccess<C>> AbstractAccess<C> empty() {
+        return new AbstractAccess<>() {
             @Override
-            public @NotNull <R> AccessPipeline<AbstractAccess> write(@NotNull Table table, @NotNull R instance) {
+            public boolean register() {
+                return false;
+            }
+
+            @Override
+            public @NotNull <R> AccessPipeline<C> write(@NotNull Table table, @NotNull R instance) {
                 return this;
             }
 
             @Override
-            public @NotNull AccessPipeline<AbstractAccess> delete(@NotNull Table table, @NotNull String byKey) {
+            public @NotNull AccessPipeline<C> delete(@NotNull Table table, @NotNull String byKey) {
                 return this;
             }
 
             @Override
-            public @NotNull AccessPipeline<AbstractAccess> restoreDefault() {
+            public @NotNull AccessPipeline<C> restoreDefault() {
                 return this;
             }
 
             @Override
-            public @NotNull AccessPipelineResult<Stream<String>, AbstractAccess> listInTableStream(@NotNull Table table) {
-                return new AccessPipelineResult<>(null, this);
+            public @NotNull AccessPipelineResult<Stream<String>, C> listInTableStream(@NotNull Table table) {
+                return new AccessPipelineResult<>(Stream.empty(), this);
             }
 
             @Override
-            public @NotNull AccessPipelineResult<List<String>, AbstractAccess> listInTable(@NotNull Table table) {
-                return new AccessPipelineResult<>(null, this);
+            public @NotNull AccessPipelineResult<List<String>, C> listInTable(@NotNull Table table) {
+                return new AccessPipelineResult<>(Collections.emptyList(), this);
             }
 
             @Override
-            public @NotNull AccessPipelineResult<Boolean, AbstractAccess> has(@NotNull Table table, @NotNull String byKey) {
+            public @NotNull AccessPipelineResult<Boolean, C> has(@NotNull Table table, @NotNull String byKey) {
                 return new AccessPipelineResult<>(false, this);
             }
 
             @Override
-            public @NotNull <C> AccessPipelineResult<C, AbstractAccess> read(@NotNull Table table, @NotNull String byKey, @NotNull Class<C> clazz) {
+            public @NotNull <C1> AccessPipelineResult<C1, C> read(@NotNull Table table, @NotNull String byKey) {
                 return new AccessPipelineResult<>(null, this);
             }
         };
+
     }
 
     @NotNull <R> AccessPipeline<T> write(@NotNull Table table, @NotNull R instance);
@@ -59,9 +66,8 @@ public interface AccessPipeline<T extends AbstractAccess> {
 
     @NotNull AccessPipelineResult<Boolean, T> has(@NotNull Table table, @NotNull String byKey);
 
-    <C> @NotNull AccessPipelineResult<C, T> read(@NotNull Table table, @NotNull String byKey, @NotNull Class<C> clazz);
+    <C> @NotNull AccessPipelineResult<C, T> read(@NotNull Table table, @NotNull String byKey);
 
-    record AccessPipelineResult<C, T extends AbstractAccess>(@Nullable C item,
-                                                             @NotNull AccessPipeline<T> pipeline) {
+    record AccessPipelineResult<C, T extends AbstractAccess<T>>(C item, @NotNull AccessPipeline<T> pipeline) {
     }
 }

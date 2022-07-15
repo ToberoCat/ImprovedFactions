@@ -9,9 +9,8 @@ public class Row {
     public Row() {
     }
 
-    public Row addColumn(String name, Object content) {
+    public void addColumn(String name, Object content) {
         this.content.put(name, content);
-        return this;
     }
 
     public HashMap<String, Object> getColumns() {

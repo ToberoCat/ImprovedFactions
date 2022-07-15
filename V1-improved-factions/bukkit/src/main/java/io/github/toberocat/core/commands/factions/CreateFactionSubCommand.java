@@ -16,11 +16,11 @@ import java.util.UUID;
 
 public class CreateFactionSubCommand extends SubCommand {
 
-    private final ArrayList<UUID> PLAYER_WARNINGS;
+    private final ArrayList<UUID> PLAYER_WARNINGS_LENGTH = new ArrayList<>();
+    private final ArrayList<UUID> PLAYER_WARNINGS_COLOR = new ArrayList<>();
 
     public CreateFactionSubCommand() {
         super("create", "command.faction.create.description", false);
-        PLAYER_WARNINGS = new ArrayList<>();
     }
 
     @Override
@@ -38,20 +38,28 @@ public class CreateFactionSubCommand extends SubCommand {
                     new Parseable("{error}", "The faction already exists"));
         }
 
-        PLAYER_WARNINGS.remove(player.getUniqueId());
+        PLAYER_WARNINGS_LENGTH.remove(player.getUniqueId());
     }
 
     @Override
     protected List<String> CommandTab(Player player, String[] args) {
         if (args.length <= 1) {
             UUID id = player.getUniqueId();
+            String display = args[0];
             int maxLen = MainIF.getConfigManager().getValue("faction.maxNameLen");
-            if (!PLAYER_WARNINGS.contains(id) && args[0].length() >= maxLen) {
+            if (!PLAYER_WARNINGS_LENGTH.contains(id) && display.length() >= maxLen) {
                 Language.sendRawMessage("&cYou have reached the maximum name length of &e" + maxLen, player);
-                PLAYER_WARNINGS.add(id);
-            } else if (PLAYER_WARNINGS.contains(id) && args[0].length() < maxLen) {
+                PLAYER_WARNINGS_LENGTH.add(id);
+            } else if (PLAYER_WARNINGS_LENGTH.contains(id) && display.length() < maxLen) {
                 Language.sendRawMessage("&aYou are back in the limitation", player);
-                PLAYER_WARNINGS.remove(id);
+                PLAYER_WARNINGS_LENGTH.remove(id);
+            }
+
+            if (display.matches("&[0-9a-f]")) {
+                if (PLAYER_WARNINGS_COLOR.contains(id)) {
+                    Language.sendMessage("command.faction.create.no-color-perms", player);
+                    PLAYER_WARNINGS_COLOR.add(id);
+                }
             }
         }
 
