@@ -16,6 +16,14 @@ public abstract class AbstractAccess<A extends AbstractAccess<A>>  implements Ac
         currentInstance = this;
     }
 
+    public static <C extends AbstractAccess<C>> boolean isAccess(@NotNull Class<C> accessor) {
+        return currentInstance != null && currentInstance.getClass().isAssignableFrom(accessor);
+    }
+
+    public static AbstractAccess<?> accessPipeline() {
+        if (currentInstance == null) return AccessPipeline.empty();
+        return currentInstance.createPipeline();
+    }
     public static <C extends AbstractAccess<C>> C accessPipeline(@NotNull Class<C> onlyIf) {
         if (currentInstance == null) return onlyIf.cast(AccessPipeline.empty());
         if (!currentInstance.getClass().isAssignableFrom(onlyIf)) return onlyIf.cast(AccessPipeline.empty());

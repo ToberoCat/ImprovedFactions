@@ -6,6 +6,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -14,7 +15,7 @@ public class ReflectUtility {
     /**
      * @return null safe set
      */
-    public static Set<Field> findFields(@NotNull final Class<?> clazz,  @NotNull final Class<? extends Annotation> ann) {
+    public static Set<Field> findFields(@NotNull final Class<?> clazz, @NotNull final Class<? extends Annotation> ann) {
         Set<Field> set = new HashSet<>();
         Class<?> c = clazz;
         while (c != null) {
@@ -26,6 +27,4 @@ public class ReflectUtility {
         }
         return set;
     }
-
-    public static setField(@NotNull Field field, )
 }

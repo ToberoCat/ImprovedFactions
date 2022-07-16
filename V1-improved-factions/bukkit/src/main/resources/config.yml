@@ -12,7 +12,13 @@ faction:
   joinTimeout: 24
   default:
     permanent: false
+    frozen: false
+    openType: INVITE_ONLY
     motd: "Improved faction"
+    tag: "IFF"
+    power:
+      value: 20
+      max: 20
   ranks:
     guest: Guest
     ally-member: Ally member

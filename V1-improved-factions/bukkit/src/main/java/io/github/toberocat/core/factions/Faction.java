@@ -22,6 +22,8 @@ public interface Faction {
                 .replaceAll("[^a-z]", "");
     }
     /* Faction infos */
+    void createFromStorage( @NotNull String loadRegistry);
+
     /* Getters */
     @NotNull String getRegistry();
     @NotNull String getDisplay();

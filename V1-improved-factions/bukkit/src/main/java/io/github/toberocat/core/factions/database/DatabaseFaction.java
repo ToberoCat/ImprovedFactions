@@ -6,20 +6,29 @@ import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.OpenType;
 import io.github.toberocat.core.factions.claim.FactionClaims;
 import io.github.toberocat.core.factions.local.rank.Rank;
+import io.github.toberocat.core.factions.local.rank.members.OwnerRank;
+import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.data.Table;
-import io.github.toberocat.core.utility.data.access.AbstractAccess;
-import io.github.toberocat.core.utility.data.annotation.DatabaseField;
 import io.github.toberocat.core.utility.data.database.DatabaseAccess;
-import io.github.toberocat.core.utility.data.database.sql.builder.Insert;
+import io.github.toberocat.core.utility.data.database.sql.MySqlDatabase;
+import io.github.toberocat.core.utility.data.database.sql.SqlCode;
+import io.github.toberocat.core.utility.data.database.sql.SqlVar;
 import io.github.toberocat.core.utility.data.database.sql.builder.Select;
+import io.github.toberocat.core.utility.data.database.sql.builder.Update;
+import io.github.toberocat.core.utility.data.database.sql.builder.UpdateValue;
+import io.github.toberocat.core.utility.date.DateCore;
 import io.github.toberocat.core.utility.exceptions.DescriptionHasNoLine;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joda.time.LocalDateTime;
 
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
+import java.util.HashMap;
 import java.util.UUID;
 
 /**
@@ -27,36 +36,66 @@ import java.util.UUID;
  */
 public class DatabaseFaction implements Faction {
 
-    @DatabaseField
+    private final MySqlDatabase database;
+    private final DatabaseAccess access;
+
     private String registry;
-
-    @DatabaseField
     private String display;
-
-    @DatabaseField
     private String motd;
-
-    @DatabaseField
     private String tag;
 
-    @DatabaseField
-    private String createdAt;
-
-
+    /**
+     * Use FactionHandler#createFaction() to create a faction
+     */
     public DatabaseFaction() {
-
+        this.access = DatabaseAccess.accessPipeline(DatabaseAccess.class);
+        this.database = access.database();
     }
 
     /**
      * @param display This name isn't allowed to be longer than "faction.maxNameLen" in config.yml
      */
-    public DatabaseFaction(@NotNull String display) {
+    public DatabaseFaction(@NotNull String display, @NotNull Player owner) {
+        this();
         this.registry = Faction.displayToRegistry(display);
         this.display = display.substring(0, MainIF.config().getInt("faction.maxNameLen"));
 
-        this.motd = MainIF.config().getString("faction.default.motd");
+        FileConfiguration config = MainIF.config();
+        this.motd = config.getString("faction.default.motd", "Improved faction");
+        this.tag = config.getString("faction.default.tag", "IFF");
 
-        DatabaseAccess.accessPipeline(DatabaseAccess.class).write(Table.FACTIONS, this);
+        SqlCode.execute(database, SqlCode.CREATE_FACTION,
+                SqlVar.of("registry", registry),
+                SqlVar.of("display", display),
+                SqlVar.of("motd", motd),
+                SqlVar.of("tag", tag),
+                SqlVar.of("openType", OpenType.valueOf(
+                        config.getString("faction.default.openType", "INVITE_ONLY")).ordinal()),
+                SqlVar.of("frozen", config.getBoolean("faction.default.frozen")),
+                SqlVar.of("permanent", config.getBoolean("faction.default.permanent")),
+                SqlVar.of("created_at", DateCore.TIME_FORMAT.print(new LocalDateTime())),
+                SqlVar.of("owner", owner.getUniqueId().toString()),
+                SqlVar.of("claimed_chunks", 0),
+                SqlVar.of("balance", 0),
+                SqlVar.of("current_power", config.getInt("faction.default.power.value")),
+                SqlVar.of("max_power", config.getInt("faction.default.power.max"))
+        );
+    }
+
+    @Override
+    public void createFromStorage(@NotNull String loadRegistry) {
+        HashMap<String, Object> map = database.rowSelect(new Select()
+                .setTable(Table.FACTIONS.getTable())
+                .setColumns("registry", "display", "motd", "tag")
+                .setFilter("registry_id = %s", loadRegistry))
+                .getRows()
+                .get(0)
+                .getColumns();
+
+        registry = map.get("registry").toString();
+        display = map.get("display").toString();
+        motd = map.get("motd").toString();
+        tag = map.get("tag").toString();
     }
 
     @Override
@@ -66,8 +105,7 @@ public class DatabaseFaction implements Faction {
 
     @Override
     public @NotNull String getDisplay() {
-        return DatabaseAccess.accessPipeline(DatabaseAccess.class)
-                .database()
+        return database
                 .rowSelect(new Select()
                         .setTable(Table.FACTIONS.getTable())
                         .setColumns("display_name")
@@ -79,8 +117,7 @@ public class DatabaseFaction implements Faction {
     @Override
     public void setDisplay(@NotNull String display) {
         this.display = display;
-        DatabaseAccess.accessPipeline(DatabaseAccess.class)
-                .database()
+        database
                 .evalTry("UPDATE factions SET display_name = %s WHERE registry_id = %s",
                         display, registry)
                 .get(PreparedStatement::executeUpdate);
@@ -88,8 +125,7 @@ public class DatabaseFaction implements Faction {
 
     @Override
     public @NotNull String getMotd() {
-        return DatabaseAccess.accessPipeline(DatabaseAccess.class)
-                .database()
+        return database
                 .rowSelect(new Select()
                         .setTable(Table.FACTIONS.getTable())
                         .setColumns("motd")
@@ -101,8 +137,7 @@ public class DatabaseFaction implements Faction {
     @Override
     public void setMotd(@NotNull String motd) {
         this.motd = motd;
-        DatabaseAccess.accessPipeline(DatabaseAccess.class)
-                .database()
+        database
                 .evalTry("UPDATE factions SET motd = %s WHERE registry_id = %s",
                         motd, registry)
                 .get(PreparedStatement::executeUpdate);
@@ -110,8 +145,7 @@ public class DatabaseFaction implements Faction {
 
     @Override
     public @NotNull String getTag() {
-        return DatabaseAccess.accessPipeline(DatabaseAccess.class)
-                .database()
+        return database
                 .rowSelect(new Select()
                         .setTable(Table.FACTIONS.getTable())
                         .setColumns("tag")
@@ -123,8 +157,7 @@ public class DatabaseFaction implements Faction {
     @Override
     public void setTag(@NotNull String tag) {
         this.tag = tag;
-        DatabaseAccess.accessPipeline(DatabaseAccess.class)
-                .database()
+        database
                 .evalTry("UPDATE factions SET tag = %s WHERE registry_id = %s",
                         tag, registry)
                 .get(PreparedStatement::executeUpdate);
@@ -135,8 +168,7 @@ public class DatabaseFaction implements Faction {
         return new Description() {
             @Override
             public @NotNull String getLine(int line) throws DescriptionHasNoLine {
-                return DatabaseAccess.accessPipeline(DatabaseAccess.class)
-                        .database()
+                return database
                         .rowSelect(new Select()
                                 .setTable(Table.FACTION_DESCRIPTIONS.getTable())
                                 .setColumns("content")
@@ -147,13 +179,11 @@ public class DatabaseFaction implements Faction {
 
             @Override
             public void setLine(int line, @NotNull String content) {
-                if (hasLine(line)) DatabaseAccess.accessPipeline(DatabaseAccess.class)
-                        .database()
+                if (hasLine(line)) database
                         .evalTry("UPDATE faction_descriptions SET content = %s WHERE registry_id = %s AND line = %s",
                                 content, registry, line)
                         .get(PreparedStatement::executeUpdate);
-                else DatabaseAccess.accessPipeline(DatabaseAccess.class)
-                        .database()
+                else database
                         .evalTry("INSERT INTO faction_descriptions VALUE (%s, %d, %s)",
                                 registry, line, content)
                         .get(PreparedStatement::executeUpdate);
@@ -161,8 +191,7 @@ public class DatabaseFaction implements Faction {
 
             @Override
             public boolean hasLine(int line) {
-                return DatabaseAccess.accessPipeline(DatabaseAccess.class)
-                        .database()
+                return database
                         .rowSelect(new Select()
                                 .setTable(Table.FACTION_DESCRIPTIONS.getTable())
                                 .setColumns("content")
@@ -173,8 +202,7 @@ public class DatabaseFaction implements Faction {
 
             @Override
             public int getLastLine() {
-                return DatabaseAccess.accessPipeline(DatabaseAccess.class)
-                        .database()
+                return database
                         .rowSelect(new Select()
                                 .setTable(Table.FACTION_DESCRIPTIONS.getTable())
                                 .setColumns("line")
@@ -187,51 +215,66 @@ public class DatabaseFaction implements Faction {
 
     @Override
     public @NotNull String getCreatedAt() {
-        return DatabaseAccess.accessPipeline(DatabaseAccess.class)
-                .database()
+        return database
                 .rowSelect(new Select()
                         .setTable(Table.FACTIONS.getTable())
                         .setColumns("created_at")
                         .setFilter("registry_id = %s", registry))
                 .readRow(String.class, "created_at")
-                .orElse(createdAt);
+                .orElse(DateCore.TIME_FORMAT.print(new LocalDateTime()));
     }
 
     @Override
     public @NotNull OpenType getType() {
-        return DatabaseAccess.accessPipeline(DatabaseAccess.class)
-                .database()
-                .rowSelect(new Select()
-                        .setTable(Table.FACTIONS.getTable())
-                        .setColumns("open_type")
-                        .setFilter("registry_id = %s", registry))
-                .readRow(Integer.class, "open_type")
-                .orElse(createdAt);
+        return OpenType
+                .values()[database
+                        .rowSelect(new Select()
+                                .setTable(Table.FACTIONS.getTable())
+                                .setColumns("open_type")
+                                .setFilter("registry_id = %s", registry))
+                        .readRow(Integer.class, "open_type")
+                        .orElse(1)];
     }
 
     @Override
     public void setType(@NotNull OpenType type) {
-
+        database
+                .evalTry("UPDATE factions SET open_type = %d WHERE registry_id = %s", type.ordinal(), registry)
+                .get(PreparedStatement::executeUpdate);
     }
 
     @Override
     public boolean isPermanent() {
-        return false;
+        return database.rowSelect(new Select()
+                .setTable(Table.FACTIONS.getTable())
+                .setColumns("permanent")
+                .setFilter("WHERE registry_id = %s", registry))
+                .readRow(Boolean.class, "permanent")
+                .orElse(false);
     }
 
     @Override
     public void setPermanent(boolean permanent) {
-
+        database
+                .evalTry("UPDATE factions SET permanent = %b WHERE registry_id = %s", permanent, registry)
+                .get(PreparedStatement::executeUpdate);
     }
 
     @Override
     public boolean isFrozen() {
-        return false;
+        return database.rowSelect(new Select()
+                        .setTable(Table.FACTIONS.getTable())
+                        .setColumns("frozen")
+                        .setFilter("WHERE registry_id = %s", registry))
+                .readRow(Boolean.class, "frozen")
+                .orElse(false);
     }
 
     @Override
     public void setFrozen(boolean frozen) {
-
+        database
+                .evalTry("UPDATE factions SET frozen = %b WHERE registry_id = %s", frozen, registry)
+                .get(PreparedStatement::executeUpdate);
     }
 
     @Override
@@ -246,7 +289,13 @@ public class DatabaseFaction implements Faction {
 
     @Override
     public boolean isMember(@NotNull UUID player) {
-        return false;
+        return database.rowSelect(new Select()
+                .setTable(Table.PLAYERS.getTable())
+                .setColumns("faction")
+                .setFilter("uuid = %s", player.toString()))
+                .readRow(String.class, "faction")
+                .orElse("")
+                .equals(registry);
     }
 
     @Override
@@ -266,12 +315,21 @@ public class DatabaseFaction implements Faction {
 
     @Override
     public boolean joinPlayer(@NotNull Player player) {
-        return false;
+        return joinPlayer(player, Rank.fromString(OwnerRank.registry));
     }
 
     @Override
     public boolean joinPlayer(@NotNull Player player, @NotNull Rank rank) {
-        return false;
+        if (isMember(player.getUniqueId())) return false;
+
+        database.evalTry("UPDATE players SET faction = %s WHERE uuid = %s",
+                registry, player.getUniqueId().toString())
+                .get(PreparedStatement::executeUpdate);
+        database.evalTry("UPDATE players SET member_rank = %s WHERE uuid = %s",
+                rank.getRegistryName(), player.getUniqueId().toString())
+                .get(PreparedStatement::executeUpdate);
+
+        return true;
     }
 
     @Override

@@ -21,7 +21,7 @@ public enum Table {
     String table;
     Class<?> dataBaseClazz;
 
-    Table(@NotNull String table, @NotNull Class<?> dataBaseClazz) {
+    Table(@NotNull String table, Class<?> dataBaseClazz) {
         this.table = table;
         this.dataBaseClazz = dataBaseClazz;
     }

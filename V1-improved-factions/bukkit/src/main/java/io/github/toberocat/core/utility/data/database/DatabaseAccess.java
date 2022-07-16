@@ -1,23 +1,19 @@
 package io.github.toberocat.core.utility.data.database;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.utility.ReflectUtility;
 import io.github.toberocat.core.utility.data.Table;
 import io.github.toberocat.core.utility.data.access.AbstractAccess;
-import io.github.toberocat.core.utility.data.access.AccessPipeline;
-import io.github.toberocat.core.utility.data.annotation.DatabaseField;
 import io.github.toberocat.core.utility.data.annotation.TableKey;
 import io.github.toberocat.core.utility.data.database.sql.MySqlDatabase;
 import io.github.toberocat.core.utility.data.database.sql.SqlCode;
 import io.github.toberocat.core.utility.data.database.sql.SqlVar;
 import io.github.toberocat.core.utility.data.database.sql.builder.Select;
 import io.github.toberocat.core.utility.exceptions.DatabaseAccessException;
+import org.apache.commons.lang.NotImplementedException;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.stream.Stream;
 
@@ -91,16 +87,12 @@ public class DatabaseAccess extends AbstractAccess<DatabaseAccess> {
 
     @Override
     public <T> T read(@NotNull Table table, @NotNull String sql) {
-        return null;
+        throw new NotImplementedException("You can't read files automatically into mysql. Please do it yourself");
     }
 
     @Override
-    public @NotNull <T> DatabaseAccess write(@NotNull Table table, T instance) {
-        Set<Field> fields = ReflectUtility.findFields(instance.getClass(), DatabaseField.class);
-        fields.forEach(field -> {
-            field.
-        });
-        return this;
+    public @NotNull <T> DatabaseAccess write(@NotNull Table table, @NotNull T instance) {
+        throw new NotImplementedException("You can't write files automatically into mysql. Please do it yourself");
     }
 
     @Override
@@ -109,7 +101,7 @@ public class DatabaseAccess extends AbstractAccess<DatabaseAccess> {
     }
 
     @Override
-    public @NotNull boolean has(@NotNull Table table, @NotNull String byKey) {
+    public boolean has(@NotNull Table table, @NotNull String byKey) {
         return false;
     }
 

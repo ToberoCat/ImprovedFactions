@@ -82,3 +82,12 @@ create table IF NOT EXISTS player_settings
     constraint player_settings_pk
         primary key (uuid)
 );
+
+-- Create messages
+create table messages
+(
+    player  char(36)     not null,
+    content varchar(255) not null,
+    constraint messages_pk
+        PRIMARY KEY (player, content)
+);

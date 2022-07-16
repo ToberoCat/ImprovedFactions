@@ -1,7 +1,5 @@
 package io.github.toberocat.core.utility.data.database.sql.builder;
 
-import java.util.List;
-
 public class Insert {
     private String table = "";
     private String columns = "";
@@ -20,12 +18,13 @@ public class Insert {
         return columns;
     }
 
-    public String getTable() {
-        return table;
+    public Insert setColumns(String... columns) {
+        this.columns = String.join(", ", columns);
+        return this;
     }
 
-    public String[] getData() {
-        return data;
+    public String getTable() {
+        return table;
     }
 
     public Insert setTable(String table) {
@@ -33,12 +32,11 @@ public class Insert {
         return this;
     }
 
-    public Insert setColumns(String columns) {
-        this.columns = columns;
-        return this;
+    public String[] getData() {
+        return data;
     }
 
-    public Insert setData(String[] data) {
+    public Insert setData(String... data) {
         this.data = data;
         return this;
     }
