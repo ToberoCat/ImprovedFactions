@@ -2,7 +2,7 @@ package io.github.toberocat.core.factions.local.bank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
@@ -13,14 +13,14 @@ public class FactionBank {
     @JsonIgnore
     public boolean hasBank;
     @JsonIgnore
-    private LocalFaction faction;
+    private Faction faction;
     @JsonIgnore
     private Economy economy;
 
     public FactionBank() {
     }
 
-    public FactionBank(LocalFaction faction) {
+    public FactionBank(Faction faction) {
         this.faction = faction;
         economy = MainIF.getEconomy();
         if (economy != null) {
@@ -95,12 +95,12 @@ public class FactionBank {
     }
 
     @JsonIgnore
-    public LocalFaction getFaction() {
+    public Faction getFaction() {
         return faction;
     }
 
     @JsonIgnore
-    public void setFaction(LocalFaction faction) {
+    public void setFaction(Faction faction) {
         this.faction = faction;
     }
 }

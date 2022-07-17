@@ -1,7 +1,7 @@
 package io.github.toberocat.core.utility.claim;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.async.AsyncTask;
@@ -125,10 +125,10 @@ public class ClaimManager {
         return CLAIMS.get(world).stream().filter(x -> x.getRegistry().equals(registry));
     }
 
-    public static Result<?> claimChunk(LocalFaction faction, Chunk chunk) {
+    public static Result<?> claimChunk(Faction faction, Chunk chunk) {
         String registry = getFactionRegistry(chunk);
         if (registry != null && !isManageableZone(registry)) {
-            LocalFaction claim = FactionUtility.getFactionByRegistry(registry);
+            Faction claim = FactionUtility.getFactionByRegistry(registry);
             int power = claim.getPowerManager().getCurrentPower();
             int claims = claim.getClaimedChunks();
 
@@ -216,7 +216,7 @@ public class ClaimManager {
                 chunk.getPersistentDataContainer());
 
         if (claimRegistry != null) {
-            LocalFaction faction = FactionUtility.getFactionByRegistry(claimRegistry);
+            Faction faction = FactionUtility.getFactionByRegistry(claimRegistry);
             if (faction != null) {
                 faction.setClaimedChunks(faction.getClaimedChunks() - 1);
 
@@ -232,7 +232,7 @@ public class ClaimManager {
         return new Result<String>(true).setPaired(claimRegistry);
     }
 
-    public static Result<String> removeClaim(LocalFaction faction, Chunk chunk) {
+    public static Result<String> removeClaim(Faction faction, Chunk chunk) {
         Result<String> result = removeProtection(chunk);
         if (!result.isSuccess()) return result;
 

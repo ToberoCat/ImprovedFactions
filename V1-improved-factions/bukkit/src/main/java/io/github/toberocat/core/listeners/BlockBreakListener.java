@@ -3,7 +3,7 @@ package io.github.toberocat.core.listeners;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.commands.admin.AdminBypassSubCommand;
 import io.github.toberocat.core.debug.Debugger;
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.factions.local.permission.FactionPerm;
 import io.github.toberocat.core.utility.Utility;
@@ -45,7 +45,7 @@ public class BlockBreakListener implements Listener {
         }
         if (!FactionUtility.doesFactionExist(claim)) return;
 
-        LocalFaction claimFaction = FactionUtility.getFactionByRegistry(claim);
+        Faction claimFaction = FactionUtility.getFactionByRegistry(claim);
         if (claimFaction == null) {
             Language.sendRawMessage("You have encountered a problem with improved factions! Go ahead " +
                     "and tell the admins about the save shutdown. Error: BlockBreak wasn't able to find required faction", event.getPlayer());

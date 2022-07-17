@@ -2,7 +2,7 @@ package io.github.toberocat.core.factions.local.members;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.factions.local.rank.members.MemberRank;
 import io.github.toberocat.core.listeners.PlayerJoinListener;
@@ -31,7 +31,7 @@ public class FactionMemberManager {
     private ArrayList<UUID> banned;
     private ArrayList<UUID> invitations;
 
-    private LocalFaction faction;
+    private Faction faction;
 
     /**
      * Don't use this. It is for jackson (json).
@@ -39,7 +39,7 @@ public class FactionMemberManager {
     public FactionMemberManager() {
     }
 
-    public FactionMemberManager(LocalFaction faction) {
+    public FactionMemberManager(Faction faction) {
         this.members = new ArrayList<>();
         this.banned = new ArrayList<>();
         this.invitations = new ArrayList<>();
@@ -63,7 +63,7 @@ public class FactionMemberManager {
                 PersistentDataType.STRING, player.getPersistentDataContainer());
         if (registry == null) return;
 
-        LocalFaction faction = FactionUtility.getFactionByRegistry(registry);
+        Faction faction = FactionUtility.getFactionByRegistry(registry);
         if (faction != null) return;
 
         PersistentDataUtility.remove(PersistentDataUtility.PLAYER_FACTION_REGISTRY, player.getPersistentDataContainer());
@@ -233,12 +233,12 @@ public class FactionMemberManager {
     }
 
     @JsonIgnore
-    public LocalFaction getFaction() {
+    public Faction getFaction() {
         return faction;
     }
 
     @JsonIgnore
-    public FactionMemberManager setFaction(LocalFaction faction) {
+    public FactionMemberManager setFaction(Faction faction) {
         this.faction = faction;
         return this;
     }

@@ -2,7 +2,15 @@ package io.github.toberocat.core.factions;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.claim.FactionClaims;
+import io.github.toberocat.core.factions.local.LocalFaction;
 import io.github.toberocat.core.factions.local.rank.Rank;
+import io.github.toberocat.core.utility.ForbiddenChecker;
+import io.github.toberocat.core.utility.Result;
+import io.github.toberocat.core.utility.async.AsyncTask;
+import io.github.toberocat.core.utility.claim.ClaimManager;
+import io.github.toberocat.core.utility.language.Language;
+import io.github.toberocat.core.utility.language.Parseable;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -10,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public interface Faction {
@@ -21,6 +30,12 @@ public interface Faction {
                 .transform(ChatColor::stripColor)
                 .replaceAll("[^a-z]", "");
     }
+
+    static boolean validNaming(@NotNull String name) {
+        if (name.equalsIgnoreCase("safezone") || name.equalsIgnoreCase("warzone")) return false;
+        return ForbiddenChecker.checkName(name);
+    }
+
     /* Faction infos */
     void createFromStorage( @NotNull String loadRegistry);
 
@@ -69,9 +84,9 @@ public interface Faction {
     double playerPower(@NotNull OfflinePlayer player);
 
     /* Relations */
-    boolean addAlly(@NotNull Faction faction);
-    boolean addEnemy(@NotNull Faction faction);
-    boolean resetRelation(@NotNull Faction faction);
+    boolean addAlly(@NotNull LocalFaction faction);
+    boolean addEnemy(@NotNull LocalFaction faction);
+    boolean resetRelation(@NotNull LocalFaction faction);
 
     /* Claim management */
     FactionClaims getClaims();

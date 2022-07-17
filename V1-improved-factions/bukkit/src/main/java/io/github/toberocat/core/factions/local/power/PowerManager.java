@@ -2,7 +2,7 @@ package io.github.toberocat.core.factions.local.power;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.bossbar.AnimatedBossBar;
 import io.github.toberocat.core.utility.events.faction.power.FactionPowerEvent;
@@ -14,7 +14,7 @@ public class PowerManager {
     private int currentPower;
     private int maxPower;
 
-    private LocalFaction faction;
+    private Faction faction;
 
 
     /**
@@ -23,7 +23,7 @@ public class PowerManager {
     public PowerManager() {
     }
 
-    public PowerManager(LocalFaction faction, int maxPower) {
+    public PowerManager(Faction faction, int maxPower) {
         this.maxPower = maxPower;
         this.currentPower = maxPower;
         this.faction = faction;
@@ -132,12 +132,12 @@ public class PowerManager {
     }
 
     @JsonIgnore
-    public LocalFaction getFaction() {
+    public Faction getFaction() {
         return faction;
     }
 
     @JsonIgnore
-    public PowerManager setFaction(LocalFaction faction) {
+    public PowerManager setFaction(Faction faction) {
         this.faction = faction;
         return this;
     }

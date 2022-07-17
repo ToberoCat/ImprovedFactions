@@ -1,6 +1,6 @@
 package io.github.toberocat.core.commands.factions;
 
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -37,7 +37,7 @@ public class WhoSubCommand extends SubCommand {
             return;
         }
 
-        LocalFaction faction = FactionUtility.getFactionByRegistry(factionRegistry);
+        Faction faction = FactionUtility.getFactionByRegistry(factionRegistry);
         if (faction == null) {
             Language.sendRawMessage("&cCan't find given faction", player);
             return;

@@ -1,6 +1,6 @@
 package io.github.toberocat.core.commands.admin;
 
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.factions.local.rank.Rank;
 import io.github.toberocat.core.factions.local.rank.members.AdminRank;
@@ -23,7 +23,7 @@ public class JoinPrivateFactionSubCommand extends SubCommand {
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
-        LocalFaction faction = FactionUtility.getFactionByRegistry(args[0]);
+        Faction faction = FactionUtility.getFactionByRegistry(args[0]);
         if (faction == null) {
             Language.sendRawMessage("&cCan't find given faction", player);
             return;

@@ -1,7 +1,7 @@
 package io.github.toberocat.core.listeners.actions;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.local.rank.Rank;
 import io.github.toberocat.core.utility.action.Actions;
 import io.github.toberocat.core.utility.action.FactionActions;
@@ -42,7 +42,7 @@ public class ActionExecutor implements Listener {
         actions.run(sender);
     }
 
-    private void send(@NotNull String path, @NotNull LocalFaction faction, Parseable... parseables) {
+    private void send(@NotNull String path, @NotNull Faction faction, Parseable... parseables) {
         FactionActions actions = new FactionActions(getAction(path));
 
         for (Parseable parseable : parseables) actions.placeholder(parseable.getParse(), parseable.getTo());

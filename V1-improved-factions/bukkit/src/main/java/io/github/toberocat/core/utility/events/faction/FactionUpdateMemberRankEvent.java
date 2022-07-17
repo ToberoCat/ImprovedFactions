@@ -1,6 +1,6 @@
 package io.github.toberocat.core.utility.events.faction;
 
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import org.bukkit.OfflinePlayer;
 
 public class FactionUpdateMemberRankEvent extends FactionEvent {
@@ -8,7 +8,7 @@ public class FactionUpdateMemberRankEvent extends FactionEvent {
     private final OfflinePlayer player;
     private final String newRank, oldRank;
 
-    public FactionUpdateMemberRankEvent(LocalFaction faction, OfflinePlayer player, String oldRank, String newRank) {
+    public FactionUpdateMemberRankEvent(Faction faction, OfflinePlayer player, String oldRank, String newRank) {
         super(faction);
         this.player = player;
         this.oldRank = oldRank;

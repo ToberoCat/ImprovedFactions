@@ -1,18 +1,18 @@
 package io.github.toberocat.core.utility.events.faction;
 
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import org.jetbrains.annotations.NotNull;
 
 public class FactionAllyEvent extends FactionEvent {
 
-    private final LocalFaction allied;
+    private final Faction allied;
 
-    public FactionAllyEvent(@NotNull LocalFaction inviter, @NotNull LocalFaction allied) {
+    public FactionAllyEvent(@NotNull Faction inviter, @NotNull Faction allied) {
         super(inviter);
         this.allied = allied;
     }
 
-    public LocalFaction getAllied() {
+    public Faction getAllied() {
         return allied;
     }
 }

@@ -1,7 +1,7 @@
 package io.github.toberocat.core.listeners;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.factions.local.permission.FactionPerm;
 import io.github.toberocat.core.utility.Utility;
@@ -22,7 +22,7 @@ public class PlayerMountListener implements Listener {
             Chunk chunk = player.getLocation().getChunk();
             String registry = MainIF.getIF().getClaimManager().getFactionRegistry(chunk);
             if (registry == null) return;
-            LocalFaction faction = FactionUtility.getFactionByRegistry(registry);
+            Faction faction = FactionUtility.getFactionByRegistry(registry);
             if (!faction.hasPermission(player, FactionPerm.MOUNT_PERM)) event.setCancelled(true);
         }
     }

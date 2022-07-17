@@ -1,6 +1,6 @@
 package io.github.toberocat.core.factions.local.modules;
 
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.factions.local.permission.FactionPerm;
 import io.github.toberocat.core.utility.async.AsyncTask;
@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public class MessageModule extends FactionModule {
-    public MessageModule(LocalFaction faction) {
+    public MessageModule(Faction faction) {
         super(faction);
     }
 

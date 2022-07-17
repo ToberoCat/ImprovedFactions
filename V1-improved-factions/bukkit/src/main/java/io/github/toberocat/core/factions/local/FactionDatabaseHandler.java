@@ -1,6 +1,7 @@
 package io.github.toberocat.core.factions.local;
 
 import io.github.toberocat.MainIF;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.utility.data.database.sql.MySqlDatabase;
 import io.github.toberocat.core.utility.data.database.sql.SqlCode;
 import io.github.toberocat.core.utility.data.database.sql.SqlVar;
@@ -14,9 +15,9 @@ import java.util.logging.Level;
 
 public class FactionDatabaseHandler {
     private final MySqlDatabase sql;
-    private final LocalFaction f;
+    private final Faction f;
 
-    public FactionDatabaseHandler(@NotNull MySqlDatabase sql, @NotNull LocalFaction faction) {
+    public FactionDatabaseHandler(@NotNull MySqlDatabase sql, @NotNull Faction faction) {
         this.sql = sql;
         this.f = faction;
     }
@@ -40,7 +41,7 @@ public class FactionDatabaseHandler {
         return true;
     }
 
-    public LocalFaction read() {
+    public Faction read() {
         return null;
     }
 

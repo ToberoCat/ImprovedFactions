@@ -2,7 +2,7 @@ package io.github.toberocat.core.factions.local.relation;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.events.faction.FactionAllyEvent;
@@ -18,7 +18,7 @@ public class RelationManager {
     private ArrayList<String> enemies;
     private ArrayList<String> allies;
     protected ArrayList<String> allyInvitations;
-    private LocalFaction faction;
+    private Faction faction;
 
     public RelationManager() {
         enemies = new ArrayList<>();
@@ -26,7 +26,7 @@ public class RelationManager {
         allyInvitations = new ArrayList<>();
     }
 
-    public RelationManager(LocalFaction faction) {
+    public RelationManager(Faction faction) {
         enemies = new ArrayList<>();
         allies = new ArrayList<>();
         allyInvitations = new ArrayList<>();
@@ -34,7 +34,7 @@ public class RelationManager {
         this.faction = faction;
     }
 
-    public Result inviteAlly(LocalFaction invited) {
+    public Result inviteAlly(Faction invited) {
         OfflinePlayer player = Bukkit.getOfflinePlayer(invited.getOwner());
         if (!player.isOnline()) return Result.failure("OWNER_OFFLINE",
                 "The faction owner is offline. Please wait until he's online");
@@ -54,12 +54,12 @@ public class RelationManager {
         return Result.success();
     }
 
-    public void acceptInvite(LocalFaction other) {
+    public void acceptInvite(Faction other) {
         allyInvitations.remove(other.getRegistryName());
         makeAlly(other);
     }
 
-    public void removeAllyInvite(LocalFaction invited) {
+    public void removeAllyInvite(Faction invited) {
         invited.getRelationManager().allyInvitations.remove(faction.getRegistryName());
 
         Player owner = Bukkit.getOfflinePlayer(faction.getOwner()).getPlayer();
@@ -70,7 +70,7 @@ public class RelationManager {
 
     }
 
-    private void makeAlly(LocalFaction faction) {
+    private void makeAlly(Faction faction) {
         String registry = faction.getRegistryName();
         if (allies.contains(registry)) return;
         if (faction.getRelationManager().allies.contains(this.faction.getRegistryName())) AsyncTask
@@ -81,7 +81,7 @@ public class RelationManager {
         faction.getRelationManager().makeAlly(this.faction);
     }
 
-    public void MakeEnemy(LocalFaction faction) {
+    public void MakeEnemy(Faction faction) {
         String registry = faction.getRegistryName();
         if (enemies.contains(registry)) return;
 
@@ -90,7 +90,7 @@ public class RelationManager {
         faction.getRelationManager().MakeEnemy(this.faction);
     }
 
-    public void RemoveRelation(LocalFaction faction) {
+    public void RemoveRelation(Faction faction) {
         String registry = faction.getRegistryName();
         if (!allies.contains(registry) && !enemies.contains(registry)) return;
 
@@ -116,12 +116,12 @@ public class RelationManager {
     }
 
     @JsonIgnore
-    public LocalFaction getFaction() {
+    public Faction getFaction() {
         return faction;
     }
 
     @JsonIgnore
-    public void setFaction(LocalFaction faction) {
+    public void setFaction(Faction faction) {
         this.faction = faction;
     }
 

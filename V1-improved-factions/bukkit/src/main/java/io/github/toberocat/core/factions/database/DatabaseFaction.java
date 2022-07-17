@@ -4,18 +4,16 @@ import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Description;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.OpenType;
+import io.github.toberocat.core.factions.local.LocalFaction;
 import io.github.toberocat.core.factions.claim.FactionClaims;
 import io.github.toberocat.core.factions.local.rank.Rank;
 import io.github.toberocat.core.factions.local.rank.members.OwnerRank;
-import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.data.Table;
 import io.github.toberocat.core.utility.data.database.DatabaseAccess;
 import io.github.toberocat.core.utility.data.database.sql.MySqlDatabase;
 import io.github.toberocat.core.utility.data.database.sql.SqlCode;
 import io.github.toberocat.core.utility.data.database.sql.SqlVar;
 import io.github.toberocat.core.utility.data.database.sql.builder.Select;
-import io.github.toberocat.core.utility.data.database.sql.builder.Update;
-import io.github.toberocat.core.utility.data.database.sql.builder.UpdateValue;
 import io.github.toberocat.core.utility.date.DateCore;
 import io.github.toberocat.core.utility.exceptions.DescriptionHasNoLine;
 import org.bukkit.OfflinePlayer;
@@ -25,7 +23,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.LocalDateTime;
 
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.util.HashMap;
@@ -164,6 +161,13 @@ public class DatabaseFaction implements Faction {
     }
 
     @Override
+    public void setType(@NotNull OpenType type) {
+        database
+                .evalTry("UPDATE factions SET open_type = %d WHERE registry_id = %s", type.ordinal(), registry)
+                .get(PreparedStatement::executeUpdate);
+    }
+
+    @Override
     public @NotNull Description getDescription() {
         return new Description() {
             @Override
@@ -236,12 +240,6 @@ public class DatabaseFaction implements Faction {
                         .orElse(1)];
     }
 
-    @Override
-    public void setType(@NotNull OpenType type) {
-        database
-                .evalTry("UPDATE factions SET open_type = %d WHERE registry_id = %s", type.ordinal(), registry)
-                .get(PreparedStatement::executeUpdate);
-    }
 
     @Override
     public boolean isPermanent() {
@@ -368,17 +366,17 @@ public class DatabaseFaction implements Faction {
     }
 
     @Override
-    public boolean addAlly(@NotNull Faction faction) {
+    public boolean addAlly(@NotNull LocalFaction faction) {
         return false;
     }
 
     @Override
-    public boolean addEnemy(@NotNull Faction faction) {
+    public boolean addEnemy(@NotNull LocalFaction faction) {
         return false;
     }
 
     @Override
-    public boolean resetRelation(@NotNull Faction faction) {
+    public boolean resetRelation(@NotNull LocalFaction faction) {
         return false;
     }
 

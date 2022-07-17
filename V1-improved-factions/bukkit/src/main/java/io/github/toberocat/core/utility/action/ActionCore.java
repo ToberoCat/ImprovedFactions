@@ -1,6 +1,6 @@
 package io.github.toberocat.core.utility.action;
 
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -85,7 +85,7 @@ public final class ActionCore {
         return success;
     }
 
-    public static boolean runAsFaction(@NotNull String string, @NotNull LocalFaction faction) {
+    public static boolean runAsFaction(@NotNull String string, @NotNull Faction faction) {
         /* Args */
 
         String[] argsWithLabel = string.split("\\s+");
@@ -114,11 +114,11 @@ public final class ActionCore {
         return true;
     }
 
-    public static void runAsFaction(@NotNull List<String> strings, @NotNull LocalFaction faction) {
+    public static void runAsFaction(@NotNull List<String> strings, @NotNull Faction faction) {
         for (String string : strings) runAsFaction(string, faction);
     }
 
-    public static void runAsFaction(@NotNull Stream<String> strings, @NotNull LocalFaction faction) {
+    public static void runAsFaction(@NotNull Stream<String> strings, @NotNull Faction faction) {
         strings.forEachOrdered(action -> runAsFaction(action, faction));
     }
 

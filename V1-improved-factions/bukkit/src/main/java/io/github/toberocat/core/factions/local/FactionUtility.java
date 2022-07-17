@@ -1,6 +1,7 @@
 package io.github.toberocat.core.factions.local;
 
 import io.github.toberocat.MainIF;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.local.modules.FactionModule;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.claim.ClaimManager;
@@ -36,7 +37,7 @@ public class FactionUtility extends PlayerJoinLoader {
      */
     public static AsyncTask<Boolean> unload(String registry) {
         return AsyncTask.run(() -> {
-            LocalFaction faction = getFactionByRegistry(registry);
+            Faction faction = getFactionByRegistry(registry);
             if (faction == null) return false;
 
             int online = 0;
@@ -46,7 +47,7 @@ public class FactionUtility extends PlayerJoinLoader {
             }
 
             FileAccess.write("Factions", faction.getRegistryName(), faction);
-            LocalFaction.getLoadedFactions().remove(faction.getRegistryName());
+            Faction.getLoadedFactions().remove(faction.getRegistryName());
             return true;
         });
     }
@@ -78,7 +79,7 @@ public class FactionUtility extends PlayerJoinLoader {
      * @param player The player you want to get the faction from
      * @return The faction the player is in
      */
-    public static LocalFaction getPlayerFaction(Player player) {
+    public static Faction getPlayerFaction(Player player) {
         if (!isInFaction(player)) return null;
 
         return getFactionByRegistry(PersistentDataUtility
@@ -88,7 +89,7 @@ public class FactionUtility extends PlayerJoinLoader {
 
     public static Color getRegistryColor(@NotNull String registry) {
         if (ClaimManager.isManageableZone(registry)) return Color.fromRGB(ClaimManager.getRegistryColor(registry));
-        LocalFaction faction = getFactionByRegistry(registry);
+        Faction faction = getFactionByRegistry(registry);
         if (faction == null) throw new FactionNotFoundException(registry);
         return Color.fromRGB(faction.getColor());
     }
@@ -96,14 +97,14 @@ public class FactionUtility extends PlayerJoinLoader {
     /**
      * This will return the faction you were searching for. Will also load the faction if not loaded
      */
-    public static LocalFaction getFactionByRegistry(String registry) {
+    public static Faction getFactionByRegistry(String registry) {
         if (registry == null) return null;
 
-        if (LocalFaction.getLoadedFactions().containsKey(registry)) return LocalFaction.getLoadedFactions().get(registry);
+        if (Faction.getLoadedFactions().containsKey(registry)) return Faction.getLoadedFactions().get(registry);
         if (!doesFactionExist(registry)) return null;
 
         //Load faction
-        LocalFaction faction = FileAccess.get("Factions", registry, LocalFaction.class);
+        Faction faction = FileAccess.get("Factions", registry, Faction.class);
         if (faction == null) return null;
 
         faction.getFactionMemberManager().setFaction(faction);
@@ -118,7 +119,7 @@ public class FactionUtility extends PlayerJoinLoader {
         for (FactionModule module : faction.getModules().values()) if (module != null) module.setFaction(faction);
 
         MainIF.logMessage(Level.INFO, "Loaded &e" + faction.getRegistryName());
-        LocalFaction.getLoadedFactions().put(registry, faction);
+        Faction.getLoadedFactions().put(registry, faction);
         return faction;
     }
 
@@ -143,7 +144,7 @@ public class FactionUtility extends PlayerJoinLoader {
     }
 
     public static boolean isFactionLoaded(String registryName) {
-        return LocalFaction.getLoadedFactions().containsKey(registryName);
+        return Faction.getLoadedFactions().containsKey(registryName);
     }
 
     public static String factionDisplayToRegistry(String displayName) {
@@ -155,8 +156,8 @@ public class FactionUtility extends PlayerJoinLoader {
         AsyncTask.runLaterSync(0, () -> {
             String registry = getPlayerFactionRegistry(player);
             if (registry == null) return; // Player not in faction
-            if (LocalFaction.getLoadedFactions().containsKey(registry)) {
-                Bukkit.getPluginManager().callEvent(new FactionMemberOnlineEvent(LocalFaction
+            if (Faction.getLoadedFactions().containsKey(registry)) {
+                Bukkit.getPluginManager().callEvent(new FactionMemberOnlineEvent(Faction
                         .getLoadedFactions().get(registry), player));
                 return; // Faction already loaded
             }
@@ -166,7 +167,7 @@ public class FactionUtility extends PlayerJoinLoader {
                 return;
             }
 
-            LocalFaction faction = getFactionByRegistry(registry);
+            Faction faction = getFactionByRegistry(registry);
             if (faction == null) {
                 MainIF.logMessage(Level.SEVERE, "Couldn't load faction " + registry + ". This faction should have get loaded, but had problems while doing so");
                 return;
@@ -178,7 +179,7 @@ public class FactionUtility extends PlayerJoinLoader {
 
     @Override
     protected void unloadPlayer(Player player) {
-        LocalFaction faction = getPlayerFaction(player);
+        Faction faction = getPlayerFaction(player);
         if (faction == null) return; // Player wasn't in a faction
         unload(faction.getRegistryName()).then((unloaded) -> {
             if (unloaded) return;
@@ -191,10 +192,10 @@ public class FactionUtility extends PlayerJoinLoader {
 
     @Override
     protected void Disable() {
-        for (LocalFaction faction : LocalFaction.getLoadedFactions().values()) {
+        for (Faction faction : Faction.getLoadedFactions().values()) {
             FileAccess.write("Factions", faction.getRegistryName(), faction);
         }
 
-        LocalFaction.getLoadedFactions().clear();
+        Faction.getLoadedFactions().clear();
     }
 }

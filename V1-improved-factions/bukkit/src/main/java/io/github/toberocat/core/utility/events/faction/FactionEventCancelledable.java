@@ -1,13 +1,13 @@
 package io.github.toberocat.core.utility.events.faction;
 
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import org.bukkit.event.Cancellable;
 
 public abstract class FactionEventCancelledable extends FactionEvent implements Cancellable {
 
     protected boolean isCancelled;
 
-    public FactionEventCancelledable(LocalFaction faction) {
+    public FactionEventCancelledable(Faction faction) {
         super(faction);
         isCancelled = false;
     }

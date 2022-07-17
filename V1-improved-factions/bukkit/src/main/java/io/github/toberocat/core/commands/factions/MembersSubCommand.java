@@ -1,7 +1,7 @@
 package io.github.toberocat.core.commands.factions;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.gui.faction.MemberGui;
 import io.github.toberocat.core.utility.command.SubCommand;
@@ -25,7 +25,7 @@ public class MembersSubCommand extends SubCommand {
     @Override
     protected void CommandExecute(Player player, String[] args) {
         Bukkit.getScheduler().runTask(MainIF.getIF(), () -> {
-            LocalFaction faction = FactionUtility.getPlayerFaction(player);
+            Faction faction = FactionUtility.getPlayerFaction(player);
             new MemberGui(player, faction, new GuiSettings());
         });
     }

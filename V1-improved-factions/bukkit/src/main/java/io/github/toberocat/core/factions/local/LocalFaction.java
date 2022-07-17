@@ -3,6 +3,8 @@ package io.github.toberocat.core.factions.local;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.MainIF;
+import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.local.FactionDatabaseHandler;
 import io.github.toberocat.core.factions.local.bank.FactionBank;
 import io.github.toberocat.core.factions.local.members.FactionMemberManager;
 import io.github.toberocat.core.factions.local.modules.FactionModule;
@@ -21,6 +23,7 @@ import io.github.toberocat.core.utility.claim.WorldClaims;
 import io.github.toberocat.core.utility.color.FactionColors;
 import io.github.toberocat.core.utility.config.DataManager;
 import io.github.toberocat.core.utility.data.access.FileAccess;
+import io.github.toberocat.core.utility.date.DateCore;
 import io.github.toberocat.core.utility.events.faction.*;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.language.Parseable;
@@ -28,6 +31,7 @@ import io.github.toberocat.core.utility.messages.MessageSystem;
 import io.github.toberocat.core.utility.settings.type.EnumSetting;
 import io.github.toberocat.core.utility.data.database.sql.MySqlDatabase;
 import org.bukkit.*;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.joda.time.LocalDateTime;
@@ -38,9 +42,8 @@ import java.util.*;
 import java.util.logging.Level;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class LocalFaction {
+public class LocalFaction implements Faction {
 
-    private static final Map<String, LocalFaction> LOADED_FACTIONS = new HashMap<>();
     private PowerManager powerManager;
     private FactionMemberManager factionMemberManager;
     private RelationManager relationManager;
@@ -60,240 +63,37 @@ public class LocalFaction {
     public LocalFaction() {
     }
 
-    private LocalFaction(String displayName, String registryName, UUID owner, OpenType openType) {
-        super();
-        this.registryName = registryName;
-        this.displayName = displayName;
+    public LocalFaction(@NotNull String displayName,
+                        @NotNull String registryName,
+                        @NotNull UUID owner,
+                        @NotNull OpenType openType) {
+        this.registryName = Faction.displayToRegistry(displayName);
+        this.displayName = displayName.substring(0, MainIF.config().getInt("faction.maxNameLen"));
 
-        this.powerManager = new PowerManager(this,
-                MainIF.getConfigManager().getValue("power.maxDefaultFaction"));
+        FileConfiguration config = MainIF.config();
+        this.motd = config.getString("faction.default.motd", "Improved faction");
+        this.tag = config.getString("faction.default.tag", "IFF");
+        this.motd = config.getString("faction.default.motd", "New faction");
+        this.tag = config.getString("faction.default.tag", "IFF");
+
+        this.permanent = config.getBoolean("faction.default.permanent", true);
+        this.frozen = config.getBoolean("faction.default.frozen", true);
+
+        this.description = new String[]{"&eCool &cfaction"};
+        this.claimedChunks = 0;
+        this.owner = owner;
+        this.createdAt = DateCore.TIME_FORMAT.print(new LocalDateTime());
+
+        /* Managers */
+        this.powerManager = new PowerManager(this, MainIF.config().getInt("faction.default.power.max"));
         this.factionMemberManager = new FactionMemberManager(this);
         this.relationManager = new RelationManager(this);
         this.factionBank = new FactionBank();
         this.factionPerm = new FactionPerm(this);
 
-        this.frozen = false;
-        this.permanent = MainIF.config().getBoolean("faction.default.permanent", true);
-        this.description = new String[]{"&eCool &cfaction"};
-        this.motd = "New faction";
-        this.tag = "IFF";
-        this.claimedChunks = 0;
-        this.owner = owner;
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-        this.createdAt = fmt.print(new LocalDateTime());
     }
 
-    public static void migrateFaction() {
-        DataManager factions = new DataManager(MainIF.getIF(), "Data/factions.yml");
-
-        if (factions.getConfig().getConfigurationSection("f") == null) return;
-        for (String key : factions.getConfig().getConfigurationSection("f").getKeys(false)) {
-            String displayName = ChatColor.translateAlternateColorCodes('&', factions.getConfig().getString("f." + key + ".displayName"));
-
-            String owner = factions.getConfig().getString("f." + key + ".owner");
-            if (owner == null) {
-                MainIF.logMessage(Level.WARNING, "Couldn't read owner from " + key + ". Faction couldn't get loaded, due too this error. Please fix it int he original file to be able to load it into this version");
-                continue;
-            }
-
-            UUID ownerUUID = UUID.fromString(owner);
-
-            LocalFaction faction = new LocalFaction(displayName, key, ownerUUID, OpenType.INVITE_ONLY);
-
-            // Adding players
-            List<String> raw = factions.getConfig().getStringList("f." + key + ".members");
-            for (int i = 0; i < raw.size(); i++) {
-                String rawMember = raw.get(i);
-                Map.Entry<UUID, String> member = getFromFactionMember(rawMember);
-                if (Bukkit.getOfflinePlayer(member.getKey()).isOnline()) {
-                    faction.getFactionMemberManager().join(Bukkit.getPlayer(member.getKey()));
-                } else {
-                    // ToDo: Add a way to set persistent data for offline players
-                    faction.getFactionMemberManager().getMembers().add(member.getKey());
-                    faction.getFactionPerm().getMemberRanks().put(member.getKey(), member.getValue().replace("}", ""));
-                    faction.getPowerManager()
-                            .increaseMax(MainIF.getConfigManager().getValue("power.maxPowerPerPlayer"));
-                }
-            }
-
-
-            List<String> rawBanned = factions.getConfig().getStringList("f." + key + ".banned");
-            ArrayList<UUID> banned = new ArrayList<>();
-
-            for (String rawBan : rawBanned) {
-                try {
-                    rawBan = rawBan.replace("]", "").replace("[", "");
-                    banned.add(UUID.fromString(rawBan.trim()));
-                } catch (IllegalArgumentException exception) {
-                    MainIF.logMessage(Level.WARNING, "&cCouldn't load banned for " + key + ". ");
-                }
-            }
-
-            faction.getRelationManager().getAllies().addAll(factions.getConfig().getStringList("f." + key + ".allies"));
-            faction.getRelationManager().getEnemies().addAll(factions.getConfig().getStringList("f." + key + ".enemies"));
-
-            if (factions.getConfig().contains("f." + key + ".permanent"))
-                faction.setPermanent(factions.getConfig().getBoolean("f." + key + ".permanent"));
-            if (factions.getConfig().contains("f." + key + ".frozen"))
-                faction.setFrozen(factions.getConfig().getBoolean("f." + key + ".frozen"));
-
-
-            faction.getPowerManager().setCurrentPower(factions.getConfig().getInt("f." + key + ".power"));
-            faction.setClaimedChunks(factions.getConfig().getInt("f." + key + ".claimedChunks"));
-            faction.getFactionMemberManager().setBanned(banned);
-            faction.setMotd(factions.getConfig().getString("f." + key + ".motd"));
-            faction.setDescription(Collections.singletonList(factions.getConfig().getString("f." + key + ".description")).toArray(String[]::new));
-
-            faction.setRegistryName(key);
-            faction.setDisplayName(displayName);
-
-            AsyncTask.runLaterSync(0, () -> {
-                Bukkit.getPluginManager().callEvent(new FactionLoadEvent(faction));
-                FileAccess.write("Factions", key, faction);
-                LocalFaction.getLoadedFactions().put(key, faction);
-            });
-        }
-
-        MainIF.logMessage(Level.INFO, "You can now safely delete the file factions.yml from the Data folder, if no warnings popped up before");
-    }
-
-    private static Map.Entry<UUID, String> getFromFactionMember(String str) {
-        UUID uuid = null;
-        String rank = null;
-        String[] parms = str.split("[,=]");
-        for (int i = 0; i < parms.length; i++) {
-            String parm = parms[i];
-            if (parm.contains("uuid")) {
-                uuid = UUID.fromString(parms[i + 1]);
-            }
-
-            if (parm.contains("rank")) {
-                rank = parms[i + 1];
-            }
-        }
-
-        UUID finalUuid = uuid;
-        String finalRank = rank;
-        return new Map.Entry<>() {
-            @Override
-            public UUID getKey() {
-                return finalUuid;
-            }
-
-            @Override
-            public String getValue() {
-                return finalRank;
-            }
-
-            @Override
-            public String setValue(String value) {
-                return null;
-            }
-        };
-    }
-
-    /**
-     * It creates a new Faction object, and adds it to the LOADED_FACTIONS map
-     *
-     * @param displayName The name of the faction.
-     * @param owner       The player who created the faction
-     * @return A Result object.
-     */
-    public static Result<LocalFaction> createFaction(String displayName, Player owner) {
-        if (displayName.length() >= (Integer) MainIF.getConfigManager().getValue("faction.maxNameLen"))
-            return Result.failure("OVER_MAX_LEN", "You reached the maximum length for a faction name");
-        String registryName = ChatColor.stripColor(displayName.replaceAll("[^a-zA-Z0-9]", ""));
-
-        if (registryName.equalsIgnoreCase("safezone") ||
-                displayName.equalsIgnoreCase("safezone") ||
-                registryName.equalsIgnoreCase("warzone") || displayName.equalsIgnoreCase("warzone")) {
-            return Result.failure("CANT_NAME_LIKE_SYSTEM_CLAIMS",
-                    "You can't name your faction like a system defined faction. Choose another name");
-        }
-
-        if (MainIF.getConfigManager().getValue("forbidden.checkFactionNames")) {
-            Result result = AsyncTask.run(() -> {
-                ArrayList<String> forbiddenNames =
-                        MainIF.getConfigManager().getValue("forbidden.factionNames");
-
-                String checkRegistry = MainIF.getConfigManager().getValue("forbidden.checkLeetspeak") ?
-                        Language.simpleLeetToEnglish(registryName) : registryName;
-
-                if (forbiddenNames.contains(checkRegistry))
-                    return new Result(false).setMessages("FORBIDDEN_NAME",
-                            "Sorry, but this name is forbidden");
-
-                double disbandPercent = MainIF.getConfigManager().getValue("forbidden.disbandAtPercent");
-                double reportPercent = MainIF.getConfigManager().getValue("forbidden.reportAtPercent");
-
-                disbandPercent /= 100;
-                reportPercent /= 100;
-
-                for (String forbidden : forbiddenNames) {
-                    double prediction = Language.similarity(forbidden, checkRegistry);
-
-                    if (prediction > disbandPercent) {
-                        return new Result(false).setMessages("FORBIDDEN_NAME",
-                                "Sorry, but this name is forbidden");
-                    } else if (prediction > reportPercent) {
-                        ArrayList<String> reportCommands = MainIF.getConfigManager().getValue("commands.forbidden");
-
-                        MainIF.getIF().getServer().getScheduler().runTaskLater(MainIF.getIF(), () -> {
-                            for (String command : reportCommands) {
-                                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),
-                                        Language.parse(command, new Parseable[]{
-                                                new Parseable("{word}", registryName),
-                                                new Parseable("{similar}", forbidden),
-                                                new Parseable("{player_name}", owner.getName()),
-                                                new Parseable("{player_uuid}", owner.getUniqueId().toString()),
-                                                new Parseable("{task}", "FACTION_CREATION"),
-                                                new Parseable("{similarityPer}", prediction * 100 + "")
-                                        }));
-                            }
-                        }, 0);
-                        return new Result(false).setMessages("MAYBE_FORBIDDEN",
-                                "Your faction name is very similar to a forbidden word. If you think your name is fine, just ignore it. If you want to retreat the report, just change the name to something appropriate");
-                    }
-                }
-
-                return new Result(true);
-            }).await();
-
-            if (!result.isSuccess()) return result;
-        }
-
-        LocalFaction newFaction = new LocalFaction(displayName, registryName, owner.getUniqueId(), OpenType.PUBLIC);
-        boolean canCreate = Utility.callEvent(new FactionCreateEvent(newFaction, owner));
-        if (!canCreate) {
-            FileAccess.delete("Factions", registryName, newFaction);
-
-            return new Result<LocalFaction>(false).setMessages("EVENT_CANCEL",
-                    "Couldn't create your faction");
-        }
-
-        LOADED_FACTIONS.put(registryName, newFaction);
-        Result result = newFaction.join(owner, Rank.fromString(OwnerRank.registry));
-
-        if (!result.isSuccess()) {
-            newFaction.delete();
-            return result;
-        }
-
-        newFaction.getFactionPerm().setRank(owner, OwnerRank.registry);
-
-        AsyncTask.runLaterSync(0, () -> {
-            Bukkit.getPluginManager().callEvent(new FactionLoadEvent(newFaction));
-            FileAccess.write("Factions", registryName, newFaction);
-        });
-        return result.setPaired(newFaction);
-    }
-
-    //<editor-fold desc="Getters and Setters">
-    public static Map<String, LocalFaction> getLoadedFactions() {
-        return LOADED_FACTIONS;
-    }
-
-    public Rank getPlayerRank(OfflinePlayer player) {
+    public @NotNull Rank getPlayerRank(OfflinePlayer player) {
         return factionPerm.getPlayerRank(player);
     }
 
@@ -504,7 +304,7 @@ public class LocalFaction {
         return factionMemberManager;
     }
 
-    public LocalFaction setFactionMemberManager(FactionMemberManager factionMemberManager) {
+    public Faction setFactionMemberManager(FactionMemberManager factionMemberManager) {
         this.factionMemberManager = factionMemberManager;
         return this;
     }
@@ -615,7 +415,7 @@ public class LocalFaction {
         return modules;
     }
 
-    public LocalFaction setModules(LinkedHashMap<String, FactionModule> modules) {
+    public Faction setModules(LinkedHashMap<String, FactionModule> modules) {
         this.modules = modules;
         return this;
     }
@@ -643,7 +443,7 @@ public class LocalFaction {
     }
 
     @Override
-    public LocalFaction read(@NotNull MySqlDatabase sql) {
+    public Faction read(@NotNull MySqlDatabase sql) {
         return new FactionDatabaseHandler(sql, this).read();
     }
 

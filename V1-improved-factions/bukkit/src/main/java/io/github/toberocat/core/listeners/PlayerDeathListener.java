@@ -1,6 +1,6 @@
 package io.github.toberocat.core.listeners;
 
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.utility.Utility;
 import org.bukkit.event.EventHandler;
@@ -13,7 +13,7 @@ public class PlayerDeathListener implements Listener {
     public void death(PlayerDeathEvent event) {
         if (Utility.isDisabled(event.getEntity().getWorld())) return;
 
-        LocalFaction faction = FactionUtility.getPlayerFaction(event.getEntity());
+        Faction faction = FactionUtility.getPlayerFaction(event.getEntity());
         if (faction == null) return;
 
         faction.getPowerManager().death();

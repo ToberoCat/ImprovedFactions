@@ -1,6 +1,6 @@
 package io.github.toberocat.core.commands.factions.relation;
 
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -24,7 +24,7 @@ public class AllyAcceptSubCommand extends SubCommand {
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
-        LocalFaction faction = FactionUtility.getPlayerFaction(player);
+        Faction faction = FactionUtility.getPlayerFaction(player);
         if (faction == null) return;
         if (!faction.getRelationManager().getAllyInvitations().contains(args[0])) {
             Parser.run("command.relation.ally-accept.no-invite")
@@ -33,7 +33,7 @@ public class AllyAcceptSubCommand extends SubCommand {
             return;
         }
 
-        LocalFaction other = FactionUtility.getFactionByRegistry(args[0]);
+        Faction other = FactionUtility.getFactionByRegistry(args[0]);
         if (other == null) return;
 
         faction.getRelationManager().acceptInvite(other);
@@ -44,7 +44,7 @@ public class AllyAcceptSubCommand extends SubCommand {
 
     @Override
     protected List<String> CommandTab(Player player, String[] args) {
-        LocalFaction faction = FactionUtility.getPlayerFaction(player);
+        Faction faction = FactionUtility.getPlayerFaction(player);
         if (faction == null) return null;
 
         return faction.getRelationManager().getAllyInvitations();

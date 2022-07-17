@@ -1,6 +1,6 @@
 package io.github.toberocat.core.utility.action;
 
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -40,7 +40,7 @@ public class FactionActions {
         return this;
     }
 
-    public void run(@NotNull LocalFaction faction) {
+    public void run(@NotNull Faction faction) {
         strings.forEach(x -> ActionCore.runAsFaction(x, faction));
     }
 }

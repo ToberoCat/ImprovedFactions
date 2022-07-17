@@ -1,6 +1,6 @@
 package io.github.toberocat.core.utility.events.faction;
 
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
@@ -8,9 +8,9 @@ public abstract class FactionEvent extends Event {
 
     private static final HandlerList HANDLERS = new HandlerList();
 
-    protected LocalFaction faction;
+    protected Faction faction;
 
-    public FactionEvent(LocalFaction faction) {
+    public FactionEvent(Faction faction) {
         this.faction = faction;
     }
 
@@ -23,11 +23,11 @@ public abstract class FactionEvent extends Event {
         return HANDLERS;
     }
 
-    public LocalFaction getFaction() {
+    public Faction getFaction() {
         return faction;
     }
 
-    public void setFaction(LocalFaction faction) {
+    public void setFaction(Faction faction) {
         this.faction = faction;
     }
 }

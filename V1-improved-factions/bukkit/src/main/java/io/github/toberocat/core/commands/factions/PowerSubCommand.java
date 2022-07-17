@@ -1,6 +1,6 @@
 package io.github.toberocat.core.commands.factions;
 
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -22,7 +22,7 @@ public class PowerSubCommand extends SubCommand {
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
-        LocalFaction faction = FactionUtility.getPlayerFaction(player);
+        Faction faction = FactionUtility.getPlayerFaction(player);
         if (faction == null) return;
 
         Parser.run("command.power.success")

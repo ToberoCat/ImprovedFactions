@@ -1,6 +1,6 @@
 package io.github.toberocat.core.factions.claim;
 
-import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.local.LocalFaction;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.claim.Claim;
 import io.github.toberocat.core.utility.claim.ClaimManager;
@@ -8,7 +8,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -20,7 +19,7 @@ public class FactionClaims {
         this.claims = claims;
     }
 
-    public static FactionClaims createClaims(@NotNull Faction faction) {
+    public static FactionClaims createClaims(@NotNull LocalFaction faction) {
         LinkedHashMap<String, Stream<FactionClaim>> worldClaims = new LinkedHashMap<>();
         ClaimManager.CLAIMS.forEach((name, claims) -> {
             World world = Bukkit.getWorld(name);

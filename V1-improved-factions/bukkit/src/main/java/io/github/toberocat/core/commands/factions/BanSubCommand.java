@@ -1,6 +1,6 @@
 package io.github.toberocat.core.commands.factions;
 
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -24,7 +24,7 @@ public class BanSubCommand extends SubCommand {
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
-        LocalFaction faction = FactionUtility.getPlayerFaction(player);
+        Faction faction = FactionUtility.getPlayerFaction(player);
         OfflinePlayer banned = Bukkit.getOfflinePlayer(args[0]);
 
         if (banned == null) {
@@ -38,7 +38,7 @@ public class BanSubCommand extends SubCommand {
 
     @Override
     protected List<String> CommandTab(Player player, String[] args) {
-        LocalFaction faction = FactionUtility.getPlayerFaction(player);
+        Faction faction = FactionUtility.getPlayerFaction(player);
         if (faction == null) return null;
 
         return Arrays.stream(Bukkit.getOfflinePlayers()).filter(x -> !faction.getFactionMemberManager().getBanned().contains(x))

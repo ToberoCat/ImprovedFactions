@@ -1,7 +1,7 @@
 package io.github.toberocat.core.commands.factions;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.utility.command.AutoSubCommand;
 import io.github.toberocat.core.utility.language.Language;
@@ -35,7 +35,7 @@ public class FactionMapSubCommand extends AutoSubCommand {
 
             color = factionRegistry.equals(playerRegistry) ? "§a" : "§c";
 
-            LocalFaction registryFaction = FactionUtility.getFactionByRegistry(factionRegistry);
+            Faction registryFaction = FactionUtility.getFactionByRegistry(factionRegistry);
             if (registryFaction == null) return new TextComponent();
 
             hover = color + registryFaction.getDisplayName();

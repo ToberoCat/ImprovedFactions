@@ -1,6 +1,6 @@
 package io.github.toberocat.core.utility.action;
 
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -64,9 +64,9 @@ public abstract class Action {
 
     /* Faction */
 
-    public void run(@NotNull LocalFaction player, @NotNull String[] args) {
+    public void run(@NotNull Faction player, @NotNull String[] args) {
         // override
     }
 
-    public void run(@NotNull LocalFaction player, @NotNull String provided) {}
+    public void run(@NotNull Faction player, @NotNull String provided) {}
 }

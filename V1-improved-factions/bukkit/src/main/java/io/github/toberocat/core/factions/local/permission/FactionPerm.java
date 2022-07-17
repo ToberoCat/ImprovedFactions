@@ -1,7 +1,7 @@
 package io.github.toberocat.core.factions.local.permission;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.factions.local.rank.GuestRank;
 import io.github.toberocat.core.factions.local.rank.Rank;
@@ -40,12 +40,12 @@ public class FactionPerm {
     private Map<UUID, String> memberRanks;
 
     @JsonIgnore
-    private LocalFaction faction;
+    private Faction faction;
 
     public FactionPerm() {
     }
 
-    public FactionPerm(LocalFaction faction) {
+    public FactionPerm(Faction faction) {
         this.factionSettings = new FactionSettings();
         this.faction = faction;
         rankSetting = new HashMap<>(DEFAULT_RANKS);
@@ -176,12 +176,12 @@ public class FactionPerm {
     }
 
     @JsonIgnore
-    public LocalFaction getFaction() {
+    public Faction getFaction() {
         return faction;
     }
 
     @JsonIgnore
-    public void setFaction(LocalFaction faction) {
+    public void setFaction(Faction faction) {
         this.faction = faction;
     }
 }

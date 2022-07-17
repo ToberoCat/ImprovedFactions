@@ -1,6 +1,6 @@
 package io.github.toberocat.core.commands.factions;
 
-import io.github.toberocat.core.factions.local.LocalFaction;
+import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.local.FactionUtility;
 import io.github.toberocat.core.factions.local.rank.members.OwnerRank;
 import io.github.toberocat.core.utility.command.ConfirmSubCommand;
@@ -25,7 +25,7 @@ public class DeleteFactionSubCommand extends ConfirmSubCommand {
 
     @Override
     protected void confirmExecute(Player player) {
-        LocalFaction faction = FactionUtility.getPlayerFaction(player);
+        Faction faction = FactionUtility.getPlayerFaction(player);
         faction.delete();
 
         Language.sendMessage("command.faction.delete.success", player);
