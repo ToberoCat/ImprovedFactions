@@ -1,7 +1,7 @@
 package io.github.toberocat.core.commands.factions;
 
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.factions.local.rank.Rank;
 import io.github.toberocat.core.factions.local.rank.members.MemberRank;
 import io.github.toberocat.core.utility.Result;
@@ -25,7 +25,7 @@ public class InviteAcceptSubCommand extends SubCommand {
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
-        Faction faction = FactionUtility.getFactionByRegistry(args[0]);
+        Faction faction = FactionManager.getFactionByRegistry(args[0]);
         if (faction == null) {
             Language.sendRawMessage("&cCan't find given faction", player);
             return;

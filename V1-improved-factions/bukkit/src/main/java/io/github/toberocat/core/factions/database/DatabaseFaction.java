@@ -29,7 +29,11 @@ import java.util.HashMap;
 import java.util.UUID;
 
 /**
- * This faction needs to sync up with the database none stop, so that bungeecord / velocity can be used
+ * This faction needs to sync up with the database none stop, so that there won't be any problems when data is changed by other
+ * Plugin instances (BungeeCord, Velocity, Proxy stuff)
+ *
+ * To allow the best performance, these two implementations are seperated by different classes,
+ * so that there are no unnecessary if statements to check if it should sync now or not
  */
 public class DatabaseFaction implements Faction {
 

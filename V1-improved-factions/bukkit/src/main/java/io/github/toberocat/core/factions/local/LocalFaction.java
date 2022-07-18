@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.OpenType;
+import io.github.toberocat.core.factions.claim.FactionClaims;
 import io.github.toberocat.core.factions.local.FactionDatabaseHandler;
 import io.github.toberocat.core.factions.local.bank.FactionBank;
 import io.github.toberocat.core.factions.local.members.FactionMemberManager;
@@ -34,10 +36,12 @@ import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -63,10 +67,7 @@ public class LocalFaction implements Faction {
     public LocalFaction() {
     }
 
-    public LocalFaction(@NotNull String displayName,
-                        @NotNull String registryName,
-                        @NotNull UUID owner,
-                        @NotNull OpenType openType) {
+    public LocalFaction(@NotNull String displayName, @NotNull UUID owner) {
         this.registryName = Faction.displayToRegistry(displayName);
         this.displayName = displayName.substring(0, MainIF.config().getInt("faction.maxNameLen"));
 
@@ -97,16 +98,6 @@ public class LocalFaction implements Faction {
         return factionPerm.getPlayerRank(player);
     }
 
-    public void transferOwnership(Player current, OfflinePlayer next) {
-        owner = next.getUniqueId();
-
-        factionPerm.setRank(next, OwnerRank.registry);
-        factionPerm.setRank(current, AdminRank.registry);
-
-        Bukkit.getServer().getPluginManager().callEvent(new FactionTransferOwnershipEvent(this,
-                current, next));
-    }
-
     public boolean hasPermission(OfflinePlayer player, String permission) {
         Rank rank = getPlayerRank(player);
         if (rank == null) return false;
@@ -114,14 +105,39 @@ public class LocalFaction implements Faction {
         return factionPerm.getRankSetting().get(permission).hasPermission(rank);
     }
 
-    /**
-     * Let a player join a faction
-     *
-     * @param player
-     * @param rank
-     * @return
-     */
-    public Result join(Player player, Rank rank) {
+    @Override
+    public boolean isMember(@NotNull UUID player) {
+        return false;
+    }
+
+    @Override
+    public void changeRank(@NotNull OfflinePlayer player, @NotNull Rank rank) {
+
+    }
+
+    @Override
+    public void transferOwnership(@NotNull Player player) {
+        OfflinePlayer currentOwner = Bukkit.getOfflinePlayer(owner);
+
+        factionPerm.setRank(player, OwnerRank.registry);
+        factionPerm.setRank(currentOwner, AdminRank.registry);
+
+        Bukkit.getServer().getPluginManager().callEvent(new FactionTransferOwnershipEvent(this,
+                currentOwner, player));
+    }
+
+    @Override
+    public void deleteFaction() {
+
+    }
+
+    @Override
+    public boolean joinPlayer(@NotNull Player player) {
+        return false;
+    }
+
+    @Override
+    public boolean joinPlayer(@NotNull Player player, @NotNull Rank rank) {
         if (frozen) return Result.failure("FROZEN", "This faction is frozen. You can't join");
 
         boolean canJoin = Utility.callEvent(new FactionJoinEvent(this, player));
@@ -129,6 +145,71 @@ public class LocalFaction implements Faction {
                 "Couldn't join faction");
 
         return factionMemberManager.join(player);
+    }
+
+    @Override
+    public boolean joinPlayer(@NotNull Player player, @NotNull UUID inviteId) {
+        return false;
+    }
+
+    @Override
+    public boolean leavePlayer(@NotNull Player player) {
+        return false;
+    }
+
+    @Override
+    public boolean kickPlayer(@NotNull OfflinePlayer player) {
+        return false;
+    }
+
+    @Override
+    public boolean banPlayer(@NotNull OfflinePlayer player) {
+        return false;
+    }
+
+    @Override
+    public boolean pardonPlayer(@NotNull OfflinePlayer player) {
+        return false;
+    }
+
+    @Override
+    public @NotNull BigDecimal getPower() {
+        return null;
+    }
+
+    @Override
+    public double playerPower(@NotNull OfflinePlayer player) {
+        return 0;
+    }
+
+    @Override
+    public boolean addAlly(@NotNull LocalFaction faction) {
+        return false;
+    }
+
+    @Override
+    public boolean addEnemy(@NotNull LocalFaction faction) {
+        return false;
+    }
+
+    @Override
+    public boolean resetRelation(@NotNull LocalFaction faction) {
+        return false;
+    }
+
+    @Override
+    public FactionClaims getClaims() {
+        return null;
+    }
+
+    @Override
+    public <C> @Nullable C getModule(@NotNull Class<C> clazz) {
+        return null;
+    }
+
+    @Override
+    public <C> void createModule(@NotNull Class<C> clazz, Object... parameters) {
+
     }
 
     /**
@@ -321,6 +402,11 @@ public class LocalFaction implements Faction {
         return frozen;
     }
 
+    @Override
+    public void setDisplay(@NotNull String display) {
+
+    }
+
     public void setFrozen(boolean frozen) {
         this.frozen = frozen;
     }
@@ -339,6 +425,21 @@ public class LocalFaction implements Faction {
 
     public void setDescription(String[] description) {
         this.description = description;
+    }
+
+    @Override
+    public void createFromStorage(@NotNull String loadRegistry) {
+
+    }
+
+    @Override
+    public @NotNull String getRegistry() {
+        return null;
+    }
+
+    @Override
+    public @NotNull String getDisplay() {
+        return null;
     }
 
     public String getMotd() {
@@ -389,6 +490,11 @@ public class LocalFaction implements Faction {
         return createdAt;
     }
 
+    @Override
+    public io.github.toberocat.core.factions.@NotNull OpenType getType() {
+        return null;
+    }
+
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt.replace('T', ' ');
     }
@@ -411,6 +517,11 @@ public class LocalFaction implements Faction {
         this.tag = tag;
     }
 
+    @Override
+    public void setType(io.github.toberocat.core.factions.@NotNull OpenType type) {
+
+    }
+
     public LinkedHashMap<String, FactionModule> getModules() {
         return modules;
     }
@@ -427,24 +538,6 @@ public class LocalFaction implements Faction {
             return color.getColor();
         }
         return FactionColors.RED.getColor();
-    }
-
-    /**
-     * Save the faction to the mysql database
-     */
-    @Override
-    public boolean save(@NotNull MySqlDatabase sql) {
-        return new FactionDatabaseHandler(sql, this).save();
-    }
-
-    @Override
-    public boolean delete(@NotNull MySqlDatabase sql) {
-        return new FactionDatabaseHandler(sql, this).delete();
-    }
-
-    @Override
-    public Faction read(@NotNull MySqlDatabase sql) {
-        return new FactionDatabaseHandler(sql, this).read();
     }
 
     public enum OpenType {PUBLIC, INVITE_ONLY, CLOSED}

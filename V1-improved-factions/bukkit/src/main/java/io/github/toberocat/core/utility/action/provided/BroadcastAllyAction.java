@@ -1,7 +1,7 @@
 package io.github.toberocat.core.utility.action.provided;
 
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.utility.action.Action;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
@@ -15,7 +15,7 @@ public class BroadcastAllyAction extends Action {
 
     @Override
     public void run(@NotNull Player player, @NotNull String provided) {
-        Faction faction = FactionUtility.getPlayerFaction(player);
+        Faction faction = FactionManager.getPlayerFaction(player);
         if (faction == null) return;
 
         faction.getMessageModule().broadcastAlly(Language.format(provided));

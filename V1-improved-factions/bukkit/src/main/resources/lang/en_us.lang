@@ -104,6 +104,7 @@
     "command.invite.description": "Invite someone to your faction",
     "command.invite.player-has-timeout": "&fThe player you wanted to invite has a timeout",
     "command.join.description": "Join a public faction",
+    "command.join.faction-not-found": "&cCan't find given faction {searched}",
     "command.kick.description": "Kick a player from your faction",
     "command.leave.description": "Leave your current faction",
     "command.members.description": "Opens a member gui",

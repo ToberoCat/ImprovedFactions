@@ -1,7 +1,7 @@
 package io.github.toberocat.core.commands.admin;
 
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -33,7 +33,7 @@ public class AdminRegenerateSubCommand extends SubCommand {
 
         Language.sendRawMessage("Loading all factions", player);
         for (String registry : FileAccess.listFilesFolder("Factions")) {
-            FactionUtility.getFactionByRegistry(registry);
+            FactionManager.getFactionByRegistry(registry);
         }
 
         Language.sendRawMessage("Generation for all players", player);
@@ -67,7 +67,7 @@ public class AdminRegenerateSubCommand extends SubCommand {
                 String registry = PersistentDataUtility.read(PersistentDataUtility.FACTION_CLAIMED_KEY,
                         PersistentDataType.STRING, chunk.getPersistentDataContainer());
 
-                if (!FactionUtility.doesFactionExist(registry)) {
+                if (!FactionManager.doesFactionExist(registry)) {
                     PersistentDataUtility.write(PersistentDataUtility.FACTION_CLAIMED_KEY,
                             PersistentDataType.STRING, ClaimManager.UNCLAIMED_CHUNK_REGISTRY,
                             chunk.getPersistentDataContainer());

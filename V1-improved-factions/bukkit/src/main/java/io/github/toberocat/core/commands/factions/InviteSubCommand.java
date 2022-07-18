@@ -1,7 +1,7 @@
 package io.github.toberocat.core.commands.factions;
 
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.factions.local.members.FactionMemberManager;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -24,7 +24,7 @@ public class InviteSubCommand extends SubCommand {
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
-        Faction faction = FactionUtility.getPlayerFaction(player);
+        Faction faction = FactionManager.getPlayerFaction(player);
         if (faction == null) sendCommandExecuteError(CommandExecuteError.NoFaction, player);
 
         Player invited = Bukkit.getPlayer(args[0]);
@@ -44,7 +44,7 @@ public class InviteSubCommand extends SubCommand {
 
     @Override
     protected List<String> CommandTab(Player player, String[] args) {
-        FactionMemberManager manager = FactionUtility.getPlayerFaction(player).getFactionMemberManager();
+        FactionMemberManager manager = FactionManager.getPlayerFaction(player).getFactionMemberManager();
         return Bukkit.getOnlinePlayers().stream().filter(user -> !manager.getMembers().contains(user.getUniqueId())
                 && !manager.getBanned().contains(user.getUniqueId())).map(Player::getName).toList();
     }

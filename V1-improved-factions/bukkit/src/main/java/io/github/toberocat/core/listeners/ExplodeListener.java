@@ -1,7 +1,7 @@
 package io.github.toberocat.core.listeners;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.settings.type.BoolSetting;
 import org.bukkit.block.Block;
@@ -18,7 +18,7 @@ public class ExplodeListener implements Listener {
         for (Block block : event.blockList()) {
             String registry = MainIF.getIF().getClaimManager().getFactionRegistry(block.getChunk());
             if (registry == null) continue;
-            if (!((BoolSetting)FactionUtility.getFactionByRegistry(registry).getFactionPerm().getFactionSettings().get("explosions")).getSelected()) {
+            if (!((BoolSetting) FactionManager.getFactionByRegistry(registry).getFactionPerm().getFactionSettings().get("explosions")).getSelected()) {
                 event.setCancelled(true);
                 return;
             }

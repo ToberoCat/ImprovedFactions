@@ -2,11 +2,13 @@ package io.github.toberocat.core.factions.local;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionHandler;
+import io.github.toberocat.core.factions.handler.FactionHandler;
+import io.github.toberocat.core.factions.handler.FactionHandlerInterface;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.config.DataManager;
 import io.github.toberocat.core.utility.data.access.FileAccess;
 import io.github.toberocat.core.utility.events.faction.FactionLoadEvent;
+import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -15,9 +17,29 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.logging.Level;
 
-public class LocalFactionHandler extends FactionHandler {
+public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction> {
     @Override
-    protected LocalFaction create(@NotNull String display, @NotNull Player owner) {
+    public @NotNull LocalFaction create(@NotNull String display, @NotNull Player owner) {
+        return null;
+    }
+
+    @Override
+    public @NotNull Faction load(@NotNull String registry) throws FactionNotInStorage {
+        return null;
+    }
+
+    @Override
+    public boolean isLoaded(@NotNull String registry) {
+        return false;
+    }
+
+    @Override
+    public boolean exists(@NotNull String registry) {
+        return false;
+    }
+
+    @Override
+    public @NotNull Map<String, LocalFaction> getLoadedFactions() {
         return null;
     }
 

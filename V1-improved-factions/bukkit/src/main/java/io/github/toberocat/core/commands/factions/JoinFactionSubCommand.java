@@ -1,7 +1,8 @@
 package io.github.toberocat.core.commands.factions;
 
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.OpenType;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.factions.local.rank.Rank;
 import io.github.toberocat.core.factions.local.rank.members.MemberRank;
 import io.github.toberocat.core.utility.Result;
@@ -9,6 +10,7 @@ import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.date.DateCore;
 import io.github.toberocat.core.utility.language.Language;
+import io.github.toberocat.core.utility.language.Parseable;
 import io.github.toberocat.core.utility.language.Parser;
 import org.bukkit.entity.Player;
 import org.joda.time.Period;
@@ -27,13 +29,13 @@ public class JoinFactionSubCommand extends SubCommand {
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
-        Faction faction = FactionUtility.getFactionByRegistry(args[0]);
+        Faction faction = FactionManager.getFactionByRegistry(args[0]);
         if (faction == null) {
-            Language.sendRawMessage("&cCan't find given faction", player);
-            return;
+            Language.sendMessage("command.join.faction-not-found", player,
+                    new Parseable("{searched}", args[0]));
         }
 
-        if (faction.getOpenType() == Faction.OpenType.CLOSED) {
+        if (faction.getType() == OpenType.CLOSED) {
             Language.sendRawMessage("&cGiven faction is private", player);
             return;
         }
@@ -55,6 +57,6 @@ public class JoinFactionSubCommand extends SubCommand {
 
     @Override
     protected List<String> CommandTab(Player player, String[] args) {
-        return FactionUtility.getAllFactions();
+        return FactionManager.getAllFactions();
     }
 }

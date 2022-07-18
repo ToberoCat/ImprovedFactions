@@ -1,7 +1,7 @@
 package io.github.toberocat.core.commands.factions.relation;
 
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.language.Language;
@@ -22,13 +22,13 @@ public class WarRelationSubCommand extends SubCommand {
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
-        Faction addressedFaction = FactionUtility.getFactionByRegistry(args[0]);
+        Faction addressedFaction = FactionManager.getFactionByRegistry(args[0]);
         if (addressedFaction == null) {
             sendCommandExecuteError("&cCannot find given faction. Check spelling", player);
             return;
         }
 
-        Faction playerFaction = FactionUtility.getPlayerFaction(player);
+        Faction playerFaction = FactionManager.getPlayerFaction(player);
 
         if (addressedFaction.getRegistryName().equals(playerFaction.getRegistryName())) {
             Language.sendMessage("command.relation.war.fail", player,

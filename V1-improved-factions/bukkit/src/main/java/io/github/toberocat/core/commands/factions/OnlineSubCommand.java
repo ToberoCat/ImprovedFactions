@@ -2,7 +2,7 @@ package io.github.toberocat.core.commands.factions;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.gui.faction.OnlineGUI;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -24,7 +24,7 @@ public class OnlineSubCommand extends SubCommand {
     @Override
     protected void CommandExecute(Player player, String[] args) {
         Bukkit.getScheduler().runTask(MainIF.getIF(), () -> {
-            Faction faction = FactionUtility.getPlayerFaction(player);
+            Faction faction = FactionManager.getPlayerFaction(player);
             new OnlineGUI(player, faction, () -> {
             });
         });

@@ -1,7 +1,7 @@
 package io.github.toberocat.core.commands.factions.relation;
 
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -24,13 +24,13 @@ public class AllyRelationSubCommand extends SubCommand {
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
-        Faction addressedFaction = FactionUtility.getFactionByRegistry(args[0]);
+        Faction addressedFaction = FactionManager.getFactionByRegistry(args[0]);
         if (addressedFaction == null) {
             sendCommandExecuteError("&cCannot find given faction. Check spelling", player);
             return;
         }
 
-        Faction playerFaction = FactionUtility.getPlayerFaction(player);
+        Faction playerFaction = FactionManager.getPlayerFaction(player);
 
         if (addressedFaction.getRegistryName().equals(playerFaction.getRegistryName())) {
             Language.sendMessage("command.relation.ally.fail", player,
@@ -48,8 +48,8 @@ public class AllyRelationSubCommand extends SubCommand {
 
     @Override
     protected List<String> CommandTab(Player player, String[] args) {
-        Faction faction = FactionUtility.getPlayerFaction(player);
-        LinkedList<String> str = new LinkedList<>(FactionUtility.getAllFactions());
+        Faction faction = FactionManager.getPlayerFaction(player);
+        LinkedList<String> str = new LinkedList<>(FactionManager.getAllFactions());
 
         return str.stream().filter(x -> !x.equals(faction.getRegistryName())).toList();
     }

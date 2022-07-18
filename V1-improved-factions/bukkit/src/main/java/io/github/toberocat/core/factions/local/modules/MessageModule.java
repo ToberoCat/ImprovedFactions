@@ -1,7 +1,7 @@
 package io.github.toberocat.core.factions.local.modules;
 
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.factions.local.permission.FactionPerm;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.language.Language;
@@ -43,7 +43,7 @@ public class MessageModule extends FactionModule {
         AsyncTask.run(() -> {
             String formatted = String.format("§7[§e%s§7] §r%s", faction.getDisplayName(), message.trim());
             Stream.concat(faction.getRelationManager().getAllies().stream()
-                                    .map(FactionUtility::getFactionByRegistry)
+                                    .map(FactionManager::getFactionByRegistry)
                                     .filter(Objects::nonNull)
                                     .flatMap(x -> x.getFactionMemberManager().getOnlinePlayers().stream()),
                             faction.getFactionMemberManager().getOnlinePlayers().stream())

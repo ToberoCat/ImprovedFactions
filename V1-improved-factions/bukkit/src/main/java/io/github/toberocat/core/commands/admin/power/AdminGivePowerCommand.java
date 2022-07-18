@@ -1,7 +1,7 @@
 package io.github.toberocat.core.commands.admin.power;
 
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -25,7 +25,7 @@ public class AdminGivePowerCommand extends SubCommand {
         if (!Utility.isNumber(args[1])) return;
         int amount = Integer.parseInt(args[1]);
 
-        Faction faction = FactionUtility.getFactionByRegistry(args[0]);
+        Faction faction = FactionManager.getFactionByRegistry(args[0]);
 
         faction.getPowerManager().setCurrentPower(faction.getPowerManager().getCurrentPower() + amount);
     }
@@ -33,7 +33,7 @@ public class AdminGivePowerCommand extends SubCommand {
     @Override
     protected List<String> CommandTab(Player player, String[] args) {
         LinkedList<String> tab = new LinkedList<>();
-        if (args.length <= 1) tab.addAll(FactionUtility.getAllFactions());
+        if (args.length <= 1) tab.addAll(FactionManager.getAllFactions());
         else tab.add("<amount>");
 
         return tab;

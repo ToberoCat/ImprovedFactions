@@ -2,7 +2,7 @@ package io.github.toberocat.core.utility.claim;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.config.DataManager;
@@ -128,7 +128,7 @@ public class ClaimManager {
     public static Result<?> claimChunk(Faction faction, Chunk chunk) {
         String registry = getFactionRegistry(chunk);
         if (registry != null && !isManageableZone(registry)) {
-            Faction claim = FactionUtility.getFactionByRegistry(registry);
+            Faction claim = FactionManager.getFactionByRegistry(registry);
             int power = claim.getPowerManager().getCurrentPower();
             int claims = claim.getClaimedChunks();
 
@@ -216,7 +216,7 @@ public class ClaimManager {
                 chunk.getPersistentDataContainer());
 
         if (claimRegistry != null) {
-            Faction faction = FactionUtility.getFactionByRegistry(claimRegistry);
+            Faction faction = FactionManager.getFactionByRegistry(claimRegistry);
             if (faction != null) {
                 faction.setClaimedChunks(faction.getClaimedChunks() - 1);
 

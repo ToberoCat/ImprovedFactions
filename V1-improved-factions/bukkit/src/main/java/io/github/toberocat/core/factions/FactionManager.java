@@ -1,8 +1,8 @@
-package io.github.toberocat.core.factions.local;
+package io.github.toberocat.core.factions;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.modules.FactionModule;
+import io.github.toberocat.core.debug.Debugger;
+import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.data.access.FileAccess;
@@ -11,7 +11,9 @@ import io.github.toberocat.core.utility.dynamic.loaders.PlayerJoinLoader;
 import io.github.toberocat.core.utility.events.faction.FactionLoadEvent;
 import io.github.toberocat.core.utility.events.faction.member.FactionMemberOfflineEvent;
 import io.github.toberocat.core.utility.events.faction.member.FactionMemberOnlineEvent;
-import io.github.toberocat.core.utility.exceptions.FactionNotFoundException;
+import io.github.toberocat.core.utility.exceptions.faction.FactionHandlerNotFound;
+import io.github.toberocat.core.utility.exceptions.faction.FactionNotFoundException;
+import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -26,9 +28,9 @@ import java.util.stream.Stream;
 /**
  * This class is responsible for handling the faction loading & unloading for RAM savage
  */
-public class FactionUtility extends PlayerJoinLoader {
+public class FactionManager extends PlayerJoinLoader {
 
-    public FactionUtility() {
+    public FactionManager() {
         Subscribe(this);
     }
 
@@ -87,7 +89,7 @@ public class FactionUtility extends PlayerJoinLoader {
                         player.getPersistentDataContainer()));
     }
 
-    public static Color getRegistryColor(@NotNull String registry) {
+    public static Color getRegistryColor(@NotNull String registry) throws FactionNotFoundException {
         if (ClaimManager.isManageableZone(registry)) return Color.fromRGB(ClaimManager.getRegistryColor(registry));
         Faction faction = getFactionByRegistry(registry);
         if (faction == null) throw new FactionNotFoundException(registry);
@@ -97,29 +99,11 @@ public class FactionUtility extends PlayerJoinLoader {
     /**
      * This will return the faction you were searching for. Will also load the faction if not loaded
      */
-    public static Faction getFactionByRegistry(String registry) {
-        if (registry == null) return null;
+    public static @NotNull Faction getFactionByRegistry(@NotNull String registry) throws FactionNotInStorage, FactionHandlerNotFound {
+        if (FactionHandler.getLoadedFactions().containsKey(registry)) return Faction.getLoadedFactions().get(registry);
 
-        if (Faction.getLoadedFactions().containsKey(registry)) return Faction.getLoadedFactions().get(registry);
-        if (!doesFactionExist(registry)) return null;
-
-        //Load faction
-        Faction faction = FileAccess.get("Factions", registry, Faction.class);
-        if (faction == null) return null;
-
-        faction.getFactionMemberManager().setFaction(faction);
-        faction.getPowerManager().setFaction(faction);
-        faction.getRelationManager().setFaction(faction);
-        faction.getFactionPerm().setFaction(faction);
-
-        for (Map.Entry<String, FactionModule> module :
-                new LinkedHashSet<>(faction.getModules().entrySet())) {
-            if (module.getValue() == null) faction.getModules().remove(module.getKey());
-        }
-        for (FactionModule module : faction.getModules().values()) if (module != null) module.setFaction(faction);
-
-        MainIF.logMessage(Level.INFO, "Loaded &e" + faction.getRegistryName());
-        Faction.getLoadedFactions().put(registry, faction);
+        Faction faction = FactionHandler.loadFromStorage(registry);
+        Debugger.log("Loaded &e" + faction.getRegistry());
         return faction;
     }
 

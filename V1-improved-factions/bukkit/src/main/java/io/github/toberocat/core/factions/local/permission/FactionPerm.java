@@ -2,7 +2,7 @@ package io.github.toberocat.core.factions.local.permission;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.factions.local.rank.GuestRank;
 import io.github.toberocat.core.factions.local.rank.Rank;
 import io.github.toberocat.core.factions.local.rank.allies.*;
@@ -117,9 +117,9 @@ public class FactionPerm {
         Player on = player.getPlayer();
         if (on == null) return Rank.fromString(GuestRank.register);
 
-        String playerFaction = FactionUtility.getPlayerFactionRegistry(on);
+        String playerFaction = FactionManager.getPlayerFactionRegistry(on);
         if (faction.getRelationManager().getAllies().contains(playerFaction)) {
-            Rank rank = FactionUtility.getFactionByRegistry(playerFaction).getPlayerRank(player);
+            Rank rank = FactionManager.getFactionByRegistry(playerFaction).getPlayerRank(player);
             return Rank.fromString(switch (rank.getRegistryName()) {
                 case OwnerRank.registry -> AllyOwnerRank.registry;
                 case AdminRank.registry -> AllyAdminRank.registry;

@@ -4,7 +4,7 @@ import io.github.toberocat.MainIF;
 import io.github.toberocat.core.commands.admin.AdminBypassSubCommand;
 import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.factions.local.permission.FactionPerm;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.claim.ClaimManager;
@@ -42,9 +42,9 @@ public class BlockPlaceListener implements Listener {
             event.setCancelled(true);
             return;
         }
-        if (!FactionUtility.doesFactionExist(claim)) return;
+        if (!FactionManager.doesFactionExist(claim)) return;
 
-        Faction claimFaction = FactionUtility.getFactionByRegistry(claim);
+        Faction claimFaction = FactionManager.getFactionByRegistry(claim);
         if (claimFaction == null) {
             Language.sendRawMessage("You have encountered a problem with improved factions! Go ahead " +
                     "and tell the admins about the save shutdown. Error: BlockPlace wasn't able to find required faction", event.getPlayer());

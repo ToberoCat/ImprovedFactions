@@ -1,7 +1,7 @@
 package io.github.toberocat.core.commands.admin;
 
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.language.Language;
@@ -29,12 +29,12 @@ public class AdminGetPlayerFactionSubCommand extends SubCommand {
             return;
         }
 
-        String registry = FactionUtility.getPlayerFactionRegistry(onP);
+        String registry = FactionManager.getPlayerFactionRegistry(onP);
         if (registry == null) {
             Language.sendRawMessage("&6" + args[0] + "&f is in no faction", player);
             return;
         }
-        Faction faction = FactionUtility.getFactionByRegistry(registry);
+        Faction faction = FactionManager.getFactionByRegistry(registry);
         if (faction == null) {
             Language.sendRawMessage("&6" + args[0] + "&f is in no faction", player);
         } else {

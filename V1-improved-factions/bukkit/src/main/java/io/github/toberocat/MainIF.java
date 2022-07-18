@@ -11,7 +11,7 @@ import io.github.toberocat.core.extensions.Extension;
 import io.github.toberocat.core.extensions.ExtensionLoader;
 import io.github.toberocat.core.extensions.ExtensionRegistry;
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.factions.local.permission.FactionPerm;
 import io.github.toberocat.core.factions.local.rank.Rank;
 import io.github.toberocat.core.listeners.*;
@@ -527,7 +527,7 @@ public final class MainIF extends JavaPlugin {
         registerActions();
         taskChainFactory = BukkitTaskChainFactory.create(this);
 
-        new FactionUtility();
+        new FactionManager();
         new MessageSystem();
 
         Rank.Init();

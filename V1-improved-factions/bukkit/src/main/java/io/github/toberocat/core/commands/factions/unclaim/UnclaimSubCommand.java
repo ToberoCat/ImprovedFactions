@@ -2,7 +2,7 @@ package io.github.toberocat.core.commands.factions.unclaim;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.command.AutoSubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -34,7 +34,7 @@ public class UnclaimSubCommand extends AutoSubCommand {
 
     @Override
     public void onSingle(Player player) {
-        Faction faction = FactionUtility.getPlayerFaction(player);
+        Faction faction = FactionManager.getPlayerFaction(player);
         if (faction == null) return;
 
         String registry = MainIF.getIF().getClaimManager().getFactionRegistry(player.getLocation().getChunk());

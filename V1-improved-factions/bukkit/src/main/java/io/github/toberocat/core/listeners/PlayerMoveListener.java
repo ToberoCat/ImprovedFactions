@@ -2,7 +2,7 @@ package io.github.toberocat.core.listeners;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.claim.ClaimManager;
@@ -70,7 +70,7 @@ public class PlayerMoveListener implements Listener {
                 return;
             }
 
-            if (!FactionUtility.doesFactionExist(toRegistry)) {
+            if (!FactionManager.doesFactionExist(toRegistry)) {
                 MainIF.getIF().getClaimManager().removeProtection(to);
                 return;
             }
@@ -96,8 +96,8 @@ public class PlayerMoveListener implements Listener {
                 return;
             }
 
-            Faction faction = FactionUtility.getFactionByRegistry(registry);
-            Faction playerFaction = FactionUtility.getPlayerFaction(player);
+            Faction faction = FactionManager.getFactionByRegistry(registry);
+            Faction playerFaction = FactionManager.getPlayerFaction(player);
 
             String text = null;
 

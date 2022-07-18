@@ -3,7 +3,7 @@ package io.github.toberocat.core.factions.local.members;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.factions.local.rank.members.MemberRank;
 import io.github.toberocat.core.listeners.PlayerJoinListener;
 import io.github.toberocat.core.utility.Result;
@@ -63,7 +63,7 @@ public class FactionMemberManager {
                 PersistentDataType.STRING, player.getPersistentDataContainer());
         if (registry == null) return;
 
-        Faction faction = FactionUtility.getFactionByRegistry(registry);
+        Faction faction = FactionManager.getFactionByRegistry(registry);
         if (faction != null) return;
 
         PersistentDataUtility.remove(PersistentDataUtility.PLAYER_FACTION_REGISTRY, player.getPersistentDataContainer());
@@ -117,7 +117,7 @@ public class FactionMemberManager {
         if (!player.isOnline()) return new Result(false).setMessages("PLAYER_OFFLINE",
                 "It looks like " + player.getName() + " are offline");
 
-        if (FactionUtility.isInFaction(player)) return new Result(false).setMessages(
+        if (FactionManager.isInFaction(player)) return new Result(false).setMessages(
                 "PLAYER_IN_FACTION", player.getName() + " is already in a faction");
 
         if (banned.contains(player.getUniqueId())) return new Result(false).setMessages(
@@ -149,7 +149,7 @@ public class FactionMemberManager {
         if (!player.isOnline()) return new Result(false).setMessages("PLAYER_OFFLINE",
                 "It looks like " + player.getName() + " are offline");
 
-        if (!FactionUtility.isInFaction(player)) return new Result(false).setMessages(
+        if (!FactionManager.isInFaction(player)) return new Result(false).setMessages(
                 "PLAYER_NOT_IN_FACTION", player.getName()
                         + " is in no faction. So nothing can be left");
 

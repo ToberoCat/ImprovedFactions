@@ -1,7 +1,7 @@
 package io.github.toberocat.core.commands.factions;
 
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.language.Language;
@@ -24,11 +24,11 @@ public class WhoSubCommand extends SubCommand {
     protected void CommandExecute(Player player, String[] args) {
         String factionRegistry;
         if (args.length == 0) {
-            if (!FactionUtility.isInFaction(player)) {
+            if (!FactionManager.isInFaction(player)) {
                 Language.sendRawMessage("&cYou are in no faction. Please select one", player);
                 return;
             }
-            factionRegistry = FactionUtility.getPlayerFactionRegistry(player);
+            factionRegistry = FactionManager.getPlayerFactionRegistry(player);
         } else {
             factionRegistry = args[0];
         }
@@ -37,7 +37,7 @@ public class WhoSubCommand extends SubCommand {
             return;
         }
 
-        Faction faction = FactionUtility.getFactionByRegistry(factionRegistry);
+        Faction faction = FactionManager.getFactionByRegistry(factionRegistry);
         if (faction == null) {
             Language.sendRawMessage("&cCan't find given faction", player);
             return;
@@ -88,6 +88,6 @@ public class WhoSubCommand extends SubCommand {
 
     @Override
     protected List<String> CommandTab(Player player, String[] args) {
-        return FactionUtility.getAllFactions();
+        return FactionManager.getAllFactions();
     }
 }

@@ -1,6 +1,6 @@
 package io.github.toberocat.core.commands.admin;
 
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.language.Language;
@@ -31,7 +31,7 @@ public class AdminIsPlayerInFactionSubCommand extends SubCommand {
             return;
         }
 
-        boolean inFaction = FactionUtility.isInFaction(player);
+        boolean inFaction = FactionManager.isInFaction(player);
         Language.sendRawMessage("&6" + args[0] + "&f is in " + (inFaction ? "a faction" : "no faction"), player);
     }
 

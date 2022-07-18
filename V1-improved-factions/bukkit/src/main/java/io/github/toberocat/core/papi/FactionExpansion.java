@@ -2,7 +2,7 @@ package io.github.toberocat.core.papi;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.FactionUtility;
+import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.utility.language.Language;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
@@ -26,7 +26,7 @@ public class FactionExpansion extends PlaceholderExpansion {
             Player player = offlinePlayer.getPlayer();
             if (player == null) return null;
 
-            Faction faction = FactionUtility.getPlayerFaction(player);
+            Faction faction = FactionManager.getPlayerFaction(player);
             if (faction == null) return Language.getMessage("papi.no-faction", player);
 
             return faction.getPlayerRank(offlinePlayer).getDisplayName();
@@ -37,7 +37,7 @@ public class FactionExpansion extends PlaceholderExpansion {
             Player player = offlinePlayer.getPlayer();
             if (player == null) return null;
 
-            Faction faction = FactionUtility.getPlayerFaction(player);
+            Faction faction = FactionManager.getPlayerFaction(player);
             if (faction == null) return Language.getMessage("papi.no-faction", player);
 
             return faction.getTag();
@@ -48,7 +48,7 @@ public class FactionExpansion extends PlaceholderExpansion {
             Player player = offlinePlayer.getPlayer();
             if (player == null) return null;
 
-            Faction faction = FactionUtility.getPlayerFaction(player);
+            Faction faction = FactionManager.getPlayerFaction(player);
             if (faction == null) return Language.getMessage("papi.no-faction", player);
 
             return faction.getMotd();
@@ -59,7 +59,7 @@ public class FactionExpansion extends PlaceholderExpansion {
             Player player = offlinePlayer.getPlayer();
             if (player == null) return null;
 
-            Faction faction = FactionUtility.getPlayerFaction(player);
+            Faction faction = FactionManager.getPlayerFaction(player);
             if (faction == null) return Language.getMessage("papi.no-faction", player);
 
             return faction.getDisplayName();
@@ -70,7 +70,7 @@ public class FactionExpansion extends PlaceholderExpansion {
             Player player = offlinePlayer.getPlayer();
             if (player == null) return null;
 
-            Faction faction = FactionUtility.getPlayerFaction(player);
+            Faction faction = FactionManager.getPlayerFaction(player);
             if (faction == null) return Language.getMessage("papi.no-faction", player);
 
             return faction.getRegistryName();
@@ -81,7 +81,7 @@ public class FactionExpansion extends PlaceholderExpansion {
             Player player = offlinePlayer.getPlayer();
             if (player == null) return null;
 
-            Faction faction = FactionUtility.getPlayerFaction(player);
+            Faction faction = FactionManager.getPlayerFaction(player);
             if (faction == null) return Language.getMessage("papi.no-faction", player);
 
             return "" + faction.getFactionMemberManager().getMembers().stream().filter(x ->
@@ -93,7 +93,7 @@ public class FactionExpansion extends PlaceholderExpansion {
             Player player = offlinePlayer.getPlayer();
             if (player == null) return null;
 
-            Faction faction = FactionUtility.getPlayerFaction(player);
+            Faction faction = FactionManager.getPlayerFaction(player);
             if (faction == null) return Language.getMessage("papi.no-faction", player);
 
             return "" + faction.getFactionMemberManager().getMembers().size();
@@ -104,7 +104,7 @@ public class FactionExpansion extends PlaceholderExpansion {
             Player player = offlinePlayer.getPlayer();
             if (player == null) return null;
 
-            Faction faction = FactionUtility.getPlayerFaction(player);
+            Faction faction = FactionManager.getPlayerFaction(player);
             if (faction == null) return Language.getMessage("papi.no-faction", player);
 
 
@@ -116,7 +116,7 @@ public class FactionExpansion extends PlaceholderExpansion {
             Player player = offlinePlayer.getPlayer();
             if (player == null) return null;
 
-            Faction faction = FactionUtility.getPlayerFaction(player);
+            Faction faction = FactionManager.getPlayerFaction(player);
             if (faction == null) return Language.getMessage("papi.no-faction", player);
 
             return "" + faction.getPowerManager().getMaxPower();
@@ -127,7 +127,7 @@ public class FactionExpansion extends PlaceholderExpansion {
             Player player = offlinePlayer.getPlayer();
             if (player == null) return null;
 
-            Faction faction = FactionUtility.getPlayerFaction(player);
+            Faction faction = FactionManager.getPlayerFaction(player);
             if (faction == null) return Language.getMessage("papi.no-faction", player);
 
             return "" + faction.getFactionBank().balance().balance;
@@ -138,7 +138,7 @@ public class FactionExpansion extends PlaceholderExpansion {
             Player player = offlinePlayer.getPlayer();
             if (player == null) return null;
 
-            Faction faction = FactionUtility.getPlayerFaction(player);
+            Faction faction = FactionManager.getPlayerFaction(player);
             if (faction == null) return Language.getMessage("papi.no-faction", player);
 
             return "" + faction.getClaimedChunks();
