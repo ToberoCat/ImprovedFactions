@@ -1,17 +1,14 @@
-package io.github.toberocat.core.factions.local.rank;
+package io.github.toberocat.core.factions.components.rank;
 
-import io.github.toberocat.core.factions.local.rank.allies.*;
-import io.github.toberocat.core.factions.local.rank.members.*;
+import io.github.toberocat.core.factions.components.rank.allies.*;
+import io.github.toberocat.core.factions.components.rank.members.*;
 import io.github.toberocat.core.utility.Utility;
-import io.github.toberocat.core.utility.async.AsyncTask;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.stream.Stream;
 
 public abstract class Rank {
@@ -29,8 +26,10 @@ public abstract class Rank {
         this.priority = permissionPriority;
         ranks.put(registryName, this);
     }
+    
+    public abstract @NotNull Rank getEquivalent();
 
-    public static void Init() {
+    public static void register() {
         new OwnerRank(-1);
         new AdminRank(3);
         new ModeratorRank(2);
@@ -45,7 +44,7 @@ public abstract class Rank {
 
         new GuestRank(-1);
     }
-
+    
     public static Stream<Rank> getPriorityRanks(Rank rank) {
         int priority = getPriority(rank);
         return ranks.values().stream().filter(x -> x.priority >= 0 && x.priority < priority);

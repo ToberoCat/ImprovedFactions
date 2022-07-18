@@ -2,7 +2,7 @@ package io.github.toberocat.core.commands.factions;
 
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionManager;
-import io.github.toberocat.core.factions.local.rank.members.OwnerRank;
+import io.github.toberocat.core.factions.components.rank.members.OwnerRank;
 import io.github.toberocat.core.utility.command.ConfirmSubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.language.Language;

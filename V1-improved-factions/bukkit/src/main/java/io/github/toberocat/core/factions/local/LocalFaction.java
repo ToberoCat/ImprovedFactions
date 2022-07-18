@@ -4,18 +4,16 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.OpenType;
-import io.github.toberocat.core.factions.claim.FactionClaims;
-import io.github.toberocat.core.factions.local.FactionDatabaseHandler;
+import io.github.toberocat.core.factions.components.FactionClaims;
 import io.github.toberocat.core.factions.local.bank.FactionBank;
 import io.github.toberocat.core.factions.local.members.FactionMemberManager;
 import io.github.toberocat.core.factions.local.modules.FactionModule;
 import io.github.toberocat.core.factions.local.modules.MessageModule;
 import io.github.toberocat.core.factions.local.permission.FactionPerm;
 import io.github.toberocat.core.factions.local.power.PowerManager;
-import io.github.toberocat.core.factions.local.rank.Rank;
-import io.github.toberocat.core.factions.local.rank.members.AdminRank;
-import io.github.toberocat.core.factions.local.rank.members.OwnerRank;
+import io.github.toberocat.core.factions.components.rank.Rank;
+import io.github.toberocat.core.factions.components.rank.members.AdminRank;
+import io.github.toberocat.core.factions.components.rank.members.OwnerRank;
 import io.github.toberocat.core.factions.local.relation.RelationManager;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.Utility;
@@ -23,7 +21,6 @@ import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.claim.WorldClaims;
 import io.github.toberocat.core.utility.color.FactionColors;
-import io.github.toberocat.core.utility.config.DataManager;
 import io.github.toberocat.core.utility.data.access.FileAccess;
 import io.github.toberocat.core.utility.date.DateCore;
 import io.github.toberocat.core.utility.events.faction.*;
@@ -31,19 +28,15 @@ import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.language.Parseable;
 import io.github.toberocat.core.utility.messages.MessageSystem;
 import io.github.toberocat.core.utility.settings.type.EnumSetting;
-import io.github.toberocat.core.utility.data.database.sql.MySqlDatabase;
 import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.logging.Level;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class LocalFaction implements Faction {
@@ -94,25 +87,15 @@ public class LocalFaction implements Faction {
 
     }
 
-    public @NotNull Rank getPlayerRank(OfflinePlayer player) {
+    public @NotNull Rank getPlayerRank(@NotNull OfflinePlayer player) {
         return factionPerm.getPlayerRank(player);
     }
 
-    public boolean hasPermission(OfflinePlayer player, String permission) {
+    public boolean hasPermission(@NotNull OfflinePlayer player, @NotNull String permission) {
         Rank rank = getPlayerRank(player);
         if (rank == null) return false;
         if (!factionPerm.getRankSetting().containsKey(permission)) return false;
         return factionPerm.getRankSetting().get(permission).hasPermission(rank);
-    }
-
-    @Override
-    public boolean isMember(@NotNull UUID player) {
-        return false;
-    }
-
-    @Override
-    public void changeRank(@NotNull OfflinePlayer player, @NotNull Rank rank) {
-
     }
 
     @Override
@@ -178,39 +161,10 @@ public class LocalFaction implements Faction {
     }
 
     @Override
-    public double playerPower(@NotNull OfflinePlayer player) {
-        return 0;
-    }
-
-    @Override
-    public boolean addAlly(@NotNull LocalFaction faction) {
-        return false;
-    }
-
-    @Override
-    public boolean addEnemy(@NotNull LocalFaction faction) {
-        return false;
-    }
-
-    @Override
-    public boolean resetRelation(@NotNull LocalFaction faction) {
-        return false;
-    }
-
-    @Override
-    public FactionClaims getClaims() {
+    public @NotNull FactionClaims getClaims() {
         return null;
     }
 
-    @Override
-    public <C> @Nullable C getModule(@NotNull Class<C> clazz) {
-        return null;
-    }
-
-    @Override
-    public <C> void createModule(@NotNull Class<C> clazz, Object... parameters) {
-
-    }
 
     /**
      * Let a player leave the faction
@@ -419,9 +373,6 @@ public class LocalFaction implements Faction {
         this.permanent = permanent;
     }
 
-    public String[] getDescription() {
-        return description;
-    }
 
     public void setDescription(String[] description) {
         this.description = description;
@@ -442,11 +393,11 @@ public class LocalFaction implements Faction {
         return null;
     }
 
-    public String getMotd() {
+    public @NotNull String getMotd() {
         return motd;
     }
 
-    public void setMotd(String motd) {
+    public void setMotd(@NotNull String motd) {
         this.motd = motd;
     }
 
@@ -486,7 +437,7 @@ public class LocalFaction implements Faction {
         this.factionPerm = factionPerm;
     }
 
-    public String getCreatedAt() {
+    public @NotNull String getCreatedAt() {
         return createdAt;
     }
 
@@ -509,11 +460,11 @@ public class LocalFaction implements Faction {
         this.factionBank = factionBank;
     }
 
-    public String getTag() {
+    public @NotNull String getTag() {
         return tag;
     }
 
-    public void setTag(String tag) {
+    public void setTag(@NotNull String tag) {
         this.tag = tag;
     }
 

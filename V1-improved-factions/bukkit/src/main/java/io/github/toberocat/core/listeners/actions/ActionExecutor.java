@@ -2,7 +2,7 @@ package io.github.toberocat.core.listeners.actions;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.rank.Rank;
+import io.github.toberocat.core.factions.components.rank.Rank;
 import io.github.toberocat.core.utility.action.Actions;
 import io.github.toberocat.core.utility.action.FactionActions;
 import io.github.toberocat.core.utility.config.DataManager;

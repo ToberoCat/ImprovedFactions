@@ -1,3 +1,1 @@
-UPDATE factions
-SET open_type = %d
-WHERE registry_id = %s
+DELETE FROM faction_relations WHERE relation_registry_id = ''

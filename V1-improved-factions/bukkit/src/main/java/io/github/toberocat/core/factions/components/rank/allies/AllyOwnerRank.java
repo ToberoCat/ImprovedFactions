@@ -1,19 +1,26 @@
-package io.github.toberocat.core.factions.local.rank.allies;
+package io.github.toberocat.core.factions.components.rank.allies;
 
-import io.github.toberocat.core.factions.local.rank.Rank;
+import io.github.toberocat.core.factions.components.rank.Rank;
+import io.github.toberocat.core.factions.components.rank.members.OwnerRank;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
-import static io.github.toberocat.core.utility.config.ConfigManager.getValue;
+import static io.github.toberocat.MainIF.config;
 
 public class AllyOwnerRank extends Rank {
 
     public static final String registry = "AllyOwner";
 
     public AllyOwnerRank(int priority) {
-        super(getValue("faction.ranks.ally-owner", "Ally owner"), registry, priority, false);
+        super(config().getString("faction.ranks.ally-owner", "Ally owner"), registry, priority, false);
+    }
+
+    @Override
+    public @NotNull Rank getEquivalent() {
+        return Rank.fromString(OwnerRank.registry);
     }
 
     @Override

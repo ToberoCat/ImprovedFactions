@@ -1,7 +1,7 @@
 package io.github.toberocat.core.gui.faction;
 
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.local.rank.Rank;
+import io.github.toberocat.core.factions.components.rank.Rank;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.gui.TabbedGui;
 import io.github.toberocat.core.utility.gui.settings.GuiSettings;

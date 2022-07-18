@@ -2,8 +2,8 @@ package io.github.toberocat.core.commands.admin;
 
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionManager;
-import io.github.toberocat.core.factions.local.rank.Rank;
-import io.github.toberocat.core.factions.local.rank.members.AdminRank;
+import io.github.toberocat.core.factions.components.rank.Rank;
+import io.github.toberocat.core.factions.components.rank.members.AdminRank;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.language.Language;

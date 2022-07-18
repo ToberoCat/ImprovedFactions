@@ -1,19 +1,26 @@
-package io.github.toberocat.core.factions.local.rank.allies;
+package io.github.toberocat.core.factions.components.rank.allies;
 
-import io.github.toberocat.core.factions.local.rank.Rank;
+import io.github.toberocat.core.factions.components.rank.Rank;
+import io.github.toberocat.core.factions.components.rank.members.ModeratorRank;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
-import static io.github.toberocat.core.utility.config.ConfigManager.getValue;
+import static io.github.toberocat.MainIF.config;
 
 public class AllyModeratorRank extends Rank {
 
     public static final String registry = "AllyModerator";
 
     public AllyModeratorRank(int priority) {
-        super(getValue("faction.ranks.ally-moderator", "Ally moderator"), registry, priority, false);
+        super(config().getString("faction.ranks.ally-moderator", "Ally moderator"), registry, priority, false);
+    }
+
+    @Override
+    public @NotNull Rank getEquivalent() {
+        return Rank.fromString(ModeratorRank.registry);
     }
 
     @Override

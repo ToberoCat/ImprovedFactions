@@ -58,6 +58,7 @@ create table IF NOT EXISTS faction_settings
 (
     registry_id VARCHAR(@max_len) not null,
     setting     TEXT              not null,
+    type        TEXT              not null,
     value       TEXT              null,
     constraint faction_settings_pk
         primary key (registry_id)
@@ -69,6 +70,9 @@ CREATE TABLE IF NOT EXISTS players
     uuid        CHAR(36)          NOT NULL,
     faction     VARCHAR(@max_len) NOT NULL,
     member_rank TEXT              NOT NULL,
+    power       DOUBLE            NOT NULL,
+    maxPower    DOUBLE            NOT NULL,
+    timeout     DATETIME,
     CONSTRAINT players_pk
         PRIMARY KEY (uuid)
 );

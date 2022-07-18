@@ -1,4 +1,4 @@
-package io.github.toberocat.core.factions;
+package io.github.toberocat.core.factions.components;
 
 import io.github.toberocat.core.utility.exceptions.DescriptionHasNoLine;
 import org.jetbrains.annotations.NotNull;

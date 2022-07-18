@@ -12,11 +12,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
 
-public class Setting<T> {
+public abstract class Setting<T> {
     protected static DataManager config = new DataManager(MainIF.getIF(), "settings.yml");
 
     protected T selected;
@@ -38,6 +39,7 @@ public class Setting<T> {
 
         this.isLocked = config.getConfig().getBoolean("settings." + settingName + ".isLocked");
     }
+
     public Setting(String settingName, T t, boolean isLocked, ItemStack display) {
         this.selected = t;
         this.display = display;
@@ -49,6 +51,8 @@ public class Setting<T> {
 
         this.isLocked = config.getConfig().getBoolean("settings." + settingName + ".isLocked");
     }
+
+    public abstract void fromString(@NotNull String value);
 
     public static Map<String, Setting> populateSettings(Map<String, Setting> defaulted, Map<String, Setting> current) {
         if (current == null) current = defaulted;

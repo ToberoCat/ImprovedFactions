@@ -1,18 +1,15 @@
-package io.github.toberocat.core.factions.local.rank.members;
+package io.github.toberocat.core.factions.components.rank.members;
 
-import io.github.toberocat.core.factions.local.rank.Rank;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import static io.github.toberocat.core.utility.config.ConfigManager.getValue;
-
-public class MemberRank extends Rank {
+public class MemberRank extends FactionRank {
     public static final String registry = "Member";
 
     public MemberRank(int priority) {
-        super(getValue("faction.ranks.member", "Member"), registry, priority, false);
+        super("faction.ranks.member", registry, priority, false);
     }
 
     @Override

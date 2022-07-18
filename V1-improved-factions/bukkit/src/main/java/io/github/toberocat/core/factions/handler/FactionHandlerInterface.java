@@ -1,7 +1,9 @@
 package io.github.toberocat.core.factions.handler;
 
 import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.components.rank.Rank;
 import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,4 +15,5 @@ public interface FactionHandlerInterface<F extends Faction> {
     boolean isLoaded(@NotNull String registry);
     boolean exists(@NotNull String registry);
     @NotNull Map<String, F> getLoadedFactions();
+    @NotNull Rank getSavedRank(@NotNull OfflinePlayer player);
 }

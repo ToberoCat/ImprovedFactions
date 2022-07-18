@@ -13,7 +13,7 @@ import io.github.toberocat.core.extensions.ExtensionRegistry;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.factions.local.permission.FactionPerm;
-import io.github.toberocat.core.factions.local.rank.Rank;
+import io.github.toberocat.core.factions.components.rank.Rank;
 import io.github.toberocat.core.listeners.*;
 import io.github.toberocat.core.listeners.actions.ActionExecutor;
 import io.github.toberocat.core.papi.FactionExpansion;
@@ -530,7 +530,7 @@ public final class MainIF extends JavaPlugin {
         new FactionManager();
         new MessageSystem();
 
-        Rank.Init();
+        Rank.register();
 
         return true;
     }

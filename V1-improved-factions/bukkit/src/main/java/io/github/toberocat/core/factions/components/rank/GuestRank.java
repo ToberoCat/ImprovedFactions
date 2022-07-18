@@ -1,17 +1,23 @@
-package io.github.toberocat.core.factions.local.rank;
+package io.github.toberocat.core.factions.components.rank;
 
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
-import static io.github.toberocat.core.utility.config.ConfigManager.getValue;
+import static io.github.toberocat.MainIF.config;
 
 public class GuestRank extends Rank {
     public static final String register = "Guest";
 
     public GuestRank(int priority) {
-        super(getValue("faction.ranks.guest", "Guest"), register, priority, false);
+        super(config().getString("faction.ranks.guest", "Guest"), register, priority, false);
+    }
+
+    @Override
+    public @NotNull Rank getEquivalent() {
+        return this;
     }
 
     @Override

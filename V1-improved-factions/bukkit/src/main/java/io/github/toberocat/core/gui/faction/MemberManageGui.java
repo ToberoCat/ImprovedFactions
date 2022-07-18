@@ -2,8 +2,8 @@ package io.github.toberocat.core.gui.faction;
 
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.local.permission.FactionPerm;
-import io.github.toberocat.core.factions.local.rank.Rank;
-import io.github.toberocat.core.factions.local.rank.members.OwnerRank;
+import io.github.toberocat.core.factions.components.rank.Rank;
+import io.github.toberocat.core.factions.components.rank.members.OwnerRank;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
