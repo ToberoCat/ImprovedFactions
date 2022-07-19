@@ -3,7 +3,7 @@ package io.github.toberocat.core.listeners;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionManager;
-import io.github.toberocat.core.factions.local.permission.FactionPerm;
+import io.github.toberocat.core.factions.local.managers.FactionPerm;
 import io.github.toberocat.core.utility.Utility;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;

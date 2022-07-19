@@ -2,15 +2,18 @@ package io.github.toberocat.core.factions.local;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.components.rank.Rank;
 import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.factions.handler.FactionHandlerInterface;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.config.DataManager;
+import io.github.toberocat.core.utility.data.Table;
 import io.github.toberocat.core.utility.data.access.FileAccess;
 import io.github.toberocat.core.utility.events.faction.FactionLoadEvent;
 import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,28 +21,52 @@ import java.util.*;
 import java.util.logging.Level;
 
 public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction> {
-    @Override
-    public @NotNull LocalFaction create(@NotNull String display, @NotNull Player owner) {
-        return null;
+    private final Map<String, LocalFaction> factions;
+    private final FileAccess access;
+
+    public LocalFactionHandler() {
+        this.factions = new HashMap<>();
+        access = FileAccess.accessPipeline(FileAccess.class);
     }
 
     @Override
-    public @NotNull Faction load(@NotNull String registry) throws FactionNotInStorage {
-        return null;
+    public @NotNull LocalFaction create(@NotNull String display, @NotNull Player owner) {
+        LocalFaction faction = new LocalFaction(display, owner);
+        factions.put(faction.getRegistry(), faction);
+
+        return faction;
+    }
+
+    @Override
+    public @NotNull LocalFaction load(@NotNull String registry) throws FactionNotInStorage {
+        if (!access.has(Table.FACTIONS, registry)) throw
+                new FactionNotInStorage(registry, FactionNotInStorage.StorageType.LOCAL_FILE);
+
+        return access.read(Table.FACTIONS, registry);
     }
 
     @Override
     public boolean isLoaded(@NotNull String registry) {
-        return false;
+        return factions.containsKey(registry);
     }
 
     @Override
     public boolean exists(@NotNull String registry) {
-        return false;
+        return access.has(Table.FACTIONS, registry);
     }
 
     @Override
     public @NotNull Map<String, LocalFaction> getLoadedFactions() {
+        return factions;
+    }
+
+    @Override
+    public void deleteCache(@NotNull String registry) {
+        factions.remove(registry);
+    }
+
+    @Override
+    public @NotNull Rank getSavedRank(@NotNull OfflinePlayer player) {
         return null;
     }
 
@@ -134,21 +161,10 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
 
         UUID finalUuid = uuid;
         String finalRank = rank;
-        return new Map.Entry<>() {
-            @Override
-            public UUID getKey() {
-                return finalUuid;
-            }
 
-            @Override
-            public String getValue() {
-                return finalRank;
-            }
+        assert finalUuid != null;
+        assert finalRank != null;
 
-            @Override
-            public String setValue(String value) {
-                return null;
-            }
-        };
+        return Map.entry(finalUuid, finalRank);
     }
 }

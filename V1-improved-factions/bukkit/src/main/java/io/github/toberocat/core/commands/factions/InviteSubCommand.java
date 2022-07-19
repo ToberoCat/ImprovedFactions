@@ -2,7 +2,7 @@ package io.github.toberocat.core.commands.factions;
 
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionManager;
-import io.github.toberocat.core.factions.local.members.FactionMemberManager;
+import io.github.toberocat.core.factions.local.managers.FactionMemberManager;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.date.DateCore;

@@ -29,8 +29,16 @@ public record FactionClaims(
         return new FactionClaims(worldClaims);
     }
 
+    public void unclaimAll() {
+        claims.forEach((worldName, chunks) -> {
+            World world = Bukkit.getWorld(worldName);
+            if (world == null) return;
+            chunks.forEach(x -> ClaimManager
+                    .removeProtection(world.getChunkAt(x.x, x.z)));
+        });
+    }
 
-    record FactionClaim(int x, int z) {
+    public record FactionClaim(int x, int z) {
 
         public static FactionClaim fromClaim(@NotNull Claim claim) {
             return new FactionClaim(claim.getX(), claim.getY());

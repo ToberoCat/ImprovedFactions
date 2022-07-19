@@ -2,7 +2,7 @@ package io.github.toberocat.core.listeners;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.debug.Debugger;
-import io.github.toberocat.core.factions.local.members.FactionMemberManager;
+import io.github.toberocat.core.factions.local.managers.FactionMemberManager;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.language.Language;

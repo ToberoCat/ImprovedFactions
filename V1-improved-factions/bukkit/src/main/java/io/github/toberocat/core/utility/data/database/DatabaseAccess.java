@@ -58,18 +58,7 @@ public class DatabaseAccess extends AbstractAccess<DatabaseAccess> {
 
     @Override
     public @NotNull Stream<String> listInTableStream(@NotNull Table table) {
-        if (isUnusable()) return sendProblem(Stream.empty(), "The database access wasn't able to establish a " +
-                "connection while listing files in %s", table);
-        return database.rowSelect(new Select()
-                        .setTable(table.getTable()))
-                .getRows()
-                .stream()
-                .map(row -> {
-                    TableKey key = table.getDatabaseClass().getAnnotation(TableKey.class);
-                    if (key == null) throw new DatabaseAccessException("No key got specified for the class " +
-                            table.getDatabaseClass().getName());
-                    return row.get(key.key()).toString();
-                });
+        throw new NotImplementedException("You can't list files using DatabaseAccess");
     }
 
     @Override
@@ -91,7 +80,7 @@ public class DatabaseAccess extends AbstractAccess<DatabaseAccess> {
     }
 
     @Override
-    public @NotNull <T> DatabaseAccess write(@NotNull Table table, @NotNull T instance) {
+    public @NotNull <T> DatabaseAccess write(@NotNull Table table, @NotNull String byKey, @NotNull T instance) {
         throw new NotImplementedException("You can't write files automatically into mysql. Please do it yourself");
     }
 

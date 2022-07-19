@@ -4,494 +4,740 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.FactionManager;
+import io.github.toberocat.core.factions.OpenType;
+import io.github.toberocat.core.factions.components.Description;
 import io.github.toberocat.core.factions.components.FactionClaims;
-import io.github.toberocat.core.factions.local.bank.FactionBank;
-import io.github.toberocat.core.factions.local.members.FactionMemberManager;
-import io.github.toberocat.core.factions.local.modules.FactionModule;
-import io.github.toberocat.core.factions.local.modules.MessageModule;
-import io.github.toberocat.core.factions.local.permission.FactionPerm;
-import io.github.toberocat.core.factions.local.power.PowerManager;
+import io.github.toberocat.core.factions.components.FactionModule;
 import io.github.toberocat.core.factions.components.rank.Rank;
 import io.github.toberocat.core.factions.components.rank.members.AdminRank;
+import io.github.toberocat.core.factions.components.rank.members.FactionRank;
+import io.github.toberocat.core.factions.components.rank.members.MemberRank;
 import io.github.toberocat.core.factions.components.rank.members.OwnerRank;
-import io.github.toberocat.core.factions.local.relation.RelationManager;
-import io.github.toberocat.core.utility.Result;
+import io.github.toberocat.core.factions.handler.FactionHandler;
+import io.github.toberocat.core.factions.local.datatype.FactionRelations;
+import io.github.toberocat.core.factions.local.managers.FactionMemberManager;
+import io.github.toberocat.core.factions.local.managers.FactionPerm;
+import io.github.toberocat.core.factions.local.managers.RelationManager;
+import io.github.toberocat.core.factions.local.module.LocalFactionModule;
 import io.github.toberocat.core.utility.Utility;
-import io.github.toberocat.core.utility.async.AsyncTask;
-import io.github.toberocat.core.utility.claim.ClaimManager;
-import io.github.toberocat.core.utility.claim.WorldClaims;
-import io.github.toberocat.core.utility.color.FactionColors;
+import io.github.toberocat.core.utility.data.Table;
 import io.github.toberocat.core.utility.data.access.FileAccess;
 import io.github.toberocat.core.utility.date.DateCore;
 import io.github.toberocat.core.utility.events.faction.*;
-import io.github.toberocat.core.utility.language.Language;
-import io.github.toberocat.core.utility.language.Parseable;
-import io.github.toberocat.core.utility.messages.MessageSystem;
-import io.github.toberocat.core.utility.settings.type.EnumSetting;
-import org.bukkit.*;
+import io.github.toberocat.core.utility.exceptions.DescriptionHasNoLine;
+import io.github.toberocat.core.utility.exceptions.faction.FactionIsFrozenException;
+import io.github.toberocat.core.utility.exceptions.setting.SettingNotFoundException;
+import io.github.toberocat.core.utility.settings.type.RankSetting;
+import io.github.toberocat.core.utility.settings.type.Setting;
+import org.apache.commons.lang.NotImplementedException;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.LocalDateTime;
 
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Stream;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class LocalFaction implements Faction {
+public class LocalFaction implements Faction<LocalFaction> {
 
-    private PowerManager powerManager;
-    private FactionMemberManager factionMemberManager;
-    private RelationManager relationManager;
-    private FactionBank factionBank;
-    private FactionPerm factionPerm;
-    private String displayName, registryName, motd, tag;
-    private String[] description;
-    private boolean frozen, permanent;
-    private String createdAt;
-    private UUID owner;
-    private int claimedChunks;
-    private LinkedHashMap<String, FactionModule> modules = new LinkedHashMap<>();
+    @JsonIgnore
+    private static final FileAccess access = FileAccess.accessPipeline(FileAccess.class);
 
+    private @NotNull String registry;
+    private @NotNull String display;
+    private @NotNull String motd;
+    private @NotNull String tag;
+    private @NotNull String createdAt;
+
+    private boolean permanent;
+    private boolean frozen;
+
+    private @NotNull UUID owner;
+
+    private @NotNull OpenType type;
+
+    private @NotNull List<String> description;
+
+    private final @NotNull FactionPerm factionPermissions;
+    private final @NotNull FactionMemberManager factionMembers;
+    private final @NotNull RelationManager relationManager;
+
+    private Map<String, LocalFactionModule> modules = new LinkedHashMap<>();
+
+    ;
     /**
-     * Don't use this. it's for jackson (json).
+     * Jackson constructor. Don't use it
      */
     public LocalFaction() {
-    }
-
-    public LocalFaction(@NotNull String displayName, @NotNull UUID owner) {
-        this.registryName = Faction.displayToRegistry(displayName);
-        this.displayName = displayName.substring(0, MainIF.config().getInt("faction.maxNameLen"));
-
         FileConfiguration config = MainIF.config();
+
+        this.registry = "";
+        this.display = "";
+
         this.motd = config.getString("faction.default.motd", "Improved faction");
         this.tag = config.getString("faction.default.tag", "IFF");
-        this.motd = config.getString("faction.default.motd", "New faction");
-        this.tag = config.getString("faction.default.tag", "IFF");
+        this.permanent = config.getBoolean("faction.default.permanent");
+        this.frozen = config.getBoolean("faction.default.frozen");
 
-        this.permanent = config.getBoolean("faction.default.permanent", true);
-        this.frozen = config.getBoolean("faction.default.frozen", true);
-
-        this.description = new String[]{"&eCool &cfaction"};
-        this.claimedChunks = 0;
-        this.owner = owner;
         this.createdAt = DateCore.TIME_FORMAT.print(new LocalDateTime());
 
-        /* Managers */
-        this.powerManager = new PowerManager(this, MainIF.config().getInt("faction.default.power.max"));
-        this.factionMemberManager = new FactionMemberManager(this);
+        this.type = OpenType.INVITE_ONLY;
+
+        this.owner = UUID.randomUUID();
+
+        this.description = new ArrayList<>();
+        this.factionPermissions = new FactionPerm(this);
+        this.factionMembers = new FactionMemberManager(this);
         this.relationManager = new RelationManager(this);
-        this.factionBank = new FactionBank();
-        this.factionPerm = new FactionPerm(this);
-
     }
 
-    public @NotNull Rank getPlayerRank(@NotNull OfflinePlayer player) {
-        return factionPerm.getPlayerRank(player);
+    public LocalFaction(@NotNull String display, @NotNull Player owner) {
+        this();
+        this.registry = Faction.displayToRegistry(display);
+        this.display = display;
+        this.owner = owner.getUniqueId();
     }
 
-    public boolean hasPermission(@NotNull OfflinePlayer player, @NotNull String permission) {
-        Rank rank = getPlayerRank(player);
-        if (rank == null) return false;
-        if (!factionPerm.getRankSetting().containsKey(permission)) return false;
-        return factionPerm.getRankSetting().get(permission).hasPermission(rank);
-    }
-
+    /**
+     * It creates populates the faction by loading everything it needs from storage
+     *
+     * @param loadRegistry The registry of the faction to load.
+     */
     @Override
-    public void transferOwnership(@NotNull Player player) {
+    public void createFromStorage(@NotNull String loadRegistry) {
+        throw new NotImplementedException("A local faction can't get created using Faction#createFromStorage(String)");
+    }
+
+    /**
+     * Returns the registry of the faction.
+     *
+     * @return The registry.
+     */
+    @Override
+    public @NotNull String getRegistry() {
+        return registry;
+    }
+
+    /**
+     * Returns the display name of the faction.
+     *
+     * @return The display name. Can contain:
+     * - Color (§a, etc.)
+     * - Special characters
+     */
+    @Override
+    public @NotNull String getDisplay() {
+        return display;
+    }
+
+    /**
+     * Sets the display name of the faction
+     *
+     * @param display The display name of the faction.
+     */
+    @Override
+    public void setDisplay(@NotNull String display) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+        this.display = display;
+    }
+
+    /**
+     * Returns the message of the day.
+     *
+     * @return The message of the day.
+     */
+    @Override
+    public @NotNull String getMotd() {
+        return motd;
+    }
+
+    /**
+     * Sets the faction's MOTD
+     *
+     * @param motd The message of the day.
+     */
+    @Override
+    public void setMotd(@NotNull String motd) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+        this.motd = motd;
+    }
+
+    /**
+     * Returns the tag of this faction
+     *
+     * @return A string, whose max length is limited to the tag length
+     */
+    @Override
+    public @NotNull String getTag() {
+        return tag;
+    }
+
+    /**
+     * Sets the tag of the faction
+     *
+     * @param tag The tag to set.
+     */
+    @Override
+    public void setTag(@NotNull String tag) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+        this.tag = tag;
+    }
+
+    /**
+     * Returns an instance of the anonymous description class
+     *
+     * @return The description object
+     */
+    @Override
+    public @NotNull Description getDescription() {
+        return new Description() {
+            /**
+             * Returns a stream of lines from the description.
+             *
+             * @return All lines of the description.
+             */
+            @Override
+            public @NotNull Stream<String> getLines() {
+                return description.stream();
+            }
+
+            @Override
+            public @NotNull String getLine(int line) throws DescriptionHasNoLine {
+                if (line >= description.size()) throw new DescriptionHasNoLine(registry, line);
+                return description.get(line);
+            }
+
+            @Override
+            public void setLine(int line, @NotNull String content) throws FactionIsFrozenException {
+                if (isFrozen()) throw new FactionIsFrozenException(registry);
+
+                if (line >= description.size()) description.add(content);
+                else description.set(line, content);
+
+            }
+
+            @Override
+            public boolean hasLine(int line) {
+                return line < description.size();
+            }
+
+            @Override
+            public int getLastLine() {
+                return description.size() - 1;
+            }
+        };
+    }
+
+    /**
+     * Returns the date and time when the faction was created.
+     *
+     * @return A string
+     */
+    @Override
+    public @NotNull String getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * Returns the type of the faction.
+     *
+     * @return The type
+     */
+    @Override
+    public @NotNull OpenType getType() {
+        return type;
+    }
+
+    /**
+     * Sets the type of the faction
+     *
+     * @param type The type
+     */
+    @Override
+    public void setType(@NotNull OpenType type) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+        this.type = type;
+    }
+
+    /**
+     * Returns the owner of this faction.
+     *
+     * @return The owner of the faction.
+     */
+    @Override
+    public @NotNull UUID getOwner() {
+        return owner;
+    }
+
+    /**
+     * Returns true if the faction is permanent.
+     * A permanent faction can exist without members in it
+     *
+     * @return If permanent
+     */
+    @Override
+    public boolean isPermanent() {
+        return permanent;
+    }
+
+    /**
+     * Sets whether the faction is permanent or not
+     *
+     * @param permanent If true, the faction will be stored permanently. If false, the faction needs to be
+     *                  deleted when the owner tries to leave
+     */
+    @Override
+    public void setPermanent(boolean permanent) {
+        this.permanent = permanent;
+    }
+
+    /**
+     * Returns true if the faction is frozen, otherwise returns false.
+     *
+     * @return If frozen
+     */
+    @Override
+    public boolean isFrozen() {
+        return frozen;
+    }
+
+    /**
+     * Sets the frozen state of the faction
+     * Frozen factions can't change their current state
+     *
+     * @param frozen true if the faction is frozen, false if not
+     */
+    @Override
+    public void setFrozen(boolean frozen) {
+        this.frozen = frozen;
+    }
+
+    /**
+     * Gets the rank of the specified player.
+     *
+     * @param player The player to get the rank of.
+     * @return The rank of the player.
+     */
+    @Override
+    public @NotNull Rank getPlayerRank(@NotNull OfflinePlayer player) {
+        return factionPermissions.getPlayerRank(player);
+    }
+
+    /**
+     * Gets the permission setting for the specified permission
+     *
+     * @param permission The permission you want to get the setting for.
+     * @return A RankSetting instance.
+     */
+    @Override
+    public @NotNull RankSetting getPermission(@NotNull String permission) throws SettingNotFoundException {
+        if (!factionPermissions.getRankSetting().containsKey(permission))
+            throw new SettingNotFoundException(permission);
+        return factionPermissions.getRankSetting().get(permission);
+    }
+
+    /**
+     * Returns whether the player has the given permission
+     *
+     * @param player     The player to check the permission for.
+     * @param permission The permission to check for.
+     * @return If the permission is allowed for the specified player
+     */
+    @Override
+    public boolean hasPermission(@NotNull OfflinePlayer player, @NotNull String permission) throws SettingNotFoundException {
+        RankSetting setting = getPermission(permission);
+        return setting.hasPermission(getPlayerRank(player));
+    }
+
+    /**
+     * Returns true if the player is a member of the faction
+     *
+     * @param player The player to check.
+     * @return If the player is in the faction
+     */
+    @Override
+    public boolean isMember(@NotNull OfflinePlayer player) {
+        return factionMembers.getMembers().contains(player.getUniqueId());
+    }
+
+    /**
+     * Changes the rank of the specified player to the specified rank
+     *
+     * @param player The player you want to change the rank of.
+     * @param rank   The rank you want to change the player to.
+     */
+    @Override
+    public void changeRank(@NotNull OfflinePlayer player, @NotNull FactionRank rank) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+        factionPermissions.setRank(player, rank.getRegistryName());
+    }
+
+    /**
+     * Transfer ownership of the faction to the specified player.
+     *
+     * @param player The player who will be the new owner of the faction.
+     */
+    @Override
+    public void transferOwnership(@NotNull Player player) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
         OfflinePlayer currentOwner = Bukkit.getOfflinePlayer(owner);
 
-        factionPerm.setRank(player, OwnerRank.registry);
-        factionPerm.setRank(currentOwner, AdminRank.registry);
+        factionPermissions.setRank(player, OwnerRank.registry);
+        factionPermissions.setRank(currentOwner, AdminRank.registry);
 
         Bukkit.getServer().getPluginManager().callEvent(new FactionTransferOwnershipEvent(this,
                 currentOwner, player));
     }
 
+    /**
+     * Deletes the faction
+     */
     @Override
-    public void deleteFaction() {
+    public void deleteFaction() throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+        if (!Utility.callEvent(new FactionDeleteEvent(this))) return;
 
+        getMembers().forEach(uuid -> Utility.run(() -> kickPlayer(Bukkit.getOfflinePlayer(uuid))));
+
+        getClaims().unclaimAll();
+
+
+        FactionHandler.deleteCache(registry);
+        access.delete(Table.FACTIONS, registry);
     }
 
+    /**
+     * Returns a stream of all banned players.
+     *
+     * @return A stream of UUIDs
+     */
     @Override
-    public boolean joinPlayer(@NotNull Player player) {
-        return false;
+    public @NotNull Stream<UUID> getBanned() {
+        return factionMembers.getBanned().stream();
     }
 
+    /**
+     * Returns a stream of all the members of this faction.
+     *
+     * @return A stream of UUIDs
+     */
     @Override
-    public boolean joinPlayer(@NotNull Player player, @NotNull Rank rank) {
-        if (frozen) return Result.failure("FROZEN", "This faction is frozen. You can't join");
-
-        boolean canJoin = Utility.callEvent(new FactionJoinEvent(this, player));
-        if (!canJoin) return Result.failure("EVENT_CANCEL",
-                "Couldn't join faction");
-
-        return factionMemberManager.join(player);
+    public @NotNull Stream<UUID> getMembers() {
+        return factionMembers.getMembers().stream();
     }
 
+    /**
+     * joinPlayer joins a player to the faction
+     *
+     * @param player The player to join the game.
+     * @return If it was able to join
+     */
     @Override
-    public boolean joinPlayer(@NotNull Player player, @NotNull UUID inviteId) {
-        return false;
+    public boolean joinPlayer(@NotNull Player player) throws FactionIsFrozenException {
+        return joinPlayer(player, Rank.fromString(MemberRank.registry));
     }
 
+    /**
+     * Join a player in a faction to a rank.
+     *
+     * @param player The player to join the faction.
+     * @param rank   The rank that the player will be joining as.
+     * @return If the player was able to join
+     */
     @Override
-    public boolean leavePlayer(@NotNull Player player) {
-        return false;
+    public boolean joinPlayer(@NotNull Player player, @NotNull Rank rank) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+        if (!Utility.callEvent(new FactionJoinEvent(this, player))) return false;
+
+        factionMembers.join(player);
+        factionPermissions.setRank(player, rank.getRegistryName());
+        return true;
     }
 
+    /**
+     * Removes a player from the faction
+     *
+     * @param player The player to leave the faction.
+     * @return If the player was able to leave
+     */
     @Override
-    public boolean kickPlayer(@NotNull OfflinePlayer player) {
-        return false;
+    public boolean leavePlayer(@NotNull Player player) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+        if (!Utility.callEvent(new FactionLeaveEvent(this, player))) return false;
+
+        factionMembers.leave(player);
+        factionPermissions.setRank(player, null);
+        return true;
     }
 
+    /**
+     * This function kicks a player from the faction
+     *
+     * @param player The player to kick.
+     * @return If the player was able to kicked
+     */
     @Override
-    public boolean banPlayer(@NotNull OfflinePlayer player) {
-        return false;
+    public boolean kickPlayer(@NotNull OfflinePlayer player) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+        if (!Utility.callEvent(new FactionKickEvent(this, player))) return false;
+
+        factionMembers.kick(player);
+        factionPermissions.setRank(player, null);
+        return true;
     }
 
+    /**
+     * This function bans a player.
+     *
+     * @param player The player to ban.
+     * @return If the player was able to get banned
+     */
     @Override
-    public boolean pardonPlayer(@NotNull OfflinePlayer player) {
-        return false;
+    public boolean banPlayer(@NotNull OfflinePlayer player) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+        if (!Utility.callEvent(new FactionBanEvent(this, player))) return false;
+
+        factionMembers.ban(player);
+        factionPermissions.setRank(player, null);
+        return true;
     }
 
+    /**
+     * Pardon a player from the ban list.
+     *
+     * @param player The player to pardon.
+     * @return If the player was able to be pardoned
+     */
+    @Override
+    public boolean pardonPlayer(@NotNull OfflinePlayer player) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+        if (!Utility.callEvent(new FactionUnbanEvent(this, player))) return false;
+
+        factionMembers.pardon(player);
+        return true;
+    }
+
+    /**
+     * Returns true if the player is banned, false otherwise.
+     *
+     * @param player The player to check
+     * @return If banned or not
+     */
+    @Override
+    public boolean isBanned(@NotNull OfflinePlayer player) {
+        return factionMembers.getBanned().contains(player.getUniqueId());
+    }
+
+    /**
+     * Returns the power of the faction
+     * It sums all player power
+     *
+     * @return A BigDecimal representing the total power
+     */
     @Override
     public @NotNull BigDecimal getPower() {
-        return null;
+        return factionMembers.getMembers().stream().reduce(BigDecimal.ZERO,
+                (bigDecimal, uuid) -> bigDecimal.add(BigDecimal.valueOf(playerPower(uuid))),
+                BigDecimal::add);
     }
 
+    /**
+     * Returns the maximum power that can be generated by the faction
+     * It sums all player's maxpower
+     *
+     * @return A BigDecimal representing the max reachable power
+     */
+    @Override
+    public @NotNull BigDecimal getMaxPower() {
+        return factionMembers.getMembers().stream().reduce(BigDecimal.ZERO,
+                (bigDecimal, uuid) -> bigDecimal.add(BigDecimal.valueOf(maxPlayerPower(uuid))),
+                BigDecimal::add
+        );
+    }
+
+    /**
+     * Returns the power of the player with the given UUID.
+     * *
+     *
+     * @param player The player's UUID
+     * @return The player power
+     */
+    @Override
+    public double playerPower(@NotNull UUID player) {
+        throw new NotImplementedException("PowerPerPlayer isn't implemented for local faction yet. Please do it Tobero!");
+    }
+
+    /**
+     * Returns the maximum power of the given player.
+     *
+     * @param player The player's UUID
+     * @return The maximum power of the player.
+     */
+    @Override
+    public double maxPlayerPower(@NotNull UUID player) {
+        throw new NotImplementedException("PowerPerPlayer isn't implemented for local faction yet. Please do it Tobero!");
+    }
+
+    /**
+     * Adds an ally to the faction
+     *
+     * @param faction The faction to add as an ally.
+     * @return If the ally was able got added
+     */
+    @Override
+    public boolean addAlly(@NotNull LocalFaction faction) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+
+        String registry = faction.registry;
+        if (isEnemy(registry) || isAllied(registry)) return false;
+        relationManager.getAllies().add(registry);
+
+        return true;
+    }
+
+    /**
+     * Returns true if the given registry is allied with this faction.
+     *
+     * @param registry The registry of the faction you want to check.
+     * @return If allied or not
+     */
+    @Override
+    public boolean isAllied(@NotNull String registry) {
+        return relationManager.getAllies().contains(registry);
+    }
+
+    /**
+     * Returns true if the player is in an allied faction of this.
+     *
+     * @param player The player to check.
+     * @return If allied or not
+     */
+    @Override
+    public boolean isAllied(@NotNull OfflinePlayer player) {
+        Faction<?> faction = FactionManager.getPlayerFaction(player);
+        return isAllied(faction.getRegistry());
+    }
+
+    /**
+     * Adds an enemy to the faction.
+     *
+     * @param faction The faction to add as an enemy.
+     * @return If the faction got added as enemy
+     */
+    @Override
+    public boolean addEnemy(@NotNull LocalFaction faction) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+
+        String registry = faction.registry;
+        if (isEnemy(registry) || isAllied(registry)) return false;
+        relationManager.getEnemies().add(registry);
+
+        return true;
+    }
+
+    /**
+     * This function returns true if the given registry is an enemy faction.
+     *
+     * @param registry The registry name of the enemy.
+     * @return If enemies or not
+     */
+    @Override
+    public boolean isEnemy(@NotNull String registry) {
+        return relationManager.getEnemies().contains(registry);
+    }
+
+    /**
+     * Returns a stream of all the allies of this faction.
+     *
+     * @return A stream of allied faction registries.
+     */
+    @Override
+    public @NotNull Stream<String> getAllies() {
+        return relationManager.getAllies().stream();
+    }
+
+    /**
+     * Returns a stream of enemy faction registries.
+     *
+     * @return A stream of enemy faction registries
+     */
+    @Override
+    public @NotNull Stream<String> getEnemies() {
+        return relationManager.getEnemies().stream();
+    }
+
+    /**
+     * Resets the relation of the given faction to the default relation.
+     *
+     * @param faction The faction to reset the relation of.
+     * @return If successfully reseted.
+     */
+    @Override
+    public boolean resetRelation(@NotNull LocalFaction faction) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+
+        relationManager.getEnemies().remove(faction.registry);
+        relationManager.getAllies().remove(faction.registry);
+
+        return true;
+    }
+
+    /**
+     * Returns the claims of this faction.
+     *
+     * @return A list of claims.
+     */
     @Override
     public @NotNull FactionClaims getClaims() {
-        return null;
-    }
-
-
-    /**
-     * Let a player leave the faction
-     *
-     * @param player The player who is leaving the faction
-     * @return A Result object.
-     */
-    public Result leave(Player player) {
-        if (frozen) return Result.failure("FROZEN", "This faction is frozen. You can't leave");
-
-        boolean canLeave = Utility.callEvent(new FactionLeaveEvent(this, player));
-        if (!canLeave) return Result.failure("EVENT_CANCEL",
-                "Couldn't leave your faction");
-
-        Language.sendMessage("command.faction.leave.success", player);
-
-        return factionMemberManager.leave(player);
+        return FactionClaims.createClaims(this);
     }
 
     /**
-     * Kick a player from the faction
+     * Get a setting by name
      *
-     * @param player The player to kick
-     * @return A Result object.
+     * @param setting The name of the setting you want to get.
+     * @return A setting instance
      */
-    public Result kick(OfflinePlayer player) {
-        if (frozen) return Result.failure("FROZEN", "This faction is frozen. You can't kick");
-
-        boolean canKick = Utility.callEvent(new FactionKickEvent(this, player));
-        if (!canKick) return Result.failure("EVENT_CANCEL",
-                "Couldn't kick §e" + player.getName());
-
-
-        Result result = factionMemberManager.kick(player);
-
-        if (!result.isSuccess()) return result;
-        if (player.isOnline()) {
-            Language.sendMessage("faction.kick.success", player.getPlayer(),
-                    new Parseable("{faction_display}", displayName));
-        } else {
-            MessageSystem.sendMessage(player.getUniqueId(), Language.getMessage("faction.kick.success",
-                    "en_us", new Parseable("{faction_display}", displayName)));
-        }
-        return new Result(true).setMessages("KICKED", "You kicked &e" + player.getName());
+    @Override
+    public @NotNull Setting<?> getSetting(@NotNull String setting) throws SettingNotFoundException {
+        return factionPermissions.getFactionSettings().get(setting);
     }
 
     /**
-     * Ban a player from the faction
+     * Returns the module with the given name, or null if no such module exists
      *
-     * @param player The player to ban
-     * @return A Result object.
+     * @param moduleRegistry The name of the module you want to get.
+     * @return A module that is registered to the module registry.
      */
-    public Result ban(OfflinePlayer player) {
-        if (frozen) return Result.failure("FROZEN", "This faction is frozen. You can't ban");
-
-        boolean canKick = Utility.callEvent(new FactionBanEvent(this, player));
-        if (!canKick) return Result.failure("EVENT_CANCEL",
-                "Couldn't ban §e" + player.getName());
-
-        if (player.isOnline()) {
-            Language.sendMessage("faction.kick.success", player.getPlayer());
-        } else {
-            MessageSystem.sendMessage(player.getUniqueId(), Language.getMessage("faction.kick.success", "en_us"));
-        }
-
-        Result result = factionMemberManager.ban(player);
-
-        if (!result.isSuccess()) return result;
-        return new Result(true).setMessages("BANNED", "You banned &e" + player.getName());
+    @Override
+    public @Nullable FactionModule<LocalFaction> getModule(@NotNull String moduleRegistry) {
+        return modules.get(moduleRegistry);
     }
 
     /**
-     * This function will unban a player from the faction
+     * It creates a new instance of the class you pass in, and adds it to the list of modules
      *
-     * @param player The player to unban
-     * @return A Result object.
+     * @param clazz      The class of the module you want to create.
+     * @param parameters The values you want to feed into the constructor
      */
-    public Result unban(OfflinePlayer player) {
-        if (frozen) return Result.failure("FROZEN", "This faction is frozen. You can't unban");
-
-        boolean canKick = Utility.callEvent(new FactionUnbanEvent(this, player));
-        if (!canKick) return Result.failure("EVENT_CANCEL",
-                "Couldn't unban §e" + player.getName());
-
-        return factionMemberManager.pardon(player);
-    }
-
-    /**
-     * This function kicks all members of the faction and then removes the faction from the LOADED_FACTIONS list
-     *
-     * @return A Result object.
-     */
-    public Result<?> delete() {
-        if (frozen) return Result.failure("FROZEN", "This faction is frozen. You can't kick");
-        AsyncTask.run(() -> {
-            boolean canDelete = Utility.callEvent(new FactionDeleteEvent(this));
-            if (!canDelete) return;
-
-            ArrayList<UUID> memberCopy = new ArrayList<>(factionMemberManager.getMembers());
-            for (UUID member : memberCopy) {
-                kick(Bukkit.getOfflinePlayer(member));
-            }
-
-            ClaimManager manager = MainIF.getIF().getClaimManager();
-
-            Map<String, WorldClaims> claims = manager.CLAIMS;
-            LinkedList<Chunk> rmProtection = new LinkedList<>();
-
-            claims.entrySet().stream()
-                    .filter(x -> x != null && x.getKey() != null &&
-                            Bukkit.getWorld(x.getKey()) != null && x.getValue() != null)
-                    .forEach((entry) -> {
-                        World world = Bukkit.getWorld(entry.getKey());
-                        if (world == null) return;
-
-                        entry.getValue().stream()
-                                .filter(x -> Objects.nonNull(x) && x.getRegistry().equals(registryName))
-                                .forEach(c -> rmProtection.add(world.getChunkAt(c.getX(), c.getY())));
-                    });
-
-            rmProtection.forEach(manager::removeProtection);
-            rmProtection.clear();
-
-            LOADED_FACTIONS.remove(registryName);
-            FileAccess.delete("Factions", registryName, this);
-        });
-        return Result.success();
-    }
-
-    public boolean isMember(OfflinePlayer player) {
-        return factionMemberManager.getMembers().contains(player.getUniqueId());
-    }
-
-    @JsonIgnore
-    public OpenType getOpenType() {
-        return OpenType.values()[((EnumSetting) factionPerm.getFactionSettings().get("openType")).getSelected()];
-    }
-
-    @JsonIgnore
-    public MessageModule getMessageModule() {
-        if (!modules.containsKey(FactionModule.MESSAGE_MODULE_ID))
-            modules.put(FactionModule.MESSAGE_MODULE_ID, new MessageModule(this));
-
-        return (MessageModule) modules.get(FactionModule.MESSAGE_MODULE_ID);
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
-    public String getRegistryName() {
-        return registryName;
-    }
-
-    public void setRegistryName(String registryName) {
-        this.registryName = registryName;
-    }
-
-    public PowerManager getPowerManager() {
-        return powerManager;
-    }
-
-    public void setPowerManager(PowerManager powerManager) {
-        this.powerManager = powerManager;
-    }
-
-    public FactionMemberManager getFactionMemberManager() {
-        return factionMemberManager;
-    }
-
-    public Faction setFactionMemberManager(FactionMemberManager factionMemberManager) {
-        this.factionMemberManager = factionMemberManager;
-        return this;
-    }
-
-    public RelationManager getRelationManager() {
-        return relationManager;
-    }
-
-    public void setRelationManager(RelationManager relationManager) {
-        this.relationManager = relationManager;
-    }
-
-    public boolean isFrozen() {
-        return frozen;
-    }
-
     @Override
-    public void setDisplay(@NotNull String display) {
+    public <C extends FactionModule<LocalFaction>> void createModule(@NotNull Class<C> clazz, Object... parameters)
+            throws NoSuchMethodException, InvocationTargetException,
+            InstantiationException, IllegalAccessException {
 
+        LinkedList<Class<?>> classes = new LinkedList<>(Arrays.stream(parameters)
+                .filter(Objects::nonNull)
+                .map(Object::getClass)
+                .toList());
+
+        clazz.getConstructor(classes.toArray(Class[]::new))
+                .newInstance(parameters);
     }
-
-    public void setFrozen(boolean frozen) {
-        this.frozen = frozen;
-    }
-
-    public boolean isPermanent() {
-        return permanent;
-    }
-
-    public void setPermanent(boolean permanent) {
-        this.permanent = permanent;
-    }
-
-
-    public void setDescription(String[] description) {
-        this.description = description;
-    }
-
-    @Override
-    public void createFromStorage(@NotNull String loadRegistry) {
-
-    }
-
-    @Override
-    public @NotNull String getRegistry() {
-        return null;
-    }
-
-    @Override
-    public @NotNull String getDisplay() {
-        return null;
-    }
-
-    public @NotNull String getMotd() {
-        return motd;
-    }
-
-    public void setMotd(@NotNull String motd) {
-        this.motd = motd;
-    }
-
-    public int getClaimedChunks() {
-        return claimedChunks;
-    }
-
-    public void setClaimedChunks(int claimedChunks) {
-        this.claimedChunks = claimedChunks;
-    }
-
-    public double getBalance() {
-        if (!factionBank.hasBank) return 0;
-        return factionBank.balance().balance;
-    }
-
-    public void setBalance(double amount) {
-        if (factionBank == null) {
-            factionBank = new FactionBank(this);
-        }
-        if (factionBank.hasBank) factionBank.deposit(amount);
-    }
-
-    public UUID getOwner() {
-        return owner;
-    }
-
-    public void setOwner(UUID owner) {
-        this.owner = owner;
-    }
-
-    public FactionPerm getFactionPerm() {
-        return factionPerm;
-    }
-
-    public void setFactionPerm(FactionPerm factionPerm) {
-        this.factionPerm = factionPerm;
-    }
-
-    public @NotNull String getCreatedAt() {
-        return createdAt;
-    }
-
-    @Override
-    public io.github.toberocat.core.factions.@NotNull OpenType getType() {
-        return null;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt.replace('T', ' ');
-    }
-
-    @JsonIgnore
-    public FactionBank getFactionBank() {
-        return factionBank;
-    }
-
-    @JsonIgnore
-    public void setFactionBank(FactionBank factionBank) {
-        this.factionBank = factionBank;
-    }
-
-    public @NotNull String getTag() {
-        return tag;
-    }
-
-    public void setTag(@NotNull String tag) {
-        this.tag = tag;
-    }
-
-    @Override
-    public void setType(io.github.toberocat.core.factions.@NotNull OpenType type) {
-
-    }
-
-    public LinkedHashMap<String, FactionModule> getModules() {
-        return modules;
-    }
-
-    public Faction setModules(LinkedHashMap<String, FactionModule> modules) {
-        this.modules = modules;
-        return this;
-    }
-
-    @JsonIgnore
-    public int getColor() {
-        if (getFactionPerm().getFactionSettings().get("universal_color") instanceof EnumSetting setting) {
-            FactionColors color = FactionColors.values()[setting.getSelected()];
-            return color.getColor();
-        }
-        return FactionColors.RED.getColor();
-    }
-
-    public enum OpenType {PUBLIC, INVITE_ONLY, CLOSED}
-
-    //</editor-fold>
 }

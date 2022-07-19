@@ -5,7 +5,7 @@ import io.github.toberocat.core.commands.admin.AdminBypassSubCommand;
 import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionManager;
-import io.github.toberocat.core.factions.local.permission.FactionPerm;
+import io.github.toberocat.core.factions.local.managers.FactionPerm;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.language.Language;

@@ -16,7 +16,7 @@ public interface AccessPipeline<T extends AbstractAccess<T>> {
             }
 
             @Override
-            public @NotNull <R> AccessPipeline<C> write(@NotNull Table table, @NotNull R instance) {
+            public @NotNull <R> AccessPipeline<C> write(@NotNull Table table, @NotNull String byKey, @NotNull R instance) {
                 return this;
             }
 
@@ -52,7 +52,7 @@ public interface AccessPipeline<T extends AbstractAccess<T>> {
         };
     }
 
-    @NotNull <R> AccessPipeline<T> write(@NotNull Table table, @NotNull R instance);
+    @NotNull <R> AccessPipeline<T> write(@NotNull Table table, @NotNull String byKey, @NotNull R instance);
 
     @NotNull AccessPipeline<T> delete(@NotNull Table table, @NotNull String byKey);
 

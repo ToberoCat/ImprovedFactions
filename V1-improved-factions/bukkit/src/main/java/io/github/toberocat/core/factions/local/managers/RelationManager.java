@@ -1,4 +1,4 @@
-package io.github.toberocat.core.factions.local.relation;
+package io.github.toberocat.core.factions.local.managers;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.MainIF;

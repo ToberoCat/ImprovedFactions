@@ -1,10 +1,9 @@
-package io.github.toberocat.core.factions.local.members;
+package io.github.toberocat.core.factions.local.managers;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionManager;
-import io.github.toberocat.core.factions.components.rank.members.MemberRank;
 import io.github.toberocat.core.listeners.PlayerJoinListener;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.data.PersistentDataUtility;
@@ -129,7 +128,6 @@ public class FactionMemberManager {
                 PersistentDataType.STRING, faction.getRegistryName(),
                 player.getPersistentDataContainer());
 
-        faction.getFactionPerm().setRank(player, MemberRank.registry);
         members.add(player.getUniqueId());
         faction.getPowerManager().addFactionMember();
 

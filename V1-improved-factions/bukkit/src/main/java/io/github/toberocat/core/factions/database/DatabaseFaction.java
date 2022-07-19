@@ -24,6 +24,7 @@ import io.github.toberocat.core.utility.date.DateCore;
 import io.github.toberocat.core.utility.events.faction.*;
 import io.github.toberocat.core.utility.exceptions.DescriptionHasNoLine;
 import io.github.toberocat.core.utility.exceptions.faction.FactionHandlerNotFound;
+import io.github.toberocat.core.utility.exceptions.faction.FactionIsFrozenException;
 import io.github.toberocat.core.utility.exceptions.setting.SettingNotFoundException;
 import io.github.toberocat.core.utility.settings.type.RankSetting;
 import io.github.toberocat.core.utility.settings.type.Setting;
@@ -147,9 +148,12 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
      * Set the display name of the faction to the given value locally, and update the database.
      *
      * @param display The display name of the faction.
+     * @throws FactionIsFrozenException gets thrown when the faction is frozen
      */
     @Override
-    public void setDisplay(@NotNull String display) {
+    public void setDisplay(@NotNull String display) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+
         this.display = display;
         database
                 .evalTry("UPDATE factions SET display_name = %s WHERE registry_id = %s",
@@ -180,7 +184,9 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
      * @param motd The new motd
      */
     @Override
-    public void setMotd(@NotNull String motd) {
+    public void setMotd(@NotNull String motd) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+
         this.motd = motd;
         database
                 .evalTry("UPDATE factions SET motd = %s WHERE registry_id = %s",
@@ -210,7 +216,9 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
      * @param tag The new tag of the faction
      */
     @Override
-    public void setTag(@NotNull String tag) {
+    public void setTag(@NotNull String tag) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+
         this.tag = tag;
         database
                 .evalTry("UPDATE factions SET tag = %s WHERE registry_id = %s",
@@ -229,6 +237,21 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     @Override
     public @NotNull Description getDescription() {
         return new Description() {
+            /**
+             * Returns a stream of lines from the description.
+             *
+             * @return All lines of the description.
+             */
+            @Override
+            public @NotNull Stream<String> getLines() {
+                return database
+                        .rowSelect(new Select()
+                                .setTable(Table.FACTION_DESCRIPTIONS.getTable())
+                                .setColumns("content")
+                                .setFilter("registry_id = %s", registry))
+                        .getRows().stream().map(x -> x.get("content").toString());
+            }
+
             /**
              * Get the line of the description with the given line number.
              *
@@ -250,7 +273,9 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
             }
 
             @Override
-            public void setLine(int line, @NotNull String content) {
+            public void setLine(int line, @NotNull String content) throws FactionIsFrozenException {
+                if (isFrozen()) throw new FactionIsFrozenException(registry);
+
                 if (hasLine(line)) database
                         .evalTry("UPDATE faction_descriptions SET content = %s " +
                                         "WHERE registry_id = %s AND line = %s",
@@ -310,7 +335,9 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     @Override
-    public void setType(@NotNull OpenType type) {
+    public void setType(@NotNull OpenType type) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+
         database
                 .evalTry("UPDATE factions SET open_type = %d WHERE registry_id = %s",
                         type.ordinal(), registry)
@@ -428,8 +455,15 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
                 .orElse("")));
     }
 
+    /**
+     * @param player The player you want to change the rank of.
+     * @param rank   The rank you want to change the player to.
+     */
     @Override
-    public void changeRank(@NotNull OfflinePlayer player, @NotNull FactionRank rank) {
+    public void changeRank(@NotNull OfflinePlayer player, @NotNull FactionRank rank)
+            throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+
         if (!isMember(player)) return;
         Rank previous = getDbRank(player);
 
@@ -444,7 +478,9 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     @Override
-    public void transferOwnership(@NotNull Player player) {
+    public void transferOwnership(@NotNull Player player) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+
         OfflinePlayer old = Bukkit.getOfflinePlayer(getOwner());
         changeRank(old, (FactionRank) Rank.fromString(AdminRank.registry));
 
@@ -460,7 +496,8 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     @Override
-    public void deleteFaction() {
+    public void deleteFaction() throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
         SqlCode.execute(database, SqlCode.DELETE_FACTION, SqlVar.of("registry", registry))
                 .get(PreparedStatement::executeUpdate);
     }
@@ -488,12 +525,13 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     @Override
-    public boolean joinPlayer(@NotNull Player player) {
+    public boolean joinPlayer(@NotNull Player player) throws FactionIsFrozenException {
         return joinPlayer(player, Rank.fromString(OwnerRank.registry));
     }
 
     @Override
-    public boolean joinPlayer(@NotNull Player player, @NotNull Rank rank) {
+    public boolean joinPlayer(@NotNull Player player, @NotNull Rank rank) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (isMember(player)) return false;
 
         database.evalTry("UPDATE players SET faction = %s WHERE uuid = %s",
@@ -508,14 +546,16 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     @Override
-    public boolean leavePlayer(@NotNull Player player) {
+    public boolean leavePlayer(@NotNull Player player) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (setGuestRank(player)) return false;
         AsyncTask.callEventSync(new FactionLeaveEvent(this, player));
         return true;
     }
 
     @Override
-    public boolean kickPlayer(@NotNull OfflinePlayer player) {
+    public boolean kickPlayer(@NotNull OfflinePlayer player) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (setGuestRank(player)) return false;
         AsyncTask.callEventSync(new FactionKickEvent(this, player));
         return true;
@@ -523,7 +563,8 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
 
 
     @Override
-    public boolean banPlayer(@NotNull OfflinePlayer player) {
+    public boolean banPlayer(@NotNull OfflinePlayer player) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (setGuestRank(player)) return false;
         database.evalTry("INSERT INTO faction_bans VALUE (%s, %s)", registry,
                         player.getUniqueId().toString())
@@ -554,7 +595,8 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     @Override
-    public boolean pardonPlayer(@NotNull OfflinePlayer player) {
+    public boolean pardonPlayer(@NotNull OfflinePlayer player) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (!isBanned(player)) return false;
 
         database.evalTry("DELETE FROM faction_bans WHERE banned = %s AND regisry_id = %s",
@@ -625,14 +667,8 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     @Override
-    public boolean addAlly(@NotNull DatabaseFaction faction) {
-        String registry = faction.getRegistry();
-        if (isAllied(registry) || isEnemy(registry)) return false;
-
-        database.evalTry("INSERT INTO faction_relations VALUES (%s, %s, %d), (%s, %s, %d)",
-                        this.registry, registry, allyId,
-                        registry, this.registry, allyId)
-                .get(PreparedStatement::executeUpdate);
+    public boolean addAlly(@NotNull DatabaseFaction faction) throws FactionIsFrozenException {
+        if (setStatus(faction, allyId)) return false;
 
         AsyncTask.callEventSync(new FactionAllyEvent(this, faction));
         return true;
@@ -650,16 +686,21 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     @Override
-    public boolean addEnemy(@NotNull DatabaseFaction faction) {
+    public boolean addEnemy(@NotNull DatabaseFaction faction) throws FactionIsFrozenException {
+        return !setStatus(faction, enemyId);
+    }
+
+    private boolean setStatus(@NotNull DatabaseFaction faction, int status) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+
         String registry = faction.getRegistry();
-        if (isAllied(registry) || isEnemy(registry)) return false;
+        if (isAllied(registry) || isEnemy(registry)) return true;
 
         database.evalTry("INSERT INTO faction_relations VALUES (%s, %s, %d), (%s, %s, %d)",
                         this.registry, registry, enemyId,
                         registry, this.registry, enemyId)
                 .get(PreparedStatement::executeUpdate);
-
-        return true;
+        return false;
     }
 
     @Override
@@ -698,7 +739,9 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     @Override
-    public boolean resetRelation(@NotNull DatabaseFaction faction) {
+    public boolean resetRelation(@NotNull DatabaseFaction faction) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+
         String registry = faction.getRegistry();
 
         database.evalTry("DELETE FROM faction_relations WHERE relation_registry_id = %s", registry)

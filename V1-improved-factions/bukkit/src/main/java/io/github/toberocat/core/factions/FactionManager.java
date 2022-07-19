@@ -17,7 +17,12 @@ import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,10 +33,16 @@ import java.util.stream.Stream;
 /**
  * This class is responsible for handling the faction loading & unloading for RAM savage
  */
-public class FactionManager extends PlayerJoinLoader {
+public class FactionManager implements Listener {
 
-    public FactionManager() {
-        Subscribe(this);
+    @EventHandler
+    private void join(@NotNull PlayerJoinEvent event) {
+
+    }
+
+    @EventHandler
+    private void leave(@NotNull PlayerQuitEvent event) {
+
     }
 
     /**
@@ -62,12 +73,16 @@ public class FactionManager extends PlayerJoinLoader {
      * @param player The player you want to check
      * @return A boolean, if the player is in a faction
      */
-    public static boolean isInFaction(Player player) {
-        if (player == null || !player.isOnline()) return false;
+    public static boolean isInFaction(@NotNull OfflinePlayer player) {
+        if (player.isOnline()) {
+            Player on = player.getPlayer();
+            String faction = PersistentDataUtility.read(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
+                    PersistentDataType.STRING, on.getPersistentDataContainer();
+            return faction != null;
+        } else {
 
-        String faction = PersistentDataUtility.read(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
-                PersistentDataType.STRING, player.getPersistentDataContainer());
-        return faction != null;
+        }
+
     }
 
     public static String getPlayerFactionRegistry(Player player) {

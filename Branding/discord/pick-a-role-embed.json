@@ -1,0 +1,32 @@
+{
+  "fields": [
+    {
+      "name": "🟢Suggestor",
+      "value": "You activly suggest ideas for this plugin? Then go with this role",
+      "inline": true
+    },
+    {
+      "name": "🟡Translator",
+      "value": "You translate language files into your language? How about joinign the translator team",
+      "inline": true
+    },
+    {
+      "name": "🔵Bug reporter",
+      "value": "You found & reported a bug, then this role would be perfect for you",
+      "inline": true
+    },
+    {
+      "name": "🔴Extension dev",
+      "value": "You write extensions for this plugin? I think you deserve a role like this",
+      "inline": true
+    },
+    {
+      "name": "🟣Beta tester",
+      "value": "You want to test the latest dev builds of this plugin and help me fix bugs before releasing it? Go with it",
+      "inline": true
+    }
+  ],
+  "title": "Select roles to receive",
+  "description": "Select the roles you want to receive notifactions for",
+  "color": 16717641
+}

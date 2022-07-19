@@ -1,4 +1,4 @@
-package io.github.toberocat.core.factions.local.permission;
+package io.github.toberocat.core.factions.local.managers;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.core.factions.Faction;
@@ -134,6 +134,10 @@ public class FactionPerm {
     }
 
     public void setRank(OfflinePlayer player, String rank) {
+        if (rank == null) {
+            memberRanks.remove(player.getUniqueId());
+            return;
+        }
         String old = memberRanks.put(player.getUniqueId(), rank);
         Utility.callEvent(new FactionUpdateMemberRankEvent(faction, player, rank, old));
     }
