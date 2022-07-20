@@ -12,11 +12,14 @@ import io.github.toberocat.core.extensions.ExtensionLoader;
 import io.github.toberocat.core.extensions.ExtensionRegistry;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionManager;
-import io.github.toberocat.core.factions.local.managers.FactionPerm;
 import io.github.toberocat.core.factions.components.rank.Rank;
+import io.github.toberocat.core.factions.handler.FactionHandler;
+import io.github.toberocat.core.factions.local.LocalFactionHandler;
+import io.github.toberocat.core.factions.local.managers.FactionPerm;
 import io.github.toberocat.core.listeners.*;
 import io.github.toberocat.core.listeners.actions.ActionExecutor;
 import io.github.toberocat.core.papi.FactionExpansion;
+import io.github.toberocat.core.player.PlayerSettingHandler;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.action.provided.*;
 import io.github.toberocat.core.utility.async.AsyncTask;
@@ -24,9 +27,9 @@ import io.github.toberocat.core.utility.bossbar.SimpleBar;
 import io.github.toberocat.core.utility.calender.TimeCore;
 import io.github.toberocat.core.utility.claim.ClaimManager;
 import io.github.toberocat.core.utility.config.DataManager;
-import io.github.toberocat.core.utility.data.access.AbstractAccess;
-import io.github.toberocat.core.utility.data.access.FileAccess;
 import io.github.toberocat.core.utility.data.PluginInfo;
+import io.github.toberocat.core.utility.data.access.AbstractAccess;
+import io.github.toberocat.core.utility.data.database.DatabaseAccess;
 import io.github.toberocat.core.utility.dynamic.loaders.DynamicLoader;
 import io.github.toberocat.core.utility.events.ConfigSaveEvent;
 import io.github.toberocat.core.utility.events.bukkit.PlayerJoinOnReloadEvent;
@@ -38,7 +41,6 @@ import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.map.MapHandler;
 import io.github.toberocat.core.utility.messages.MessageSystem;
 import io.github.toberocat.core.utility.settings.FactionSettings;
-import io.github.toberocat.core.player.PlayerSettings;
 import io.github.toberocat.core.utility.version.UpdateChecker;
 import io.github.toberocat.core.utility.version.Version;
 import io.github.toberocat.versions.nms.NMSFactory;
@@ -74,21 +76,14 @@ public final class MainIF extends JavaPlugin {
     public static final Version VERSION = Version.from("1.5.1");
 
     public static final HashMap<String, Extension> LOADED_EXTENSIONS = new HashMap<>();
-
+    private static MainIF INSTANCE;
+    private static Economy economy;
+    private static TaskChainFactory taskChainFactory;
     private final Map<String, ArrayList<String>> backupFile = new HashMap<>(); // Delete the backup map after backup got restored
     private final Map<String, DataManager> dataManagers = new HashMap<>();
-
-    private static MainIF INSTANCE;
-
-    private static Economy economy;
-
     private final List<ConfigSaveEvent> saveEvents = new ArrayList<>();
-
     private NMSInterface nms;
-
     private boolean standby = false;
-
-    private static TaskChainFactory taskChainFactory;
 
     //</editor-fold>
 
@@ -158,6 +153,22 @@ public final class MainIF extends JavaPlugin {
         }
     }
 
+    public static <T> TaskChain<T> newChain() {
+        return taskChainFactory.newChain();
+    }
+
+    //</editor-fold>
+
+    //<editor-fold desc="Loading functions">
+
+    public static <T> TaskChain<T> newSharedChain(String name) {
+        return taskChainFactory.newSharedChain(name);
+    }
+
+    public static FileConfiguration config() {
+        return MainIF.getIF().getConfig();
+    }
+
     /**
      * Don't call this manually.
      * This will get called by the minecraft server
@@ -190,7 +201,7 @@ public final class MainIF extends JavaPlugin {
             Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
                 Debugger.log("Unloading unused factions...");
                 List<String> unused = new ArrayList<>();
-                for (Faction faction : Faction.getLoadedFactions().values())
+                for (Faction<?> faction : FactionHandler.getLoadedFactions().values())
                     if (faction.getFactionMemberManager().getOnlinePlayers().size() == 0)
                         unused.add(faction.getRegistryName());
 
@@ -207,10 +218,6 @@ public final class MainIF extends JavaPlugin {
         });
     }
 
-    //</editor-fold>
-
-    //<editor-fold desc="Loading functions">
-
     /**
      * Don't call this manually.
      * This will get called by the minecraft server
@@ -224,7 +231,12 @@ public final class MainIF extends JavaPlugin {
 
             LOADED_EXTENSIONS.clear();
 
-            FileAccess.disable();
+            if (AbstractAccess.isAccess(DatabaseAccess.class))
+                DatabaseAccess
+                        .accessPipeline(DatabaseAccess.class)
+                        .database()
+                        .close();
+
             DynamicLoader.disable();
             for (Player player : Bukkit.getOnlinePlayers()) player.closeInventory();
 
@@ -258,7 +270,7 @@ public final class MainIF extends JavaPlugin {
     private void tryMigration() {
         if (new File(getDataFolder().getPath() + "/Data/factions.yml").exists() &&
                 new File(getDataFolder().getPath() + "/Data/chunkData.yml").exists()) {
-            Faction.migrateFaction();
+            LocalFactionHandler.migrateBeta();
             logMessage(Level.INFO, "Please don't stop the server. Chunks are getting migrated. This can take some time, depending on your file size. If you don't want it, disable &6general.autoMigrate &7in the config.yml and reload the server");
             ClaimManager.migrate();
 
@@ -409,6 +421,10 @@ public final class MainIF extends JavaPlugin {
         });
     }
 
+    //</editor-fold>
+
+    //<editor-fold desc="Getters and Setters">
+
     private <T> void saveDataAccessBackup(String file, T value) {
         logMessage(Level.WARNING, "&cCouldn't save &6" + file + "&c. File got saved in datAcc_backup folder. Please restart the plugin so the files can be compared without data loss");
         File pathAsFile = new File(getDataFolder().getPath() + "/.temp/datAcc_backups");
@@ -440,6 +456,8 @@ public final class MainIF extends JavaPlugin {
 
     private void loadListeners() {
         Arrays.asList(
+                        new FactionManager(),
+                        new MessageSystem(),
                         new PlayerJoinListener(),
                         new PlayerLeaveListener(),
                         new GuiListener(),
@@ -453,10 +471,6 @@ public final class MainIF extends JavaPlugin {
                         new ActionExecutor(this))
                 .forEach(listener -> getPluginManager().registerEvents(listener, this));
     }
-
-    //</editor-fold>
-
-    //<editor-fold desc="Getters and Setters">
 
     private boolean loadPluginVersion() {
         String sVersion = Bukkit.getBukkitVersion();
@@ -483,7 +497,6 @@ public final class MainIF extends JavaPlugin {
         if (nms != null) nms.EnableInterface();
         return true;
     }
-
 
     private void loadPluginDependencies() {
         new BukkitRunnable() {
@@ -518,7 +531,7 @@ public final class MainIF extends JavaPlugin {
         if (!AbstractAccess.registerAccessType()) return false;
 
         FactionSettings.register();
-        PlayerSettings.register();
+        new PlayerSettingHandler().register();
         FactionPerm.register();
         ItemCore.register();
         MapHandler.register();
@@ -594,17 +607,6 @@ public final class MainIF extends JavaPlugin {
      */
     public List<ConfigSaveEvent> getSaveEvents() {
         return saveEvents;
-    }
-
-    public static <T> TaskChain<T> newChain() {
-        return taskChainFactory.newChain();
-    }
-    public static <T> TaskChain<T> newSharedChain(String name) {
-        return taskChainFactory.newSharedChain(name);
-    }
-
-    public static FileConfiguration config() {
-        return MainIF.getIF().getConfig();
     }
 
     //</editor-fold>

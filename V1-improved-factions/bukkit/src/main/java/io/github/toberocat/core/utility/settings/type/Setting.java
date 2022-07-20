@@ -83,7 +83,8 @@ public abstract class Setting<T> {
     }
 
     public static Slot getSlot(Setting setting, Player player, Callback render) {
-        if (setting instanceof HiddenSetting) return null;
+        if (setting instanceof HiddenSetting
+                || setting instanceof StringHiddenSetting) return null;
 
         if (setting instanceof BoolSetting boolSetting) {
             StringBuilder enabled = new StringBuilder("&a");

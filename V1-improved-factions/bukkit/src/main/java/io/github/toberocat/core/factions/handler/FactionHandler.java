@@ -18,9 +18,9 @@ import java.util.Map;
  * without worrying about the different back ends (Like the different methods & handling ways of Local and Database factions)
  */
 public abstract class FactionHandler {
-    private static final @NotNull FactionHandlerInterface<?> handler = createInterface();
+    private static final @NotNull FactionHandlerInterface<> handler = createInterface();
 
-    public static @NotNull FactionHandlerInterface<?> createInterface() {
+    public static @NotNull FactionHandlerInterface<Faction> createInterface() {
         if (MainIF.config().getBoolean("sql.useSql", false)) return new DatabaseFactionHandler();
         else return new LocalFactionHandler();
     }
@@ -55,11 +55,11 @@ public abstract class FactionHandler {
         return handler.getSavedRank(player);
     }
 
-    public boolean exists(@NotNull String registry) {
+    public static boolean exists(@NotNull String registry) {
         return handler.exists(registry);
     }
 
-    public @NotNull Map<String, ?> getLoadedFactions() {
+    public static <F extends Faction<F>> @NotNull Map<String, F> getLoadedFactions() {
         return handler.getLoadedFactions();
     }
 }

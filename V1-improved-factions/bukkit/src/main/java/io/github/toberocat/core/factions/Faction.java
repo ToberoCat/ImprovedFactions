@@ -22,11 +22,11 @@ import java.math.BigDecimal;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-public interface Faction<F extends Faction<F>> {
+public abstract class Faction<F extends Faction<F>> {
     /* Static vars */
-    int allyId = 0;
-    int neutralId = 1;
-    int enemyId = 2;
+    public static final int allyId = 0;
+    public static final int neutralId = 1;
+    public static final int enemyId = 2;
 
     /* Static voids */
 
@@ -40,7 +40,7 @@ public interface Faction<F extends Faction<F>> {
      * - All color codes are stripped from the string.
      * - All non-alphabetic characters are removed from the string.
      */
-    static @NotNull String displayToRegistry(@NotNull String display) {
+    public static @NotNull String displayToRegistry(@NotNull String display) {
         return display
                 .substring(0, MainIF.config().getInt("faction.maxNameLen"))
                 .toLowerCase()
@@ -58,7 +58,7 @@ public interface Faction<F extends Faction<F>> {
      * @param name The name of the faction
      * @return If the name is valid
      */
-    static boolean validNaming(@NotNull String name) {
+    public static boolean validNaming(@NotNull String name) {
         if (name.equalsIgnoreCase("safezone") ||
                 name.equalsIgnoreCase("warzone")) return false;
         return ForbiddenChecker.checkName(name);
@@ -71,7 +71,7 @@ public interface Faction<F extends Faction<F>> {
      *
      * @param loadRegistry The registry of the faction to load.
      */
-    void createFromStorage(@NotNull String loadRegistry);
+    public abstract void createFromStorage(@NotNull String loadRegistry);
 
     /* Getters */
 
@@ -80,7 +80,7 @@ public interface Faction<F extends Faction<F>> {
      *
      * @return The registry.
      */
-    @NotNull String getRegistry();
+    public abstract @NotNull String getRegistry();
 
     /**
      * Returns the display name of the faction.
@@ -89,7 +89,7 @@ public interface Faction<F extends Faction<F>> {
      * - Color (§a, etc.)
      * - Special characters
      */
-    @NotNull String getDisplay();
+    public abstract @NotNull String getDisplay();
 
     /* Setter */
 
@@ -98,70 +98,70 @@ public interface Faction<F extends Faction<F>> {
      *
      * @param display The display name of the faction.
      */
-    void setDisplay(@NotNull String display) throws FactionIsFrozenException;
+    public abstract void setDisplay(@NotNull String display) throws FactionIsFrozenException;
 
     /**
      * Returns the message of the day.
      *
      * @return The message of the day.
      */
-    @NotNull String getMotd();
+    public abstract @NotNull String getMotd();
 
     /**
      * Sets the faction's MOTD
      *
      * @param motd The message of the day.
      */
-    void setMotd(@NotNull String motd) throws FactionIsFrozenException;
+    public abstract void setMotd(@NotNull String motd) throws FactionIsFrozenException;
 
     /**
      * Returns the tag of this faction
      *
      * @return A string, whose max length is limited to the tag length
      */
-    @NotNull String getTag();
+    public abstract @NotNull String getTag();
 
     /**
      * Sets the tag of the faction
      *
      * @param tag The tag to set.
      */
-    void setTag(@NotNull String tag) throws FactionIsFrozenException;
+    public abstract void setTag(@NotNull String tag) throws FactionIsFrozenException;
 
     /**
      * Returns an instance of the anonymous description class
      *
      * @return The description object
      */
-    @NotNull Description getDescription();
+    public abstract @NotNull Description getDescription();
 
     /**
      * Returns the date and time when the faction was created.
      *
      * @return A string
      */
-    @NotNull String getCreatedAt();
+    public abstract @NotNull String getCreatedAt();
 
     /**
      * Returns the type of the faction.
      *
      * @return The type
      */
-    @NotNull OpenType getType();
+    public abstract @NotNull OpenType getType();
 
     /**
      * Sets the type of the faction
      *
      * @param type The type
      */
-    void setType(@NotNull OpenType type) throws FactionIsFrozenException;
+    public abstract void setType(@NotNull OpenType type) throws FactionIsFrozenException;
 
     /**
      * Returns the owner of this faction.
      *
      * @return The owner of the faction.
      */
-    @NotNull UUID getOwner();
+    public abstract @NotNull UUID getOwner();
 
     /**
      * Returns true if the faction is permanent.
@@ -169,7 +169,7 @@ public interface Faction<F extends Faction<F>> {
      *
      * @return If permanent
      */
-    boolean isPermanent();
+    public abstract boolean isPermanent();
 
     /**
      * Sets whether the faction is permanent or not

@@ -32,12 +32,12 @@ public class DatabaseFactionHandler implements FactionHandlerInterface<DatabaseF
     }
 
     @Override
-    public @NotNull Faction create(@NotNull String display, @NotNull Player owner) {
+    public @NotNull DatabaseFaction create(@NotNull String display, @NotNull Player owner) {
         return new DatabaseFaction(display, owner);
     }
 
     @Override
-    public @NotNull Faction load(@NotNull String registry) throws FactionNotInStorage {
+    public @NotNull DatabaseFaction load(@NotNull String registry) throws FactionNotInStorage {
         return null;
     }
 
@@ -54,6 +54,11 @@ public class DatabaseFactionHandler implements FactionHandlerInterface<DatabaseF
     @Override
     public @NotNull Map<String, DatabaseFaction> getLoadedFactions() {
         return factions;
+    }
+
+    @Override
+    public void deleteCache(@NotNull String registry) {
+
     }
 
     @Override

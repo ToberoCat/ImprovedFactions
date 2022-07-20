@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -43,12 +44,9 @@ public class MessageSystem implements Listener {
         if (AbstractAccess.isAccess(DatabaseAccess.class)) {
             MySqlDatabase database = DatabaseAccess.accessPipeline(DatabaseAccess.class)
                     .database();
-            if (playerInStorageDb(database, id)) database.tableInsert(new Insert()
-                    .setTable("messages")
-                    .setColumns("player", "content")
-                    .setData())
-            }
 
+            database.evalTry("INSERT INTO messages VALUE (%s, %s)", id, message)
+                    .get(PreparedStatement::executeUpdate);
 
         }
 
