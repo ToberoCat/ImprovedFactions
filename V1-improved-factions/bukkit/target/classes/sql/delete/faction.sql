@@ -21,5 +21,5 @@ WHERE registry_id = @registry;
 
 UPDATE players
 SET faction     = NULL,
-    member_rank = NULL
+    member_rank = 'Guest'
 WHERE faction = @registry;

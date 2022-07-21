@@ -2,6 +2,7 @@
 -- SET @display := 'display';
 -- SET @motd := 'motd';
 -- SET @tag := 'tag';
+-- SET @openType := 1';
 -- SET @frozen := 'frozen';
 -- SET @permanent := 'perm';
 -- SET @created_at := '2022-01-01';
@@ -18,6 +19,7 @@ INSERT INTO factions
            @display, -- Display
            @motd, -- Motd
            @tag, -- Tag
+           @openType, -- OpenType
            @frozen, -- Frozen
            @permanent, -- Permanent
            @created_at, -- CreatedAt

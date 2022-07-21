@@ -5,6 +5,20 @@ commands:
   standby:
     - tellraw @a {"text":"Standby enabled"}
 faction:
+  invitationTimeout: 300
+  maxTagLen: 3
+  maxNameLen: 10
+  allowExplosions: true
+  joinTimeout: 24
+  default:
+    permanent: false
+    frozen: false
+    openType: INVITE_ONLY
+    motd: "Improved faction"
+    tag: "IFF"
+    power:
+      value: 20
+      max: 20
   ranks:
     guest: Guest
     ally-member: Ally member
@@ -17,12 +31,6 @@ faction:
     moderator: Moderator
     admin: Admin
     owner: Owner
-  invitationTimeout: 300
-  maxTagLen: 3
-  maxNameLen: 10
-  allowExplosions: true
-  joinTimeout: 24
-  permanent: false
 history:
   territoryChange: false
 power:
