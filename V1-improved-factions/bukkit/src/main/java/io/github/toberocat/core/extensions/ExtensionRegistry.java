@@ -3,6 +3,7 @@ package io.github.toberocat.core.extensions;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.toberocat.core.utility.version.Version;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public final class ExtensionRegistry {
@@ -115,14 +116,16 @@ public final class ExtensionRegistry {
                 Objects.equals(this.registry, that.registry) &&
                 Objects.equals(this.version, that.version) &&
                 Objects.equals(this.minVersion, that.minVersion) &&
-                Objects.equals(this.testedVersions, that.testedVersions) &&
-                Objects.equals(this.dependencies, that.dependencies) &&
-                Objects.equals(this.extensionDependencies, that.extensionDependencies);
+                Arrays.equals(this.testedVersions, that.testedVersions) &&
+                Arrays.equals(this.dependencies, that.dependencies) &&
+                Arrays.equals(this.extensionDependencies, that.extensionDependencies);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(main, displayName, registry, version, minVersion, testedVersions, dependencies, extensionDependencies);
+        return Objects.hash(main, displayName, registry, version, minVersion,
+                Arrays.hashCode(testedVersions), Arrays.hashCode(dependencies),
+                Arrays.hashCode(extensionDependencies));
     }
 
     @Override
@@ -133,8 +136,8 @@ public final class ExtensionRegistry {
                 "registry=" + registry + ", " +
                 "version=" + version + ", " +
                 "minVersion=" + minVersion + ", " +
-                "testedVersions=" + testedVersions + ", " +
-                "dependencies=" + dependencies + ", " +
-                "extensionDependencies=" + extensionDependencies + ']';
+                "testedVersions=" + Arrays.toString(testedVersions) + ", " +
+                "dependencies=" + Arrays.toString(dependencies) + ", " +
+                "extensionDependencies=" + Arrays.toString(extensionDependencies) + ']';
     }
 }

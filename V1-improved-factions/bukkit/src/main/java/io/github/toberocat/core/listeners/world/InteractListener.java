@@ -27,7 +27,7 @@ public class InteractListener implements Listener {
 
         Chunk blockChunk = event.getClickedBlock().getChunk();
 
-        String claim = claimManager.getChunkRegistry(blockChunk);
+        String claim = ClaimManager.getChunkRegistry(blockChunk);
         if (claim == null) return; // Chunk isn't protected
         if (MainIF.getIF().isStandby() || !MainIF.getIF().isEnabled()) {
             Language.sendRawMessage("Factions is in standby. Protection is enabled for claimed chunk", player);

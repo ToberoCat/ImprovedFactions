@@ -17,14 +17,14 @@ public class Claim {
     }
 
     /**
-     * Used for migration from v1 pre release 2 to the current version
+     * Used for migration from v1 pre-release 2 to the current version
      */
     public void setWidth(int width) {
         this.x = width;
     }
 
     /**
-     * Used for migration from v1 pre release 2 to the current version
+     * Used for migration from v1 pre-release 2 to the current version
      */
     public void setHeight(int height) {
         this.y = height;

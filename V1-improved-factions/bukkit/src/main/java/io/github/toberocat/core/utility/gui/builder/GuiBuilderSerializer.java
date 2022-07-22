@@ -4,15 +4,11 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static io.github.toberocat.core.utility.Utility.replace;
 
-public class GuiBuilderSerializer {
-
-    private final ConfigurationSection section;
-    private final LinkedHashMap<String, String> placeholders;
+public record GuiBuilderSerializer(ConfigurationSection section,
+                                   LinkedHashMap<String, String> placeholders) {
 
     public GuiBuilderSerializer(@NotNull ConfigurationSection section, @NotNull LinkedHashMap<String, String> placeholders) {
         this.section = section;

@@ -4,6 +4,8 @@ import io.github.toberocat.core.utility.language.Language;
 import net.md_5.bungee.api.chat.*;
 import org.bukkit.entity.Player;
 
+import java.util.Objects;
+
 
 public class PlayerMessageBuilder {
 
@@ -29,7 +31,7 @@ public class PlayerMessageBuilder {
         String[] componentSplit = message.split("%");
 
         for (String component : componentSplit) {
-            if (component == "r") builder.reset();
+            if (Objects.equals(component, "r")) builder.reset();
             else if (!component.contains(";")) {
                 builder.append(TextComponent.fromLegacyText(component));
             } else {
@@ -40,10 +42,12 @@ public class PlayerMessageBuilder {
                 for (String event : events) {
                     if (event.startsWith("HOVER")) {
                         builder.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                                new ComponentBuilder("").append(TextComponent.fromLegacyText(text)).create()));
+                                new ComponentBuilder("").append(TextComponent
+                                        .fromLegacyText(text)).create()));
                     } else if (event.startsWith("CLICK")) {
                         builder.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
-                                commands[Integer.parseInt(event.split("\\(")[1].replaceAll("\\)}", ""))]));
+                                commands[Integer.parseInt(event.split("\\(")[1]
+                                        .replaceAll("\\)}", ""))]));
                     }
                 }
             }

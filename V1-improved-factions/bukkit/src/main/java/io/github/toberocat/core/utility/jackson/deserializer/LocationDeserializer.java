@@ -20,7 +20,7 @@ public class LocationDeserializer extends StdDeserializer<Location> {
     }
 
     @Override
-    public Location deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
+    public Location deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         JsonNode node = p.getCodec().readTree(p);
         String worldName = node.get("world").asText();
         double x = node.get("x").numberValue().doubleValue();

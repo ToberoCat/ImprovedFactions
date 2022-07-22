@@ -2,7 +2,7 @@ package io.github.toberocat.versions.benchmark;
 
 public class ExampleDbStoreable {
 
-    private String carName;
+    private final String carName;
 
     private final int buildYear;
     public String marke;

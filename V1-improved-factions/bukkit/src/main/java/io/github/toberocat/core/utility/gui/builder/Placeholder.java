@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.LinkedHashMap;
 
 public class Placeholder {
-    private LinkedHashMap<String, String> placeholders;
+    private final LinkedHashMap<String, String> placeholders;
 
     public Placeholder() {
         this.placeholders = new LinkedHashMap<>();

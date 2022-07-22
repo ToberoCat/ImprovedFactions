@@ -26,7 +26,7 @@ public class GuiBuilder {
     private boolean pageArrows = false;
     private LinkedList<String> quitActions;
     private LinkedList<PageBuilder> pages = new LinkedList<>();
-    private LinkedHashMap<String, Consumer<Player>> clickEvents = new LinkedHashMap<>();
+    private final LinkedHashMap<String, Consumer<Player>> clickEvents = new LinkedHashMap<>();
     /*
     public static void openFromConfig(Player player, ConfigurationSection section) {
         GuiBuilderSerializer serializer = new GuiBuilderSerializer(section);

@@ -840,13 +840,7 @@ public class Metrics {
          * allow a raw string inputs for methods like {@link JsonObjectBuilder#appendField(String,
          * JsonObject)}.
          */
-        public static class JsonObject {
-
-            private final String value;
-
-            private JsonObject(String value) {
-                this.value = value;
-            }
+        public record JsonObject(String value) {
 
             @Override
             public String toString() {

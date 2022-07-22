@@ -89,8 +89,7 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
 
             // Adding players
             List<String> raw = factions.getConfig().getStringList("f." + key + ".members");
-            for (int i = 0; i < raw.size(); i++) {
-                String rawMember = raw.get(i);
+            for (String rawMember : raw) {
                 Map.Entry<UUID, String> member = getFromFactionMember(rawMember);
                 if (Bukkit.getOfflinePlayer(member.getKey()).isOnline()) {
                     faction.getFactionMemberManager().join(Bukkit.getPlayer(member.getKey()));

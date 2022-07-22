@@ -282,7 +282,7 @@ public class Language extends PlayerJoinLoader {
 
         String langPath = MainIF.getIF().getDataFolder().getPath() + "/lang";
         File langDir = new File(langPath);
-        if (!Arrays.stream(langDir.listFiles()).anyMatch(x -> x.getName().equals(locale + ".lang"))) return;
+        if (Arrays.stream(langDir.listFiles()).noneMatch(x -> x.getName().equals(locale + ".lang"))) return;
 
         Debugger.log("Loading " + locale + " for " + player.getName());
 

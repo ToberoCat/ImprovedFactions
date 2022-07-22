@@ -134,7 +134,7 @@ public class AsyncTask<T> {
     }
 
     public static <T> AsyncTask<T> returnItem(T item) {
-        AsyncTask<T> core = new AsyncTask<>(new AsyncRunnable<T>() {
+        AsyncTask<T> core = new AsyncTask<>(new AsyncRunnable<>() {
             @Override
             public void run() {
             }
@@ -175,7 +175,7 @@ public class AsyncTask<T> {
      * Execute a code piece on a separate thread
      */
     public static <T> AsyncTask<T> run(Runnable callback) {
-        AsyncTask<T> core = new AsyncTask<>(new AsyncRunnable<T>() {
+        AsyncTask<T> core = new AsyncTask<>(new AsyncRunnable<>() {
             @Override
             public void run() {
                 callback.run();

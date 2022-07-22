@@ -27,9 +27,7 @@ public class ExtensionDownloadSubCommand extends SubCommand {
     @Override
     protected void CommandExecute(Player player, String[] args) {
         if (args.length == 0) {
-            AsyncTask.runLaterSync(0, () -> {
-                new DownloadGUI(player);
-            });
+            AsyncTask.runLaterSync(0, () -> new DownloadGUI(player));
         } else {
             ExtensionListLoader.getMap().then((map) -> {
                 if (!map.containsKey(args[0]))

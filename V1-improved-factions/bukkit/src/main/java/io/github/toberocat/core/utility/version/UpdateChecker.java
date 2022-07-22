@@ -1,13 +1,7 @@
 package io.github.toberocat.core.utility.version;
 
-public class UpdateChecker {
-    private final Version version;
-    private final Version newestVersion;
-
-    public UpdateChecker(Version version, Version newestVersion) {
-        this.version = version;
-        this.newestVersion = newestVersion;
-    }
+public record UpdateChecker(Version version,
+                            Version newestVersion) {
 
     public Version getVersion() {
         return version;

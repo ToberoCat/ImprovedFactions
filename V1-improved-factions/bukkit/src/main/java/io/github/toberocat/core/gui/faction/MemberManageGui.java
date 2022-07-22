@@ -30,7 +30,7 @@ public class MemberManageGui extends TabbedGui {
     private final Rank selfRank;
     private final Rank managedRank;
     private String selectedRank;
-    private GuiSettings memberGuiSettings;
+    private final GuiSettings memberGuiSettings;
 
     public MemberManageGui(Player player, OfflinePlayer managedPlayer,
                            Faction faction, GuiSettings memberGUISettings) {

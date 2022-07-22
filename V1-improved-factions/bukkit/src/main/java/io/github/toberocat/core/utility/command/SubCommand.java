@@ -245,7 +245,7 @@ public abstract class SubCommand {
 
         while (subs.hasNext()) {
             SubCommand cmd = subs.next();
-            if (cmd.getSubCommand() == command) {
+            if (Objects.equals(cmd.getSubCommand(), command)) {
                 subs.remove();
                 return true;
             }

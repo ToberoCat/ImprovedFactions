@@ -53,7 +53,8 @@ public class LocalFaction implements Faction<LocalFaction> {
     private @NotNull String display;
     private @NotNull String motd;
     private @NotNull String tag;
-    private @NotNull String createdAt;
+    private @NotNull
+    final String createdAt;
 
     private boolean permanent;
     private boolean frozen;
@@ -62,15 +63,15 @@ public class LocalFaction implements Faction<LocalFaction> {
 
     private @NotNull OpenType type;
 
-    private @NotNull List<String> description;
+    private @NotNull
+    final List<String> description;
 
     private final @NotNull FactionPerm factionPermissions;
     private final @NotNull FactionMemberManager factionMembers;
     private final @NotNull RelationManager relationManager;
 
-    private Map<String, LocalFactionModule> modules = new LinkedHashMap<>();
+    private final Map<String, LocalFactionModule> modules = new LinkedHashMap<>();
 
-    ;
     /**
      * Jackson constructor. Don't use it
      */

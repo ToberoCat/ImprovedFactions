@@ -10,8 +10,8 @@ import java.util.Map;
 import java.util.UUID;
 
 public class InviteHandler {
-    private static Map<UUID, Invite> invites = new HashMap<>();
-    private static Map<UUID, ArrayList<UUID>> playerInvites = new HashMap<>();
+    private static final Map<UUID, Invite> invites = new HashMap<>();
+    private static final Map<UUID, ArrayList<UUID>> playerInvites = new HashMap<>();
 
     public static void createInvite(@NotNull Player player, @NotNull Invite invite) {
         //ToDo: Create a invite based of the data
