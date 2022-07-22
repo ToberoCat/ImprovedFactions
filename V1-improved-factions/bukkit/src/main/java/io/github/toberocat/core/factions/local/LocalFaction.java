@@ -15,7 +15,6 @@ import io.github.toberocat.core.factions.components.rank.members.FactionRank;
 import io.github.toberocat.core.factions.components.rank.members.MemberRank;
 import io.github.toberocat.core.factions.components.rank.members.OwnerRank;
 import io.github.toberocat.core.factions.handler.FactionHandler;
-import io.github.toberocat.core.factions.local.datatype.FactionRelations;
 import io.github.toberocat.core.factions.local.managers.FactionMemberManager;
 import io.github.toberocat.core.factions.local.managers.FactionPerm;
 import io.github.toberocat.core.factions.local.managers.RelationManager;
@@ -374,7 +373,8 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @param rank   The rank you want to change the player to.
      */
     @Override
-    public void changeRank(@NotNull OfflinePlayer player, @NotNull FactionRank rank) throws FactionIsFrozenException {
+    public void changeRank(@NotNull OfflinePlayer player, @NotNull FactionRank rank)
+            throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
         factionPermissions.setRank(player, rank.getRegistryName());
     }
@@ -452,7 +452,8 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return If the player was able to join
      */
     @Override
-    public boolean joinPlayer(@NotNull Player player, @NotNull Rank rank) throws FactionIsFrozenException {
+    public boolean joinPlayer(@NotNull Player player, @NotNull Rank rank)
+            throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (!Utility.callEvent(new FactionJoinEvent(this, player))) return false;
 
@@ -500,7 +501,8 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return If the player was able to get banned
      */
     @Override
-    public boolean banPlayer(@NotNull OfflinePlayer player) throws FactionIsFrozenException {
+    public boolean banPlayer(@NotNull OfflinePlayer player)
+            throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (!Utility.callEvent(new FactionBanEvent(this, player))) return false;
 
@@ -516,7 +518,8 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return If the player was able to be pardoned
      */
     @Override
-    public boolean pardonPlayer(@NotNull OfflinePlayer player) throws FactionIsFrozenException {
+    public boolean pardonPlayer(@NotNull OfflinePlayer player)
+            throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (!Utility.callEvent(new FactionUnbanEvent(this, player))) return false;
 
@@ -592,7 +595,8 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return If the ally was able got added
      */
     @Override
-    public boolean addAlly(@NotNull LocalFaction faction) throws FactionIsFrozenException {
+    public boolean addAlly(@NotNull LocalFaction faction)
+            throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
         String registry = faction.registry;
@@ -632,7 +636,8 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return If the faction got added as enemy
      */
     @Override
-    public boolean addEnemy(@NotNull LocalFaction faction) throws FactionIsFrozenException {
+    public boolean addEnemy(@NotNull LocalFaction faction)
+            throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
         String registry = faction.registry;
@@ -680,7 +685,8 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return If successfully reseted.
      */
     @Override
-    public boolean resetRelation(@NotNull LocalFaction faction) throws FactionIsFrozenException {
+    public boolean resetRelation(@NotNull LocalFaction faction)
+            throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
         relationManager.getEnemies().remove(faction.registry);

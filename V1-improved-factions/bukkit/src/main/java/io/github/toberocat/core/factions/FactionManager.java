@@ -5,9 +5,8 @@ import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.claim.ClaimManager;
-import io.github.toberocat.core.utility.data.access.FileAccess;
 import io.github.toberocat.core.utility.data.PersistentDataUtility;
-import io.github.toberocat.core.utility.dynamic.loaders.PlayerJoinLoader;
+import io.github.toberocat.core.utility.data.access.FileAccess;
 import io.github.toberocat.core.utility.events.faction.FactionLoadEvent;
 import io.github.toberocat.core.utility.events.faction.member.FactionMemberOfflineEvent;
 import io.github.toberocat.core.utility.events.faction.member.FactionMemberOnlineEvent;
@@ -25,6 +24,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -35,34 +35,22 @@ import java.util.stream.Stream;
  */
 public class FactionManager implements Listener {
 
-    @EventHandler
-    private void join(@NotNull PlayerJoinEvent event) {
-
-    }
-
-    @EventHandler
-    private void leave(@NotNull PlayerQuitEvent event) {
-
-    }
-
     /**
      * This will unload a faction if it is not in use anymore
      */
-    public static AsyncTask<Boolean> unload(String registry) {
-        return AsyncTask.run(() -> {
-            Faction faction = getFactionByRegistry(registry);
-            if (faction == null) return false;
+    public static void unload(String registry) {
+        Faction<?> faction = getFactionByRegistry(registry);
+        if (faction == null) return;
 
-            int online = 0;
-            for (UUID uuid : faction.getFactionMemberManager().getMembers()) {
-                if (Bukkit.getOfflinePlayer(uuid).isOnline()) online++;
-                if (online >= 2) return false;
-            }
+        int online = 0;
+        for (UUID uuid : faction.getFactionMemberManager().getMembers()) {
+            if (Bukkit.getOfflinePlayer(uuid).isOnline()) online++;
+            if (online >= 2) return;
+        }
 
-            FileAccess.write("Factions", faction.getRegistryName(), faction);
-            Faction.getLoadedFactions().remove(faction.getRegistryName());
-            return true;
-        });
+        FileAccess.write("Factions", faction.getRegistryName(), faction);
+        Faction.getLoadedFactions().remove(faction.getRegistryName());
+        return;
     }
 
     /**
@@ -85,7 +73,7 @@ public class FactionManager implements Listener {
 
     }
 
-    public static String getPlayerFactionRegistry(Player player) {
+    public static @Nullable String getPlayerFactionRegistry(@NotNull OfflinePlayer player) {
         return PersistentDataUtility.read(PersistentDataUtility.PLAYER_FACTION_REGISTRY, PersistentDataType.STRING,
                 player.getPersistentDataContainer());
     }
@@ -133,7 +121,6 @@ public class FactionManager implements Listener {
         return Arrays.asList(FileAccess.listRawFolder("Factions")).contains(registry + ".json");
     }
 
-
     public static List<String> getAllFactions() {
         return Arrays.stream(FileAccess.listRawFolder("Factions")).map(registry -> registry.split("\\.")[0]).toList();
     }
@@ -148,6 +135,16 @@ public class FactionManager implements Listener {
 
     public static String factionDisplayToRegistry(String displayName) {
         return ChatColor.stripColor(displayName.replaceAll("[^a-zA-Z0-9]", " "));
+    }
+
+    @EventHandler
+    private void join(@NotNull PlayerJoinEvent event) {
+        getPlayerFaction(event.getPlayer());
+    }
+
+    @EventHandler
+    private void leave(@NotNull PlayerQuitEvent event) {
+        unloadPlayer(event.getPlayer());
     }
 
     @Override
@@ -178,7 +175,7 @@ public class FactionManager implements Listener {
 
     @Override
     protected void unloadPlayer(Player player) {
-        Faction faction = getPlayerFaction(player);
+        Faction<?> faction = getPlayerFaction(player);
         if (faction == null) return; // Player wasn't in a faction
         unload(faction.getRegistryName()).then((unloaded) -> {
             if (unloaded) return;
@@ -186,15 +183,5 @@ public class FactionManager implements Listener {
             AsyncTask.runSync(() -> Bukkit.getPluginManager()
                     .callEvent(new FactionMemberOfflineEvent(faction, player)));
         });
-    }
-
-
-    @Override
-    protected void Disable() {
-        for (Faction faction : Faction.getLoadedFactions().values()) {
-            FileAccess.write("Factions", faction.getRegistryName(), faction);
-        }
-
-        Faction.getLoadedFactions().clear();
     }
 }

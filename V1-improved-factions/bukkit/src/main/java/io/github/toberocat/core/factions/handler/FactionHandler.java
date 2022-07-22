@@ -10,6 +10,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -18,9 +19,9 @@ import java.util.Map;
  * without worrying about the different back ends (Like the different methods & handling ways of Local and Database factions)
  */
 public abstract class FactionHandler {
-    private static final @NotNull FactionHandlerInterface<> handler = createInterface();
+    private static final @NotNull FactionHandlerInterface<?> handler = createInterface();
 
-    public static @NotNull FactionHandlerInterface<Faction> createInterface() {
+    public static @NotNull FactionHandlerInterface<?> createInterface() {
         if (MainIF.config().getBoolean("sql.useSql", false)) return new DatabaseFactionHandler();
         else return new LocalFactionHandler();
     }
@@ -60,6 +61,11 @@ public abstract class FactionHandler {
     }
 
     public static <F extends Faction<F>> @NotNull Map<String, F> getLoadedFactions() {
-        return handler.getLoadedFactions();
+        return (Map<String, F>) handler.getLoadedFactions();
+    }
+
+    public static void dispose() {
+        Map<String, Faction<?>> copy = new HashMap<>(FactionHandler.getLoadedFactions());
+        copy.keySet().forEach(FactionHandler::deleteCache);
     }
 }

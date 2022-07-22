@@ -1,12 +1,11 @@
 package io.github.toberocat.core.utility.messages;
 
-import io.github.toberocat.core.utility.data.Table;
 import io.github.toberocat.core.utility.data.access.AbstractAccess;
 import io.github.toberocat.core.utility.data.database.DatabaseAccess;
 import io.github.toberocat.core.utility.data.database.sql.MySqlDatabase;
-import io.github.toberocat.core.utility.data.database.sql.builder.Insert;
 import io.github.toberocat.core.utility.data.database.sql.builder.Select;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -23,8 +22,6 @@ import java.util.stream.Stream;
 // ToDo: Make message system useful
 public class MessageSystem implements Listener {
 
-    private static final HashMap<UUID, ArrayList<String>> MESSAGES = new HashMap<>();
-
     public MessageSystem() {
     }
 
@@ -34,10 +31,10 @@ public class MessageSystem implements Listener {
 
     public static void sendMessage(@NotNull OfflinePlayer player,
                                    @NotNull String message) {
-        if (!player.isOnline()) {
-            writeToStorage(player.getUniqueId(), message);
-            return;
-        }
+        Player on = player.getPlayer();
+        if (on != null) on.sendMessage(message);
+        else writeToStorage(player.getUniqueId(), message);
+
     }
 
     private static void writeToStorage(@NotNull UUID id, @NotNull String message) {
@@ -64,9 +61,9 @@ public class MessageSystem implements Listener {
     private static Stream<String> messagesInStorageDb(@NotNull MySqlDatabase database,
                                                       @NotNull UUID id) {
         return database.rowSelect(new Select()
-                .setTable("messages")
-                .setColumns("content")
-                .setFilter("player = %s", id))
+                        .setTable("messages")
+                        .setColumns("content")
+                        .setFilter("player = %s", id))
                 .getRows()
                 .stream()
                 .map(x -> x.get("content").toString());
