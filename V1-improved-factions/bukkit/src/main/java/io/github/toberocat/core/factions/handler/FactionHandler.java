@@ -5,10 +5,13 @@ import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.components.rank.Rank;
 import io.github.toberocat.core.factions.database.DatabaseFactionHandler;
 import io.github.toberocat.core.factions.local.LocalFactionHandler;
+import io.github.toberocat.core.utility.data.PersistentDataUtility;
 import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +24,7 @@ import java.util.Map;
 public abstract class FactionHandler {
     private static final @NotNull FactionHandlerInterface<?> handler = createInterface();
 
-    public static @NotNull FactionHandlerInterface<?> createInterface() {
+    private static @NotNull FactionHandlerInterface<?> createInterface() {
         if (MainIF.config().getBoolean("sql.useSql", false)) return new DatabaseFactionHandler();
         else return new LocalFactionHandler();
     }
@@ -39,8 +42,37 @@ public abstract class FactionHandler {
         return handler.load(registry);
     }
 
+    public static void unload(@NotNull String registry) {
+        handler.unloadFaction(registry);
+    }
+
     public static void deleteCache(@NotNull String registry) {
         handler.deleteCache(registry);
+    }
+
+    public static boolean exists(@NotNull String registry) {
+        return handler.exists(registry);
+    }
+
+    public static <F extends Faction<F>> @NotNull Map<String, F> getLoadedFactions() {
+        return (Map<String, F>) handler.getLoadedFactions();
+    }
+
+    public static @Nullable String getPlayerFactionRegistry(@NotNull OfflinePlayer player) {
+        return handler.getPlayerFaction(player);
+    }
+
+    public static @Nullable String getPlayerFactionRegistry(@NotNull Player player) {
+        return handler.getPlayerFaction(player);
+    }
+
+    public static void removeFactionCache(@NotNull Player player) {
+        handler.removeFactionCache(player);
+    }
+
+    public static void dispose() {
+        Map<String, Faction<?>> copy = new HashMap<>(FactionHandler.getLoadedFactions());
+        copy.keySet().forEach(FactionHandler::deleteCache);
     }
 
     /**
@@ -56,16 +88,4 @@ public abstract class FactionHandler {
         return handler.getSavedRank(player);
     }
 
-    public static boolean exists(@NotNull String registry) {
-        return handler.exists(registry);
-    }
-
-    public static <F extends Faction<F>> @NotNull Map<String, F> getLoadedFactions() {
-        return (Map<String, F>) handler.getLoadedFactions();
-    }
-
-    public static void dispose() {
-        Map<String, Faction<?>> copy = new HashMap<>(FactionHandler.getLoadedFactions());
-        copy.keySet().forEach(FactionHandler::deleteCache);
-    }
 }

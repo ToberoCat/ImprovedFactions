@@ -6,11 +6,10 @@ import co.aikar.taskchain.TaskChainFactory;
 import io.github.toberocat.core.bstat.Bstat;
 import io.github.toberocat.core.commands.FactionCommand;
 import io.github.toberocat.core.commands.extension.ExtensionRemoveSubCommand;
-import io.github.toberocat.core.debug.Debugger;
 import io.github.toberocat.core.extensions.Extension;
+import io.github.toberocat.core.extensions.ExtensionInitializer;
 import io.github.toberocat.core.extensions.ExtensionLoader;
 import io.github.toberocat.core.extensions.ExtensionRegistry;
-import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.factions.components.rank.Rank;
 import io.github.toberocat.core.factions.handler.FactionHandler;
@@ -18,6 +17,10 @@ import io.github.toberocat.core.factions.local.LocalFactionHandler;
 import io.github.toberocat.core.factions.local.managers.FactionPerm;
 import io.github.toberocat.core.listeners.*;
 import io.github.toberocat.core.listeners.actions.ActionExecutor;
+import io.github.toberocat.core.listeners.player.*;
+import io.github.toberocat.core.listeners.world.BlockBreakListener;
+import io.github.toberocat.core.listeners.world.BlockPlaceListener;
+import io.github.toberocat.core.listeners.world.InteractListener;
 import io.github.toberocat.core.papi.FactionExpansion;
 import io.github.toberocat.core.player.PlayerSettingHandler;
 import io.github.toberocat.core.utility.Utility;
@@ -31,8 +34,8 @@ import io.github.toberocat.core.utility.data.PluginInfo;
 import io.github.toberocat.core.utility.data.access.AbstractAccess;
 import io.github.toberocat.core.utility.data.database.DatabaseAccess;
 import io.github.toberocat.core.utility.dynamic.loaders.DynamicLoader;
-import io.github.toberocat.core.utility.events.ConfigSaveEvent;
 import io.github.toberocat.core.utility.events.bukkit.PlayerJoinOnReloadEvent;
+import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.core.utility.items.ItemCore;
 import io.github.toberocat.core.utility.jackson.JsonUtility;
 import io.github.toberocat.core.utility.jackson.YmlUtility;
@@ -81,7 +84,6 @@ public final class MainIF extends JavaPlugin {
     private static TaskChainFactory taskChainFactory;
     private final Map<String, ArrayList<String>> backupFile = new HashMap<>(); // Delete the backup map after backup got restored
     private final Map<String, DataManager> dataManagers = new HashMap<>();
-    private final List<ConfigSaveEvent> saveEvents = new ArrayList<>();
     private NMSInterface nms;
     private boolean standby = false;
 
@@ -169,6 +171,14 @@ public final class MainIF extends JavaPlugin {
         return MainIF.getIF().getConfig();
     }
 
+    private static void removeUnusedFactions() {
+        for (String s : new HashSet<>(FactionHandler.getLoadedFactions().keySet())) {
+            try {
+                FactionManager.unloadUseless(s);
+            } catch (FactionNotInStorage ignored) {}
+        }
+    }
+
     /**
      * Don't call this manually.
      * This will get called by the minecraft server
@@ -198,17 +208,7 @@ public final class MainIF extends JavaPlugin {
                 PlayerJoinListener.PLAYER_JOINS.put(player.getUniqueId(), System.currentTimeMillis());
             }
 
-            Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
-                Debugger.log("Unloading unused factions...");
-                List<String> unused = new ArrayList<>();
-                for (Faction<?> faction : FactionHandler.getLoadedFactions().values())
-                    if (faction.getFactionMemberManager().getOnlinePlayers().size() == 0)
-                        unused.add(faction.getRegistryName());
-
-
-                for (String registry : unused) Faction.getLoadedFactions().remove(registry);
-
-            }, 0, 20 * 60 * 5);
+            Bukkit.getScheduler().scheduleSyncRepeatingTask(this, MainIF::removeUnusedFactions, 0, 20 * 60 * 5);
 
             AsyncTask.runLaterSync(1, DynamicLoader::enable);
 
@@ -250,11 +250,13 @@ public final class MainIF extends JavaPlugin {
     }
 
     private void cleanup() {
-        saveEvents.clear();
         backupFile.clear();
         dataManagers.clear();
         SimpleBar.cleanup();
         PlayerJoinListener.PLAYER_JOINS.clear();
+
+        ClaimManager.dispose();
+        FactionHandler.dispose();
     }
 
     private void deleteExtensions() {
@@ -315,100 +317,6 @@ public final class MainIF extends JavaPlugin {
         });
     }
 
-    public boolean loadExtensions() throws IOException, ClassNotFoundException {
-        File extFolder = new File(getDataFolder().getPath() + "/Extensions");
-        extFolder.mkdir();
-
-        if (!extFolder.exists()) return true;
-
-        File[] extensions = extFolder.listFiles();
-        if (extensions == null) return true;
-
-        List<LangMessage> langMessages = new ArrayList<>();
-        for (File jar : extensions) langMessages.addAll(enableExtension(jar, extFolder));
-
-        for (LangMessage message : langMessages) LangMessage.addDefault(message);
-
-        return true;
-    }
-
-    private LinkedList<LangMessage> enableExtension(@NotNull File extensionJar, @NotNull File extensionFolder) throws ClassNotFoundException {
-        if (!extensionJar.getName().endsWith(".jar")) return new LinkedList<>();
-
-        ExtensionRegistry registry = loadRegistry(extensionJar);
-        if (registry == null || LOADED_EXTENSIONS.containsKey(registry.registry())) return new LinkedList<>();
-
-        LinkedList<LangMessage> messages = new LinkedList<>();
-        LangMessage extensionLang = getExtensionLangFile(extensionJar);
-        if (extensionLang != null) messages.add(extensionLang);
-
-        // Load dependencies first
-        for (String extensionDependency : registry.extensionDependencies()) {
-            File jar = new File(extensionFolder, extensionDependency + ".jar");
-            if (!jar.exists()) continue;
-
-            messages.addAll(enableExtension(jar, extensionFolder));
-        }
-
-        Extension extension = ExtensionLoader.loadClass(extensionJar, registry.main(), Extension.class);
-        extension.enable(registry, this);
-
-        if (!extension.isEnabled()) return new LinkedList<>();
-
-        LOADED_EXTENSIONS.put(extension.getRegistry().registry(), extension);
-
-        return messages;
-    }
-
-    private LangMessage getExtensionLangFile(File file) {
-        String path;
-        if (SystemUtils.IS_OS_LINUX)
-            path = "jar:file:///" + file.getAbsolutePath() + "!/en_us.lang";
-        else
-            path = "jar:file:\\" + file.getAbsolutePath() + "!/en_us.lang";
-
-        try {
-            URL inputURL = new URL(path);
-            if (SystemUtils.IS_OS_LINUX) inputURL = inputURL.toURI().toURL();
-
-            JarURLConnection conn = (JarURLConnection) inputURL.openConnection();
-            InputStream in = conn.getInputStream();
-            return JsonUtility.readObject(in, LangMessage.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            logMessage(Level.SEVERE, "&6" + file.getName() + " &ccouldn't loaded. Couldn't create file url to lang file");
-        }
-
-        return null;
-    }
-
-    private ExtensionRegistry loadRegistry(File file) {
-        String path;
-        if (SystemUtils.IS_OS_LINUX)
-            path = "jar:file:///" + file.getAbsolutePath() + "!/extension.yml";
-        else
-            path = "jar:file:\\" + file.getAbsolutePath() + "!/extension.yml";
-
-        try {
-            URL inputURL = new URL(path);
-            if (SystemUtils.IS_OS_LINUX) inputURL = inputURL.toURI().toURL();
-
-            JarURLConnection conn;
-            conn = (JarURLConnection) inputURL.openConnection();
-            InputStream in = conn.getInputStream();
-            return YmlUtility.loadYml(in, ExtensionRegistry.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-            logMessage(Level.SEVERE, "&6" + file.getName() + " &ccouldn't get loaded. Please make sure this extension isn't for a beta version, else redownload it please");
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            logMessage(Level.SEVERE, "&6" + file.getName() + " &ccouldn't loaded. Couldn't create file url");
-        }
-
-        return null;
-    }
 
     public void checkVersion() {
         PluginInfo.fetch().then((info) -> {
@@ -523,8 +431,8 @@ public final class MainIF extends JavaPlugin {
         return economy != null;
     }
 
-    private boolean initializeCores() throws IOException, ClassNotFoundException {
-        if (!loadExtensions()) return false;
+    private boolean initializeCores() throws ClassNotFoundException {
+        if (!ExtensionInitializer.loadExtensions(getDataFolder().getPath())) return false;
 
         if (!Language.init(this, getDataFolder())) return false;
         if (!TimeCore.init()) return false;
@@ -538,6 +446,7 @@ public final class MainIF extends JavaPlugin {
         Bstat.register(this);
         registerPapi();
         registerActions();
+        ClaimManager.loadChunks();
         taskChainFactory = BukkitTaskChainFactory.create(this);
 
         new FactionManager();
@@ -597,16 +506,6 @@ public final class MainIF extends JavaPlugin {
      */
     public Map<String, ArrayList<String>> getBackupFile() {
         return backupFile;
-    }
-
-    /**
-     * Get the save events that will be called when something gets saved.
-     * You can tell if the file should be saved as backup, or add your own backup system
-     *
-     * @return a list of conifg save events
-     */
-    public List<ConfigSaveEvent> getSaveEvents() {
-        return saveEvents;
     }
 
     //</editor-fold>

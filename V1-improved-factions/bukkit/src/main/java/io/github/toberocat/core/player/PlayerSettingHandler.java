@@ -97,9 +97,7 @@ public class PlayerSettingHandler implements Listener {
         addDefault(new BoolSetting("hideCommandDescription", false, Utility.createItem(Material.COMMAND_BLOCK,
                 "&eHide command descriptions", new String[]{"&8You think the auto", "&8descriptions annoy you?",
                         "&8Disable them"})));
-        addDefault(new BoolSetting("displayTitle", true, Utility.createItem(Material.NAME_TAG,
-                "&eDisplay territory titles")));
-        addDefault(new EnumSetting(PlayerSettings.TitlePosition.values(), "titlePosition", Utility.createItem(
+        addDefault(new EnumSetting(TitlePosition.values(), "titlePosition", Utility.createItem(
                 Material.END_PORTAL_FRAME, "&eDisplay position", new String[]{"&8Change where you want",
                         "&8Territory changes be announced"})));
         addDefault(new BoolSetting("showNotifications", true,

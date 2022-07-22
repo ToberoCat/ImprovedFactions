@@ -12,6 +12,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,7 +68,7 @@ public class Language extends PlayerJoinLoader {
                     ObjectMapper saveMapper = new ObjectMapper();
                     saveMapper.writerWithDefaultPrettyPrinter().writeValue(file, langMessage);
                 } catch (IOException e) {
-                    if (MainIF.getConfigManager().getValue("general.printStacktrace")) e.printStackTrace();
+                    if (MainIF.config().getBoolean("general.printStacktrace")) e.printStackTrace();
                     MainIF.getIF().saveShutdown("&cCouldn't read language file " + file.getName() + ". Error: &6" + e.getMessage());
                     return false;
                 }
@@ -94,7 +95,7 @@ public class Language extends PlayerJoinLoader {
         }
     }
 
-    public static String getMessage(String msgKey, Player player, Parseable... parseables) {
+    public static @Nullable String getMessage(@Nullable String msgKey, @NotNull Player player, Parseable... parseables) {
         String locale = player.getLocale();
         return getMessage(msgKey, locale, parseables);
     }
@@ -122,13 +123,13 @@ public class Language extends PlayerJoinLoader {
         return items.toArray(String[]::new);
     }
 
-    public static String getMessage(String msgKey, String file, Parseable... parseables) {
+    public static @Nullable String getMessage(@Nullable String msgKey, String file, Parseable... parseables) {
         LangMessage langMessage = getMessages(file);
-
-        if (langMessage.getMessages().containsKey(msgKey)) {
+        if (getMessages(file).getMessages().containsKey(msgKey))
             return format(parse(langMessage.getMessages().get(msgKey), parseables));
-        } else {
-            return format("&cThere went something wrong. If this happens more than two times, please report it to an admin. Error: NoLocalizationFound");
+        else {
+            MainIF.logMessage(Level.WARNING, "Couldn't find message " + msgKey + " in lang file " + file + "");
+            return null;
         }
     }
 

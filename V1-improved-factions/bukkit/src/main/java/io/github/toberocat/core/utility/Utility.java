@@ -75,53 +75,23 @@ public class Utility {
     }
 
     public static boolean isDisabled(World world) {
-        List<String> disabledWorlds = MainIF.getConfigManager().getValue("general.disabledWorlds");
-        return disabledWorlds != null && world != null && disabledWorlds.contains(world.getName());
+        List<String> disabledWorlds = MainIF.config().getStringList("general.disabledWorlds");
+        return world != null && disabledWorlds.contains(world.getName());
     }
 
     /**
-     * Removed the first element in list and returns it
-     *
-     * @param list the list where the item should be removed
-     * @param <T>  Type of the list
-     * @return A objectPair. First object in there is the shifted element and them second is the new list
-     */
-    public static <T> io.github.toberocat.factions.core.utility.ObjectPair<T, T[]> shift(T[] list) {
-        List<T> t = Arrays.asList(list);
-        MainIF.logMessage(Level.INFO, "" + list.length);
-        T tShift = t.remove(0);
-        return new io.github.toberocat.factions.core.utility.ObjectPair<>(tShift, toArray(t));
-    }
-
-    /**
-     * Make a generic list to an array
-     *
-     * @param list for convertion
-     * @param <T>  Type of the list
-     * @return The list as an array
-     */
-    public static <T> T[] toArray(List<T> list) {
-        T[] toR = (T[]) java.lang.reflect.Array.newInstance(list.get(0)
-                .getClass(), list.size());
-        for (int i = 0; i < list.size(); i++) {
-            toR[i] = list.get(i);
-        }
-        return toR;
-    }
-
-    /**
-     * Create a item with a simple formatted name
+     * Create an item with a simple formatted name
      *
      * @param material The material for this item
      * @param name     The title. E.g: "&e&lFactionItem"
      * @return itemstack with a custom title and your set material
      */
     public static ItemStack createItem(final Material material, final String name) {
-        final ItemStack item = new ItemStack(material, 1);
-        final ItemMeta meta = item.getItemMeta();
+        ItemStack item = new ItemStack(material, 1);
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) return item;
 
         meta.setDisplayName(Language.format(name));
-
         item.setItemMeta(meta);
 
         return item;
@@ -144,6 +114,7 @@ public class Utility {
     public static ItemStack createItem(final Material material, final String name, final String[] lore) {
         final ItemStack item = new ItemStack(material, 1);
         final ItemMeta meta = item.getItemMeta();
+        if (meta == null) return item;
 
         meta.setDisplayName(Language.format(name));
 
@@ -173,6 +144,8 @@ public class Utility {
      */
     public static ItemStack modiflyItem(ItemStack stack, String title, String... lore) {
         ItemMeta meta = stack.getItemMeta();
+        if (meta == null) return stack;
+
         meta.setDisplayName(Language.format(title));
         meta.setLore(setLore(stack, lore).getItemMeta().getLore());
         ItemStack item = new ItemStack(stack);
@@ -193,11 +166,10 @@ public class Utility {
     }
 
     public static void except(Exception e) {
-        if (Boolean.TRUE.equals(MainIF.getConfigManager().getValue("general.printStacktrace")))
-            e.printStackTrace();
+        if (MainIF.config().getBoolean("general.printStacktrace", true)) e.printStackTrace();
         MainIF.getIF().saveShutdown(e.getMessage());
 
-        if (MainIF.getConfigManager().getValue("general.sendCrashesToGithub")) {
+        if (MainIF.config().getBoolean("general.sendCrashesToGithub", true)) {
             MainIF.logMessage(Level.INFO, "Please wait while the crash gets reported to the developer. Don't restart or shutdown the server");
             AsyncTask.run(() -> GitReport.reportIssue(e)).then((result) -> MainIF.logMessage(Level.INFO,
                     "Reported the issue"));
@@ -218,7 +190,7 @@ public class Utility {
     }
 
     public static List<String> wrapLines(String text, String prefix) {
-        String wrapped = WordUtils.wrap(text, MainIF.getConfigManager().getValue("gui.wrapLength"));
+        String wrapped = WordUtils.wrap(text, MainIF.config().getInt("gui.wrapLength", 10));
         return Arrays.stream(wrapped.split("\n")).map(x -> prefix + x).collect(Collectors.toList());
     }
 
@@ -296,7 +268,7 @@ public class Utility {
 
     }
 
-    public static @NotNull String replace(@NotNull String string, @NotNull Map<String, String>  placeholders, boolean caseSensitive) {
+    public static @NotNull String replace(@NotNull String string, @NotNull Map<String, String> placeholders, boolean caseSensitive) {
         for (Map.Entry<String, String> entry : placeholders.entrySet()) {
             String key = entry.getKey();
             String val = entry.getValue();

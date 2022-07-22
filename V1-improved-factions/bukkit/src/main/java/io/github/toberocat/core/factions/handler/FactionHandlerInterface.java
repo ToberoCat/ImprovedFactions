@@ -6,15 +6,32 @@ import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
 public interface FactionHandlerInterface<F extends Faction<F>> {
     @NotNull F create(@NotNull String display, @NotNull Player owner);
     @NotNull F load(@NotNull String registry) throws FactionNotInStorage;
+
     boolean isLoaded(@NotNull String registry);
     boolean exists(@NotNull String registry);
+
     @NotNull Map<String, F> getLoadedFactions();
     void deleteCache(@NotNull String registry);
+
     @NotNull Rank getSavedRank(@NotNull OfflinePlayer player);
+
+    @Nullable String getPlayerFaction(@NotNull OfflinePlayer player);
+    @Nullable String getPlayerFaction(@NotNull Player player);
+
+    /**
+     * The faction cache is responsible for quick access of factions for players.
+     * But if the faction gets deleted, this cache needs to get removed, else it will
+     * wrongly display commands and crash the system trying to load the not existing faction
+     *
+     * @param player The player that should get the faction cache removed
+     */
+    void removeFactionCache(@NotNull Player player);
+    void unloadFaction(@NotNull String registry);
 }

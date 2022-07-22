@@ -16,8 +16,8 @@ public class GuiListener implements Listener {
     public static final List<AbstractGui> GUIS = new ArrayList<>();
     private static final Map<UUID, Integer> currentTests = new HashMap<>();
     private static int taskId = -1;
-    private final int maxCps = MainIF.getConfigManager().getValue("gui.maxCps");
-    private final int closeGuiCps = MainIF.getConfigManager().getValue("gui.closeGuiCps");
+    private final int maxCps = MainIF.config().getInt("gui.maxCps", 10);
+    private final int closeGuiCps = MainIF.config().getInt("gui.closeGuiCps");
 
     @EventHandler
     public void onInventoryClick(final InventoryClickEvent e) {

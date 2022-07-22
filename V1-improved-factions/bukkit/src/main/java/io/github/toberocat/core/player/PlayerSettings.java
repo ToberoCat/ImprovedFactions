@@ -20,6 +20,11 @@ public class PlayerSettings {
         this.playerSettings = new HashMap<>(PlayerSettingHandler.DEFAULT_SETTINGS);
     }
 
+    public Setting<?> get(String setting) {
+        return playerSettings.get(setting);
+    }
+
+
     public UUID getPlayerUUID() {
         return playerUUID;
     }
@@ -34,21 +39,5 @@ public class PlayerSettings {
 
     public void setPlayerSettings(Map<String, Setting> playerSettings) {
         this.playerSettings = playerSettings;
-    }
-
-    public enum TitlePosition implements SettingEnum {
-        TITLE("Title"), SUBTITLE("Subtitle"),
-        ACTIONBAR("Actionbar"), CHAT("Chat");
-
-        String display;
-
-        TitlePosition(String display) {
-            this.display = display;
-        }
-
-        @Override
-        public String getDisplay() {
-            return display;
-        }
     }
 }

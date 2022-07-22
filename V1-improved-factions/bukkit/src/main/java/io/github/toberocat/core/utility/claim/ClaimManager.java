@@ -7,6 +7,8 @@ import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.config.DataManager;
 import io.github.toberocat.core.utility.data.PersistentDataUtility;
+import io.github.toberocat.core.utility.data.Table;
+import io.github.toberocat.core.utility.data.access.AbstractAccess;
 import io.github.toberocat.core.utility.data.access.FileAccess;
 import io.github.toberocat.core.utility.events.faction.FactionOverclaimEvent;
 import io.github.toberocat.core.utility.events.faction.claim.ChunkProtectEvent;
@@ -17,6 +19,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -35,7 +38,7 @@ public class ClaimManager {
     public static void loadChunks() {
         CLAIMS.clear();
 
-        for (String world : FileAccess.listFilesFolder("Chunks")) {
+        for (String world : AbstractAccess.accessPipeline().listInTable(Table.CLAIMS)) {
             WorldClaims claims = FileAccess.get("Chunks", world, WorldClaims.class);
             if (claims == null) continue;
 
@@ -73,11 +76,11 @@ public class ClaimManager {
         return zones;
     }
 
-    public static String getDisplay(@NotNull String registry) {
+    public static @Nullable String getZoneDisplay(@NotNull String registry) {
         return switch (registry) {
             case SAFEZONE_REGISTRY -> "territory.safezone";
             case WARZONE_REGISTRY -> "territory.warzone";
-            default -> "";
+            default -> null;
         };
     }
 
@@ -101,7 +104,9 @@ public class ClaimManager {
 
             if (registry.equals("safezone")) registry = SAFEZONE_REGISTRY;
 
-            protectChunk(registry, chunk);
+            String finalRegistry = registry;
+            Chunk finalChunk = chunk;
+            AsyncTask.run(() -> protectChunk(finalRegistry, finalChunk));
         }
 
         MainIF.logMessage(Level.INFO, "Migrated every chunk. You can now delete the chunkData.yml file in Data folder safely without worrying, if no warnings / errors appear above");
@@ -126,7 +131,7 @@ public class ClaimManager {
     }
 
     public static Result<?> claimChunk(Faction faction, Chunk chunk) {
-        String registry = getFactionRegistry(chunk);
+        String registry = getChunkRegistry(chunk);
         if (registry != null && !isManageableZone(registry)) {
             Faction claim = FactionManager.getFactionByRegistry(registry);
             int power = claim.getPowerManager().getCurrentPower();
@@ -158,7 +163,7 @@ public class ClaimManager {
     private static boolean isCorner(Chunk chunk) {
         Chunk[] neighbours = getNeighbourChunks(chunk);
         for (Chunk neighbour : neighbours) {
-            String registry = getFactionRegistry(neighbour);
+            String registry = getChunkRegistry(neighbour);
             if (registry == null || registry.startsWith("__glb:")) return true;
         }
         return false;
@@ -200,7 +205,7 @@ public class ClaimManager {
         return new Result<>(true);
     }
 
-    public static String getFactionRegistry(Chunk chunk) {
+    public static String getChunkRegistry(Chunk chunk) {
         return PersistentDataUtility.read(PersistentDataUtility.FACTION_CLAIMED_KEY,
                 PersistentDataType.STRING,
                 chunk.getPersistentDataContainer());

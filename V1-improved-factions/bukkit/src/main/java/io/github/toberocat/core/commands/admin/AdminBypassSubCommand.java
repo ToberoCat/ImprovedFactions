@@ -6,10 +6,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 public class AdminBypassSubCommand extends SubCommand {
     public static final List<UUID> BYPASSING = new ArrayList<>();
+
     public AdminBypassSubCommand() {
         super("bypass", "admin.bypass", "command.admin.bypass.description", false);
     }

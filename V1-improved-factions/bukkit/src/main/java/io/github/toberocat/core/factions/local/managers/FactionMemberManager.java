@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionManager;
-import io.github.toberocat.core.listeners.PlayerJoinListener;
+import io.github.toberocat.core.listeners.player.PlayerJoinListener;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.data.PersistentDataUtility;
 import io.github.toberocat.core.utility.language.Language;
@@ -51,8 +51,8 @@ public class FactionMemberManager {
      *
      * @param event The event from PlayerJoin
      */
-    public static void PlayerJoin(PlayerJoinEvent event) {
-        updatePlayer(event.getPlayer());
+    public static void PlayerJoin(Player player) {
+        updatePlayer(player);
     }
 
     private static void updatePlayer(Player player) {

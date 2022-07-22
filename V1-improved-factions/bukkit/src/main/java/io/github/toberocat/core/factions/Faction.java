@@ -91,6 +91,12 @@ public interface Faction<F extends Faction<F>> {
      */
     @NotNull String getDisplay();
 
+    /**
+     * Get the faction color
+     * @return The color of the faction.
+     */
+    int getColor() throws SettingNotFoundException;
+
     /* Setter */
 
     /**
@@ -402,6 +408,14 @@ public interface Faction<F extends Faction<F>> {
      * @return If enemies or not
      */
     boolean isEnemy(@NotNull String registry);
+
+    /**
+     * Returns true if the given player is an enemy of this faction
+
+     * @param player The player to check.
+     * @return If the player's faction is an enemy
+     */
+    boolean isEnemy(@NotNull OfflinePlayer player);
 
     /**
      * Returns a stream of all the allies of this faction.

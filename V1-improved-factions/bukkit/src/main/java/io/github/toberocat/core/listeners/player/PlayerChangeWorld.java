@@ -1,4 +1,4 @@
-package io.github.toberocat.core.listeners;
+package io.github.toberocat.core.listeners.player;
 
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.player.PlayerSettings;

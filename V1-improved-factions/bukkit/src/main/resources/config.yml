@@ -10,6 +10,10 @@ faction:
   maxNameLen: 10
   allowExplosions: true
   joinTimeout: 24
+  relation-color:
+    ally: "&b"
+    neutral: ""
+    enemy: "&c"
   default:
     permanent: false
     frozen: false

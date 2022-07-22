@@ -71,6 +71,17 @@ public class DatabaseFactionHandler implements FactionHandlerInterface<DatabaseF
                 .orElse(GuestRank.register));
     }
 
+    @Override
+    public @Nullable String getPlayerFaction(@NotNull OfflinePlayer player) {
+        return database
+                .rowSelect(new Select()
+                        .setTable(Table.PLAYERS.getTable())
+                        .setColumns("faction")
+                        .setFilter("uuid = %s", player.getUniqueId()))
+                .readRow(String.class, "faction")
+                .orElse(null);
+    }
+
     /**
      * Gives the current handler instance.
      * Can be null, because it only got instanced when a mysql got loaded

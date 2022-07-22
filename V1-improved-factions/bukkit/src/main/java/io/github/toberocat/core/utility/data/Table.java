@@ -1,10 +1,6 @@
 package io.github.toberocat.core.utility.data;
 
 import io.github.toberocat.core.factions.local.LocalFaction;
-import io.github.toberocat.core.factions.local.datatype.FactionBans;
-import io.github.toberocat.core.factions.local.datatype.FactionDescriptions;
-import io.github.toberocat.core.factions.local.datatype.FactionRelations;
-import io.github.toberocat.core.factions.local.datatype.FactionSetting;
 import io.github.toberocat.core.player.PlayerSettings;
 import io.github.toberocat.core.utility.claim.Claim;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +17,7 @@ public enum Table {
     PLAYER_SETTINGS("player_settings", null, null),
 
     MESSAGES("messages", "Messages", null),
-    CHUNKS("chunks", "Chunks", Claim.class);
+    CLAIMS("claims", "Chunks", Claim.class);
 
     String table;
     String file;

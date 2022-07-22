@@ -13,6 +13,7 @@ import io.github.toberocat.core.factions.components.rank.members.FactionRank;
 import io.github.toberocat.core.factions.components.rank.members.OwnerRank;
 import io.github.toberocat.core.factions.database.module.DatabaseModule;
 import io.github.toberocat.core.utility.async.AsyncTask;
+import io.github.toberocat.core.utility.color.FactionColors;
 import io.github.toberocat.core.utility.data.Table;
 import io.github.toberocat.core.utility.data.database.DatabaseAccess;
 import io.github.toberocat.core.utility.data.database.sql.MySqlDatabase;
@@ -26,6 +27,7 @@ import io.github.toberocat.core.utility.exceptions.DescriptionHasNoLine;
 import io.github.toberocat.core.utility.exceptions.faction.FactionHandlerNotFound;
 import io.github.toberocat.core.utility.exceptions.faction.FactionIsFrozenException;
 import io.github.toberocat.core.utility.exceptions.setting.SettingNotFoundException;
+import io.github.toberocat.core.utility.settings.type.EnumSetting;
 import io.github.toberocat.core.utility.settings.type.RankSetting;
 import io.github.toberocat.core.utility.settings.type.Setting;
 import org.bukkit.Bukkit;
@@ -142,6 +144,18 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
                         .setFilter("registry_id = %s", registry))
                 .readRow(String.class, "display_name")
                 .orElse(display);
+    }
+
+    /**
+     * Get the faction color
+     *
+     * @return The color of the faction.
+     */
+    @Override
+    public int getColor() throws SettingNotFoundException {
+        return FactionColors.values()[((EnumSetting) getSetting("color"))
+                .getSelected()]
+                .getColor();
     }
 
     /**
@@ -712,6 +726,17 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
                 .readRow(Integer.class, "relation_status")
                 .orElse(neutralId)
                 == enemyId;
+    }
+
+    /**
+     * Returns true if the given player is an enemy of this faction
+     *
+     * @param player The player to check.
+     * @return If the player's faction is an enemy
+     */
+    @Override
+    public boolean isEnemy(@NotNull OfflinePlayer player) {
+        return false;
     }
 
     @Override

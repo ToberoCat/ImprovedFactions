@@ -40,13 +40,15 @@ public class GitReport {
                 {2}
                 ```
                 """;
-        issue.setBody(MessageFormat.format(issueBody, Bukkit.getBukkitVersion(), MainIF.getVersion().getVersion(), stackTrace));
+        issue.setBody(MessageFormat.format(issueBody,
+                Bukkit.getBukkitVersion(),
+                MainIF.getVersion().getVersion(),
+                stackTrace));
 
         try {
-            gitReport.issueService.createIssue("ToberoCat", "ImprovedFaction", issue);
+            gitReport.issueService.createIssue("ToberoCat", "ImprovedFaction_new", issue);
         } catch (Exception ex) {
-            MainIF.logMessage(Level.WARNING, "Unable to report occurred issue to github. PLease send it to the developer if you are connected to the wifi");
-            ex.printStackTrace();
+            MainIF.logMessage(Level.WARNING, "Unable to report occurred issue to github");
         }
     }
 

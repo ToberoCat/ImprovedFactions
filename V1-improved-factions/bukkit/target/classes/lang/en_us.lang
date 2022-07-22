@@ -8,6 +8,8 @@
     "faction.broadcast.banned-member": "&e{ban}&7 is now banned from your faction",
     "faction.broadcast.member-joined": "&e{join}&7 is now part of this faction. Let's celebrate it",
 
+    "player.faction-got-deleted": "We're sorry to tell you about it, but your beloved faction got deleted",
+
     "tip-of-the-day.0": "Use &b/f user &7to open the user preferences",
     "tip-of-the-day.1": "Use &b/f who <faction> &7to see various information about a faction",
     "tip-of-the-day.2": "Manage rank permissions using &c/f settings &7and click &bManage Ranks",
@@ -205,10 +207,7 @@
     "rank.owner.lore.0": "&8The owner is the head",
     "rank.owner.lore.1": "&8of your faction",
     "rank.owner.title": "&eOwner rank",
-    "territory.entered.actionbar": "{relation}{territory}",
-    "territory.entered.chat": "Entered {relation}{territory}",
-    "territory.entered.subtitle": "{relation}{territory}",
-    "territory.entered.title": "{relation}{territory}",
+    "territory.entered.chat": "Entered {territory}",
     "territory.safezone": "&bSafezone",
     "territory.warzone": "&4Warzone",
     "territory.wilderness": "&2Wilderness",
