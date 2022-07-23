@@ -32,6 +32,7 @@ public record FactionClaims<F extends Faction<F>>(
                     .map(x -> FactionClaim.fromClaim(faction, x)));
         });
 
+
         return new FactionClaims<>(worldClaims, faction);
     }
 
