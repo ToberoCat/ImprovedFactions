@@ -2,11 +2,16 @@ package io.github.toberocat.core.commands.factions;
 
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionManager;
+import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
+import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.core.utility.language.Language;
+import io.github.toberocat.core.utility.language.Parseable;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -22,72 +27,46 @@ public class WhoSubCommand extends SubCommand {
 
     @Override
     protected void CommandExecute(Player player, String[] args) {
-        String factionRegistry;
-        if (args.length == 0) {
-            if (!FactionManager.isInFaction(player)) {
-                Language.sendRawMessage("&cYou are in no faction. Please select one", player);
-                return;
-            }
-            factionRegistry = FactionManager.getPlayerFactionRegistry(player);
-        } else {
-            factionRegistry = args[0];
+        String factionRegistry = getRegistry(player, args);
+        if (factionRegistry == null) return;
+
+        try {
+            displayWho(FactionManager.getFactionByRegistry(factionRegistry), player);
+        } catch (FactionNotInStorage e) {
+            Language.sendMessage("command.who.faction-not-found", player);
         }
-        if (factionRegistry == null) {
-            sendCommandExecuteError(CommandExecuteError.NoFaction, player);
-            return;
-        }
+    }
 
-        Faction faction = FactionManager.getFactionByRegistry(factionRegistry);
-        if (faction == null) {
-            Language.sendRawMessage("&cCan't find given faction", player);
-            return;
-        }
+    private void displayWho(@NotNull Faction<?> faction, @NotNull Player player) {
+        player.sendMessage(Language.getLore("command.who.info", player,
+                Parseable.of("display", faction.getDisplay()),
+                Parseable.of("registry", faction.getRegistry()),
+                Parseable.of("motd", faction.getMotd()),
+                Parseable.of("owner", Bukkit.getOfflinePlayer(faction.getOwner()).getName()),
+                Parseable.of("created-at", faction.getCreatedAt()),
+                Parseable.of("members-online", String.valueOf(FactionManager.onlineMembers(faction).count())),
+                Parseable.of("members-total", String.valueOf(faction.getMembers().count())),
+                Parseable.of("power", String.valueOf(faction.getPower())),
+                Parseable.of("max-power", String.valueOf(faction.getMaxPower())),
+                Parseable.of("claims", String.valueOf(faction.getClaims().getTotal())),
+                Parseable.of("allies", String.valueOf(faction.getAllies().count())),
+                Parseable.of("enemies", String.valueOf(faction.getEnemies().count())),
+                Parseable.of("description", String.join("\n", faction.getDescription().getLines().toList()))
+        ));
+    }
 
-        String displayName = faction.getDisplayName();
+    private @Nullable String getRegistry(@NotNull Player player, @NotNull String[] args) {
+        if (args.length == 1) return args[0];
 
-        String topBottomMessage = "=".repeat(displayName.length() + 10);
-        Language.sendRawMessage("&f" + topBottomMessage, player);
-        Language.sendRawMessage("&f====  &e" + displayName + "&f  ====", player);
-        Language.sendRawMessage("&f" + topBottomMessage, player);
-        Language.sendRawMessage("Motd: &e" + faction.getMotd(), player);
+        if (FactionHandler.isInFaction(player))
+            return FactionHandler.getPlayerFactionRegistry(player);
 
-        for (String description : faction.getDescription()) {
-            Language.sendRawMessage("Description: " + description, player);
-        }
-        Language.sendRawMessage("Registry: &e" + factionRegistry, player);
-
-
-        Language.sendRawMessage("Owner: &e" + Bukkit.getOfflinePlayer(faction.getOwner()).getName(), player);
-
-        Language.sendRawMessage("Members online: " +
-                faction.getFactionMemberManager().getOnlinePlayers().size() + "/" +
-                faction.getFactionMemberManager().getMembers().size(), player);
-
-        Language.sendRawMessage("Power: " +
-                faction.getPowerManager().getCurrentPower() + "/" +
-                faction.getPowerManager().getMaxPower(), player);
-
-        Language.sendRawMessage("Chunk claim: " +
-                (faction.getPowerManager().overclaimable() ? "&c" : "&f") +
-                faction.getClaimedChunks() + "/" +
-                faction.getPowerManager().getCurrentPower(), player);
-
-        Language.sendRawMessage("Wars: &7" + faction.getRelationManager().getEnemies().size(), player);
-
-        Language.sendRawMessage("Ally: &7" + faction.getRelationManager().getAllies().size(), player);
-
-        Language.sendRawMessage("Banned players: &7"
-                + faction.getFactionMemberManager().getBanned().size(), player);
-
-        if (faction.getFactionBank().balance() != null) {
-            //Language.sendRawMessage("Balance: &e" + MainIF.getEconomy().format(faction.getFactionBank().balance().balance), player);
-        }
-
-        if (faction.isFrozen()) Language.sendRawMessage("&bFrozen", player);
+        Language.sendMessage("command.who.no-faction", player);
+        return null;
     }
 
     @Override
     protected List<String> CommandTab(Player player, String[] args) {
-        return FactionManager.getAllFactions();
+        return FactionHandler.getAllFactions().toList();
     }
 }

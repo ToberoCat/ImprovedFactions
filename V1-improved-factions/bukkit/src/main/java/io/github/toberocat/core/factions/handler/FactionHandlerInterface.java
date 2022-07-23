@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
+import java.util.stream.Stream;
 
 public interface FactionHandlerInterface<F extends Faction<F>> {
     @NotNull F create(@NotNull String display, @NotNull Player owner);
@@ -18,12 +19,16 @@ public interface FactionHandlerInterface<F extends Faction<F>> {
     boolean exists(@NotNull String registry);
 
     @NotNull Map<String, F> getLoadedFactions();
+    @NotNull Stream<String> getAllFactions();
+
     void deleteCache(@NotNull String registry);
 
     @NotNull Rank getSavedRank(@NotNull OfflinePlayer player);
 
     @Nullable String getPlayerFaction(@NotNull OfflinePlayer player);
     @Nullable String getPlayerFaction(@NotNull Player player);
+    boolean isInFaction(@NotNull OfflinePlayer player);
+    boolean isInFaction(@NotNull Player player);
 
     /**
      * The faction cache is responsible for quick access of factions for players.

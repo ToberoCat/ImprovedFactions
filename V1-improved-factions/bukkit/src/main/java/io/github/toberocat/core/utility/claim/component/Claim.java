@@ -1,33 +1,21 @@
-package io.github.toberocat.core.utility.claim;
+package io.github.toberocat.core.utility.claim.component;
 
 public class Claim {
     public static final String UNKNOWN_CLAIM_REGISTRY = "__glb:unknown__";
 
     private int x, y;
     private String registry;
+    private String world;
 
     public Claim() {
         registry = UNKNOWN_CLAIM_REGISTRY;
     }
 
-    public Claim(int x, int y, String registry) {
+    public Claim(int x, int y, String registry, String world) {
         this.x = x;
         this.y = y;
         this.registry = registry;
-    }
-
-    /**
-     * Used for migration from v1 pre-release 2 to the current version
-     */
-    public void setWidth(int width) {
-        this.x = width;
-    }
-
-    /**
-     * Used for migration from v1 pre-release 2 to the current version
-     */
-    public void setHeight(int height) {
-        this.y = height;
+        this.world = world;
     }
 
     public int getX() {
@@ -52,5 +40,13 @@ public class Claim {
 
     public void setRegistry(String registry) {
         this.registry = registry;
+    }
+
+    public String getWorld() {
+        return world;
+    }
+
+    public void setWorld(String world) {
+        this.world = world;
     }
 }

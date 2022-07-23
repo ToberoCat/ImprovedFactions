@@ -2,7 +2,7 @@ package io.github.toberocat.core.utility.data;
 
 import io.github.toberocat.core.factions.local.LocalFaction;
 import io.github.toberocat.core.player.PlayerSettings;
-import io.github.toberocat.core.utility.claim.Claim;
+import io.github.toberocat.core.utility.claim.component.Claim;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

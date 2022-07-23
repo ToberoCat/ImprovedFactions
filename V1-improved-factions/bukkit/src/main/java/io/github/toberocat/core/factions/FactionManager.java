@@ -11,6 +11,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
+import java.util.UUID;
+import java.util.stream.Stream;
 
 /**
  * This class is responsible for handling the faction loading & unloading for RAM savage
@@ -31,6 +33,10 @@ public class FactionManager implements Listener {
             return FactionHandler.getLoadedFactions().get(registry);
 
         return FactionHandler.loadFromStorage(registry);
+    }
+
+    public static Stream<UUID> onlineMembers(@NotNull Faction<?> faction) {
+        return faction.getMembers().filter(x -> Bukkit.getPlayer(x) != null);
     }
 
     @EventHandler

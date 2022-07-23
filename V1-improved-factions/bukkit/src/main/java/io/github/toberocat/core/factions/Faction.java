@@ -446,7 +446,7 @@ public interface Faction<F extends Faction<F>> {
      *
      * @return A list of claims.
      */
-    @NotNull FactionClaims getClaims();
+    @NotNull FactionClaims<F> getClaims();
 
     /* Settings */
 

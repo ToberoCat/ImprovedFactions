@@ -1,5 +1,7 @@
 package io.github.toberocat.core.utility.language;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * This class is used to replace a char from a .lang message with a string. E.g: {faction_name} => name of your faction
  */
@@ -17,6 +19,10 @@ public class Parseable {
     public Parseable(String parse, String to) {
         this.parse = parse;
         this.to = to;
+    }
+
+    public static Parseable of(@NotNull String from, String to) {
+        return new Parseable("{" + from + "}", to);
     }
 
     /**

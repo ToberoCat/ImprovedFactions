@@ -96,15 +96,5 @@ create table messages
         PRIMARY KEY (player, content)
 );
 
--- Create claims
-create table claims
-(
-    registry varchar(@max_len) not null,
-    x        int         null,
-    z        int         null,
-    constraint claims_pk
-        primary key (x, z)
-);
-
 
 

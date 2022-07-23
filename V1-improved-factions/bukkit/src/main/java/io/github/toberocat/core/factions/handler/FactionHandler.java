@@ -15,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * This class provides an interface for handling all low level faction interactions.
@@ -64,6 +65,18 @@ public abstract class FactionHandler {
 
     public static @Nullable String getPlayerFactionRegistry(@NotNull Player player) {
         return handler.getPlayerFaction(player);
+    }
+
+    public static boolean isInFaction(@NotNull OfflinePlayer player) {
+        return handler.isInFaction(player);
+    }
+
+    public static boolean isInFaction(@NotNull Player player) {
+        return handler.isInFaction(player);
+    }
+
+    public static @NotNull Stream<String> getAllFactions() {
+        return handler.getAllFactions();
     }
 
     public static void removeFactionCache(@NotNull Player player) {
