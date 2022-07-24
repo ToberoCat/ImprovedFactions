@@ -22,16 +22,16 @@ public class OnlineSubCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected void commandExecute(Player player, String[] args) {
         Bukkit.getScheduler().runTask(MainIF.getIF(), () -> {
-            Faction faction = FactionManager.getPlayerFaction(player);
+            Faction<?> faction = FactionManager.getPlayerFaction(player);
             new OnlineGUI(player, faction, () -> {
             });
         });
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
+    protected List<String> commandTab(Player player, String[] args) {
         return null;
     }
 }

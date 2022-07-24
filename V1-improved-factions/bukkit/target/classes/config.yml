@@ -10,6 +10,7 @@ faction:
   maxNameLen: 10
   allowExplosions: true
   joinTimeout: 24
+  active-member-threshold: 60 # 60 days These are the days a member's power is still being counted starting at the last time he was online
   relation-color:
     ally: "&b"
     neutral: ""

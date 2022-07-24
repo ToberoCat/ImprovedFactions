@@ -21,7 +21,7 @@ public class ExtensionRemoveSubCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected void commandExecute(Player player, String[] args) {
         ExtensionListLoader.getMap().then((map) -> {
             if (!map.containsKey(args[0])) {
                 Language.sendRawMessage("Couldn't find extension you where searching for", player);
@@ -40,7 +40,7 @@ public class ExtensionRemoveSubCommand extends SubCommand {
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
+    protected List<String> commandTab(Player player, String[] args) {
         return Arrays.stream(ExtensionListLoader.readExtensions().await())
                 .map(ExtensionObject::getRegistryName).toList();
     }

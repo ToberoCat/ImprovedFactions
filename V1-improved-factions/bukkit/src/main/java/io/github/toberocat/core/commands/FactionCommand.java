@@ -78,7 +78,7 @@ public class FactionCommand implements TabExecutor {
                 return true;
             }
 
-            SubCommand.CallSubCommands("", subCommands, player, args).then((result) -> {
+            SubCommand.callSubCommands("", subCommands, player, args).then((result) -> {
                 if (!result) Language.sendMessage("command.not-exist", player);
 
             });
@@ -94,7 +94,7 @@ public class FactionCommand implements TabExecutor {
                                       @NotNull String alias, String[] args) {
         if (sender instanceof Player player) {
             if (Utility.isDisabled(player.getWorld())) return new ArrayList<>();
-            List<String> arguments = SubCommand.CallSubCommandsTab(FactionCommand.subCommands, player, args);
+            List<String> arguments = SubCommand.callTabComplete(FactionCommand.subCommands, player, args);
 
             if (arguments == null) return null;
 

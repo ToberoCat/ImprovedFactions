@@ -22,7 +22,7 @@ public class AdminPermanentSubCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected void commandExecute(Player player, String[] args) {
         Faction faction = FactionManager.getFactionByRegistry(args[0]);
         if (faction == null) {
             Language.sendRawMessage("&cCan't find given faction", player);
@@ -35,7 +35,7 @@ public class AdminPermanentSubCommand extends SubCommand {
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
+    protected List<String> commandTab(Player player, String[] args) {
         return Arrays.asList(FileAccess.listFilesFolder("Factions"));
     }
 }

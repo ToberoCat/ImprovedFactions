@@ -26,7 +26,7 @@ public class AdminHardResetSubCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected void commandExecute(Player player, String[] args) {
         if (args.length == 0) {
             Language.sendMessage("command.admin.hardreset.confirm_player", player);
         } else if (args[0].equals("confirm")) {
@@ -57,7 +57,7 @@ public class AdminHardResetSubCommand extends SubCommand {
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
+    protected List<String> commandTab(Player player, String[] args) {
         return null;
     }
 }

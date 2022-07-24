@@ -23,28 +23,10 @@ public abstract class Extension {
     public Extension() {
     }
 
-    public final <T> T configValue(String section) {
-        if (registry == null) {
-            MainIF.logMessage(Level.WARNING, "Cannot read value at section " + section + " while registry hasn't set (yet)");
-            return null;
-        }
-
-        return MainIF.getConfigManager().getValue(registry.registry() + "." + section);
-    }
-
-    public final <T> void setConfigDefaultValue(String section, T value) {
-        if (registry == null) {
-            MainIF.logMessage(Level.WARNING, "Cannot register value at section " + section + " while registry hasn't set (yet)");
-            return;
-        }
-        MainIF.getConfigManager().addToDefaultConfig(registry.registry() + "." + section, value);
-    }
-
-
     /**
      * Gets called to get informations like name, version, dependencies
      */
-    public final void enable(@NotNull ExtensionRegistry registry, MainIF plugin) {
+    public final void enable(@NotNull ExtensionRegistry registry, @NotNull MainIF plugin) {
         if (this.registry != null) return;
         this.registry = registry;
 
@@ -89,7 +71,7 @@ public abstract class Extension {
         });
     }
 
-    private boolean latestVersion(HashMap<String, ExtensionObject> map) {
+    private boolean latestVersion(@NotNull HashMap<String, ExtensionObject> map) {
         if (!map.containsKey(registry.registry())) return true;
 
         Version newest = map.get(registry.registry()).getNewestVersion();
@@ -98,7 +80,7 @@ public abstract class Extension {
         return new UpdateChecker(current, newest).isNewestVersion();
     }
 
-    public boolean canEnable(MainIF plugin) {
+    public boolean canEnable(@NotNull MainIF plugin) {
         if (registry.dependencies() != null) {
             for (String depend : registry.dependencies()) {
                 if (plugin.getServer().getPluginManager().getPlugin(depend) == null) {
@@ -131,11 +113,11 @@ public abstract class Extension {
      *
      * @param plugin the JavaPlugin
      */
-    protected void onEnable(MainIF plugin) {
+    protected void onEnable(@NotNull MainIF plugin) {
 
     }
 
-    public final void disable(MainIF plugin) {
+    public final void disable(@NotNull MainIF plugin) {
         onDisable(plugin);
     }
 
@@ -145,7 +127,7 @@ public abstract class Extension {
      *
      * @param plugin the JavaPlugin
      */
-    protected void onDisable(MainIF plugin) {
+    protected void onDisable(@NotNull MainIF plugin) {
 
     }
 

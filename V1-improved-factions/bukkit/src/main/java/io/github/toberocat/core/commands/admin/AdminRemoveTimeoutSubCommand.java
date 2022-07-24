@@ -22,7 +22,7 @@ public class AdminRemoveTimeoutSubCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected void commandExecute(Player player, String[] args) {
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
         if (offlinePlayer == null) {
             sendCommandExecuteError(CommandExecuteError.PlayerNotFound, player);
@@ -39,7 +39,7 @@ public class AdminRemoveTimeoutSubCommand extends SubCommand {
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
+    protected List<String> commandTab(Player player, String[] args) {
         return Arrays.stream(Bukkit.getOfflinePlayers()).map(OfflinePlayer::getName).toList();
     }
 }

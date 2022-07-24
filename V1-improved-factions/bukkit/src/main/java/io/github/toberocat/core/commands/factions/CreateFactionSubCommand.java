@@ -29,7 +29,7 @@ public class CreateFactionSubCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected void commandExecute(Player player, String[] args) {
 
         if (!FactionManager.doesFactionExist(FactionManager.factionDisplayToRegistry(args[0]))) {
             createFaction(player, args[0]);
@@ -42,7 +42,7 @@ public class CreateFactionSubCommand extends SubCommand {
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
+    protected List<String> commandTab(Player player, String[] args) {
         if (args.length <= 1) {
             UUID id = player.getUniqueId();
             String display = args[0];

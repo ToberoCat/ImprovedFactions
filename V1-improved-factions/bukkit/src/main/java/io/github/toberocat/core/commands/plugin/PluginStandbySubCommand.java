@@ -19,13 +19,13 @@ public class PluginStandbySubCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected void commandExecute(Player player, String[] args) {
         Language.sendMessage("command.plugin.standby.success", player);
         MainIF.getIF().saveShutdown("&cUser " + player.getName() + " requested standby. Everything was working correctly");
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
+    protected List<String> commandTab(Player player, String[] args) {
         return null;
     }
 }

@@ -25,7 +25,7 @@ public class ExtensionDownloadSubCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected void commandExecute(Player player, String[] args) {
         if (args.length == 0) {
             AsyncTask.runLaterSync(0, () -> new DownloadGUI(player));
         } else {
@@ -39,7 +39,7 @@ public class ExtensionDownloadSubCommand extends SubCommand {
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
+    protected List<String> commandTab(Player player, String[] args) {
         return Arrays.stream(ExtensionListLoader.readExtensions().await())
                 .map(ExtensionObject::getRegistryName).toList();
     }

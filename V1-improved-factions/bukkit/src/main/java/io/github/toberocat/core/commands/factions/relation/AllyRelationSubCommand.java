@@ -23,7 +23,7 @@ public class AllyRelationSubCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected void commandExecute(Player player, String[] args) {
         Faction addressedFaction = FactionManager.getFactionByRegistry(args[0]);
         if (addressedFaction == null) {
             sendCommandExecuteError("&cCannot find given faction. Check spelling", player);
@@ -47,7 +47,7 @@ public class AllyRelationSubCommand extends SubCommand {
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
+    protected List<String> commandTab(Player player, String[] args) {
         Faction faction = FactionManager.getPlayerFaction(player);
         LinkedList<String> str = new LinkedList<>(FactionManager.getAllFactions());
 

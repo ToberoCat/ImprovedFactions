@@ -23,7 +23,7 @@ public class BanSubCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected void commandExecute(Player player, String[] args) {
         Faction faction = FactionManager.getPlayerFaction(player);
         OfflinePlayer banned = Bukkit.getOfflinePlayer(args[0]);
 
@@ -37,7 +37,7 @@ public class BanSubCommand extends SubCommand {
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
+    protected List<String> commandTab(Player player, String[] args) {
         Faction faction = FactionManager.getPlayerFaction(player);
         if (faction == null) return null;
 

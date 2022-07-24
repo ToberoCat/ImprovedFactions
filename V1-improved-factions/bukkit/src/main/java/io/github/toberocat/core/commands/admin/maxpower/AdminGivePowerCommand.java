@@ -21,7 +21,7 @@ public class AdminGivePowerCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected void commandExecute(Player player, String[] args) {
         if (!Utility.isNumber(args[1])) return;
         int amount = Integer.parseInt(args[1]);
 
@@ -31,7 +31,7 @@ public class AdminGivePowerCommand extends SubCommand {
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
+    protected List<String> commandTab(Player player, String[] args) {
         LinkedList<String> tab = new LinkedList<>();
         if (args.length <= 1) tab.addAll(FactionManager.getAllFactions());
         else tab.add("<amount>");

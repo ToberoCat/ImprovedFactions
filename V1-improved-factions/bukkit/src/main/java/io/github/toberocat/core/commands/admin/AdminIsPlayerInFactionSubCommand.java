@@ -23,7 +23,7 @@ public class AdminIsPlayerInFactionSubCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected void commandExecute(Player player, String[] args) {
         Player onP = Bukkit.getPlayer(args[0]);
 
         if (onP == null || !onP.isOnline()) {
@@ -36,7 +36,7 @@ public class AdminIsPlayerInFactionSubCommand extends SubCommand {
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
+    protected List<String> commandTab(Player player, String[] args) {
         return Arrays.stream(Bukkit.getOfflinePlayers()).map(OfflinePlayer::getName).toList();
     }
 }

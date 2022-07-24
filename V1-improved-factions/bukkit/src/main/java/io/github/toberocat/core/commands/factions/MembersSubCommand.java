@@ -23,7 +23,7 @@ public class MembersSubCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected void commandExecute(Player player, String[] args) {
         Bukkit.getScheduler().runTask(MainIF.getIF(), () -> {
             Faction faction = FactionManager.getPlayerFaction(player);
             new MemberGui(player, faction, new GuiSettings());
@@ -31,7 +31,7 @@ public class MembersSubCommand extends SubCommand {
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
+    protected List<String> commandTab(Player player, String[] args) {
         return null;
     }
 }

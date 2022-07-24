@@ -23,7 +23,7 @@ public class FactionSettingsSubCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected void commandExecute(Player player, String[] args) {
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -33,7 +33,7 @@ public class FactionSettingsSubCommand extends SubCommand {
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
+    protected List<String> commandTab(Player player, String[] args) {
         return null;
     }
 }

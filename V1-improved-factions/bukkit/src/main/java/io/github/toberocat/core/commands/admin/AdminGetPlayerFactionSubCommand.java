@@ -21,7 +21,7 @@ public class AdminGetPlayerFactionSubCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected void commandExecute(Player player, String[] args) {
         Player onP = Bukkit.getPlayer(args[0]);
 
         if (onP == null || !onP.isOnline()) {
@@ -43,7 +43,7 @@ public class AdminGetPlayerFactionSubCommand extends SubCommand {
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
+    protected List<String> commandTab(Player player, String[] args) {
         return Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
     }
 }

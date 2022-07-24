@@ -8,14 +8,12 @@ import io.github.toberocat.core.commands.FactionCommand;
 import io.github.toberocat.core.commands.extension.ExtensionRemoveSubCommand;
 import io.github.toberocat.core.extensions.Extension;
 import io.github.toberocat.core.extensions.ExtensionInitializer;
-import io.github.toberocat.core.extensions.ExtensionLoader;
-import io.github.toberocat.core.extensions.ExtensionRegistry;
 import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.factions.components.rank.Rank;
 import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.factions.local.LocalFactionHandler;
 import io.github.toberocat.core.factions.local.managers.FactionPerm;
-import io.github.toberocat.core.listeners.*;
+import io.github.toberocat.core.listeners.GuiListener;
 import io.github.toberocat.core.listeners.actions.ActionExecutor;
 import io.github.toberocat.core.listeners.player.*;
 import io.github.toberocat.core.listeners.world.BlockBreakListener;
@@ -38,8 +36,6 @@ import io.github.toberocat.core.utility.events.bukkit.PlayerJoinOnReloadEvent;
 import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.core.utility.items.ItemCore;
 import io.github.toberocat.core.utility.jackson.JsonUtility;
-import io.github.toberocat.core.utility.jackson.YmlUtility;
-import io.github.toberocat.core.utility.language.LangMessage;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.map.MapHandler;
 import io.github.toberocat.core.utility.messages.MessageSystem;
@@ -50,7 +46,6 @@ import io.github.toberocat.core.utility.version.Version;
 import io.github.toberocat.versions.nms.NMSFactory;
 import io.github.toberocat.versions.nms.NMSInterface;
 import net.milkbowl.vault.economy.Economy;
-import org.apache.commons.lang.SystemUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -63,10 +58,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.JarURLConnection;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -84,7 +75,6 @@ public final class MainIF extends JavaPlugin {
     private static Economy economy;
     private static TaskChainFactory taskChainFactory;
     private final Map<String, ArrayList<String>> backupFile = new HashMap<>(); // Delete the backup map after backup got restored
-    private final Map<String, DataManager> dataManagers = new HashMap<>();
     private NMSInterface nms;
     private boolean standby = false;
 
@@ -254,7 +244,6 @@ public final class MainIF extends JavaPlugin {
 
     private void cleanup() {
         backupFile.clear();
-        dataManagers.clear();
         SimpleBar.cleanup();
         PlayerJoinListener.PLAYER_JOINS.clear();
 
@@ -482,15 +471,6 @@ public final class MainIF extends JavaPlugin {
      */
     public void registerListener(Listener listener) {
         getPluginManager().registerEvents(listener, this);
-    }
-
-    /**
-     * Get the data managers. These are needed to load config settings
-     *
-     * @return A map of String:Datamanager pairs. The string is the datamanager file name
-     */
-    public Map<String, DataManager> getDataManagers() {
-        return dataManagers;
     }
 
     /**

@@ -14,7 +14,7 @@ public class ConfigReloadSubCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected void commandExecute(Player player, String[] args) {
         for (Config config : MainIF.getIF().getConfigMap().values()) config.Reload();
         for (Extension extension : MainIF.LOADED_EXTENSIONS.values()) extension.reloadConfigs();
 
@@ -22,7 +22,7 @@ public class ConfigReloadSubCommand extends SubCommand {
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
+    protected List<String> commandTab(Player player, String[] args) {
         return null;
     }
 }

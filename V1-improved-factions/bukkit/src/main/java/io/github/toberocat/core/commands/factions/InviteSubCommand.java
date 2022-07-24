@@ -23,7 +23,7 @@ public class InviteSubCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected void commandExecute(Player player, String[] args) {
         Faction faction = FactionManager.getPlayerFaction(player);
         if (faction == null) sendCommandExecuteError(CommandExecuteError.NoFaction, player);
 
@@ -43,7 +43,7 @@ public class InviteSubCommand extends SubCommand {
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
+    protected List<String> commandTab(Player player, String[] args) {
         FactionMemberManager manager = FactionManager.getPlayerFaction(player).getFactionMemberManager();
         return Bukkit.getOnlinePlayers().stream().filter(user -> !manager.getMembers().contains(user.getUniqueId())
                 && !manager.getBanned().contains(user.getUniqueId())).map(Player::getName).toList();

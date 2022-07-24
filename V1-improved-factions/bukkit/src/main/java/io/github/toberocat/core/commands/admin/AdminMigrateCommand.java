@@ -19,7 +19,7 @@ public class AdminMigrateCommand extends SubCommand {
 
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected void commandExecute(Player player, String[] args) {
         if (!new File(MainIF.getIF().getDataFolder().getPath() + "/Data/factions.yml").exists() ||
                 !new File(MainIF.getIF().getDataFolder().getPath() + "/Data/chunkData.yml").exists()) {
             Language.sendRawMessage("Couldn't find migratable files", player);
@@ -47,7 +47,7 @@ public class AdminMigrateCommand extends SubCommand {
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
+    protected List<String> commandTab(Player player, String[] args) {
         return null;
     }
 }

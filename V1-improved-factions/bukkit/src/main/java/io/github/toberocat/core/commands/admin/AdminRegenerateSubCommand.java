@@ -28,7 +28,7 @@ public class AdminRegenerateSubCommand extends SubCommand {
     }
 
     @Override
-    protected void CommandExecute(Player player, String[] args) {
+    protected void commandExecute(Player player, String[] args) {
         Language.sendRawMessage("Started regeneration of the data. This will repair corrupted registries for the worlds", player);
 
         Language.sendRawMessage("Loading all factions", player);
@@ -80,7 +80,7 @@ public class AdminRegenerateSubCommand extends SubCommand {
     }
 
     @Override
-    protected List<String> CommandTab(Player player, String[] args) {
+    protected List<String> commandTab(Player player, String[] args) {
         return null;
     }
 }
