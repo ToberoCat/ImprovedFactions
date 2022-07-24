@@ -68,11 +68,11 @@ public abstract class FactionHandler {
         return handler.getFaction(registry);
     }
 
-    public static @Nullable String getPlayerFactionRegistry(@NotNull OfflinePlayer player) {
+    public static @Nullable String getPlayerFaction(@NotNull OfflinePlayer player) {
         return handler.getPlayerFaction(player);
     }
 
-    public static @Nullable String getPlayerFactionRegistry(@NotNull Player player) {
+    public static @Nullable String getPlayerFaction(@NotNull Player player) {
         return handler.getPlayerFaction(player);
     }
 

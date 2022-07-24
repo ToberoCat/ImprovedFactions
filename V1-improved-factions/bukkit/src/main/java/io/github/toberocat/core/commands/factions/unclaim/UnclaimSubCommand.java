@@ -4,7 +4,7 @@ import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.utility.Result;
-import io.github.toberocat.core.utility.command.AutoSubCommand;
+import io.github.toberocat.core.utility.command.auto.AutoSubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.language.Parseable;

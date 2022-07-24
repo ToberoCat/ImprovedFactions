@@ -5,7 +5,7 @@ import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.factions.components.rank.members.OwnerRank;
 import io.github.toberocat.core.utility.Result;
-import io.github.toberocat.core.utility.command.ConfirmSubCommand;
+import io.github.toberocat.core.utility.command.confirm.ConfirmSubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.date.DateCore;
 import io.github.toberocat.core.utility.language.Language;

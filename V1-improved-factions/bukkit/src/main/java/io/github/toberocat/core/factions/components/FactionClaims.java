@@ -43,6 +43,10 @@ public record FactionClaims<F extends Faction<F>>(
         return claims.values().stream().flatMap(x -> x).count();
     }
 
+    public void claim(@NotNull Chunk chunk) throws FactionNotInStorage, ChunkAlreadyClaimedException {
+        claim(chunk.getWorld().getName(), chunk.getX(), chunk.getZ());
+    }
+
     public void claim(@NotNull String worldName, int x, int z) throws ChunkAlreadyClaimedException, FactionNotInStorage {
         World world = Bukkit.getWorld(worldName);
         if (world == null) return;

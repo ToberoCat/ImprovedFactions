@@ -2,7 +2,7 @@ package io.github.toberocat.core.listeners.player;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionManager;
+import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.player.PlayerSettingHandler;
 import io.github.toberocat.core.player.TitlePosition;
 import io.github.toberocat.core.utility.Utility;
@@ -22,9 +22,15 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
+import java.util.function.Consumer;
 
 public class PlayerMoveListener implements Listener {
+
+    public static final Map<UUID, Map<String, Consumer<Player>>> MOVE_OPERATIONS = new HashMap<>();
 
     @EventHandler
     public void OnMove(PlayerMoveEvent event) {
@@ -33,6 +39,7 @@ public class PlayerMoveListener implements Listener {
         Chunk from = event.getFrom().getChunk();
         Chunk to = Objects.requireNonNull(event.getTo()).getChunk();
         Player player = event.getPlayer();
+        runOperation(player);
 
         if (from.getWorld().getName().equals(to.getWorld().getName())) return;
         if (from.getX() == to.getX() && from.getZ() == to.getZ()) return;
@@ -54,12 +61,19 @@ public class PlayerMoveListener implements Listener {
 
     }
 
+    private void runOperation(@NotNull Player player) {
+        UUID uuid = player.getUniqueId();
+        if (!MOVE_OPERATIONS.containsKey(uuid)) return;
+
+        MOVE_OPERATIONS.get(uuid).values().forEach(x -> x.accept(player));
+    }
+
     private @Nullable String getClaimDisplay(@NotNull String registry, @NotNull Player player) {
         if (ClaimManager.isManageableZone(registry)) return Language.getMessage(
                 ClaimManager.getZoneDisplay(registry), player);
 
         try {
-            Faction<?> faction = FactionManager.getFactionByRegistry(registry);
+            Faction<?> faction = FactionHandler.getFaction(registry);
             return applyRelationColor(faction.getDisplay(), faction, player);
         } catch (FactionNotInStorage e) {
             return null;

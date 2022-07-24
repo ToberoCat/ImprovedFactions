@@ -7,7 +7,6 @@ import io.github.toberocat.core.factions.local.managers.FactionMemberManager;
 import io.github.toberocat.core.player.PlayerSettingHandler;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.async.AsyncTask;
-import io.github.toberocat.core.utility.data.PersistentDataUtility;
 import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.settings.type.BoolSetting;
@@ -22,7 +21,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.logging.Level;
 
 public class PlayerJoinListener implements Listener {
 
@@ -41,7 +39,7 @@ public class PlayerJoinListener implements Listener {
     }
 
     private void registerFaction(@NotNull Player player) {
-        String registry = FactionHandler.getPlayerFactionRegistry(player);
+        String registry = FactionHandler.getPlayerFaction(player);
         if (registry == null) return;
 
         try {

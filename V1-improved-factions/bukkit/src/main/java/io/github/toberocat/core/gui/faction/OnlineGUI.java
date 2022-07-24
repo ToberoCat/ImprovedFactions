@@ -16,11 +16,12 @@ public class OnlineGUI extends TabbedGui {
     private final int task;
     private final Runnable close;
 
-    public OnlineGUI(Player player, Faction faction, Runnable close) {
+    public OnlineGUI(Player player, Faction<?> faction, Runnable close) {
         super(player, createInv(faction, player));
         this.close = close;
 
-        task = Bukkit.getScheduler().runTaskTimer(MainIF.getIF(), () -> update(player, faction), 0, 20).getTaskId();
+        task = Bukkit.getScheduler().runTaskTimer(MainIF.getIF(),
+                () -> update(player, faction), 0, 20).getTaskId();
     }
 
     @Override
@@ -28,8 +29,8 @@ public class OnlineGUI extends TabbedGui {
         return super.readSettings().setQuitGui(close);
     }
 
-    private static Inventory createInv(Faction faction, Player player) {
-        return Bukkit.createInventory(player, 54, "§e" + faction.getDisplayName() + "'s online members");
+    private static Inventory createInv(Faction<?> faction, Player player) {
+        return Bukkit.createInventory(player, 54, "§e" + faction.getDisplay() + "'s online members");
     }
 
     @Override
@@ -37,16 +38,16 @@ public class OnlineGUI extends TabbedGui {
         Bukkit.getScheduler().cancelTask(task);
     }
 
-    private void update(Player player, Faction faction) {
+    private void update(Player player, Faction<?> faction) {
         clear();
 
-        for (Player online : faction.getFactionMemberManager().getOnlinePlayers()) {
-            String time = Utility.getTime(PlayerJoinListener.PLAYER_JOINS.get(online.getUniqueId()));
+        faction.getOnlineMembers().forEach(x -> {
+            String time = Utility.getTime(PlayerJoinListener.PLAYER_JOINS.get(x.getUniqueId()));
             String totalTime = time + "§8 online";
-            addSlot(Utility.getSkull(online, 1, player.getDisplayName(),
+            addSlot(Utility.getSkull(x, 1, player.getDisplayName(),
                     new String[]{"§8Player is now §e" + totalTime}), (user) -> {
             });
-        }
+        });
 
         render();
     }

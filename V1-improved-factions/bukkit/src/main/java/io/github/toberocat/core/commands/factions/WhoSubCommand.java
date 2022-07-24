@@ -58,7 +58,7 @@ public class WhoSubCommand extends SubCommand {
         if (args.length == 1) return args[0];
 
         if (FactionHandler.isInFaction(player))
-            return FactionHandler.getPlayerFactionRegistry(player);
+            return FactionHandler.getPlayerFaction(player);
 
         Language.sendMessage("command.who.no-faction", player);
         return null;

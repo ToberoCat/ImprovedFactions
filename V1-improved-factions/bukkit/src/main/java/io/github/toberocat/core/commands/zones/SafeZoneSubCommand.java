@@ -3,13 +3,10 @@ package io.github.toberocat.core.commands.zones;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.claim.ClaimManager;
-import io.github.toberocat.core.utility.command.AutoSubCommand;
-import io.github.toberocat.core.utility.command.SubCommand;
+import io.github.toberocat.core.utility.command.auto.AutoSubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
-
-import java.util.List;
 
 public class SafeZoneSubCommand extends AutoSubCommand {
     public SafeZoneSubCommand() {
