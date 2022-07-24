@@ -48,7 +48,19 @@ public record FactionClaims<F extends Faction<F>>(
         World world = Bukkit.getWorld(worldName);
         if (world == null) return;
 
-        ClaimManager.protectChunk(faction.getRegistry(), world.getChunkAt(x, z));
+        Chunk chunk = world.getChunkAt(x, z);
+        try {
+            ClaimManager.protectChunk(faction.getRegistry(), chunk);
+        } catch (ChunkAlreadyClaimedException e) {
+            overclaim(chunk, faction, e.getRegistry());
+        }
+    }
+
+    private void overclaim(@NotNull Chunk chunk, @NotNull Faction<?> faction, @NotNull String claim)
+            throws ChunkAlreadyClaimedException {
+        if (faction.getRegistry().equals(claim)) throw new ChunkAlreadyClaimedException(claim);
+        if (ClaimManager.isManageableZone(claim)) throw new ChunkAlreadyClaimedException(claim);
+        if (faction)
     }
 
     public void unclaimAll() {
