@@ -19,33 +19,13 @@ import java.util.stream.Stream;
  */
 public class FactionManager implements Listener {
 
-    public static void unloadUseless(@NotNull String registry) throws FactionNotInStorage {
-        Faction<?> faction = getFactionByRegistry(registry);
-        if (faction.getMembers()
-                .filter(uuid -> Objects.nonNull(Bukkit.getPlayer(uuid)))
-                .count() > 1) return;
-
-        FactionHandler.unload(registry);
-    }
-
-    public static @NotNull Faction<?> getFactionByRegistry(@NotNull String registry) throws FactionNotInStorage {
-        if (FactionHandler.getLoadedFactions().containsKey(registry))
-            return FactionHandler.getLoadedFactions().get(registry);
-
-        return FactionHandler.loadFromStorage(registry);
-    }
-
-    public static Stream<UUID> onlineMembers(@NotNull Faction<?> faction) {
-        return faction.getMembers().filter(x -> Bukkit.getPlayer(x) != null);
-    }
-
     @EventHandler
     private void join(@NotNull PlayerJoinEvent event) {
         String registry = FactionHandler.getPlayerFactionRegistry(event.getPlayer());
         if (registry == null) return;
 
         try {
-            getFactionByRegistry(registry);
+            FactionHandler.getFaction(registry);
         } catch (FactionNotInStorage e) {
             Utility.except(e);
         }
@@ -57,7 +37,7 @@ public class FactionManager implements Listener {
         if (registry == null) return;
 
         try {
-            unloadUseless(registry);
+            FactionHandler.unload(registry);
         } catch (FactionNotInStorage e) {
             Utility.except(e);
         }

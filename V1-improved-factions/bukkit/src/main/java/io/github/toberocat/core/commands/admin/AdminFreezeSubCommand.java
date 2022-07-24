@@ -2,6 +2,7 @@ package io.github.toberocat.core.commands.admin;
 
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionManager;
+import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.data.access.FileAccess;
@@ -37,7 +38,7 @@ public class AdminFreezeSubCommand extends SubCommand {
     @Override
     protected List<String> CommandTab(Player player, String[] args) {
         List<String> ar = Arrays.asList(FileAccess.listFilesFolder("Factions"));
-        ar.addAll(Faction.getLoadedFactions().values().stream().map(Faction::getRegistryName).toList());
+        ar.addAll(FactionHandler.getLoadedFactions().values().stream().map(x -> x.get).toList());
 
         return ar;
     }

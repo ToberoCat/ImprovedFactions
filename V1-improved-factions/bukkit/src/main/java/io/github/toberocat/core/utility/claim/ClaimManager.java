@@ -13,6 +13,7 @@ import io.github.toberocat.core.utility.data.access.AbstractAccess;
 import io.github.toberocat.core.utility.data.database.DatabaseAccess;
 import io.github.toberocat.core.utility.events.faction.FactionOverclaimEvent;
 import io.github.toberocat.core.utility.events.faction.claim.ChunkProtectEvent;
+import io.github.toberocat.core.utility.events.faction.claim.ChunkRemoveProtectionEvent;
 import io.github.toberocat.core.utility.exceptions.chunks.ChunkAlreadyClaimedException;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -97,35 +98,6 @@ public class ClaimManager {
         return CLAIMS.get(world).getClaims().filter(x -> x.getRegistry().equals(registry));
     }
 
-    public static void claimChunk(Faction<?> faction, Chunk chunk)
-            throws ChunkAlreadyClaimedException {
-        String registry = getChunkRegistry(chunk);
-        if (registry != null && !isManageableZone(registry)) {
-            Faction<?> claim = FactionManager.getFactionByRegistry(registry);
-            int power = claim.getPowerManager().getCurrentPower();
-            int claims = claim.getClaimedChunks();
-
-            if (Boolean.TRUE.equals(ConfigManager
-                    .getValue("general.limit-chunks-to-power")) && claims >= power) return Result
-                    .failure("NO_CLAIM_POWER",
-                            "&cYou don't have enough power to claim this chunk1");
-
-            if (power > claims) throw new ChunkAlreadyClaimedException();
-
-            if (!isCorner(chunk)) return Result.failure("CHUNK_NO_CORNER",
-                    "&cThe chunk isn't a corner, so you can't overclaim it");
-            removeClaim(faction, chunk);
-            AsyncTask.runSync(() ->
-                    Bukkit.getPluginManager().callEvent(new FactionOverclaimEvent(claim, faction, chunk)));
-        }
-
-        Result<?> result = protectChunk(faction.getRegistryName(), chunk);
-        if (!result.isSuccess()) return result;
-
-        faction.getPowerManager().addClaimedChunk();
-
-        return result;
-    }
 
     public static void protectChunk(@NotNull String registry, @NotNull Chunk chunk)
             throws ChunkAlreadyClaimedException {
@@ -133,7 +105,7 @@ public class ClaimManager {
                 PersistentDataType.STRING, chunk.getPersistentDataContainer());
 
         if (claimed != null && !claimed.equals(UNCLAIMED_CHUNK_REGISTRY))
-            throw new ChunkAlreadyClaimedException();
+            throw new ChunkAlreadyClaimedException(claimed);
 
         PersistentDataUtility.write(PersistentDataUtility.FACTION_CLAIMED_KEY,
                 PersistentDataType.STRING,
@@ -146,6 +118,21 @@ public class ClaimManager {
         CLAIMS.get(worldName).add(new Claim(chunk.getX(), chunk.getZ(), registry, worldName));
         AsyncTask.runSync(() -> Bukkit.getPluginManager()
                 .callEvent(new ChunkProtectEvent(registry, chunk)));
+    }
+
+    public static void removeProtection(@NotNull Chunk chunk) {
+        if (!PersistentDataUtility.has(PersistentDataUtility.FACTION_CLAIMED_KEY,
+                PersistentDataType.STRING, chunk.getPersistentDataContainer())) return;
+
+        String claimRegistry = PersistentDataUtility.read(PersistentDataUtility.FACTION_CLAIMED_KEY,
+                PersistentDataType.STRING,
+                chunk.getPersistentDataContainer());
+
+        PersistentDataUtility.remove(PersistentDataUtility.FACTION_CLAIMED_KEY,
+                chunk.getPersistentDataContainer());
+        AsyncTask.runSync(() -> Bukkit.getPluginManager()
+                .callEvent(new ChunkRemoveProtectionEvent(claimRegistry, chunk)));
+        ClaimManager.CLAIMS.get(chunk.getWorld().getName()).remove(chunk.getX(), chunk.getZ());
     }
 
     public static @Nullable String getChunkRegistry(@NotNull Chunk chunk) {

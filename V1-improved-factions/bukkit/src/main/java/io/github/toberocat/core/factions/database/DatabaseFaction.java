@@ -47,11 +47,11 @@ import java.util.stream.Stream;
 /**
  * This faction needs to sync up with the database none stop, so that there won't be any
  * problems when data is changed by other Plugin instances (BungeeCord, Velocity, Proxy stuff)
- *
+ * <p>
  * To allow the best performance, these two implementations are seperated by different classes,
  * so that there are no unnecessary if statements to check if it should sync now or not
  */
-public class DatabaseFaction implements Faction<DatabaseFaction> {
+public class DatabaseFaction extends Faction<DatabaseFaction> {
 
     private final MySqlDatabase database;
     private final LinkedHashMap<String, DatabaseModule> modules = new LinkedHashMap<>();
@@ -147,18 +147,6 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     /**
-     * Get the faction color
-     *
-     * @return The color of the faction.
-     */
-    @Override
-    public int getColor() throws SettingNotFoundException {
-        return FactionColors.values()[((EnumSetting) getSetting("color"))
-                .getSelected()]
-                .getColor();
-    }
-
-    /**
      * Set the display name of the faction to the given value locally, and update the database.
      *
      * @param display The display name of the faction.
@@ -173,6 +161,18 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
                 .evalTry("UPDATE factions SET display_name = %s WHERE registry_id = %s",
                         display, registry)
                 .get(PreparedStatement::executeUpdate);
+    }
+
+    /**
+     * Get the faction color
+     *
+     * @return The color of the faction.
+     */
+    @Override
+    public int getColor() throws SettingNotFoundException {
+        return FactionColors.values()[((EnumSetting) getSetting("color"))
+                .getSelected()]
+                .getColor();
     }
 
     /**
@@ -633,7 +633,7 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     @Override
-    public @NotNull BigDecimal getPower() {
+    public @NotNull BigDecimal getTotalPower() {
         return database.rowSelect(new Select()
                         .setTable(Table.PLAYERS.getTable())
                         .setColumns("power")
@@ -646,17 +646,49 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
                         BigDecimal::add);
     }
 
+    /**
+     * Returns the power summed of
+     * all players that have been online
+     * the last few days
+     *
+     * @return A BigDecimal representing the active power
+     */
     @Override
-    public @NotNull BigDecimal getMaxPower() {
+    public @NotNull BigDecimal getActivePower() {
+        return getActiveMembers()
+                .reduce(BigDecimal.ZERO,
+                        (bigDecimal, player) ->
+                                bigDecimal.add(BigDecimal.valueOf(playerPower(player.getUniqueId()))),
+                        BigDecimal::add);
+    }
+
+    @Override
+    public @NotNull BigDecimal getTotalMaxPower() {
         return database.rowSelect(new Select()
                         .setTable(Table.PLAYERS.getTable())
-                        .setColumns("power")
+                        .setColumns("uuid", "power")
                         .setFilter("faction = %s", registry))
                 .getRows()
                 .stream()
                 .reduce(BigDecimal.ZERO,
                         (bigDecimal, row) ->
                                 bigDecimal.add(BigDecimal.valueOf((double) row.get("maxPower"))),
+                        BigDecimal::add);
+    }
+
+    /**
+     * Returns the max power summed of
+     * all players that have been online
+     * the last few days
+     *
+     * @return A BigDecimal representing the active max power
+     */
+    @Override
+    public @NotNull BigDecimal getActiveMaxPower() {
+        return getActiveMembers()
+                .reduce(BigDecimal.ZERO,
+                        (bigDecimal, player) ->
+                                bigDecimal.add(BigDecimal.valueOf(maxPlayerPower(player.getUniqueId()))),
                         BigDecimal::add);
     }
 
@@ -711,8 +743,8 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
         if (isAllied(registry) || isEnemy(registry)) return true;
 
         database.evalTry("INSERT INTO faction_relations VALUES (%s, %s, %d), (%s, %s, %d)",
-                        this.registry, registry, enemyId,
-                        registry, this.registry, enemyId)
+                        this.registry, registry, status,
+                        registry, this.registry, status)
                 .get(PreparedStatement::executeUpdate);
         return false;
     }
@@ -776,7 +808,7 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     @Override
-    public @NotNull FactionClaims getClaims() {
+    public @NotNull FactionClaims<DatabaseFaction> getClaims() {
         return FactionClaims.createClaims(this);
     }
 

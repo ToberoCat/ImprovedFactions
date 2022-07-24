@@ -1,7 +1,6 @@
 package io.github.toberocat.core.commands.factions;
 
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
@@ -31,7 +30,7 @@ public class WhoSubCommand extends SubCommand {
         if (factionRegistry == null) return;
 
         try {
-            displayWho(FactionManager.getFactionByRegistry(factionRegistry), player);
+            displayWho(FactionHandler.getFaction(factionRegistry), player);
         } catch (FactionNotInStorage e) {
             Language.sendMessage("command.who.faction-not-found", player);
         }
@@ -44,10 +43,10 @@ public class WhoSubCommand extends SubCommand {
                 Parseable.of("motd", faction.getMotd()),
                 Parseable.of("owner", Bukkit.getOfflinePlayer(faction.getOwner()).getName()),
                 Parseable.of("created-at", faction.getCreatedAt()),
-                Parseable.of("members-online", String.valueOf(FactionManager.onlineMembers(faction).count())),
+                Parseable.of("members-online", String.valueOf(faction.getOnlineMembers().count())),
                 Parseable.of("members-total", String.valueOf(faction.getMembers().count())),
-                Parseable.of("power", String.valueOf(faction.getPower())),
-                Parseable.of("max-power", String.valueOf(faction.getMaxPower())),
+                Parseable.of("power", String.valueOf(faction.getTotalPower())),
+                Parseable.of("max-power", String.valueOf(faction.getTotalMaxPower())),
                 Parseable.of("claims", String.valueOf(faction.getClaims().getTotal())),
                 Parseable.of("allies", String.valueOf(faction.getAllies().count())),
                 Parseable.of("enemies", String.valueOf(faction.getEnemies().count())),

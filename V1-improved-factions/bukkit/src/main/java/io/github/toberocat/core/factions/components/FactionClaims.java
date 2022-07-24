@@ -1,17 +1,15 @@
 package io.github.toberocat.core.factions.components;
 
 import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.utility.Utility;
-import io.github.toberocat.core.utility.async.AsyncTask;
-import io.github.toberocat.core.utility.claim.component.Claim;
 import io.github.toberocat.core.utility.claim.ClaimManager;
-import io.github.toberocat.core.utility.data.PersistentDataUtility;
-import io.github.toberocat.core.utility.events.faction.claim.ChunkRemoveProtectionEvent;
+import io.github.toberocat.core.utility.claim.component.Claim;
 import io.github.toberocat.core.utility.exceptions.chunks.ChunkAlreadyClaimedException;
+import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
-import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashMap;
@@ -38,13 +36,14 @@ public record FactionClaims<F extends Faction<F>>(
 
     /**
      * This value is only temporary and is not getting updated once the object got created
+     *
      * @return The total claims this faction has
      */
     public long getTotal() {
         return claims.values().stream().flatMap(x -> x).count();
     }
 
-    public void claim(@NotNull String worldName, int x, int z) throws ChunkAlreadyClaimedException {
+    public void claim(@NotNull String worldName, int x, int z) throws ChunkAlreadyClaimedException, FactionNotInStorage {
         World world = Bukkit.getWorld(worldName);
         if (world == null) return;
 
@@ -57,10 +56,16 @@ public record FactionClaims<F extends Faction<F>>(
     }
 
     private void overclaim(@NotNull Chunk chunk, @NotNull Faction<?> faction, @NotNull String claim)
-            throws ChunkAlreadyClaimedException {
+            throws ChunkAlreadyClaimedException, FactionNotInStorage {
         if (faction.getRegistry().equals(claim)) throw new ChunkAlreadyClaimedException(claim);
         if (ClaimManager.isManageableZone(claim)) throw new ChunkAlreadyClaimedException(claim);
-        if (faction)
+        if (checkPower(faction, FactionHandler.getFaction(claim))) return;
+
+        ClaimManager.removeProtection(chunk);
+    }
+
+    private boolean checkPower(@NotNull Faction<?> sender, @NotNull Faction<?> target) {
+        return sender.getActivePower().compareTo(target.getActiveMaxPower()) > 0;
     }
 
     public void unclaimAll() {
@@ -79,19 +84,7 @@ public record FactionClaims<F extends Faction<F>>(
             World world = Bukkit.getWorld(world());
             if (world == null) return;
 
-            Chunk chunk = world.getChunkAt(x, z);
-            if (!PersistentDataUtility.has(PersistentDataUtility.FACTION_CLAIMED_KEY,
-                    PersistentDataType.STRING, chunk.getPersistentDataContainer())) return;
-
-            String claimRegistry = PersistentDataUtility.read(PersistentDataUtility.FACTION_CLAIMED_KEY,
-                    PersistentDataType.STRING,
-                    chunk.getPersistentDataContainer());
-
-            PersistentDataUtility.remove(PersistentDataUtility.FACTION_CLAIMED_KEY,
-                    chunk.getPersistentDataContainer());
-            AsyncTask.runSync(() -> Bukkit.getPluginManager()
-                    .callEvent(new ChunkRemoveProtectionEvent(claimRegistry, chunk)));
-            ClaimManager.CLAIMS.get(world()).remove(x, z);
+            ClaimManager.removeProtection(world.getChunkAt(x, z));
         }
 
         @Override

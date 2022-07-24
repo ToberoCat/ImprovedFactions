@@ -44,7 +44,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class LocalFaction implements Faction<LocalFaction> {
+public class LocalFaction extends Faction<LocalFaction> {
 
     @JsonIgnore
     private static final FileAccess access = FileAccess.accessPipeline(FileAccess.class);
@@ -546,7 +546,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return A BigDecimal representing the total power
      */
     @Override
-    public @NotNull BigDecimal getPower() {
+    public @NotNull BigDecimal getTotalPower() {
         return factionMembers.getMembers().stream().reduce(BigDecimal.ZERO,
                 (bigDecimal, uuid) -> bigDecimal.add(BigDecimal.valueOf(playerPower(uuid))),
                 BigDecimal::add);
@@ -559,7 +559,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return A BigDecimal representing the max reachable power
      */
     @Override
-    public @NotNull BigDecimal getMaxPower() {
+    public @NotNull BigDecimal getTotalMaxPower() {
         return factionMembers.getMembers().stream().reduce(BigDecimal.ZERO,
                 (bigDecimal, uuid) -> bigDecimal.add(BigDecimal.valueOf(maxPlayerPower(uuid))),
                 BigDecimal::add

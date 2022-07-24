@@ -16,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class DatabaseFactionHandler implements FactionHandlerInterface<DatabaseFaction> {
     private static DatabaseFactionHandler instance;
@@ -57,6 +58,11 @@ public class DatabaseFactionHandler implements FactionHandlerInterface<DatabaseF
     }
 
     @Override
+    public @NotNull Stream<String> getAllFactions() {
+        return null;
+    }
+
+    @Override
     public void deleteCache(@NotNull String registry) {
 
     }
@@ -80,6 +86,33 @@ public class DatabaseFactionHandler implements FactionHandlerInterface<DatabaseF
                         .setFilter("uuid = %s", player.getUniqueId()))
                 .readRow(String.class, "faction")
                 .orElse(null);
+    }
+
+    @Override
+    public @Nullable String getPlayerFaction(@NotNull Player player) {
+        return null;
+    }
+
+    @Override
+    public boolean isInFaction(@NotNull OfflinePlayer player) {
+        return false;
+    }
+
+    @Override
+    public boolean isInFaction(@NotNull Player player) {
+        return false;
+    }
+
+    /**
+     * The faction cache is responsible for quick access of factions for players.
+     * But if the faction gets deleted, this cache needs to get removed, else it will
+     * wrongly display commands and crash the system trying to load the not existing faction
+     *
+     * @param player The player that should get the faction cache removed
+     */
+    @Override
+    public void removeFactionCache(@NotNull Player player) {
+
     }
 
     /**

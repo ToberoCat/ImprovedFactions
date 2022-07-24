@@ -25,6 +25,13 @@ public interface FactionHandlerInterface<F extends Faction<F>> {
 
     @NotNull Rank getSavedRank(@NotNull OfflinePlayer player);
 
+    default @NotNull Faction<F> getFaction(@NotNull String registry) throws FactionNotInStorage {
+        if (FactionHandler.getLoadedFactions().containsKey(registry))
+            return getLoadedFactions().get(registry);
+
+        return load(registry);
+    }
+
     @Nullable String getPlayerFaction(@NotNull OfflinePlayer player);
     @Nullable String getPlayerFaction(@NotNull Player player);
     boolean isInFaction(@NotNull OfflinePlayer player);
@@ -38,5 +45,4 @@ public interface FactionHandlerInterface<F extends Faction<F>> {
      * @param player The player that should get the faction cache removed
      */
     void removeFactionCache(@NotNull Player player);
-    void unloadFaction(@NotNull String registry);
 }

@@ -5,16 +5,16 @@ import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.components.rank.Rank;
 import io.github.toberocat.core.factions.database.DatabaseFactionHandler;
 import io.github.toberocat.core.factions.local.LocalFactionHandler;
-import io.github.toberocat.core.utility.data.PersistentDataUtility;
 import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -43,8 +43,13 @@ public abstract class FactionHandler {
         return handler.load(registry);
     }
 
-    public static void unload(@NotNull String registry) {
-        handler.unloadFaction(registry);
+    public static void unload(@NotNull String registry) throws FactionNotInStorage {
+        Faction<?> faction = getFaction(registry);
+        if (faction.getMembers()
+                .filter(uuid -> Objects.nonNull(Bukkit.getPlayer(uuid)))
+                .count() > 1) return;
+
+        FactionHandler.unload(registry);
     }
 
     public static void deleteCache(@NotNull String registry) {
@@ -55,8 +60,12 @@ public abstract class FactionHandler {
         return handler.exists(registry);
     }
 
-    public static <F extends Faction<F>> @NotNull Map<String, F> getLoadedFactions() {
-        return (Map<String, F>) handler.getLoadedFactions();
+    public static @NotNull Map<String, Faction<?>> getLoadedFactions() {
+        return (Map<String, Faction<?>>) handler.getLoadedFactions();
+    }
+
+    public static @NotNull Faction<?> getFaction(@NotNull String registry) throws FactionNotInStorage {
+        return handler.getFaction(registry);
     }
 
     public static @Nullable String getPlayerFactionRegistry(@NotNull OfflinePlayer player) {
@@ -84,8 +93,9 @@ public abstract class FactionHandler {
     }
 
     public static void dispose() {
-        Map<String, Faction<?>> copy = new HashMap<>(FactionHandler.getLoadedFactions());
-        copy.keySet().forEach(FactionHandler::deleteCache);
+        new HashMap<>(FactionHandler.getLoadedFactions())
+                .keySet()
+                .forEach(FactionHandler::deleteCache);
     }
 
     /**

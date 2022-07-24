@@ -43,6 +43,7 @@ import io.github.toberocat.core.utility.language.LangMessage;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.map.MapHandler;
 import io.github.toberocat.core.utility.messages.MessageSystem;
+import io.github.toberocat.core.utility.migration.BetaMigrator;
 import io.github.toberocat.core.utility.settings.FactionSettings;
 import io.github.toberocat.core.utility.version.UpdateChecker;
 import io.github.toberocat.core.utility.version.Version;
@@ -174,8 +175,10 @@ public final class MainIF extends JavaPlugin {
     private static void removeUnusedFactions() {
         for (String s : new HashSet<>(FactionHandler.getLoadedFactions().keySet())) {
             try {
-                FactionManager.unloadUseless(s);
-            } catch (FactionNotInStorage ignored) {}
+                FactionHandler.unload(s);
+            } catch (FactionNotInStorage e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -274,7 +277,7 @@ public final class MainIF extends JavaPlugin {
                 new File(getDataFolder().getPath() + "/Data/chunkData.yml").exists()) {
             LocalFactionHandler.migrateBeta();
             logMessage(Level.INFO, "Please don't stop the server. Chunks are getting migrated. This can take some time, depending on your file size. If you don't want it, disable &6general.autoMigrate &7in the config.yml and reload the server");
-            ClaimManager.migrate();
+            new BetaMigrator().migrate();
 
             logMessage(Level.INFO, "&aAuto-Migrated your old beta files to the newest version. This process will restart every server reload if you don't delete factions.yml and chunkData.yml in the Data folder only if no errors / warnings appeared while migration. Please fix them before deleting your old files");
         }
