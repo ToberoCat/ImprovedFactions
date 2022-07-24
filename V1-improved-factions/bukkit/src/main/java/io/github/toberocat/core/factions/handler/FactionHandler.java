@@ -6,6 +6,7 @@ import io.github.toberocat.core.factions.components.rank.Rank;
 import io.github.toberocat.core.factions.database.DatabaseFactionHandler;
 import io.github.toberocat.core.factions.local.LocalFactionHandler;
 import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.core.utility.exceptions.faction.PlayerHasNoFactionException;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -68,6 +69,14 @@ public abstract class FactionHandler {
         return handler.getFaction(registry);
     }
 
+    public static @NotNull Faction<?> getFaction(@NotNull Player player)
+            throws PlayerHasNoFactionException, FactionNotInStorage {
+        String registry = handler.getPlayerFaction(player);
+        if (registry == null) throw new PlayerHasNoFactionException(player);
+
+        return getFaction(registry);
+    }
+
     public static @Nullable String getPlayerFaction(@NotNull OfflinePlayer player) {
         return handler.getPlayerFaction(player);
     }
@@ -75,6 +84,7 @@ public abstract class FactionHandler {
     public static @Nullable String getPlayerFaction(@NotNull Player player) {
         return handler.getPlayerFaction(player);
     }
+
 
     public static boolean isInFaction(@NotNull OfflinePlayer player) {
         return handler.isInFaction(player);

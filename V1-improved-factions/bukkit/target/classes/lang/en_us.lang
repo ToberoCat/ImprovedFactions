@@ -3,6 +3,8 @@
   "credits": "Thanks for this amazing support from everyone who uses this plugin",
   "messages": {
     "command.prefix": "&7[&eIF&7]",
+    "command.faction.claim.chunk-already-claimed": "The chunk you tried to claim got already claimed by {claim}",
+    "command.auto-radius.no-valid-radius": "You're given radius is no number",
     "faction.broadcast.prefix": "&7[&e{faction}&7] &r{message}",
     "faction.broadcast.allies": "&b{allied}&7 is now an ally of this faction",
     "faction.broadcast.banned-member": "&e{ban}&7 is now banned from your faction",

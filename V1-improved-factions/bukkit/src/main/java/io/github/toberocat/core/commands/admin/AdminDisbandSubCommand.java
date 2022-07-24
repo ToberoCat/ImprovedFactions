@@ -1,9 +1,11 @@
 package io.github.toberocat.core.commands.admin;
 
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionManager;
+import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
+import io.github.toberocat.core.utility.exceptions.faction.FactionIsFrozenException;
+import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.language.Parseable;
 import org.bukkit.entity.Player;
@@ -22,18 +24,22 @@ public class AdminDisbandSubCommand extends SubCommand {
 
     @Override
     protected void commandExecute(Player player, String[] args) {
-        Faction faction = FactionManager.getFactionByRegistry(args[0]);
-        if (faction == null) {
+        try {
+            Faction<?> faction = FactionHandler.getFaction(args[0]);
+
+            faction.setFrozen(false);
+            faction.deleteFaction();
+            Language.sendMessage("command.admin.disband.success", player,
+                    new Parseable("{faction_display}", faction.getDisplay()));
+        } catch (FactionNotInStorage e) {
             Language.sendRawMessage("&cCan't find given faction", player);
-            return;
+        } catch (FactionIsFrozenException e) {
+            Language.sendMessage("command.admin.disband.frozen", player);
         }
-        faction.delete();
-        Language.sendMessage("command.admin.disband.success", player,
-                new Parseable("{faction_display}", faction.getDisplayName()));
     }
 
     @Override
     protected List<String> commandTab(Player player, String[] args) {
-        return FactionManager.getAllFactions();
+        return FactionHandler.getAllFactions().toList();
     }
 }

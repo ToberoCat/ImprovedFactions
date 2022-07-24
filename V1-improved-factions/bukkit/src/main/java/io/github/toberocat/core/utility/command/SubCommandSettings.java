@@ -3,6 +3,7 @@ package io.github.toberocat.core.utility.command;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionManager;
+import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 
@@ -133,7 +134,7 @@ public class SubCommandSettings {
     }
 
     private boolean getFactionOperations(SubCommand subCommand, Player player, boolean messages) {
-        Faction faction = FactionManager.getPlayerFaction(player);
+        Faction<?> faction = FactionHandler.getFaction(player);
 
         if (needsFaction == NYI.No && faction != null) {
             if (messages) subCommand.sendCommandExecuteError(SubCommand.CommandExecuteError.NoFactionNeed, player);

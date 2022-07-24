@@ -7,6 +7,7 @@
     "command.auto-radius.no-valid-radius": "You're given radius is no number",
     "faction.broadcast.prefix": "&7[&e{faction}&7] &r{message}",
     "faction.broadcast.allies": "&b{allied}&7 is now an ally of this faction",
+    "command.admin.disband.frozen": "&c&lSorry&7, but wasn't able to get the faction out of frozen mode",
     "faction.broadcast.banned-member": "&e{ban}&7 is now banned from your faction",
     "faction.broadcast.member-joined": "&e{join}&7 is now part of this faction. Let's celebrate it",
 
