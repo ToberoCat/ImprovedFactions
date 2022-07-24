@@ -1,16 +1,19 @@
 package io.github.toberocat.core.utility.command.auto;
 
+import io.github.toberocat.core.listeners.player.PlayerMoveListener;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 public abstract class WorldAutoSubCommand extends SubCommand {
-
+    private UUID id = null;
     private static final Pattern pattern = Pattern.compile("[0-9]");
 
     public WorldAutoSubCommand(String subCommand, String permission, String descriptionKey, boolean manager) {
@@ -45,7 +48,29 @@ public abstract class WorldAutoSubCommand extends SubCommand {
     }
 
     private void autoCommand(@NotNull Player player) {
+        if (id == null) {
+            id = UUID.randomUUID();
+            if (!PlayerMoveListener.MOVE_OPERATIONS.containsKey(player.getUniqueId())) {
+                PlayerMoveListener.MOVE_OPERATIONS.put(player.getUniqueId(), new HashMap<>());
+            }
 
+            PlayerMoveListener.MOVE_OPERATIONS.get(player.getUniqueId())
+                    .put(id.toString(), (user) -> single(player, player.getLocation().getChunk()));
+            Language.sendMessage(getEnabledKey(), player);
+            single(player, player.getLocation().getChunk());
+        } else {
+            if (!PlayerMoveListener.MOVE_OPERATIONS.containsKey(player.getUniqueId())) {
+                Language.sendMessage(getDisabledKey(), player);
+                return;
+            }
+
+            PlayerMoveListener.MOVE_OPERATIONS.get(player.getUniqueId()).remove(id.toString());
+            if (PlayerMoveListener.MOVE_OPERATIONS.get(player.getUniqueId()).size() == 0)
+                PlayerMoveListener.MOVE_OPERATIONS.remove(player.getUniqueId());
+
+            Language.sendMessage(getDisabledKey(), player);
+            id = null;
+        }
     }
 
     private void radiusOperation(@NotNull Player player, @NotNull String s) {
