@@ -6,6 +6,7 @@ import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.data.access.FileAccess;
+import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 
@@ -24,13 +25,14 @@ public class AdminFreezeSubCommand extends SubCommand {
 
     @Override
     protected void commandExecute(Player player, String[] args) {
-        Faction faction = FactionManager.getFactionByRegistry(args[0]);
-        if (faction == null) {
+        Faction<?> faction = null;
+        try {
+            faction = FactionHandler.getFaction(args[0]);
+            faction.setFrozen(!faction.isFrozen());
+        } catch (FactionNotInStorage e) {
             Language.sendRawMessage("&cCan't find given faction", player);
-            return;
         }
 
-        faction.setFrozen(!faction.isFrozen());
         Language.sendRawMessage("The faction &e" +
                 (!faction.isFrozen() ? "isn't frozen any more" : "is now frozen"), player);
     }
