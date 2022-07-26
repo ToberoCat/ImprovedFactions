@@ -10,7 +10,8 @@
     "command.admin.disband.frozen": "&c&lSorry&7, but wasn't able to get the faction out of frozen mode",
     "faction.broadcast.banned-member": "&e{ban}&7 is now banned from your faction",
     "faction.broadcast.member-joined": "&e{join}&7 is now part of this faction. Let's celebrate it",
-    "command.faction"
+    "command.admin.freeze.frozen": "&e{faction} &7is now &bfrozen",
+    "command.admin.freeze.unfrozen": "&e{faction} &7is now no longer &bfrozen",
 
     "player.faction-got-deleted": "We're sorry to tell you about it, but your beloved faction got deleted",
 

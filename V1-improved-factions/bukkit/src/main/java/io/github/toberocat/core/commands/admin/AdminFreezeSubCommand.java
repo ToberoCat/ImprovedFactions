@@ -1,21 +1,21 @@
 package io.github.toberocat.core.commands.admin;
 
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
-import io.github.toberocat.core.utility.data.access.FileAccess;
 import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.core.utility.language.Language;
+import io.github.toberocat.core.utility.language.Parseable;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class AdminFreezeSubCommand extends SubCommand {
     public AdminFreezeSubCommand() {
-        super("freeze", "admin.freeze", "command.admin.freeze.description", false);
+        super("freeze", "admin.freeze",
+                "command.admin.freeze.description", false);
     }
 
     @Override
@@ -25,23 +25,22 @@ public class AdminFreezeSubCommand extends SubCommand {
 
     @Override
     protected void commandExecute(Player player, String[] args) {
-        Faction<?> faction = null;
         try {
-            faction = FactionHandler.getFaction(args[0]);
+            Faction<?> faction = FactionHandler.getFaction(args[0]);
             faction.setFrozen(!faction.isFrozen());
+            Language.sendMessage(key(faction), player, new Parseable("{faction}", faction.getDisplay()));
         } catch (FactionNotInStorage e) {
             Language.sendRawMessage("&cCan't find given faction", player);
         }
-
-        Language.sendRawMessage("The faction &e" +
-                (!faction.isFrozen() ? "isn't frozen any more" : "is now frozen"), player);
     }
 
     @Override
     protected List<String> commandTab(Player player, String[] args) {
-        List<String> ar = Arrays.asList(FileAccess.listFilesFolder("Factions"));
-        ar.addAll(FactionHandler.getLoadedFactions().values().stream().map(x -> x.get).toList());
+        return FactionHandler.getAllFactions().toList();
+    }
 
-        return ar;
+    protected @NotNull String key(@NotNull Faction<?> faction) {
+        return faction.isFrozen() ? "command.admin.freeze.frozen" :
+                "command.admin.freeze.unfrozen";
     }
 }
