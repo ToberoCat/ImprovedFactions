@@ -1,14 +1,10 @@
 package io.github.toberocat.core.utility.command;
 
-import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionManager;
-import io.github.toberocat.core.factions.handler.FactionHandler;
-import io.github.toberocat.core.utility.language.Language;
+import io.github.toberocat.core.utility.Utility;
+import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.core.utility.exceptions.faction.PlayerHasNoFactionException;
+import io.github.toberocat.core.utility.exceptions.setting.SettingNotFoundException;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.logging.Level;
 
 public class SubCommandSettings {
 
@@ -126,37 +122,21 @@ public class SubCommandSettings {
     }
 
     public boolean canDisplay(SubCommand subCommand, Player player, String[] args, boolean messages) {
-        return new SubSettingExecutor(messages, subCommand, player, this).allowTab();
-    }
-
-    private boolean getFactionOperations(SubCommand subCommand, Player player, boolean messages) {
-        if (FactionHandler.isInFaction(player)) return playerInFaction(subCommand, player);
-        return playerNoFaction(subCommand, player);
-
-        if (needsFaction == NYI.No && faction != null) {
-            if (messages) subCommand.sendCommandExecuteError(SubCommand.CommandExecuteError.NoFactionNeed, player);
+        try {
+            return new SubSettingExecutor(messages, subCommand, player, this).allowTab();
+        } catch (FactionNotInStorage | SettingNotFoundException | PlayerHasNoFactionException e) {
+            Utility.except(e);
             return false;
         }
-        if (needsFaction == NYI.Yes && faction == null) {
-            if (messages) subCommand.sendCommandExecuteError(SubCommand.CommandExecuteError.NoFaction, player);
-            return false;
-        }
-
-        if (faction != null && faction.isFrozen() && !useWhenFrozen) {
-            if (messages) Language.sendRawMessage("Faction is frozen. You can't use that", player);
-            return false;
-        }
-
-        if (faction != null && factionPermission != null && !faction.hasPermission(player, factionPermission)) {
-            if (messages) Language.sendRawMessage("&cYou don't have enough permissions", player);
-            return false;
-        }
-
-        return true;
     }
 
     public boolean canExecute(SubCommand subCommand, Player player, String[] args, boolean messages) {
-        return new SubSettingExecutor(messages, subCommand, player, this).allowExecution(args);
+        try {
+            return new SubSettingExecutor(messages, subCommand, player, this).allowExecution(args);
+        } catch (FactionNotInStorage | PlayerHasNoFactionException | SettingNotFoundException e) {
+            Utility.except(e);
+            return false;
+        }
     }
 
     public enum NYI {No, Yes, Ignore}

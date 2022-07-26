@@ -16,7 +16,7 @@
     "command.too-less-args": "This command requires &b{required} &7 you gave &c{given}",
     "command.too-many-args": "This command requires &b{required} &7 you gave &c{given}",
     "command.arent-allowed-faction": "You aren't allowed to be in a faction",
-    "command.need-faction": "You need to be in a faction",
+    "command.requires-faction": "You need to be in a faction",
     "command.faction-frozen": "The faction is frozen, so you can't interact with it",
     "command.not-enough-faction-permission": "&cYour faction prohibits the usage of this command for you",
 

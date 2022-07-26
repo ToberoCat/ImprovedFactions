@@ -1,6 +1,7 @@
 package io.github.toberocat.core.utility.settings;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.OpenType;
 import io.github.toberocat.core.player.SettingActions;
 import io.github.toberocat.core.utility.Utility;
@@ -43,7 +44,7 @@ public class FactionSettings {
         add(new CallbackSettings(actions::changeTag, "change?tag", "Input",
                 Utility.createItem(Material.BIRCH_SIGN, "&eSet Tag",
                         new String[]{"&8Change your tag", "&cNote: &7A tag can only have " +
-                                ConfigManager.getValue("faction.maxTagLen") +
+                                MainIF.config().getInt("faction.maxTagLen", 10) +
                                 " or less characters", "&7Tip: Use color codes"})));
 
 

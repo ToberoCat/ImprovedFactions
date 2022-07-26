@@ -16,22 +16,29 @@ import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-public record FactionClaims<F extends Faction<F>>(
-        LinkedHashMap<String, Stream<FactionClaim<F>>> claims, F faction) {
+public final class FactionClaims<F extends Faction<F>> {
+    private LinkedHashMap<String, Stream<FactionClaim<F>>> claims;
+    private final F faction;
+
+    public FactionClaims(F faction) {
+        this.faction = faction;
+        this.claims = null;
+    }
 
     public static <F extends Faction<F>> FactionClaims<F> createClaims(@NotNull F faction) {
-        LinkedHashMap<String, Stream<FactionClaim<F>>> worldClaims = new LinkedHashMap<>();
-        ClaimManager.CLAIMS.forEach((name, claims) -> {
+        return new FactionClaims<>(faction);
+    }
+
+    public void forceCalculate() {
+        claims = new LinkedHashMap<>();
+        ClaimManager.CLAIMS.forEach((name, c) -> {
             World world = Bukkit.getWorld(name);
             if (world == null || Utility.isDisabled(world)) return;
 
-            worldClaims.put(name, claims.getClaims()
+            claims.put(name, c.getClaims()
                     .filter(x -> x != null && x.getRegistry().equals(faction.getRegistry()))
                     .map(x -> FactionClaim.fromClaim(faction, x)));
         });
-
-
-        return new FactionClaims<>(worldClaims, faction);
     }
 
     /**
@@ -40,6 +47,7 @@ public record FactionClaims<F extends Faction<F>>(
      * @return The total claims this faction has
      */
     public long getTotal() {
+        if (claims == null) forceCalculate();
         return claims.values().stream().flatMap(x -> x).count();
     }
 
@@ -76,6 +84,37 @@ public record FactionClaims<F extends Faction<F>>(
         claims.forEach((worldName, chunks) -> chunks.forEach(FactionClaim::unclaim));
         claims.clear();
     }
+
+    public LinkedHashMap<String, Stream<FactionClaim<F>>> claims() {
+        if (claims == null) forceCalculate();
+        return claims;
+    }
+
+    public F faction() {
+        return faction;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null || obj.getClass() != this.getClass()) return false;
+        var that = (FactionClaims<?>) obj;
+        return Objects.equals(this.claims, that.claims) &&
+                Objects.equals(this.faction, that.faction);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(claims, faction);
+    }
+
+    @Override
+    public String toString() {
+        return "FactionClaims[" +
+                "claims=" + claims + ", " +
+                "faction=" + faction + ']';
+    }
+
 
     public record FactionClaim<F extends Faction<F>>(Faction<F> faction, String world, int x, int z) {
 

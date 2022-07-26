@@ -1,13 +1,12 @@
 package io.github.toberocat.core.papi;
 
 import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionManager;
+import io.github.toberocat.core.factions.handler.FactionHandler;
+import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.core.utility.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.core.utility.language.Language;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -17,131 +16,107 @@ public class FactionExpansion extends PlaceholderExpansion {
 
     public static Map<String, Placeholder> PLACEHOLDERS = new HashMap<>();
 
-
-
     public static void init() {
-        PLACEHOLDERS.put("rank", (offlinePlayer) -> {
-            if (!offlinePlayer.isOnline()) return null;
-
-            Player player = offlinePlayer.getPlayer();
-            if (player == null) return null;
-
-            Faction faction = FactionManager.getPlayerFaction(player);
-            if (faction == null) return Language.getMessage("papi.no-faction", player);
-
-            return faction.getPlayerRank(offlinePlayer).getDisplayName();
+        PLACEHOLDERS.put("rank", (player) -> {
+            try {
+                return FactionHandler.getFaction(player).getPlayerRank(player).getDisplayName();
+            } catch (PlayerHasNoFactionException e) {
+                return Language.getMessage("papi.no-faction", "en_us");
+            } catch (FactionNotInStorage e) {
+                e.printStackTrace();
+                return "error";
+            }
         });
-        PLACEHOLDERS.put("tag", (offlinePlayer) -> {
-            if (!offlinePlayer.isOnline()) return null;
-
-            Player player = offlinePlayer.getPlayer();
-            if (player == null) return null;
-
-            Faction faction = FactionManager.getPlayerFaction(player);
-            if (faction == null) return Language.getMessage("papi.no-faction", player);
-
-            return faction.getTag();
+        PLACEHOLDERS.put("tag", player -> {
+            try {
+                return FactionHandler.getFaction(player).getTag();
+            } catch (PlayerHasNoFactionException e) {
+                return Language.getMessage("papi.no-faction", "en_us");
+            } catch (FactionNotInStorage e) {
+                e.printStackTrace();
+                return "error";
+            }
         });
-        PLACEHOLDERS.put("motd", (offlinePlayer) -> {
-            if (!offlinePlayer.isOnline()) return null;
-
-            Player player = offlinePlayer.getPlayer();
-            if (player == null) return null;
-
-            Faction faction = FactionManager.getPlayerFaction(player);
-            if (faction == null) return Language.getMessage("papi.no-faction", player);
-
-            return faction.getMotd();
+        PLACEHOLDERS.put("motd", (player) -> {
+            try {
+                return FactionHandler.getFaction(player).getMotd();
+            } catch (PlayerHasNoFactionException e) {
+                return Language.getMessage("papi.no-faction", "en_us");
+            } catch (FactionNotInStorage e) {
+                e.printStackTrace();
+                return "error";
+            }
         });
-        PLACEHOLDERS.put("name", (offlinePlayer) -> {
-            if (!offlinePlayer.isOnline()) return null;
-
-            Player player = offlinePlayer.getPlayer();
-            if (player == null) return null;
-
-            Faction faction = FactionManager.getPlayerFaction(player);
-            if (faction == null) return Language.getMessage("papi.no-faction", player);
-
-            return faction.getDisplayName();
+        PLACEHOLDERS.put("name", player -> {
+            try {
+                return FactionHandler.getFaction(player).getDisplay();
+            } catch (PlayerHasNoFactionException e) {
+                return Language.getMessage("papi.no-faction", "en_us");
+            } catch (FactionNotInStorage e) {
+                e.printStackTrace();
+                return "error";
+            }
         });
-        PLACEHOLDERS.put("registry", (offlinePlayer) -> {
-            if (!offlinePlayer.isOnline()) return null;
-
-            Player player = offlinePlayer.getPlayer();
-            if (player == null) return null;
-
-            Faction faction = FactionManager.getPlayerFaction(player);
-            if (faction == null) return Language.getMessage("papi.no-faction", player);
-
-            return faction.getRegistryName();
+        PLACEHOLDERS.put("registry", player -> {
+            try {
+                return FactionHandler.getFaction(player).getRegistry();
+            } catch (PlayerHasNoFactionException e) {
+                return Language.getMessage("papi.no-faction", "en_us");
+            } catch (FactionNotInStorage e) {
+                e.printStackTrace();
+                return "error";
+            }
         });
-        PLACEHOLDERS.put("members_online", (offlinePlayer) -> {
-            if (!offlinePlayer.isOnline()) return null;
-
-            Player player = offlinePlayer.getPlayer();
-            if (player == null) return null;
-
-            Faction faction = FactionManager.getPlayerFaction(player);
-            if (faction == null) return Language.getMessage("papi.no-faction", player);
-
-            return "" + faction.getFactionMemberManager().getMembers().stream().filter(x ->
-                    Bukkit.getOfflinePlayer(x).isOnline()).toList().size();
+        PLACEHOLDERS.put("members_online", player -> {
+            try {
+                return String.valueOf(FactionHandler.getFaction(player).getOnlineMembers().count());
+            } catch (PlayerHasNoFactionException e) {
+                return Language.getMessage("papi.no-faction", "en_us");
+            } catch (FactionNotInStorage e) {
+                e.printStackTrace();
+                return "error";
+            }
         });
-        PLACEHOLDERS.put("members", (offlinePlayer) -> {
-            if (!offlinePlayer.isOnline()) return null;
-
-            Player player = offlinePlayer.getPlayer();
-            if (player == null) return null;
-
-            Faction faction = FactionManager.getPlayerFaction(player);
-            if (faction == null) return Language.getMessage("papi.no-faction", player);
-
-            return "" + faction.getFactionMemberManager().getMembers().size();
+        PLACEHOLDERS.put("members", player -> {
+            try {
+                return String.valueOf(FactionHandler.getFaction(player).getMembers().count());
+            } catch (PlayerHasNoFactionException e) {
+                return Language.getMessage("papi.no-faction", "en_us");
+            } catch (FactionNotInStorage e) {
+                e.printStackTrace();
+                return "error";
+            }
         });
-        PLACEHOLDERS.put("power", (offlinePlayer) -> {
-            if (!offlinePlayer.isOnline()) return null;
-
-            Player player = offlinePlayer.getPlayer();
-            if (player == null) return null;
-
-            Faction faction = FactionManager.getPlayerFaction(player);
-            if (faction == null) return Language.getMessage("papi.no-faction", player);
-
-
-            return "" + faction.getPowerManager().getCurrentPower();
+        PLACEHOLDERS.put("power", (player) -> {
+            try {
+                return FactionHandler.getFaction(player).getActivePower().toEngineeringString();
+            } catch (PlayerHasNoFactionException e) {
+                return Language.getMessage("papi.no-faction", "en_us");
+            } catch (FactionNotInStorage e) {
+                e.printStackTrace();
+                return "error";
+            }
         });
-        PLACEHOLDERS.put("maxpower", (offlinePlayer) -> {
-            if (!offlinePlayer.isOnline()) return null;
-
-            Player player = offlinePlayer.getPlayer();
-            if (player == null) return null;
-
-            Faction faction = FactionManager.getPlayerFaction(player);
-            if (faction == null) return Language.getMessage("papi.no-faction", player);
-
-            return "" + faction.getPowerManager().getMaxPower();
+        PLACEHOLDERS.put("maxpower", player -> {
+            try {
+                return FactionHandler.getFaction(player).getActiveMaxPower().toEngineeringString();
+            } catch (PlayerHasNoFactionException e) {
+                return Language.getMessage("papi.no-faction", "en_us");
+            } catch (FactionNotInStorage e) {
+                e.printStackTrace();
+                return "error";
+            }
         });
-        PLACEHOLDERS.put("balance", (offlinePlayer) -> {
-            if (!offlinePlayer.isOnline()) return null;
 
-            Player player = offlinePlayer.getPlayer();
-            if (player == null) return null;
-
-            Faction faction = FactionManager.getPlayerFaction(player);
-            if (faction == null) return Language.getMessage("papi.no-faction", player);
-
-            return "" + faction.getFactionBank().balance().balance;
-        });
-        PLACEHOLDERS.put("claims", (offlinePlayer) -> {
-            if (!offlinePlayer.isOnline()) return null;
-
-            Player player = offlinePlayer.getPlayer();
-            if (player == null) return null;
-
-            Faction faction = FactionManager.getPlayerFaction(player);
-            if (faction == null) return Language.getMessage("papi.no-faction", player);
-
-            return "" + faction.getClaimedChunks();
+        PLACEHOLDERS.put("claims", player -> {
+            try {
+                return String.valueOf(FactionHandler.getFaction(player).getClaims().getTotal());
+            } catch (PlayerHasNoFactionException e) {
+                return Language.getMessage("papi.no-faction", "en_us");
+            } catch (FactionNotInStorage e) {
+                e.printStackTrace();
+                return "error";
+            }
         });
     }
 

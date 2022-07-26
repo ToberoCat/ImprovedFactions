@@ -10,21 +10,22 @@ public class Debugger {
 
     public static void log(String message) {
         AsyncTask.run(() -> {
-            if (MainIF.getConfigManager().getValue("general.debugMode"))
+            if (MainIF.config().getBoolean("general.debugMode", false))
                 MainIF.logMessage(Level.INFO, "&7" + message);
         });
     }
 
     public static void logWarning(String message) {
         AsyncTask.run(() -> {
-            if (MainIF.getConfigManager().getValue("general.debugMode"))
+            if (MainIF.config().getBoolean("general.debugMode", false))
                 MainIF.logMessage(Level.WARNING, "&7" + message);
         });
     }
 
     public static boolean hasPermission(Player player, String perm) {
         AsyncTask.run(() -> {
-            if (MainIF.getConfigManager().getValue("general.debugMode")) MainIF.logMessage(Level.INFO,
+            if (MainIF.config().getBoolean("general.debugMode", false))
+                MainIF.logMessage(Level.INFO,
                     "Permission check for &6" + player.getName() + "&7 with &6" + perm);
         });
 

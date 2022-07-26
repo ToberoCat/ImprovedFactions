@@ -77,6 +77,15 @@ public abstract class FactionHandler {
         return getFaction(registry);
     }
 
+    public static @NotNull Faction<?> getFaction(@NotNull OfflinePlayer player)
+            throws PlayerHasNoFactionException, FactionNotInStorage {
+        String registry = handler.getPlayerFaction(player);
+        if (registry == null) throw new PlayerHasNoFactionException(player);
+
+        return getFaction(registry);
+    }
+
+
     public static @Nullable String getPlayerFaction(@NotNull OfflinePlayer player) {
         return handler.getPlayerFaction(player);
     }

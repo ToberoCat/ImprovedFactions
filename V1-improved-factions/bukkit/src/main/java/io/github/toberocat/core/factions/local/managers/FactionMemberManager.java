@@ -171,7 +171,6 @@ public class FactionMemberManager {
      */
     public Result kick(OfflinePlayer player) {
         members.remove(player.getUniqueId());
-        faction.getFactionPerm().setRank(player, null);
         if (!player.isOnline()) return new Result(true);
         Player onP = player.getPlayer();
 
@@ -186,10 +185,9 @@ public class FactionMemberManager {
      *
      * @param player The uuid of the player you want to ban permanently
      */
-    public Result ban(OfflinePlayer player) {
+    public void ban(OfflinePlayer player) {
         banned.add(player.getUniqueId());
         kick(player);
-        return new Result(true);
     }
 
     /**
@@ -197,58 +195,15 @@ public class FactionMemberManager {
      *
      * @see #ban(OfflinePlayer)
      */
-    public Result pardon(OfflinePlayer player) {
+    public void pardon(OfflinePlayer player) {
         banned.remove(player.getUniqueId());
-        return new Result(true);
     }
 
     public ArrayList<UUID> getMembers() {
         return members;
     }
 
-    public FactionMemberManager setMembers(ArrayList<UUID> members) {
-        this.members = members;
-        return this;
-    }
-
     public ArrayList<UUID> getBanned() {
         return banned;
-    }
-
-    public FactionMemberManager setBanned(ArrayList<UUID> banned) {
-        this.banned = banned;
-        return this;
-    }
-
-    @JsonIgnore
-    public ArrayList<UUID> getInvitations() {
-        return invitations;
-    }
-
-    @JsonIgnore
-    public void setInvitations(ArrayList<UUID> invitations) {
-        this.invitations = invitations;
-    }
-
-    @JsonIgnore
-    public Faction getFaction() {
-        return faction;
-    }
-
-    @JsonIgnore
-    public FactionMemberManager setFaction(Faction faction) {
-        this.faction = faction;
-        return this;
-    }
-
-    @JsonIgnore
-    public List<Player> getOnlinePlayers() {
-        return members.stream().filter(uuid -> Bukkit.getOfflinePlayer(uuid).isOnline())
-                .map(uuid -> Bukkit.getOfflinePlayer(uuid).getPlayer()).toList();
-    }
-
-    @JsonIgnore
-    public Stream<OfflinePlayer> getOfflinePlayers() {
-        return members.stream().map(Bukkit::getOfflinePlayer);
     }
 }

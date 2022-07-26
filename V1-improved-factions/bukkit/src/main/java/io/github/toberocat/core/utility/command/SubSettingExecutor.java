@@ -62,10 +62,9 @@ public class SubSettingExecutor {
     }
 
     private boolean playerNoFaction() {
-        if (settings.getNeedsFaction() == SubCommandSettings.NYI.Yes) {
-            if (messages) subCommand.sendCommandExecuteError(SubCommand.CommandExecuteError.NoFaction, player);
-            return false;
-        }
+        if (settings.getNeedsFaction() == SubCommandSettings.NYI.Yes)
+            return sendMessage("command.requires-faction");
+        return true;
     }
 
     private boolean sendMessage(@NotNull String msg, Parseable... parseables) {
