@@ -6,6 +6,7 @@ import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.logging.Level;
 
@@ -125,16 +126,12 @@ public class SubCommandSettings {
     }
 
     public boolean canDisplay(SubCommand subCommand, Player player, String[] args, boolean messages) {
-        if (player == null && !canUseInConsole) {
-            if (messages) MainIF.logMessage(Level.INFO, "&cYou can't use this command in the console");
-            return false;
-        }
-
-        return getFactionOperations(subCommand, player, messages);
+        return new SubSettingExecutor(messages, subCommand, player, this).allowTab();
     }
 
     private boolean getFactionOperations(SubCommand subCommand, Player player, boolean messages) {
-        Faction<?> faction = FactionHandler.getFaction(player);
+        if (FactionHandler.isInFaction(player)) return playerInFaction(subCommand, player);
+        return playerNoFaction(subCommand, player);
 
         if (needsFaction == NYI.No && faction != null) {
             if (messages) subCommand.sendCommandExecuteError(SubCommand.CommandExecuteError.NoFactionNeed, player);
@@ -159,62 +156,7 @@ public class SubCommandSettings {
     }
 
     public boolean canExecute(SubCommand subCommand, Player player, String[] args, boolean messages) {
-        if (player == null && !canUseInConsole) {
-            if (messages) MainIF.logMessage(Level.INFO, "&cYou can't use this command in the console");
-            return false;
-        }
-        if (argLength != -1 && args.length != argLength) {
-            if (messages) {
-                if (args.length < argLength) {
-                    subCommand.sendCommandExecuteError(SubCommand.CommandExecuteError.ToLessArgs, player);
-                } else {
-                    subCommand.sendCommandExecuteError(SubCommand.CommandExecuteError.ToLessArgs, player);
-                }
-            }
-            return false;
-        }
-
-        return getFactionOperations(subCommand, player, messages);
-
-        /*
-        Faction faction = FactionUtils.getFaction(player);
-        boolean result = true;
-
-
-        if (args.length != argLength) {
-            result = false;
-            if (messages) subCommand.CommandExecuteError(SubCommand.CommandExecuteError.NotEnoughArgs, player);
-        }
-
-        if (needsFaction == NYI.No && faction != null) {
-            result = false;
-            if (messages) subCommand.CommandExecuteError(SubCommand.CommandExecuteError.NoFactionNeed, player);
-        }
-        if (needsFaction == NYI.Yes && faction == null) {
-            result = false;
-            if (messages) subCommand.CommandExecuteError(SubCommand.CommandExecuteError.NoFaction, player);
-        }
-        if (faction != null) {
-            if (needsAdmin && !FactionUtils.getPlayerRank(faction, player).isAdmin()) {
-                result = false;
-                if (messages) subCommand.CommandExecuteError(SubCommand.CommandExecuteError.OnlyAdminCommand, player);
-            }
-            if (factionPermission != null && !faction.hasPermission(player, factionPermission)) {
-                result = false;
-                if (messages) subCommand.CommandExecuteError(SubCommand.CommandExecuteError.NoFactionPermission, player);
-            }
-        }
-
-        if (eventCall != null) {
-            try {
-                boolean eventCall = Utils.CallEvent(getEventCall(), faction, eventParameters, isCancellable);
-                result = eventCall && result;
-            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e) {
-                e.printStackTrace();
-            }
-        }
-        return result;
-         */
+        return new SubSettingExecutor(messages, subCommand, player, this).allowExecution(args);
     }
 
     public enum NYI {No, Yes, Ignore}
