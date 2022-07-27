@@ -264,7 +264,6 @@ public final class MainIF extends JavaPlugin {
     private void tryMigration() {
         if (new File(getDataFolder().getPath() + "/Data/factions.yml").exists() &&
                 new File(getDataFolder().getPath() + "/Data/chunkData.yml").exists()) {
-            LocalFactionHandler.migrateBeta();
             logMessage(Level.INFO, "Please don't stop the server. Chunks are getting migrated. This can take some time, depending on your file size. If you don't want it, disable &6general.autoMigrate &7in the config.yml and reload the server");
             new BetaMigrator().migrate();
 
