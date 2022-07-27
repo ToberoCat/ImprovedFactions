@@ -866,7 +866,8 @@ public class DatabaseFaction extends Faction<DatabaseFaction> {
                 .map(Object::getClass)
                 .toList());
 
-        clazz.getConstructor(classes.toArray(Class[]::new))
+        FactionModule<DatabaseFaction> module = clazz.getConstructor(classes.toArray(Class[]::new))
                 .newInstance(parameters);
+        modules.put(module.registry(), (DatabaseModule) module);
     }
 }

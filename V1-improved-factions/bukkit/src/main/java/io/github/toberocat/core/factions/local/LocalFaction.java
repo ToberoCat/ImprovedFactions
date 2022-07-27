@@ -8,6 +8,7 @@ import io.github.toberocat.core.factions.OpenType;
 import io.github.toberocat.core.factions.components.Description;
 import io.github.toberocat.core.factions.components.FactionClaims;
 import io.github.toberocat.core.factions.components.FactionModule;
+import io.github.toberocat.core.factions.components.rank.GuestRank;
 import io.github.toberocat.core.factions.components.rank.Rank;
 import io.github.toberocat.core.factions.components.rank.members.AdminRank;
 import io.github.toberocat.core.factions.components.rank.members.FactionRank;
@@ -26,6 +27,7 @@ import io.github.toberocat.core.utility.date.DateCore;
 import io.github.toberocat.core.utility.events.faction.*;
 import io.github.toberocat.core.utility.exceptions.DescriptionHasNoLine;
 import io.github.toberocat.core.utility.exceptions.faction.FactionIsFrozenException;
+import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.core.utility.exceptions.setting.SettingNotFoundException;
 import io.github.toberocat.core.utility.settings.type.EnumSetting;
 import io.github.toberocat.core.utility.settings.type.RankSetting;
@@ -137,7 +139,7 @@ public class LocalFaction extends Faction<LocalFaction> {
      * @return The color of the faction.
      */
     @Override
-    public int getColor() throws SettingNotFoundException {
+    public int getColor() {
         return FactionColors.values()[((EnumSetting) getSetting("color"))
                 .getSelected()]
                 .getColor();
@@ -333,7 +335,12 @@ public class LocalFaction extends Faction<LocalFaction> {
      */
     @Override
     public @NotNull Rank getPlayerRank(@NotNull OfflinePlayer player) {
-        return factionPermissions.getPlayerRank(player);
+        try {
+            return factionPermissions.getPlayerRank(player);
+        } catch (FactionNotInStorage e) {
+            e.printStackTrace();
+            return Rank.fromString(GuestRank.register);
+        }
     }
 
     /**

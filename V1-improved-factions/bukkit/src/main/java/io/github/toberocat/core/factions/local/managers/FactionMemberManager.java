@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionManager;
+import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.listeners.player.PlayerJoinListener;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.data.PersistentDataUtility;
+import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.messages.PlayerMessageBuilder;
 import org.bukkit.Bukkit;
@@ -14,6 +16,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +31,8 @@ public class FactionMemberManager {
 
     private ArrayList<UUID> members;
     private ArrayList<UUID> banned;
-    private ArrayList<UUID> invitations;
 
-    private Faction faction;
+    private Faction<?> faction;
 
     /**
      * Don't use this. It is for jackson (json).
@@ -38,18 +40,15 @@ public class FactionMemberManager {
     public FactionMemberManager() {
     }
 
-    public FactionMemberManager(Faction faction) {
+    public FactionMemberManager(Faction<?> faction) {
         this.members = new ArrayList<>();
         this.banned = new ArrayList<>();
-        this.invitations = new ArrayList<>();
         this.faction = faction;
     }
 
     /**
      * This event should get called by the @see {@link PlayerJoinListener#Join(PlayerJoinEvent)}
      * and shouldn't get called outside of it
-     *
-     * @param event The event from PlayerJoin
      */
     public static void PlayerJoin(Player player) {
         updatePlayer(player);
@@ -62,76 +61,47 @@ public class FactionMemberManager {
                 PersistentDataType.STRING, player.getPersistentDataContainer());
         if (registry == null) return;
 
-        Faction faction = FactionManager.getFactionByRegistry(registry);
+        Faction<?> faction = null;
+        try {
+            faction = FactionHandler.getFaction(registry);
+        } catch (FactionNotInStorage e) {
+            e.printStackTrace();
+        }
         if (faction != null) return;
 
         PersistentDataUtility.remove(PersistentDataUtility.PLAYER_FACTION_REGISTRY, player.getPersistentDataContainer());
 
     }
 
-    /**
-     * It adds the player to the list of invited players, and sends a message to the player
-     *
-     * @param player The player who was invited
-     * @return A Result object.
-     */
-    public Result invitePlayer(Player player) {
-        if (invitations == null) invitations = new ArrayList<>();
-        invitations.add(player.getUniqueId());
-
-        new PlayerMessageBuilder("%;{CLICK(0)}%You got invited by &e" + faction.getDisplayName() +
-                ". &7Click to join\n&fInvitation will run out in &e5 &fminutes",
-                "/f inviteaccept " + faction.getRegistryName()).send(player);
-        Bukkit.getScheduler().runTaskLater(MainIF.getIF(), () ->
-                removeInvite(player), 5 * 60 * 20);
-        return Result.success();
-    }
-
-    /**
-     * Remove the player from the list of invited players
-     *
-     * @param player The player who was invited
-     * @return A Result object.
-     */
-    public Result removeInvite(OfflinePlayer player) {
-        invitations.remove(player.getUniqueId());
-        if (player.isOnline()) {
-            Language.sendRawMessage("Invitation of &e" + faction.getDisplayName() +
-                    "&f has now run out of time", player.getPlayer());
-        }
-        return Result.success();
-    }
 
     /**
      * Let a (online) player join a faction if not in any other
      * If the result is not a success, you can get the error message by .getMessage()
      *
      * @param player The player that should join the faction
-     * @see {@link Result#getMachineMessage()} ()}
      * <p>
      * Potential Errors:
      * PLAYER_OFFLINE, PLAYER_IN_FACTION, PLAYER_BANNED, PLAYER_TIMEOUT
      */
-    public Result join(Player player) {
-        if (!player.isOnline()) return new Result(false).setMessages("PLAYER_OFFLINE",
+    public Result<?> join(Player player) {
+        if (!player.isOnline()) return new Result<>(false).setMessages("PLAYER_OFFLINE",
                 "It looks like " + player.getName() + " are offline");
 
-        if (FactionManager.isInFaction(player)) return new Result(false).setMessages(
+        if (FactionHandler.isInFaction(player)) return new Result<>(false).setMessages(
                 "PLAYER_IN_FACTION", player.getName() + " is already in a faction");
 
-        if (banned.contains(player.getUniqueId())) return new Result(false).setMessages(
+        if (banned.contains(player.getUniqueId())) return new Result<>(false).setMessages(
                 "PLAYER_BANNED", "Looks like " + player.getName()
                         + " is banned from this faction");
 
         PersistentDataUtility.write(
                 PersistentDataUtility.PLAYER_FACTION_REGISTRY,
-                PersistentDataType.STRING, faction.getRegistryName(),
+                PersistentDataType.STRING, faction.getRegistry(),
                 player.getPersistentDataContainer());
 
         members.add(player.getUniqueId());
-        faction.getPowerManager().addFactionMember();
 
-        return new Result(true);
+        return new Result<>(true);
     }
 
     /**
@@ -140,14 +110,13 @@ public class FactionMemberManager {
      * If the result is not a success, you can get the error message by .getMessage()
      *
      * @param player The player that should leave
-     * @see {@link Result#getMachineMessage()} ()}
      * Potential Errors: PLAYER_OFFLINE, PLAYER_NOT_IN_FACTION
      */
-    public Result leave(Player player) {
-        if (!player.isOnline()) return new Result(false).setMessages("PLAYER_OFFLINE",
+    public Result<?> leave(Player player) {
+        if (!player.isOnline()) return new Result<>(false).setMessages("PLAYER_OFFLINE",
                 "It looks like " + player.getName() + " are offline");
 
-        if (!FactionManager.isInFaction(player)) return new Result(false).setMessages(
+        if (!FactionHandler.isInFaction(player)) return new Result<>(false).setMessages(
                 "PLAYER_NOT_IN_FACTION", player.getName()
                         + " is in no faction. So nothing can be left");
 
@@ -156,11 +125,8 @@ public class FactionMemberManager {
 
         updatePlayer(player);
 
-        faction.getFactionPerm().setRank(player, null);
         members.remove(player.getUniqueId());
-        faction.getPowerManager()
-                .removeFactionMember();
-        return new Result(true);
+        return new Result<>(true);
     }
 
     /**
@@ -169,14 +135,15 @@ public class FactionMemberManager {
      *
      * @param player The uuid of the player you want to kick
      */
-    public Result kick(OfflinePlayer player) {
+    public Result<?> kick(@NotNull OfflinePlayer player) {
         members.remove(player.getUniqueId());
-        if (!player.isOnline()) return new Result(true);
+        if (!player.isOnline()) return new Result<>(true);
         Player onP = player.getPlayer();
+        if (onP == null) return new Result<>(false);
 
         PersistentDataUtility.remove(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
                 onP.getPersistentDataContainer());
-        return new Result(true);
+        return new Result<>(true);
     }
 
     /**

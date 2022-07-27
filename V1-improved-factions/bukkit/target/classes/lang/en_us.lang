@@ -13,6 +13,13 @@
     "command.admin.freeze.frozen": "&e{faction} &7is now &bfrozen",
     "command.admin.freeze.unfrozen": "&e{faction} &7is now no longer &bfrozen",
 
+    "command.too-less-args": "This command requires &b{required} &7 you gave &c{given}",
+    "command.too-many-args": "This command requires &b{required} &7 you gave &c{given}",
+    "command.arent-allowed-faction": "You aren't allowed to be in a faction",
+    "command.requires-faction": "You need to be in a faction",
+    "command.faction-frozen": "The faction is frozen, so you can't interact with it",
+    "command.not-enough-faction-permission": "&cYour faction prohibits the usage of this command for you",
+
     "player.faction-got-deleted": "We're sorry to tell you about it, but your beloved faction got deleted",
 
     "tip-of-the-day.0": "Use &b/f user &7to open the user preferences",

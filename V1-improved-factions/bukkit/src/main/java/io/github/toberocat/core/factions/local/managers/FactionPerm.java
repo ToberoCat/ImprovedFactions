@@ -7,8 +7,10 @@ import io.github.toberocat.core.factions.components.rank.GuestRank;
 import io.github.toberocat.core.factions.components.rank.Rank;
 import io.github.toberocat.core.factions.components.rank.allies.*;
 import io.github.toberocat.core.factions.components.rank.members.*;
+import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.events.faction.FactionUpdateMemberRankEvent;
+import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.core.utility.items.ItemCore;
 import io.github.toberocat.core.utility.settings.FactionSettings;
 import io.github.toberocat.core.utility.settings.type.RankSetting;
@@ -40,12 +42,12 @@ public class FactionPerm {
     private Map<UUID, String> memberRanks;
 
     @JsonIgnore
-    private Faction faction;
+    private Faction<?> faction;
 
     public FactionPerm() {
     }
 
-    public FactionPerm(Faction faction) {
+    public FactionPerm(Faction<?> faction) {
         this.factionSettings = new FactionSettings();
         this.faction = faction;
         rankSetting = new HashMap<>(DEFAULT_RANKS);
@@ -107,19 +109,15 @@ public class FactionPerm {
         },Utility.createItem(Material.ENCHANTED_BOOK, "&eReceive broadcasts")));
     }
 
-    public static void registerPermission(RankSetting setting) {
-        DEFAULT_RANKS.put(setting.getSettingName(), setting);
-    }
-
-    public Rank getPlayerRank(OfflinePlayer player) {
+    public Rank getPlayerRank(OfflinePlayer player) throws FactionNotInStorage {
         if (faction.isMember(player)) return Rank.fromString(memberRanks.get(player.getUniqueId()));
 
         Player on = player.getPlayer();
         if (on == null) return Rank.fromString(GuestRank.register);
 
-        String playerFaction = FactionManager.getPlayerFactionRegistry(on);
-        if (faction.getRelationManager().getAllies().contains(playerFaction)) {
-            Rank rank = FactionManager.getFactionByRegistry(playerFaction).getPlayerRank(player);
+        String playerFaction = FactionHandler.getPlayerFaction(on);
+        if (faction.getAllies().anyMatch(x -> x.equals(playerFaction))) {
+            Rank rank = FactionHandler.getFaction(playerFaction).getPlayerRank(player);
             return Rank.fromString(switch (rank.getRegistryName()) {
                 case OwnerRank.registry -> AllyOwnerRank.registry;
                 case AdminRank.registry -> AllyAdminRank.registry;
@@ -180,12 +178,12 @@ public class FactionPerm {
     }
 
     @JsonIgnore
-    public Faction getFaction() {
+    public Faction<?> getFaction() {
         return faction;
     }
 
     @JsonIgnore
-    public void setFaction(Faction faction) {
+    public void setFaction(Faction<?> faction) {
         this.faction = faction;
     }
 }
