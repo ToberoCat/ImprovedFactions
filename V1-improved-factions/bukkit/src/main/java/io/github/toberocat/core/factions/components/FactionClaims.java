@@ -47,8 +47,7 @@ public final class FactionClaims<F extends Faction<F>> {
      * @return The total claims this faction has
      */
     public long getTotal() {
-        if (claims == null) forceCalculate();
-        return claims.values().stream().flatMap(x -> x).count();
+        return ClaimManager.registryClaims(faction.getRegistry()).count();
     }
 
     public void claim(@NotNull Chunk chunk) throws FactionNotInStorage, ChunkAlreadyClaimedException {

@@ -1,9 +1,11 @@
 package io.github.toberocat.core.commands.factions;
 
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionManager;
+import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
+import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.core.utility.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.core.utility.language.Parser;
 import org.bukkit.entity.Player;
 
@@ -22,12 +24,14 @@ public class PowerSubCommand extends SubCommand {
 
     @Override
     protected void commandExecute(Player player, String[] args) {
-        Faction faction = FactionManager.getPlayerFaction(player);
-        if (faction == null) return;
-
-        Parser.run("command.power.success")
-                .parse("{power}", ""+faction.getPowerManager().getCurrentPower())
-                .send(player);
+        try {
+            Faction<?> faction = FactionHandler.getFaction(player);
+            Parser.run("command.power.success")
+                    .parse("{power}", "" + faction.getActivePower().toEngineeringString())
+                    .send(player);
+        } catch (PlayerHasNoFactionException | FactionNotInStorage e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

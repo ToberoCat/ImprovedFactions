@@ -4,6 +4,7 @@ import io.github.toberocat.MainIF;
 import io.github.toberocat.core.extensions.ExtensionObject;
 import io.github.toberocat.core.extensions.list.ExtensionListLoader;
 import io.github.toberocat.core.utility.command.SubCommand;
+import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.language.Language;
 import org.bukkit.entity.Player;
 
@@ -18,6 +19,13 @@ public class ExtensionRemoveSubCommand extends SubCommand {
 
     public ExtensionRemoveSubCommand() {
         super("remove", "command.extension.remove.description", false);
+    }
+
+    @Override
+    public SubCommandSettings getSettings() {
+        return super.getSettings()
+                .setUseWhenFrozen(true)
+                .setAllowInAllWorlds(true);
     }
 
     @Override

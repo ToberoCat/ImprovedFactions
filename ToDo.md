@@ -44,3 +44,4 @@
 - [ ] Recommendation system (Allows faction to search for users. Users can search for factions too, using a gui)
 - [ ] Dynmap add option to appear as one unit
 - [ ] Buffs for having a power
+- [ ] Report system

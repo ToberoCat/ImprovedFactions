@@ -18,7 +18,9 @@ public class ExtensionSubCommand extends SubCommand {
 
     @Override
     public SubCommandSettings getSettings() {
-        return super.getSettings().setUseWhenFrozen(true);
+        return super.getSettings()
+                .setUseWhenFrozen(true)
+                .setAllowInAllWorlds(true);
     }
 
     @Override

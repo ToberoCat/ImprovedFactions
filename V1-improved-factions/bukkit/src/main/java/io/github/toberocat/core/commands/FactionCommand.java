@@ -9,6 +9,7 @@ import io.github.toberocat.core.commands.factions.claim.ClaimSubCommand;
 import io.github.toberocat.core.commands.factions.relation.RelationSubCommand;
 import io.github.toberocat.core.commands.factions.unclaim.UnclaimSubCommand;
 import io.github.toberocat.core.commands.plugin.PluginSubCommand;
+import io.github.toberocat.core.commands.reports.ReportSubCommand;
 import io.github.toberocat.core.commands.settings.FactionSettingsSubCommand;
 import io.github.toberocat.core.commands.settings.PlayerSettingsSubCommand;
 import io.github.toberocat.core.commands.zones.ZoneSubCommand;
@@ -58,7 +59,8 @@ public class FactionCommand implements TabExecutor {
                 new UnclaimSubCommand(),
                 new FactionMapSubCommand(),
                 new PowerSubCommand(),
-                new TipSubCommand()
+                new TipSubCommand(),
+                new ReportSubCommand()
         ));
     }
 
@@ -66,13 +68,6 @@ public class FactionCommand implements TabExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         //Player is null if commandblock or console
         if (sender instanceof Player player) {
-            List<String> disabledWorlds = MainIF.getConfigManager().getValue("general.disabledWorlds");
-            World world = player.getLocation().getWorld();
-            if (disabledWorlds != null && world != null && disabledWorlds.contains(world.getName())) {
-                Language.sendMessage("command.world-disabled", player);
-                return false;
-            }
-
             if (args.length == 0) {
                 HelpSubCommand.Help(player);
                 return true;

@@ -12,6 +12,9 @@
     "faction.broadcast.member-joined": "&e{join}&7 is now part of this faction. Let's celebrate it",
     "command.admin.freeze.frozen": "&e{faction} &7is now &bfrozen",
     "command.admin.freeze.unfrozen": "&e{faction} &7is now no longer &bfrozen",
+    "command.zone.unclaimable.already-claimed": "This chunk got already claimed by {registry}",
+    "command.faction.leave.frozen": "&cOh no, looks like you can't leave your faction at it's current state. It's &bfrozen",
+    "command.faction.leave.owner": "&cOh no, looks like you can't leave",
 
     "command.too-less-args": "This command requires &b{required} &7 you gave &c{given}",
     "command.too-many-args": "This command requires &b{required} &7 you gave &c{given}",
@@ -19,6 +22,8 @@
     "command.requires-faction": "You need to be in a faction",
     "command.faction-frozen": "The faction is frozen, so you can't interact with it",
     "command.not-enough-faction-permission": "&cYour faction prohibits the usage of this command for you",
+    "command.report.description": "You want to report a faction? Do it using this command",
+    "command.report.faction-not-found": "&cHm, looks like the faction wasn't to be found",
 
     "player.faction-got-deleted": "We're sorry to tell you about it, but your beloved faction got deleted",
 
@@ -37,6 +42,7 @@
     "tip-of-the-day.12": "Did you know, that you can allow guest to break block in your claims?",
     "tip-of-the-day.13": "Leaving a faction will put you into timeout",
     "tip-of-the-day.14": "Banning someone will prevent them from joining again",
+    "tip-of-the-day.15": "A &bfrozen&7 faction indicates that it is currently under inspection",
 
     "command.tipOfTheDay.description": "Get a tip that may help you with factions",
 

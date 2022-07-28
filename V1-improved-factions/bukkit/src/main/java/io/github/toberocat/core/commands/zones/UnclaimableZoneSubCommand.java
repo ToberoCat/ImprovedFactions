@@ -1,14 +1,18 @@
 package io.github.toberocat.core.commands.zones;
 
-import io.github.toberocat.MainIF;
-import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.claim.ClaimManager;
-import io.github.toberocat.core.utility.command.auto.AutoSubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
+import io.github.toberocat.core.utility.command.auto.WorldAutoSubCommand;
+import io.github.toberocat.core.utility.exceptions.chunks.ChunkAlreadyClaimedException;
 import io.github.toberocat.core.utility.language.Language;
+import io.github.toberocat.core.utility.language.Parser;
+import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-public class UnclaimableZoneSubCommand extends AutoSubCommand {
+import java.util.List;
+
+public class UnclaimableZoneSubCommand extends WorldAutoSubCommand {
     public UnclaimableZoneSubCommand() {
         super("unclaimable", "zones.unclaimable",
                 "command.zones.unclaimable.description", false);
@@ -30,13 +34,19 @@ public class UnclaimableZoneSubCommand extends AutoSubCommand {
     }
 
     @Override
-    public void onSingle(Player player) {
-        Result result = MainIF.getIF().getClaimManager().protectChunk(ClaimManager.UNCLAIMABLE_REGISTRY,
-                player.getLocation().getChunk());
+    public List<String> suggestedRadius(@NotNull Player player, @NotNull String[] args) {
+        return List.of("2", "5", "10");
+    }
 
-        if (result.isSuccess())
+    @Override
+    public void single(@NotNull Player player, @NotNull Chunk action) {
+        try {
+            ClaimManager.protectChunk(ClaimManager.UNCLAIMABLE_REGISTRY, player.getLocation().getChunk());
             Language.sendMessage("command.zones.unclaimable.claim", player);
-        else Language.sendRawMessage(result.getPlayerMessage(), player);
-
+        } catch (ChunkAlreadyClaimedException e) {
+            Parser.run("command.zone.unclaimable.already-claimed")
+                    .parse("{registry}", e.getRegistry())
+                    .send(player);
+        }
     }
 }

@@ -2,6 +2,7 @@ package io.github.toberocat.core.utility.command;
 
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.handler.FactionHandler;
+import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.core.utility.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.core.utility.exceptions.setting.SettingNotFoundException;
@@ -10,22 +11,13 @@ import io.github.toberocat.core.utility.language.Parseable;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class SubSettingExecutor {
-
-    private final boolean message;
-    private final SubCommand subCommand;
-    private final Player player;
-    private final SubCommandSettings settings;
-
-    public SubSettingExecutor(boolean message, SubCommand subCommand, Player player, SubCommandSettings settings) {
-        this.message = message;
-        this.subCommand = subCommand;
-        this.player = player;
-        this.settings = settings;
-    }
+public record SubSettingExecutor(boolean message, SubCommand subCommand,
+                                 Player player,
+                                 SubCommandSettings settings) {
 
     public boolean allowExecution(@NotNull String[] args)
             throws FactionNotInStorage, PlayerHasNoFactionException, SettingNotFoundException {
+        if (settings.disableInNoneFactionWorlds() && Utility.isDisabled(player.getWorld())) return false;
         int required = settings.getArgLength();
         if (args.length < required)
             return sendMessage("command.too-less-args",
@@ -42,6 +34,7 @@ public class SubSettingExecutor {
 
     public boolean allowTab()
             throws FactionNotInStorage, PlayerHasNoFactionException, SettingNotFoundException {
+        if (settings.disableInNoneFactionWorlds() && Utility.isDisabled(player.getWorld())) return false;
         if (FactionHandler.isInFaction(player)) return playerInFaction();
         return playerNoFaction();
     }

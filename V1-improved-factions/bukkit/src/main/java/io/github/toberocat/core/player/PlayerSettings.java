@@ -20,7 +20,7 @@ public class PlayerSettings {
         this.playerSettings = new HashMap<>(PlayerSettingHandler.DEFAULT_SETTINGS);
     }
 
-    public Setting<?> get(String setting) {
+    public <T> Setting<T> get(String setting) {
         return playerSettings.get(setting);
     }
 

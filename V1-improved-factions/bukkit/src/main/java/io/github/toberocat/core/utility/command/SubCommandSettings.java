@@ -18,6 +18,7 @@ public class SubCommandSettings {
     private boolean useWhenFrozen;
     private Object[] eventParameters;
     private boolean isCancellable;
+    private boolean allowInAllWorlds;
 
     public SubCommandSettings() {
         factionPermission = null;
@@ -29,6 +30,16 @@ public class SubCommandSettings {
         argLength = -1;
         canUseInConsole = false;
         useWhenFrozen = false;
+        allowInAllWorlds = false;
+    }
+
+    public boolean disableInNoneFactionWorlds() {
+        return !allowInAllWorlds;
+    }
+
+    public SubCommandSettings setAllowInAllWorlds(boolean allowInAllWorlds) {
+        this.allowInAllWorlds = allowInAllWorlds;
+        return this;
     }
 
     public String getRank() {

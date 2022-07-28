@@ -4,13 +4,20 @@ import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.factions.components.rank.members.OwnerRank;
+import io.github.toberocat.core.factions.handler.FactionHandler;
+import io.github.toberocat.core.player.PlayerSettingHandler;
 import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.command.confirm.ConfirmSubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.date.DateCore;
+import io.github.toberocat.core.utility.exceptions.faction.FactionIsFrozenException;
+import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.core.utility.exceptions.faction.PlayerHasNoFactionException;
+import io.github.toberocat.core.utility.exceptions.faction.leave.PlayerIsOwnerException;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.player.PlayerSettings;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -31,26 +38,36 @@ public class LeaveFactionSubCommand extends ConfirmSubCommand {
 
     @Override
     protected void confirmExecute(Player player) {
-        Faction faction = FactionManager.getPlayerFaction(player);
-
-        if (!faction.isPermanent() && faction.getPlayerRank(player).getRegistryName().equals(OwnerRank.registry)) {
-            Language.sendRawMessage("Can't leave your own faction. Delete it or transfer ownership", player);
-            return;
+        try {
+            Faction<?> faction = FactionHandler.getFaction(player);
+            leaveFaction(faction, player);
+        } catch (FactionNotInStorage | PlayerHasNoFactionException e) {
+            e.printStackTrace();
+        } catch (FactionIsFrozenException e) {
+            Language.sendMessage("command.faction.leave.frozen", player);
+        } catch (PlayerIsOwnerException e) {
+            Language.sendMessage("command.faction.leave.owner", player);
         }
+    }
 
-        Result result = faction.leave(player);
-        if (!result.isSuccess()) {
-            Language.sendRawMessage("Couldn't leave. " + result.getPlayerMessage(), player);
-        } else {
-            int timeout =  MainIF.getConfigManager().getDataManager("config.yml").getConfig()
-                    .getInt("faction.joinTimeout");
-            System.out.println(timeout);
-            DateTime now = DateTime.now();
-            now = now.plusHours(timeout);
+    private boolean leaveFaction(@NotNull Faction<?> faction, @NotNull Player player)
+            throws FactionIsFrozenException, PlayerIsOwnerException {
+        if (faction.isPermanent()) return leaveWithTimeout(faction, player);
+        if (faction.getPlayerRank(player).getRegistryName().equals(OwnerRank.registry))
+            throw new PlayerIsOwnerException(faction, player);
 
-            DateTimeFormatter fmt = DateCore.TIME_FORMAT;
-            PlayerSettings.getSettings(player.getUniqueId()).getSetting("factionJoinTimeout").setSelected(fmt.print(now));
-            Language.sendRawMessage("You left your faction. You can't join another until &6" + fmt.print(now), player);
-        }
+        return leaveWithTimeout(faction, player);
+    }
+
+    private boolean leaveWithTimeout(@NotNull Faction<?> faction, @NotNull Player player) throws FactionIsFrozenException {
+        if (!faction.leavePlayer(player)) return false;
+
+        int timeout =  MainIF.config().getInt("faction.joinTimeout");
+        DateTime now = DateTime.now();
+        now = now.plusHours(timeout);
+
+        DateTimeFormatter fmt = DateCore.TIME_FORMAT;
+        PlayerSettingHandler.getSettings(player.getUniqueId()).get("factionJoinTimeout").setSelected(fmt.print(now));
+        return true;
     }
 }

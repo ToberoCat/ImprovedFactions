@@ -6,6 +6,7 @@ import io.github.toberocat.core.factions.components.FactionClaims;
 import io.github.toberocat.core.factions.components.FactionModule;
 import io.github.toberocat.core.factions.components.rank.Rank;
 import io.github.toberocat.core.factions.components.rank.members.FactionRank;
+import io.github.toberocat.core.factions.components.report.FactionReports;
 import io.github.toberocat.core.utility.ForbiddenChecker;
 import io.github.toberocat.core.utility.exceptions.faction.FactionIsFrozenException;
 import io.github.toberocat.core.utility.exceptions.setting.SettingNotFoundException;
@@ -30,7 +31,7 @@ public abstract class Faction<F extends Faction<F>> {
     public static final int enemyId = 2;
 
     /* Config values */
-    public static final long activeThreshold = (long) MainIF.config().getInt("faction.active-member-threshold", 60);
+    public static final long activeThreshold = MainIF.config().getInt("faction.active-member-threshold", 60);
 
     /* Static voids */
 
@@ -515,6 +516,10 @@ public abstract class Faction<F extends Faction<F>> {
     @NotNull
     public abstract Setting<?> getSetting(@NotNull String setting) throws SettingNotFoundException;
 
+    /* Reports */
+
+    public abstract @NotNull FactionReports getReports();
+
     /* Module management */
 
     /**
@@ -536,4 +541,9 @@ public abstract class Faction<F extends Faction<F>> {
     public abstract <C extends FactionModule<F>> void createModule(@NotNull Class<C> clazz, Object... parameters)
             throws NoSuchMethodException, InvocationTargetException,
             InstantiationException, IllegalAccessException;
+
+    @Override
+    public String toString() {
+        return getRegistry();
+    }
 }
