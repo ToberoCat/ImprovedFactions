@@ -1,4 +1,4 @@
-![banner](https://github.com/ToberoCat/ImprovedFactions_new/blob/main/Branding/spigot-banner.png)
+![banner](https://github.com/ToberoCat/ImprovedFactions_new/blob/main/Branding/banners/spigot-banner.png)
 <div align="center">
 
 [![ToberoCat - ImprovedFactions](https://img.shields.io/static/v1?label=ToberoCat&message=ImprovedFactions&color=%23FEDD58&logo=github)](https://github.com/ToberoCat/ImprovedFactions_new "Go to GitHub repo")
@@ -29,3 +29,8 @@
 
 Improved factions is a lightweight and performant minecraft faction plugin. It supports features downloadable from
 Minecraft directly for more user friendlienes
+
+## Others
+
+### Bstat
+https://bstats.org/plugin/bukkit/ImprovedFactions/14810
