@@ -96,5 +96,16 @@ create table messages
         PRIMARY KEY (player, content)
 );
 
+-- Create report table
+CREATE TABLE reports
+(
+    registry varchar(@max_len) not null,
+    reporter char(36)    not null,
+    reason   text        not null,
+    constraint reports_pk
+        primary key (registry, reporter)
+);
+
+
 
 

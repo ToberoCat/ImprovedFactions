@@ -45,3 +45,5 @@
 - [ ] Dynmap add option to appear as one unit
 - [ ] Buffs for having a power
 - [ ] Report system
+- [ ] Make enemy invites
+- [ ] MongoDB
