@@ -104,8 +104,9 @@ public class PlayerMoveListener implements Listener {
     }
 
     private TitlePosition displayPosition(@NotNull Player player) {
-        EnumSetting setting = (EnumSetting) PlayerSettingHandler.getSettings(player.getUniqueId())
-                .get("titlePosition");
+        EnumSetting setting = (EnumSetting) PlayerSettingHandler
+                .getSettings(player.getUniqueId())
+                .getQ("titlePosition");
         return TitlePosition.values()[setting.getSelected()];
     }
 

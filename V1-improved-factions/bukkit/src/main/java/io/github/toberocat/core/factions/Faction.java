@@ -99,19 +99,20 @@ public abstract class Faction<F extends Faction<F>> {
     public abstract String getDisplay();
 
     /**
-     * Get the faction color
-     * @return The color of the faction.
-     */
-    public abstract int getColor() throws SettingNotFoundException;
-
-    /* Setter */
-
-    /**
      * Sets the display name of the faction
      *
      * @param display The display name of the faction.
      */
     public abstract void setDisplay(@NotNull String display) throws FactionIsFrozenException;
+
+    /* Setter */
+
+    /**
+     * Get the faction color
+     *
+     * @return The color of the faction.
+     */
+    public abstract int getColor() throws SettingNotFoundException;
 
     /**
      * Returns the message of the day.
@@ -429,7 +430,7 @@ public abstract class Faction<F extends Faction<F>> {
      * @param faction The faction to add as an ally.
      * @return If the ally was able got added
      */
-    public abstract boolean addAlly(@NotNull F faction) throws FactionIsFrozenException;
+    public abstract boolean addAlly(@NotNull Faction<?> faction) throws FactionIsFrozenException;
 
     /**
      * Returns true if the given registry is allied with this faction.
@@ -465,7 +466,7 @@ public abstract class Faction<F extends Faction<F>> {
 
     /**
      * Returns true if the given player is an enemy of this faction
-
+     *
      * @param player The player to check.
      * @return If the player's faction is an enemy
      */

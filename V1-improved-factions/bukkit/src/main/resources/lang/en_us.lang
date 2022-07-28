@@ -16,6 +16,18 @@
     "command.faction.leave.frozen": "&cOh no, looks like you can't leave your faction at it's current state. It's &bfrozen",
     "command.faction.leave.owner": "&cOh no, looks like you can't leave",
 
+    "invite.faction.frozen": "The faction is &bfrozen&7. Please try to join later",
+    "invite.faction.joined": "You accepted the invite of {inviter}. You now joined &e{faction}&7 as &e{rank}",
+    "invite.faction.cancel": "&cInvite to join &e{faction}&7 got cancelled",
+    "invite.faction.out-of-time": "You ran out of time to accept the invite to join &e{faction}",
+
+    "invite.ally.frozen-inviter": "Your faction is &bfrozen.&7 You can't invite anyone",
+    "invite.ally.frozen-invited": "Invited faction is &bfrozen.&7 They can't accept a invite",
+    "invite.ally.joined": "You accepted the invite of {inviter}. You now joined &e{faction}&7 as &e{rank}",
+    "invite.ally.accepted": "&e{invited}&7 accepted your invite to be allied. Give them a warm welcome",
+    "invite.ally.cancel": "&cInvite to join &e{faction}&7 got cancelled",
+    "invite.ally.out-of-time": "You ran out of time to accept the invite to join &e{faction}",
+
     "command.too-less-args": "This command requires &b{required} &7 you gave &c{given}",
     "command.too-many-args": "This command requires &b{required} &7 you gave &c{given}",
     "command.arent-allowed-faction": "You aren't allowed to be in a faction",
@@ -24,6 +36,7 @@
     "command.not-enough-faction-permission": "&cYour faction prohibits the usage of this command for you",
     "command.report.description": "You want to report a faction? Do it using this command",
     "command.report.faction-not-found": "&cHm, looks like the faction wasn't to be found",
+    "command.zone.safezone.already-claimed": "This chunk got already claimed by {registry}",
 
     "player.faction-got-deleted": "We're sorry to tell you about it, but your beloved faction got deleted",
 

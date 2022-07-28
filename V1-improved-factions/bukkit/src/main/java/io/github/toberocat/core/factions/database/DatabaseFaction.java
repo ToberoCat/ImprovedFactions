@@ -11,6 +11,8 @@ import io.github.toberocat.core.factions.components.rank.Rank;
 import io.github.toberocat.core.factions.components.rank.members.AdminRank;
 import io.github.toberocat.core.factions.components.rank.members.FactionRank;
 import io.github.toberocat.core.factions.components.rank.members.OwnerRank;
+import io.github.toberocat.core.factions.components.report.FactionReports;
+import io.github.toberocat.core.factions.components.report.Report;
 import io.github.toberocat.core.factions.database.module.DatabaseModule;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.color.FactionColors;
@@ -19,6 +21,7 @@ import io.github.toberocat.core.utility.data.database.DatabaseAccess;
 import io.github.toberocat.core.utility.data.database.sql.MySqlDatabase;
 import io.github.toberocat.core.utility.data.database.sql.SqlCode;
 import io.github.toberocat.core.utility.data.database.sql.SqlVar;
+import io.github.toberocat.core.utility.data.database.sql.builder.Insert;
 import io.github.toberocat.core.utility.data.database.sql.builder.Row;
 import io.github.toberocat.core.utility.data.database.sql.builder.Select;
 import io.github.toberocat.core.utility.date.DateCore;
@@ -713,7 +716,7 @@ public class DatabaseFaction extends Faction<DatabaseFaction> {
     }
 
     @Override
-    public boolean addAlly(@NotNull DatabaseFaction faction) throws FactionIsFrozenException {
+    public boolean addAlly(@NotNull Faction<?> faction) throws FactionIsFrozenException {
         if (setStatus(faction, allyId)) return false;
 
         AsyncTask.callEventSync(new FactionAllyEvent(this, faction));
@@ -736,7 +739,7 @@ public class DatabaseFaction extends Faction<DatabaseFaction> {
         return !setStatus(faction, enemyId);
     }
 
-    private boolean setStatus(@NotNull DatabaseFaction faction, int status) throws FactionIsFrozenException {
+    private boolean setStatus(@NotNull Faction<?> faction, int status) throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
         String registry = faction.getRegistry();
@@ -830,6 +833,30 @@ public class DatabaseFaction extends Faction<DatabaseFaction> {
                 InstantiationException | IllegalAccessException | InvocationTargetException ignored) {
             throw new SettingNotFoundException(setting);
         }
+    }
+
+    @Override
+    public @NotNull FactionReports getReports() {
+        return new FactionReports() {
+            @Override
+            public void addReport(@NotNull Player reporter, @NotNull String reason) {
+                database.tableInsert(new Insert()
+                        .setTable("reports")
+                        .setColumns("registry", "reporter", "reason")
+                        .setData(registry, reporter.getUniqueId().toString(), reason));
+            }
+
+            @Override
+            public @NotNull Stream<Report> getReports() {
+                return database.rowSelect(new Select()
+                        .setTable("reports")
+                        .setColumns("reporter", "reasons")
+                        .setFilter("registry = %s", registry))
+                        .getRows()
+                        .stream().map(x -> new Report(UUID.fromString(x.get("reporter").toString()),
+                                x.get("reason").toString()));
+            }
+        };
     }
 
     private @NotNull Map.Entry<String, String> getSettingValueType(@NotNull String setting)

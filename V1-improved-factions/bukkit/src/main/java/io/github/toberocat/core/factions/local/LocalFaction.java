@@ -645,7 +645,7 @@ public class LocalFaction extends Faction<LocalFaction> {
      * @return If the ally was able got added
      */
     @Override
-    public boolean addAlly(@NotNull LocalFaction faction)
+    public boolean addAlly(@NotNull Faction<?> faction)
             throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 

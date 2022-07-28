@@ -2,6 +2,7 @@ package io.github.toberocat.core.player;
 
 import io.github.toberocat.core.utility.settings.type.Setting;
 import io.github.toberocat.core.utility.settings.type.SettingEnum;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +21,11 @@ public class PlayerSettings {
         this.playerSettings = new HashMap<>(PlayerSettingHandler.DEFAULT_SETTINGS);
     }
 
-    public <T> Setting<T> get(String setting) {
+    public <T> Setting<T> getT(String setting) {
+        return playerSettings.get(setting);
+    }
+
+    public Setting<?> getQ(@NotNull String setting) {
         return playerSettings.get(setting);
     }
 

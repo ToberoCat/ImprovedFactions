@@ -2,11 +2,9 @@ package io.github.toberocat.core.commands.factions;
 
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionManager;
 import io.github.toberocat.core.factions.components.rank.members.OwnerRank;
 import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.player.PlayerSettingHandler;
-import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.command.confirm.ConfirmSubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
 import io.github.toberocat.core.utility.date.DateCore;
@@ -15,7 +13,6 @@ import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.core.utility.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.core.utility.exceptions.faction.leave.PlayerIsOwnerException;
 import io.github.toberocat.core.utility.language.Language;
-import io.github.toberocat.core.player.PlayerSettings;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
@@ -67,7 +64,7 @@ public class LeaveFactionSubCommand extends ConfirmSubCommand {
         now = now.plusHours(timeout);
 
         DateTimeFormatter fmt = DateCore.TIME_FORMAT;
-        PlayerSettingHandler.getSettings(player.getUniqueId()).get("factionJoinTimeout").setSelected(fmt.print(now));
+        PlayerSettingHandler.getSettings(player.getUniqueId()).getT("factionJoinTimeout").setSelected(fmt.print(now));
         return true;
     }
 }

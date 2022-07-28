@@ -10,13 +10,11 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import java.util.UUID;
-
 public class MemberGui extends TabbedGui {
-    public MemberGui(Player player, Faction faction, GuiSettings settings) {
+    public MemberGui(Player player, Faction<?> faction, GuiSettings settings) {
         super(player, createInventory(player, faction));
 
-        for (UUID uuid : faction.getFactionMemberManager().getMembers()) {
+        faction.getMembers().forEach(uuid -> {
             OfflinePlayer off = Bukkit.getOfflinePlayer(uuid);
             String lastTimeSeen = off.isOnline() ? "§aOnline" : "§e" + Utility.getTime(off.getLastPlayed());
 
@@ -25,12 +23,12 @@ public class MemberGui extends TabbedGui {
                     "§8Rank: §e" + faction.getPlayerRank(off).getDisplayName()
             }), (user) -> AsyncTask.runLaterSync(1, () ->
                     new MemberManageGui(player, off, faction, settings)));
-        }
+        });
 
         render();
     }
 
-    private static Inventory createInventory(Player player, Faction faction) {
-        return Bukkit.createInventory(player, 54, "§e" + faction.getDisplayName() + "'s members");
+    private static Inventory createInventory(Player player, Faction<?> faction) {
+        return Bukkit.createInventory(player, 54, "§e" + faction.getDisplay() + "'s members");
     }
 }

@@ -1,7 +1,6 @@
 package io.github.toberocat.core.utility.date;
 
 import io.github.toberocat.core.player.PlayerSettingHandler;
-import io.github.toberocat.core.player.PlayerSettings;
 import org.bukkit.entity.Player;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
@@ -26,7 +25,7 @@ public class DateCore {
     }
 
     public static boolean hasTimeout(Player player) {
-        String timeout = PlayerSettingHandler.getSettings(player.getUniqueId()).get("factionJoinTimeout").getSelected().toString();
+        String timeout = PlayerSettingHandler.getSettings(player.getUniqueId()).getT("factionJoinTimeout").getSelected().toString();
         if (!timeout.equals("-1")) {
             DateTimeFormatter fmt = DateCore.TIME_FORMAT;
             DateTime until = fmt.parseDateTime(timeout);
@@ -41,7 +40,7 @@ public class DateCore {
     }
 
     public static Period leftTimeDifference(Player player) {
-        String timeout = PlayerSettingHandler.getSettings(player.getUniqueId()).get("factionJoinTimeout").getSelected().toString();
+        String timeout = PlayerSettingHandler.getSettings(player.getUniqueId()).getT("factionJoinTimeout").getSelected().toString();
         if (!timeout.equals("-1")) {
             DateTimeFormatter fmt = DateCore.TIME_FORMAT;
             DateTime until = fmt.parseDateTime(timeout);
@@ -54,7 +53,7 @@ public class DateCore {
     }
 
     public static DateTime getTimeout(Player player) {
-        String timeout = PlayerSettingHandler.getSettings(player.getUniqueId()).get("factionJoinTimeout").getSelected().toString();
+        String timeout = PlayerSettingHandler.getSettings(player.getUniqueId()).getT("factionJoinTimeout").getSelected().toString();
         if (!timeout.equals("-1")) {
             DateTimeFormatter fmt = DateCore.TIME_FORMAT;
             DateTime until = fmt.parseDateTime(timeout);

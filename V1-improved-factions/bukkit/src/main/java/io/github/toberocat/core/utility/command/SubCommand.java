@@ -79,7 +79,7 @@ public abstract class SubCommand {
         }
 
         if (!(Boolean) PlayerSettingHandler.getSettings(player.getUniqueId())
-                .get("hideCommandDescription").getSelected() && results.size() == 1) {
+                .getT("hideCommandDescription").getSelected() && results.size() == 1) {
             for (SubCommand command : subCommands) {
                 if (results.contains(command.getSubCommand())) {
                     if (lastSubCommand != command) {

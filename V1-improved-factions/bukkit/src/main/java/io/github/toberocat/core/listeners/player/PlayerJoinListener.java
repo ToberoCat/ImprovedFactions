@@ -64,7 +64,7 @@ public class PlayerJoinListener implements Listener {
     private void sendTod(@NotNull Player player) {
         if (Utility.isDisabled(player.getWorld())) return;
 
-        Setting<?> setting = PlayerSettingHandler.getSettings(player.getUniqueId()).get("showTips");
+        Setting<?> setting = PlayerSettingHandler.getSettings(player.getUniqueId()).getT("showTips");
         if (setting instanceof BoolSetting bool && !bool.getSelected()) return;
 
         TipOfTheDay.sendTipOfTheDay(player);

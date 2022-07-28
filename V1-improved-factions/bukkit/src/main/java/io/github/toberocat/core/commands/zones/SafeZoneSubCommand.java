@@ -1,11 +1,11 @@
 package io.github.toberocat.core.commands.zones;
 
-import io.github.toberocat.MainIF;
-import io.github.toberocat.core.utility.Result;
 import io.github.toberocat.core.utility.claim.ClaimManager;
-import io.github.toberocat.core.utility.command.auto.AutoSubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
+import io.github.toberocat.core.utility.command.auto.AutoSubCommand;
+import io.github.toberocat.core.utility.exceptions.chunks.ChunkAlreadyClaimedException;
 import io.github.toberocat.core.utility.language.Language;
+import io.github.toberocat.core.utility.language.Parser;
 import org.bukkit.entity.Player;
 
 public class SafeZoneSubCommand extends AutoSubCommand {
@@ -30,11 +30,13 @@ public class SafeZoneSubCommand extends AutoSubCommand {
 
     @Override
     public void onSingle(Player player) {
-        Result result = MainIF.getIF().getClaimManager().protectChunk(ClaimManager.SAFEZONE_REGISTRY, player.getLocation().getChunk());
-
-        if (result.isSuccess())
+        try {
+            ClaimManager.protectChunk(ClaimManager.SAFEZONE_REGISTRY, player.getLocation().getChunk());
             Language.sendMessage("command.zones.safezone.claim", player);
-        else Language.sendRawMessage(result.getPlayerMessage(), player);
-
+        } catch (ChunkAlreadyClaimedException e) {
+            Parser.run("command.zone.safezone.already-claimed")
+                    .parse("{registry}", e.getRegistry())
+                    .send(player);
+        }
     }
 }
