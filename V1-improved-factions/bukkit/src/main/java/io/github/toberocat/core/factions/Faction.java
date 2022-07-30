@@ -14,6 +14,7 @@ import io.github.toberocat.core.utility.exceptions.faction.leave.PlayerIsOwnerEx
 import io.github.toberocat.core.utility.exceptions.faction.relation.AlreadyInvitedException;
 import io.github.toberocat.core.utility.exceptions.faction.relation.CantInviteYourselfException;
 import io.github.toberocat.core.utility.exceptions.setting.SettingNotFoundException;
+import io.github.toberocat.core.utility.language.Parseable;
 import io.github.toberocat.core.utility.settings.type.RankSetting;
 import io.github.toberocat.core.utility.settings.type.Setting;
 import org.bukkit.Bukkit;
@@ -438,16 +439,16 @@ public interface Faction<F extends Faction<F>> {
     /**
      * Returns a stream of all the UUIDs of the invites that have been sent by your faction
      *
-     * @return A stream of UUIDs
+     * @return A stream of faction registries
      */
-    @NotNull Stream<UUID> getSentInvites();
+    @NotNull Stream<String> getSentInvites();
 
     /**
      * Returns a stream of all the invites that the faction has received.
      *
-     * @return A stream of UUIDs
+     * @return A stream of faction registries
      */
-    @NotNull Stream<UUID> getReceivedInvites();
+    @NotNull Stream<String> getReceivedInvites();
     /**
      * Adds an ally to the faction instantly
      *
@@ -533,7 +534,7 @@ public interface Faction<F extends Faction<F>> {
      *
      * @param key The key of the translatable message.
      */
-    void broadcastTranslatable(@NotNull String key);
+    void broadcastTranslatable(@NotNull String key, Parseable... parseables);
 
     /* Claim management */
 

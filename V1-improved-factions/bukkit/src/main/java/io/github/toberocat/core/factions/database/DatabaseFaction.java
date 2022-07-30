@@ -34,6 +34,7 @@ import io.github.toberocat.core.utility.exceptions.faction.relation.AlreadyInvit
 import io.github.toberocat.core.utility.exceptions.faction.relation.CantInviteYourselfException;
 import io.github.toberocat.core.utility.exceptions.setting.SettingNotFoundException;
 import io.github.toberocat.core.utility.language.Language;
+import io.github.toberocat.core.utility.language.Parseable;
 import io.github.toberocat.core.utility.settings.type.EnumSetting;
 import io.github.toberocat.core.utility.settings.type.RankSetting;
 import io.github.toberocat.core.utility.settings.type.Setting;
@@ -752,7 +753,9 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
      */
     @Override
     public void removeAllyInvite(@NotNull Faction<?> faction) {
-
+        database.evalTry("DELETE FROM ally_invites WHERE sender = %s AND receiver = %s",
+                        registry, faction.getRegistry())
+                .get(PreparedStatement::executeUpdate);
     }
 
     /**
@@ -762,27 +765,42 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
      */
     @Override
     public boolean isInvited(@NotNull Faction<?> faction) {
-        return false;
+        return database.rowSelect(new Select()
+                        .setTable("ally_invites")
+                        .setColumns("")
+                        .setFilter("sender = %s AND receiver = %s",
+                                registry, faction.getRegistry()))
+                .getRows().size() != 0;
     }
 
     /**
      * Returns a stream of all the UUIDs of the invites that have been sent by your faction
      *
-     * @return A stream of UUIDs
+     * @return A stream of faction registries
      */
     @Override
-    public @NotNull Stream<UUID> getSentInvites() {
-        return database.rowSelect(new Select());
+    public @NotNull Stream<String> getSentInvites() {
+        return database.rowSelect(new Select()
+                .setTable("ally_invites")
+                .setColumns("receiver")
+                .setFilter("sender = %s", registry))
+                .getRows()
+                .stream().map(x -> x.get("receiver").toString());
     }
 
     /**
      * Returns a stream of all the invites that the faction has received.
      *
-     * @return A stream of UUIDs
+     * @return A stream of faction registries
      */
     @Override
-    public @NotNull Stream<UUID> getReceivedInvites() {
-        return null;
+    public @NotNull Stream<String> getReceivedInvites() {
+        return database.rowSelect(new Select()
+                        .setTable("ally_invites")
+                        .setColumns("sender")
+                        .setFilter("receiver = %s", registry))
+                .getRows()
+                .stream().map(x -> x.get("sender").toString());
     }
 
     @Override
@@ -903,11 +921,11 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
      * @param key The key of the translatable message.
      */
     @Override
-    public void broadcastTranslatable(@NotNull String key) {
+    public void broadcastTranslatable(@NotNull String key, Parseable... parseables) {
         getMembers()
                 .map(Bukkit::getPlayer)
                 .filter(Objects::nonNull)
-                .forEach(player -> Language.sendMessage(key, player));
+                .forEach(player -> Language.sendMessage(key, player, parseables));
     }
 
     @Override

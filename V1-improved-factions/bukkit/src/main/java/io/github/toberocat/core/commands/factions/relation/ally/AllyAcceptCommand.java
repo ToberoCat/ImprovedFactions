@@ -1,18 +1,21 @@
-package io.github.toberocat.core.commands.factions.relation;
+package io.github.toberocat.core.commands.factions.relation.ally;
 
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.FactionManager;
+import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
+import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.core.utility.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.core.utility.language.Parser;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class AllyAcceptSubCommand extends SubCommand {
-    public AllyAcceptSubCommand() {
-        super("allyaccept", "relation.allyaccept",
-                "command.relation.ally-accept.description", false);
+public class AllyAcceptCommand extends SubCommand {
+    public AllyAcceptCommand() {
+        super("accept", "ally.accept",
+                "command.ally.accept.description", false);
     }
 
     @Override
@@ -44,9 +47,12 @@ public class AllyAcceptSubCommand extends SubCommand {
 
     @Override
     protected List<String> commandTab(Player player, String[] args) {
-        Faction faction = FactionManager.getPlayerFaction(player);
-        if (faction == null) return null;
-
-        return faction.getRelationManager().getAllyInvitations();
+        try {
+            Faction<?> faction = FactionHandler.getFaction(player);
+            return faction.getReceivedInvites().toList();
+        } catch (PlayerHasNoFactionException | FactionNotInStorage e) {
+            e.printStackTrace();
+            return List.of("error");
+        }
     }
 }

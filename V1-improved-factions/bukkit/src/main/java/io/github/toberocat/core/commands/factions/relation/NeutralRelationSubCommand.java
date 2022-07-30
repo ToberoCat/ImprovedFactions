@@ -12,7 +12,7 @@ import java.util.List;
 
 public class NeutralRelationSubCommand extends SubCommand {
     public NeutralRelationSubCommand() {
-        super("neutral", "relation.neutral", "command.relation.neutral.description", false);
+        super("removeRelation", "relation.neutral", "command.relation.neutral.description", false);
     }
 
     @Override

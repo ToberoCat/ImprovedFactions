@@ -1,12 +1,10 @@
 package io.github.toberocat.core.commands;
 
-import io.github.toberocat.MainIF;
 import io.github.toberocat.core.commands.admin.AdminSubCommand;
 import io.github.toberocat.core.commands.config.ConfigSubCommand;
 import io.github.toberocat.core.commands.extension.ExtensionSubCommand;
 import io.github.toberocat.core.commands.factions.*;
 import io.github.toberocat.core.commands.factions.claim.ClaimSubCommand;
-import io.github.toberocat.core.commands.factions.relation.RelationSubCommand;
 import io.github.toberocat.core.commands.factions.unclaim.UnclaimSubCommand;
 import io.github.toberocat.core.commands.plugin.PluginSubCommand;
 import io.github.toberocat.core.commands.reports.ReportSubCommand;
@@ -16,7 +14,6 @@ import io.github.toberocat.core.commands.zones.ZoneSubCommand;
 import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.language.Language;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
