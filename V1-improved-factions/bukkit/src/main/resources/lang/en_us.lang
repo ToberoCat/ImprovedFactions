@@ -5,6 +5,8 @@
     "command.prefix": "&7[&eIF&7]",
     "command.relation.ally.faction-not-found":  "&cCouldn't find faction {faction}. Check your spelling",
     "command.relation.ally.faction-owner-offline":  "&cCan't invite a faction whose owner is offline. Please wait until he gets online",
+    "command.relation.ally.frozen": "&cFaction {faction} is frozen",
+    "command.relation.ally.already-invited": "&cFaction {faction} is frozen",
 
     "command.faction.claim.chunk-already-claimed": "The chunk you tried to claim got already claimed by {claim}",
     "command.auto-radius.no-valid-radius": "You're given radius is no number",

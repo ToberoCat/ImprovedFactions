@@ -88,7 +88,7 @@ create table IF NOT EXISTS player_settings
 );
 
 -- Create messages
-create table messages
+create table IF NOT EXISTS messages
 (
     player  char(36)     not null,
     content varchar(255) not null,
@@ -97,23 +97,25 @@ create table messages
 );
 
 -- Create report table
-CREATE TABLE reports
+CREATE TABLE IF NOT EXISTS reports
 (
     registry varchar(@max_len) not null,
-    reporter char(36)    not null,
-    reason   text        not null,
+    reporter char(36)          not null,
+    reason   text              not null,
     constraint reports_pk
         primary key (registry, reporter)
 );
 
 -- Create invites
-create table invites
+create table IF NOT EXISTS ally_invites
 (
-    registry varchar(@max_len) not null,
-    invited varchar(@max_len) not null,
+    sender   varchar(@max_len) not null,
+    receiver varchar(@max_len) not null,
+    send_date datetime not null,
     constraint invites_pk
-        primary key (invited)
+        primary key (receiver)
 );
+
 
 
 

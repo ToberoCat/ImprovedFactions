@@ -421,13 +421,33 @@ public interface Faction<F extends Faction<F>> {
             FactionOwnerIsOfflineException, CantInviteYourselfException, AlreadyInvitedException;
 
     /**
+     * Removes an invitation to be allied with your faction
+     *
+     * @param faction The faction to remove the invite from.
+     */
+    void removeAllyInvite(@NotNull Faction<?> faction);
+
+    /**
      * Returns true if the faction got already invited
      *
-     * @param registry The registry of the faction you want to check if they are invited.
+     * @param faction The faction you want to check if they are invited.
      * @return if invited
      */
-    boolean isInvited(@NotNull String registry);
+    boolean isInvited(@NotNull Faction<?> faction);
 
+    /**
+     * Returns a stream of all the UUIDs of the invites that have been sent by your faction
+     *
+     * @return A stream of UUIDs
+     */
+    @NotNull Stream<UUID> getSentInvites();
+
+    /**
+     * Returns a stream of all the invites that the faction has received.
+     *
+     * @return A stream of UUIDs
+     */
+    @NotNull Stream<UUID> getReceivedInvites();
     /**
      * Adds an ally to the faction instantly
      *
@@ -497,6 +517,23 @@ public interface Faction<F extends Faction<F>> {
      * @return If successfully reseted.
      */
     boolean resetRelation(@NotNull F faction) throws FactionIsFrozenException;
+
+    /* Messages */
+
+    /**
+     * BroadcastMessage takes a String as message that should egt sent to everyone
+     *
+     * @param msg The message to broadcast to all members.
+     */
+    void broadcastMessage(@NotNull String msg);
+
+    /**
+     * Broadcast a translatable message to all players.
+     * The translation will be individual for each player based on their selected language
+     *
+     * @param key The key of the translatable message.
+     */
+    void broadcastTranslatable(@NotNull String key);
 
     /* Claim management */
 

@@ -69,6 +69,11 @@ general:
   mapViewDistanceH: 4
   mapViewDistanceW: 4
   autoMigrate: true
+sql:
+  host: "localhost"
+  user: "root"
+  port: 3306
+  password: "1234"
 debug:
   logLevel:
     - INFO

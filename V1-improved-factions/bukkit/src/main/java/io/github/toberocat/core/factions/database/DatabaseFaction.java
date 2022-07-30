@@ -14,8 +14,6 @@ import io.github.toberocat.core.factions.components.rank.members.OwnerRank;
 import io.github.toberocat.core.factions.components.report.FactionReports;
 import io.github.toberocat.core.factions.components.report.Report;
 import io.github.toberocat.core.factions.database.module.DatabaseModule;
-import io.github.toberocat.core.invite.AllyInvite;
-import io.github.toberocat.core.invite.InviteHandler;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.color.FactionColors;
 import io.github.toberocat.core.utility.data.Table;
@@ -35,6 +33,7 @@ import io.github.toberocat.core.utility.exceptions.faction.FactionOwnerIsOffline
 import io.github.toberocat.core.utility.exceptions.faction.relation.AlreadyInvitedException;
 import io.github.toberocat.core.utility.exceptions.faction.relation.CantInviteYourselfException;
 import io.github.toberocat.core.utility.exceptions.setting.SettingNotFoundException;
+import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.settings.type.EnumSetting;
 import io.github.toberocat.core.utility.settings.type.RankSetting;
 import io.github.toberocat.core.utility.settings.type.Setting;
@@ -59,7 +58,7 @@ import java.util.stream.Stream;
  * To allow the best performance, these two implementations are seperated by different classes,
  * so that there are no unnecessary if statements to check if it should sync now or not
  */
-public class DatabaseFaction extends Faction<DatabaseFaction> {
+public class DatabaseFaction implements Faction<DatabaseFaction> {
 
     private final MySqlDatabase database;
     private final LinkedHashMap<String, DatabaseModule> modules = new LinkedHashMap<>();
@@ -217,7 +216,8 @@ public class DatabaseFaction extends Faction<DatabaseFaction> {
     }
 
     /**
-     * Get the tag of the faction, get it from the database, if there is no tag, use the cached one
+     * Get the tag of the faction, get it from the database,
+     * if there is no tag, use the cached one
      *
      * @return The tag of the faction.
      */
@@ -435,7 +435,8 @@ public class DatabaseFaction extends Faction<DatabaseFaction> {
             setting.fromString(value);
             return setting;
         } catch (ClassNotFoundException | NoSuchMethodException |
-                InstantiationException | IllegalAccessException | InvocationTargetException ignored) {
+                InstantiationException | IllegalAccessException |
+                InvocationTargetException ignored) {
             throw new SettingNotFoundException(permission);
         }
     }
@@ -552,7 +553,8 @@ public class DatabaseFaction extends Faction<DatabaseFaction> {
     }
 
     @Override
-    public boolean joinPlayer(@NotNull Player player, @NotNull Rank rank) throws FactionIsFrozenException {
+    public boolean joinPlayer(@NotNull Player player, @NotNull Rank rank)
+            throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (isMember(player)) return false;
 
@@ -666,7 +668,8 @@ public class DatabaseFaction extends Faction<DatabaseFaction> {
         return getActiveMembers()
                 .reduce(BigDecimal.ZERO,
                         (bigDecimal, player) ->
-                                bigDecimal.add(BigDecimal.valueOf(playerPower(player.getUniqueId()))),
+                                bigDecimal.add(BigDecimal
+                                        .valueOf(playerPower(player.getUniqueId()))),
                         BigDecimal::add);
     }
 
@@ -696,7 +699,8 @@ public class DatabaseFaction extends Faction<DatabaseFaction> {
         return getActiveMembers()
                 .reduce(BigDecimal.ZERO,
                         (bigDecimal, player) ->
-                                bigDecimal.add(BigDecimal.valueOf(maxPlayerPower(player.getUniqueId()))),
+                                bigDecimal.add(BigDecimal.valueOf(
+                                        maxPlayerPower(player.getUniqueId()))),
                         BigDecimal::add);
     }
 
@@ -731,29 +735,55 @@ public class DatabaseFaction extends Faction<DatabaseFaction> {
             FactionOwnerIsOfflineException, CantInviteYourselfException, AlreadyInvitedException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (faction.getRegistry().equals(registry)) throw new CantInviteYourselfException();
-        if (isInvited(faction.getRegistry())) throw new AlreadyInvitedException(faction);
+        if (isInvited(faction)) throw new AlreadyInvitedException(faction);
 
         Player invitedOwner = Bukkit.getPlayer(faction.getOwner());
         if (invitedOwner == null) throw new FactionOwnerIsOfflineException(faction);
 
-        Player inviterOwner = Bukkit.getPlayer(getOwner());
-        if (inviterOwner == null) throw new FactionOwnerIsOfflineException(this);
+        database.evalTry("INSERT INTO ally_invites VALUES (%s, %s, NOW())",
+                registry, faction.getRegistry())
+                .get(PreparedStatement::executeUpdate);
+    }
 
-        InviteHandler.createInvite(inviterOwner, invitedOwner,
-                new AllyInvite(invitedOwner, this, faction));
+    /**
+     * Removes an invitation to be allied with your faction
+     *
+     * @param faction The faction to remove the invite from.
+     */
+    @Override
+    public void removeAllyInvite(@NotNull Faction<?> faction) {
+
     }
 
     /**
      * Returns true if the faction got already invited
      *
-     * @param registry The registry of the faction you want to check if they are invited.
-     * @return if invited
+     * @param faction@return if invited
      */
     @Override
-    public boolean isInvited(@NotNull String registry) {
+    public boolean isInvited(@NotNull Faction<?> faction) {
         return false;
     }
 
+    /**
+     * Returns a stream of all the UUIDs of the invites that have been sent by your faction
+     *
+     * @return A stream of UUIDs
+     */
+    @Override
+    public @NotNull Stream<UUID> getSentInvites() {
+        return database.rowSelect(new Select());
+    }
+
+    /**
+     * Returns a stream of all the invites that the faction has received.
+     *
+     * @return A stream of UUIDs
+     */
+    @Override
+    public @NotNull Stream<UUID> getReceivedInvites() {
+        return null;
+    }
 
     @Override
     public boolean addAlly(@NotNull Faction<?> faction) throws FactionIsFrozenException {
@@ -779,7 +809,8 @@ public class DatabaseFaction extends Faction<DatabaseFaction> {
         return !setStatus(faction, enemyId);
     }
 
-    private boolean setStatus(@NotNull Faction<?> faction, int status) throws FactionIsFrozenException {
+    private boolean setStatus(@NotNull Faction<?> faction, int status)
+            throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
         String registry = faction.getRegistry();
@@ -839,15 +870,44 @@ public class DatabaseFaction extends Faction<DatabaseFaction> {
     }
 
     @Override
-    public boolean resetRelation(@NotNull DatabaseFaction faction) throws FactionIsFrozenException {
+    public boolean resetRelation(@NotNull DatabaseFaction faction)
+            throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
         String registry = faction.getRegistry();
 
-        database.evalTry("DELETE FROM faction_relations WHERE relation_registry_id = %s", registry)
+        database.evalTry("DELETE FROM faction_relations WHERE " +
+                        "relation_registry_id = %s", registry)
                 .get(PreparedStatement::executeUpdate);
 
         return true;
+    }
+
+    /**
+     * BroadcastMessage takes a String as message that should egt sent to everyone
+     *
+     * @param msg The message to broadcast to all members.
+     */
+    @Override
+    public void broadcastMessage(@NotNull String msg) {
+        getMembers()
+                .map(Bukkit::getPlayer)
+                .filter(Objects::nonNull)
+                .forEach(player -> player.sendMessage(msg));
+    }
+
+    /**
+     * Broadcast a translatable message to all players.
+     * The translation will be individual for each player based on their selected language
+     *
+     * @param key The key of the translatable message.
+     */
+    @Override
+    public void broadcastTranslatable(@NotNull String key) {
+        getMembers()
+                .map(Bukkit::getPlayer)
+                .filter(Objects::nonNull)
+                .forEach(player -> Language.sendMessage(key, player));
     }
 
     @Override
@@ -870,7 +930,8 @@ public class DatabaseFaction extends Faction<DatabaseFaction> {
             s.fromString(value);
             return s;
         } catch (ClassNotFoundException | NoSuchMethodException |
-                InstantiationException | IllegalAccessException | InvocationTargetException ignored) {
+                InstantiationException | IllegalAccessException |
+                InvocationTargetException ignored) {
             throw new SettingNotFoundException(setting);
         }
     }
@@ -893,7 +954,8 @@ public class DatabaseFaction extends Faction<DatabaseFaction> {
                         .setColumns("reporter", "reasons")
                         .setFilter("registry = %s", registry))
                         .getRows()
-                        .stream().map(x -> new Report(UUID.fromString(x.get("reporter").toString()),
+                        .stream().map(x -> new Report(UUID
+                                .fromString(x.get("reporter").toString()),
                                 x.get("reason").toString()));
             }
         };
@@ -936,5 +998,10 @@ public class DatabaseFaction extends Faction<DatabaseFaction> {
         FactionModule<DatabaseFaction> module = clazz.getConstructor(classes.toArray(Class[]::new))
                 .newInstance(parameters);
         modules.put(module.registry(), (DatabaseModule) module);
+    }
+
+    @Override
+    public String toString() {
+        return getRegistry();
     }
 }

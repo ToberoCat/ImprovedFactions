@@ -1,2 +1,2 @@
-INSERT INTO messages
-VALUE (%s, %s)
+DELETE FROM invites
+WHERE id = %s

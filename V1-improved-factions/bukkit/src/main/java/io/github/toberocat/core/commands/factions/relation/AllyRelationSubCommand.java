@@ -2,13 +2,15 @@ package io.github.toberocat.core.commands.factions.relation;
 
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.handler.FactionHandler;
-import io.github.toberocat.core.invite.AllyInvite;
-import io.github.toberocat.core.invite.InviteHandler;
+import io.github.toberocat.core.invite.components.AllyInvite;
+import io.github.toberocat.core.invite.handler.InviteHandler;
 import io.github.toberocat.core.utility.command.SubCommand;
 import io.github.toberocat.core.utility.command.SubCommandSettings;
+import io.github.toberocat.core.utility.exceptions.faction.FactionIsFrozenException;
 import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.core.utility.exceptions.faction.FactionOwnerIsOfflineException;
 import io.github.toberocat.core.utility.exceptions.faction.PlayerHasNoFactionException;
+import io.github.toberocat.core.utility.exceptions.faction.relation.AlreadyInvitedException;
 import io.github.toberocat.core.utility.exceptions.faction.relation.CantInviteYourselfException;
 import io.github.toberocat.core.utility.language.Language;
 import io.github.toberocat.core.utility.language.Parser;
@@ -18,7 +20,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class AllyRelationSubCommand extends SubCommand {
 
@@ -37,7 +38,7 @@ public class AllyRelationSubCommand extends SubCommand {
     @Override
     protected void commandExecute(Player player, String[] args) {
         try {
-            sendInvite(player, FactionHandler.getFaction(player), FactionHandler.getFaction(args[0]));
+            FactionHandler.getFaction(player).inviteAlly(FactionHandler.getFaction(args[0]));
         } catch (PlayerHasNoFactionException e) {
             e.printStackTrace(); // This shouldn't happen, due to it being a requirement
         } catch (CantInviteYourselfException e) {
@@ -48,6 +49,10 @@ public class AllyRelationSubCommand extends SubCommand {
             Parser.run("command.relation.ally.faction-not-found")
                     .parse("{faction}", args[0])
                     .send(player);
+        } catch (FactionIsFrozenException e) {
+            e.printStackTrace();
+        } catch (AlreadyInvitedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -62,17 +67,5 @@ public class AllyRelationSubCommand extends SubCommand {
             e.printStackTrace();
             return new ArrayList<>();
         }
-    }
-
-    private void sendInvite(@NotNull Player player, @NotNull Faction<?> inviter, @NotNull Faction<?> invited)
-            throws CantInviteYourselfException, FactionOwnerIsOfflineException {
-        if (invited.getRegistry().equals(inviter.getRegistry())) throw new CantInviteYourselfException();
-        if (player.)
-
-        Player receiver = Bukkit.getPlayer(invited.getOwner());
-        if (receiver == null) throw new FactionOwnerIsOfflineException(invited);
-
-        //ToDo: Add faction option to don't accept invites
-        InviteHandler.createInvite(player, receiver, new AllyInvite(player, inviter, invited));
     }
 }
