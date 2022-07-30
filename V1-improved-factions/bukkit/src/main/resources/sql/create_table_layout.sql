@@ -106,6 +106,17 @@ CREATE TABLE reports
         primary key (registry, reporter)
 );
 
+-- Create invites
+create table invites
+(
+    registry varchar(@max_len) not null,
+    invited varchar(@max_len) not null,
+    constraint invites_pk
+        primary key (invited)
+);
+
+
+
 
 
 

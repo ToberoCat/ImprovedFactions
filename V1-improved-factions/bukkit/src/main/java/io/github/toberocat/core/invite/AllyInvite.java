@@ -1,28 +1,38 @@
 package io.github.toberocat.core.invite;
 
 import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.handler.FactionHandler;
+import io.github.toberocat.core.utility.Utility;
 import io.github.toberocat.core.utility.exceptions.faction.FactionIsFrozenException;
-import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
-import io.github.toberocat.core.utility.exceptions.faction.PlayerHasNoFactionException;
+import io.github.toberocat.core.utility.exceptions.faction.FactionOwnerIsOfflineException;
 import io.github.toberocat.core.utility.language.Parser;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.UUID;
 
 public class AllyInvite extends Invite {
 
     private final Faction<?> inviter;
     private final Faction<?> invited;
 
-    public AllyInvite(@NotNull UUID inviteId,
-                      @NotNull UUID receiver,
-                      long duration) throws FactionNotInStorage, PlayerHasNoFactionException {
-        super(inviteId, receiver, duration);
-        this.inviter = FactionHandler.getFaction(Bukkit.getOfflinePlayer(inviteId));
-        this.invited = FactionHandler.getFaction(Bukkit.getOfflinePlayer(inviteId));
+    public AllyInvite(@NotNull Player inviter,
+                      @NotNull Faction<?> inviterFaction,
+                      @NotNull Faction<?> invitedFaction,
+                      long duration) throws FactionOwnerIsOfflineException {
+        super(inviter.getUniqueId(), invitedFaction.getOwner(), duration);
+        if (!Utility.isOnline(invitedFaction.getOwner()))
+            throw new FactionOwnerIsOfflineException(invitedFaction);
+
+        this.inviter = inviterFaction;
+        this.invited = invitedFaction;
+    }
+
+    public AllyInvite(@NotNull Player inviter,
+                      @NotNull Faction<?> inviterFaction,
+                      @NotNull Faction<?> invitedFaction) {
+        super(inviter.getUniqueId(), invitedFaction.getOwner(), DEFAULT_DURATION);
+
+        this.inviter = inviterFaction;
+        this.invited = invitedFaction;
     }
 
     @Override

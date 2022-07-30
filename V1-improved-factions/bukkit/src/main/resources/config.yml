@@ -1,9 +1,3 @@
-commands:
-  forbidden:
-    - 'tellraw @a {"text":"This word, {word}, is maybe similar to {similar}. Used: {player_name},
-    {player_uuid} while {task}. {similarityPer}% similar "}'
-  standby:
-    - tellraw @a {"text":"Standby enabled"}
 faction:
   invitationTimeout: 300
   maxTagLen: 3
@@ -60,6 +54,8 @@ gui:
   closeGuiCps: 10
   maxCps: 5
 general:
+  invite:
+    invite-runout-time: 6000 # 600 ticks -> 5 minutes. 5 * 60 * 20 = 6000 ticks
   limit-chunks-to-power: false
   disabledWorlds:
     - FactionsWontWorkHere
@@ -78,4 +74,10 @@ debug:
     - INFO
     - WARNING
     - SEVERE
+commands:
+  forbidden:
+    - 'tellraw @a {"text":"This word, {word}, is maybe similar to {similar}. Used: {player_name},
+    {player_uuid} while {task}. {similarityPer}% similar "}'
+  standby:
+    - tellraw @a {"text":"Standby enabled"}
 version: 1.5.1

@@ -46,6 +46,10 @@ public class Utility {
         }
     }
 
+    public static boolean isOnline(@NotNull UUID player) {
+        return Bukkit.getPlayer(player) != null;
+    }
+
     private static boolean isInternetAvailable() {
         try {
             final URL url = new URL("https://www.github.com");

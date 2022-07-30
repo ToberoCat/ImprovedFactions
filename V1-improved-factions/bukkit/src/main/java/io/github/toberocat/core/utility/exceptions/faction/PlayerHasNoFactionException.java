@@ -1,7 +1,6 @@
 package io.github.toberocat.core.utility.exceptions.faction;
 
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class PlayerHasNoFactionException extends Exception {

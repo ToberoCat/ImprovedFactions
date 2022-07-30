@@ -9,6 +9,9 @@ import java.util.UUID;
 
 public abstract class Invite {
 
+    public static final long DEFAULT_DURATION =
+            MainIF.config().getInt("general.invite.invite-runout-time", 6000);
+
     protected final UUID inviteId;
     protected final UUID receiver;
     protected final int taskId;

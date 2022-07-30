@@ -3,6 +3,9 @@
   "credits": "Thanks for this amazing support from everyone who uses this plugin",
   "messages": {
     "command.prefix": "&7[&eIF&7]",
+    "command.relation.ally.faction-not-found":  "&cCouldn't find faction {faction}. Check your spelling",
+    "command.relation.ally.faction-owner-offline":  "&cCan't invite a faction whose owner is offline. Please wait until he gets online",
+
     "command.faction.claim.chunk-already-claimed": "The chunk you tried to claim got already claimed by {claim}",
     "command.auto-radius.no-valid-radius": "You're given radius is no number",
     "faction.broadcast.prefix": "&7[&e{faction}&7] &r{message}",
@@ -151,7 +154,7 @@
     "command.relation.accept.description": "&fAccept a relation with a faction for being allies",
     "command.relation.accept.success": "&a&fSuccessfully&f accepted the invitation of &e{faction}&f. You are now allies. Change their permissions using the rank system",
     "command.relation.ally.description": "&fSet a faction to your allies. Set their permissions with the rank",
-    "command.relation.ally.fail": "&c&lFailed&f to set {faction} to your allies. Caused by {error}",
+    "command.relation.ally.cant-invite-yourself": "&cYou can't invite yourself to be allied with itself",
     "command.relation.ally.invitation": "&e{faction}&f wants to be allied with you. You want to accept it? Use &8/f relation accept {inviter}&f or &8/f relation reject {inviter}",
     "command.relation.ally.success": "&a&lSuccessfully&f invited {faction} to be your allies",
     "command.relation.description": "&fManage your relations",

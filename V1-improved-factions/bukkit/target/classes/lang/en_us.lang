@@ -3,6 +3,7 @@
   "credits": "Thanks for this amazing support from everyone who uses this plugin",
   "messages": {
     "command.prefix": "&7[&eIF&7]",
+    "command.relation.ally.faction-not-found":  "&cCouldn't find faction {faction}. Check your spelling",
     "command.faction.claim.chunk-already-claimed": "The chunk you tried to claim got already claimed by {claim}",
     "command.auto-radius.no-valid-radius": "You're given radius is no number",
     "faction.broadcast.prefix": "&7[&e{faction}&7] &r{message}",
@@ -16,6 +17,18 @@
     "command.faction.leave.frozen": "&cOh no, looks like you can't leave your faction at it's current state. It's &bfrozen",
     "command.faction.leave.owner": "&cOh no, looks like you can't leave",
 
+    "invite.faction.frozen": "The faction is &bfrozen&7. Please try to join later",
+    "invite.faction.joined": "You accepted the invite of {inviter}. You now joined &e{faction}&7 as &e{rank}",
+    "invite.faction.cancel": "&cInvite to join &e{faction}&7 got cancelled",
+    "invite.faction.out-of-time": "You ran out of time to accept the invite to join &e{faction}",
+
+    "invite.ally.frozen-inviter": "Your faction is &bfrozen.&7 You can't invite anyone",
+    "invite.ally.frozen-invited": "Invited faction is &bfrozen.&7 They can't accept a invite",
+    "invite.ally.joined": "You accepted the invite of {inviter}. You now joined &e{faction}&7 as &e{rank}",
+    "invite.ally.accepted": "&e{invited}&7 accepted your invite to be allied. Give them a warm welcome",
+    "invite.ally.cancel": "&cInvite to join &e{faction}&7 got cancelled",
+    "invite.ally.out-of-time": "You ran out of time to accept the invite to join &e{faction}",
+
     "command.too-less-args": "This command requires &b{required} &7 you gave &c{given}",
     "command.too-many-args": "This command requires &b{required} &7 you gave &c{given}",
     "command.arent-allowed-faction": "You aren't allowed to be in a faction",
@@ -24,6 +37,7 @@
     "command.not-enough-faction-permission": "&cYour faction prohibits the usage of this command for you",
     "command.report.description": "You want to report a faction? Do it using this command",
     "command.report.faction-not-found": "&cHm, looks like the faction wasn't to be found",
+    "command.zone.safezone.already-claimed": "This chunk got already claimed by {registry}",
 
     "player.faction-got-deleted": "We're sorry to tell you about it, but your beloved faction got deleted",
 
@@ -138,7 +152,7 @@
     "command.relation.accept.description": "&fAccept a relation with a faction for being allies",
     "command.relation.accept.success": "&a&fSuccessfully&f accepted the invitation of &e{faction}&f. You are now allies. Change their permissions using the rank system",
     "command.relation.ally.description": "&fSet a faction to your allies. Set their permissions with the rank",
-    "command.relation.ally.fail": "&c&lFailed&f to set {faction} to your allies. Caused by {error}",
+    "command.relation.ally.cant-invite-yourself": "&cYou can't invite yourself to be allied with itself",
     "command.relation.ally.invitation": "&e{faction}&f wants to be allied with you. You want to accept it? Use &8/f relation accept {inviter}&f or &8/f relation reject {inviter}",
     "command.relation.ally.success": "&a&lSuccessfully&f invited {faction} to be your allies",
     "command.relation.description": "&fManage your relations",

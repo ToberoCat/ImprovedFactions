@@ -14,6 +14,8 @@ import io.github.toberocat.core.factions.components.rank.members.OwnerRank;
 import io.github.toberocat.core.factions.components.report.FactionReports;
 import io.github.toberocat.core.factions.components.report.Report;
 import io.github.toberocat.core.factions.database.module.DatabaseModule;
+import io.github.toberocat.core.invite.AllyInvite;
+import io.github.toberocat.core.invite.InviteHandler;
 import io.github.toberocat.core.utility.async.AsyncTask;
 import io.github.toberocat.core.utility.color.FactionColors;
 import io.github.toberocat.core.utility.data.Table;
@@ -29,6 +31,9 @@ import io.github.toberocat.core.utility.events.faction.*;
 import io.github.toberocat.core.utility.exceptions.DescriptionHasNoLine;
 import io.github.toberocat.core.utility.exceptions.faction.FactionHandlerNotFound;
 import io.github.toberocat.core.utility.exceptions.faction.FactionIsFrozenException;
+import io.github.toberocat.core.utility.exceptions.faction.FactionOwnerIsOfflineException;
+import io.github.toberocat.core.utility.exceptions.faction.relation.AlreadyInvitedException;
+import io.github.toberocat.core.utility.exceptions.faction.relation.CantInviteYourselfException;
 import io.github.toberocat.core.utility.exceptions.setting.SettingNotFoundException;
 import io.github.toberocat.core.utility.settings.type.EnumSetting;
 import io.github.toberocat.core.utility.settings.type.RankSetting;
@@ -714,6 +719,41 @@ public class DatabaseFaction extends Faction<DatabaseFaction> {
                 .readRow(Double.class, "maxPower")
                 .orElse(Double.NaN);
     }
+
+    /**
+     * Invite a faction to be an ally. The owner needs to be online
+     * *
+     *
+     * @param faction The faction to invite.
+     */
+    @Override
+    public void inviteAlly(@NotNull Faction<?> faction) throws FactionIsFrozenException,
+            FactionOwnerIsOfflineException, CantInviteYourselfException, AlreadyInvitedException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+        if (faction.getRegistry().equals(registry)) throw new CantInviteYourselfException();
+        if (isInvited(faction.getRegistry())) throw new AlreadyInvitedException(faction);
+
+        Player invitedOwner = Bukkit.getPlayer(faction.getOwner());
+        if (invitedOwner == null) throw new FactionOwnerIsOfflineException(faction);
+
+        Player inviterOwner = Bukkit.getPlayer(getOwner());
+        if (inviterOwner == null) throw new FactionOwnerIsOfflineException(this);
+
+        InviteHandler.createInvite(inviterOwner, invitedOwner,
+                new AllyInvite(invitedOwner, this, faction));
+    }
+
+    /**
+     * Returns true if the faction got already invited
+     *
+     * @param registry The registry of the faction you want to check if they are invited.
+     * @return if invited
+     */
+    @Override
+    public boolean isInvited(@NotNull String registry) {
+        return false;
+    }
+
 
     @Override
     public boolean addAlly(@NotNull Faction<?> faction) throws FactionIsFrozenException {
