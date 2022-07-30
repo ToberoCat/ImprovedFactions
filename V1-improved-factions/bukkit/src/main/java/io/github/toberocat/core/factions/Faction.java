@@ -434,7 +434,15 @@ public interface Faction<F extends Faction<F>> {
      * @param faction The faction you want to check if they are invited.
      * @return if invited
      */
-    boolean isInvited(@NotNull Faction<?> faction);
+    boolean hasInvited(@NotNull Faction<?> faction);
+
+    /**
+     * Returns true if this faction was invited by the given faction.
+     *
+     * @param faction The faction you want to check if you got invited by.
+     * @return If invited
+     */
+    boolean hasBeenInvitedBy(@NotNull Faction<?> faction);
 
     /**
      * Returns a stream of all the UUIDs of the invites that have been sent by your faction
@@ -517,7 +525,7 @@ public interface Faction<F extends Faction<F>> {
      * @param faction The faction to reset the relation of.
      * @return If successfully reseted.
      */
-    boolean resetRelation(@NotNull F faction) throws FactionIsFrozenException;
+    boolean resetRelation(@NotNull Faction<?> faction) throws FactionIsFrozenException;
 
     /* Messages */
 

@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
+// ToDo: Add new gui for managing relations
 public class FactionSettingsGui extends TabbedGui {
     public FactionSettingsGui(Player player) {
         super(player, createInventory(player));

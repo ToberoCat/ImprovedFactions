@@ -3,6 +3,12 @@
   "credits": "Thanks for this amazing support from everyone who uses this plugin",
   "messages": {
     "command.prefix": "&7[&eIF&7]",
+
+    "command.ally.cancel.description": "Cancel a pending ally invite",
+    "command.ally.cancel.success": "You cancelled the invite",
+    "command.ally.cancel.faction-not-found": "Faction wasn't to be found",
+    "command.ally.cancel.broadcast": "Ally invitation for {faction} got cancelled",
+
     "command.ally.invite.description": "Invite a faction to be allied with you",
     "command.ally.invite.faction-not-found":  "&cCouldn't find faction {faction}. Check your spelling",
     "command.ally.invite.faction-owner-offline":  "&cCan't invite a faction whose owner is offline. Please wait until he gets online",
@@ -11,6 +17,12 @@
     "command.ally.invite.invited": "You have invited {faction} to be your ally",
     "command.ally.invite.broadcast": "{player} invited {faction} to be allied with you",
     "command.ally.description": "Manage your allies",
+
+    "command.ally.remove.description": "Remove a ally from your faction",
+    "command.ally.remove.faction-not-found": "Didn't find the allied faction you where searching for",
+    "command.ally.remove.faction-frozen": "Faction &e{faction} &7is frozen",
+    "command.ally.remove.removed-ally": "Removed {faction} form allies",
+    "command.ally.remove.removed-broadcast": "{faction} is no longer your ally",
 
     "command.faction.claim.chunk-already-claimed": "The chunk you tried to claim got already claimed by {claim}",
     "command.auto-radius.no-valid-radius": "You're given radius is no number",
@@ -60,9 +72,13 @@
     "command.faction.create.whats-next.1": "Invite someone: &b/f invite <player>",
     "command.faction.delete.confirm": "Please confirm your action. Use &7/f delete confirm &f to confirm",
     "command.faction.leave.confirm": "Please confirm your action. Use &7/f leave confirm &f to confirm",
-    "command.ally.accept.accept": "Accepted the invite from {faction}",
-    "command.ally.accept.no-invite": "&cYou have no invite from {faction}",
+    "command.ally.accept.faction-not-found": "The faction you where searching wasn't to be found",
+    "command.ally.accept.faction-frozen": "Faction &e{faction} &7is frozen",
+    "command.ally.accept.accepted": "You accepted the invite of {faction}. You're now allied with them",
+    "command.ally.accept.no-invite": "&cYou have no invite from this faction",
     "command.ally.accept.description": "Accept an invite you got from any faction",
+    "command.ally.accept.broadcast": "Faction &e{faction}&7 accepted your invite. You're now allied with {faction}",
+
     "command.world-disabled": "The world is disabled. Can't use this commands here",
     "command.power.description": "Get how much power you have left",
     "command.power.success": "Your factions has &b{power}",

@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
+// ToDo Replace with gui
 public class AllySubCommand extends SubCommand {
     public AllySubCommand() {
         super("ally", "command.ally.description", true);

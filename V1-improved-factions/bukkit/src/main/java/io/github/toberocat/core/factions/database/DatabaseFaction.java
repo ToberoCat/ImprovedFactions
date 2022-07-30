@@ -736,13 +736,13 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
             FactionOwnerIsOfflineException, CantInviteYourselfException, AlreadyInvitedException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (faction.getRegistry().equals(registry)) throw new CantInviteYourselfException();
-        if (isInvited(faction)) throw new AlreadyInvitedException(faction);
+        if (hasInvited(faction)) throw new AlreadyInvitedException(faction);
 
         Player invitedOwner = Bukkit.getPlayer(faction.getOwner());
         if (invitedOwner == null) throw new FactionOwnerIsOfflineException(faction);
 
         database.evalTry("INSERT INTO ally_invites VALUES (%s, %s, NOW())",
-                registry, faction.getRegistry())
+                        registry, faction.getRegistry())
                 .get(PreparedStatement::executeUpdate);
     }
 
@@ -764,12 +764,28 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
      * @param faction@return if invited
      */
     @Override
-    public boolean isInvited(@NotNull Faction<?> faction) {
+    public boolean hasInvited(@NotNull Faction<?> faction) {
         return database.rowSelect(new Select()
                         .setTable("ally_invites")
                         .setColumns("")
                         .setFilter("sender = %s AND receiver = %s",
                                 registry, faction.getRegistry()))
+                .getRows().size() != 0;
+    }
+
+    /**
+     * Returns true if this faction was invited by the given faction.
+     *
+     * @param faction The faction you want to check if you got invited by.
+     * @return If invited
+     */
+    @Override
+    public boolean hasBeenInvitedBy(@NotNull Faction<?> faction) {
+        return database.rowSelect(new Select()
+                        .setTable("ally_invites")
+                        .setColumns("")
+                        .setFilter("sender = %s AND receiver = %s",
+                                faction.getRegistry(), registry))
                 .getRows().size() != 0;
     }
 
@@ -781,9 +797,9 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     @Override
     public @NotNull Stream<String> getSentInvites() {
         return database.rowSelect(new Select()
-                .setTable("ally_invites")
-                .setColumns("receiver")
-                .setFilter("sender = %s", registry))
+                        .setTable("ally_invites")
+                        .setColumns("receiver")
+                        .setFilter("sender = %s", registry))
                 .getRows()
                 .stream().map(x -> x.get("receiver").toString());
     }
@@ -888,7 +904,7 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     @Override
-    public boolean resetRelation(@NotNull DatabaseFaction faction)
+    public boolean resetRelation(@NotNull Faction<?> faction)
             throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
@@ -968,9 +984,9 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
             @Override
             public @NotNull Stream<Report> getReports() {
                 return database.rowSelect(new Select()
-                        .setTable("reports")
-                        .setColumns("reporter", "reasons")
-                        .setFilter("registry = %s", registry))
+                                .setTable("reports")
+                                .setColumns("reporter", "reasons")
+                                .setFilter("registry = %s", registry))
                         .getRows()
                         .stream().map(x -> new Report(UUID
                                 .fromString(x.get("reporter").toString()),

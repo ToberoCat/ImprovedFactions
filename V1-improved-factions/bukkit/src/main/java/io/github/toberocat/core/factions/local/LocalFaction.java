@@ -14,6 +14,7 @@ import io.github.toberocat.core.factions.components.rank.members.AdminRank;
 import io.github.toberocat.core.factions.components.rank.members.FactionRank;
 import io.github.toberocat.core.factions.components.rank.members.MemberRank;
 import io.github.toberocat.core.factions.components.rank.members.OwnerRank;
+import io.github.toberocat.core.factions.components.report.FactionReports;
 import io.github.toberocat.core.factions.handler.FactionHandler;
 import io.github.toberocat.core.factions.local.managers.FactionMemberManager;
 import io.github.toberocat.core.factions.local.managers.FactionPerm;
@@ -28,7 +29,11 @@ import io.github.toberocat.core.utility.events.faction.*;
 import io.github.toberocat.core.utility.exceptions.DescriptionHasNoLine;
 import io.github.toberocat.core.utility.exceptions.faction.FactionIsFrozenException;
 import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.core.utility.exceptions.faction.FactionOwnerIsOfflineException;
+import io.github.toberocat.core.utility.exceptions.faction.relation.AlreadyInvitedException;
+import io.github.toberocat.core.utility.exceptions.faction.relation.CantInviteYourselfException;
 import io.github.toberocat.core.utility.exceptions.setting.SettingNotFoundException;
+import io.github.toberocat.core.utility.language.Parseable;
 import io.github.toberocat.core.utility.settings.type.EnumSetting;
 import io.github.toberocat.core.utility.settings.type.RankSetting;
 import io.github.toberocat.core.utility.settings.type.Setting;
@@ -47,7 +52,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class LocalFaction extends Faction<LocalFaction> {
+public class LocalFaction implements Faction<LocalFaction> {
 
     @JsonIgnore
     private static final FileAccess access = FileAccess.accessPipeline(FileAccess.class);
@@ -108,7 +113,8 @@ public class LocalFaction extends Faction<LocalFaction> {
      */
     @Override
     public void createFromStorage(@NotNull String loadRegistry) {
-        throw new NotImplementedException("A local faction can't get created using Faction#createFromStorage(String)");
+        throw new NotImplementedException("A local faction can't get created using " +
+                "Faction#createFromStorage(String)");
     }
 
     /**
@@ -223,7 +229,8 @@ public class LocalFaction extends Faction<LocalFaction> {
             }
 
             @Override
-            public void setLine(int line, @NotNull String content) throws FactionIsFrozenException {
+            public void setLine(int line, @NotNull String content)
+                    throws FactionIsFrozenException {
                 if (isFrozen()) throw new FactionIsFrozenException(registry);
 
                 if (line >= description.size()) description.add(content);
@@ -298,7 +305,8 @@ public class LocalFaction extends Faction<LocalFaction> {
     /**
      * Sets whether the faction is permanent or not
      *
-     * @param permanent If true, the faction will be stored permanently. If false, the faction needs to be
+     * @param permanent If true, the faction will be stored permanently.
+     *                  If false, the faction needs to be
      *                  deleted when the owner tries to leave
      */
     @Override
@@ -350,7 +358,8 @@ public class LocalFaction extends Faction<LocalFaction> {
      * @return A RankSetting instance.
      */
     @Override
-    public @NotNull RankSetting getPermission(@NotNull String permission) throws SettingNotFoundException {
+    public @NotNull RankSetting getPermission(@NotNull String permission)
+            throws SettingNotFoundException {
         if (!factionPermissions.getRankSetting().containsKey(permission))
             throw new SettingNotFoundException(permission);
         return factionPermissions.getRankSetting().get(permission);
@@ -364,7 +373,8 @@ public class LocalFaction extends Faction<LocalFaction> {
      * @return If the permission is allowed for the specified player
      */
     @Override
-    public boolean hasPermission(@NotNull OfflinePlayer player, @NotNull String permission) throws SettingNotFoundException {
+    public boolean hasPermission(@NotNull OfflinePlayer player, @NotNull String permission)
+            throws SettingNotFoundException {
         RankSetting setting = getPermission(permission);
         return setting.hasPermission(getPlayerRank(player));
     }
@@ -406,8 +416,8 @@ public class LocalFaction extends Faction<LocalFaction> {
         factionPermissions.setRank(player, OwnerRank.registry);
         factionPermissions.setRank(currentOwner, AdminRank.registry);
 
-        Bukkit.getServer().getPluginManager().callEvent(new FactionTransferOwnershipEvent(this,
-                currentOwner, player));
+        Bukkit.getServer().getPluginManager().callEvent(new FactionTransferOwnershipEvent(
+                this, currentOwner, player));
     }
 
     /**
@@ -610,7 +620,8 @@ public class LocalFaction extends Faction<LocalFaction> {
                 .map(Bukkit::getOfflinePlayer)
                 .filter(OfflinePlayer::isOnline)
                 .reduce(BigDecimal.ZERO,
-                        (bigDecimal, x) -> bigDecimal.add(BigDecimal.valueOf(maxPlayerPower(x.getUniqueId()))),
+                        (bigDecimal, x) ->
+                                bigDecimal.add(BigDecimal.valueOf(maxPlayerPower(x.getUniqueId()))),
                         BigDecimal::add
                 );
     }
@@ -624,7 +635,8 @@ public class LocalFaction extends Faction<LocalFaction> {
      */
     @Override
     public double playerPower(@NotNull UUID player) {
-        throw new NotImplementedException("PowerPerPlayer isn't implemented for local faction yet. Please do it Tobero!");
+        throw new NotImplementedException("PowerPerPlayer isn't implemented for local faction yet. " +
+                "Please do it Tobero!");
     }
 
     /**
@@ -635,7 +647,72 @@ public class LocalFaction extends Faction<LocalFaction> {
      */
     @Override
     public double maxPlayerPower(@NotNull UUID player) {
-        throw new NotImplementedException("PowerPerPlayer isn't implemented for local faction yet. Please do it Tobero!");
+        throw new NotImplementedException("PowerPerPlayer isn't implemented for local faction yet. " +
+                "Please do it Tobero!");
+    }
+
+    /**
+     * Invite a faction to be an ally. The owner needs to be online
+     * *
+     *
+     * @param faction The faction to invite.
+     */
+    @Override
+    public void inviteAlly(@NotNull Faction<?> faction) throws FactionIsFrozenException,
+            FactionOwnerIsOfflineException, CantInviteYourselfException, AlreadyInvitedException {
+
+    }
+
+    /**
+     * Removes an invitation to be allied with your faction
+     *
+     * @param faction The faction to remove the invite from.
+     */
+    @Override
+    public void removeAllyInvite(@NotNull Faction<?> faction) {
+
+    }
+
+    /**
+     * Returns true if the faction got already invited
+     *
+     * @param faction The faction you want to check if they are invited.
+     * @return if invited
+     */
+    @Override
+    public boolean hasInvited(@NotNull Faction<?> faction) {
+        return false;
+    }
+
+    /**
+     * Returns true if this faction was invited by the given faction.
+     *
+     * @param faction The faction you want to check if you got invited by.
+     * @return If invited
+     */
+    @Override
+    public boolean hasBeenInvitedBy(@NotNull Faction<?> faction) {
+        return false;
+    }
+
+    /**
+     * Returns a stream of all the UUIDs of the invites that have been sent by your faction
+     *
+     * @return A stream of faction registries
+     */
+    @Override
+    public @NotNull Stream<String> getSentInvites() {
+        return null;
+    }
+
+    /**
+     * Returns a stream of all the invites that the faction has received.
+     *
+     * @return A stream of faction registries
+     */
+    @Override
+    public @NotNull Stream<String> getReceivedInvites() {
+        return null;
     }
 
     /**
@@ -649,7 +726,7 @@ public class LocalFaction extends Faction<LocalFaction> {
             throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
-        String registry = faction.registry;
+        String registry = faction.getRegistry();
         if (isEnemy(registry) || isAllied(registry)) return false;
         relationManager.getAllies().add(registry);
 
@@ -747,14 +824,36 @@ public class LocalFaction extends Faction<LocalFaction> {
      * @return If successfully reseted.
      */
     @Override
-    public boolean resetRelation(@NotNull LocalFaction faction)
+    public boolean resetRelation(@NotNull Faction<?> faction)
             throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
-        relationManager.getEnemies().remove(faction.registry);
-        relationManager.getAllies().remove(faction.registry);
+        relationManager.getEnemies().remove(faction.getRegistry());
+        relationManager.getAllies().remove(faction.getRegistry());
 
         return true;
+    }
+
+    /**
+     * BroadcastMessage takes a String as message that should egt sent to everyone
+     *
+     * @param msg The message to broadcast to all members.
+     */
+    @Override
+    public void broadcastMessage(@NotNull String msg) {
+
+    }
+
+    /**
+     * Broadcast a translatable message to all players.
+     * The translation will be individual for each player based on their selected language
+     *
+     * @param key        The key of the translatable message.
+     * @param parseables
+     */
+    @Override
+    public void broadcastTranslatable(@NotNull String key, Parseable... parseables) {
+
     }
 
     /**
@@ -778,6 +877,11 @@ public class LocalFaction extends Faction<LocalFaction> {
         return factionPermissions.getFactionSettings().get(setting);
     }
 
+    @Override
+    public @NotNull FactionReports getReports() {
+        return null;
+    }
+
     /**
      * Returns the module with the given name, or null if no such module exists
      *
@@ -796,7 +900,8 @@ public class LocalFaction extends Faction<LocalFaction> {
      * @param parameters The values you want to feed into the constructor
      */
     @Override
-    public <C extends FactionModule<LocalFaction>> void createModule(@NotNull Class<C> clazz, Object... parameters)
+    public <C extends FactionModule<LocalFaction>> void createModule(@NotNull Class<C> clazz,
+                                                                     Object... parameters)
             throws NoSuchMethodException, InvocationTargetException,
             InstantiationException, IllegalAccessException {
 
@@ -808,5 +913,10 @@ public class LocalFaction extends Faction<LocalFaction> {
         FactionModule<LocalFaction> module = clazz.getConstructor(classes.toArray(Class[]::new))
                 .newInstance(parameters);
         modules.put(module.registry(), (LocalFactionModule) module);
+    }
+
+    @Override
+    public String toString() {
+        return registry;
     }
 }
