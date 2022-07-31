@@ -497,7 +497,7 @@ public class LocalFaction implements Faction<LocalFaction> {
     public boolean leavePlayer(@NotNull Player player)
             throws FactionIsFrozenException, PlayerIsOwnerException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
-        if (getPlayerRank(player).getRegistryName().equals(OwnerRank.registry))
+        if (!isPermanent() && getPlayerRank(player).getRegistryName().equals(OwnerRank.registry))
             throw new PlayerIsOwnerException(this, player);
         if (!Utility.callEvent(new FactionLeaveEvent(this, player))) return false;
 

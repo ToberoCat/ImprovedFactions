@@ -25,7 +25,8 @@ public class LeaveFactionSubCommand extends ConfirmSubCommand {
 
     @Override
     public SubCommandSettings getSettings() {
-        return super.getSettings().setNeedsFaction(SubCommandSettings.NYI.Yes);
+        return super.getSettings()
+                .setNeedsFaction(SubCommandSettings.NYI.Yes);
     }
 
     @Override
@@ -49,14 +50,11 @@ public class LeaveFactionSubCommand extends ConfirmSubCommand {
 
     private boolean leaveFaction(@NotNull Faction<?> faction, @NotNull Player player)
             throws FactionIsFrozenException, PlayerIsOwnerException {
-        if (faction.isPermanent()) return leaveWithTimeout(faction, player);
-        if (faction.getPlayerRank(player).getRegistryName().equals(OwnerRank.registry))
-            throw new PlayerIsOwnerException(faction, player);
-
         return leaveWithTimeout(faction, player);
     }
 
-    private boolean leaveWithTimeout(@NotNull Faction<?> faction, @NotNull Player player) throws FactionIsFrozenException {
+    private boolean leaveWithTimeout(@NotNull Faction<?> faction, @NotNull Player player)
+            throws FactionIsFrozenException, PlayerIsOwnerException {
         if (!faction.leavePlayer(player)) return false;
 
         int timeout =  MainIF.config().getInt("faction.joinTimeout");
@@ -64,7 +62,8 @@ public class LeaveFactionSubCommand extends ConfirmSubCommand {
         now = now.plusHours(timeout);
 
         DateTimeFormatter fmt = DateCore.TIME_FORMAT;
-        PlayerSettingHandler.getSettings(player.getUniqueId()).getT("factionJoinTimeout").setSelected(fmt.print(now));
+        PlayerSettingHandler.getSettings(player.getUniqueId()).getT("factionJoinTimeout")
+                .setSelected(fmt.print(now));
         return true;
     }
 }

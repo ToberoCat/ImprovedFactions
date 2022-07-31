@@ -30,6 +30,7 @@ import io.github.toberocat.core.utility.exceptions.DescriptionHasNoLine;
 import io.github.toberocat.core.utility.exceptions.faction.FactionHandlerNotFound;
 import io.github.toberocat.core.utility.exceptions.faction.FactionIsFrozenException;
 import io.github.toberocat.core.utility.exceptions.faction.FactionOwnerIsOfflineException;
+import io.github.toberocat.core.utility.exceptions.faction.leave.PlayerIsOwnerException;
 import io.github.toberocat.core.utility.exceptions.faction.relation.AlreadyInvitedException;
 import io.github.toberocat.core.utility.exceptions.faction.relation.CantInviteYourselfException;
 import io.github.toberocat.core.utility.exceptions.setting.SettingNotFoundException;
@@ -571,8 +572,12 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     @Override
-    public boolean leavePlayer(@NotNull Player player) throws FactionIsFrozenException {
+    public boolean leavePlayer(@NotNull Player player)
+            throws FactionIsFrozenException, PlayerIsOwnerException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
+        if (!isPermanent() && getPlayerRank(player).getRegistryName().equals(OwnerRank.registry))
+            throw new PlayerIsOwnerException(this, player);
+
         if (setGuestRank(player)) return false;
         AsyncTask.callEventSync(new FactionLeaveEvent(this, player));
         return true;
