@@ -16,6 +16,7 @@ io\github\toberocat\core\factions\components\rank\members\ElderRank.class
 io\github\toberocat\core\commands\zones\ZoneSubCommand.class
 io\github\toberocat\core\listeners\world\BlockBreakListener.class
 io\github\toberocat\core\utility\exceptions\chunks\ChunkAlreadyClaimedException.class
+io\github\toberocat\core\utility\exceptions\faction\relation\CantInviteYourselfException.class
 io\github\toberocat\core\utility\config\DataManager.class
 io\github\toberocat\core\utility\data\database\sql\SqlVar$1.class
 io\github\toberocat\core\utility\settings\type\RankSetting.class
@@ -23,6 +24,7 @@ io\github\toberocat\core\utility\data\database\sql\builder\Result.class
 io\github\toberocat\core\utility\gui\AutoGui$2.class
 io\github\toberocat\core\utility\events\faction\FactionBanEvent.class
 io\github\toberocat\core\utility\claim\component\Claim.class
+io\github\toberocat\core\utility\bossbar\eases\EaseInOutSine.class
 io\github\toberocat\core\utility\claim\ClaimManager.class
 io\github\toberocat\core\utility\Result.class
 io\github\toberocat\core\commands\factions\LeaveFactionSubCommand.class
@@ -31,6 +33,7 @@ io\github\toberocat\core\commands\settings\PlayerSettingsSubCommand.class
 io\github\toberocat\core\commands\zones\SafeZoneSubCommand.class
 io\github\toberocat\core\factions\components\report\FactionReports.class
 io\github\toberocat\core\listeners\world\ExplodeListener.class
+io\github\toberocat\core\commands\factions\relation\ally\AllyCancelCommand.class
 io\github\toberocat\core\utility\events\faction\FactionUpdateMemberRankEvent.class
 io\github\toberocat\core\commands\admin\AdminSubCommand.class
 io\github\toberocat\core\utility\gui\AbstractGui$1.class
@@ -47,7 +50,6 @@ io\github\toberocat\core\utility\migration\Migrator.class
 io\github\toberocat\core\bstat\Metrics$SimpleBarChart.class
 io\github\toberocat\core\utility\events\faction\FactionDeleteEvent.class
 io\github\toberocat\core\utility\exceptions\faction\FactionNotInStorage$StorageType.class
-io\github\toberocat\core\invite\Invite.class
 io\github\toberocat\core\debug\Debugger.class
 io\github\toberocat\core\utility\settings\type\HiddenSetting.class
 io\github\toberocat\core\utility\dynamic\loaders\PlayerJoinLoader.class
@@ -73,6 +75,7 @@ io\github\toberocat\core\commands\admin\AdminIsPlayerInFactionSubCommand.class
 io\github\toberocat\core\commands\admin\power\AdminPowerCommand.class
 io\github\toberocat\core\utility\exceptions\faction\FactionException.class
 io\github\toberocat\core\utility\exceptions\setting\SettingNotFoundException.class
+io\github\toberocat\core\utility\language\LanguageListLoader.class
 io\github\toberocat\core\utility\action\Action.class
 io\github\toberocat\core\utility\exceptions\faction\power\FactionHasNoPowerException.class
 io\github\toberocat\core\factions\handler\FactionHandlerInterface.class
@@ -89,6 +92,7 @@ io\github\toberocat\versions\nms\NMSInterface.class
 io\github\toberocat\core\factions\database\DatabaseFaction$1.class
 io\github\toberocat\core\utility\gui\AbstractGui.class
 io\github\toberocat\core\utility\data\Database.class
+io\github\toberocat\core\utility\exceptions\faction\FactionOwnerIsOfflineException.class
 io\github\toberocat\core\utility\exceptions\faction\leave\PlayerIsOwnerException.class
 io\github\toberocat\core\utility\data\access\AccessPipeline.class
 io\github\toberocat\core\utility\gui\TabbedGui.class
@@ -113,14 +117,17 @@ io\github\toberocat\core\utility\command\SubCommandSettings$NYI.class
 io\github\toberocat\core\utility\data\database\sql\SqlVar$4.class
 io\github\toberocat\core\factions\components\Description.class
 io\github\toberocat\core\player\TitlePosition.class
+io\github\toberocat\core\utility\exceptions\faction\relation\AlreadyInvitedException.class
 io\github\toberocat\core\bstat\Metrics$MetricsBase.class
 io\github\toberocat\core\extensions\ExtensionDownloadCallback.class
 io\github\toberocat\core\utility\data\database\sql\MySqlDatabase$1.class
+io\github\toberocat\core\commands\factions\relation\ally\AllyInviteCommand.class
 io\github\toberocat\core\bstat\Metrics$DrilldownPie.class
 io\github\toberocat\core\factions\components\rank\allies\AllyElderRank.class
 io\github\toberocat\core\bstat\Bstat.class
 io\github\toberocat\core\utility\settings\type\Setting$3.class
 io\github\toberocat\core\factions\components\rank\members\MemberRank.class
+io\github\toberocat\core\utility\bossbar\Ease.class
 io\github\toberocat\core\utility\callbacks\ResultCallback.class
 io\github\toberocat\core\utility\data\database\sql\SqlVar$3.class
 io\github\toberocat\core\utility\language\Language.class

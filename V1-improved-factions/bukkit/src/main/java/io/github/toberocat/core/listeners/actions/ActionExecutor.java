@@ -42,7 +42,7 @@ public class ActionExecutor implements Listener {
         actions.run(sender);
     }
 
-    private void send(@NotNull String path, @NotNull Faction faction, Parseable... parseables) {
+    private void send(@NotNull String path, @NotNull Faction<?> faction, Parseable... parseables) {
         FactionActions actions = new FactionActions(getAction(path));
 
         for (Parseable parseable : parseables) actions.placeholder(parseable.getParse(), parseable.getTo());
@@ -52,75 +52,75 @@ public class ActionExecutor implements Listener {
     @EventHandler
     private void create(FactionCreateEvent event) {
         send("faction.create", event.getPlayer(),
-                new Parseable("{faction}", event.getFaction().getDisplayName()));
+                new Parseable("{faction}", event.getFaction().getDisplay()));
     }
 
     @EventHandler
     private void delete(FactionDeleteEvent event) {
         send("faction.delete", Bukkit.getConsoleSender(),
-                new Parseable("{faction}", event.getFaction().getDisplayName()));
+                new Parseable("{faction}", event.getFaction().getDisplay()));
     }
 
     @EventHandler
     private void ally(FactionAllyEvent event) {
         send("faction.ally", Bukkit.getConsoleSender(),
-                new Parseable("{faction}", event.getFaction().getDisplayName()),
-                new Parseable("{allied-faction}", event.getAllied().getDisplayName()));
+                new Parseable("{faction}", event.getFaction().getDisplay()),
+                new Parseable("{allied-faction}", event.getAllied().getDisplay()));
     }
 
     @EventHandler
     private void ban(FactionBanEvent event) {
         send("faction.ban", Bukkit.getConsoleSender(),
-                new Parseable("{faction}", event.getFaction().getDisplayName()),
+                new Parseable("{faction}", event.getFaction().getDisplay()),
                 new Parseable("{banned}", event.getBanned().getName()));
     }
 
     @EventHandler
     private void join(FactionJoinEvent event) {
         send("faction.join", Bukkit.getConsoleSender(),
-                new Parseable("{faction}", event.getFaction().getDisplayName()),
+                new Parseable("{faction}", event.getFaction().getDisplay()),
                 new Parseable("{joined}", event.getPlayer().getName()));
     }
 
     @EventHandler
     private void join(FactionKickEvent event) {
         send("faction.kick", Bukkit.getConsoleSender(),
-                new Parseable("{faction}", event.getFaction().getDisplayName()),
+                new Parseable("{faction}", event.getFaction().getDisplay()),
                 new Parseable("{kicked}", event.getKicked().getName()));
     }
 
     @EventHandler
     private void leave(FactionLeaveEvent event) {
         send("faction.leave", Bukkit.getConsoleSender(),
-                new Parseable("{faction}", event.getFaction().getDisplayName()),
+                new Parseable("{faction}", event.getFaction().getDisplay()),
                 new Parseable("{kicked}", event.getPlayer().getName()));
     }
 
     @EventHandler
     private void load(FactionLoadEvent event) {
         send("faction.load", Bukkit.getConsoleSender(),
-                new Parseable("{faction}", event.getFaction().getDisplayName()));
+                new Parseable("{faction}", event.getFaction().getDisplay()));
     }
 
     @EventHandler
     private void memberOnline(FactionMemberOnlineEvent event) {
         send("faction.member.online", Bukkit.getConsoleSender(),
-                new Parseable("{faction}", event.getFaction().getDisplayName()),
+                new Parseable("{faction}", event.getFaction().getDisplay()),
                 new Parseable("{member}", event.getPlayer().getName()));
     }
 
     @EventHandler
     private void memberOffline(FactionMemberOfflineEvent event) {
         send("faction.member.offline", Bukkit.getConsoleSender(),
-                new Parseable("{faction}", event.getFaction().getDisplayName()),
+                new Parseable("{faction}", event.getFaction().getDisplay()),
                 new Parseable("{member}", event.getPlayer().getName()));
     }
 
     @EventHandler
     private void overclaim(FactionOverclaimEvent event) {
         send("faction.overclaim", Bukkit.getConsoleSender(),
-                new Parseable("{faction}", event.getFaction().getDisplayName()),
-                new Parseable("{overclaim-faction}", event.getNewOwners().getDisplayName()),
+                new Parseable("{faction}", event.getFaction().getDisplay()),
+                new Parseable("{overclaim-faction}", event.getNewOwners().getDisplay()),
                 new Parseable("{chunk-x}", "" + event.getChunk().getX() * 16),
                 new Parseable("{chunk-z}", "" + event.getChunk().getZ() * 16));
     }
@@ -129,30 +129,30 @@ public class ActionExecutor implements Listener {
     private void power(FactionPowerEvent event) {
         switch (event.getCause()) {
             case PLAYER_JOIN -> send("faction.power.player-joined", Bukkit.getConsoleSender(),
-                    new Parseable("{faction}", event.getFaction().getDisplayName()));
+                    new Parseable("{faction}", event.getFaction().getDisplay()));
             case PLAYER_LEFT -> send("faction.power.player-left", Bukkit.getConsoleSender(),
-                    new Parseable("{faction}", event.getFaction().getDisplayName()));
+                    new Parseable("{faction}", event.getFaction().getDisplay()));
             case PLAYER_KILLED -> send("faction.power.player-killed", Bukkit.getConsoleSender(),
-                    new Parseable("{faction}", event.getFaction().getDisplayName()));
+                    new Parseable("{faction}", event.getFaction().getDisplay()));
             case REGENERATION_TICK -> send("faction.power.regeneration-tick", Bukkit.getConsoleSender(),
-                    new Parseable("{faction}", event.getFaction().getDisplayName()));
+                    new Parseable("{faction}", event.getFaction().getDisplay()));
             case MAX_POWER -> send("faction.power.max-power", Bukkit.getConsoleSender(),
-                    new Parseable("{faction}", event.getFaction().getDisplayName()));
+                    new Parseable("{faction}", event.getFaction().getDisplay()));
         }
     }
 
     @EventHandler
     private void transferOwnership(FactionTransferOwnershipEvent event) {
         send("faction.transfer-ownership", Bukkit.getConsoleSender(),
-                new Parseable("{faction}", event.getFaction().getDisplayName()),
-                new Parseable("{old}", event.getCurrentOwner().getDisplayName()),
+                new Parseable("{faction}", event.getFaction().getDisplay()),
+                new Parseable("{old}", event.getCurrentOwner().getName()),
                 new Parseable("{new}", event.getNewOwner().getName()));
     }
 
     @EventHandler
     private void pardon(FactionUnbanEvent event) {
         send("faction.pardon", Bukkit.getConsoleSender(),
-                new Parseable("{faction}", event.getFaction().getDisplayName()),
+                new Parseable("{faction}", event.getFaction().getDisplay()),
                 new Parseable("{unbanned}", event.getBanned().getName()));
     }
 
@@ -168,28 +168,27 @@ public class ActionExecutor implements Listener {
 
         if (oldRank == null) {
             send("faction.rank.initial", player, // Initial
-                    new Parseable("{faction}", event.getFaction().getDisplayName()),
+                    new Parseable("{faction}", event.getFaction().getDisplay()),
                     new Parseable("{old-rank}", "no"));
             return;
         }
 
         Rank old = Rank.fromString(oldRank);
         Rank newR = Rank.fromString(newRank);
-        if (old == null || newR == null) return;
 
         if (old.getRawPriority() < newR.getRawPriority()) {
             send("faction.rank.promotion", player,
-                    new Parseable("{faction}", event.getFaction().getDisplayName()),
+                    new Parseable("{faction}", event.getFaction().getDisplay()),
                     new Parseable("{old-rank}", old.getDisplayName()),
                     new Parseable("{new-rank}", newR.getDisplayName()));
         } else if (old.getRawPriority() > newR.getRawPriority()) {
             send("faction.rank.degradation", player,
-                    new Parseable("{faction}", event.getFaction().getDisplayName()),
+                    new Parseable("{faction}", event.getFaction().getDisplay()),
                     new Parseable("{old-rank}", old.getDisplayName()),
                     new Parseable("{new-rank}", newR.getDisplayName()));
         } else {
             send("faction.rank.initial", player,
-                    new Parseable("{faction}", event.getFaction().getDisplayName()),
+                    new Parseable("{faction}", event.getFaction().getDisplay()),
                     new Parseable("{old-rank}", old.getDisplayName()),
                     new Parseable("{new-rank}", newR.getDisplayName()));
         }

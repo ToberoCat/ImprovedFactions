@@ -107,14 +107,13 @@ CREATE TABLE IF NOT EXISTS reports
 );
 
 -- Create invites
-create table IF NOT EXISTS invites
+create table IF NOT EXISTS ally_invites
 (
-    id       char(36)          not null,
     sender   varchar(@max_len) not null,
     receiver varchar(@max_len) not null,
-    clazz    text              not null,
+    send_date datetime not null,
     constraint invites_pk
-        primary key (id)
+        primary key (receiver)
 );
 
 
