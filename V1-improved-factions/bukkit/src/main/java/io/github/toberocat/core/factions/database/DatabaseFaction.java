@@ -839,7 +839,7 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     @Override
-    public boolean addEnemy(@NotNull DatabaseFaction faction) throws FactionIsFrozenException {
+    public boolean addEnemy(@NotNull Faction<?> faction) throws FactionIsFrozenException {
         return !setStatus(faction, enemyId);
     }
 

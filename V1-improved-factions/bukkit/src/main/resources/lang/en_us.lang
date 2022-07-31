@@ -3,6 +3,18 @@
   "credits": "Thanks for this amazing support from everyone who uses this plugin",
   "messages": {
     "command.prefix": "&7[&eIF&7]",
+    "command.war.description":"Declare war to a faction or surrender",
+    "command.war.declare.description": "Declare war to a faction. &6&lWarning: &8You can only end a war once a faction surrenders or has been fully captured",
+    "command.war.declare.faction-not-found": "Can't find faction {faction}",
+    "command.war.declare.faction-frozen": "Faction {faction} is frozen",
+    "command.war.declare.added": "Faction {faction} is now your enemy",
+    "command.war.declare.broadcast": "Faction {faction} is now your enemy",
+
+    "command.war.surrender.description": "Surrender from a ongoing war",
+    "command.war.surrender.faction-not-found": "Can't find faction {faction}",
+    "command.war.surrender.faction-frozen": "Faction {faction} is frozen",
+    "command.war.surrender.added": "The war between your faction and {faction} has ended",
+    "command.war.surrender.broadcast": "The war between your faction and {faction} has ended",
 
     "command.ally.cancel.description": "Cancel a pending ally invite",
     "command.ally.cancel.success": "You cancelled the invite",

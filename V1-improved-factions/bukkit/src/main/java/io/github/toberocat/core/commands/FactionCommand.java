@@ -5,6 +5,8 @@ import io.github.toberocat.core.commands.config.ConfigSubCommand;
 import io.github.toberocat.core.commands.extension.ExtensionSubCommand;
 import io.github.toberocat.core.commands.factions.*;
 import io.github.toberocat.core.commands.factions.claim.ClaimSubCommand;
+import io.github.toberocat.core.commands.factions.relation.ally.AllySubCommand;
+import io.github.toberocat.core.commands.factions.relation.war.WarSubCommand;
 import io.github.toberocat.core.commands.factions.unclaim.UnclaimSubCommand;
 import io.github.toberocat.core.commands.plugin.PluginSubCommand;
 import io.github.toberocat.core.commands.reports.ReportSubCommand;
@@ -41,7 +43,6 @@ public class FactionCommand implements TabExecutor {
                 new FactionSettingsSubCommand(),
                 new PlayerSettingsSubCommand(),
                 new ClaimSubCommand(),
-                new RelationSubCommand(),
                 new ExtensionSubCommand(),
                 new LeaveFactionSubCommand(),
                 new WhoSubCommand(),
@@ -57,7 +58,9 @@ public class FactionCommand implements TabExecutor {
                 new FactionMapSubCommand(),
                 new PowerSubCommand(),
                 new TipSubCommand(),
-                new ReportSubCommand()
+                new ReportSubCommand(),
+                new AllySubCommand(),
+                new WarSubCommand()
         ));
     }
 

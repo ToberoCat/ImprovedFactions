@@ -487,7 +487,7 @@ public interface Faction<F extends Faction<F>> {
      * @param faction The faction to add as an enemy.
      * @return If the faction got added as enemy
      */
-    boolean addEnemy(@NotNull F faction) throws FactionIsFrozenException;
+    boolean addEnemy(@NotNull Faction<?> faction) throws FactionIsFrozenException;
 
     /**
      * This function returns true if the given registry is an enemy faction.

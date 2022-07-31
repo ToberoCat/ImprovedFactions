@@ -30,6 +30,7 @@ import io.github.toberocat.core.utility.exceptions.DescriptionHasNoLine;
 import io.github.toberocat.core.utility.exceptions.faction.FactionIsFrozenException;
 import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.core.utility.exceptions.faction.FactionOwnerIsOfflineException;
+import io.github.toberocat.core.utility.exceptions.faction.leave.PlayerIsOwnerException;
 import io.github.toberocat.core.utility.exceptions.faction.relation.AlreadyInvitedException;
 import io.github.toberocat.core.utility.exceptions.faction.relation.CantInviteYourselfException;
 import io.github.toberocat.core.utility.exceptions.setting.SettingNotFoundException;
@@ -140,6 +141,17 @@ public class LocalFaction implements Faction<LocalFaction> {
     }
 
     /**
+     * Sets the display name of the faction
+     *
+     * @param display The display name of the faction.
+     */
+    @Override
+    public void setDisplay(@NotNull String display) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+        this.display = display;
+    }
+
+    /**
      * Get the faction color
      *
      * @return The color of the faction.
@@ -149,17 +161,6 @@ public class LocalFaction implements Faction<LocalFaction> {
         return FactionColors.values()[((EnumSetting) getSetting("color"))
                 .getSelected()]
                 .getColor();
-    }
-
-    /**
-     * Sets the display name of the faction
-     *
-     * @param display The display name of the faction.
-     */
-    @Override
-    public void setDisplay(@NotNull String display) throws FactionIsFrozenException {
-        if (isFrozen()) throw new FactionIsFrozenException(registry);
-        this.display = display;
     }
 
     /**
@@ -493,8 +494,11 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return If the player was able to leave
      */
     @Override
-    public boolean leavePlayer(@NotNull Player player) throws FactionIsFrozenException {
+    public boolean leavePlayer(@NotNull Player player)
+            throws FactionIsFrozenException, PlayerIsOwnerException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
+        if (getPlayerRank(player).getRegistryName().equals(OwnerRank.registry))
+            throw new PlayerIsOwnerException(this, player);
         if (!Utility.callEvent(new FactionLeaveEvent(this, player))) return false;
 
         factionMembers.leave(player);
@@ -588,9 +592,9 @@ public class LocalFaction implements Faction<LocalFaction> {
                 .map(Bukkit::getOfflinePlayer)
                 .filter(OfflinePlayer::isOnline)
                 .reduce(BigDecimal.ZERO,
-                (bigDecimal, x) -> bigDecimal.add(BigDecimal.valueOf(playerPower(x.getUniqueId()))),
-                BigDecimal::add
-        );
+                        (bigDecimal, x) -> bigDecimal.add(BigDecimal.valueOf(playerPower(x.getUniqueId()))),
+                        BigDecimal::add
+                );
     }
 
     /**
@@ -635,8 +639,8 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public double playerPower(@NotNull UUID player) {
-        throw new NotImplementedException("PowerPerPlayer isn't implemented for local faction yet. " +
-                "Please do it Tobero!");
+        // ToDo: Get player power
+        return 0;
     }
 
     /**
@@ -647,8 +651,8 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public double maxPlayerPower(@NotNull UUID player) {
-        throw new NotImplementedException("PowerPerPlayer isn't implemented for local faction yet. " +
-                "Please do it Tobero!");
+        // ToDo: Get player max power
+        return 0;
     }
 
     /**
@@ -660,7 +664,7 @@ public class LocalFaction implements Faction<LocalFaction> {
     @Override
     public void inviteAlly(@NotNull Faction<?> faction) throws FactionIsFrozenException,
             FactionOwnerIsOfflineException, CantInviteYourselfException, AlreadyInvitedException {
-
+        // ToDo: invite ally
     }
 
     /**
@@ -670,7 +674,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public void removeAllyInvite(@NotNull Faction<?> faction) {
-
+        // ToDo: remove ally invite ally
     }
 
     /**
@@ -681,6 +685,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public boolean hasInvited(@NotNull Faction<?> faction) {
+        // ToDo: get if ally has been invited
         return false;
     }
 
@@ -692,6 +697,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public boolean hasBeenInvitedBy(@NotNull Faction<?> faction) {
+        // ToDo: get if faction has been invited by other faction
         return false;
     }
 
@@ -702,6 +708,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public @NotNull Stream<String> getSentInvites() {
+        // ToDo: get all invites the faction sent
         return null;
     }
 
@@ -712,6 +719,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public @NotNull Stream<String> getReceivedInvites() {
+        // ToDo: get all invites the faction received
         return null;
     }
 
@@ -754,7 +762,6 @@ public class LocalFaction implements Faction<LocalFaction> {
     public boolean isAllied(@NotNull OfflinePlayer player) {
         String registry = FactionHandler.getPlayerFaction(player);
         return registry != null && isAllied(registry);
-
     }
 
     /**
@@ -764,11 +771,11 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return If the faction got added as enemy
      */
     @Override
-    public boolean addEnemy(@NotNull LocalFaction faction)
+    public boolean addEnemy(@NotNull Faction<?> faction)
             throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
-        String registry = faction.registry;
+        String registry = faction.getRegistry();
         if (isEnemy(registry) || isAllied(registry)) return false;
         relationManager.getEnemies().add(registry);
 
@@ -794,6 +801,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public boolean isEnemy(@NotNull OfflinePlayer player) {
+        // ToDo: Get if player is enemy
         return false;
     }
 
@@ -841,7 +849,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public void broadcastMessage(@NotNull String msg) {
-
+        // ToDo: Broadcast msg
     }
 
     /**
@@ -853,7 +861,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public void broadcastTranslatable(@NotNull String key, Parseable... parseables) {
-
+        // ToDo: Broadcast msg
     }
 
     /**
@@ -879,6 +887,7 @@ public class LocalFaction implements Faction<LocalFaction> {
 
     @Override
     public @NotNull FactionReports getReports() {
+        // ToDo: Get reports
         return null;
     }
 
