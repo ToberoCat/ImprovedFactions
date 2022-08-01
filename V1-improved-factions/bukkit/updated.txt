@@ -1,8 +1,0 @@
-- Unclaimable zone added as command
-- Zones do now have auto option
-- Deleting faction now required confirmation
-- Leaving faction now required confirmation
-- Fixed faction colors
-- Zone display doesn't reappear everytime changing the chunk
-- Added tip of the day
-- Added papi %faction_tag%, %faction_motd% and %faction_rank%

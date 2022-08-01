@@ -2,7 +2,22 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/unsorted - old/V1-extensions/CacheCoreExtension/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/unsorted - old/V1-extensions/CacheCoreExtension/target" />
+      <excludeFolder url="file://$MODULE_DIR$/unsorted - old/V1-extensions/ChatMessageExtension/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/unsorted - old/V1-extensions/ChatMessageExtension/target" />
+      <excludeFolder url="file://$MODULE_DIR$/unsorted - old/V1-extensions/ClaimParticlesExtension/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/unsorted - old/V1-extensions/ClaimParticlesExtension/target" />
+      <excludeFolder url="file://$MODULE_DIR$/unsorted - old/V1-extensions/DynmapExtension/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/unsorted - old/V1-extensions/DynmapExtension/target" />
+      <excludeFolder url="file://$MODULE_DIR$/unsorted - old/V1-extensions/HomeExtension/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/unsorted - old/V1-extensions/HomeExtension/target" />
+      <excludeFolder url="file://$MODULE_DIR$/unsorted - old/V1-extensions/MassClaim/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/unsorted - old/V1-extensions/MassClaim/target" />
+      <excludeFolder url="file://$MODULE_DIR$/unsorted - old/V1-improved-factions/bukkit/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/unsorted - old/V1-improved-factions/bukkit/.idea/shelf" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

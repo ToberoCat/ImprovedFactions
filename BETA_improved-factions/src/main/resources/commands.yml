@@ -1,5 +1,0 @@
-commands:
-  claim:
-    default: "claim"
-    aliases:
-      - "c"
