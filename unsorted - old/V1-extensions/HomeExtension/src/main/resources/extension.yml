@@ -1,0 +1,10 @@
+main: "io.github.toberocat.improvedfactions.HomeExtension"
+displayName: "Home extension"
+registry: "home_extension"
+version:
+  version: "1.4"
+minVersion:
+  version: "1.5.1"
+testedVersions:
+  - version: "1.5.1"
+dependencies: [ ]

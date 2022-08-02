@@ -1,0 +1,10 @@
+main: "io.github.toberocat.ExampleExtension"
+displayName: "Example extension"
+registry: "example_extension"
+version:
+  version: "Snap-1.0"
+minVersion:
+  version: "1.0"
+testedVersions:
+  - version: "1.0"
+dependencies: []

@@ -1,0 +1,88 @@
+faction:
+  invitationTimeout: 300
+  maxTagLen: 3
+  maxNameLen: 10
+  allowExplosions: true
+  joinTimeout: 24
+  active-member-threshold: 60 # 60 days These are the days a member's power is still being counted starting at the last time he was online
+  relation-color:
+    ally: "&b"
+    neutral: ""
+    enemy: "&c"
+  default:
+    permanent: false
+    frozen: false
+    openType: INVITE_ONLY
+    motd: "Improved faction"
+    tag: "IFF"
+    power:
+      value: 20
+      max: 20
+  ranks:
+    guest: Guest
+    ally-member: Ally member
+    ally-elder: Ally elder
+    ally-moderator: Ally moderator
+    ally-admin: Ally admin
+    ally-owner: Ally owner
+    member: Member
+    elder: Elder
+    moderator: Moderator
+    admin: Admin
+    owner: Owner
+history:
+  territoryChange: false
+power:
+  enabled: true
+  chunkPowerConsume: 3
+  memberDeathConsume: 10
+  regenerationPerHour: 4
+  maxDefaultFaction: 20
+  powerPerPlayer: 5
+  maxPowerPerPlayer: 5
+forbidden:
+  factionNames:
+    - fuck
+    - ass
+    - stupid
+  checkLeetspeak: true
+  reportAtPercent: 39.99
+  disbandAtPercent: 69.99
+  checkFactionNames: true
+gui:
+  wrapLength: 20
+  closeGuiCps: 10
+  maxCps: 5
+general:
+  invite:
+    invite-runout-time: 6000 # 600 ticks -> 5 minutes. 5 * 60 * 20 = 6000 ticks
+  limit-chunks-to-power: false
+  disabledWorlds:
+    - FactionsWontWorkHere
+  debugMode: false
+  colorConsole: true
+  useSQL: false
+  commandDescriptions: true
+  printStacktrace: true
+  prefix: '&e&lImprovedFactions'
+  sendCrashesToGithub: true
+  mapViewDistanceH: 4
+  mapViewDistanceW: 4
+  autoMigrate: true
+sql:
+  host: "localhost"
+  user: "root"
+  port: 3306
+  password: "1234"
+debug:
+  logLevel:
+    - INFO
+    - WARNING
+    - SEVERE
+commands:
+  forbidden:
+    - 'tellraw @a {"text":"This word, {word}, is maybe similar to {similar}. Used: {player_name},
+    {player_uuid} while {task}. {similarityPer}% similar "}'
+  standby:
+    - tellraw @a {"text":"Standby enabled"}
+version: 1.5.1

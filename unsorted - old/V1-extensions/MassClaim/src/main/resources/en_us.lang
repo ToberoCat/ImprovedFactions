@@ -1,0 +1,25 @@
+{
+  "messages": {
+    "command.claim-mass.hotbar-full": "&fYour inventory is full. Can't give you the claim item",
+    "command.claim-mass.item-added": "&fAdded the claim item. Left click for first pos, right click for second pos",
+    "confirm.claiming": "&aYou have set both positions. Press to claim the chunks",
+
+    "command.claim-mass.description": "&fClaim land fast using a world-edit like system",
+
+    "command.claim-mass.pos1.description": "&fSet the first position for your mass claim",
+    "command.claim-mass.pos1.success": "&a&lSuccessfully&f set the first position",
+
+    "command.claim-mass.pos2.description": "&Set the second position for your mass claim",
+    "command.claim-mass.pos2.success": "&a&lSuccessfully&f set the second position",
+
+    "command.claim-mass.unclaim.description": "&fUnclaim all chunks between your set positions",
+    "command.claim-mass.unclaim.success": "&a&lSuccessfully&f unclaimed",
+
+    "command.claim-mass.claim.description": "&fClaim all chunks between your set positions",
+    "command.claim-mass.claim.success": "&a&lSuccessfully&f claimed",
+    "command.claim-mass.claim.not-all-positions-set": "&c&lFailed&f claiming. Not all positions are set"
+  },
+  "author": "Tobero",
+  "credits": "Thanks for this amazing support from everyone who uses this plugin",
+  "version": "1.0"
+}

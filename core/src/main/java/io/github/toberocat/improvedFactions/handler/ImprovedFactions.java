@@ -12,7 +12,7 @@ public interface ImprovedFactions {
 
     static @NotNull ImprovedFactions api() {
         ImprovedFactions implementation = ImplementationHolder.improvedFactions;
-        if (implementation == null) throw new NoImplementationProvidedException("improved faction implementation");
+        if (implementation == null) throw new NoImplementationProvidedException("improved faction");
         return implementation;
     }
 

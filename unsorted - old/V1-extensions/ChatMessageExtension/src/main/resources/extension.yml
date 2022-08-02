@@ -1,0 +1,10 @@
+main: "io.github.toberocat.improvedfactions.ChatMessageExtension"
+displayName: "ChatMessage extension"
+registry: "chat_message_extension"
+version:
+  version: "1.4"
+minVersion:
+  version: "1.5.1"
+testedVersions:
+  - version: "1.5.1"
+dependencies: [ ]

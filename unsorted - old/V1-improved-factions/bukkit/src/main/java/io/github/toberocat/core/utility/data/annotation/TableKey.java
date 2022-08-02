@@ -1,0 +1,15 @@
+package io.github.toberocat.core.utility.data.annotation;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+/**
+ * Define what key will get used for listing item in a table
+ */
+public @interface TableKey {
+    String key();
+}

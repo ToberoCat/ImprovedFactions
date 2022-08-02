@@ -8,7 +8,7 @@ public interface ColorHandler {
 
     static @NotNull ColorHandler api() {
         ColorHandler implementation = ImplementationHolder.colorHandler;
-        if (implementation == null) throw new NoImplementationProvidedException("color handler implementation");
+        if (implementation == null) throw new NoImplementationProvidedException("color handler");
         return implementation;
     }
 

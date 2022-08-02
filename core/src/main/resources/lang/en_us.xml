@@ -1,0 +1,36 @@
+<translatable version="1.0">
+    <supported-languages> <!-- See this page (https://www.andiamo.co.uk/resources/iso-language-codes/) to get language codes. Replace - with underscore -->
+        <lang-code>en_us</lang-code>
+        <lang-code>en_gb</lang-code>
+        <lang-code>en_au</lang-code>
+        <lang-code>en_bz</lang-code>
+        <lang-code>en_ca</lang-code>
+        <lang-code>en_ie</lang-code>
+        <lang-code>en_jm</lang-code>
+        <lang-code>en_nz</lang-code>
+        <lang-code>en_za</lang-code>
+        <lang-code>en_tt</lang-code>
+        <lang-code>en_tt</lang-code>
+        <lang-code>en_tt</lang-code>
+    </supported-languages>
+    <messages>
+
+    </messages>
+    <factions>
+        <ranks>
+            <guest>
+                <title>§eGuest rank</title>
+                <description>
+                    <content line="0">§8A guest is everyone that has no</content>
+                    <content line="1">§8relation to your faction</content>
+                </description>
+            </guest>
+        </ranks>
+    </factions>
+    <guis>
+
+    </guis>
+    <items>
+
+    </items>
+</translatable>

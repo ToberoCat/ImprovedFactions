@@ -9,7 +9,7 @@ public interface ConfigHandler {
 
     static @NotNull ConfigHandler api() {
         ConfigHandler implementation = ImplementationHolder.configHandler;
-        if (implementation == null) throw new NoImplementationProvidedException("config handler implementation");
+        if (implementation == null) throw new NoImplementationProvidedException("config handler");
         return implementation;
     }
 

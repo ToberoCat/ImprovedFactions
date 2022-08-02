@@ -1,0 +1,14 @@
+main: "${groupId}.ClaimParticleExtension"
+displayName: "${extension.displayName}"
+registry: "${extension.registry}"
+jar-file: '${extension.jarFile}'
+author: "${extension.author}"
+version:
+  version: '${project.version}'
+minVersion:
+  version: "${improvedFactions.version}"
+testedVersions:
+  - version: "${improvedFactions.version}" # At least the min version needs to be tested
+dependencies: [ ]
+extension-dependencies:
+  - "${extension.dextendency.cache-core}"

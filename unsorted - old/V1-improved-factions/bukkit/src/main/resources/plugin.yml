@@ -1,0 +1,32 @@
+name: ImprovedFactions
+version: '${project.version}'
+main: io.github.toberocat.MainIF
+api-version: 1.16
+authors: [ Tobero ]
+softdepend: [ PlaceholderAPI, Vault, Dynmap ]
+
+commands:
+  faction:
+    description: The faction command
+    aliases:
+      - f
+
+permissions:
+  factions.messages.standby:
+    description: Get notified when the plugin went in standby mode
+    default: op
+
+  factions.gui.unlock-settings:
+    description: Allows to change values in guis (Settings GUI as example) that are locked
+    default: op
+
+  factions.admin:
+    default: op
+    children:
+      factions.messages.standby: true
+      factions.gui.unlock-settings: true
+
+  factions.*:
+    default: op
+    children:
+      factions.messages.standby: true
