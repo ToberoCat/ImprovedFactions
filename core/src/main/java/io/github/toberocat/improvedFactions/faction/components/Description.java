@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedFactions.faction.components;
 
-import io.github.toberocat.core.utility.exceptions.DescriptionHasNoLine;
-import io.github.toberocat.core.utility.exceptions.faction.FactionIsFrozenException;
+import io.github.toberocat.improvedFactions.exceptions.description.DescriptionHasNoLine;
+import io.github.toberocat.improvedFactions.exceptions.faction.FactionIsFrozenException;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.stream.Stream;
@@ -25,7 +25,7 @@ public interface Description {
     /**
      * Sets the content of the line at the specified index
      *
-     * @param line The line number to set the content of.
+     * @param line    The line number to set the content of.
      * @param content The content of the line.
      */
     void setLine(int line, @NotNull String content) throws FactionIsFrozenException;

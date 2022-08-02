@@ -1,15 +1,6 @@
 package io.github.toberocat.improvedFactions.faction.components;
 
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.handler.FactionHandler;
-import io.github.toberocat.core.utility.Utility;
-import io.github.toberocat.core.utility.claim.ClaimManager;
-import io.github.toberocat.core.utility.claim.component.Claim;
-import io.github.toberocat.core.utility.exceptions.chunks.ChunkAlreadyClaimedException;
-import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
-import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
-import org.bukkit.World;
+import io.github.toberocat.improvedFactions.faction.Faction;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashMap;
@@ -31,7 +22,7 @@ public final class FactionClaims<F extends Faction<F>> {
 
     public void forceCalculate() {
         claims = new LinkedHashMap<>();
-        ClaimManager.CLAIMS.forEach((name, c) -> {
+        ClaimHandler.api()..forEach((name, c) -> {
             World world = Bukkit.getWorld(name);
             if (world == null || Utility.isDisabled(world)) return;
 
