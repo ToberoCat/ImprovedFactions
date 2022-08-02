@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedFactions.registry;
 
+import io.github.toberocat.improvedFactions.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.handler.ColorHandler;
 import io.github.toberocat.improvedFactions.handler.ConfigHandler;
 import io.github.toberocat.improvedFactions.handler.ImprovedFactions;
@@ -13,4 +14,8 @@ public class ImplementationHolder {
     public static @Nullable ItemHandler itemHandler;
 
     public static @Nullable ImprovedFactions improvedFactions;
+
+    public static void register() {
+        Rank.register();
+    }
 }

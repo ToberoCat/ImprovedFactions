@@ -12,14 +12,13 @@ import java.util.stream.Stream;
 public abstract class Rank {
 
     public static LinkedHashMap<String, Rank> ranks = new LinkedHashMap<>();
-    private final String registryName;
-    private final String displayName;
+    protected final String registry, displayKey;
     private final boolean isAdmin;
     private final int priority;
 
-    public Rank(String displayName, String registryName, int permissionPriority, boolean isAdmin) {
-        this.displayName = displayName;
-        this.registryName = registryName;
+    public Rank(String displayKey, String registryName, int permissionPriority, boolean isAdmin) {
+        this.displayKey = displayKey;
+        this.registry = registryName;
         this.isAdmin = isAdmin;
         this.priority = permissionPriority;
         ranks.put(registryName, this);
@@ -28,19 +27,19 @@ public abstract class Rank {
     public abstract @NotNull Rank getEquivalent();
 
     public static void register() {
-        new OwnerRank(-1);
-        new AdminRank(3);
-        new ModeratorRank(2);
-        new ElderRank(1);
-        new MemberRank(0);
+        new FactionOwnerRank(-1);
+        new FactionAdminRank(3);
+        new FactionModeratorRank(2);
+        new FactionElderRank(1);
+        new FactionMemberRank(0);
 
-        new AllyOwnerRank(-1);
-        new AllyAdminRank(-1);
-        new AllyModeratorRank(-1);
-        new AllyElderRank(-1);
-        new AllyMemberRank(-1);
+        new AllyOwnerRank();
+        new AllyAdminRank();
+        new AllyModeratorRank();
+        new AllyElderRank();
+        new AllyMemberRank();
 
-        new GuestRank(-1);
+        new GuestRank();
     }
     
     public static Stream<Rank> getPriorityRanks(Rank rank) {
@@ -52,9 +51,9 @@ public abstract class Rank {
         return ranks.getOrDefault(str, ranks.get(GuestRank.register));
     }
 
-    public static int getPriority(Rank rank) {
+    public static int getPriority(@NotNull Rank rank) {
         return rank.priority < 0 ?
-                rank.getRegistryName().equals(OwnerRank.registry)
+                rank.getRegistry().equals(FactionOwnerRank.REGISTRY)
                         ? 100
                         : -1
                 : rank.priority;
@@ -64,15 +63,19 @@ public abstract class Rank {
         return isAdmin;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getDisplayKey() {
+        return displayKey;
     }
 
-    public String getRegistryName() {
-        return registryName;
+    public @NotNull String getDisplay(@NotNull FactionPlayer<?> player) {
+        return player.getMessage(displayKey);
     }
 
-    public abstract String description(FactionPlayer<?> player);
+    public String getRegistry() {
+        return registry;
+    }
+
+    public abstract String[] description(FactionPlayer<?> player);
 
     public abstract ItemStack getItem(FactionPlayer<?> player);
 
@@ -80,6 +83,7 @@ public abstract class Rank {
      *
      * @return raw priority. negative numbers can get returned,
      * as they mean that it is the highest priority and not selectable
+     * or they just have no priority at all, depends on the given context
      */
     public int getRawPriority() {
         return priority;
@@ -87,6 +91,6 @@ public abstract class Rank {
 
     @Override
     public String toString() {
-        return registryName;
+        return registry;
     }
 }

@@ -5,6 +5,7 @@ import io.github.toberocat.improvedFactions.faction.components.Description;
 import io.github.toberocat.improvedFactions.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.handler.ColorHandler;
 import io.github.toberocat.improvedFactions.handler.ConfigHandler;
+import io.github.toberocat.improvedFactions.player.OfflineFactionPlayer;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
@@ -194,7 +195,7 @@ public interface Faction<F extends Faction<F>> {
      * @param player The player to get the rank of.
      * @return The rank of the player.
      */
-    @NotNull Rank getPlayerRank(@NotNull OfflinePlayer player);
+    @NotNull Rank getPlayerRank(@NotNull OfflineFactionPlayer<?> player);
 
     /**
      * Gets the permission setting for the specified permission

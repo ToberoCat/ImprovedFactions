@@ -1,18 +1,23 @@
 <translatable version="1.0">
-    <supported-languages> <!-- See this page (https://www.andiamo.co.uk/resources/iso-language-codes/) to get language codes. Replace - with underscore -->
-        <lang-code>en_us</lang-code>
-        <lang-code>en_gb</lang-code>
-        <lang-code>en_au</lang-code>
-        <lang-code>en_bz</lang-code>
-        <lang-code>en_ca</lang-code>
-        <lang-code>en_ie</lang-code>
-        <lang-code>en_jm</lang-code>
-        <lang-code>en_nz</lang-code>
-        <lang-code>en_za</lang-code>
-        <lang-code>en_tt</lang-code>
-        <lang-code>en_tt</lang-code>
-        <lang-code>en_tt</lang-code>
-    </supported-languages>
+    <meta>
+        <supported-languages> <!-- See this page (https://www.andiamo.co.uk/resources/iso-language-codes/) to get language codes. Replace - with underscore -->
+            <lang-code>en_us</lang-code>
+            <lang-code>en_gb</lang-code>
+            <lang-code>en_au</lang-code>
+            <lang-code>en_bz</lang-code>
+            <lang-code>en_ca</lang-code>
+            <lang-code>en_ie</lang-code>
+            <lang-code>en_jm</lang-code>
+            <lang-code>en_nz</lang-code>
+            <lang-code>en_za</lang-code>
+            <lang-code>en_tt</lang-code>
+            <lang-code>en_tt</lang-code>
+            <lang-code>en_tt</lang-code>
+        </supported-languages>
+        <authors>
+            <author>Tobero</author>
+        </authors>
+    </meta>
     <messages>
 
     </messages>
@@ -21,10 +26,82 @@
             <guest>
                 <title>§eGuest rank</title>
                 <description>
-                    <content line="0">§8A guest is everyone that has no</content>
-                    <content line="1">§8relation to your faction</content>
+                    <line>§8A guest is everyone that has no</line>
+                    <line>§8relation to your faction</line>
                 </description>
             </guest>
+            <owner>
+                <faction>
+                    <title>§eOwner rank</title>
+                    <description>
+                        <line>PLACEHOLDER</line>
+                    </description>
+                </faction>
+                <ally>
+                    <title>§bAlly Owner rank</title>
+                    <description>
+                        <line>PLACEHOLDER</line>
+                    </description>
+                </ally>
+            </owner>
+            <admin>
+                <faction>
+                    <title>§eAdmin rank</title>
+                    <description>
+                        <line>§8A admin is much like a owner</line>
+                        <line>§8but can't delete the faction or make other admins</line>
+                    </description>
+                </faction>
+                <ally>
+                    <title>§bAlly admin rank</title>
+                    <description>
+                        <line>§8A admin of one of your allied factions</line>
+                        <line>§8They are trustworthy people</line>
+                    </description>
+                </ally>
+            </admin>
+            <moderator>
+                <faction>
+                    <title>§eModerator rank</title>
+                    <description>
+                        <line>PLACEHOLDER</line>
+                    </description>
+                </faction>
+                <ally>
+                    <title>§bAlly Moderator rank</title>
+                    <description>
+                        <line>PLACEHOLDER</line>
+                    </description>
+                </ally>
+            </moderator>
+            <elder>
+                <faction>
+                    <title>§eElder rank</title>
+                    <description>
+                        <line>PLACEHOLDER</line>
+                    </description>
+                </faction>
+                <ally>
+                    <title>§bElder rank</title>
+                    <description>
+                        <line>PLACEHOLDER</line>
+                    </description>
+                </ally>
+            </elder>
+            <member>
+                <faction>
+                    <title>§eMember rank</title>
+                    <description>
+                        <line>PLACEHOLDER</line>
+                    </description>
+                </faction>
+                <ally>
+                    <title>§bMember ally rank</title>
+                    <description>
+                        <line>PLACEHOLDER</line>
+                    </description>
+                </ally>
+            </member>
         </ranks>
     </factions>
     <guis>
