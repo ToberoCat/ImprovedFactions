@@ -1,5 +1,10 @@
 package io.github.toberocat.improvedFactions.faction;
 
+import io.github.toberocat.improvedFactions.exceptions.faction.FactionIsFrozenException;
+import io.github.toberocat.improvedFactions.faction.components.Description;
+import io.github.toberocat.improvedFactions.faction.components.rank.Rank;
+import io.github.toberocat.improvedFactions.handler.ColorHandler;
+import io.github.toberocat.improvedFactions.handler.ConfigHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
@@ -14,7 +19,7 @@ public interface Faction<F extends Faction<F>> {
     int enemyId = 2;
 
     /* Config values */
-    long activeThreshold = MainIF.config().getInt("faction.active-member-threshold", 60);
+    long activeThreshold = ConfigHandler.api().getInt("faction.active-member-threshold", 60);
 
     /* Static voids */
 
@@ -30,9 +35,9 @@ public interface Faction<F extends Faction<F>> {
      */
     static @NotNull String displayToRegistry(@NotNull String display) {
         return display
-                .substring(0, MainIF.config().getInt("faction.maxNameLen"))
+                .substring(0, ConfigHandler.api().getInt("faction.max-registry-length", 10))
                 .toLowerCase()
-                .transform(ChatColor::stripColor)
+                .transform(x -> ColorHandler.api().stripColor(x))
                 .replaceAll("[^a-z]", "");
     }
 
@@ -47,19 +52,11 @@ public interface Faction<F extends Faction<F>> {
      * @return If the name is valid
      */
     static boolean validNaming(@NotNull String name) {
-        if (name.equalsIgnoreCase("safezone") ||
-                name.equalsIgnoreCase("warzone")) return false;
-        return ForbiddenChecker.checkName(name);
+        return !name.equalsIgnoreCase("safezone") &&
+                !name.equalsIgnoreCase("warzone");
     }
 
     /* Faction infos */
-
-    /**
-     * It creates populates the faction by loading everything it needs from storage
-     *
-     * @param loadRegistry The registry of the faction to load.
-     */
-    void createFromStorage(@NotNull String loadRegistry);
 
     /* Getters */
 
@@ -93,7 +90,7 @@ public interface Faction<F extends Faction<F>> {
      *
      * @return The color of the faction.
      */
-    int getColor() throws SettingNotFoundException;
+    int getColor();
 
     /**
      * Returns the message of the day.

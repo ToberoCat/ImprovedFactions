@@ -1,11 +1,9 @@
 package io.github.toberocat.improvedFactions.faction.components.rank;
 
-import io.github.toberocat.core.factions.components.rank.allies.*;
-import io.github.toberocat.core.factions.components.rank.members.*;
-import io.github.toberocat.core.utility.Utility;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
+import io.github.toberocat.improvedFactions.faction.components.rank.allies.*;
+import io.github.toberocat.improvedFactions.faction.components.rank.members.*;
+import io.github.toberocat.improvedFactions.item.ItemStack;
+import io.github.toberocat.improvedFactions.player.FactionPlayer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashMap;
@@ -74,11 +72,9 @@ public abstract class Rank {
         return registryName;
     }
 
-    public abstract String description(Player player);
+    public abstract String description(FactionPlayer<?> player);
 
-    public ItemStack getItem(Player player) {
-        return Utility.createItem(Material.GRASS_BLOCK, getDisplayName());
-    }
+    public abstract ItemStack getItem(FactionPlayer<?> player);
 
     /**
      *

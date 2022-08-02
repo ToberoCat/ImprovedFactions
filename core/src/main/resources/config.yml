@@ -1,0 +1,3 @@
+faction:
+  max-registry-length: 10 # 10 characters
+  active-member-threshold: 60
