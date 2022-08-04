@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedFactions.faction.components;
 
-import io.github.toberocat.core.factions.Faction;
+import io.github.toberocat.improvedFactions.faction.Faction;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;

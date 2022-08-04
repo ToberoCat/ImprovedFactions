@@ -2,6 +2,7 @@ package io.github.toberocat.improvedFactions.handler;
 
 import io.github.toberocat.improvedFactions.exceptions.NoImplementationProvidedException;
 import io.github.toberocat.improvedFactions.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.registry.ImplementationHolder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -16,7 +17,10 @@ public interface ImprovedFactions {
         return implementation;
     }
 
-    @Nullable FactionPlayer<?> getPlayer(@NotNull UUID uuid);
+    @Nullable FactionPlayer<?> getPlayer(@NotNull UUID id);
     @Nullable FactionPlayer<?> getPlayer(@NotNull String name);
+
+    @Nullable OfflineFactionPlayer<?> getOfflinePlayer(@NotNull UUID id);
+    @Nullable OfflineFactionPlayer<?> getOfflinePlayer(@NotNull String name);
 
 }

@@ -1,19 +1,32 @@
 package io.github.toberocat.improvedFactions.faction;
 
 import io.github.toberocat.improvedFactions.exceptions.faction.FactionIsFrozenException;
+import io.github.toberocat.improvedFactions.exceptions.faction.FactionOwnerIsOfflineException;
+import io.github.toberocat.improvedFactions.exceptions.faction.PlayerIsOwnerException;
+import io.github.toberocat.improvedFactions.exceptions.faction.relation.AlreadyInvitedException;
+import io.github.toberocat.improvedFactions.exceptions.faction.relation.CantInviteYourselfException;
 import io.github.toberocat.improvedFactions.faction.components.Description;
+import io.github.toberocat.improvedFactions.faction.components.FactionClaims;
+import io.github.toberocat.improvedFactions.faction.components.FactionModule;
 import io.github.toberocat.improvedFactions.faction.components.rank.Rank;
+import io.github.toberocat.improvedFactions.faction.components.rank.members.FactionRank;
+import io.github.toberocat.improvedFactions.faction.components.report.FactionReports;
 import io.github.toberocat.improvedFactions.handler.ColorHandler;
 import io.github.toberocat.improvedFactions.handler.ConfigHandler;
+import io.github.toberocat.improvedFactions.handler.ImprovedFactions;
+import io.github.toberocat.improvedFactions.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.setting.component.SettingHolder;
+import io.github.toberocat.improvedFactions.translator.Placeholder;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-public interface Faction<F extends Faction<F>> {
+public interface Faction<F extends Faction<F>> extends SettingHolder {
     /* Static vars */
     int allyId = 0;
     int neutralId = 1;
@@ -198,30 +211,12 @@ public interface Faction<F extends Faction<F>> {
     @NotNull Rank getPlayerRank(@NotNull OfflineFactionPlayer<?> player);
 
     /**
-     * Gets the permission setting for the specified permission
-     *
-     * @param permission The permission you want to get the setting for.
-     * @return A RankSetting instance.
-     */
-    @NotNull RankSetting getPermission(@NotNull String permission) throws SettingNotFoundException;
-
-    /**
-     * Returns whether the player has the given permission
-     *
-     * @param player     The player to check the permission for.
-     * @param permission The permission to check for.
-     * @return If the permission is allowed for the specified player
-     */
-    boolean hasPermission(@NotNull OfflinePlayer player, @NotNull String permission)
-            throws SettingNotFoundException;
-
-    /**
      * Returns true if the player is a member of the faction
      *
      * @param player The player to check.
      * @return If the player is in the faction
      */
-    boolean isMember(@NotNull OfflinePlayer player);
+    boolean isMember(@NotNull OfflineFactionPlayer<?> player);
 
     /**
      * Changes the rank of the specified player to the specified rank
@@ -229,7 +224,7 @@ public interface Faction<F extends Faction<F>> {
      * @param player The player you want to change the rank of.
      * @param rank   The rank you want to change the player to.
      */
-    void changeRank(@NotNull OfflinePlayer player, @NotNull FactionRank rank) throws FactionIsFrozenException;
+    void changeRank(@NotNull OfflineFactionPlayer<?> player, @NotNull FactionRank rank) throws FactionIsFrozenException;
 
     /* Faction management */
 
@@ -238,7 +233,7 @@ public interface Faction<F extends Faction<F>> {
      *
      * @param player The player who will be the new owner of the faction.
      */
-    void transferOwnership(@NotNull Player player) throws FactionIsFrozenException;
+    void transferOwnership(@NotNull FactionPlayer<?> player) throws FactionIsFrozenException;
 
     /**
      * Deletes the faction
@@ -262,17 +257,17 @@ public interface Faction<F extends Faction<F>> {
     @NotNull Stream<UUID> getMembers();
 
     @NotNull
-    default Stream<OfflinePlayer> getPlayers() {
-        return getMembers().map(Bukkit::getOfflinePlayer);
+    default Stream<OfflineFactionPlayer<?>> getPlayers() {
+        return getMembers().map(x -> ImprovedFactions.api().getOfflinePlayer(x));
     }
 
-    default Stream<OfflinePlayer> getActiveMembers() {
+    default Stream<OfflineFactionPlayer<?>> getActiveMembers() {
         return getPlayers().filter(x -> Math.floor((System.currentTimeMillis() -
                 x.getLastPlayed()) / 0.000000011574) <= activeThreshold);
     }
 
-    default Stream<OfflinePlayer> getOnlineMembers() {
-        return getPlayers().filter(OfflinePlayer::isOnline);
+    default Stream<OfflineFactionPlayer<?>> getOnlineMembers() {
+        return getPlayers().filter(OfflineFactionPlayer::isOnline);
     }
 
 
@@ -282,7 +277,7 @@ public interface Faction<F extends Faction<F>> {
      * @param player The player to join the game.
      * @return If it was able to join
      */
-    boolean joinPlayer(@NotNull Player player) throws FactionIsFrozenException;
+    boolean joinPlayer(@NotNull FactionPlayer<?> player) throws FactionIsFrozenException;
 
     /**
      * Join a player in a faction to a rank.
@@ -291,7 +286,7 @@ public interface Faction<F extends Faction<F>> {
      * @param rank   The rank that the player will be joining as.
      * @return If the player was able to join
      */
-    boolean joinPlayer(@NotNull Player player, @NotNull Rank rank) throws FactionIsFrozenException;
+    boolean joinPlayer(@NotNull FactionPlayer<?> player, @NotNull Rank rank) throws FactionIsFrozenException;
 
     /**
      * Removes a player from the faction
@@ -299,7 +294,7 @@ public interface Faction<F extends Faction<F>> {
      * @param player The player to leave the faction.
      * @return If the player was able to leave
      */
-    boolean leavePlayer(@NotNull Player player) throws FactionIsFrozenException, PlayerIsOwnerException;
+    boolean leavePlayer(@NotNull FactionPlayer<?> player) throws FactionIsFrozenException, PlayerIsOwnerException;
 
     /**
      * This function kicks a player from the faction
@@ -307,7 +302,7 @@ public interface Faction<F extends Faction<F>> {
      * @param player The player to kick.
      * @return If the player was able to kicked
      */
-    boolean kickPlayer(@NotNull OfflinePlayer player) throws FactionIsFrozenException;
+    boolean kickPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException;
 
     /**
      * This function bans a player.
@@ -315,7 +310,7 @@ public interface Faction<F extends Faction<F>> {
      * @param player The player to ban.
      * @return If the player was able to get banned
      */
-    boolean banPlayer(@NotNull OfflinePlayer player) throws FactionIsFrozenException;
+    boolean banPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException;
 
     /**
      * Pardon a player from the ban list.
@@ -323,7 +318,7 @@ public interface Faction<F extends Faction<F>> {
      * @param player The player to pardon.
      * @return If the player was able to be pardoned
      */
-    boolean pardonPlayer(@NotNull OfflinePlayer player) throws FactionIsFrozenException;
+    boolean pardonPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException;
 
     /**
      * Returns true if the player is banned, false otherwise.
@@ -331,7 +326,7 @@ public interface Faction<F extends Faction<F>> {
      * @param player The player to check
      * @return If banned or not
      */
-    boolean isBanned(@NotNull OfflinePlayer player);
+    boolean isBanned(@NotNull OfflineFactionPlayer<?> player);
 
 
     /* Power management */
@@ -455,7 +450,7 @@ public interface Faction<F extends Faction<F>> {
      * @param player The player to check.
      * @return If allied or not
      */
-    boolean isAllied(@NotNull OfflinePlayer player);
+    boolean isAllied(@NotNull OfflineFactionPlayer<?> player);
 
     /**
      * Adds an enemy to the faction.
@@ -479,7 +474,7 @@ public interface Faction<F extends Faction<F>> {
      * @param player The player to check.
      * @return If the player's faction is an enemy
      */
-    boolean isEnemy(@NotNull OfflinePlayer player);
+    boolean isEnemy(@NotNull OfflineFactionPlayer<?> player);
 
     /**
      * Returns a stream of all the allies of this faction.
@@ -518,7 +513,7 @@ public interface Faction<F extends Faction<F>> {
      *
      * @param key The key of the translatable message.
      */
-    void broadcastTranslatable(@NotNull String key, Parseable... parseables);
+    void broadcastTranslatable(@NotNull String key, Placeholder... parseables);
 
     /* Claim management */
 
@@ -528,16 +523,6 @@ public interface Faction<F extends Faction<F>> {
      * @return A list of claims.
      */
     @NotNull FactionClaims<F> getClaims();
-
-    /* Settings */
-
-    /**
-     * Get a setting by name
-     *
-     * @param setting The name of the setting you want to get.
-     * @return A setting instance
-     */
-    @NotNull Setting<?> getSetting(@NotNull String setting) throws SettingNotFoundException;
 
     /* Reports */
 

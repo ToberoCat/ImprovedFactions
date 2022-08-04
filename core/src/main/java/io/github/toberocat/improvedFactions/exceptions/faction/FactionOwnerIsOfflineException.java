@@ -3,12 +3,12 @@ package io.github.toberocat.improvedFactions.exceptions.faction;
 import io.github.toberocat.improvedFactions.faction.Faction;
 import org.jetbrains.annotations.NotNull;
 
-public class FactionException extends Exception {
+public class FactionOwnerIsOfflineException extends Exception {
 
-    protected final Faction<?> faction;
+    private final Faction<?> faction;
 
-    public FactionException(@NotNull Faction<?> faction, @NotNull String msg) {
-        super(msg);
+    public FactionOwnerIsOfflineException(@NotNull Faction<?> faction) {
+        super("Owner of " + faction.getRegistry() + " is offline");
         this.faction = faction;
     }
 

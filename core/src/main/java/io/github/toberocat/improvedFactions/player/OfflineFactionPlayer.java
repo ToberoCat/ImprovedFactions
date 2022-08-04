@@ -12,5 +12,9 @@ public interface OfflineFactionPlayer<P> {
     @Nullable String getFactionRegistry();
 
     /* Player */
+    @Nullable FactionPlayer<?> getPlayer();
     @NotNull UUID getUnique();
+    @NotNull String getName();
+    long getLastPlayed();
+    boolean isOnline();
 }
