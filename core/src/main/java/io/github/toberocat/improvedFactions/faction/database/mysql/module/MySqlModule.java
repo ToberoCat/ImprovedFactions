@@ -1,13 +1,13 @@
-package io.github.toberocat.improvedFactions.faction.database.module;
+package io.github.toberocat.improvedFactions.faction.database.mysql.module;
 
 import io.github.toberocat.core.factions.components.FactionModule;
 import io.github.toberocat.core.factions.database.DatabaseFaction;
 import io.github.toberocat.core.utility.data.database.sql.MySqlDatabase;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class DatabaseModule extends FactionModule<DatabaseFaction> {
+public abstract class MySqlModule extends FactionModule<DatabaseFaction> {
 
-    public DatabaseModule(DatabaseFaction faction) {
+    public MySqlModule(DatabaseFaction faction) {
         super(faction);
     }
 

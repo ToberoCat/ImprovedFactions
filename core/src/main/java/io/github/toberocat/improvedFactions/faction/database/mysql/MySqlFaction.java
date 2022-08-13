@@ -1,51 +1,29 @@
-package io.github.toberocat.improvedFactions.faction.database;
+package io.github.toberocat.improvedFactions.faction.database.mysql;
 
-
-import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.OpenType;
-import io.github.toberocat.core.factions.components.Description;
-import io.github.toberocat.core.factions.components.FactionClaims;
-import io.github.toberocat.core.factions.components.FactionModule;
-import io.github.toberocat.core.factions.components.rank.GuestRank;
-import io.github.toberocat.core.factions.components.rank.Rank;
-import io.github.toberocat.core.factions.components.rank.members.AdminRank;
-import io.github.toberocat.core.factions.components.rank.members.FactionRank;
-import io.github.toberocat.core.factions.components.rank.members.OwnerRank;
-import io.github.toberocat.core.factions.components.report.FactionReports;
-import io.github.toberocat.core.factions.components.report.Report;
-import io.github.toberocat.core.factions.database.module.DatabaseModule;
-import io.github.toberocat.core.utility.async.AsyncTask;
-import io.github.toberocat.core.utility.color.FactionColors;
-import io.github.toberocat.core.utility.data.Table;
-import io.github.toberocat.core.utility.data.database.DatabaseAccess;
-import io.github.toberocat.core.utility.data.database.sql.MySqlDatabase;
-import io.github.toberocat.core.utility.data.database.sql.SqlCode;
-import io.github.toberocat.core.utility.data.database.sql.SqlVar;
-import io.github.toberocat.core.utility.data.database.sql.builder.Insert;
-import io.github.toberocat.core.utility.data.database.sql.builder.Row;
-import io.github.toberocat.core.utility.data.database.sql.builder.Select;
-import io.github.toberocat.core.utility.date.DateCore;
-import io.github.toberocat.core.utility.events.faction.*;
-import io.github.toberocat.core.utility.exceptions.DescriptionHasNoLine;
-import io.github.toberocat.core.utility.exceptions.faction.FactionHandlerNotFound;
-import io.github.toberocat.core.utility.exceptions.faction.FactionIsFrozenException;
-import io.github.toberocat.core.utility.exceptions.faction.FactionOwnerIsOfflineException;
-import io.github.toberocat.core.utility.exceptions.faction.leave.PlayerIsOwnerException;
-import io.github.toberocat.core.utility.exceptions.faction.relation.AlreadyInvitedException;
-import io.github.toberocat.core.utility.exceptions.faction.relation.CantInviteYourselfException;
-import io.github.toberocat.core.utility.exceptions.setting.SettingNotFoundException;
-import io.github.toberocat.core.utility.language.Language;
-import io.github.toberocat.core.utility.language.Parseable;
-import io.github.toberocat.core.utility.settings.type.EnumSetting;
-import io.github.toberocat.core.utility.settings.type.RankSetting;
-import io.github.toberocat.core.utility.settings.type.Setting;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
+import io.github.toberocat.improvedFactions.database.DatabaseVar;
+import io.github.toberocat.improvedFactions.database.MySqlDatabase;
+import io.github.toberocat.improvedFactions.database.builder.Select;
+import io.github.toberocat.improvedFactions.event.EventExecutor;
+import io.github.toberocat.improvedFactions.exceptions.description.DescriptionHasNoLine;
+import io.github.toberocat.improvedFactions.exceptions.faction.FactionHandlerNotFound;
+import io.github.toberocat.improvedFactions.exceptions.faction.FactionIsFrozenException;
+import io.github.toberocat.improvedFactions.exceptions.faction.IllegalFactionNamingException;
+import io.github.toberocat.improvedFactions.faction.Faction;
+import io.github.toberocat.improvedFactions.faction.OpenType;
+import io.github.toberocat.improvedFactions.faction.components.Description;
+import io.github.toberocat.improvedFactions.faction.components.rank.GuestRank;
+import io.github.toberocat.improvedFactions.faction.components.rank.Rank;
+import io.github.toberocat.improvedFactions.faction.components.rank.members.FactionAdminRank;
+import io.github.toberocat.improvedFactions.faction.components.rank.members.FactionOwnerRank;
+import io.github.toberocat.improvedFactions.faction.components.rank.members.FactionRank;
+import io.github.toberocat.improvedFactions.faction.database.mysql.module.MySqlModule;
+import io.github.toberocat.improvedFactions.handler.ConfigHandler;
+import io.github.toberocat.improvedFactions.handler.DatabaseHandler;
+import io.github.toberocat.improvedFactions.handler.ImprovedFactions;
+import io.github.toberocat.improvedFactions.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.utils.DateUtils;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.joda.time.LocalDateTime;
 
 import java.lang.reflect.InvocationTargetException;
@@ -61,10 +39,10 @@ import java.util.stream.Stream;
  * To allow the best performance, these two implementations are seperated by different classes,
  * so that there are no unnecessary if statements to check if it should sync now or not
  */
-public class DatabaseFaction implements Faction<DatabaseFaction> {
+public class MySqlFaction implements Faction<MySqlFaction> {
 
     private final MySqlDatabase database;
-    private final LinkedHashMap<String, DatabaseModule> modules = new LinkedHashMap<>();
+    private final LinkedHashMap<String, MySqlModule> modules = new LinkedHashMap<>();
 
     private String registry;
     private String display;
@@ -74,59 +52,41 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     /**
      * Use FactionHandler#createFaction() to create a faction
      */
-    public DatabaseFaction() {
-        this.database = DatabaseAccess.accessPipeline(DatabaseAccess.class).database();
+    public MySqlFaction() {
+        this.database = DatabaseHandler.api().getMySql();
     }
 
     /**
      * @param display This name isn't allowed to be longer than "faction.maxNameLen" in config.yml
      */
-    public DatabaseFaction(@NotNull String display, @NotNull Player owner) {
+    public MySqlFaction(@NotNull String display, @NotNull FactionPlayer<?> owner)
+            throws IllegalFactionNamingException {
         this();
         this.registry = Faction.displayToRegistry(display);
-        this.display = display.substring(0, MainIF.config().getInt("faction.maxNameLen"));
+        this.display = Faction.validateDisplay(display);
 
-        FileConfiguration config = MainIF.config();
+        if (!Faction.validNaming(registry)) throw new IllegalFactionNamingException(this, registry);
+
+        ConfigHandler config = ConfigHandler.api();
         this.motd = config.getString("faction.default.motd", "Improved faction");
         this.tag = config.getString("faction.default.tag", "IFF");
 
-        SqlCode.execute(database, SqlCode.CREATE_FACTION,
-                SqlVar.of("registry", registry),
-                SqlVar.of("display", display),
-                SqlVar.of("motd", motd),
-                SqlVar.of("tag", tag),
-                SqlVar.of("openType", OpenType.valueOf(config
-                        .getString("faction.default.openType", "INVITE_ONLY")).ordinal()),
-                SqlVar.of("frozen", config.getBoolean("faction.default.frozen")),
-                SqlVar.of("permanent", config.getBoolean("faction.default.permanent")),
-                SqlVar.of("created_at", DateCore.TIME_FORMAT.print(new LocalDateTime())),
-                SqlVar.of("owner", owner.getUniqueId().toString()),
-                SqlVar.of("claimed_chunks", 0),
-                SqlVar.of("balance", 0),
-                SqlVar.of("current_power", config.getInt("faction.default.power.value")),
-                SqlVar.of("max_power", config.getInt("faction.default.power.max"))
+        database.executeUpdate(MySqlDatabase.CREATE_LAYOUT_QUERY,
+                DatabaseVar.of("registry", registry),
+                DatabaseVar.of("display", display),
+                DatabaseVar.of("motd", motd),
+                DatabaseVar.of("tag", tag),
+                DatabaseVar.of("openType", OpenType
+                        .valueOf(config.getString("faction.default.open-type", "INVITE_ONLY")).ordinal()),
+                DatabaseVar.of("frozen", config.getBool("faction.default.frozen")),
+                DatabaseVar.of("permanent", config.getBool("faction.default.permanent")),
+                DatabaseVar.of("created_at", DateUtils.TIME_FORMAT.print(new LocalDateTime())),
+                DatabaseVar.of("owner", owner.getUniqueId().toString()),
+                DatabaseVar.of("claimed_chunks", 0),
+                DatabaseVar.of("balance", config.getInt("faction.default.start-balance")),
+                DatabaseVar.of("current_power", config.getInt("faction.default.start-power")),
+                DatabaseVar.of("max_power", config.getInt("faction.default.start-max-power"))
         );
-    }
-
-    /**
-     * It loads the faction from the database
-     *
-     * @param loadRegistry The registry ID of the faction to load.
-     */
-    @Override
-    public void createFromStorage(@NotNull String loadRegistry) {
-        HashMap<String, Object> map = database.rowSelect(new Select()
-                        .setTable(Table.FACTIONS.getTable())
-                        .setColumns("registry", "display", "motd", "tag")
-                        .setFilter("registry_id = %s", loadRegistry))
-                .getRows()
-                .get(0)
-                .getColumns();
-
-        registry = map.get("registry").toString();
-        display = map.get("display").toString();
-        motd = map.get("motd").toString();
-        tag = map.get("tag").toString();
     }
 
     /**
@@ -149,7 +109,7 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     public @NotNull String getDisplay() {
         return database
                 .rowSelect(new Select()
-                        .setTable(Table.FACTIONS.getTable())
+                        .setTable("factions")
                         .setColumns("display_name")
                         .setFilter("registry_id = %s", registry))
                 .readRow(String.class, "display_name")
@@ -167,10 +127,8 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
         this.display = display;
-        database
-                .evalTry("UPDATE factions SET display_name = %s WHERE registry_id = %s",
-                        display, registry)
-                .get(PreparedStatement::executeUpdate);
+        database.executeUpdate("UPDATE factions SET " +
+                "display_name = %s WHERE registry_id = %s", display, registry);
     }
 
     /**
@@ -179,7 +137,7 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
      * @return The color of the faction.
      */
     @Override
-    public int getColor() throws SettingNotFoundException {
+    public int getColor() {
         return FactionColors.values()[((EnumSetting) getSetting("color"))
                 .getSelected()]
                 .getColor();
@@ -195,7 +153,7 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     public @NotNull String getMotd() {
         return database
                 .rowSelect(new Select()
-                        .setTable(Table.FACTIONS.getTable())
+                        .setTable("factions")
                         .setColumns("motd")
                         .setFilter("registry_id = %s", registry))
                 .readRow(String.class, "motd")
@@ -212,10 +170,7 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
         this.motd = motd;
-        database
-                .evalTry("UPDATE factions SET motd = %s WHERE registry_id = %s",
-                        motd, registry)
-                .get(PreparedStatement::executeUpdate);
+        database.executeUpdate("UPDATE factions SET motd = %s WHERE registry_id = %s", motd, registry);
     }
 
     /**
@@ -228,7 +183,7 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     public @NotNull String getTag() {
         return database
                 .rowSelect(new Select()
-                        .setTable(Table.FACTIONS.getTable())
+                        .setTable("factions")
                         .setColumns("tag")
                         .setFilter("registry_id = %s", registry))
                 .readRow(String.class, "tag")
@@ -245,10 +200,7 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
         this.tag = tag;
-        database
-                .evalTry("UPDATE factions SET tag = %s WHERE registry_id = %s",
-                        tag, registry)
-                .get(PreparedStatement::executeUpdate);
+        database.executeUpdate("UPDATE factions SET tag = %s WHERE registry_id = %s", tag, registry);
     }
 
     /**
@@ -271,7 +223,7 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
             public @NotNull Stream<String> getLines() {
                 return database
                         .rowSelect(new Select()
-                                .setTable(Table.FACTION_DESCRIPTIONS.getTable())
+                                .setTable("faction_descriptions")
                                 .setColumns("content")
                                 .setFilter("registry_id = %s", registry))
                         .getRows().stream().map(x -> x.get("content").toString());
@@ -290,7 +242,7 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
             public @NotNull String getLine(int line) throws DescriptionHasNoLine {
                 return database
                         .rowSelect(new Select()
-                                .setTable(Table.FACTION_DESCRIPTIONS.getTable())
+                                .setTable("faction_descriptions")
                                 .setColumns("content")
                                 .setFilter("registry_id = %s AND line = %d", registry, line))
                         .readRow(String.class, "content")
@@ -302,21 +254,19 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
                 if (isFrozen()) throw new FactionIsFrozenException(registry);
 
                 if (hasLine(line)) database
-                        .evalTry("UPDATE faction_descriptions SET content = %s " +
+                        .executeUpdate("UPDATE faction_descriptions SET content = %s " +
                                         "WHERE registry_id = %s AND line = %s",
-                                content, registry, line)
-                        .get(PreparedStatement::executeUpdate);
+                                content, registry, line);
                 else database
-                        .evalTry("INSERT INTO faction_descriptions VALUE (%s, %d, %s)",
-                                registry, line, content)
-                        .get(PreparedStatement::executeUpdate);
+                        .executeUpdate("INSERT INTO faction_descriptions VALUE (%s, %d, %s)",
+                                registry, line, content);
             }
 
             @Override
             public boolean hasLine(int line) {
                 return database
                         .rowSelect(new Select()
-                                .setTable(Table.FACTION_DESCRIPTIONS.getTable())
+                                .setTable("faction_descriptions")
                                 .setColumns("content")
                                 .setFilter("registry_id = %s AND line = %d", registry, line))
                         .readRow(String.class, "content")
@@ -327,7 +277,7 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
             public int getLastLine() {
                 return database
                         .rowSelect(new Select()
-                                .setTable(Table.FACTION_DESCRIPTIONS.getTable())
+                                .setTable("faction_descriptions")
                                 .setColumns("line")
                                 .setFilter("registry_id = %s ORDER BY line DESC", registry))
                         .readRow(Integer.class, "line")
@@ -340,11 +290,11 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     public @NotNull String getCreatedAt() {
         return database
                 .rowSelect(new Select()
-                        .setTable(Table.FACTIONS.getTable())
+                        .setTable("factions")
                         .setColumns("created_at")
                         .setFilter("registry_id = %s", registry))
                 .readRow(String.class, "created_at")
-                .orElse(DateCore.TIME_FORMAT.print(new LocalDateTime()));
+                .orElse(DateUtils.TIME_FORMAT.print(new LocalDateTime()));
     }
 
     @Override
@@ -352,7 +302,7 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
         return OpenType
                 .values()[database
                 .rowSelect(new Select()
-                        .setTable(Table.FACTIONS.getTable())
+                        .setTable("faction_descriptions")
                         .setColumns("open_type")
                         .setFilter("registry_id = %s", registry))
                 .readRow(Integer.class, "open_type")
@@ -364,15 +314,14 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
         database
-                .evalTry("UPDATE factions SET open_type = %d WHERE registry_id = %s",
-                        type.ordinal(), registry)
-                .get(PreparedStatement::executeUpdate);
+                .executeUpdate("UPDATE factions SET open_type = %d WHERE registry_id = %s",
+                        type.ordinal(), registry);
     }
 
     @Override
     public @NotNull UUID getOwner() {
         return UUID.fromString(database.rowSelect(new Select()
-                        .setTable(Table.FACTIONS.getTable())
+                        .setTable("factions")
                         .setColumns("owner")
                         .setFilter("registry_id = %s", registry))
                 .readRow(String.class, "owner")
@@ -382,7 +331,7 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     @Override
     public boolean isPermanent() {
         return database.rowSelect(new Select()
-                        .setTable(Table.FACTIONS.getTable())
+                        .setTable("factions")
                         .setColumns("permanent")
                         .setFilter("WHERE registry_id = %s", registry))
                 .readRow(Boolean.class, "permanent")
@@ -392,15 +341,14 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     @Override
     public void setPermanent(boolean permanent) {
         database
-                .evalTry("UPDATE factions SET permanent = %b WHERE registry_id = %s",
-                        permanent, registry)
-                .get(PreparedStatement::executeUpdate);
+                .executeUpdate("UPDATE factions SET permanent = %b WHERE registry_id = %s",
+                        permanent, registry);
     }
 
     @Override
     public boolean isFrozen() {
         return database.rowSelect(new Select()
-                        .setTable(Table.FACTIONS.getTable())
+                        .setTable("factions")
                         .setColumns("frozen")
                         .setFilter("WHERE registry_id = %s", registry))
                 .readRow(Boolean.class, "frozen")
@@ -410,13 +358,12 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     @Override
     public void setFrozen(boolean frozen) {
         database
-                .evalTry("UPDATE factions SET frozen = %b WHERE registry_id = %s",
-                        frozen, registry)
-                .get(PreparedStatement::executeUpdate);
+                .executeUpdate("UPDATE factions SET frozen = %b WHERE registry_id = %s",
+                        frozen, registry);
     }
 
     @Override
-    public @NotNull Rank getPlayerRank(@NotNull OfflinePlayer player) {
+    public @NotNull Rank getPlayerRank(@NotNull OfflineFactionPlayer<?> player) {
         if (isMember(player)) return getDbRank(player);
         if (isAllied(player)) return getDbRank(player).getEquivalent();
         return Rank.fromString(GuestRank.register);
@@ -444,8 +391,8 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
         }
     }
 
-    private @NotNull Rank getDbRank(@NotNull OfflinePlayer player) {
-        DatabaseFactionHandler handler = DatabaseFactionHandler.getInstance();
+    private @NotNull FactionRank getDbRank(@NotNull OfflineFactionPlayer<?> player) {
+        MySqlFactionHandler handler = MySqlFactionHandler.getInstance();
 
         if (handler == null) throw new FactionHandlerNotFound("A database faction " +
                 "required a database handler, but didn't find it. " +
@@ -454,16 +401,16 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     @Override
-    public boolean hasPermission(@NotNull OfflinePlayer player,
+    public boolean hasPermission(@NotNull OfflineFactionPlayer<?> player,
                                  @NotNull String permission) throws SettingNotFoundException {
         RankSetting setting = getPermission(permission);
         return setting.hasPermission(getPlayerRank(player));
     }
 
     @Override
-    public boolean isMember(@NotNull OfflinePlayer player) {
+    public boolean isMember(@NotNull OfflineFactionPlayer<?> player) {
         return database.rowSelect(new Select()
-                        .setTable(Table.PLAYERS.getTable())
+                        .setTable("players")
                         .setColumns("faction")
                         .setFilter("uuid = %s", player.getUniqueId().toString()))
                 .readRow(String.class, "faction")
@@ -472,9 +419,9 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     @Override
-    public boolean isAllied(@NotNull OfflinePlayer player) {
+    public boolean isAllied(@NotNull OfflineFactionPlayer<?> player) {
         return getAllies().anyMatch(x -> x.equals(database.rowSelect(new Select()
-                        .setTable(Table.PLAYERS.getTable())
+                        .setTable("players")
                         .setColumns("faction")
                         .setFilter("uuid = %s", player.getUniqueId().toString()))
                 .readRow(String.class, "faction")
@@ -486,52 +433,49 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
      * @param rank   The rank you want to change the player to.
      */
     @Override
-    public void changeRank(@NotNull OfflinePlayer player, @NotNull FactionRank rank)
+    public void changeRank(@NotNull OfflineFactionPlayer<?> player, @NotNull FactionRank rank)
             throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
         if (!isMember(player)) return;
-        Rank previous = getDbRank(player);
+        FactionRank previous = getDbRank(player);
 
-        database.evalTry("UPDATE players SET member_rank = %s WHERE uuid = %s",
-                        rank.getRegistryName(), player.getUniqueId().toString())
-                .get(PreparedStatement::executeUpdate);
-        AsyncTask.callEventSync(new FactionUpdateMemberRankEvent(
-                this,
+        database.executeUpdate("UPDATE players SET member_rank = %s WHERE uuid = %s",
+                rank.getRegistry(), player.getUniqueId().toString());
+        EventExecutor.getExecutor().factionMemberRankUpdate(this,
                 player,
-                previous.getRegistryName(),
-                rank.getRegistryName()));
+                previous,
+                rank);
     }
 
     @Override
-    public void transferOwnership(@NotNull Player player) throws FactionIsFrozenException {
+    public void transferOwnership(@NotNull FactionPlayer<?> player) throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
-        OfflinePlayer old = Bukkit.getOfflinePlayer(getOwner());
-        changeRank(old, (FactionRank) Rank.fromString(AdminRank.registry));
+        OfflineFactionPlayer<?> old = ImprovedFactions.api().getOfflinePlayer(getOwner());
+        if (old == null) return;
 
-        changeRank(player,
-                (FactionRank) Rank.fromString(OwnerRank.registry));
+        changeRank(old, (FactionRank) Rank.fromString(FactionAdminRank.REGISTRY));
 
-        database.evalTry("UPDATE factions SET owner = %s WHERE registry_id = %s",
+        changeRank(player, (FactionRank) Rank.fromString(FactionOwnerRank.REGISTRY));
+
+        database.executeUpdate("UPDATE factions SET owner = %s WHERE registry_id = %s",
                         player.getUniqueId(),
-                        registry)
-                .get(PreparedStatement::executeUpdate);
+                        registry);
 
-        AsyncTask.callEventSync(new FactionTransferOwnershipEvent(this, old, player));
+        EventExecutor.getExecutor().transferOwnership(this, old, player);
     }
 
     @Override
     public void deleteFaction() throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
-        SqlCode.execute(database, SqlCode.DELETE_FACTION, SqlVar.of("registry", registry))
-                .get(PreparedStatement::executeUpdate);
+        database.executeUpdate(MySqlDatabase.DELETE_FACTION, DatabaseVar.of("registry", registry));
     }
 
     @Override
     public @NotNull Stream<UUID> getBanned() {
         return database.rowSelect(new Select()
-                        .setTable(Table.FACTION_BANS.getTable())
+                        .setTable("faction_bans")
                         .setColumns("banned")
                         .setFilter("registry_id = %s", registry))
                 .getRows()
@@ -542,7 +486,7 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     @Override
     public @NotNull Stream<UUID> getMembers() {
         return database.rowSelect(new Select()
-                        .setTable(Table.PLAYERS.getTable())
+                        .setTable("players")
                         .setColumns("uuid")
                         .setFilter("faction = %s", registry))
                 .getRows()
@@ -551,29 +495,27 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     @Override
-    public boolean joinPlayer(@NotNull Player player) throws FactionIsFrozenException {
-        return joinPlayer(player, Rank.fromString(OwnerRank.registry));
+    public boolean joinPlayer(@NotNull FactionPlayer<?> player) throws FactionIsFrozenException {
+        return joinPlayer(player, (FactionRank) Rank.fromString(FactionOwnerRank.REGISTRY));
     }
 
     @Override
-    public boolean joinPlayer(@NotNull Player player, @NotNull Rank rank)
+    public boolean joinPlayer(@NotNull FactionPlayer<?> player, @NotNull FactionRank rank)
             throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (isMember(player)) return false;
 
-        database.evalTry("UPDATE players SET faction = %s WHERE uuid = %s",
-                        registry, player.getUniqueId().toString())
-                .get(PreparedStatement::executeUpdate);
-        database.evalTry("UPDATE players SET member_rank = %s WHERE uuid = %s",
-                        rank.getRegistryName(), player.getUniqueId().toString())
-                .get(PreparedStatement::executeUpdate);
+        database.executeUpdate("UPDATE players SET faction = %s WHERE uuid = %s",
+                registry, player.getUniqueId().toString());
+        database.executeUpdate("UPDATE players SET member_rank = %s WHERE uuid = %s",
+                        rank.getRegistry(), player.getUniqueId().toString());
 
-        AsyncTask.callEventSync(new FactionJoinEvent(this, player));
+        EventExecutor.getExecutor().joinMember(this, player, rank);
         return true;
     }
 
     @Override
-    public boolean leavePlayer(@NotNull Player player)
+    public boolean leavePlayer(@NotNull FactionPlayer<?> player)
             throws FactionIsFrozenException, PlayerIsOwnerException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (!isPermanent() && getPlayerRank(player).getRegistryName().equals(OwnerRank.registry))
@@ -951,7 +893,7 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     @Override
-    public @NotNull FactionClaims<DatabaseFaction> getClaims() {
+    public @NotNull FactionClaims<MySqlFaction> getClaims() {
         return FactionClaims.createClaims(this);
     }
 
@@ -1025,7 +967,7 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
     }
 
     @Override
-    public <C extends FactionModule<DatabaseFaction>>
+    public <C extends FactionModule<MySqlFaction>>
     void createModule(@NotNull Class<C> clazz, Object... parameters)
             throws NoSuchMethodException, InvocationTargetException,
             InstantiationException, IllegalAccessException {
@@ -1035,7 +977,7 @@ public class DatabaseFaction implements Faction<DatabaseFaction> {
                 .map(Object::getClass)
                 .toList());
 
-        FactionModule<DatabaseFaction> module = clazz.getConstructor(classes.toArray(Class[]::new))
+        FactionModule<MySqlFaction> module = clazz.getConstructor(classes.toArray(Class[]::new))
                 .newInstance(parameters);
         modules.put(module.registry(), (DatabaseModule) module);
     }

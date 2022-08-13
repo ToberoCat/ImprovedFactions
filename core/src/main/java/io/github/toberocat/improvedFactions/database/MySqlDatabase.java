@@ -5,24 +5,50 @@ import io.github.toberocat.improvedFactions.database.builder.*;
 import io.github.toberocat.improvedFactions.utils.Logger;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 
-public class MySqlDb implements Database {
+public class MySqlDatabase implements Database {
+
+    public static final String CREATE_LAYOUT_QUERY = readFileSql("database/mysql/create_table_layout.sql");
+    public static final String DELETE_FACTION = readFileSql("database/mysql/delete/");
 
     private final String host, user, password, db;
     private final int port;
     private Connection connection;
 
-    public MySqlDb(@NotNull String host,
-                   @NotNull String user,
-                   @NotNull String pw,
-                   @NotNull String db,
-                   int port) {
+    public MySqlDatabase(@NotNull String host,
+                         @NotNull String user,
+                         @NotNull String pw,
+                         @NotNull String db,
+                         int port) {
         this.host = host;
         this.user = user;
         this.password = pw;
         this.db = db;
         this.port = port;
+    }
+
+    public static String readFileSql(@NotNull String resPath) {
+        InputStream is = MySqlDatabase.class.getClassLoader().getResourceAsStream(resPath);
+        if (is == null)
+            throw new IllegalArgumentException("Couldn't resolve the local file path to the sql file");
+
+        StringBuilder textBuilder = new StringBuilder();
+
+        try (Reader reader = new BufferedReader(new InputStreamReader(is,
+                Charset.forName(StandardCharsets.UTF_8.name())))) {
+            int c;
+            while ((c = reader.read()) != -1) {
+                textBuilder.append((char) c);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return textBuilder.toString();
     }
 
     // Connection
@@ -213,8 +239,29 @@ public class MySqlDb implements Database {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-            stmt.execute(query);
+            stmt.execute(String.format(query, placeholders));
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (stmt == null) return false;
+        try {
+            stmt.close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean executeUpdate(@NotNull String query, DatabaseVar... placeholders) {
+        for (DatabaseVar var : placeholders) query = query.replaceAll(var.from(), var.to());
+
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            stmt.execute(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }

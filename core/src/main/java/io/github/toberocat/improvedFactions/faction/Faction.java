@@ -55,6 +55,11 @@ public interface Faction<F extends Faction<F>> extends SettingHolder {
                 .replaceAll("[^a-z]", "");
     }
 
+    static @NotNull String validateDisplay(@NotNull String display) {
+        return display
+                .substring(0, ConfigHandler.api().getInt("faction.max-display-length", 10));
+    }
+
     /**
      * If the name is 'safezone' or 'warzone', return false. Otherwise, return the result of the
      * ForbiddenChecker.checkName() function.
@@ -286,7 +291,7 @@ public interface Faction<F extends Faction<F>> extends SettingHolder {
      * @param rank   The rank that the player will be joining as.
      * @return If the player was able to join
      */
-    boolean joinPlayer(@NotNull FactionPlayer<?> player, @NotNull Rank rank) throws FactionIsFrozenException;
+    boolean joinPlayer(@NotNull FactionPlayer<?> player, @NotNull FactionRank rank) throws FactionIsFrozenException;
 
     /**
      * Removes a player from the faction

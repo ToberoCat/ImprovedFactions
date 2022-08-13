@@ -1,5 +1,9 @@
 package io.github.toberocat.improvedFactions.event;
 
+import io.github.toberocat.improvedFactions.faction.Faction;
+import io.github.toberocat.improvedFactions.faction.components.rank.members.FactionRank;
+import io.github.toberocat.improvedFactions.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.world.Chunk;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -21,4 +25,14 @@ public interface EventListener {
     void protectChunk(@NotNull Chunk chunk, @NotNull String registry);
 
     void removeProtection(@NotNull Chunk chunk, @Nullable String oldRegistry);
+
+    void factionMemberRankUpdate(@NotNull Faction<?> faction,
+                                 @NotNull OfflineFactionPlayer<?> player,
+                                 @NotNull FactionRank oldRank,
+                                 @NotNull FactionRank newRank);
+
+    void transferOwnership(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> oldOwner,
+                           @NotNull FactionPlayer<?> newOwner);
+
+    void joinMember(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> player, @NotNull FactionRank joinedAs);
 }

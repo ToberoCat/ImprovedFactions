@@ -10,7 +10,8 @@ import io.github.toberocat.core.utility.exceptions.faction.PlayerHasNoFactionExc
 import io.github.toberocat.improvedFactions.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.faction.Faction;
 import io.github.toberocat.improvedFactions.faction.components.rank.Rank;
-import io.github.toberocat.improvedFactions.faction.database.DatabaseFactionHandler;
+import io.github.toberocat.improvedFactions.faction.components.rank.members.FactionRank;
+import io.github.toberocat.improvedFactions.faction.database.mysql.MySqlFactionHandler;
 import io.github.toberocat.improvedFactions.faction.local.LocalFactionHandler;
 import io.github.toberocat.improvedFactions.handler.ConfigHandler;
 import io.github.toberocat.improvedFactions.handler.ImprovedFactions;
@@ -20,7 +21,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +36,7 @@ public abstract class FactionHandler {
     private static final @NotNull FactionHandlerInterface<?> handler = createInterface();
 
     private static @NotNull FactionHandlerInterface<?> createInterface() {
-        if (ConfigHandler.api().getBool("storage.use-mysql", false)) return new DatabaseFactionHandler();
+        if (ConfigHandler.api().getBool("storage.use-mysql", false)) return new MySqlFactionHandler();
         else return new LocalFactionHandler();
     }
 
@@ -93,15 +93,15 @@ public abstract class FactionHandler {
     }
 
     /**
-     * Gets the rank that's being saved for a player. No processing is done with this rank yet.
-     * It can only be A faction rank (Owner, Admin, Moderator, Elder, Member) and a Guest (No faction)
-     * <p>
+     * Gets the rank that's being saved for a player. No post-processing got done with this rank yet.
+     * It can only be a faction rank (Owner, Admin, Moderator, Elder, Member) and a Guest (No faction)
+     *
      * Note: Ally relation is being ignored!
      *
      * @param player The player you ant to get the rank from
      * @return The raw rank of the player
      */
-    public static @NotNull Rank getSavedRank(@NotNull OfflineFactionPlayer<?> player) {
+    public static @NotNull FactionRank getSavedRank(@NotNull OfflineFactionPlayer<?> player) {
         return handler.getSavedRank(player);
     }
 
