@@ -11,6 +11,8 @@ public interface OfflineFactionPlayer<P> {
     @NotNull Faction<?> getFaction();
     @Nullable String getFactionRegistry();
 
+    boolean inFaction();
+
     /* Player */
     @Nullable FactionPlayer<?> getPlayer();
     @NotNull UUID getUnique();

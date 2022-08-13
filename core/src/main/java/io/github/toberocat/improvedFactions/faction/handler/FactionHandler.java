@@ -7,6 +7,15 @@ import io.github.toberocat.core.factions.database.DatabaseFactionHandler;
 import io.github.toberocat.core.factions.local.LocalFactionHandler;
 import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.core.utility.exceptions.faction.PlayerHasNoFactionException;
+import io.github.toberocat.improvedFactions.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.improvedFactions.faction.Faction;
+import io.github.toberocat.improvedFactions.faction.components.rank.Rank;
+import io.github.toberocat.improvedFactions.faction.database.DatabaseFactionHandler;
+import io.github.toberocat.improvedFactions.faction.local.LocalFactionHandler;
+import io.github.toberocat.improvedFactions.handler.ConfigHandler;
+import io.github.toberocat.improvedFactions.handler.ImprovedFactions;
+import io.github.toberocat.improvedFactions.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.player.OfflineFactionPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -27,12 +36,12 @@ public abstract class FactionHandler {
     private static final @NotNull FactionHandlerInterface<?> handler = createInterface();
 
     private static @NotNull FactionHandlerInterface<?> createInterface() {
-        if (MainIF.config().getBoolean("sql.useSql", false)) return new DatabaseFactionHandler();
+        if (ConfigHandler.api().getBool("storage.use-mysql", false)) return new DatabaseFactionHandler();
         else return new LocalFactionHandler();
     }
 
     public static @NotNull Faction<?> createFaction(@NotNull String display,
-                                                    @NotNull Player owner) {
+                                                    @NotNull FactionPlayer<?> owner) {
         return handler.create(display, owner);
     }
 
@@ -47,7 +56,7 @@ public abstract class FactionHandler {
     public static void unload(@NotNull String registry) throws FactionNotInStorage {
         Faction<?> faction = getFaction(registry);
         if (faction.getMembers()
-                .filter(uuid -> Objects.nonNull(Bukkit.getPlayer(uuid)))
+                .filter(uuid -> Objects.nonNull(ImprovedFactions.api().getPlayer(uuid)))
                 .count() > 1) return;
 
         FactionHandler.unload(registry);
@@ -69,45 +78,11 @@ public abstract class FactionHandler {
         return handler.getFaction(registry);
     }
 
-    public static @NotNull Faction<?> getFaction(@NotNull Player player)
-            throws PlayerHasNoFactionException, FactionNotInStorage {
-        String registry = handler.getPlayerFaction(player);
-        if (registry == null) throw new PlayerHasNoFactionException(player);
-
-        return getFaction(registry);
-    }
-
-    public static @NotNull Faction<?> getFaction(@NotNull OfflinePlayer player)
-            throws PlayerHasNoFactionException, FactionNotInStorage {
-        String registry = handler.getPlayerFaction(player);
-        if (registry == null) throw new PlayerHasNoFactionException(player);
-
-        return getFaction(registry);
-    }
-
-
-    public static @Nullable String getPlayerFaction(@NotNull OfflinePlayer player) {
-        return handler.getPlayerFaction(player);
-    }
-
-    public static @Nullable String getPlayerFaction(@NotNull Player player) {
-        return handler.getPlayerFaction(player);
-    }
-
-
-    public static boolean isInFaction(@NotNull OfflinePlayer player) {
-        return handler.isInFaction(player);
-    }
-
-    public static boolean isInFaction(@NotNull Player player) {
-        return handler.isInFaction(player);
-    }
-
     public static @NotNull Stream<String> getAllFactions() {
         return handler.getAllFactions();
     }
 
-    public static void removeFactionCache(@NotNull Player player) {
+    public static void removeFactionCache(@NotNull FactionPlayer<?> player) {
         handler.removeFactionCache(player);
     }
 
@@ -126,7 +101,7 @@ public abstract class FactionHandler {
      * @param player The player you ant to get the rank from
      * @return The raw rank of the player
      */
-    public static @NotNull Rank getSavedRank(@NotNull OfflinePlayer player) {
+    public static @NotNull Rank getSavedRank(@NotNull OfflineFactionPlayer<?> player) {
         return handler.getSavedRank(player);
     }
 

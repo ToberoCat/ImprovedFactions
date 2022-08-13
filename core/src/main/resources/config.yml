@@ -6,3 +6,22 @@ world:
 #  - "Disabled faction world"
   enabled-worlds: # When having too many worlds and only want a small amount to be faction worlds, use this list. This list will calculate a disabled worlds list
 #  - "Enabled faction world"
+
+################# Advanced config options #####################
+#
+# A database always syncs up ith the server, meaning that you can run this plugin on multiple
+# server while still keeping your data synchronized
+#
+# Useful with Multipaper, Velocity, BungeeCord, etc
+#
+# This will save RAM on the minecraft server side.
+# Only one database should be selected with true
+# When no database is selected, it will run locally using the plugin data folder
+#
+storage:
+  use-mysql: false
+  mysql: # Only when use-mysql is set to true
+    host: "localhost" # Host is the ip address of the mysql server
+    port: "3306" # Port is the port the service is listing at
+    user: "root" # The user this plugin is allowed to use. Note: Don't use root, create a new user with permissions to just manage improved factions tables
+    password: "1234" # The password of the user given above

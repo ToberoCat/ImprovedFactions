@@ -2,7 +2,10 @@ package io.github.toberocat.improvedFactions.claims;
 
 import io.github.toberocat.improvedFactions.claims.component.Claim;
 import io.github.toberocat.improvedFactions.claims.component.WorldClaim;
+import io.github.toberocat.improvedFactions.event.EventExecutor;
+import io.github.toberocat.improvedFactions.event.EventListener;
 import io.github.toberocat.improvedFactions.exceptions.NoImplementationProvidedException;
+import io.github.toberocat.improvedFactions.exceptions.chunk.ChunkAlreadyClaimedException;
 import io.github.toberocat.improvedFactions.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.persistent.PersistentDataContainer;
 import io.github.toberocat.improvedFactions.registry.ImplementationHolder;
@@ -82,22 +85,18 @@ public abstract class ClaimHandler {
                 .filter(x -> x.registry().equals(registry));
     }
 
-    public void protectChunk(@NotNull String registry, @NotNull Chunk chunk) {
-        String claimed = chunk.getDataContainer().getString(PersistentDataContainer.CLAIM_KEY);
+    public void protectChunk(@NotNull String registry, @NotNull Chunk chunk) throws ChunkAlreadyClaimedException {
+        PersistentDataContainer container = chunk.getDataContainer();
+        String claimed = container.getString(PersistentDataContainer.CLAIM_KEY);
 
         if (claimed != null) throw new ChunkAlreadyClaimedException(claimed);
 
-        PersistentDataUtility.write(PersistentDataUtility.FACTION_CLAIMED_KEY,
-                PersistentDataType.STRING,
-                registry,
-                chunk.getPersistentDataContainer());
+        container.set(PersistentDataContainer.CLAIM_KEY, registry);
 
-        String worldName = chunk.getWorld().getName();
-        if (!CLAIMS.containsKey(worldName)) createWorldClaim(chunk.getWorld());
+        WorldClaim worldClaim = getWorldClaim(chunk.getWorld());
+        worldClaim.add(registry, chunk.getX(), chunk.getZ());
 
-        CLAIMS.get(worldName).add(new Claim(chunk.getX(), chunk.getZ(), registry, worldName));
-        AsyncTask.runSync(() -> Bukkit.getPluginManager()
-                .callEvent(new ChunkProtectEvent(registry, chunk)));
+        EventExecutor.getExecutor().protectChunk(chunk, registry);
     }
 
     public void forEach(BiConsumer<String, WorldClaim> consumer) {

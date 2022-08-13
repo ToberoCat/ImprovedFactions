@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedFactions.registry;
 
 import io.github.toberocat.improvedFactions.claims.ClaimHandler;
+import io.github.toberocat.improvedFactions.event.EventListener;
 import io.github.toberocat.improvedFactions.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.handler.*;
 import io.github.toberocat.improvedFactions.utils.Logger;
@@ -16,6 +17,7 @@ public class ImplementationHolder {
     public static @Nullable ItemHandler itemHandler;
     public static @Nullable ClaimHandler claimHandler;
     public static @Nullable DatabaseHandler databaseHandler;
+    public static @Nullable EventListener eventHandler;
     public static @Nullable Logger logger;
 
     public static @Nullable ImprovedFactions improvedFactions;

@@ -2,7 +2,9 @@ package io.github.toberocat.improvedFactions.faction.components;
 
 import io.github.toberocat.improvedFactions.claims.ClaimHandler;
 import io.github.toberocat.improvedFactions.claims.component.Claim;
+import io.github.toberocat.improvedFactions.exceptions.chunk.ChunkAlreadyClaimedException;
 import io.github.toberocat.improvedFactions.faction.Faction;
+import io.github.toberocat.improvedFactions.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.utils.CUtils;
 import io.github.toberocat.improvedFactions.world.Chunk;
@@ -67,9 +69,9 @@ public final class FactionClaims<F extends Faction<F>> {
     }
 
     private void overclaim(@NotNull Chunk chunk, @NotNull Faction<?> faction, @NotNull String claim)
-            throws ChunkAlreadyClaimedException, FactionNotInStorage {
+            throws ChunkAlreadyClaimedException {
         if (faction.getRegistry().equals(claim)) throw new ChunkAlreadyClaimedException(claim);
-        if (ClaimManager.isManageableZone(claim)) throw new ChunkAlreadyClaimedException(claim);
+        if (ClaimHandler.isManageableZone(claim)) throw new ChunkAlreadyClaimedException(claim);
         if (checkPower(faction, FactionHandler.getFaction(claim))) return;
 
         ClaimManager.removeProtection(chunk);
