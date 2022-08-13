@@ -8,8 +8,7 @@
     <artifactId>spigot</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
-
-    <name>Spigot</name>
+    <name>ImprovedFactions Spigot</name>
 
     <properties>
         <java.version>1.8</java.version>

@@ -7,6 +7,8 @@
     <groupId>io.github.toberocat.improved-factions</groupId>
     <artifactId>core</artifactId>
     <version>1.0</version>
+    <name>ImprovedFactions Core</name>
+
     <dependencies>
         <dependency>
             <groupId>org.jetbrains</groupId>
