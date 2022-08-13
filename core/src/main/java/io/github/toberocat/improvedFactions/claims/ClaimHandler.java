@@ -3,7 +3,6 @@ package io.github.toberocat.improvedFactions.claims;
 import io.github.toberocat.improvedFactions.claims.component.Claim;
 import io.github.toberocat.improvedFactions.claims.component.WorldClaim;
 import io.github.toberocat.improvedFactions.event.EventExecutor;
-import io.github.toberocat.improvedFactions.event.EventListener;
 import io.github.toberocat.improvedFactions.exceptions.NoImplementationProvidedException;
 import io.github.toberocat.improvedFactions.exceptions.chunk.ChunkAlreadyClaimedException;
 import io.github.toberocat.improvedFactions.handler.ImprovedFactions;
@@ -40,19 +39,6 @@ public abstract class ClaimHandler {
         return implementation;
     }
 
-    protected abstract @NotNull WorldClaim createClaim(@NotNull World world);
-
-    public void cacheAllWorlds() {
-        ImprovedFactions.api()
-                .getAllWorlds()
-                .forEach(world -> claims.put(world.getWorldName(), createClaim(world)));
-    }
-
-    public void dispose() {
-        claims.values().forEach(WorldClaim::disable);
-        claims.clear();
-    }
-
     public static int getRegistryColor(@NotNull String registry) {
         return switch (registry) {
             case SAFEZONE_REGISTRY -> 0x00bfff;
@@ -78,6 +64,19 @@ public abstract class ClaimHandler {
         return getZones().contains(registry);
     }
 
+    protected abstract @NotNull WorldClaim createClaim(@NotNull World world);
+
+    public void cacheAllWorlds() {
+        ImprovedFactions.api()
+                .getAllWorlds()
+                .forEach(world -> claims.put(world.getWorldName(), createClaim(world)));
+    }
+
+    public void dispose() {
+        claims.values().forEach(WorldClaim::disable);
+        claims.clear();
+    }
+
     public @NotNull Stream<Claim> registryClaims(@NotNull String registry) {
         return claims.values()
                 .stream()
@@ -97,6 +96,14 @@ public abstract class ClaimHandler {
         worldClaim.add(registry, chunk.getX(), chunk.getZ());
 
         EventExecutor.getExecutor().protectChunk(chunk, registry);
+    }
+
+    public void removeProtection(@NotNull Chunk chunk) {
+        PersistentDataContainer container = chunk.getDataContainer();
+        String previousRegistry = container.remove(PersistentDataContainer.CLAIM_KEY);
+
+        getWorldClaim(chunk.getWorld()).remove(chunk.getX(), chunk.getZ());
+        EventExecutor.getExecutor().removeProtection(chunk, previousRegistry);
     }
 
     public void forEach(BiConsumer<String, WorldClaim> consumer) {

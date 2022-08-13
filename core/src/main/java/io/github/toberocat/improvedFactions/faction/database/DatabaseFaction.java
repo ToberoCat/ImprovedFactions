@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedFactions.faction.database;
 
+
 import io.github.toberocat.MainIF;
 import io.github.toberocat.core.factions.Faction;
 import io.github.toberocat.core.factions.OpenType;

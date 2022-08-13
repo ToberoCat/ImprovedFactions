@@ -3,6 +3,7 @@ package io.github.toberocat.improvedFactions.faction.components;
 import io.github.toberocat.improvedFactions.claims.ClaimHandler;
 import io.github.toberocat.improvedFactions.claims.component.Claim;
 import io.github.toberocat.improvedFactions.exceptions.chunk.ChunkAlreadyClaimedException;
+import io.github.toberocat.improvedFactions.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.faction.Faction;
 import io.github.toberocat.improvedFactions.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.handler.ImprovedFactions;
@@ -16,8 +17,8 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public final class FactionClaims<F extends Faction<F>> {
-    private LinkedHashMap<String, Stream<FactionClaim<F>>> claims;
     private final F faction;
+    private LinkedHashMap<String, Stream<FactionClaim<F>>> claims;
 
     public FactionClaims(F faction) {
         this.faction = faction;
@@ -35,7 +36,7 @@ public final class FactionClaims<F extends Faction<F>> {
             if (world == null || CUtils.isWorldAllowed(world)) return;
 
             claims.put(name, c.getAllClaims()
-                            .filter(Objects::nonNull)
+                    .filter(Objects::nonNull)
                     .filter(x -> x.registry().equals(faction.getRegistry()))
                     .map(x -> FactionClaim.fromClaim(faction, x)));
         });
@@ -52,11 +53,12 @@ public final class FactionClaims<F extends Faction<F>> {
                 .count();
     }
 
-    public void claim(@NotNull Chunk chunk){
+    public void claim(@NotNull Chunk chunk) throws FactionNotInStorage, ChunkAlreadyClaimedException {
         claim(chunk.getWorld().getWorldName(), chunk.getX(), chunk.getZ());
     }
 
-    public void claim(@NotNull String worldName, int x, int z) {
+    public void claim(@NotNull String worldName, int x, int z)
+            throws FactionNotInStorage, ChunkAlreadyClaimedException {
         World world = ImprovedFactions.api().getWorld(worldName);
         if (world == null) return;
 
@@ -69,12 +71,12 @@ public final class FactionClaims<F extends Faction<F>> {
     }
 
     private void overclaim(@NotNull Chunk chunk, @NotNull Faction<?> faction, @NotNull String claim)
-            throws ChunkAlreadyClaimedException {
+            throws ChunkAlreadyClaimedException, FactionNotInStorage {
         if (faction.getRegistry().equals(claim)) throw new ChunkAlreadyClaimedException(claim);
         if (ClaimHandler.isManageableZone(claim)) throw new ChunkAlreadyClaimedException(claim);
         if (checkPower(faction, FactionHandler.getFaction(claim))) return;
 
-        ClaimManager.removeProtection(chunk);
+        ClaimHandler.api().removeProtection(chunk);
     }
 
     private boolean checkPower(@NotNull Faction<?> sender, @NotNull Faction<?> target) {
@@ -128,7 +130,7 @@ public final class FactionClaims<F extends Faction<F>> {
             World world = ImprovedFactions.api().getWorld(world());
             if (world == null) return;
 
-            ClaimHandler.removeProtection(world.getChunkAt(x, z));
+            ClaimHandler.api().removeProtection(world.getChunkAt(x, z));
         }
 
         @Override

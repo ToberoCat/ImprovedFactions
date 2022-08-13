@@ -2,6 +2,7 @@ package io.github.toberocat.improvedFactions.event;
 
 import io.github.toberocat.improvedFactions.world.Chunk;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,4 +19,6 @@ public interface EventListener {
     }
 
     void protectChunk(@NotNull Chunk chunk, @NotNull String registry);
+
+    void removeProtection(@NotNull Chunk chunk, @Nullable String oldRegistry);
 }

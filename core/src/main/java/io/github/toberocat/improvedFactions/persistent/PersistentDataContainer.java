@@ -13,7 +13,7 @@ public interface PersistentDataContainer {
 
     @Nullable String getString(@NotNull String key);
 
-    void remove(@NotNull String key);
+    @Nullable String remove(@NotNull String key);
 
     boolean isEmpty();
 }
