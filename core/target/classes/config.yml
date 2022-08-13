@@ -1,3 +1,8 @@
 faction:
   max-registry-length: 10 # 10 characters
   active-member-threshold: 60
+world:
+  disabled-worlds: # A list of worlds that don't allow improved factions
+#  - "Disabled faction world"
+  enabled-worlds: # When having too many worlds and only want a small amount to be faction worlds, use this list. This list will calculate a disabled worlds list
+#  - "Enabled faction world"

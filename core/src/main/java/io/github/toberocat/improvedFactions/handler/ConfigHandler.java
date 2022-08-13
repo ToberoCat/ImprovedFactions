@@ -5,6 +5,8 @@ import io.github.toberocat.improvedFactions.registry.ImplementationHolder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public interface ConfigHandler {
 
     static @NotNull ConfigHandler api() {
@@ -15,6 +17,8 @@ public interface ConfigHandler {
 
     @Nullable String getString(@NotNull String path);
     @Nullable String getString(@NotNull String path, @NotNull String def);
+
+    @NotNull List<String> getList(@NotNull String path);
 
     int getInt(@NotNull String path);
     int getInt(@NotNull String path, int def);

@@ -1,6 +1,12 @@
 package io.github.toberocat.improvedFactions.faction.components;
 
+import io.github.toberocat.improvedFactions.claims.ClaimHandler;
+import io.github.toberocat.improvedFactions.claims.component.Claim;
 import io.github.toberocat.improvedFactions.faction.Faction;
+import io.github.toberocat.improvedFactions.handler.ImprovedFactions;
+import io.github.toberocat.improvedFactions.utils.CUtils;
+import io.github.toberocat.improvedFactions.world.Chunk;
+import io.github.toberocat.improvedFactions.world.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashMap;
@@ -22,12 +28,13 @@ public final class FactionClaims<F extends Faction<F>> {
 
     public void forceCalculate() {
         claims = new LinkedHashMap<>();
-        ClaimHandler.api()..forEach((name, c) -> {
-            World world = Bukkit.getWorld(name);
-            if (world == null || Utility.isDisabled(world)) return;
+        ClaimHandler.api().forEach((name, c) -> {
+            World world = ImprovedFactions.api().getWorld(name);
+            if (world == null || CUtils.isWorldAllowed(world)) return;
 
-            claims.put(name, c.getClaims()
-                    .filter(x -> x != null && x.getRegistry().equals(faction.getRegistry()))
+            claims.put(name, c.getAllClaims()
+                            .filter(Objects::nonNull)
+                    .filter(x -> x.registry().equals(faction.getRegistry()))
                     .map(x -> FactionClaim.fromClaim(faction, x)));
         });
     }
@@ -38,20 +45,22 @@ public final class FactionClaims<F extends Faction<F>> {
      * @return The total claims this faction has
      */
     public long getTotal() {
-        return ClaimManager.registryClaims(faction.getRegistry()).count();
+        return ClaimHandler.api()
+                .registryClaims(faction.getRegistry())
+                .count();
     }
 
-    public void claim(@NotNull Chunk chunk) throws FactionNotInStorage, ChunkAlreadyClaimedException {
-        claim(chunk.getWorld().getName(), chunk.getX(), chunk.getZ());
+    public void claim(@NotNull Chunk chunk){
+        claim(chunk.getWorld().getWorldName(), chunk.getX(), chunk.getZ());
     }
 
-    public void claim(@NotNull String worldName, int x, int z) throws ChunkAlreadyClaimedException, FactionNotInStorage {
-        World world = Bukkit.getWorld(worldName);
+    public void claim(@NotNull String worldName, int x, int z) {
+        World world = ImprovedFactions.api().getWorld(worldName);
         if (world == null) return;
 
         Chunk chunk = world.getChunkAt(x, z);
         try {
-            ClaimManager.protectChunk(faction.getRegistry(), chunk);
+            ClaimHandler.api().protectChunk(faction.getRegistry(), chunk);
         } catch (ChunkAlreadyClaimedException e) {
             overclaim(chunk, faction, e.getRegistry());
         }
@@ -110,14 +119,14 @@ public final class FactionClaims<F extends Faction<F>> {
 
         public static <F extends Faction<F>> FactionClaim<F> fromClaim(@NotNull F faction,
                                                                        @NotNull Claim claim) {
-            return new FactionClaim<>(faction, claim.getWorld(), claim.getX(), claim.getY());
+            return new FactionClaim<>(faction, claim.world(), claim.x(), claim.z());
         }
 
         public void unclaim() {
-            World world = Bukkit.getWorld(world());
+            World world = ImprovedFactions.api().getWorld(world());
             if (world == null) return;
 
-            ClaimManager.removeProtection(world.getChunkAt(x, z));
+            ClaimHandler.removeProtection(world.getChunkAt(x, z));
         }
 
         @Override

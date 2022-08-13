@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 public interface ImprovedFactions {
@@ -31,6 +32,8 @@ public interface ImprovedFactions {
     /* World */
 
     @Nullable World getWorld(@NotNull String name);
+
+    @NotNull List<World> getAllWorlds();
 
     /* File */
 

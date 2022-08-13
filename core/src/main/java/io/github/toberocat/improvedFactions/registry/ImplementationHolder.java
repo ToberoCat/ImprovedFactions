@@ -25,5 +25,18 @@ public class ImplementationHolder {
      */
     public static void register() {
         Rank.register();
+        ClaimHandler.api().cacheAllWorlds();
+    }
+
+    /**
+     * Call it when you don't need any of the core features any more / want to reload them using a sequence,
+     * like:
+     *
+     * // Reload all handlers
+     * dispose();
+     * register();
+     */
+    public static void dispose() {
+        ClaimHandler.api().dispose();
     }
 }
