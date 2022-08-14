@@ -1,6 +1,18 @@
 faction:
   max-registry-length: 10 # 10 characters
+  max-display-length: 10 # 10 characters
+  max-tag-length: 3 # 3 characters for any type of character
   active-member-threshold: 60
+  default:
+    motd: "Newly created faction"
+    tag: "IFF"
+    open-type: "INVITE_ONLY" # Options: PUBLIC; INVITE_ONLY; CLOSED
+    frozen: false
+    permanent: false
+    start-balance: 0
+    start-power: 20
+    start-max-power: 20
+
 world:
   disabled-worlds: # A list of worlds that don't allow improved factions
 #  - "Disabled faction world"
