@@ -1,5 +1,7 @@
 package io.github.toberocat.improvedFactions.player;
 
+import io.github.toberocat.improvedFactions.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.improvedFactions.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.faction.Faction;
 import io.github.toberocat.improvedFactions.persistent.PersistentDataContainer;
 import io.github.toberocat.improvedFactions.translator.Placeholder;
@@ -10,7 +12,7 @@ import java.util.UUID;
 
 public interface OfflineFactionPlayer<P> {
     /* Faction */
-    @NotNull Faction<?> getFaction();
+    @NotNull Faction<?> getFaction() throws PlayerHasNoFactionException, FactionNotInStorage;
     @Nullable String getFactionRegistry();
 
     boolean inFaction();

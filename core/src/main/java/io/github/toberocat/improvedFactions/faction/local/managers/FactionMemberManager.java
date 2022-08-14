@@ -1,13 +1,10 @@
 package io.github.toberocat.improvedFactions.faction.local.managers;
 
-import io.github.toberocat.improvedFactions.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.exceptions.faction.PlayerIsAlreadyInFactionException;
 import io.github.toberocat.improvedFactions.exceptions.faction.PlayerIsBannedException;
 import io.github.toberocat.improvedFactions.faction.Faction;
-import io.github.toberocat.improvedFactions.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.persistent.PersistentDataContainer;
-import io.github.toberocat.improvedFactions.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.player.OfflineFactionPlayer;
 import org.jetbrains.annotations.NotNull;
 
@@ -85,7 +82,6 @@ public class FactionMemberManager {
         members.remove(player.getUniqueId());
 
         player.getDataContainer().remove(PersistentDataContainer.FACTION_KEY);
-        player.sendTranslatable();
     }
 
     /**
@@ -94,17 +90,15 @@ public class FactionMemberManager {
      *
      * @param player The uuid of the player you want to ban permanently
      */
-    public void ban(OfflinePlayer player) {
+    public void ban(OfflineFactionPlayer<?> player) {
         banned.add(player.getUniqueId());
         kick(player);
     }
 
     /**
      * This "forgives" a player who has been banned using the function ban
-     *
-     * @see #ban(OfflinePlayer)
      */
-    public void pardon(OfflinePlayer player) {
+    public void pardon(OfflineFactionPlayer<?> player) {
         banned.remove(player.getUniqueId());
     }
 

@@ -1,44 +1,22 @@
 package io.github.toberocat.improvedFactions.faction.local.managers;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionManager;
-import io.github.toberocat.core.factions.components.rank.GuestRank;
-import io.github.toberocat.core.factions.components.rank.Rank;
-import io.github.toberocat.core.factions.components.rank.allies.*;
-import io.github.toberocat.core.factions.components.rank.members.*;
-import io.github.toberocat.core.factions.handler.FactionHandler;
-import io.github.toberocat.core.utility.Utility;
-import io.github.toberocat.core.utility.events.faction.FactionUpdateMemberRankEvent;
-import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
-import io.github.toberocat.core.utility.items.ItemCore;
-import io.github.toberocat.core.utility.settings.FactionSettings;
-import io.github.toberocat.core.utility.settings.type.RankSetting;
-import io.github.toberocat.core.utility.settings.type.Setting;
-import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
+import io.github.toberocat.improvedFactions.event.EventExecutor;
+import io.github.toberocat.improvedFactions.exceptions.faction.FactionHandlerNotFound;
+import io.github.toberocat.improvedFactions.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.improvedFactions.faction.Faction;
+import io.github.toberocat.improvedFactions.faction.components.rank.GuestRank;
+import io.github.toberocat.improvedFactions.faction.components.rank.Rank;
+import io.github.toberocat.improvedFactions.faction.components.rank.members.FactionRank;
+import io.github.toberocat.improvedFactions.faction.local.LocalFactionHandler;
+import io.github.toberocat.improvedFactions.player.OfflineFactionPlayer;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 public class FactionPerm {
-    public static final Map<String, RankSetting> DEFAULT_RANKS = new HashMap<>();
 
-    public static final String BREAK_PERM = "permission.break";
-    public static final String PLACE_PERM = "permission.place";
-    public static final String INTERACT_PERM = "permission.interact";
-    public static final String MOUNT_PERM = "permission.mount";
-    public static final String FACTION_SETTING_PERM = "permission.settings";
-    public static final String MANAGE_RANKS_PERM = "permission.manage-rank";
-    public static final String KICK_PERM= "permission.kick";
-    public static final String BAN_PERM = "permission.ban";
-    public static final String MEMBER_RECEIVE_BROADCAST = "permission.broadcast-receive";
-
-
-    private FactionSettings factionSettings;
-    private Map<String, RankSetting> rankSetting;
     private Map<UUID, String> memberRanks;
 
     @JsonIgnore
@@ -48,125 +26,34 @@ public class FactionPerm {
     }
 
     public FactionPerm(Faction<?> faction) {
-        this.factionSettings = new FactionSettings();
         this.faction = faction;
-        rankSetting = new HashMap<>(DEFAULT_RANKS);
         memberRanks = new HashMap<>();
-        Setting.populateSettings(FactionSettings.DEFAULT_SETTINGS, factionSettings.getFactionSettings());
-
-        for (String key : DEFAULT_RANKS.keySet()) {
-            RankSetting defaultSettings = DEFAULT_RANKS.get(key);
-            String[] selected = rankSetting.get(key).getSelected();
-            rankSetting.replace(key, defaultSettings);
-            rankSetting.get(key).setSelected(selected);
-
-            rankSetting.get(key).setDisplay(defaultSettings.getDisplay());
-        }
     }
 
-    public static void register() {
-        DEFAULT_RANKS.put(PLACE_PERM, new RankSetting(PLACE_PERM, new String[]{OwnerRank.registry, AdminRank.registry,
-                ElderRank.registry, MemberRank.registry, ModeratorRank.registry
-        }, ItemCore.create(PLACE_PERM, Material.BRICKS, "&ePlace permission")));
-
-        DEFAULT_RANKS.put(BREAK_PERM, new RankSetting(BREAK_PERM, new String[]{OwnerRank.registry, AdminRank.registry,
-                ElderRank.registry, MemberRank.registry, ModeratorRank.registry
-        }, ItemCore.create(BREAK_PERM, Material.WOODEN_PICKAXE, "&eBreak permission")));
-
-        DEFAULT_RANKS.put(INTERACT_PERM, new RankSetting(INTERACT_PERM, new String[]{OwnerRank.registry, AdminRank.registry,
-                ElderRank.registry, MemberRank.registry, ModeratorRank.registry
-        }, ItemCore.create(INTERACT_PERM, Material.CHEST, "&eInteract permission")));
-
-        DEFAULT_RANKS.put(MOUNT_PERM, new RankSetting(MOUNT_PERM, new String[]{
-                OwnerRank.registry, AdminRank.registry, ElderRank.registry, MemberRank.registry,
-                ModeratorRank.registry, AllyAdminRank.registry,
-                AllyElderRank.registry, AllyMemberRank.registry, AllyOwnerRank.registry, AllyModeratorRank.registry,
-                GuestRank.register
-        }, ItemCore.create(MOUNT_PERM, Material.SADDLE, "&eMount permission", "&8Allows users to ride a lore, boat, horse, etc")));
-
-        DEFAULT_RANKS.put(FACTION_SETTING_PERM, new RankSetting(FACTION_SETTING_PERM, new String[]{
-                OwnerRank.registry, ModeratorRank.registry, AdminRank.registry
-        }, ItemCore.create(FACTION_SETTING_PERM, Material.NETHER_STAR,
-                "&eSetting permission", "&8Allows user to change ", "&8faction settings")));
-
-        DEFAULT_RANKS.put(MANAGE_RANKS_PERM, new RankSetting(MANAGE_RANKS_PERM, new String[]{
-                OwnerRank.registry, ModeratorRank.registry, AdminRank.registry
-        }, ItemCore.create(MANAGE_RANKS_PERM, Material.BEACON, "&eManage ranks",
-                "&8Allows user to modify ranks")));
-
-        DEFAULT_RANKS.put(KICK_PERM, new RankSetting(KICK_PERM, new String[]{
-                OwnerRank.registry, ModeratorRank.registry, AdminRank.registry
-        }, ItemCore.create(KICK_PERM, Material.YELLOW_DYE, "&eKick members",
-                "&8Kick a member for misbehaving")));
-
-        DEFAULT_RANKS.put(BAN_PERM, new RankSetting(BAN_PERM, new String[]{
-                OwnerRank.registry, AdminRank.registry
-        }, ItemCore.create(BAN_PERM, Material.RED_DYE, "&eBan members",
-                "&8Ban members for there lifetime - and unban them")));
-
-        DEFAULT_RANKS.put(MEMBER_RECEIVE_BROADCAST, new RankSetting(MEMBER_RECEIVE_BROADCAST, new String[]{
-                OwnerRank.registry, AdminRank.registry, MemberRank.registry, ElderRank.registry, ModeratorRank.registry
-        },Utility.createItem(Material.ENCHANTED_BOOK, "&eReceive broadcasts")));
+    public Rank getPlayerRank(OfflineFactionPlayer<?> player) throws FactionNotInStorage {
+        if (faction.isMember(player)) return getRank(player);
+        if (faction.isAllied(player)) return getRank(player).getEquivalent();
+        return Rank.fromString(GuestRank.REGISTRY);
     }
 
-    public Rank getPlayerRank(OfflinePlayer player) throws FactionNotInStorage {
-        if (faction.isMember(player)) return Rank.fromString(memberRanks.get(player.getUniqueId()));
+    private Rank getRank(OfflineFactionPlayer<?> player) {
+        LocalFactionHandler handler = LocalFactionHandler.getInstance();
 
-        Player on = player.getPlayer();
-        if (on == null) return Rank.fromString(GuestRank.register);
-
-        String playerFaction = FactionHandler.getPlayerFaction(on);
-        if (faction.getAllies().anyMatch(x -> x.equals(playerFaction))) {
-            Rank rank = FactionHandler.getFaction(playerFaction).getPlayerRank(player);
-            return Rank.fromString(switch (rank.getRegistryName()) {
-                case OwnerRank.registry -> AllyOwnerRank.registry;
-                case AdminRank.registry -> AllyAdminRank.registry;
-                case ElderRank.registry -> AllyElderRank.registry;
-                case MemberRank.registry -> AllyMemberRank.registry;
-                case ModeratorRank.registry -> AllyModeratorRank.registry;
-                default -> GuestRank.register;
-            });
-        }
-
-        return Rank.fromString(GuestRank.register);
+        if (handler == null) throw new FactionHandlerNotFound("A local faction " +
+                "required a local handler, but didn't find it. " +
+                "This is a critical bug and needs to be reported to the dev using discord / github");
+        return handler.getSavedRank(player);
     }
 
-    public void setRank(OfflinePlayer player, String rank) {
+    public void setRank(OfflineFactionPlayer<?> player, FactionRank rank) {
         if (rank == null) {
             memberRanks.remove(player.getUniqueId());
             return;
         }
-        String old = memberRanks.put(player.getUniqueId(), rank);
-        Utility.callEvent(new FactionUpdateMemberRankEvent(faction, player, rank, old));
-    }
+        String old = memberRanks.put(player.getUniqueId(), rank.getRegistry());
 
-    public Map<String, Setting> getFactionSettings() {
-        return factionSettings.getFactionSettings();
-    }
-
-    public void setFactionSettings(Map<String, Setting> factionSettings) {
-        if (this.factionSettings == null) this.factionSettings = new FactionSettings();
-        this.factionSettings.setFactionSettings(factionSettings);
-        Setting.populateSettings(FactionSettings.DEFAULT_SETTINGS, factionSettings);
-    }
-
-    public Map<String, RankSetting> getRankSetting() {
-        return rankSetting;
-    }
-
-    public void setRankSetting(Map<String, RankSetting> rankSetting) {
-        this.rankSetting = rankSetting;
-        for (String key : DEFAULT_RANKS.keySet()) {
-            RankSetting defaultSettings = DEFAULT_RANKS.get(key);
-
-            if (!rankSetting.containsKey(key)) rankSetting.put(key, DEFAULT_RANKS.get(key));
-
-            String[] selected = rankSetting.get(key).getSelected();
-            rankSetting.replace(key, defaultSettings);
-            rankSetting.get(key).setSelected(selected);
-
-            rankSetting.get(key).setDisplay(defaultSettings.getDisplay());
-        }
+        FactionRank oldRank = (FactionRank) Rank.fromString(old == null ? GuestRank.REGISTRY : old);
+        EventExecutor.getExecutor().factionMemberRankUpdate(faction, player, oldRank, rank);
     }
 
     public Map<UUID, String> getMemberRanks() {

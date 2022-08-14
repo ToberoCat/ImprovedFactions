@@ -31,7 +31,7 @@ public class ImplementationHolder {
     }
 
     /**
-     * Call it when you don't need any of the core features any more / want to reload them using a sequence,
+     * Call it when you don't need any of the core features / want to reload them using a sequence,
      * like:
      *
      * // Reload all handlers

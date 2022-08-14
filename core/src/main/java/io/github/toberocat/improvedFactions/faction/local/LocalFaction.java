@@ -346,7 +346,7 @@ public class LocalFaction implements Faction<LocalFaction> {
     public void changeRank(@NotNull OfflineFactionPlayer<?> player, @NotNull FactionRank rank)
             throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
-        factionPermissions.setRank(player, rank.getRegistry());
+        factionPermissions.setRank(player, rank);
     }
 
     /**
@@ -360,8 +360,8 @@ public class LocalFaction implements Faction<LocalFaction> {
         OfflineFactionPlayer<?> currentOwner = ImprovedFactions.api().getOfflinePlayer(owner);
         if (currentOwner == null) return;
 
-        factionPermissions.setRank(player, FactionOwnerRank.REGISTRY);
-        factionPermissions.setRank(currentOwner, FactionAdminRank.REGISTRY);
+        factionPermissions.setRank(player, (FactionRank) Rank.fromString(FactionOwnerRank.REGISTRY));
+        factionPermissions.setRank(currentOwner, (FactionRank) Rank.fromString(FactionAdminRank.REGISTRY));
 
         EventExecutor.getExecutor().transferOwnership(this, currentOwner, player);
     }
@@ -417,8 +417,9 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return If it was able to join
      */
     @Override
-    public boolean joinPlayer(@NotNull FactionPlayer<?> player) throws FactionIsFrozenException {
-        return joinPlayer(player, Rank.fromString(FactionMemberRank.REGISTRY));
+    public boolean joinPlayer(@NotNull FactionPlayer<?> player) throws FactionIsFrozenException,
+            PlayerIsAlreadyInFactionException, PlayerIsBannedException {
+        return joinPlayer(player, (FactionRank) Rank.fromString(FactionMemberRank.REGISTRY));
     }
 
     /**
@@ -434,7 +435,7 @@ public class LocalFaction implements Faction<LocalFaction> {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
         factionMembers.join(player);
-        factionPermissions.setRank(player, rank.getRegistry());
+        factionPermissions.setRank(player, rank);
         return true;
     }
 
@@ -446,7 +447,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public boolean leavePlayer(@NotNull FactionPlayer<?> player)
-            throws FactionIsFrozenException, PlayerIsOwnerException {
+            throws FactionIsFrozenException, PlayerIsOwnerException, PlayerHasNoFactionException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (!isPermanent() && getPlayerRank(player).getRegistry().equals(FactionOwnerRank.REGISTRY))
             throw new PlayerIsOwnerException(this, player);

@@ -20,10 +20,17 @@ import java.util.stream.Stream;
 public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction> {
     private final Map<String, LocalFaction> factions;
     private final FileAccess access;
+    private static LocalFactionHandler instance;
 
     public LocalFactionHandler() {
         this.factions = new HashMap<>();
         access = new FileAccess(ImprovedFactions.api().getDataFolder());
+
+        instance = this;
+    }
+
+    public static @Nullable LocalFactionHandler getInstance() {
+        return instance;
     }
 
     @Override
