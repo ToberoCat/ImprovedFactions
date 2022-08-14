@@ -1,4 +1,4 @@
-![banner](https://github.com/ToberoCat/ImprovedFactions_new/blob/main/Branding/banners/spigot-banner.png)
+![banner](https://github.com/ToberoCat/ImprovedFactions_new/blob/main/Branding/banners/spigot-banner.png?raw=true)
 <div align="center">
 
 [![ToberoCat - ImprovedFactions](https://img.shields.io/static/v1?label=ToberoCat&message=ImprovedFactions&color=%23FEDD58&logo=github)](https://github.com/ToberoCat/ImprovedFactions_new "Go to GitHub repo")
@@ -8,7 +8,7 @@
 [![issues - ImprovedFactions](https://img.shields.io/github/issues/ToberoCat/ImprovedFactions_new)](https://github.com/ToberoCat/ImprovedFactions_new/issues)
 [![spigot](http://badge.henrya.org/spigotbukkit/downloads?spigot=95617&bukkit=95617
 )](https://www.spigotmc.org/resources/improved-factions.95617/)
-
+[![CodeFactor](https://www.codefactor.io/repository/github/toberocat/improvedfactions_new/badge)](https://www.codefactor.io/repository/github/toberocat/improvedfactions_new)
 <a href="https://www.paypal.com/donate/?hosted_button_id=BGB6QWR886Q6Y">
     <img src="https://img.shields.io/badge/Donate-PayPal-green.svg?logo=paypal&style=flat-square" height="20" alt="Donate">
 </a>
