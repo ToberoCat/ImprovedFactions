@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>spigot</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>ImprovedFactions Spigot</name>
 
@@ -17,7 +17,7 @@
     </parent>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -69,6 +69,7 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <outputFile>C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Server1.16.5\plugins\${name}-${version}.${packaging}</outputFile>
                         </configuration>
                     </execution>
                 </executions>
