@@ -1,30 +1,33 @@
 package io.github.toberocat.improvedFactions.faction.local;
 
-import io.github.toberocat.core.factions.components.rank.Rank;
-import io.github.toberocat.core.factions.handler.FactionHandlerInterface;
-import io.github.toberocat.core.utility.data.Table;
-import io.github.toberocat.core.utility.data.access.FileAccess;
-import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
+import io.github.toberocat.improvedFactions.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.improvedFactions.faction.components.rank.members.FactionRank;
+import io.github.toberocat.improvedFactions.faction.handler.FactionHandlerInterface;
+import io.github.toberocat.improvedFactions.handler.ImprovedFactions;
+import io.github.toberocat.improvedFactions.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.utils.FileAccess;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
+// ToDo: Implement everything
 public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction> {
     private final Map<String, LocalFaction> factions;
     private final FileAccess access;
 
     public LocalFactionHandler() {
         this.factions = new HashMap<>();
-        access = FileAccess.accessPipeline(FileAccess.class);
+        access = new FileAccess(ImprovedFactions.api().getDataFolder());
     }
 
     @Override
-    public @NotNull LocalFaction create(@NotNull String display, @NotNull Player owner) {
+    public @NotNull LocalFaction create(@NotNull String display, @NotNull FactionPlayer<?> owner) {
         LocalFaction faction = new LocalFaction(display, owner);
         factions.put(faction.getRegistry(), faction);
 
@@ -33,10 +36,14 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
 
     @Override
     public @NotNull LocalFaction load(@NotNull String registry) throws FactionNotInStorage {
-        if (!access.has(Table.FACTIONS, registry)) throw
+        if (!access.has(FileAccess.FACTION_FOLDER, registry + ".json")) throw
                 new FactionNotInStorage(registry, FactionNotInStorage.StorageType.LOCAL_FILE);
 
-        return access.read(Table.FACTIONS, registry);
+        try {
+            return access.read(LocalFaction.class, FileAccess.FACTION_FOLDER, registry + ".json");
+        } catch (IOException e) {
+            throw new FactionNotInStorage(registry, FactionNotInStorage.StorageType.LOCAL_FILE);
+        }
     }
 
     @Override
@@ -46,7 +53,7 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
 
     @Override
     public boolean exists(@NotNull String registry) {
-        return access.has(Table.FACTIONS, registry);
+        return access.has(FileAccess.FACTION_FOLDER, registry);
     }
 
     @Override
@@ -56,7 +63,7 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
 
     @Override
     public @NotNull Stream<String> getAllFactions() {
-        return access.listInTableStream(Table.FACTIONS);
+        return Arrays.stream(access.list(FileAccess.FACTION_FOLDER));
     }
 
     @Override
@@ -65,27 +72,27 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
     }
 
     @Override
-    public @NotNull Rank getSavedRank(@NotNull OfflinePlayer player) {
+    public @NotNull FactionRank getSavedRank(@NotNull OfflineFactionPlayer<?> player) {
         return null;
     }
 
     @Override
-    public @Nullable String getPlayerFaction(@NotNull OfflinePlayer player) {
+    public @Nullable String getPlayerFaction(@NotNull OfflineFactionPlayer<?> player) {
         return null;
     }
 
     @Override
-    public @Nullable String getPlayerFaction(@NotNull Player player) {
+    public @Nullable String getPlayerFaction(@NotNull FactionPlayer<?> player) {
         return null;
     }
 
     @Override
-    public boolean isInFaction(@NotNull OfflinePlayer player) {
+    public boolean isInFaction(@NotNull OfflineFactionPlayer<?> player) {
         return false;
     }
 
     @Override
-    public boolean isInFaction(@NotNull Player player) {
+    public boolean isInFaction(@NotNull FactionPlayer<?> player) {
         return false;
     }
 
@@ -97,7 +104,7 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
      * @param player The player that should get the faction cache removed
      */
     @Override
-    public void removeFactionCache(@NotNull Player player) {
+    public void removeFactionCache(@NotNull FactionPlayer<?> player) {
 
     }
 }
