@@ -8,6 +8,7 @@ import io.github.toberocat.improvedFactions.exceptions.description.DescriptionHa
 import io.github.toberocat.improvedFactions.exceptions.faction.FactionHandlerNotFound;
 import io.github.toberocat.improvedFactions.exceptions.faction.FactionIsFrozenException;
 import io.github.toberocat.improvedFactions.exceptions.faction.IllegalFactionNamingException;
+import io.github.toberocat.improvedFactions.exceptions.faction.leave.PlayerIsOwnerException;
 import io.github.toberocat.improvedFactions.faction.Faction;
 import io.github.toberocat.improvedFactions.faction.OpenType;
 import io.github.toberocat.improvedFactions.faction.components.Description;
@@ -366,7 +367,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     public @NotNull Rank getPlayerRank(@NotNull OfflineFactionPlayer<?> player) {
         if (isMember(player)) return getDbRank(player);
         if (isAllied(player)) return getDbRank(player).getEquivalent();
-        return Rank.fromString(GuestRank.register);
+        return Rank.fromString(GuestRank.REGISTRY);
     }
 
     @Override
@@ -418,15 +419,6 @@ public class MySqlFaction implements Faction<MySqlFaction> {
                 .equals(registry);
     }
 
-    @Override
-    public boolean isAllied(@NotNull OfflineFactionPlayer<?> player) {
-        return getAllies().anyMatch(x -> x.equals(database.rowSelect(new Select()
-                        .setTable("players")
-                        .setColumns("faction")
-                        .setFilter("uuid = %s", player.getUniqueId().toString()))
-                .readRow(String.class, "faction")
-                .orElse("")));
-    }
 
     /**
      * @param player The player you want to change the rank of.
@@ -518,52 +510,48 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     public boolean leavePlayer(@NotNull FactionPlayer<?> player)
             throws FactionIsFrozenException, PlayerIsOwnerException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
-        if (!isPermanent() && getPlayerRank(player).getRegistryName().equals(OwnerRank.registry))
+        if (!isPermanent() && getPlayerRank(player).getRegistry().equals(FactionOwnerRank.REGISTRY))
             throw new PlayerIsOwnerException(this, player);
 
-        if (setGuestRank(player)) return false;
-        AsyncTask.callEventSync(new FactionLeaveEvent(this, player));
-        return true;
+        EventExecutor.getExecutor().leaveMember(this, player);
+        return !setGuestRank(player);
     }
 
     @Override
-    public boolean kickPlayer(@NotNull OfflinePlayer player) throws FactionIsFrozenException {
+    public boolean kickPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
-        if (setGuestRank(player)) return false;
-        AsyncTask.callEventSync(new FactionKickEvent(this, player));
-        return true;
+
+        EventExecutor.getExecutor().kickMember(this, player);
+        return !setGuestRank(player);
     }
 
 
     @Override
-    public boolean banPlayer(@NotNull OfflinePlayer player) throws FactionIsFrozenException {
+    public boolean banPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (setGuestRank(player)) return false;
-        database.evalTry("INSERT INTO faction_bans VALUE (%s, %s)", registry,
-                        player.getUniqueId().toString())
-                .get(PreparedStatement::executeUpdate);
-        AsyncTask.callEventSync(new FactionBanEvent(this, player));
+
+        EventExecutor.getExecutor().banMember(this, player);
+        database.executeUpdate("INSERT INTO faction_bans VALUE (%s, %s)", registry,
+                        player.getUniqueId().toString());
         return true;
     }
 
-    private boolean setGuestRank(@NotNull OfflinePlayer player) {
+    private boolean setGuestRank(@NotNull OfflineFactionPlayer<?> player) {
         if (!isMember(player)) return true;
 
-        database.evalTry("UPDATE players SET faction = %s WHERE uuid = %s",
-                        null, player.getUniqueId().toString())
-                .get(PreparedStatement::executeUpdate);
+        database.executeUpdate("UPDATE players SET faction = %s WHERE uuid = %s",
+                null, player.getUniqueId().toString());
 
-        Rank previous = getDbRank(player);
+        FactionRank previous = getDbRank(player);
 
-        String guest = GuestRank.register;
-        database.evalTry("UPDATE players SET member_rank = %s WHERE uuid = %s",
-                        guest, player.getUniqueId().toString())
-                .get(PreparedStatement::executeUpdate);
-        AsyncTask.callEventSync(new FactionUpdateMemberRankEvent(
-                this,
+        database.executeUpdate("UPDATE players SET member_rank = %s WHERE uuid = %s",
+                GuestRank.REGISTRY, player.getUniqueId().toString());
+
+        EventExecutor.getExecutor().factionMemberRankUpdate(this,
                 player,
-                previous.getRegistryName(),
-                guest));
+                previous,
+                (FactionRank) Rank.fromString(GuestRank.REGISTRY));
         return false;
     }
 
@@ -784,6 +772,16 @@ public class MySqlFaction implements Faction<MySqlFaction> {
                 .readRow(Integer.class, "relation_status")
                 .orElse(neutralId)
                 == allyId;
+    }
+
+    @Override
+    public boolean isAllied(@NotNull OfflineFactionPlayer<?> player) {
+        return getAllies().anyMatch(x -> x.equals(database.rowSelect(new Select()
+                        .setTable("players")
+                        .setColumns("faction")
+                        .setFilter("uuid = %s", player.getUniqueId().toString()))
+                .readRow(String.class, "faction")
+                .orElse("")));
     }
 
     @Override
