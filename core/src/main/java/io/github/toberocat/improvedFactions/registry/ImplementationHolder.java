@@ -17,7 +17,7 @@ public class ImplementationHolder {
     public static @Nullable ItemHandler itemHandler;
     public static @Nullable ClaimHandler claimHandler;
     public static @Nullable DatabaseHandler databaseHandler;
-    public static @Nullable EventListener eventHandler;
+    public static @Nullable MessagingHandler messagingHandler;
     public static @Nullable Logger logger;
 
     public static @Nullable ImprovedFactions improvedFactions;

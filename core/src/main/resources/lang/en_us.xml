@@ -103,6 +103,22 @@
                 </ally>
             </member>
         </ranks>
+        <messages>
+            <player> <!-- Messages players shall receive -->
+                <join>You joined {faction}</join>
+                <leave>You left {faction}</leave>
+                <kick>You got kicked from your faction §e{faction}</kick>
+                <banned>You got banned from faction §e{faction}</banned>
+                <pardon>You got unbanned from §e{faction}</pardon>
+            </player>
+            <broadcast> <!-- Messages everyone should receive as broadcast -->
+                <join>§ePlayer {player} joined your faction as {rank}</join>
+                <leave>§cPlayer {player} left your faction</leave>
+                <kick>§6Player {player} got kicked out of your faction</kick>
+                <banned>§cPlayer {player} got banned from your faction</banned>
+                <pardon>§ePlayer {player} got unbanned. He is now able to join your faction again</pardon>
+            </broadcast>
+        </messages>
     </factions>
     <guis>
 

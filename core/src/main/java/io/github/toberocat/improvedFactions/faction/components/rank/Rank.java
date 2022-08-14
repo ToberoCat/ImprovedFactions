@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 public abstract class Rank {
 
-    public static LinkedHashMap<String, Rank> ranks = new LinkedHashMap<>();
+    public static final LinkedHashMap<String, Rank> ranks = new LinkedHashMap<>();
     protected final String registry, displayKey;
     private final boolean isAdmin;
     private final int priority;

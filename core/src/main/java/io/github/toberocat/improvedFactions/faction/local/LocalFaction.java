@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.improvedFactions.event.EventExecutor;
 import io.github.toberocat.improvedFactions.exceptions.description.DescriptionHasNoLine;
-import io.github.toberocat.improvedFactions.exceptions.faction.FactionIsFrozenException;
-import io.github.toberocat.improvedFactions.exceptions.faction.FactionNotInStorage;
-import io.github.toberocat.improvedFactions.exceptions.faction.FactionOwnerIsOfflineException;
+import io.github.toberocat.improvedFactions.exceptions.faction.*;
 import io.github.toberocat.improvedFactions.exceptions.faction.leave.PlayerIsOwnerException;
 import io.github.toberocat.improvedFactions.exceptions.faction.relation.AlreadyInvitedException;
 import io.github.toberocat.improvedFactions.exceptions.faction.relation.CantInviteYourselfException;
@@ -432,7 +430,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public boolean joinPlayer(@NotNull FactionPlayer<?> player, @NotNull FactionRank rank)
-            throws FactionIsFrozenException {
+            throws FactionIsFrozenException, PlayerIsAlreadyInFactionException, PlayerIsBannedException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
         factionMembers.join(player);

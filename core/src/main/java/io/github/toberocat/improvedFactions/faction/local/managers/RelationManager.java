@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class RelationManager {
     private ArrayList<String> enemies;
     private ArrayList<String> allies;
-    protected ArrayList<String> allyInvitations;
+    protected final ArrayList<String> allyInvitations;
     private Faction faction;
 
     public RelationManager() {

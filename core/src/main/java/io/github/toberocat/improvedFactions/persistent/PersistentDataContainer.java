@@ -6,6 +6,7 @@ import org.jetbrains.annotations.Nullable;
 public interface PersistentDataContainer {
 
     String CLAIM_KEY = "faction_claims";
+    String FACTION_KEY = "faction_registry";
 
     void set(@NotNull String key, @NotNull String value);
 

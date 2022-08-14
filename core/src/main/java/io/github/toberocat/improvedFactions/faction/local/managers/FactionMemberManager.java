@@ -1,31 +1,24 @@
 package io.github.toberocat.improvedFactions.faction.local.managers;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.FactionManager;
-import io.github.toberocat.core.factions.handler.FactionHandler;
-import io.github.toberocat.core.listeners.player.PlayerJoinListener;
-import io.github.toberocat.core.utility.Result;
-import io.github.toberocat.core.utility.data.PersistentDataUtility;
-import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
-import io.github.toberocat.core.utility.language.Language;
-import io.github.toberocat.core.utility.messages.PlayerMessageBuilder;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.persistence.PersistentDataType;
+import io.github.toberocat.improvedFactions.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.improvedFactions.exceptions.faction.PlayerHasNoFactionException;
+import io.github.toberocat.improvedFactions.exceptions.faction.PlayerIsAlreadyInFactionException;
+import io.github.toberocat.improvedFactions.exceptions.faction.PlayerIsBannedException;
+import io.github.toberocat.improvedFactions.faction.Faction;
+import io.github.toberocat.improvedFactions.faction.handler.FactionHandler;
+import io.github.toberocat.improvedFactions.persistent.PersistentDataContainer;
+import io.github.toberocat.improvedFactions.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.player.OfflineFactionPlayer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 /**
  * This is for managing the members of a specific faction
  */
+
+// Todo: Rework this class - It's ugly and kinda useless
 public class FactionMemberManager {
 
 
@@ -47,61 +40,24 @@ public class FactionMemberManager {
     }
 
     /**
-     * This event should get called by the @see {@link PlayerJoinListener#Join(PlayerJoinEvent)}
-     * and shouldn't get called outside of it
-     */
-    public static void PlayerJoin(Player player) {
-        updatePlayer(player);
-    }
-
-    private static void updatePlayer(Player player) {
-        if (player == null) return;
-
-        String registry = PersistentDataUtility.read(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
-                PersistentDataType.STRING, player.getPersistentDataContainer());
-        if (registry == null) return;
-
-        Faction<?> faction = null;
-        try {
-            faction = FactionHandler.getFaction(registry);
-        } catch (FactionNotInStorage e) {
-            e.printStackTrace();
-        }
-        if (faction != null) return;
-
-        PersistentDataUtility.remove(PersistentDataUtility.PLAYER_FACTION_REGISTRY, player.getPersistentDataContainer());
-
-    }
-
-
-    /**
      * Let a (online) player join a faction if not in any other
      * If the result is not a success, you can get the error message by .getMessage()
      *
      * @param player The player that should join the faction
-     * <p>
-     * Potential Errors:
-     * PLAYER_OFFLINE, PLAYER_IN_FACTION, PLAYER_BANNED, PLAYER_TIMEOUT
+     *               <p>
+     *               Potential Errors:
+     *               PLAYER_OFFLINE, PLAYER_IN_FACTION, PLAYER_BANNED, PLAYER_TIMEOUT
      */
-    public Result<?> join(Player player) {
-        if (!player.isOnline()) return new Result<>(false).setMessages("PLAYER_OFFLINE",
-                "It looks like " + player.getName() + " are offline");
+    public void join(OfflineFactionPlayer<?> player)
+            throws PlayerIsAlreadyInFactionException, PlayerIsBannedException {
+        if (player.inFaction()) throw new PlayerIsAlreadyInFactionException(faction, player);
+        if (banned.contains(player.getUniqueId())) throw new PlayerIsBannedException(faction, player);
 
-        if (FactionHandler.isInFaction(player)) return new Result<>(false).setMessages(
-                "PLAYER_IN_FACTION", player.getName() + " is already in a faction");
-
-        if (banned.contains(player.getUniqueId())) return new Result<>(false).setMessages(
-                "PLAYER_BANNED", "Looks like " + player.getName()
-                        + " is banned from this faction");
-
-        PersistentDataUtility.write(
-                PersistentDataUtility.PLAYER_FACTION_REGISTRY,
-                PersistentDataType.STRING, faction.getRegistry(),
-                player.getPersistentDataContainer());
+        // ToDo: Write persistent data into a .temp file, allowing offline player data to get saved
+        player.getDataContainer()
+                .set(PersistentDataContainer.FACTION_KEY, faction.getRegistry());
 
         members.add(player.getUniqueId());
-
-        return new Result<>(true);
     }
 
     /**
@@ -110,23 +66,13 @@ public class FactionMemberManager {
      * If the result is not a success, you can get the error message by .getMessage()
      *
      * @param player The player that should leave
-     * Potential Errors: PLAYER_OFFLINE, PLAYER_NOT_IN_FACTION
+     *               Potential Errors: PLAYER_OFFLINE, PLAYER_NOT_IN_FACTION
      */
-    public Result<?> leave(Player player) {
-        if (!player.isOnline()) return new Result<>(false).setMessages("PLAYER_OFFLINE",
-                "It looks like " + player.getName() + " are offline");
-
-        if (!FactionHandler.isInFaction(player)) return new Result<>(false).setMessages(
-                "PLAYER_NOT_IN_FACTION", player.getName()
-                        + " is in no faction. So nothing can be left");
-
-        PersistentDataUtility.remove(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
-                player.getPersistentDataContainer());
-
-        updatePlayer(player);
+    public void leave(OfflineFactionPlayer<?> player) throws PlayerHasNoFactionException {
+        if (!player.inFaction()) throw new PlayerHasNoFactionException(player);
+        player.getDataContainer().remove(PersistentDataContainer.FACTION_KEY);
 
         members.remove(player.getUniqueId());
-        return new Result<>(true);
     }
 
     /**
@@ -135,15 +81,11 @@ public class FactionMemberManager {
      *
      * @param player The uuid of the player you want to kick
      */
-    public Result<?> kick(@NotNull OfflinePlayer player) {
+    public void kick(@NotNull OfflineFactionPlayer<?> player) {
         members.remove(player.getUniqueId());
-        if (!player.isOnline()) return new Result<>(true);
-        Player onP = player.getPlayer();
-        if (onP == null) return new Result<>(false);
 
-        PersistentDataUtility.remove(PersistentDataUtility.PLAYER_FACTION_REGISTRY,
-                onP.getPersistentDataContainer());
-        return new Result<>(true);
+        player.getDataContainer().remove(PersistentDataContainer.FACTION_KEY);
+        player.sendTranslatable();
     }
 
     /**

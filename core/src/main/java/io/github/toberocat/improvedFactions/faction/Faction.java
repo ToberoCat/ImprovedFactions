@@ -2,6 +2,8 @@ package io.github.toberocat.improvedFactions.faction;
 
 import io.github.toberocat.improvedFactions.exceptions.faction.FactionIsFrozenException;
 import io.github.toberocat.improvedFactions.exceptions.faction.FactionOwnerIsOfflineException;
+import io.github.toberocat.improvedFactions.exceptions.faction.PlayerIsAlreadyInFactionException;
+import io.github.toberocat.improvedFactions.exceptions.faction.PlayerIsBannedException;
 import io.github.toberocat.improvedFactions.exceptions.faction.leave.PlayerIsOwnerException;
 import io.github.toberocat.improvedFactions.exceptions.faction.relation.AlreadyInvitedException;
 import io.github.toberocat.improvedFactions.exceptions.faction.relation.CantInviteYourselfException;
@@ -307,7 +309,7 @@ public interface Faction<F extends Faction<F>> extends SettingHolder {
      * @param rank   The rank that the player will be joining as.
      * @return If the player was able to join
      */
-    boolean joinPlayer(@NotNull FactionPlayer<?> player, @NotNull FactionRank rank) throws FactionIsFrozenException;
+    boolean joinPlayer(@NotNull FactionPlayer<?> player, @NotNull FactionRank rank) throws FactionIsFrozenException, PlayerIsAlreadyInFactionException, PlayerIsBannedException;
 
     /**
      * Removes a player from the faction

@@ -8,8 +8,8 @@ import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 
 public class DateUtils {
-    public static DateTimeFormatter TIME_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-    public static PeriodFormatter PERIOD_FORMAT = new PeriodFormatterBuilder()
+    public static final DateTimeFormatter TIME_FORMAT = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+    public static final PeriodFormatter PERIOD_FORMAT = new PeriodFormatterBuilder()
             .appendSeparator(":").printZeroAlways()
             .appendDays().appendSeparator(":")
             .appendHours().appendSeparator(":")

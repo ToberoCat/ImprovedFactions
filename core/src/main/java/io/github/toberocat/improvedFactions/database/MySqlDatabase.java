@@ -105,7 +105,7 @@ public class MySqlDatabase implements Database {
         return executeUpdate("INSERT INTO %s (%s) VALUES (%s);", table, columns, sqldata);
     }
 
-    public boolean tableInsert(Insert... builders) {
+    public void tableInsert(Insert... builders) {
         StringBuilder sql = new StringBuilder();
         for (Insert b : builders) {
             StringBuilder sqldata = new StringBuilder();
@@ -129,7 +129,7 @@ public class MySqlDatabase implements Database {
 
         }
 
-        return executeUpdate(sql.toString());
+        executeUpdate(sql.toString());
     }
 
     public boolean rowUpdate(String table, UpdateValue value, String filter) {
