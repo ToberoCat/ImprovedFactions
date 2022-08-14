@@ -78,23 +78,22 @@ public class MySqlFaction implements Faction<MySqlFaction> {
         if (!Faction.validNaming(registry)) throw new IllegalFactionNamingException(this, registry);
 
         ConfigHandler config = ConfigHandler.api();
-        this.motd = config.getString("faction.default.motd", "Improved faction");
-        this.tag = config.getString("faction.default.tag", "IFF");
+        this.motd = DEFAULT_MOTD;
+        this.tag = DEFAULT_TAG;
 
         database.executeUpdate(MySqlDatabase.CREATE_LAYOUT_QUERY,
                 DatabaseVar.of("registry", registry),
                 DatabaseVar.of("display", display),
                 DatabaseVar.of("motd", motd),
                 DatabaseVar.of("tag", tag),
-                DatabaseVar.of("openType", OpenType
-                        .valueOf(config.getString("faction.default.open-type", "INVITE_ONLY")).ordinal()),
-                DatabaseVar.of("frozen", config.getBool("faction.default.frozen")),
-                DatabaseVar.of("permanent", config.getBool("faction.default.permanent")),
+                DatabaseVar.of("openType", DEFAULT_OPEN_TYPE.ordinal()),
+                DatabaseVar.of("frozen", DEFAULT_FROZEN),
+                DatabaseVar.of("permanent", DEFAULT_PERMANENT),
                 DatabaseVar.of("created_at", DateUtils.TIME_FORMAT.print(new LocalDateTime())),
                 DatabaseVar.of("owner", owner.getUniqueId().toString()),
                 DatabaseVar.of("claimed_chunks", 0),
-                DatabaseVar.of("balance", config.getInt("faction.default.start-balance")),
-                DatabaseVar.of("current_power", config.getInt("faction.default.start-power")),
+                DatabaseVar.of("balance", DEFAULT_START_BALANCE),
+                DatabaseVar.of("current_power", config.getInt("faction.default.start-power")), // Todo: Remove current_power and max_power properties
                 DatabaseVar.of("max_power", config.getInt("faction.default.start-max-power"))
         );
     }

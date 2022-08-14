@@ -1,16 +1,8 @@
 package io.github.toberocat.improvedFactions.faction.handler;
 
-import io.github.toberocat.MainIF;
-import io.github.toberocat.core.factions.Faction;
-import io.github.toberocat.core.factions.components.rank.Rank;
-import io.github.toberocat.core.factions.database.DatabaseFactionHandler;
-import io.github.toberocat.core.factions.local.LocalFactionHandler;
-import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
-import io.github.toberocat.core.utility.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.exceptions.faction.IllegalFactionNamingException;
 import io.github.toberocat.improvedFactions.faction.Faction;
-import io.github.toberocat.improvedFactions.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.faction.database.mysql.MySqlFactionHandler;
 import io.github.toberocat.improvedFactions.faction.local.LocalFactionHandler;
@@ -18,9 +10,6 @@ import io.github.toberocat.improvedFactions.handler.ConfigHandler;
 import io.github.toberocat.improvedFactions.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.player.OfflineFactionPlayer;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -96,7 +85,7 @@ public abstract class FactionHandler {
     /**
      * Gets the rank that's being saved for a player. No post-processing got done with this rank yet.
      * It can only be a faction rank (Owner, Admin, Moderator, Elder, Member) and a Guest (No faction)
-     *
+     * <p>
      * Note: Ally relation is being ignored!
      *
      * @param player The player you ant to get the rank from

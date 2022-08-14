@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -34,6 +35,19 @@ public interface Faction<F extends Faction<F>> extends SettingHolder {
 
     /* Config values */
     long activeThreshold = ConfigHandler.api().getInt("faction.active-member-threshold", 60);
+
+    /* Default values */
+
+    String DEFAULT_MOTD = ConfigHandler.api().getString("faction.default.motd", "Newly created faction");
+    String DEFAULT_TAG = ConfigHandler.api().getString("faction.default.tag", "IFF");
+
+    boolean DEFAULT_FROZEN = ConfigHandler.api().getBool("faction.default.frozen");
+    boolean DEFAULT_PERMANENT = ConfigHandler.api().getBool("faction.default.permanent");
+
+    long DEFAULT_START_BALANCE = ConfigHandler.api().getLong("faction.default.start-balance");
+
+    OpenType DEFAULT_OPEN_TYPE = OpenType.valueOf(ConfigHandler.api()
+            .getString("faction.default.open-type", "INVITE_ONLY"));
 
     /* Static voids */
 
@@ -264,7 +278,8 @@ public interface Faction<F extends Faction<F>> extends SettingHolder {
 
     @NotNull
     default Stream<OfflineFactionPlayer<?>> getPlayers() {
-        return getMembers().map(x -> ImprovedFactions.api().getOfflinePlayer(x));
+        return getMembers()
+                .map(x -> ImprovedFactions.api().getOfflinePlayer(x));
     }
 
     default Stream<OfflineFactionPlayer<?>> getActiveMembers() {

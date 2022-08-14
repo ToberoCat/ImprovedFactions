@@ -12,7 +12,12 @@ public record DatabaseVar(String from, String to) {
         return new DatabaseVar(String.format("@%s", from), String.valueOf(to));
     }
 
+    public static DatabaseVar of(@NotNull String from, long to) {
+        return new DatabaseVar(String.format("@%s", from), String.valueOf(to));
+    }
+
     public static DatabaseVar of(@NotNull String from, boolean to) {
         return new DatabaseVar(String.format("@%s", from), String.valueOf(to));
     }
+
 }

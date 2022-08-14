@@ -16,12 +16,15 @@ public interface ConfigHandler {
     }
 
     @Nullable String getString(@NotNull String path);
-    @Nullable String getString(@NotNull String path, @NotNull String def);
+    @NotNull String getString(@NotNull String path, @NotNull String def);
 
     @NotNull List<String> getList(@NotNull String path);
 
     int getInt(@NotNull String path);
     int getInt(@NotNull String path, int def);
+
+    long getLong(@NotNull String path);
+    long getLong(@NotNull String path, long def);
 
     boolean getBool(@NotNull String path);
     boolean getBool(@NotNull String path, boolean def);
