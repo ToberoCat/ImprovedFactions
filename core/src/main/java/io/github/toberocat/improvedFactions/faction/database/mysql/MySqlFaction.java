@@ -429,8 +429,8 @@ public class MySqlFaction implements Faction<MySqlFaction> {
         changeRank(player, (FactionRank) Rank.fromString(FactionOwnerRank.REGISTRY));
 
         database.executeUpdate("UPDATE factions SET owner = %s WHERE registry_id = %s",
-                        player.getUniqueId(),
-                        registry);
+                player.getUniqueId(),
+                registry);
 
         EventExecutor.getExecutor().transferOwnership(this, old, player);
     }
@@ -477,7 +477,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
         database.executeUpdate("UPDATE players SET faction = %s WHERE uuid = %s",
                 registry, player.getUniqueId().toString());
         database.executeUpdate("UPDATE players SET member_rank = %s WHERE uuid = %s",
-                        rank.getRegistry(), player.getUniqueId().toString());
+                rank.getRegistry(), player.getUniqueId().toString());
 
         EventExecutor.getExecutor().joinMember(this, player, rank);
         return true;
@@ -510,7 +510,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
 
         EventExecutor.getExecutor().banMember(this, player);
         database.executeUpdate("INSERT INTO faction_bans VALUE (%s, %s)", registry,
-                        player.getUniqueId().toString());
+                player.getUniqueId().toString());
         return true;
     }
 
@@ -538,7 +538,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
         if (!isBanned(player)) return false;
 
         database.executeUpdate("DELETE FROM faction_bans WHERE banned = %s AND regisry_id = %s",
-                        player.getUniqueId().toString(), registry);
+                player.getUniqueId().toString(), registry);
 
         EventExecutor.getExecutor().pardonPlayer(this, player);
         return true;
@@ -654,7 +654,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
         if (invitedOwner == null) throw new FactionOwnerIsOfflineException(faction);
 
         database.executeUpdate("INSERT INTO ally_invites VALUES (%s, %s, NOW())",
-                        registry, faction.getRegistry());
+                registry, faction.getRegistry());
     }
 
     /**
@@ -665,7 +665,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     @Override
     public void removeAllyInvite(@NotNull Faction<?> faction) {
         database.executeUpdate("DELETE FROM ally_invites WHERE sender = %s AND receiver = %s",
-                        registry, faction.getRegistry());
+                registry, faction.getRegistry());
     }
 
     /**
@@ -771,7 +771,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
         if (isAllied(registry) || isEnemy(registry)) return true;
 
         database.executeUpdate("INSERT INTO faction_relations VALUES (%s, %s, %d), (%s, %s, %d)",
-                        this.registry, registry, status, registry, this.registry, status);
+                this.registry, registry, status, registry, this.registry, status);
         return false;
     }
 
