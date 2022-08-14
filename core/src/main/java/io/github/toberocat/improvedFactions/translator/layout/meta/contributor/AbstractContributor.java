@@ -8,7 +8,8 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = DeveloperContributor.class, name = "developer"),
-        @JsonSubTypes.Type(value = BetaTesterContributor.class, name = "beta-tester")
+        @JsonSubTypes.Type(value = BetaTesterContributor.class, name = "beta-tester"),
+        @JsonSubTypes.Type(value = TranslatorContributor.class, name = "translator")
 })
 public abstract class AbstractContributor {
     @JsonProperty("contributor")

@@ -1,5 +1,4 @@
 package io.github.toberocat.improvedFactions.translator.layout.meta.contributor;
 
-public class BetaTesterContributor extends AbstractContributor {
-
+public class TranslatorContributor extends AbstractContributor {
 }

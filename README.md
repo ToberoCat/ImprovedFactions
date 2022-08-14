@@ -1,4 +1,4 @@
-![banner](https://github.com/ToberoCat/ImprovedFactions_new/blob/main/Branding/banners/spigot-banner.png?raw=true)
+![banner](https://github.com/ToberoCat/ImprovedFactions_new/blob/main/branding/banners/spigot-banner.png?raw=true)
 <div align="center">
 
 [![ToberoCat - ImprovedFactions](https://img.shields.io/static/v1?label=ToberoCat&message=ImprovedFactions&color=%23FEDD58&logo=github)](https://github.com/ToberoCat/ImprovedFactions_new "Go to GitHub repo")
