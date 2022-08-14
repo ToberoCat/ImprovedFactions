@@ -37,6 +37,8 @@ public interface ImprovedFactions {
 
     /* File */
 
-    @NotNull File getDataFolder();
+    @NotNull File getLocalFolder();
+    @NotNull File getTempFolder();
+    @NotNull File getLangFolder();
 
 }

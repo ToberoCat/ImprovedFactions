@@ -24,7 +24,7 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
 
     public LocalFactionHandler() {
         this.factions = new HashMap<>();
-        access = new FileAccess(ImprovedFactions.api().getDataFolder());
+        access = new FileAccess(ImprovedFactions.api().getLocalFolder());
 
         instance = this;
     }
@@ -47,7 +47,7 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
                 new FactionNotInStorage(registry, FactionNotInStorage.StorageType.LOCAL_FILE);
 
         try {
-            return access.read(LocalFaction.class, FileAccess.FACTION_FOLDER, registry + ".json");
+            return access.readJson(LocalFaction.class, FileAccess.FACTION_FOLDER, registry + ".json");
         } catch (IOException e) {
             throw new FactionNotInStorage(registry, FactionNotInStorage.StorageType.LOCAL_FILE);
         }

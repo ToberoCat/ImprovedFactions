@@ -6,9 +6,11 @@ import io.github.toberocat.improvedFactions.translator.layout.meta.contributor.B
 import io.github.toberocat.improvedFactions.translator.layout.meta.contributor.DeveloperContributor;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Scanner;
 
 public class XmlLoader {
@@ -25,6 +27,12 @@ public class XmlLoader {
                 .useDelimiter("\\A").next();
 
         return XML_MAPPER.readValue(xml, clazz);
+    }
+
+    public static  <T> T read(@NotNull Class<T> clazz, @NotNull File file) throws IOException {
+        String xml = Files.readString(file.toPath(), StandardCharsets.US_ASCII);
+
+        return XML_MAPPER.readValue(Files.readString(file.toPath(), StandardCharsets.US_ASCII), clazz);
     }
 
 }

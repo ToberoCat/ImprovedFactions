@@ -44,7 +44,7 @@ import java.util.stream.Stream;
 public class LocalFaction implements Faction<LocalFaction> {
 
     @JsonIgnore
-    private static final FileAccess access = new FileAccess(ImprovedFactions.api().getDataFolder());
+    private static final FileAccess access = new FileAccess(ImprovedFactions.api().getLocalFolder());
     private @NotNull
     final String createdAt;
     private @NotNull

@@ -13,6 +13,9 @@ faction:
     start-power: 20
     start-max-power: 20
 
+language:
+  default-local: "en_us" # Change this to your server main language, as long as a file with this name exists within lang/ folder
+
 world:
   disabled-worlds: # A list of worlds that don't allow improved factions
 #  - "Disabled faction world"

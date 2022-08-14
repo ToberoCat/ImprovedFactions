@@ -8,19 +8,19 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
-public record FileAccess(File parent) {
+public final class FileAccess {
     public static final String FACTION_FOLDER = "Factions";
     public static final String CHUNKS_FOLDER = "Chunks";
     public static final String PLAYERS_FOLDER = "Players";
 
-    private static final ObjectMapper OBJECT_MAPPER = createMapper();
+    private final @NotNull File parent;
 
-    private static ObjectMapper createMapper() {
-        ObjectMapper mapper = new ObjectMapper();
+    public FileAccess(@NotNull File parent) {
+        this.parent = parent;
 
-        mapper.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
-        return mapper;
+        if (!parent.exists()) parent.mkdirs();
     }
 
     public void delete(String... relativePath) {
@@ -39,11 +39,7 @@ public record FileAccess(File parent) {
         return getFile(relativePath).list();
     }
 
-    public <T> T read(Class<T> clazz, String... relativePath) throws IOException {
-        return OBJECT_MAPPER.readValue(getFile(relativePath), clazz);
-    }
-
-    private @NotNull File getFile(String... relativePath) {
+    public @NotNull File getFile(String... relativePath) {
         return new File(parent, String.join(File.separator, relativePath));
     }
 }

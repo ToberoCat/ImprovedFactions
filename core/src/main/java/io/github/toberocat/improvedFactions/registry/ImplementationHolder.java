@@ -4,8 +4,14 @@ import io.github.toberocat.improvedFactions.claims.ClaimHandler;
 import io.github.toberocat.improvedFactions.event.EventListener;
 import io.github.toberocat.improvedFactions.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.handler.*;
+import io.github.toberocat.improvedFactions.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.translator.Translation;
+import io.github.toberocat.improvedFactions.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.utils.Logger;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.io.IOException;
 
 /**
  * These class contains all interfaces that require to get populated when creating a new implementation
@@ -25,9 +31,10 @@ public class ImplementationHolder {
     /**
      * This should get called when all core registers should get called
      */
-    public static void register() {
+    public static void register() throws IOException {
         Rank.register();
         ClaimHandler.api().cacheAllWorlds();
+        Translation.createLocaleMap();
     }
 
     /**
@@ -40,5 +47,14 @@ public class ImplementationHolder {
      */
     public static void dispose() {
         ClaimHandler.api().dispose();
+        Translation.dispose();
+    }
+
+    public static void playerJoin(@NotNull FactionPlayer<?> player) {
+        Translation.playerJoin(player);
+    }
+
+    public static void playerLeave(@NotNull FactionPlayer<?> player) {
+        Translation.playerLeave(player);
     }
 }
