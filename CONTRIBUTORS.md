@@ -32,9 +32,12 @@ A special thanks goes out to everyone who helps me answer questions on discord
 * [blong344](https://github.com/blong344)
 * [AstRii69](https://github.com/AstRii69)
 
-### Correctors
+### Translators / Correctors
 
-> Persons who have identified spelling errors (including in the doc)
+> Persons who have identified spelling errors, added content to lang files, etc. (including in the java docs)
+
+* [Josh-65](https://github.com/Josh-65)
+
 
 ### Donors
 
