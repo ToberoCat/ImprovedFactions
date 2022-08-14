@@ -19,4 +19,7 @@ public interface OfflineFactionPlayer<P> {
     @NotNull String getName();
     long getLastPlayed();
     boolean isOnline();
+
+    /* Raw instance */
+    @NotNull P getRaw();
 }

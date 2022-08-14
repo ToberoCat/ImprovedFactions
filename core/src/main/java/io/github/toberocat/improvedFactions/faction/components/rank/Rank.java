@@ -48,7 +48,7 @@ public abstract class Rank {
     }
 
     public static @NotNull Rank fromString(String str) {
-        return ranks.getOrDefault(str, ranks.get(GuestRank.register));
+        return ranks.getOrDefault(str, ranks.get(GuestRank.REGISTRY));
     }
 
     public static int getPriority(@NotNull Rank rank) {

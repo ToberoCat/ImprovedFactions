@@ -84,7 +84,7 @@ public class MySqlFactionHandler implements FactionHandlerInterface<MySqlFaction
                         .setColumns("member_rank")
                         .setFilter("uuid = %s", player.getUniqueId().toString()))
                 .readRow(String.class, "member_rank")
-                .orElse(GuestRank.register));
+                .orElse(GuestRank.REGISTRY));
     }
 
     @Override

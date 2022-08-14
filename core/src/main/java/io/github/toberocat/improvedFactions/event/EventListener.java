@@ -35,4 +35,10 @@ public interface EventListener {
                            @NotNull FactionPlayer<?> newOwner);
 
     void joinMember(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> player, @NotNull FactionRank joinedAs);
+
+    void leaveMember(@NotNull Faction<?> faction, @NotNull FactionPlayer<?> player);
+
+    void kickMember(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> player);
+
+    void banMember(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> player);
 }
