@@ -15,7 +15,7 @@
             <lang-code>en_tt</lang-code>
         </supported-languages>
         <contributors>
-            <developer>Tobero</developer>
+            <contributor type="developer">Tobero</contributor>
         </contributors>
     </meta>
     <messages>
@@ -38,11 +38,20 @@
     </messages>
     <ranks>
         <guest>
-            <title>§eGuest rank</title>
-            <description>
-                <line>§8A guest is everyone that has no</line>
-                <line>§8relation to your faction</line>
-            </description>
+            <faction>
+                <title>§eGuest rank</title>
+                <description>
+                    <line>§8A guest is everyone that has no</line>
+                    <line>§8relation to your faction</line>
+                </description>
+            </faction>
+            <ally>
+                <title>§eGuest rank</title>
+                <description>
+                    <line>§8A guest is everyone that has no</line>
+                    <line>§8relation to your faction</line>
+                </description>
+            </ally>
         </guest>
         <owner>
             <faction>
