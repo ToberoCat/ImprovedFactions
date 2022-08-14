@@ -32,7 +32,7 @@
                 <leave>§cPlayer {player} left your faction</leave>
                 <kick>§6Player {player} got kicked out of your faction</kick>
                 <banned>§cPlayer {player} got banned from your faction</banned>
-                <pardon>§ePlayer {player} got unbanned. He is now able to join your faction again</pardon>
+                <pardon>§ePlayer {player} got unbanned. They are now able to join your faction again</pardon>
             </broadcast>
         </faction>
     </messages>
@@ -57,13 +57,14 @@
             <faction>
                 <title>§eOwner rank</title>
                 <description>
-                    <line>PLACEHOLDER</line>
+                    <line>§8The creator the faction</line>
+                    <line>§8they have all permissions</line>
                 </description>
             </faction>
             <ally>
                 <title>§bAlly Owner rank</title>
                 <description>
-                    <line>PLACEHOLDER</line>
+                    <line>§8The creator of an allied faction</line>
                 </description>
             </ally>
         </owner>
@@ -72,7 +73,7 @@
                 <title>§eAdmin rank</title>
                 <description>
                     <line>§8A admin is much like a owner</line>
-                    <line>§8but can't delete the faction or make other admins</line>
+                    <line>§8but can't delete the faction or make other players admins</line>
                 </description>
             </faction>
             <ally>
@@ -87,13 +88,14 @@
             <faction>
                 <title>§eModerator rank</title>
                 <description>
-                    <line>PLACEHOLDER</line>
+                    <line>§8A manager of this faction</line>
+                    <line>§8They have some management control</line>
                 </description>
             </faction>
             <ally>
                 <title>§bAlly Moderator rank</title>
                 <description>
-                    <line>PLACEHOLDER</line>
+                    <line>§8A member of an allied faction with a moderator rank</line>
                 </description>
             </ally>
         </moderator>
@@ -101,13 +103,13 @@
             <faction>
                 <title>§eElder rank</title>
                 <description>
-                    <line>PLACEHOLDER</line>
+                    <line>§8These players have been in the faction for a long time</line>
                 </description>
             </faction>
             <ally>
                 <title>§bElder rank</title>
                 <description>
-                    <line>PLACEHOLDER</line>
+                    <line>§8A member of an allied faction with an elder rank</line>
                 </description>
             </ally>
         </elder>
@@ -115,13 +117,13 @@
             <faction>
                 <title>§eMember rank</title>
                 <description>
-                    <line>PLACEHOLDER</line>
+                    <line>§8A member of this faction</line>
                 </description>
             </faction>
             <ally>
                 <title>§bMember ally rank</title>
                 <description>
-                    <line>PLACEHOLDER</line>
+                    <line>§8A member of an allied faction</line>
                 </description>
             </ally>
         </member>
