@@ -229,7 +229,8 @@ public interface Faction<F extends Faction<F>> extends SettingHolder {
      * @param player The player you want to change the rank of.
      * @param rank   The rank you want to change the player to.
      */
-    void changeRank(@NotNull OfflineFactionPlayer<?> player, @NotNull FactionRank rank) throws FactionIsFrozenException;
+    void changeRank(@NotNull OfflineFactionPlayer<?> player, @NotNull FactionRank rank)
+            throws FactionIsFrozenException;
 
     /* Faction management */
 
@@ -299,7 +300,7 @@ public interface Faction<F extends Faction<F>> extends SettingHolder {
      * @param player The player to leave the faction.
      * @return If the player was able to leave
      */
-    boolean leavePlayer(@NotNull FactionPlayer<?> player) throws FactionIsFrozenException, PlayerIsOwnerException, PlayerIsOwnerException;
+    boolean leavePlayer(@NotNull FactionPlayer<?> player) throws FactionIsFrozenException, PlayerIsOwnerException;
 
     /**
      * This function kicks a player from the faction
@@ -391,7 +392,8 @@ public interface Faction<F extends Faction<F>> extends SettingHolder {
 
     /**
      * Invite a faction to be an ally. The owner needs to be online
-     **
+     * *
+     *
      * @param faction The faction to invite.
      */
     void inviteAlly(@NotNull Faction<?> faction) throws FactionIsFrozenException,
@@ -433,6 +435,7 @@ public interface Faction<F extends Faction<F>> extends SettingHolder {
      * @return A stream of faction registries
      */
     @NotNull Stream<String> getReceivedInvites();
+
     /**
      * Adds an ally to the faction instantly
      *

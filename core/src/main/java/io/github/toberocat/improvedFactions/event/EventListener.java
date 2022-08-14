@@ -41,4 +41,8 @@ public interface EventListener {
     void kickMember(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> player);
 
     void banMember(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> player);
+
+    void pardonPlayer(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> player);
+
+    void allyFaction(@NotNull Faction<?> first, @NotNull Faction<?> second);
 }

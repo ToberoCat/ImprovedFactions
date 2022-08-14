@@ -2,34 +2,43 @@ package io.github.toberocat.improvedFactions.faction.database.mysql;
 
 import io.github.toberocat.improvedFactions.database.DatabaseVar;
 import io.github.toberocat.improvedFactions.database.MySqlDatabase;
+import io.github.toberocat.improvedFactions.database.builder.Insert;
 import io.github.toberocat.improvedFactions.database.builder.Select;
 import io.github.toberocat.improvedFactions.event.EventExecutor;
 import io.github.toberocat.improvedFactions.exceptions.description.DescriptionHasNoLine;
 import io.github.toberocat.improvedFactions.exceptions.faction.FactionHandlerNotFound;
 import io.github.toberocat.improvedFactions.exceptions.faction.FactionIsFrozenException;
+import io.github.toberocat.improvedFactions.exceptions.faction.FactionOwnerIsOfflineException;
 import io.github.toberocat.improvedFactions.exceptions.faction.IllegalFactionNamingException;
 import io.github.toberocat.improvedFactions.exceptions.faction.leave.PlayerIsOwnerException;
+import io.github.toberocat.improvedFactions.exceptions.faction.relation.AlreadyInvitedException;
+import io.github.toberocat.improvedFactions.exceptions.faction.relation.CantInviteYourselfException;
 import io.github.toberocat.improvedFactions.faction.Faction;
 import io.github.toberocat.improvedFactions.faction.OpenType;
 import io.github.toberocat.improvedFactions.faction.components.Description;
+import io.github.toberocat.improvedFactions.faction.components.FactionClaims;
+import io.github.toberocat.improvedFactions.faction.components.FactionModule;
 import io.github.toberocat.improvedFactions.faction.components.rank.GuestRank;
 import io.github.toberocat.improvedFactions.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.faction.components.rank.members.FactionAdminRank;
 import io.github.toberocat.improvedFactions.faction.components.rank.members.FactionOwnerRank;
 import io.github.toberocat.improvedFactions.faction.components.rank.members.FactionRank;
+import io.github.toberocat.improvedFactions.faction.components.report.FactionReports;
+import io.github.toberocat.improvedFactions.faction.components.report.Report;
 import io.github.toberocat.improvedFactions.faction.database.mysql.module.MySqlModule;
 import io.github.toberocat.improvedFactions.handler.ConfigHandler;
 import io.github.toberocat.improvedFactions.handler.DatabaseHandler;
 import io.github.toberocat.improvedFactions.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.translator.Placeholder;
 import io.github.toberocat.improvedFactions.utils.DateUtils;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.joda.time.LocalDateTime;
 
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
-import java.sql.PreparedStatement;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -139,9 +148,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
      */
     @Override
     public int getColor() {
-        return FactionColors.values()[((EnumSetting) getSetting("color"))
-                .getSelected()]
-                .getColor();
+        return 0; // ToDo make faction color setting property
     }
 
     /**
@@ -370,28 +377,6 @@ public class MySqlFaction implements Faction<MySqlFaction> {
         return Rank.fromString(GuestRank.REGISTRY);
     }
 
-    @Override
-    public @NotNull RankSetting getPermission(@NotNull String permission)
-            throws SettingNotFoundException {
-        Map.Entry<String, String> entry = getSettingValueType(permission);
-        String type = entry.getKey();
-        String value = entry.getValue();
-
-        try {
-            Class<?> clazz = Class.forName(type);
-            if (!clazz.isAssignableFrom(RankSetting.class))
-                throw new SettingNotFoundException(permission);
-
-            RankSetting setting = (RankSetting) clazz.getConstructor().newInstance();
-            setting.fromString(value);
-            return setting;
-        } catch (ClassNotFoundException | NoSuchMethodException |
-                InstantiationException | IllegalAccessException |
-                InvocationTargetException ignored) {
-            throw new SettingNotFoundException(permission);
-        }
-    }
-
     private @NotNull FactionRank getDbRank(@NotNull OfflineFactionPlayer<?> player) {
         MySqlFactionHandler handler = MySqlFactionHandler.getInstance();
 
@@ -399,13 +384,6 @@ public class MySqlFaction implements Faction<MySqlFaction> {
                 "required a database handler, but didn't find it. " +
                 "This is a critical bug and needs to be reported to the dev using discord / github");
         return handler.getSavedRank(player);
-    }
-
-    @Override
-    public boolean hasPermission(@NotNull OfflineFactionPlayer<?> player,
-                                 @NotNull String permission) throws SettingNotFoundException {
-        RankSetting setting = getPermission(permission);
-        return setting.hasPermission(getPlayerRank(player));
     }
 
     @Override
@@ -556,22 +534,21 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     }
 
     @Override
-    public boolean pardonPlayer(@NotNull OfflinePlayer player) throws FactionIsFrozenException {
+    public boolean pardonPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (!isBanned(player)) return false;
 
-        database.evalTry("DELETE FROM faction_bans WHERE banned = %s AND regisry_id = %s",
-                        player.getUniqueId().toString(),
-                        registry)
-                .get(PreparedStatement::executeUpdate);
-        AsyncTask.callEventSync(new FactionUnbanEvent(this, player));
+        database.executeUpdate("DELETE FROM faction_bans WHERE banned = %s AND regisry_id = %s",
+                        player.getUniqueId().toString(), registry);
+
+        EventExecutor.getExecutor().pardonPlayer(this, player);
         return true;
     }
 
     @Override
-    public boolean isBanned(@NotNull OfflinePlayer player) {
+    public boolean isBanned(@NotNull OfflineFactionPlayer<?> player) {
         return database.rowSelect(new Select()
-                        .setTable(Table.FACTION_BANS.getTable())
+                        .setTable("faction_bans")
                         .setColumns("banned")
                         .setFilter("registry_id = %s AND banned = %s",
                                 registry,
@@ -582,7 +559,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     @Override
     public @NotNull BigDecimal getTotalPower() {
         return database.rowSelect(new Select()
-                        .setTable(Table.PLAYERS.getTable())
+                        .setTable("players")
                         .setColumns("power")
                         .setFilter("faction = %s", registry))
                 .getRows()
@@ -613,7 +590,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     @Override
     public @NotNull BigDecimal getTotalMaxPower() {
         return database.rowSelect(new Select()
-                        .setTable(Table.PLAYERS.getTable())
+                        .setTable("players")
                         .setColumns("uuid", "power")
                         .setFilter("faction = %s", registry))
                 .getRows()
@@ -644,7 +621,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     @Override
     public double playerPower(@NotNull UUID player) {
         return database.rowSelect(new Select()
-                        .setTable(Table.PLAYERS.getTable())
+                        .setTable("players")
                         .setColumns("power")
                         .setFilter("uuid = %s", player.toString()))
                 .readRow(Double.class, "power")
@@ -654,7 +631,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     @Override
     public double maxPlayerPower(@NotNull UUID player) {
         return database.rowSelect(new Select()
-                        .setTable(Table.PLAYERS.getTable())
+                        .setTable("players")
                         .setColumns("maxPower")
                         .setFilter("uuid = %s", player.toString()))
                 .readRow(Double.class, "maxPower")
@@ -674,12 +651,11 @@ public class MySqlFaction implements Faction<MySqlFaction> {
         if (faction.getRegistry().equals(registry)) throw new CantInviteYourselfException();
         if (hasInvited(faction)) throw new AlreadyInvitedException(faction);
 
-        Player invitedOwner = Bukkit.getPlayer(faction.getOwner());
+        FactionPlayer<?> invitedOwner = ImprovedFactions.api().getPlayer(faction.getOwner());
         if (invitedOwner == null) throw new FactionOwnerIsOfflineException(faction);
 
-        database.evalTry("INSERT INTO ally_invites VALUES (%s, %s, NOW())",
-                        registry, faction.getRegistry())
-                .get(PreparedStatement::executeUpdate);
+        database.executeUpdate("INSERT INTO ally_invites VALUES (%s, %s, NOW())",
+                        registry, faction.getRegistry());
     }
 
     /**
@@ -689,9 +665,8 @@ public class MySqlFaction implements Faction<MySqlFaction> {
      */
     @Override
     public void removeAllyInvite(@NotNull Faction<?> faction) {
-        database.evalTry("DELETE FROM ally_invites WHERE sender = %s AND receiver = %s",
-                        registry, faction.getRegistry())
-                .get(PreparedStatement::executeUpdate);
+        database.executeUpdate("DELETE FROM ally_invites WHERE sender = %s AND receiver = %s",
+                        registry, faction.getRegistry());
     }
 
     /**
@@ -759,14 +734,14 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     public boolean addAlly(@NotNull Faction<?> faction) throws FactionIsFrozenException {
         if (setStatus(faction, allyId)) return false;
 
-        AsyncTask.callEventSync(new FactionAllyEvent(this, faction));
+        EventExecutor.getExecutor().allyFaction(this, faction);
         return true;
     }
 
     @Override
     public boolean isAllied(@NotNull String registry) {
         return database.rowSelect(new Select()
-                        .setTable(Table.FACTION_RELATIONS.getTable())
+                        .setTable("faction_relations")
                         .setColumns("relation_status")
                         .setFilter("registry_id = %s", registry))
                 .readRow(Integer.class, "relation_status")
@@ -796,17 +771,15 @@ public class MySqlFaction implements Faction<MySqlFaction> {
         String registry = faction.getRegistry();
         if (isAllied(registry) || isEnemy(registry)) return true;
 
-        database.evalTry("INSERT INTO faction_relations VALUES (%s, %s, %d), (%s, %s, %d)",
-                        this.registry, registry, status,
-                        registry, this.registry, status)
-                .get(PreparedStatement::executeUpdate);
+        database.executeUpdate("INSERT INTO faction_relations VALUES (%s, %s, %d), (%s, %s, %d)",
+                        this.registry, registry, status, registry, this.registry, status);
         return false;
     }
 
     @Override
     public boolean isEnemy(@NotNull String registry) {
         return database.rowSelect(new Select()
-                        .setTable(Table.FACTION_RELATIONS.getTable())
+                        .setTable("faction_relations")
                         .setColumns("relation_status")
                         .setFilter("registry_id = %s", registry))
                 .readRow(Integer.class, "relation_status")
@@ -821,14 +794,14 @@ public class MySqlFaction implements Faction<MySqlFaction> {
      * @return If the player's faction is an enemy
      */
     @Override
-    public boolean isEnemy(@NotNull OfflinePlayer player) {
+    public boolean isEnemy(@NotNull OfflineFactionPlayer<?> player) {
         return false;
     }
 
     @Override
     public @NotNull Stream<String> getAllies() {
         return database.rowSelect(new Select()
-                        .setTable(Table.FACTION_RELATIONS.getTable())
+                        .setTable("faction_relations")
                         .setColumns("relation_registry_id")
                         .setFilter("registry_id = %s AND relation_status = %d",
                                 registry, allyId))
@@ -840,7 +813,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     @Override
     public @NotNull Stream<String> getEnemies() {
         return database.rowSelect(new Select()
-                        .setTable(Table.FACTION_RELATIONS.getTable())
+                        .setTable("faction_relations")
                         .setColumns("relation_registry_id")
                         .setFilter("registry_id = %s AND relation_status = %d",
                                 registry, enemyId))
@@ -856,11 +829,8 @@ public class MySqlFaction implements Faction<MySqlFaction> {
 
         String registry = faction.getRegistry();
 
-        database.evalTry("DELETE FROM faction_relations WHERE " +
-                        "relation_registry_id = %s", registry)
-                .get(PreparedStatement::executeUpdate);
-
-        return true;
+        return database.executeUpdate("DELETE FROM faction_relations WHERE " +
+                "relation_registry_id = %s", registry);
     }
 
     /**
@@ -871,7 +841,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     @Override
     public void broadcastMessage(@NotNull String msg) {
         getMembers()
-                .map(Bukkit::getPlayer)
+                .map(x -> ImprovedFactions.api().getPlayer(x))
                 .filter(Objects::nonNull)
                 .forEach(player -> player.sendMessage(msg));
     }
@@ -883,11 +853,11 @@ public class MySqlFaction implements Faction<MySqlFaction> {
      * @param key The key of the translatable message.
      */
     @Override
-    public void broadcastTranslatable(@NotNull String key, Parseable... parseables) {
+    public void broadcastTranslatable(@NotNull String key, Placeholder... parseables) {
         getMembers()
-                .map(Bukkit::getPlayer)
+                .map(x -> ImprovedFactions.api().getPlayer(x))
                 .filter(Objects::nonNull)
-                .forEach(player -> Language.sendMessage(key, player, parseables));
+                .forEach(player -> player.sendTranslatable(key, parseables));
     }
 
     @Override
@@ -896,31 +866,10 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     }
 
     @Override
-    public @NotNull Setting<?> getSetting(@NotNull String setting)
-            throws SettingNotFoundException {
-        Map.Entry<String, String> entry = getSettingValueType(setting);
-        String type = entry.getKey();
-        String value = entry.getValue();
-        try {
-            Class<?> clazz = Class.forName(type);
-            if (!clazz.isAssignableFrom(Setting.class))
-                throw new SettingNotFoundException(setting);
-
-            Setting<?> s = (Setting<?>) clazz.getConstructor().newInstance();
-            s.fromString(value);
-            return s;
-        } catch (ClassNotFoundException | NoSuchMethodException |
-                InstantiationException | IllegalAccessException |
-                InvocationTargetException ignored) {
-            throw new SettingNotFoundException(setting);
-        }
-    }
-
-    @Override
     public @NotNull FactionReports getReports() {
         return new FactionReports() {
             @Override
-            public void addReport(@NotNull Player reporter, @NotNull String reason) {
+            public void addReport(@NotNull OfflineFactionPlayer<?> reporter, @NotNull String reason) {
                 database.tableInsert(new Insert()
                         .setTable("reports")
                         .setColumns("registry", "reporter", "reason")
@@ -941,26 +890,8 @@ public class MySqlFaction implements Faction<MySqlFaction> {
         };
     }
 
-    private @NotNull Map.Entry<String, String> getSettingValueType(@NotNull String setting)
-            throws SettingNotFoundException {
-        List<Row> rows = database.rowSelect(new Select()
-                        .setTable(Table.FACTION_SETTINGS.getTable())
-                        .setColumns("type", "value")
-                        .setFilter("registry_id = %s, setting = %s", registry, setting))
-                .getRows();
-        if (rows == null || rows.size() == 0) throw new SettingNotFoundException(setting);
-
-        Row row = rows.get(0);
-        if (row == null) throw new SettingNotFoundException(setting);
-
-        String type = row.get("type").toString();
-        String value = row.get("value").toString();
-
-        return Map.entry(type, value);
-    }
-
     @Override
-    public @Nullable DatabaseModule getModule(@NotNull String registry) {
+    public @Nullable MySqlModule getModule(@NotNull String registry) {
         return modules.get(registry);
     }
 
@@ -977,7 +908,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
 
         FactionModule<MySqlFaction> module = clazz.getConstructor(classes.toArray(Class[]::new))
                 .newInstance(parameters);
-        modules.put(module.registry(), (DatabaseModule) module);
+        modules.put(module.registry(), (MySqlModule) module);
     }
 
     @Override

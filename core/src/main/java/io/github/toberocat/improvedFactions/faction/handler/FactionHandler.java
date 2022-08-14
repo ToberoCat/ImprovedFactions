@@ -8,6 +8,7 @@ import io.github.toberocat.core.factions.local.LocalFactionHandler;
 import io.github.toberocat.core.utility.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.core.utility.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.improvedFactions.exceptions.faction.IllegalFactionNamingException;
 import io.github.toberocat.improvedFactions.faction.Faction;
 import io.github.toberocat.improvedFactions.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.faction.components.rank.members.FactionRank;
@@ -41,7 +42,7 @@ public abstract class FactionHandler {
     }
 
     public static @NotNull Faction<?> createFaction(@NotNull String display,
-                                                    @NotNull FactionPlayer<?> owner) {
+                                                    @NotNull FactionPlayer<?> owner) throws IllegalFactionNamingException {
         return handler.create(display, owner);
     }
 
