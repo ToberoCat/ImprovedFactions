@@ -183,6 +183,25 @@ public class MySqlDatabase implements Database {
         return getResult(sql);
     }
 
+    public Result rowSelect(Select s) {
+        String sql = "";
+        String columns;
+        String lsql;
+        if (s.getColumns() == null || s.getColumns().equals("")) {
+            columns = "*";
+        } else {
+            columns = s.getColumns();
+        }
+        lsql = "SELECT " + columns + " FROM " + s.getTable();
+        if (s.getFilter() != null && !s.getFilter().equals("")) {
+            lsql = lsql + " WHERE " + s.getFilter();
+        }
+        lsql = lsql + "; ";
+        sql = sql + lsql;
+
+        return getResult(sql);
+    }
+
     @NotNull
     private Result getResult(String sql) {
         Statement stmt;
@@ -213,25 +232,6 @@ public class MySqlDatabase implements Database {
             e.printStackTrace();
             return new Result();
         }
-    }
-
-    public Result rowSelect(Select s) {
-        String sql = "";
-        String columns;
-        String lsql;
-        if (s.getColumns() == null || s.getColumns().equals("")) {
-            columns = "*";
-        } else {
-            columns = s.getColumns();
-        }
-        lsql = "SELECT " + columns + " FROM " + s.getTable();
-        if (s.getFilter() != null && !s.getFilter().equals("")) {
-            lsql = lsql + " WHERE " + s.getFilter();
-        }
-        lsql = lsql + "; ";
-        sql = sql + lsql;
-
-        return getResult(sql);
     }
 
     @Override
