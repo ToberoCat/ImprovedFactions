@@ -1,4 +1,4 @@
 /.idea
-/core/target/**
+/core/target
 /spigot/target
 /spigot/spigot.iml

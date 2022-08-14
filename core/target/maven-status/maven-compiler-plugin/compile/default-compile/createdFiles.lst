@@ -53,6 +53,7 @@ io\github\toberocat\improvedFactions\database\builder\Row.class
 io\github\toberocat\improvedFactions\faction\components\report\Report.class
 io\github\toberocat\improvedFactions\exceptions\chunk\ChunkAlreadyClaimedException.class
 io\github\toberocat\improvedFactions\exceptions\faction\PlayerHasNoFactionException.class
+io\github\toberocat\improvedFactions\translator\layout\messages\faction\FactionMessage.class
 io\github\toberocat\improvedFactions\exceptions\faction\relation\AlreadyInvitedException.class
 io\github\toberocat\improvedFactions\registry\ImplementationHolder.class
 io\github\toberocat\improvedFactions\exceptions\faction\FactionNotInStorage.class
