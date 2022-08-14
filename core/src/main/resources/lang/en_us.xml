@@ -14,96 +14,12 @@
             <lang-code>en_tt</lang-code>
             <lang-code>en_tt</lang-code>
         </supported-languages>
-        <authors>
-            <author>Tobero</author>
-        </authors>
+        <contributors>
+            <developer>Tobero</developer>
+        </contributors>
     </meta>
     <messages>
-
-    </messages>
-    <factions>
-        <ranks>
-            <guest>
-                <title>§eGuest rank</title>
-                <description>
-                    <line>§8A guest is everyone that has no</line>
-                    <line>§8relation to your faction</line>
-                </description>
-            </guest>
-            <owner>
-                <faction>
-                    <title>§eOwner rank</title>
-                    <description>
-                        <line>PLACEHOLDER</line>
-                    </description>
-                </faction>
-                <ally>
-                    <title>§bAlly Owner rank</title>
-                    <description>
-                        <line>PLACEHOLDER</line>
-                    </description>
-                </ally>
-            </owner>
-            <admin>
-                <faction>
-                    <title>§eAdmin rank</title>
-                    <description>
-                        <line>§8A admin is much like a owner</line>
-                        <line>§8but can't delete the faction or make other admins</line>
-                    </description>
-                </faction>
-                <ally>
-                    <title>§bAlly admin rank</title>
-                    <description>
-                        <line>§8A admin of one of your allied factions</line>
-                        <line>§8They are trustworthy people</line>
-                    </description>
-                </ally>
-            </admin>
-            <moderator>
-                <faction>
-                    <title>§eModerator rank</title>
-                    <description>
-                        <line>PLACEHOLDER</line>
-                    </description>
-                </faction>
-                <ally>
-                    <title>§bAlly Moderator rank</title>
-                    <description>
-                        <line>PLACEHOLDER</line>
-                    </description>
-                </ally>
-            </moderator>
-            <elder>
-                <faction>
-                    <title>§eElder rank</title>
-                    <description>
-                        <line>PLACEHOLDER</line>
-                    </description>
-                </faction>
-                <ally>
-                    <title>§bElder rank</title>
-                    <description>
-                        <line>PLACEHOLDER</line>
-                    </description>
-                </ally>
-            </elder>
-            <member>
-                <faction>
-                    <title>§eMember rank</title>
-                    <description>
-                        <line>PLACEHOLDER</line>
-                    </description>
-                </faction>
-                <ally>
-                    <title>§bMember ally rank</title>
-                    <description>
-                        <line>PLACEHOLDER</line>
-                    </description>
-                </ally>
-            </member>
-        </ranks>
-        <messages>
+        <faction>
             <player> <!-- Messages players shall receive -->
                 <join>You joined {faction}</join>
                 <leave>You left {faction}</leave>
@@ -118,12 +34,87 @@
                 <banned>§cPlayer {player} got banned from your faction</banned>
                 <pardon>§ePlayer {player} got unbanned. He is now able to join your faction again</pardon>
             </broadcast>
-        </messages>
-    </factions>
-    <guis>
-
-    </guis>
-    <items>
-
-    </items>
+        </faction>
+    </messages>
+    <ranks>
+        <guest>
+            <title>§eGuest rank</title>
+            <description>
+                <line>§8A guest is everyone that has no</line>
+                <line>§8relation to your faction</line>
+            </description>
+        </guest>
+        <owner>
+            <faction>
+                <title>§eOwner rank</title>
+                <description>
+                    <line>PLACEHOLDER</line>
+                </description>
+            </faction>
+            <ally>
+                <title>§bAlly Owner rank</title>
+                <description>
+                    <line>PLACEHOLDER</line>
+                </description>
+            </ally>
+        </owner>
+        <admin>
+            <faction>
+                <title>§eAdmin rank</title>
+                <description>
+                    <line>§8A admin is much like a owner</line>
+                    <line>§8but can't delete the faction or make other admins</line>
+                </description>
+            </faction>
+            <ally>
+                <title>§bAlly admin rank</title>
+                <description>
+                    <line>§8A admin of one of your allied factions</line>
+                    <line>§8They are trustworthy people</line>
+                </description>
+            </ally>
+        </admin>
+        <moderator>
+            <faction>
+                <title>§eModerator rank</title>
+                <description>
+                    <line>PLACEHOLDER</line>
+                </description>
+            </faction>
+            <ally>
+                <title>§bAlly Moderator rank</title>
+                <description>
+                    <line>PLACEHOLDER</line>
+                </description>
+            </ally>
+        </moderator>
+        <elder>
+            <faction>
+                <title>§eElder rank</title>
+                <description>
+                    <line>PLACEHOLDER</line>
+                </description>
+            </faction>
+            <ally>
+                <title>§bElder rank</title>
+                <description>
+                    <line>PLACEHOLDER</line>
+                </description>
+            </ally>
+        </elder>
+        <member>
+            <faction>
+                <title>§eMember rank</title>
+                <description>
+                    <line>PLACEHOLDER</line>
+                </description>
+            </faction>
+            <ally>
+                <title>§bMember ally rank</title>
+                <description>
+                    <line>PLACEHOLDER</line>
+                </description>
+            </ally>
+        </member>
+    </ranks>
 </translatable>

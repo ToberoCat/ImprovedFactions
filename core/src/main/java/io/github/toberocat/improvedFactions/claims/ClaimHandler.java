@@ -100,7 +100,9 @@ public abstract class ClaimHandler {
 
     public void removeProtection(@NotNull Chunk chunk) {
         PersistentDataContainer container = chunk.getDataContainer();
-        String previousRegistry = container.remove(PersistentDataContainer.CLAIM_KEY);
+
+        String previousRegistry = container.getString(PersistentDataContainer.CLAIM_KEY);
+        container.remove(PersistentDataContainer.CLAIM_KEY);
 
         getWorldClaim(chunk.getWorld()).remove(chunk.getX(), chunk.getZ());
         EventExecutor.getExecutor().removeProtection(chunk, previousRegistry);
