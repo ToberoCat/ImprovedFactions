@@ -12,6 +12,7 @@ import io.github.toberocat.improvedFactions.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.utils.ReturnConsumer;
 import io.github.toberocat.improvedFactions.utils.StringUtils;
 import io.github.toberocat.improvedfactions.MainIF;
+import io.github.toberocat.improvedfactions.persistent.SpigotPersistentData;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
@@ -104,34 +105,7 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
 
     @Override
     public @NotNull PersistentDataContainer getDataContainer() {
-        org.bukkit.persistence.PersistentDataContainer container =
-                player.getPersistentDataContainer();
-        return new PersistentDataContainer() {
-            @Override
-            public void set(@NotNull String key, @NotNull String value) {
-                container.set(plugin.getNamespacedKey(key), PersistentDataType.STRING, value);
-            }
-
-            @Override
-            public boolean hasString(@NotNull String key) {
-                return container.has(plugin.getNamespacedKey(key), PersistentDataType.STRING);
-            }
-
-            @Override
-            public @Nullable String getString(@NotNull String key) {
-                return container.get(plugin.getNamespacedKey(key), PersistentDataType.STRING);
-            }
-
-            @Override
-            public void remove(@NotNull String key) {
-                container.remove(plugin.getNamespacedKey(key));
-            }
-
-            @Override
-            public boolean isEmpty() {
-                return container.isEmpty();
-            }
-        };
+        return new SpigotPersistentData(plugin, player.getPersistentDataContainer());
     }
 
     @Override

@@ -9,6 +9,7 @@ import io.github.toberocat.improvedfactions.listener.PlayerJoinListener;
 import io.github.toberocat.improvedfactions.listener.PlayerLeaveListener;
 import io.github.toberocat.improvedfactions.listener.SpigotEventListener;
 import io.github.toberocat.improvedfactions.player.SpigotFactionPlayer;
+import io.github.toberocat.improvedfactions.world.SpigotWorld;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -17,10 +18,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.io.IOException;
+import java.util.*;
 
 public final class MainIF extends JavaPlugin implements ImprovedFactions {
 
@@ -41,10 +40,15 @@ public final class MainIF extends JavaPlugin implements ImprovedFactions {
     @Override
     public void onEnable() {
         plugin = this;
-        ImplementationHolder.register();
 
         createFolders();
         registerListener();
+
+        try {
+            ImplementationHolder.register();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -75,27 +79,33 @@ public final class MainIF extends JavaPlugin implements ImprovedFactions {
 
     @Override
     public @Nullable FactionPlayer<?> getPlayer(@NotNull String name) {
-        return null;
+        Player player = Bukkit.getPlayer(name);
+        if (player == null) return null;
+        return new SpigotFactionPlayer(player, this);
     }
 
     @Override
     public @Nullable OfflineFactionPlayer<?> getOfflinePlayer(@NotNull UUID id) {
-        return null;
     }
 
     @Override
     public @Nullable OfflineFactionPlayer<?> getOfflinePlayer(@NotNull String name) {
-        return null;
     }
 
     @Override
     public @Nullable World getWorld(@NotNull String name) {
-        return null;
+        org.bukkit.World world = Bukkit.getWorld(name);
+        if (world == null) return null;
+        return new SpigotWorld(world, this);
     }
 
     @Override
     public @NotNull List<World> getAllWorlds() {
-        return null;
+        return Bukkit.getWorlds().stream()
+                .map(org.bukkit.World::getName)
+                .map(this::getWorld)
+                .filter(Objects::nonNull)
+                .toList();
     }
 
     @Override
@@ -107,5 +117,11 @@ public final class MainIF extends JavaPlugin implements ImprovedFactions {
     @Override
     public @NotNull File getTempFolder() {
         return new File(getDataFolder(), ".temp");
+    }
+
+    @Override
+    public @NotNull File getLangFolder() {
+        return return new File(getDataFolder(), "lang");
+        ;
     }
 }
