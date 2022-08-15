@@ -9,9 +9,11 @@ import io.github.toberocat.improvedfactions.listener.PlayerJoinListener;
 import io.github.toberocat.improvedfactions.listener.PlayerLeaveListener;
 import io.github.toberocat.improvedfactions.listener.SpigotEventListener;
 import io.github.toberocat.improvedfactions.player.SpigotFactionPlayer;
+import io.github.toberocat.improvedfactions.player.SpigotOfflineFactionPlayer;
 import io.github.toberocat.improvedfactions.world.SpigotWorld;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -85,11 +87,20 @@ public final class MainIF extends JavaPlugin implements ImprovedFactions {
     }
 
     @Override
-    public @Nullable OfflineFactionPlayer<?> getOfflinePlayer(@NotNull UUID id) {
+    public @NotNull OfflineFactionPlayer<?> getOfflinePlayer(@NotNull UUID id) {
+        OfflinePlayer player = Bukkit.getOfflinePlayer(id);
+        return new SpigotOfflineFactionPlayer(player, this);
     }
 
     @Override
     public @Nullable OfflineFactionPlayer<?> getOfflinePlayer(@NotNull String name) {
+        OfflinePlayer player = Arrays.stream(Bukkit.getOfflinePlayers())
+                .filter(x -> name.equals(x.getName()))
+                .findAny()
+                .orElse(null);
+        if (player == null) return null;
+
+        return new SpigotOfflineFactionPlayer(player, this);
     }
 
     @Override
@@ -121,7 +132,6 @@ public final class MainIF extends JavaPlugin implements ImprovedFactions {
 
     @Override
     public @NotNull File getLangFolder() {
-        return return new File(getDataFolder(), "lang");
-        ;
+        return new File(getDataFolder(), "lang");
     }
 }
