@@ -10,7 +10,7 @@ public class GuestRank extends FactionRank {
 
 
     public GuestRank() {
-        super("ranks.guest.title", REGISTRY,
+        super(translatable -> translatable.getRanks().get("guest").getFaction().getTitle(), REGISTRY,
                 "68e73763824d8c19cb7192e2a6f1c62f9bbd028c6d4eb96e554a47c6125038f0",
                 -1, false);
     }
@@ -22,6 +22,7 @@ public class GuestRank extends FactionRank {
 
     @Override
     public String[] description(FactionPlayer<?> player) {
-        return player.getMessageBatch("ranks.guest.description");
+        return player.getMessageBatch(translatable -> translatable.getRanks().get("guest")
+                .getFaction().getDescription().toArray(String[]::new));
     }
 }

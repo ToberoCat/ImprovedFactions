@@ -7,6 +7,8 @@ import io.github.toberocat.improvedFactions.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.persistent.PersistentDataContainer;
 import io.github.toberocat.improvedFactions.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.translator.Placeholder;
+import io.github.toberocat.improvedFactions.translator.layout.Translatable;
+import io.github.toberocat.improvedFactions.utils.ReturnConsumer;
 import io.github.toberocat.improvedfactions.MainIF;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
@@ -26,13 +28,18 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
     }
 
     @Override
-    public @NotNull String getMessage(@NotNull String key, Placeholder... placeholders) {
+    public @NotNull String getMessage(@NotNull ReturnConsumer<Translatable, String> query, Placeholder... placeholders) {
         return null;
     }
 
     @Override
-    public @NotNull String[] getMessageBatch(@NotNull String parentNode, Placeholder... placeholders) {
+    public @NotNull String[] getMessageBatch(@NotNull ReturnConsumer<Translatable, String[]> query, Placeholder... placeholders) {
         return new String[0];
+    }
+
+    @Override
+    public @NotNull String getLocal() {
+        return null;
     }
 
     @Override
@@ -60,7 +67,7 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
     }
 
     @Override
-    public void sendTranslatable(@NotNull String key, Placeholder... placeholders) {
+    public void sendTranslatable(@NotNull ReturnConsumer<Translatable, String> query, Placeholder... placeholders) {
 
     }
 

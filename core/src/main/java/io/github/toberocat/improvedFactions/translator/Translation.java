@@ -5,6 +5,7 @@ import io.github.toberocat.improvedFactions.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.utils.FileAccess;
+import io.github.toberocat.improvedFactions.utils.ReturnConsumer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -90,16 +91,12 @@ public class Translation {
         this.playerId = playerId;
     }
 
-    public @Nullable String getMessage(@NotNull String key) {
+    public @Nullable String getMessage(@NotNull ReturnConsumer<Translatable, String> query) {
         String locale = LANGUAGE_LOCALE_USAGE.get(playerId);
         Translatable translatable = TRANSLATABLE_MAP.get(locale);
         if (translatable == null) return null;
 
-        String[] paths = key.split("\\.");
-
-        for (String path : paths) {
-            translatable.getClass().me
-        }
+        return query.accept(translatable);
     }
 
     public UUID getPlayerId() {

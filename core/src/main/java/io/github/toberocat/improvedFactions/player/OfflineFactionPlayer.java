@@ -5,10 +5,13 @@ import io.github.toberocat.improvedFactions.exceptions.faction.PlayerHasNoFactio
 import io.github.toberocat.improvedFactions.faction.Faction;
 import io.github.toberocat.improvedFactions.persistent.PersistentDataContainer;
 import io.github.toberocat.improvedFactions.translator.Placeholder;
+import io.github.toberocat.improvedFactions.translator.layout.Translatable;
+import io.github.toberocat.improvedFactions.utils.ReturnConsumer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public interface OfflineFactionPlayer<P> {
     /* Faction */
@@ -21,7 +24,8 @@ public interface OfflineFactionPlayer<P> {
 
     void sendMessage(@NotNull String message);
 
-    void sendTranslatable(@NotNull String key, Placeholder... placeholders);
+    void sendTranslatable(@NotNull ReturnConsumer<Translatable, String> query,
+                          Placeholder... placeholders);
 
     /* Player */
     @Nullable FactionPlayer<?> getPlayer();

@@ -18,7 +18,8 @@ public abstract class AllyRank extends Rank {
     private final URL icon;
 
     public AllyRank(@NotNull String key, @NotNull String registry, @NotNull String base64Icon) {
-        super(String.format("ranks.%s.ally.title", key), registry, -1, false);
+        super(translatable -> translatable.getRanks().get(key).getAlly().getTitle(),
+                registry, -1, false);
         this.key = key;
         this.icon = CUtils.createUrl("https://textures.minecraft.net/texture/" + base64Icon);
         this.factionRank = registry.replace(ALLY_IDENTIFIER, "");
@@ -31,13 +32,14 @@ public abstract class AllyRank extends Rank {
 
     @Override
     public String[] description(FactionPlayer<?> player) {
-        return player.getMessageBatch(String.format("ranks.%s.ally.description", key));
+        return player.getMessageBatch(translatable -> translatable.getRanks().get(key)
+                .getAlly().getDescription().toArray(String[]::new));
     }
 
     @Override
     public ItemStack getItem(FactionPlayer<?> player) {
         return ItemHandler.api().createSkull(icon,
-                player.getMessage(displayKey),
+                player.getMessage(title),
                 description(player));
     }
 }

@@ -32,7 +32,9 @@ import io.github.toberocat.improvedFactions.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.translator.Placeholder;
+import io.github.toberocat.improvedFactions.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.utils.DateUtils;
+import io.github.toberocat.improvedFactions.utils.ReturnConsumer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.LocalDateTime;
@@ -40,6 +42,7 @@ import org.joda.time.LocalDateTime;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 /**
@@ -849,14 +852,15 @@ public class MySqlFaction implements Faction<MySqlFaction> {
      * Broadcast a translatable message to all players.
      * The translation will be individual for each player based on their selected language
      *
-     * @param key The key of the translatable message.
+     * @param query The query that should get
      */
     @Override
-    public void broadcastTranslatable(@NotNull String key, Placeholder... parseables) {
+    public void broadcastTranslatable(@NotNull ReturnConsumer<Translatable, String> query,
+                                      Placeholder... parseables) {
         getMembers()
                 .map(x -> ImprovedFactions.api().getPlayer(x))
                 .filter(Objects::nonNull)
-                .forEach(player -> player.sendTranslatable(key, parseables));
+                .forEach(player -> player.sendTranslatable(query, parseables));
     }
 
     @Override

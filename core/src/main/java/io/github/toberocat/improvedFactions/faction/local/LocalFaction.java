@@ -29,8 +29,10 @@ import io.github.toberocat.improvedFactions.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.translator.Placeholder;
+import io.github.toberocat.improvedFactions.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.utils.DateUtils;
 import io.github.toberocat.improvedFactions.utils.FileAccess;
+import io.github.toberocat.improvedFactions.utils.ReturnConsumer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.LocalDateTime;
@@ -801,11 +803,11 @@ public class LocalFaction implements Faction<LocalFaction> {
      * Broadcast a translatable message to all players.
      * The translation will be individual for each player based on their selected language
      *
-     * @param key        The key of the translatable message.
+     * @param query        The key of the translatable message.
      * @param parseables
      */
     @Override
-    public void broadcastTranslatable(@NotNull String key, Placeholder... parseables) {
+    public void broadcastTranslatable(@NotNull ReturnConsumer<Translatable, String> query, Placeholder... parseables) {
         // ToDo: Broadcast msg
     }
 

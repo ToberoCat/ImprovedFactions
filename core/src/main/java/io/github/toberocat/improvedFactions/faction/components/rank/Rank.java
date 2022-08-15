@@ -4,6 +4,8 @@ import io.github.toberocat.improvedFactions.faction.components.rank.allies.*;
 import io.github.toberocat.improvedFactions.faction.components.rank.members.*;
 import io.github.toberocat.improvedFactions.item.ItemStack;
 import io.github.toberocat.improvedFactions.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.translator.layout.Translatable;
+import io.github.toberocat.improvedFactions.utils.ReturnConsumer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashMap;
@@ -12,12 +14,13 @@ import java.util.stream.Stream;
 public abstract class Rank {
 
     public static final LinkedHashMap<String, Rank> ranks = new LinkedHashMap<>();
-    protected final String registry, displayKey;
+    protected final String registry;
+    protected final ReturnConsumer<Translatable, String> title;
     private final boolean isAdmin;
     private final int priority;
 
-    public Rank(String displayKey, String registryName, int permissionPriority, boolean isAdmin) {
-        this.displayKey = displayKey;
+    public Rank(ReturnConsumer<Translatable, String> title, String registryName, int permissionPriority, boolean isAdmin) {
+        this.title = title;
         this.registry = registryName;
         this.isAdmin = isAdmin;
         this.priority = permissionPriority;
@@ -63,14 +66,6 @@ public abstract class Rank {
         return isAdmin;
     }
 
-    public String getDisplayKey() {
-        return displayKey;
-    }
-
-    public @NotNull String getDisplay(@NotNull FactionPlayer<?> player) {
-        return player.getMessage(displayKey);
-    }
-
     public String getRegistry() {
         return registry;
     }
@@ -87,6 +82,10 @@ public abstract class Rank {
      */
     public int getRawPriority() {
         return priority;
+    }
+
+    public ReturnConsumer<Translatable, String> getTitle() {
+        return title;
     }
 
     @Override
