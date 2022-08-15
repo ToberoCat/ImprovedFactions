@@ -99,6 +99,14 @@ public class Translation {
         return query.accept(translatable);
     }
 
+    public @Nullable String[] getMessages(@NotNull ReturnConsumer<Translatable, String[]> query) {
+        String locale = LANGUAGE_LOCALE_USAGE.get(playerId);
+        Translatable translatable = TRANSLATABLE_MAP.get(locale);
+        if (translatable == null) return null;
+
+        return query.accept(translatable);
+    }
+
     public UUID getPlayerId() {
         return playerId;
     }

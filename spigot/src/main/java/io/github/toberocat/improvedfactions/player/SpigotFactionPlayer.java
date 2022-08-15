@@ -7,8 +7,10 @@ import io.github.toberocat.improvedFactions.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.persistent.PersistentDataContainer;
 import io.github.toberocat.improvedFactions.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.translator.Placeholder;
+import io.github.toberocat.improvedFactions.translator.Translation;
 import io.github.toberocat.improvedFactions.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.utils.ReturnConsumer;
+import io.github.toberocat.improvedFactions.utils.StringUtils;
 import io.github.toberocat.improvedfactions.MainIF;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
@@ -21,25 +23,28 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
 
     private final Player player;
     private final MainIF plugin;
+    private final Translation translation;
 
     public SpigotFactionPlayer(Player player, MainIF plugin) {
         this.player = player;
         this.plugin = plugin;
+        this.translation = new Translation(player.getUniqueId());
     }
 
     @Override
-    public @NotNull String getMessage(@NotNull ReturnConsumer<Translatable, String> query, Placeholder... placeholders) {
-        return null;
+    public @Nullable String getMessage(@NotNull ReturnConsumer<Translatable, String> query, Placeholder... placeholders) {
+        return StringUtils.replaceAll(translation.getMessage(query), placeholders);
     }
 
     @Override
-    public @NotNull String[] getMessageBatch(@NotNull ReturnConsumer<Translatable, String[]> query, Placeholder... placeholders) {
-        return new String[0];
+    public @Nullable String[] getMessageBatch(@NotNull ReturnConsumer<Translatable, String[]> query,
+                                              Placeholder... placeholders) {
+        return StringUtils.replaceAll(translation.getMessages(query), placeholders);
     }
 
     @Override
     public @NotNull String getLocal() {
-        return null;
+        return player.getLocale();
     }
 
     @Override
@@ -68,7 +73,8 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
 
     @Override
     public void sendTranslatable(@NotNull ReturnConsumer<Translatable, String> query, Placeholder... placeholders) {
-
+        String msg = getMessage(query, placeholders);
+        if (msg != null) player.sendMessage(msg);
     }
 
     @Override
