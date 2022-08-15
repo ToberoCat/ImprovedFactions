@@ -1,6 +1,5 @@
 package io.github.toberocat.improvedfactions.persistent;
 
-import io.github.toberocat.improvedFactions.persistent.PersistentDataContainer;
 import io.github.toberocat.improvedfactions.MainIF;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;

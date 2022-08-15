@@ -109,16 +109,21 @@ CREATE TABLE IF NOT EXISTS reports
 -- Create invites
 create table IF NOT EXISTS ally_invites
 (
-    sender   varchar(@max_len) not null,
-    receiver varchar(@max_len) not null,
-    send_date datetime not null,
+    sender    varchar(@max_len) not null,
+    receiver  varchar(@max_len) not null,
+    send_date datetime          not null,
     constraint invites_pk
         primary key (receiver)
 );
 
-
-
-
-
+-- Create data
+create table persistent_data
+(
+    uuid  varchar(36) not null,
+    id    char(128)        not null,
+    value text        not null,
+    constraint persistent_data_pk
+        primary key (uuid, id)
+);
 
 

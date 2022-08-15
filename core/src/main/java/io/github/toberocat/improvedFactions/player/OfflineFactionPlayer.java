@@ -3,7 +3,6 @@ package io.github.toberocat.improvedFactions.player;
 import io.github.toberocat.improvedFactions.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.faction.Faction;
-import io.github.toberocat.improvedFactions.persistent.PersistentDataContainer;
 import io.github.toberocat.improvedFactions.translator.Placeholder;
 import io.github.toberocat.improvedFactions.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.utils.ReturnConsumer;
@@ -11,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
-import java.util.function.Consumer;
 
 public interface OfflineFactionPlayer<P> {
     /* Faction */

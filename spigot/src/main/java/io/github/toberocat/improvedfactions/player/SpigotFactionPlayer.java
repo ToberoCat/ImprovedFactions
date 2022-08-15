@@ -4,7 +4,6 @@ import io.github.toberocat.improvedFactions.exceptions.faction.FactionNotInStora
 import io.github.toberocat.improvedFactions.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.faction.Faction;
 import io.github.toberocat.improvedFactions.faction.handler.FactionHandler;
-import io.github.toberocat.improvedFactions.persistent.PersistentDataContainer;
 import io.github.toberocat.improvedFactions.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.translator.Placeholder;
 import io.github.toberocat.improvedFactions.translator.Translation;

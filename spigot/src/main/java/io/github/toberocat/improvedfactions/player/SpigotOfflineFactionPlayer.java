@@ -3,7 +3,6 @@ package io.github.toberocat.improvedfactions.player;
 import io.github.toberocat.improvedFactions.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.faction.Faction;
-import io.github.toberocat.improvedFactions.persistent.PersistentDataContainer;
 import io.github.toberocat.improvedFactions.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.translator.Placeholder;

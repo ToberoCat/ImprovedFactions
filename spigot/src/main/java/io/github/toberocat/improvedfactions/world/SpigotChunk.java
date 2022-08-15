@@ -1,6 +1,5 @@
 package io.github.toberocat.improvedfactions.world;
 
-import io.github.toberocat.improvedFactions.persistent.PersistentDataContainer;
 import io.github.toberocat.improvedFactions.world.Chunk;
 import io.github.toberocat.improvedFactions.world.World;
 import io.github.toberocat.improvedfactions.MainIF;

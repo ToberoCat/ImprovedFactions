@@ -6,7 +6,6 @@ import io.github.toberocat.improvedFactions.event.EventExecutor;
 import io.github.toberocat.improvedFactions.exceptions.NoImplementationProvidedException;
 import io.github.toberocat.improvedFactions.exceptions.chunk.ChunkAlreadyClaimedException;
 import io.github.toberocat.improvedFactions.handler.ImprovedFactions;
-import io.github.toberocat.improvedFactions.persistent.PersistentDataContainer;
 import io.github.toberocat.improvedFactions.registry.ImplementationHolder;
 import io.github.toberocat.improvedFactions.world.Chunk;
 import io.github.toberocat.improvedFactions.world.World;
