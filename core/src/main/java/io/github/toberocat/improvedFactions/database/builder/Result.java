@@ -13,7 +13,7 @@ public class Result {
     }
 
     public Optional<Boolean> hasItem() {
-        return Optional.of(rows.size() >= 1);
+        return Optional.of(rows.size() > 0);
     }
 
     public <T> Optional<T> readRow(@NotNull Class<T> clazz, @NotNull String column) {
