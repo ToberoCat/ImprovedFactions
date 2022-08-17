@@ -1,6 +1,8 @@
+io\github\toberocat\improvedFactions\core\command\BaseCommand$1.class
 io\github\toberocat\improvedFactions\core\translator\layout\ranks\XmlSingleRank.class
 io\github\toberocat\improvedFactions\core\faction\components\rank\allies\AllyAdminRank.class
 io\github\toberocat\improvedFactions\core\faction\database\mysql\MySqlFaction$1.class
+io\github\toberocat\improvedFactions\core\command\BaseCommand.class
 io\github\toberocat\improvedFactions\core\event\EventAdapter.class
 io\github\toberocat\improvedFactions\core\translator\layout\meta\contributor\BetaTesterContributor.class
 io\github\toberocat\improvedFactions\core\claims\worldclaim\database\mysql\MySqlWorldClaim.class
@@ -22,6 +24,7 @@ io\github\toberocat\improvedFactions\core\translator\layout\ranks\XmlRank.class
 io\github\toberocat\improvedFactions\core\exceptions\faction\PlayerIsBannedException.class
 io\github\toberocat\improvedFactions\core\exceptions\faction\FactionNotInStorage.class
 io\github\toberocat\improvedFactions\core\persistent\PersistentData.class
+io\github\toberocat\improvedFactions\core\exceptions\faction\FactionAlreadyExistsException.class
 io\github\toberocat\improvedFactions\core\faction\local\LocalFaction.class
 io\github\toberocat\improvedFactions\core\claims\worldclaim\handler\WorldClaimHandler.class
 io\github\toberocat\improvedFactions\core\faction\components\rank\GuestRank.class

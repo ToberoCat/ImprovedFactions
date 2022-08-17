@@ -38,7 +38,9 @@
         </faction>
         <command>
             <create>
-                <description>Test</description>
+                <description>PLACEHOLDER</description>
+                <illegal-naming>Name can't be used</illegal-naming>
+                <faction-already-exists>PLACEHOLDER</faction-already-exists>
             </create>
         </command>
     </messages>
