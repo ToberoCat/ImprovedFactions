@@ -3,6 +3,7 @@ package io.github.toberocat.improvedFactions.core.faction.database.mysql;
 import io.github.toberocat.improvedFactions.core.database.DatabaseHandle;
 import io.github.toberocat.improvedFactions.core.database.mysql.MySqlDatabase;
 import io.github.toberocat.improvedFactions.core.database.mysql.builder.Select;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionAlreadyExistsException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.IllegalFactionNamingException;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.GuestRank;
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-// ToDo: Add functionallity to implemented methods
+// ToDo: Add functionality to implemented methods
 public class MySqlFactionHandler implements FactionHandlerInterface<MySqlFaction> {
     private static MySqlFactionHandler instance;
 
@@ -43,7 +44,7 @@ public class MySqlFactionHandler implements FactionHandlerInterface<MySqlFaction
 
     @Override
     public @NotNull MySqlFaction create(@NotNull String display, @NotNull FactionPlayer<?> owner)
-            throws IllegalFactionNamingException {
+            throws IllegalFactionNamingException, FactionAlreadyExistsException {
         return new MySqlFaction(display, owner);
     }
 

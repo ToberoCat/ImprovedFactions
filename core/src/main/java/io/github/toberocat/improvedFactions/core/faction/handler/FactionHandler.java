@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedFactions.core.faction.handler;
 
+import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionAlreadyExistsException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.IllegalFactionNamingException;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
@@ -31,7 +32,8 @@ public abstract class FactionHandler {
     }
 
     public static @NotNull Faction<?> createFaction(@NotNull String display,
-                                                    @NotNull FactionPlayer<?> owner) throws IllegalFactionNamingException {
+                                                    @NotNull FactionPlayer<?> owner)
+            throws IllegalFactionNamingException, FactionAlreadyExistsException {
         return handler.create(display, owner);
     }
 

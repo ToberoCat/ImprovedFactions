@@ -36,6 +36,13 @@
                 <pardon>§ePlayer {player} got unbanned. They are now able to join your faction again</pardon>
             </broadcast>
         </faction>
+        <command>
+            <create>
+                <description>PLACEHOLDER</description>
+                <illegal-naming>Name can't be used</illegal-naming>
+                <faction-already-exists>PLACEHOLDER</faction-already-exists>
+            </create>
+        </command>
     </messages>
     <ranks>
         <guest>

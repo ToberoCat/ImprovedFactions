@@ -1,20 +1,47 @@
 package io.github.toberocat.improvedFactions.core.command.component;
 
+import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
-public interface Command<P extends Command.CommandPacket> {
-    @NotNull String label();
+public abstract class Command<P extends Command.CommandPacket> {
 
-    @NotNull String permission();
+    public static final String PERMISSION_NODE = "faction.command.";
 
-    void description(Function<Translatable, String> query);
+    protected Map<String, Command<?>> commands;
 
-    void run(@NotNull P packet);
+    @NotNull
+    public abstract String label();
 
-    interface CommandPacket {
+    @NotNull
+    public String permission() {
+        return PERMISSION_NODE + label();
+    }
 
+    public Function<Translatable, String> description() {
+        return translatable -> translatable.getMessages().getCommand()
+                .get(label())
+                .get("description");
+    }
+
+    public abstract @NotNull List<String> tabComplete(@NotNull String[] args);
+    public abstract void run(@NotNull P packet);
+
+    public abstract @Nullable P createFromArgs(@NotNull FactionPlayer<?> executor, @NotNull String[] args);
+
+    public Map<String, Command<?>> getCommands() {
+        return commands;
+    }
+
+    public void add(@NotNull Command<?> command) {
+        commands.put(command.label(), command);
+    }
+
+    public interface CommandPacket {
     }
 }

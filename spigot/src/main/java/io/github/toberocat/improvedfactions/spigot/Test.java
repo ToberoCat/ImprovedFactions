@@ -1,11 +1,12 @@
 package io.github.toberocat.improvedfactions.spigot;
 
-import io.github.toberocat.improvedFactions.core.utils.CUtils;
+import io.github.toberocat.improvedFactions.core.translator.XmlLoader;
+import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 
 public class Test {
     public static void main(String[] args) throws Exception {
-        CUtils.copyResource("/lang/en_us.xml",
-                "C:\\Users\\Tobias\\Desktop\\Development\\Minecraft\\" +
-                        "Spigot\\Server1.16.5\\plugins\\ImprovedFactions\\lang\\en_us.xml", Test.class);
+        Translatable translatable = XmlLoader.read(Translatable.class,
+                Test.class.getResource("/lang/en_us.xml"));
+        System.out.println(translatable.getMessages().getCommand());
     }
 }

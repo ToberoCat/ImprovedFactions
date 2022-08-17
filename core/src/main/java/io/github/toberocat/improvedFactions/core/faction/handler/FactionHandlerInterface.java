@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedFactions.core.faction.handler;
 
+import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionAlreadyExistsException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.IllegalFactionNamingException;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
@@ -13,7 +14,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public interface FactionHandlerInterface<F extends Faction<F>> {
-    @NotNull F create(@NotNull String display, @NotNull FactionPlayer<?> owner) throws IllegalFactionNamingException;
+    @NotNull F create(@NotNull String display, @NotNull FactionPlayer<?> owner) throws IllegalFactionNamingException, FactionAlreadyExistsException;
 
     @NotNull F load(@NotNull String registry) throws FactionNotInStorage;
 

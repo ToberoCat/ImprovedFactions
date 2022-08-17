@@ -7,9 +7,7 @@ import io.github.toberocat.improvedFactions.core.database.mysql.builder.Insert;
 import io.github.toberocat.improvedFactions.core.database.mysql.builder.Select;
 import io.github.toberocat.improvedFactions.core.event.EventExecutor;
 import io.github.toberocat.improvedFactions.core.exceptions.description.DescriptionHasNoLine;
-import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionHandlerNotFound;
-import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionOwnerIsOfflineException;
-import io.github.toberocat.improvedFactions.core.exceptions.faction.IllegalFactionNamingException;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.*;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.leave.PlayerIsOwnerException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.AlreadyInvitedException;
 import io.github.toberocat.improvedFactions.core.faction.components.Description;
@@ -22,13 +20,13 @@ import io.github.toberocat.improvedFactions.core.faction.components.rank.members
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.faction.components.report.FactionReports;
 import io.github.toberocat.improvedFactions.core.faction.components.report.Report;
+import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.DateUtils;
-import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionIsFrozenException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.CantInviteYourselfException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.OpenType;
@@ -72,11 +70,13 @@ public class MySqlFaction implements Faction<MySqlFaction> {
      * @param display This name isn't allowed to be longer than "faction.maxNameLen" in config.yml
      */
     public MySqlFaction(@NotNull String display, @NotNull FactionPlayer<?> owner)
-            throws IllegalFactionNamingException {
+            throws IllegalFactionNamingException, FactionAlreadyExistsException {
         this();
+
         this.registry = Faction.displayToRegistry(display);
         this.display = Faction.validateDisplay(display);
 
+        if (FactionHandler.getLoadedFactions().containsKey(registry)) throw new FactionAlreadyExistsException(this);
         if (!Faction.validNaming(registry)) throw new IllegalFactionNamingException(this, registry);
 
         ConfigHandler config = ConfigHandler.api();

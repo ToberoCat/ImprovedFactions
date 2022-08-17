@@ -36,6 +36,11 @@
                 <pardon>§ePlayer {player} got unbanned. They are now able to join your faction again</pardon>
             </broadcast>
         </faction>
+        <command>
+            <create>
+                <description>Test</description>
+            </create>
+        </command>
     </messages>
     <ranks>
         <guest>
