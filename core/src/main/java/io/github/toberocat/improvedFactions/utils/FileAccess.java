@@ -1,19 +1,18 @@
 package io.github.toberocat.improvedFactions.utils;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
 
 public final class FileAccess {
     public static final String FACTION_FOLDER = "Factions";
+    public static final String PERSISTENT_FOLDER = "Persistent";
     public static final String CHUNKS_FOLDER = "Chunks";
     public static final String PLAYERS_FOLDER = "Players";
+
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     private final @NotNull File parent;
 
@@ -29,6 +28,14 @@ public final class FileAccess {
 
     public boolean has(String... relativePath) {
         return getFile(relativePath).exists();
+    }
+
+    public <T> void write(@NotNull T object, String... relativePath) throws IOException {
+        MAPPER.writeValue(getFile(relativePath), object);
+    }
+
+    public <T> T read(@NotNull Class<T> clazz, String... relativePath) throws IOException {
+        return MAPPER.readValue(getFile(relativePath), clazz);
     }
 
     public File[] listFiles(String... relativePath) {

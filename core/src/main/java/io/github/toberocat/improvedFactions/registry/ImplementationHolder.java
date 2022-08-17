@@ -4,6 +4,8 @@ import io.github.toberocat.improvedFactions.claims.ClaimHandler;
 import io.github.toberocat.improvedFactions.event.EventListener;
 import io.github.toberocat.improvedFactions.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.handler.*;
+import io.github.toberocat.improvedFactions.persistent.PersistentHandler;
+import io.github.toberocat.improvedFactions.persistent.local.LocalData;
 import io.github.toberocat.improvedFactions.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.translator.Translation;
 import io.github.toberocat.improvedFactions.translator.layout.Translatable;
@@ -48,6 +50,7 @@ public class ImplementationHolder {
     public static void dispose() {
         ClaimHandler.api().dispose();
         Translation.dispose();
+        PersistentHandler.api().dispose();
     }
 
     public static void playerJoin(@NotNull FactionPlayer<?> player) {
@@ -56,5 +59,6 @@ public class ImplementationHolder {
 
     public static void playerLeave(@NotNull FactionPlayer<?> player) {
         Translation.playerLeave(player);
+        PersistentHandler.api().quit(player);
     }
 }

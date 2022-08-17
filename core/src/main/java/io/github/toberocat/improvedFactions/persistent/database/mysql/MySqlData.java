@@ -3,13 +3,13 @@ package io.github.toberocat.improvedFactions.persistent.database.mysql;
 import io.github.toberocat.improvedFactions.database.MySqlDatabase;
 import io.github.toberocat.improvedFactions.database.builder.Select;
 import io.github.toberocat.improvedFactions.handler.DatabaseHandler;
-import io.github.toberocat.improvedFactions.persistent.Data;
+import io.github.toberocat.improvedFactions.persistent.PersistentData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-public class MySqlData implements Data {
+public class MySqlData implements PersistentData {
 
     private final MySqlDatabase database;
 
