@@ -29,6 +29,10 @@ public interface ImprovedFactions<RawWorld> {
 
     @Nullable OfflineFactionPlayer<?> getOfflinePlayer(@NotNull String name);
 
+    /* Scheduler */
+
+    @NotNull Scheduler getScheduler();
+
     /* World */
 
     @Nullable World<RawWorld> getWorld(@NotNull String name);

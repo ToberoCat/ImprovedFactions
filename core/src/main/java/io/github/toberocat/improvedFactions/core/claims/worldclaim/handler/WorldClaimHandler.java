@@ -2,6 +2,7 @@ package io.github.toberocat.improvedFactions.core.claims.worldclaim.handler;
 
 import io.github.toberocat.improvedFactions.core.claims.worldclaim.WorldClaim;
 import io.github.toberocat.improvedFactions.core.claims.worldclaim.database.mysql.MySqlWorldClaimHandler;
+import io.github.toberocat.improvedFactions.core.claims.worldclaim.local.LocalWorldClaimHandler;
 import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
 import io.github.toberocat.improvedFactions.core.world.World;
 import org.jetbrains.annotations.NotNull;

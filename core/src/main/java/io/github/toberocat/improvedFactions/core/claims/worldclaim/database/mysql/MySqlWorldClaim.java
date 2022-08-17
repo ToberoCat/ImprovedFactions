@@ -40,11 +40,10 @@ public class MySqlWorldClaim implements WorldClaim {
                 .getRows()
                 .stream()
                 .map(row -> {
-                    String registry = row.get("registry").toString();
                     int x = Integer.parseInt(row.get("x").toString());
                     int z = Integer.parseInt(row.get("z").toString());
 
-                    return new Claim(registry, worldName, x, z);
+                    return new Claim(worldName, x, z, c -> row.get("registry").toString());
                 });
     }
 

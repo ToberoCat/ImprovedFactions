@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.spigot;
 
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
+import io.github.toberocat.improvedFactions.core.handler.Scheduler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
@@ -12,6 +13,7 @@ import io.github.toberocat.improvedfactions.spigot.listener.PlayerLeaveListener;
 import io.github.toberocat.improvedfactions.spigot.listener.SpigotEventListener;
 import io.github.toberocat.improvedfactions.spigot.player.SpigotFactionPlayer;
 import io.github.toberocat.improvedfactions.spigot.player.SpigotOfflineFactionPlayer;
+import io.github.toberocat.improvedfactions.spigot.scheduler.SpigotScheduler;
 import io.github.toberocat.improvedfactions.spigot.world.SpigotWorld;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -28,6 +30,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 public final class MainIF extends JavaPlugin implements ImprovedFactions<org.bukkit.World> {
+
+    private final Scheduler scheduler = new SpigotScheduler(this);
 
     @Override
     public void onEnable() {
@@ -94,6 +98,11 @@ public final class MainIF extends JavaPlugin implements ImprovedFactions<org.buk
         if (player == null) return null;
 
         return new SpigotOfflineFactionPlayer(player, this);
+    }
+
+    @Override
+    public @NotNull Scheduler getScheduler() {
+        return scheduler;
     }
 
     @Override
