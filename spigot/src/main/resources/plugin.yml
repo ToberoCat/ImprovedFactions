@@ -1,5 +1,5 @@
 name: 'ImprovedFactions'
 version: '${project.version}'
-main: io.github.toberocat.improvedfactions.MainIF
+main: io.github.toberocat.improvedfactions.spigot.MainIF
 api-version: 1.16
 authors: [ Tobero ]

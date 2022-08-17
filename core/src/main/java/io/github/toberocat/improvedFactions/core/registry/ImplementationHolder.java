@@ -3,7 +3,6 @@ package io.github.toberocat.improvedFactions.core.registry;
 import io.github.toberocat.improvedFactions.core.claims.ClaimHandler;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.handler.*;
-import io.github.toberocat.improvedFactions.handler.*;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.Translation;
@@ -40,7 +39,7 @@ public class ImplementationHolder {
     /**
      * Call it when you don't need any of the core features / want to reload them using a sequence,
      * like:
-     *
+     * <p>
      * // Reload all handlers
      * dispose();
      * register();

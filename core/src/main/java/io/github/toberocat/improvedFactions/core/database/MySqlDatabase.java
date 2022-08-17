@@ -2,7 +2,6 @@ package io.github.toberocat.improvedFactions.core.database;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 import io.github.toberocat.improvedFactions.core.database.builder.*;
-import io.github.toberocat.improvedFactions.database.builder.*;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import org.jetbrains.annotations.NotNull;
 

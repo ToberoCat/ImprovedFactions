@@ -2,8 +2,6 @@ package io.github.toberocat.improvedFactions.core.faction.components.rank;
 
 import io.github.toberocat.improvedFactions.core.faction.components.rank.allies.*;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.*;
-import io.github.toberocat.improvedFactions.faction.components.rank.allies.*;
-import io.github.toberocat.improvedFactions.faction.components.rank.members.*;
 import io.github.toberocat.improvedFactions.core.item.ItemStack;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
@@ -28,8 +26,6 @@ public abstract class Rank {
         this.priority = permissionPriority;
         ranks.put(registryName, this);
     }
-    
-    public abstract @NotNull Rank getEquivalent();
 
     public static void register() {
         new FactionOwnerRank(-1);
@@ -46,7 +42,7 @@ public abstract class Rank {
 
         new GuestRank();
     }
-    
+
     public static Stream<Rank> getPriorityRanks(Rank rank) {
         int priority = getPriority(rank);
         return ranks.values().stream().filter(x -> x.priority >= 0 && x.priority < priority);
@@ -64,6 +60,8 @@ public abstract class Rank {
                 : rank.priority;
     }
 
+    public abstract @NotNull Rank getEquivalent();
+
     public boolean isAdmin() {
         return isAdmin;
     }
@@ -77,7 +75,6 @@ public abstract class Rank {
     public abstract ItemStack getItem(FactionPlayer<?> player);
 
     /**
-     *
      * @return raw priority. negative numbers can get returned,
      * as they mean that it is the highest priority and not selectable
      * or they just have no priority at all, depends on the given context
