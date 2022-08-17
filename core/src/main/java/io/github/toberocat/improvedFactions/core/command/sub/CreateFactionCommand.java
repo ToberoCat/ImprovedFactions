@@ -45,9 +45,9 @@ public class CreateFactionCommand extends Command<CreateFactionCommand.CreateFac
 
     @Override
     public @Nullable CreateFactionCommand.CreateFactionPacket createFromArgs(@NotNull FactionPlayer<?> executor, @NotNull String[] args) {
-        if (args.length != 1) return null;
+        if (args.length != 2) return null;
 
-        String display = args[0];
+        String display = args[1];
         return new CreateFactionPacket(display, executor);
     }
 

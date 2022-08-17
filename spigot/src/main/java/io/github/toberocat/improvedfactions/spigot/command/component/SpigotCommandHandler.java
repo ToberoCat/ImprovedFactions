@@ -26,7 +26,7 @@ public class SpigotCommandHandler {
 
     public @Nullable Command<?> findCommand(@NotNull String query) {
         String[] split = query.split(" ");
-        for (int i = split.length - 1; i > 0; i--) {
+        for (int i = split.length - 1; i >= 0; i--) {
             Command<?> cmd = lookup.get(split[i]);
             if (cmd != null) return cmd;
         }

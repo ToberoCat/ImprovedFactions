@@ -6,6 +6,7 @@ import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import io.github.toberocat.improvedFactions.core.world.World;
+import io.github.toberocat.improvedfactions.spigot.command.SpigotFactionCommand;
 import io.github.toberocat.improvedfactions.spigot.handler.SpigotColorHandler;
 import io.github.toberocat.improvedfactions.spigot.handler.SpigotConfigHandler;
 import io.github.toberocat.improvedfactions.spigot.listener.PlayerJoinListener;
@@ -35,8 +36,10 @@ public final class MainIF extends JavaPlugin implements ImprovedFactions<org.buk
 
     @Override
     public void onEnable() {
-        registerListener();
         registerHandlers();
+
+        registerListener();
+        registerCommands();
 
         try {
             ImplementationHolder.register();
@@ -61,6 +64,12 @@ public final class MainIF extends JavaPlugin implements ImprovedFactions<org.buk
         ImplementationHolder.colorHandler = new SpigotColorHandler();
         ImplementationHolder.configHandler = new SpigotConfigHandler(getConfig());
         ImplementationHolder.improvedFactions = this;
+    }
+
+    private void registerCommands() {
+        SpigotFactionCommand command = new SpigotFactionCommand();
+        getServer().getPluginCommand("faction").setTabCompleter(command);
+        getServer().getPluginCommand("faction").setExecutor(command);
     }
 
     /* Implementation of ImprovedFactions */

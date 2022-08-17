@@ -5,6 +5,7 @@ import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -13,7 +14,7 @@ public abstract class Command<P extends Command.CommandPacket> {
 
     public static final String PERMISSION_NODE = "faction.command.";
 
-    protected Map<String, Command<?>> commands;
+    protected final Map<String, Command<?>> commands = new HashMap<>();
 
     @NotNull
     public abstract String label();

@@ -31,12 +31,14 @@ public class SpigotFactionCommand implements TabExecutor {
 
         if (!(sender instanceof Player player)) return false;
         FactionPlayer<?> factionPlayer = ImprovedFactions.api().getPlayer(player.getUniqueId());
+        System.out.println("exexu");
         if (factionPlayer == null) return false;
 
         io.github.toberocat.improvedFactions.core.command.component.Command cmd =
                 handler.findCommand(String.join(" ", args));
         if (cmd == null) return false;
 
+        System.out.println(cmd.label());
         io.github.toberocat.improvedFactions.core.command.component.Command.CommandPacket packet =
                 cmd.createFromArgs(factionPlayer, args);
         if (packet == null) return false;

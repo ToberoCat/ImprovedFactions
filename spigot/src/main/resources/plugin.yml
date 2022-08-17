@@ -3,3 +3,7 @@ version: '${project.version}'
 main: io.github.toberocat.improvedfactions.spigot.MainIF
 api-version: 1.16
 authors: [ Tobero ]
+
+commands:
+  faction:
+    aliases: [ "f", "fac" ]

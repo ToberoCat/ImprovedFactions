@@ -1,6 +1,7 @@
 io\github\toberocat\improvedFactions\core\command\BaseCommand$1.class
 io\github\toberocat\improvedFactions\core\translator\layout\ranks\XmlSingleRank.class
 io\github\toberocat\improvedFactions\core\faction\components\rank\allies\AllyAdminRank.class
+io\github\toberocat\improvedFactions\core\command\sub\DeleteFactionCommand.class
 io\github\toberocat\improvedFactions\core\faction\database\mysql\MySqlFaction$1.class
 io\github\toberocat\improvedFactions\core\command\BaseCommand.class
 io\github\toberocat\improvedFactions\core\event\EventAdapter.class
@@ -77,6 +78,7 @@ io\github\toberocat\improvedFactions\core\temp\TempDataManager.class
 io\github\toberocat\improvedFactions\core\faction\components\rank\members\FactionOwnerRank.class
 io\github\toberocat\improvedFactions\core\utils\DateUtils.class
 io\github\toberocat\improvedFactions\core\faction\components\rank\allies\AllyElderRank.class
+io\github\toberocat\improvedFactions\core\exceptions\faction\PlayerIsNotOwnerException.class
 io\github\toberocat\improvedFactions\core\exceptions\faction\FactionNotFoundException.class
 io\github\toberocat\improvedFactions\core\handler\ConfigHandler.class
 io\github\toberocat\improvedFactions\core\claims\component\Claim.class
@@ -104,6 +106,7 @@ io\github\toberocat\improvedFactions\core\faction\local\managers\FactionPerm.cla
 io\github\toberocat\improvedFactions\core\claims\worldclaim\local\XZPair.class
 io\github\toberocat\improvedFactions\core\database\mysql\builder\Select.class
 io\github\toberocat\improvedFactions\core\item\ItemStack.class
+io\github\toberocat\improvedFactions\core\command\sub\DeleteFactionCommand$DeleteFactionPacket.class
 io\github\toberocat\improvedFactions\core\sender\player\OfflineFactionPlayer.class
 io\github\toberocat\improvedFactions\core\faction\local\LocalFaction$1.class
 io\github\toberocat\improvedFactions\core\translator\XmlLoader.class

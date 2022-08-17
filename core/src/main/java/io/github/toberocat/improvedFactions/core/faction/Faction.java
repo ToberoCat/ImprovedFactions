@@ -62,15 +62,14 @@ public interface Faction<F extends Faction<F>> extends SettingHolder {
      * - All non-alphabetic characters are removed from the string.
      */
     static @NotNull String displayToRegistry(@NotNull String display) {
-        return display
-                .substring(0, ConfigHandler.api().getInt("faction.max-registry-length", 10))
+        return validateDisplay(display)
                 .toLowerCase()
                 .transform(x -> ColorHandler.api().stripColor(x))
                 .replaceAll("[^a-z]", "");
     }
 
     static @NotNull String validateDisplay(@NotNull String display) {
-        return display
+        return display.length() <= 10 ? display : display
                 .substring(0, ConfigHandler.api().getInt("faction.max-display-length", 10));
     }
 
