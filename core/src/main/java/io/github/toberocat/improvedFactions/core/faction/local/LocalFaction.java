@@ -39,6 +39,7 @@ import org.joda.time.LocalDateTime;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
@@ -806,7 +807,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @param parseables
      */
     @Override
-    public void broadcastTranslatable(@NotNull ReturnConsumer<Translatable, String> query, Placeholder... parseables) {
+    public void broadcastTranslatable(@NotNull Function<Translatable, String> query, Placeholder... parseables) {
         // ToDo: Broadcast msg
     }
 

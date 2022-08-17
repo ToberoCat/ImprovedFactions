@@ -6,11 +6,13 @@ import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.Function;
+
 public interface FactionPlayer<P> extends CommandSender, OfflineFactionPlayer<P> {
 
-    @Nullable String getMessage(@NotNull ReturnConsumer<Translatable, String> query, Placeholder... placeholders);
+    @Nullable String getMessage(@NotNull Function<Translatable, String> query, Placeholder... placeholders);
 
-    @Nullable String[] getMessageBatch(@NotNull ReturnConsumer<Translatable, String[]> query, Placeholder... placeholders);
+    @Nullable String[] getMessageBatch(@NotNull Function<Translatable, String[]> query, Placeholder... placeholders);
 
     @NotNull String getLocal();
 }

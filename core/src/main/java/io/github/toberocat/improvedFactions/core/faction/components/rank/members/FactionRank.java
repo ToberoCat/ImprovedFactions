@@ -10,6 +10,7 @@ import io.github.toberocat.improvedFactions.core.utils.CUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
+import java.util.function.Function;
 
 public abstract class FactionRank extends Rank {
 
@@ -26,7 +27,7 @@ public abstract class FactionRank extends Rank {
         this.icon = CUtils.createUrl("https://textures.minecraft.net/texture/" + base64Icon);
     }
 
-    public FactionRank(ReturnConsumer<Translatable, String> title, String registryName, String base64Icon,
+    public FactionRank(Function<Translatable, String> title, String registryName, String base64Icon,
                        int permissionPriority, boolean isAdmin) {
         super(title, registryName, permissionPriority, isAdmin);
         this.key = "";

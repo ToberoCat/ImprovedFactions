@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Function;
 
 public class Translation {
 
@@ -89,20 +90,20 @@ public class Translation {
         this.playerId = playerId;
     }
 
-    public @Nullable String getMessage(@NotNull ReturnConsumer<Translatable, String> query) {
+    public @Nullable String getMessage(@NotNull Function<Translatable, String> query) {
         String locale = LANGUAGE_LOCALE_USAGE.get(playerId);
         Translatable translatable = TRANSLATABLE_MAP.get(locale);
         if (translatable == null) return null;
 
-        return query.accept(translatable);
+        return query.apply(translatable);
     }
 
-    public @Nullable String[] getMessages(@NotNull ReturnConsumer<Translatable, String[]> query) {
+    public @Nullable String[] getMessages(@NotNull Function<Translatable, String[]> query) {
         String locale = LANGUAGE_LOCALE_USAGE.get(playerId);
         Translatable translatable = TRANSLATABLE_MAP.get(locale);
         if (translatable == null) return null;
 
-        return query.accept(translatable);
+        return query.apply(translatable);
     }
 
     public UUID getPlayerId() {

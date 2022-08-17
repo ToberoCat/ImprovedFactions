@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
+import java.util.function.Function;
 
 public class SpigotFactionPlayer implements FactionPlayer<Player> {
 
@@ -30,12 +31,12 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
     }
 
     @Override
-    public @Nullable String getMessage(@NotNull ReturnConsumer<Translatable, String> query, Placeholder... placeholders) {
+    public @Nullable String getMessage(@NotNull Function<Translatable, String> query, Placeholder... placeholders) {
         return StringUtils.replaceAll(translation.getMessage(query), placeholders);
     }
 
     @Override
-    public @Nullable String[] getMessageBatch(@NotNull ReturnConsumer<Translatable, String[]> query,
+    public @Nullable String[] getMessageBatch(@NotNull Function<Translatable, String[]> query,
                                               Placeholder... placeholders) {
         return StringUtils.replaceAll(translation.getMessages(query), placeholders);
     }
@@ -68,7 +69,7 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
     }
 
     @Override
-    public void sendTranslatable(@NotNull ReturnConsumer<Translatable, String> query, Placeholder... placeholders) {
+    public void sendTranslatable(@NotNull Function<Translatable, String> query, Placeholder... placeholders) {
         String msg = getMessage(query, placeholders);
         if (msg != null) player.sendMessage(msg);
     }
@@ -106,5 +107,15 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
     @Override
     public @NotNull Player getRaw() {
         return player;
+    }
+
+    @Override
+    public void runCommand(@NotNull String command) {
+        player.performCommand(command);
+    }
+
+    @Override
+    public boolean hasPermission(@NotNull String permission) {
+        return player.hasPermission(permission);
     }
 }

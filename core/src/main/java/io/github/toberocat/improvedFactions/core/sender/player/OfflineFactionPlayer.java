@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
+import java.util.function.Function;
 
 public interface OfflineFactionPlayer<P> {
     /* Faction */
@@ -22,7 +23,7 @@ public interface OfflineFactionPlayer<P> {
 
     void sendMessage(@NotNull String message);
 
-    void sendTranslatable(@NotNull ReturnConsumer<Translatable, String> query,
+    void sendTranslatable(@NotNull Function<Translatable, String> query,
                           Placeholder... placeholders);
 
     /* Player */

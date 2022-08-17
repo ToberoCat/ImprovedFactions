@@ -17,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
+import java.util.function.Function;
 
 public class SpigotOfflineFactionPlayer implements OfflineFactionPlayer<OfflinePlayer> {
 
@@ -55,7 +56,7 @@ public class SpigotOfflineFactionPlayer implements OfflineFactionPlayer<OfflineP
     }
 
     @Override
-    public void sendTranslatable(@NotNull ReturnConsumer<Translatable, String> query, Placeholder... placeholders) {
+    public void sendTranslatable(@NotNull Function<Translatable, String> query, Placeholder... placeholders) {
 
     }
 

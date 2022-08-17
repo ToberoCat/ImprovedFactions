@@ -41,6 +41,7 @@ import org.joda.time.LocalDateTime;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 /**
@@ -853,7 +854,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
      * @param query The query that should get
      */
     @Override
-    public void broadcastTranslatable(@NotNull ReturnConsumer<Translatable, String> query,
+    public void broadcastTranslatable(@NotNull Function<Translatable, String> query,
                                       Placeholder... parseables) {
         getMembers()
                 .map(x -> ImprovedFactions.api().getPlayer(x))

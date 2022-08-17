@@ -8,17 +8,18 @@ import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashMap;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 public abstract class Rank {
 
     public static final LinkedHashMap<String, Rank> ranks = new LinkedHashMap<>();
     protected final String registry;
-    protected final ReturnConsumer<Translatable, String> title;
+    protected final Function<Translatable, String> title;
     private final boolean isAdmin;
     private final int priority;
 
-    public Rank(ReturnConsumer<Translatable, String> title, String registryName, int permissionPriority, boolean isAdmin) {
+    public Rank(Function<Translatable, String> title, String registryName, int permissionPriority, boolean isAdmin) {
         this.title = title;
         this.registry = registryName;
         this.isAdmin = isAdmin;
@@ -82,7 +83,7 @@ public abstract class Rank {
         return priority;
     }
 
-    public ReturnConsumer<Translatable, String> getTitle() {
+    public Function<Translatable, String> getTitle() {
         return title;
     }
 

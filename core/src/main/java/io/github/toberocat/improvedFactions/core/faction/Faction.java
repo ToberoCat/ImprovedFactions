@@ -24,6 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.UUID;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 public interface Faction<F extends Faction<F>> extends SettingHolder {
@@ -535,7 +536,7 @@ public interface Faction<F extends Faction<F>> extends SettingHolder {
      *
      * @param query The key of the translatable message.
      */
-    void broadcastTranslatable(@NotNull ReturnConsumer<Translatable, String> query, Placeholder... parseables);
+    void broadcastTranslatable(@NotNull Function<Translatable, String> query, Placeholder... parseables);
 
     /* Claim management */
 
