@@ -1,19 +1,18 @@
 package io.github.toberocat.improvedfactions.player;
 
-import io.github.toberocat.improvedFactions.exceptions.faction.FactionNotInStorage;
-import io.github.toberocat.improvedFactions.exceptions.faction.PlayerHasNoFactionException;
-import io.github.toberocat.improvedFactions.faction.Faction;
-import io.github.toberocat.improvedFactions.faction.handler.FactionHandler;
-import io.github.toberocat.improvedFactions.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.translator.Placeholder;
-import io.github.toberocat.improvedFactions.translator.Translation;
-import io.github.toberocat.improvedFactions.translator.layout.Translatable;
-import io.github.toberocat.improvedFactions.utils.ReturnConsumer;
-import io.github.toberocat.improvedFactions.utils.StringUtils;
-import io.github.toberocat.improvedfactions.MainIF;
-import io.github.toberocat.improvedfactions.persistent.SpigotPersistentData;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
+import io.github.toberocat.improvedFactions.core.faction.Faction;
+import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
+import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
+import io.github.toberocat.improvedFactions.core.persistent.component.PersistentWrapper;
+import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.translator.Placeholder;
+import io.github.toberocat.improvedFactions.core.translator.Translation;
+import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
+import io.github.toberocat.improvedFactions.core.utils.ReturnConsumer;
+import io.github.toberocat.improvedFactions.core.utils.StringUtils;
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,13 +21,13 @@ import java.util.UUID;
 public class SpigotFactionPlayer implements FactionPlayer<Player> {
 
     private final Player player;
-    private final MainIF plugin;
     private final Translation translation;
+    private final PersistentWrapper data;
 
-    public SpigotFactionPlayer(Player player, MainIF plugin) {
+    public SpigotFactionPlayer(Player player) {
         this.player = player;
-        this.plugin = plugin;
         this.translation = new Translation(player.getUniqueId());
+        this.data = new PersistentWrapper(getUniqueId());
     }
 
     @Override
@@ -56,9 +55,7 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
 
     @Override
     public @Nullable String getFactionRegistry() {
-        return player.getPersistentDataContainer()
-                .get(plugin.getNamespacedKey(PersistentDataContainer.FACTION_KEY),
-                        PersistentDataType.STRING);
+        return data.get(PersistentHandler.FACTION_KEY);
     }
 
     @Override
@@ -103,8 +100,8 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
     }
 
     @Override
-    public @NotNull PersistentDataContainer getDataContainer() {
-        return new SpigotPersistentData(plugin, player.getPersistentDataContainer());
+    public @NotNull PersistentWrapper getDataContainer() {
+        return data;
     }
 
     @Override

@@ -1,31 +1,33 @@
 package io.github.toberocat.improvedfactions.world;
 
-import io.github.toberocat.improvedFactions.world.Chunk;
-import io.github.toberocat.improvedFactions.world.World;
-import io.github.toberocat.improvedfactions.MainIF;
-import io.github.toberocat.improvedfactions.persistent.SpigotPersistentData;
+import com.github.f4b6a3.uuid.UuidCreator;
+import io.github.toberocat.improvedFactions.core.persistent.component.PersistentWrapper;
+import io.github.toberocat.improvedFactions.core.utils.CUtils;
+import io.github.toberocat.improvedFactions.core.world.Chunk;
+import io.github.toberocat.improvedFactions.core.world.World;
 import org.jetbrains.annotations.NotNull;
 
-public class SpigotChunk implements Chunk {
+public class SpigotChunk implements Chunk<org.bukkit.Chunk> {
 
-    private final World world;
+    private final World<?> world;
     private final org.bukkit.Chunk chunk;
-    private final MainIF plugin;
+    private final PersistentWrapper wrapper;
 
-    public SpigotChunk(World world, org.bukkit.Chunk chunk, MainIF plugin) {
+    public SpigotChunk(World<?> world, org.bukkit.Chunk chunk) {
         this.world = world;
         this.chunk = chunk;
-        this.plugin = plugin;
+        this.wrapper = new PersistentWrapper(UuidCreator.getNameBasedMd5(CUtils
+                .convertToByteArray(chunk.getX(), chunk.getZ(), world.hashCode())));
     }
 
     @Override
-    public @NotNull World getWorld() {
+    public @NotNull World<?> getWorld() {
         return world;
     }
 
     @Override
-    public @NotNull PersistentDataContainer getDataContainer() {
-        return new SpigotPersistentData(plugin, chunk.getPersistentDataContainer());
+    public @NotNull PersistentWrapper getDataContainer() {
+        return wrapper;
     }
 
     @Override
@@ -36,5 +38,11 @@ public class SpigotChunk implements Chunk {
     @Override
     public int getZ() {
         return chunk.getZ();
+    }
+
+    @NotNull
+    @Override
+    public org.bukkit.Chunk getRaw() {
+        return chunk;
     }
 }

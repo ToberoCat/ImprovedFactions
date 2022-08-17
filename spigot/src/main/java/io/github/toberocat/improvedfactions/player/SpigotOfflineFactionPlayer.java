@@ -1,13 +1,16 @@
 package io.github.toberocat.improvedfactions.player;
 
-import io.github.toberocat.improvedFactions.exceptions.faction.FactionNotInStorage;
-import io.github.toberocat.improvedFactions.exceptions.faction.PlayerHasNoFactionException;
-import io.github.toberocat.improvedFactions.faction.Faction;
-import io.github.toberocat.improvedFactions.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.player.OfflineFactionPlayer;
-import io.github.toberocat.improvedFactions.translator.Placeholder;
-import io.github.toberocat.improvedFactions.translator.layout.Translatable;
-import io.github.toberocat.improvedFactions.utils.ReturnConsumer;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
+import io.github.toberocat.improvedFactions.core.faction.Faction;
+import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
+import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
+import io.github.toberocat.improvedFactions.core.persistent.component.PersistentWrapper;
+import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.translator.Placeholder;
+import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
+import io.github.toberocat.improvedFactions.core.utils.ReturnConsumer;
 import io.github.toberocat.improvedfactions.MainIF;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -20,25 +23,31 @@ public class SpigotOfflineFactionPlayer implements OfflineFactionPlayer<OfflineP
 
     private final OfflinePlayer player;
     private final MainIF plugin;
+    private final PersistentWrapper data;
+
 
     public SpigotOfflineFactionPlayer(OfflinePlayer player, MainIF plugin) {
         this.player = player;
         this.plugin = plugin;
+        this.data = new PersistentWrapper(getUniqueId());
     }
 
     @Override
     public @NotNull Faction<?> getFaction() throws PlayerHasNoFactionException, FactionNotInStorage {
-        return null;
+        String registry = getFactionRegistry();
+        if (registry == null) throw new PlayerHasNoFactionException(this);
+
+        return FactionHandler.getFaction(registry);
     }
 
     @Override
     public @Nullable String getFactionRegistry() {
-        return null;
+        return data.get(PersistentHandler.FACTION_KEY);
     }
 
     @Override
     public boolean inFaction() {
-        return false;
+        return data.has(PersistentHandler.FACTION_KEY);
     }
 
     @Override
@@ -81,13 +90,12 @@ public class SpigotOfflineFactionPlayer implements OfflineFactionPlayer<OfflineP
     }
 
     @Override
-    public @NotNull PersistentDataContainer getDataContainer() {
-        return null;
+    public @NotNull PersistentWrapper getDataContainer() {
+        return data;
     }
 
-    @NotNull
     @Override
-    public OfflinePlayer getRaw() {
+    public @NotNull OfflinePlayer getRaw() {
         return player;
     }
 }

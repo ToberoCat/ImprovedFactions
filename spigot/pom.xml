@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>spigot</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>${project.parent.version}</version>
     <packaging>jar</packaging>
     <name>ImprovedFactions Spigot</name>
 
     <parent>
         <groupId>io.github.toberocat.improvedfactions</groupId>
         <artifactId>factions</artifactId>
-        <version>1.0</version>
+        <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -38,11 +38,18 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- UUID Creator -->
+        <dependency>
+            <groupId>com.github.f4b6a3</groupId>
+            <artifactId>uuid-creator</artifactId>
+            <version>5.1.0</version>
+        </dependency>
+
         <!-- ImprovedFactions Core - Requires local build -->
         <dependency>
             <groupId>io.github.toberocat.improvedfactions</groupId>
             <artifactId>core</artifactId>
-            <version>1.0</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
@@ -69,7 +76,9 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <outputFile>C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Server1.16.5\plugins\${name}-${version}.${packaging}</outputFile>
+                            <outputFile>
+                                C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Server1.16.5\plugins\${project.name}-${project.version}.${project.packaging}
+                            </outputFile>
                         </configuration>
                     </execution>
                 </executions>

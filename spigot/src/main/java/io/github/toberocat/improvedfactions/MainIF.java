@@ -1,10 +1,10 @@
 package io.github.toberocat.improvedfactions;
 
-import io.github.toberocat.improvedFactions.handler.ImprovedFactions;
-import io.github.toberocat.improvedFactions.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.player.OfflineFactionPlayer;
-import io.github.toberocat.improvedFactions.registry.ImplementationHolder;
-import io.github.toberocat.improvedFactions.world.World;
+import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
+import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
+import io.github.toberocat.improvedFactions.core.world.World;
 import io.github.toberocat.improvedfactions.listener.PlayerJoinListener;
 import io.github.toberocat.improvedfactions.listener.PlayerLeaveListener;
 import io.github.toberocat.improvedfactions.listener.SpigotEventListener;
@@ -12,7 +12,6 @@ import io.github.toberocat.improvedfactions.player.SpigotFactionPlayer;
 import io.github.toberocat.improvedfactions.player.SpigotOfflineFactionPlayer;
 import io.github.toberocat.improvedfactions.world.SpigotWorld;
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,28 +20,15 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
-public final class MainIF extends JavaPlugin implements ImprovedFactions {
-
-    private static MainIF plugin;
-    private final Map<String, NamespacedKey> NAMESPACED_KEY_MAP = new LinkedHashMap<>();
-
-    public static MainIF getPlugin() {
-        return plugin;
-    }
-
-    public @NotNull NamespacedKey getNamespacedKey(@NotNull String key) {
-        if (!NAMESPACED_KEY_MAP.containsKey(key))
-            NAMESPACED_KEY_MAP.put(key, new NamespacedKey(plugin, key));
-
-        return NAMESPACED_KEY_MAP.get(key);
-    }
+public final class MainIF extends JavaPlugin implements ImprovedFactions<org.bukkit.World> {
 
     @Override
     public void onEnable() {
-        plugin = this;
-
         createFolders();
         registerListener();
 
@@ -56,8 +42,6 @@ public final class MainIF extends JavaPlugin implements ImprovedFactions {
     @Override
     public void onDisable() {
         ImplementationHolder.dispose();
-
-        NAMESPACED_KEY_MAP.clear();
     }
 
     private void registerListener() {
@@ -76,14 +60,14 @@ public final class MainIF extends JavaPlugin implements ImprovedFactions {
     public @Nullable FactionPlayer<?> getPlayer(@NotNull UUID id) {
         Player player = Bukkit.getPlayer(id);
         if (player == null) return null;
-        return new SpigotFactionPlayer(player, this);
+        return new SpigotFactionPlayer(player);
     }
 
     @Override
     public @Nullable FactionPlayer<?> getPlayer(@NotNull String name) {
         Player player = Bukkit.getPlayer(name);
         if (player == null) return null;
-        return new SpigotFactionPlayer(player, this);
+        return new SpigotFactionPlayer(player);
     }
 
     @Override
@@ -104,14 +88,14 @@ public final class MainIF extends JavaPlugin implements ImprovedFactions {
     }
 
     @Override
-    public @Nullable World getWorld(@NotNull String name) {
+    public @Nullable World<org.bukkit.World> getWorld(@NotNull String name) {
         org.bukkit.World world = Bukkit.getWorld(name);
         if (world == null) return null;
-        return new SpigotWorld(world, this);
+        return new SpigotWorld(world);
     }
 
     @Override
-    public @NotNull List<World> getAllWorlds() {
+    public @NotNull List<World<org.bukkit.World>> getAllWorlds() {
         return Bukkit.getWorlds().stream()
                 .map(org.bukkit.World::getName)
                 .map(this::getWorld)
@@ -123,7 +107,6 @@ public final class MainIF extends JavaPlugin implements ImprovedFactions {
     public @NotNull File getLocalFolder() {
         return new File(getDataFolder(), "Data");
     }
-
 
     @Override
     public @NotNull File getTempFolder() {
