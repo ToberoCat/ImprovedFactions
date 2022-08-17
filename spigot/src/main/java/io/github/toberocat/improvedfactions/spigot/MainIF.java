@@ -2,8 +2,8 @@ package io.github.toberocat.improvedfactions.spigot;
 
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.handler.Scheduler;
-import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import io.github.toberocat.improvedFactions.core.world.World;
 import io.github.toberocat.improvedfactions.spigot.handler.SpigotColorHandler;
@@ -35,7 +35,6 @@ public final class MainIF extends JavaPlugin implements ImprovedFactions<org.buk
 
     @Override
     public void onEnable() {
-        createFolders();
         registerListener();
         registerHandlers();
 
@@ -62,10 +61,6 @@ public final class MainIF extends JavaPlugin implements ImprovedFactions<org.buk
         ImplementationHolder.colorHandler = new SpigotColorHandler();
         ImplementationHolder.configHandler = new SpigotConfigHandler(getConfig());
         ImplementationHolder.improvedFactions = this;
-    }
-
-    private void createFolders() {
-
     }
 
     /* Implementation of ImprovedFactions */
@@ -122,7 +117,7 @@ public final class MainIF extends JavaPlugin implements ImprovedFactions<org.buk
     }
 
     @Override
-    public @NotNull File getLocalFolder() {
+    public @NotNull File getLocalDataFolder() {
         return new File(getDataFolder(), "Data");
     }
 

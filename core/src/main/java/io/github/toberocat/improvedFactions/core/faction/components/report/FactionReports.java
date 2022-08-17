@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedFactions.core.faction.components.report;
 
-import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.stream.Stream;

@@ -18,13 +18,12 @@ import io.github.toberocat.improvedFactions.core.faction.components.rank.members
 import io.github.toberocat.improvedFactions.core.faction.components.report.FactionReports;
 import io.github.toberocat.improvedFactions.core.faction.local.module.LocalFactionModule;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
-import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.DateUtils;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
-import io.github.toberocat.improvedFactions.core.utils.ReturnConsumer;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.AlreadyInvitedException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.CantInviteYourselfException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
@@ -46,7 +45,7 @@ import java.util.stream.Stream;
 public class LocalFaction implements Faction<LocalFaction> {
 
     @JsonIgnore
-    private static final FileAccess access = new FileAccess(ImprovedFactions.api().getLocalFolder());
+    private static final FileAccess access = new FileAccess(ImprovedFactions.api().getLocalDataFolder());
     private @NotNull
     final String createdAt;
     private @NotNull

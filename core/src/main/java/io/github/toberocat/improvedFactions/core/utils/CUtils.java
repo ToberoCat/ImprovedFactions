@@ -4,8 +4,12 @@ import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
 import io.github.toberocat.improvedFactions.core.world.World;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 public final class CUtils {
     public static URL createUrl(@NotNull String url) {
@@ -17,7 +21,7 @@ public final class CUtils {
         }
     }
 
-    public static boolean isWorldAllowed(@NotNull World world) {
+    public static boolean isWorldAllowed(@NotNull World<?> world) {
         if (ConfigHandler.api().getList("world.enabled-worlds").contains(world.getWorldName())) return true;
         return !ConfigHandler.api().getList("world.disabled-worlds").contains(world.getWorldName());
     }
@@ -34,5 +38,10 @@ public final class CUtils {
             array[j * 4 + 3] = (byte)(c & 0xFF);
         }
         return array;
+    }
+
+    public static void copyResource(String res, String dest, Class<?> c) throws IOException {
+        InputStream src = c.getResourceAsStream(res);
+        Files.copy(src, Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
     }
 }

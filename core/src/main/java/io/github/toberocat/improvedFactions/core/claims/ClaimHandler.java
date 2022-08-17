@@ -70,7 +70,7 @@ public class ClaimHandler {
         return claims.values()
                 .stream()
                 .flatMap(WorldClaim::getAllClaims)
-                .filter(x -> x.registry().equals(registry));
+                .filter(x -> x.getRegistry().equals(registry));
     }
 
     public static void protectChunk(@NotNull String registry, @NotNull Chunk<?> chunk) throws ChunkAlreadyClaimedException {

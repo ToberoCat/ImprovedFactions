@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedFactions.core.exceptions.faction;
 
 import io.github.toberocat.improvedFactions.core.faction.Faction;
-import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
 import org.jetbrains.annotations.NotNull;
 
 public class PlayerIsAlreadyInFactionException extends FactionException {

@@ -5,7 +5,7 @@ import io.github.toberocat.improvedFactions.core.event.EventExecutor;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.GuestRank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
-import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionHandlerNotFound;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.faction.Faction;

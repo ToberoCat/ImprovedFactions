@@ -3,7 +3,7 @@ package io.github.toberocat.improvedFactions.core.faction.components.rank.allies
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.handler.ItemHandler;
 import io.github.toberocat.improvedFactions.core.item.ItemStack;
-import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.utils.CUtils;
 import org.jetbrains.annotations.NotNull;
 

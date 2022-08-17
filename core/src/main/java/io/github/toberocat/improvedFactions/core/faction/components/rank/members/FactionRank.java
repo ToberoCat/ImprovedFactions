@@ -4,10 +4,9 @@ import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.allies.AllyRank;
 import io.github.toberocat.improvedFactions.core.handler.ItemHandler;
 import io.github.toberocat.improvedFactions.core.item.ItemStack;
-import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.CUtils;
-import io.github.toberocat.improvedFactions.core.utils.ReturnConsumer;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;

@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedFactions.core.faction.database.mysql;
 
+import io.github.toberocat.improvedFactions.core.database.DatabaseHandle;
 import io.github.toberocat.improvedFactions.core.database.mysql.MySqlDatabase;
 import io.github.toberocat.improvedFactions.core.database.mysql.builder.Select;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
@@ -8,8 +9,8 @@ import io.github.toberocat.improvedFactions.core.faction.components.rank.GuestRa
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandlerInterface;
-import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,7 +26,7 @@ public class MySqlFactionHandler implements FactionHandlerInterface<MySqlFaction
     private final MySqlDatabase database;
 
     public MySqlFactionHandler() {
-        this.database = DatabaseHandler.api().getMySql();
+        this.database = DatabaseHandle.requestMySql();
 
         instance = this;
     }

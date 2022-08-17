@@ -27,9 +27,9 @@ public class XmlLoader {
     }
 
     public static  <T> T read(@NotNull Class<T> clazz, @NotNull File file) throws IOException {
-        String xml = Files.readString(file.toPath(), StandardCharsets.US_ASCII);
+        String xml = Files.readString(file.toPath(), StandardCharsets.UTF_8);
 
-        return XML_MAPPER.readValue(Files.readString(file.toPath(), StandardCharsets.US_ASCII), clazz);
+        return XML_MAPPER.readValue(xml, clazz);
     }
 
 }

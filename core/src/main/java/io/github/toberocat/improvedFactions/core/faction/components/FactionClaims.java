@@ -37,7 +37,7 @@ public final class FactionClaims<F extends Faction<F>> {
 
             claims.put(name, c.getAllClaims()
                     .filter(Objects::nonNull)
-                    .filter(x -> x.registry().equals(faction.getRegistry()))
+                    .filter(x -> x.getRegistry().equals(faction.getRegistry()))
                     .map(x -> FactionClaim.fromClaim(faction, x)));
         });
     }
@@ -123,7 +123,7 @@ public final class FactionClaims<F extends Faction<F>> {
 
         public static <F extends Faction<F>> FactionClaim<F> fromClaim(@NotNull F faction,
                                                                        @NotNull Claim claim) {
-            return new FactionClaim<>(faction, claim.world(), claim.x(), claim.z());
+            return new FactionClaim<>(faction, claim.getWorld(), claim.getX(), claim.getZ());
         }
 
         public void unclaim() {

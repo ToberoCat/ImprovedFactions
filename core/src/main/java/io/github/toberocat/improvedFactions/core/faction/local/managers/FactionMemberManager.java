@@ -4,7 +4,7 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoF
 import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerIsAlreadyInFactionException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerIsBannedException;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
-import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import org.jetbrains.annotations.NotNull;
 

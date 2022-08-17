@@ -2,8 +2,8 @@ package io.github.toberocat.improvedFactions.core.handler;
 
 import io.github.toberocat.improvedFactions.core.exceptions.NoImplementationProvidedException;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
-import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -41,7 +41,8 @@ public interface ImprovedFactions<RawWorld> {
 
     /* File */
 
-    @NotNull File getLocalFolder();
+    @NotNull File getLocalDataFolder();
+    @NotNull File getDataFolder();
     @NotNull File getTempFolder();
     @NotNull File getLangFolder();
 

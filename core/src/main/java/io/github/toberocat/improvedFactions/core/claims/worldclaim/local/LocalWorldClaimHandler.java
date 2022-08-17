@@ -19,7 +19,7 @@ public class LocalWorldClaimHandler extends WorldClaimHandler {
 
         return new LocalWorldClaim(world.getWorldName(), ACCESS_MAP
                 .computeIfAbsent(world.getWorldName(), (k) -> new FileAccess(
-                        new File(ImprovedFactions.api().getLocalFolder(),
+                        new File(ImprovedFactions.api().getLocalDataFolder(),
                                 FileAccess.CHUNKS_FOLDER + "/" + k))));
     }
 }

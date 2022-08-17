@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedFactions.core.faction.database.mysql;
 
+import io.github.toberocat.improvedFactions.core.database.DatabaseHandle;
 import io.github.toberocat.improvedFactions.core.database.DatabaseVar;
 import io.github.toberocat.improvedFactions.core.database.mysql.MySqlDatabase;
 import io.github.toberocat.improvedFactions.core.database.mysql.builder.Insert;
@@ -22,12 +23,11 @@ import io.github.toberocat.improvedFactions.core.faction.components.rank.members
 import io.github.toberocat.improvedFactions.core.faction.components.report.FactionReports;
 import io.github.toberocat.improvedFactions.core.faction.components.report.Report;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
-import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.DateUtils;
-import io.github.toberocat.improvedFactions.core.utils.ReturnConsumer;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionIsFrozenException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.CantInviteYourselfException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
@@ -64,7 +64,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
      * Use FactionHandler#createFaction() to create a faction
      */
     public MySqlFaction() {
-        this.database = DatabaseHandler.api().getMySql();
+        this.database = DatabaseHandle.requestMySql();
     }
 
     /**

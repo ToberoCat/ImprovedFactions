@@ -1,7 +1,6 @@
-package io.github.toberocat.improvedFactions.core.player;
+package io.github.toberocat.improvedFactions.core.sender.player;
 
 import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
-import io.github.toberocat.improvedFactions.core.utils.ReturnConsumer;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.persistent.component.PersistentWrapper;

@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedFactions.core.persistent.database.mysql;
 
+import io.github.toberocat.improvedFactions.core.database.DatabaseHandle;
 import io.github.toberocat.improvedFactions.core.database.mysql.MySqlDatabase;
 import io.github.toberocat.improvedFactions.core.database.mysql.builder.Select;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentData;
@@ -13,7 +14,7 @@ public class MySqlData implements PersistentData {
     private final MySqlDatabase database;
 
     public MySqlData() {
-        this.database = DatabaseHandler.api().getMySql();
+        this.database = DatabaseHandle.requestMySql();
     }
 
 

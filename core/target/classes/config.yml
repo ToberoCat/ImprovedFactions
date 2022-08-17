@@ -13,6 +13,10 @@ faction:
     start-power: 20
     start-max-power: 20
 
+performance:
+  ram:
+    claim-garbage-collector: 6000 # 6000 ticks -> 20 ticks * 60 seconds * 1 minutes -> This will execute all 5 minutes. Smaller value will reduce RAM usage, but increases stress on the cpu for cleaning. A too small value will overload your disk, due to everything needing to be loaded and instantly being saved again
+
 language:
   default-local: "en_us" # Change this to your server main language, as long as a file with this name exists within lang/ folder
 

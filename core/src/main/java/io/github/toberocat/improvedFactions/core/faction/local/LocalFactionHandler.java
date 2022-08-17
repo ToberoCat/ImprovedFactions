@@ -4,8 +4,8 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotIn
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandlerInterface;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
-import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -24,7 +24,7 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
 
     public LocalFactionHandler() {
         this.factions = new HashMap<>();
-        access = new FileAccess(ImprovedFactions.api().getLocalFolder());
+        access = new FileAccess(ImprovedFactions.api().getLocalDataFolder());
 
         instance = this;
     }

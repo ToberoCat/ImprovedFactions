@@ -2,7 +2,7 @@ package io.github.toberocat.improvedFactions.core.handler;
 
 import io.github.toberocat.improvedFactions.core.exceptions.NoImplementationProvidedException;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
-import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import org.jetbrains.annotations.NotNull;
 
