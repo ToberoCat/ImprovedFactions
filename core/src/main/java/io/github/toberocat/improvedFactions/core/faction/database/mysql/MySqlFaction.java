@@ -1,9 +1,9 @@
 package io.github.toberocat.improvedFactions.core.faction.database.mysql;
 
 import io.github.toberocat.improvedFactions.core.database.DatabaseVar;
-import io.github.toberocat.improvedFactions.core.database.MySqlDatabase;
-import io.github.toberocat.improvedFactions.core.database.builder.Insert;
-import io.github.toberocat.improvedFactions.core.database.builder.Select;
+import io.github.toberocat.improvedFactions.core.database.mysql.MySqlDatabase;
+import io.github.toberocat.improvedFactions.core.database.mysql.builder.Insert;
+import io.github.toberocat.improvedFactions.core.database.mysql.builder.Select;
 import io.github.toberocat.improvedFactions.core.event.EventExecutor;
 import io.github.toberocat.improvedFactions.core.exceptions.description.DescriptionHasNoLine;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionHandlerNotFound;
@@ -21,7 +21,6 @@ import io.github.toberocat.improvedFactions.core.faction.components.rank.members
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.faction.components.report.FactionReports;
 import io.github.toberocat.improvedFactions.core.faction.components.report.Report;
-import io.github.toberocat.improvedFactions.core.handler.DatabaseHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;

@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedFactions.core.database.builder;
+package io.github.toberocat.improvedFactions.core.database.mysql.builder;
 
 public class Update {
     private String table = "";

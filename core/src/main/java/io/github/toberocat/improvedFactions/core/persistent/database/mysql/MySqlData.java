@@ -1,8 +1,7 @@
 package io.github.toberocat.improvedFactions.core.persistent.database.mysql;
 
-import io.github.toberocat.improvedFactions.core.database.MySqlDatabase;
-import io.github.toberocat.improvedFactions.core.database.builder.Select;
-import io.github.toberocat.improvedFactions.core.handler.DatabaseHandler;
+import io.github.toberocat.improvedFactions.core.database.mysql.MySqlDatabase;
+import io.github.toberocat.improvedFactions.core.database.mysql.builder.Select;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

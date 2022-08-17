@@ -5,6 +5,8 @@ import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import io.github.toberocat.improvedFactions.core.world.World;
+import io.github.toberocat.improvedfactions.spigot.handler.SpigotColorHandler;
+import io.github.toberocat.improvedfactions.spigot.handler.SpigotConfigHandler;
 import io.github.toberocat.improvedfactions.spigot.listener.PlayerJoinListener;
 import io.github.toberocat.improvedfactions.spigot.listener.PlayerLeaveListener;
 import io.github.toberocat.improvedfactions.spigot.listener.SpigotEventListener;
@@ -31,6 +33,7 @@ public final class MainIF extends JavaPlugin implements ImprovedFactions<org.buk
     public void onEnable() {
         createFolders();
         registerListener();
+        registerHandlers();
 
         try {
             ImplementationHolder.register();
@@ -49,6 +52,12 @@ public final class MainIF extends JavaPlugin implements ImprovedFactions<org.buk
                 new PlayerJoinListener(this),
                 new PlayerLeaveListener(this)
         ).forEach(SpigotEventListener::register);
+    }
+
+    private void registerHandlers() {
+        ImplementationHolder.colorHandler = new SpigotColorHandler();
+        ImplementationHolder.configHandler = new SpigotConfigHandler(getConfig());
+        ImplementationHolder.improvedFactions = this;
     }
 
     private void createFolders() {

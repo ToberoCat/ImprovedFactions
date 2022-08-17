@@ -20,8 +20,6 @@ public class ImplementationHolder {
     public static @Nullable ColorHandler colorHandler;
     public static @Nullable RankHolder rankHolder;
     public static @Nullable ItemHandler itemHandler;
-    public static @Nullable ClaimHandler claimHandler;
-    public static @Nullable DatabaseHandler databaseHandler;
     public static @Nullable MessagingHandler messagingHandler;
     public static @Nullable Logger logger;
 
@@ -32,7 +30,7 @@ public class ImplementationHolder {
      */
     public static void register() throws IOException {
         Rank.register();
-        ClaimHandler.api().cacheAllWorlds();
+        ClaimHandler.cacheAllWorlds();
         Translation.createLocaleMap();
     }
 
@@ -45,7 +43,7 @@ public class ImplementationHolder {
      * register();
      */
     public static void dispose() {
-        ClaimHandler.api().dispose();
+        ClaimHandler.dispose();
         Translation.dispose();
         PersistentHandler.api().dispose();
     }

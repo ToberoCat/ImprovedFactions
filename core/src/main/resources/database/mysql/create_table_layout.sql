@@ -120,10 +120,20 @@ create table IF NOT EXISTS ally_invites
 create table persistent_data
 (
     uuid  varchar(36) not null,
-    id    char(128)        not null,
+    id    char(128)   not null,
     value text        not null,
     constraint persistent_data_pk
         primary key (uuid, id)
 );
 
+-- Create claims
+create table claims
+(
+    world    char(128) not null,
+    registry char(@max_len)  not null,
+    x        int       not null,
+    z        int       not null,
+    constraint claims_pk
+        primary key (world, x, z)
+);
 

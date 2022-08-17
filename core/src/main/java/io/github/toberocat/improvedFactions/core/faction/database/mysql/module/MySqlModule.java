@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedFactions.core.faction.database.mysql.module;
 
-import io.github.toberocat.improvedFactions.core.database.MySqlDatabase;
+import io.github.toberocat.improvedFactions.core.database.mysql.MySqlDatabase;
 import io.github.toberocat.improvedFactions.core.faction.components.FactionModule;
 import io.github.toberocat.improvedFactions.core.faction.database.mysql.MySqlFaction;
 import org.jetbrains.annotations.NotNull;

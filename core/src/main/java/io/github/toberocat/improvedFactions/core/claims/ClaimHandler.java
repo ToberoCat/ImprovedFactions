@@ -1,14 +1,13 @@
 package io.github.toberocat.improvedFactions.core.claims;
 
 import io.github.toberocat.improvedFactions.core.claims.component.Claim;
-import io.github.toberocat.improvedFactions.core.claims.component.WorldClaim;
+import io.github.toberocat.improvedFactions.core.claims.worldclaim.WorldClaim;
+import io.github.toberocat.improvedFactions.core.claims.worldclaim.handler.WorldClaimHandler;
 import io.github.toberocat.improvedFactions.core.event.EventExecutor;
-import io.github.toberocat.improvedFactions.core.exceptions.NoImplementationProvidedException;
 import io.github.toberocat.improvedFactions.core.exceptions.chunk.ChunkAlreadyClaimedException;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.persistent.component.PersistentWrapper;
-import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import io.github.toberocat.improvedFactions.core.world.Chunk;
 import io.github.toberocat.improvedFactions.core.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -21,24 +20,13 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
-public abstract class ClaimHandler {
+public class ClaimHandler {
 
     public static final String SAFEZONE_REGISTRY = "__glb:safezone__";
     public static final String WARZONE_REGISTRY = "__glb:warzone__";
     public static final String UNCLAIMABLE_REGISTRY = "__glb:unclaimable__";
 
-    private final Map<String, WorldClaim> claims;
-
-
-    public ClaimHandler() {
-        this.claims = new HashMap<>();
-    }
-
-    public static @NotNull ClaimHandler api() {
-        ClaimHandler implementation = ImplementationHolder.claimHandler;
-        if (implementation == null) throw new NoImplementationProvidedException("claim handler");
-        return implementation;
-    }
+    private static final Map<String, WorldClaim> claims = new HashMap<>();
 
     public static int getRegistryColor(@NotNull String registry) {
         return switch (registry) {
@@ -65,27 +53,27 @@ public abstract class ClaimHandler {
         return getZones().contains(registry);
     }
 
-    protected abstract @NotNull WorldClaim createClaim(@NotNull World<?> world);
 
-    public void cacheAllWorlds() {
+    public static void cacheAllWorlds() {
         ImprovedFactions.api()
                 .getAllWorlds()
-                .forEach(world -> claims.put(world.getWorldName(), createClaim(world)));
+                .forEach(world -> claims.put(world.getWorldName(), WorldClaimHandler.api()
+                        .createWorldClaim(world)));
     }
 
-    public void dispose() {
-        claims.values().forEach(WorldClaim::disable);
+    public static void dispose() {
+        claims.values().forEach(WorldClaim::dispose);
         claims.clear();
     }
 
-    public @NotNull Stream<Claim> registryClaims(@NotNull String registry) {
+    public static @NotNull Stream<Claim> registryClaims(@NotNull String registry) {
         return claims.values()
                 .stream()
                 .flatMap(WorldClaim::getAllClaims)
                 .filter(x -> x.registry().equals(registry));
     }
 
-    public void protectChunk(@NotNull String registry, @NotNull Chunk chunk) throws ChunkAlreadyClaimedException {
+    public static void protectChunk(@NotNull String registry, @NotNull Chunk<?> chunk) throws ChunkAlreadyClaimedException {
         PersistentWrapper container = chunk.getDataContainer();
         String claimed = container.get(PersistentHandler.CLAIM_KEY);
 
@@ -99,7 +87,7 @@ public abstract class ClaimHandler {
         EventExecutor.getExecutor().protectChunk(chunk, registry);
     }
 
-    public void removeProtection(@NotNull Chunk chunk) {
+    public static void removeProtection(@NotNull Chunk<?> chunk) {
         PersistentWrapper container = chunk.getDataContainer();
 
         String previousRegistry = container.get(PersistentHandler.CLAIM_KEY);
@@ -109,17 +97,13 @@ public abstract class ClaimHandler {
         EventExecutor.getExecutor().removeProtection(chunk, previousRegistry);
     }
 
-    public void forEach(BiConsumer<String, WorldClaim> consumer) {
+    public static void forEach(BiConsumer<String, WorldClaim> consumer) {
         claims.forEach(consumer);
     }
 
-    public @NotNull WorldClaim getWorldClaim(@NotNull World world) {
-        WorldClaim claim = claims.get(world.getWorldName());
-        if (claim == null) {
-            claim = createClaim(world);
-            claims.put(world.getWorldName(), claim);
-        }
-
-        return claim;
+    public static @NotNull WorldClaim getWorldClaim(@NotNull World<?> world) {
+        return claims
+                .computeIfAbsent(world.getWorldName(), k ->
+                        WorldClaimHandler.api().createWorldClaim(world));
     }
 }

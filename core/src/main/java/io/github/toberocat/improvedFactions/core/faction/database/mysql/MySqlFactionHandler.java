@@ -1,14 +1,13 @@
 package io.github.toberocat.improvedFactions.core.faction.database.mysql;
 
-import io.github.toberocat.improvedFactions.core.database.MySqlDatabase;
-import io.github.toberocat.improvedFactions.core.database.builder.Select;
+import io.github.toberocat.improvedFactions.core.database.mysql.MySqlDatabase;
+import io.github.toberocat.improvedFactions.core.database.mysql.builder.Select;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.IllegalFactionNamingException;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.GuestRank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandlerInterface;
-import io.github.toberocat.improvedFactions.core.handler.DatabaseHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import org.jetbrains.annotations.NotNull;

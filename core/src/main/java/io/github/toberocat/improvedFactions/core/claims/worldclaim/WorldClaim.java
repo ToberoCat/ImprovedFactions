@@ -1,11 +1,12 @@
-package io.github.toberocat.improvedFactions.core.claims.component;
+package io.github.toberocat.improvedFactions.core.claims.worldclaim;
 
+import io.github.toberocat.improvedFactions.core.claims.component.Claim;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.stream.Stream;
 
 public interface WorldClaim {
-    default void disable() {
+    default void dispose() {
 
     }
 
