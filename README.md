@@ -30,6 +30,10 @@
 Improved factions is a lightweight and performant minecraft faction plugin. It supports features downloadable from
 Minecraft directly for more user friendlienes
 
+## Contributors
+
+Check [CONTRIBUTORS.md](CONTRIBUTORS.md) to see a list of all people who contributed to this project
+
 ## Others
 
 ### Bstat

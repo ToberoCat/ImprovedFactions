@@ -1,9 +1,9 @@
 # Contributors
 
-I just want to thank everyone who help me improve this project
+I just want to thank everyone who helped me improve this project
 in any way, by just giving me ideas, donating, fixing bugs, adding features etc
 
-A special thanks goes out to everyone who helps me answer questions on discord
+A big thanks goes out to everyone who helps me answer questions on discord
 
 ## Special thanks for all the people who had helped this project so far:
 
