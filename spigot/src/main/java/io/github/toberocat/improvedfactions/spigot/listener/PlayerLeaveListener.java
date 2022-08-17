@@ -1,8 +1,8 @@
-package io.github.toberocat.improvedfactions.listener;
+package io.github.toberocat.improvedfactions.spigot.listener;
 
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
-import io.github.toberocat.improvedfactions.MainIF;
+import io.github.toberocat.improvedfactions.spigot.MainIF;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;

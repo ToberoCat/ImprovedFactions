@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedfactions.world;
+package io.github.toberocat.improvedfactions.spigot.world;
 
 import io.github.toberocat.improvedFactions.core.world.Chunk;
 import io.github.toberocat.improvedFactions.core.world.World;

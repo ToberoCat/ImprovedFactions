@@ -1,16 +1,16 @@
-package io.github.toberocat.improvedfactions;
+package io.github.toberocat.improvedfactions.spigot;
 
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import io.github.toberocat.improvedFactions.core.world.World;
-import io.github.toberocat.improvedfactions.listener.PlayerJoinListener;
-import io.github.toberocat.improvedfactions.listener.PlayerLeaveListener;
-import io.github.toberocat.improvedfactions.listener.SpigotEventListener;
-import io.github.toberocat.improvedfactions.player.SpigotFactionPlayer;
-import io.github.toberocat.improvedfactions.player.SpigotOfflineFactionPlayer;
-import io.github.toberocat.improvedfactions.world.SpigotWorld;
+import io.github.toberocat.improvedfactions.spigot.listener.PlayerJoinListener;
+import io.github.toberocat.improvedfactions.spigot.listener.PlayerLeaveListener;
+import io.github.toberocat.improvedfactions.spigot.listener.SpigotEventListener;
+import io.github.toberocat.improvedfactions.spigot.player.SpigotFactionPlayer;
+import io.github.toberocat.improvedfactions.spigot.player.SpigotOfflineFactionPlayer;
+import io.github.toberocat.improvedfactions.spigot.world.SpigotWorld;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;

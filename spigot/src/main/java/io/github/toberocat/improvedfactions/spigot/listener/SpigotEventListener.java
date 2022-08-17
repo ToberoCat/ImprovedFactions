@@ -1,6 +1,6 @@
-package io.github.toberocat.improvedfactions.listener;
+package io.github.toberocat.improvedfactions.spigot.listener;
 
-import io.github.toberocat.improvedfactions.MainIF;
+import io.github.toberocat.improvedfactions.spigot.MainIF;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 

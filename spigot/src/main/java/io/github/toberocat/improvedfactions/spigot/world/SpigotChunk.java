@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedfactions.world;
+package io.github.toberocat.improvedfactions.spigot.world;
 
 import com.github.f4b6a3.uuid.UuidCreator;
 import io.github.toberocat.improvedFactions.core.persistent.component.PersistentWrapper;
