@@ -16,12 +16,10 @@ import java.util.List;
 
 public class SpigotFactionCommand implements TabExecutor {
 
-    private final BaseCommand baseCommand;
     private final SpigotCommandHandler handler;
 
     public SpigotFactionCommand() {
-        this.baseCommand = new BaseCommand();
-        this.handler = new SpigotCommandHandler(baseCommand);
+        this.handler = new SpigotCommandHandler(new BaseCommand());
     }
 
     @Override
