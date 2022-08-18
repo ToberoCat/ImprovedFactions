@@ -1,8 +1,7 @@
 package io.github.toberocat.improvedFactions.core.command.sub;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
-import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionAlreadyExistsException;
-import io.github.toberocat.improvedFactions.core.exceptions.faction.IllegalFactionNamingException;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.*;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
@@ -39,9 +38,17 @@ public class CreateFactionCommand extends Command<CreateFactionCommand.CreateFac
     @Override
     public void run(@NotNull CreateFactionPacket packet) {
         FactionPlayer<?> owner = packet.owner;
+        if (!owner.hasPermission(permission())) {
+            owner.sendTranslatable(translatable -> translatable
+                    .getMessages()
+                    .getCommand()
+                    .get(label())
+                    .get("not-enough-permissions"));
+            return;
+        }
 
         try {
-            FactionHandler.createFaction(packet.display, owner);
+            create(owner, packet.display);
 
             owner.sendTranslatable(translatable -> translatable
                     .getMessages()
@@ -60,11 +67,37 @@ public class CreateFactionCommand extends Command<CreateFactionCommand.CreateFac
                     .getCommand()
                     .get(label())
                     .get("faction-already-exists"));
+        } catch (FactionNotInStorage factionNotInStorage) {
+            owner.sendTranslatable(translatable -> translatable
+                    .getMessages()
+                    .getCommand()
+                    .get(label())
+                    .get("faction-not-in-storage"));
+        } catch (PlayerHasNoFactionException e) {
+            owner.sendTranslatable(translatable -> translatable
+                    .getMessages()
+                    .getCommand()
+                    .get(label())
+                    .get("player-has-no-faction"));
+        } catch (PlayerIsAlreadyInFactionException e) {
+            owner.sendTranslatable(translatable -> translatable
+                    .getMessages()
+                    .getCommand()
+                    .get(label())
+                    .get("player-already-in-faction"));
         }
     }
 
+    private void create(@NotNull FactionPlayer<?> owner, @NotNull String display)
+            throws IllegalFactionNamingException, FactionAlreadyExistsException,
+            FactionNotInStorage, PlayerHasNoFactionException, PlayerIsAlreadyInFactionException {
+        if (owner.inFaction()) throw new PlayerIsAlreadyInFactionException(owner.getFaction(), owner);
+        FactionHandler.createFaction(display, owner);
+    }
+
     @Override
-    public @Nullable CreateFactionCommand.CreateFactionPacket createFromArgs(@NotNull FactionPlayer<?> executor, @NotNull String[] args) {
+    public @Nullable CreateFactionCommand.CreateFactionPacket createFromArgs(@NotNull FactionPlayer<?> executor,
+                                                                             @NotNull String[] args) {
         if (args.length != 1) {
             executor.sendTranslatable(translatable -> translatable
                     .getMessages()
