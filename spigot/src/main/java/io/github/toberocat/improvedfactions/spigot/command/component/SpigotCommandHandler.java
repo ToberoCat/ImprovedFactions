@@ -10,9 +10,11 @@ import java.util.Map;
 public class SpigotCommandHandler {
 
     private final Map<String, Command<?>> lookup;
+    private final Command<?> base;
 
     public SpigotCommandHandler(@NotNull Command<?> base) {
         this.lookup = new HashMap<>();
+        this.base = base;
 
         call(base);
     }
@@ -24,13 +26,17 @@ public class SpigotCommandHandler {
                 .forEach(this::call);
     }
 
-    public @Nullable Command<?> findCommand(@NotNull String query) {
+    public @NotNull SearchResult findCommand(@NotNull String query) {
         String[] split = query.split(" ");
         for (int i = split.length - 1; i >= 0; i--) {
             Command<?> cmd = lookup.get(split[i]);
-            if (cmd != null) return cmd;
+            if (cmd != null) return new SearchResult(cmd, i);
         }
 
-        return null;
+        return new SearchResult(base, 0);
+    }
+
+    public static record SearchResult(@NotNull Command<?> command, int index) {
+
     }
 }

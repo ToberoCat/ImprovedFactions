@@ -4,6 +4,7 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotIn
 import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
+import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.persistent.component.PersistentWrapper;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
@@ -65,7 +66,7 @@ public class SpigotOfflineFactionPlayer implements OfflineFactionPlayer<OfflineP
         Player u = player.getPlayer();
         if (u == null) return null;
 
-        return plugin.getPlayer(player.getUniqueId());
+        return ImprovedFactions.api().getPlayer(player.getUniqueId());
     }
 
     @Override

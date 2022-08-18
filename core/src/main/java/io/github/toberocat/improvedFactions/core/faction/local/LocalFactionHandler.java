@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedFactions.core.faction.local;
 
+import io.github.toberocat.improvedFactions.core.event.EventExecutor;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandlerInterface;
@@ -38,6 +39,7 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
         LocalFaction faction = new LocalFaction(display, owner);
         factions.put(faction.getRegistry(), faction);
 
+        EventExecutor.getExecutor().createFaction(faction, owner);
         return faction;
     }
 
@@ -82,26 +84,6 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
     @Override
     public @NotNull FactionRank getSavedRank(@NotNull OfflineFactionPlayer<?> player) {
         return null;
-    }
-
-    @Override
-    public @Nullable String getPlayerFaction(@NotNull OfflineFactionPlayer<?> player) {
-        return null;
-    }
-
-    @Override
-    public @Nullable String getPlayerFaction(@NotNull FactionPlayer<?> player) {
-        return null;
-    }
-
-    @Override
-    public boolean isInFaction(@NotNull OfflineFactionPlayer<?> player) {
-        return false;
-    }
-
-    @Override
-    public boolean isInFaction(@NotNull FactionPlayer<?> player) {
-        return false;
     }
 
     /**

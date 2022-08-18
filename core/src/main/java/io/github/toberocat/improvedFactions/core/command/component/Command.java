@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedFactions.core.command.component;
 
+import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import org.jetbrains.annotations.NotNull;
@@ -30,10 +31,16 @@ public abstract class Command<P extends Command.CommandPacket> {
                 .get("description");
     }
 
-    public abstract @NotNull List<String> tabComplete(@NotNull String[] args);
+    public abstract @NotNull List<String> tabCompletePlayer(@NotNull FactionPlayer<?> player,
+                                                            @NotNull String[] args);
+    public abstract @NotNull List<String> tabCompleteConsole(@NotNull String[] args);
+
     public abstract void run(@NotNull P packet);
 
-    public abstract @Nullable P createFromArgs(@NotNull FactionPlayer<?> executor, @NotNull String[] args);
+    public abstract @Nullable P createFromArgs(@NotNull FactionPlayer<?> executor,
+                                               @NotNull String[] args);
+
+    public abstract @Nullable P createFromArgs(@NotNull String[] args);
 
     public Map<String, Command<?>> getCommands() {
         return commands;

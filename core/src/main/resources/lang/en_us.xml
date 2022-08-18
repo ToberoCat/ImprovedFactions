@@ -38,9 +38,11 @@
         </faction>
         <command>
             <create>
-                <description>PLACEHOLDER</description>
+                <description>PLACEHOLDER desc</description>
+                <created-faction>PLACEHOLDER{faction}</created-faction>
                 <illegal-naming>Name can't be used</illegal-naming>
-                <faction-already-exists>PLACEHOLDER</faction-already-exists>
+                <faction-already-exists>PLACEHOLDER already ex</faction-already-exists>
+                <not-enough-arguments>PLACEHOLDER no en arg</not-enough-arguments>
             </create>
             <delete>
                 <description>PLACEHOLDER</description>

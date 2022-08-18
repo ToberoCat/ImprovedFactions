@@ -15,12 +15,12 @@ public class EventAdapter implements EventListener {
     }
 
     @Override
-    public void protectChunk(@NotNull Chunk chunk, @NotNull String registry) {
+    public void protectChunk(@NotNull Chunk<?> chunk, @NotNull String registry) {
 
     }
 
     @Override
-    public void removeProtection(@NotNull Chunk chunk, @Nullable String oldRegistry) {
+    public void removeProtection(@NotNull Chunk<?> chunk, @Nullable String oldRegistry) {
 
     }
 
@@ -61,6 +61,11 @@ public class EventAdapter implements EventListener {
 
     @Override
     public void allyFaction(@NotNull Faction<?> first, @NotNull Faction<?> second) {
+
+    }
+
+    @Override
+    public void createFaction(@NotNull Faction<?> faction, FactionPlayer<?> owner) {
 
     }
 }

@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedfactions.spigot.listener;
 
+import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
@@ -15,7 +16,7 @@ public class PlayerLeaveListener extends SpigotEventListener {
 
     @EventHandler
     private void leave(PlayerQuitEvent event) {
-        FactionPlayer<?> player = plugin.getPlayer(event.getPlayer().getUniqueId());
+        FactionPlayer<?> player = ImprovedFactions.api().getPlayer(event.getPlayer().getUniqueId());
         if (player == null) return;
 
         ImplementationHolder.playerLeave(player);

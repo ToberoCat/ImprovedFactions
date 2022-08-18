@@ -21,7 +21,12 @@ public class DeleteFactionCommand extends Command<DeleteFactionCommand.DeleteFac
     }
 
     @Override
-    public @NotNull List<String> tabComplete(@NotNull String[] args) {
+    public @NotNull List<String> tabCompletePlayer(@NotNull FactionPlayer<?> player, @NotNull String[] args) {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public @NotNull List<String> tabCompleteConsole(@NotNull String[] args) {
         return Collections.emptyList();
     }
 
@@ -61,6 +66,11 @@ public class DeleteFactionCommand extends Command<DeleteFactionCommand.DeleteFac
     public @Nullable DeleteFactionCommand.DeleteFactionPacket createFromArgs(@NotNull FactionPlayer<?> executor,
                                                                              @NotNull String[] args) {
         return new DeleteFactionPacket(executor);
+    }
+
+    @Override
+    public @Nullable DeleteFactionCommand.DeleteFactionPacket createFromArgs(@NotNull String[] args) {
+        return null;
     }
 
     public record DeleteFactionPacket(@NotNull FactionPlayer<?> owner)

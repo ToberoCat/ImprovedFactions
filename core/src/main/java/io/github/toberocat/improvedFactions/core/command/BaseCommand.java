@@ -7,7 +7,7 @@ import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BaseCommand extends Command<Command.CommandPacket> {
@@ -23,8 +23,13 @@ public class BaseCommand extends Command<Command.CommandPacket> {
     }
 
     @Override
-    public @NotNull List<String> tabComplete(@NotNull String[] args) {
-        return Collections.emptyList();
+    public @NotNull List<String> tabCompletePlayer(@NotNull FactionPlayer<?> player, @NotNull String[] args) {
+        return new ArrayList<>(commands.keySet());
+    }
+
+    @Override
+    public @NotNull List<String> tabCompleteConsole(@NotNull String[] args) {
+        return new ArrayList<>(commands.keySet());
     }
 
     @Override
@@ -34,6 +39,12 @@ public class BaseCommand extends Command<Command.CommandPacket> {
 
     @Override
     public @Nullable Command.CommandPacket createFromArgs(@NotNull FactionPlayer<?> executor, @NotNull String[] args) {
+        return new CommandPacket() {
+        };
+    }
+
+    @Override
+    public @Nullable Command.CommandPacket createFromArgs(@NotNull String[] args) {
         return new CommandPacket() {
         };
     }

@@ -37,14 +37,6 @@ public interface FactionHandlerInterface<F extends Faction<F>> {
         return load(registry);
     }
 
-    @Nullable String getPlayerFaction(@NotNull OfflineFactionPlayer<?> player);
-
-    @Nullable String getPlayerFaction(@NotNull FactionPlayer<?> player);
-
-    boolean isInFaction(@NotNull OfflineFactionPlayer<?> player);
-
-    boolean isInFaction(@NotNull FactionPlayer<?> player);
-
     /**
      * The faction cache is responsible for quick access of factions for players.
      * But if the faction gets deleted, this cache needs to get removed, else it will

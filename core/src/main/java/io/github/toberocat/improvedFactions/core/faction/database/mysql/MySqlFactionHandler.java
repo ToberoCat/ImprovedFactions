@@ -3,6 +3,7 @@ package io.github.toberocat.improvedFactions.core.faction.database.mysql;
 import io.github.toberocat.improvedFactions.core.database.DatabaseHandle;
 import io.github.toberocat.improvedFactions.core.database.mysql.MySqlDatabase;
 import io.github.toberocat.improvedFactions.core.database.mysql.builder.Select;
+import io.github.toberocat.improvedFactions.core.event.EventExecutor;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionAlreadyExistsException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.IllegalFactionNamingException;
@@ -45,7 +46,10 @@ public class MySqlFactionHandler implements FactionHandlerInterface<MySqlFaction
     @Override
     public @NotNull MySqlFaction create(@NotNull String display, @NotNull FactionPlayer<?> owner)
             throws IllegalFactionNamingException, FactionAlreadyExistsException {
-        return new MySqlFaction(display, owner);
+
+        MySqlFaction faction = new MySqlFaction(display, owner);
+        EventExecutor.getExecutor().createFaction(faction, owner);
+        return faction;
     }
 
     @Override
@@ -86,32 +90,6 @@ public class MySqlFactionHandler implements FactionHandlerInterface<MySqlFaction
                         .setFilter("uuid = %s", player.getUniqueId().toString()))
                 .readRow(String.class, "member_rank")
                 .orElse(GuestRank.REGISTRY));
-    }
-
-    @Override
-    public @Nullable String getPlayerFaction(@NotNull OfflineFactionPlayer<?> player) {
-        return database
-                .rowSelect(new Select()
-                        .setTable("players")
-                        .setColumns("faction")
-                        .setFilter("uuid = %s", player.getUniqueId()))
-                .readRow(String.class, "faction")
-                .orElse(null);
-    }
-
-    @Override
-    public @Nullable String getPlayerFaction(@NotNull FactionPlayer<?> player) {
-        return null;
-    }
-
-    @Override
-    public boolean isInFaction(@NotNull OfflineFactionPlayer<?> player) {
-        return false;
-    }
-
-    @Override
-    public boolean isInFaction(@NotNull FactionPlayer<?> player) {
-        return false;
     }
 
     /**

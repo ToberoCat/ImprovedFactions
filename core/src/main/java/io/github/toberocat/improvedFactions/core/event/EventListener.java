@@ -45,4 +45,6 @@ public interface EventListener {
     void pardonPlayer(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> player);
 
     void allyFaction(@NotNull Faction<?> first, @NotNull Faction<?> second);
+
+    void createFaction(@NotNull Faction<?> faction, FactionPlayer<?> owner);
 }

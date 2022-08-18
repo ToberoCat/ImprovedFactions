@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class SpigotFactionCommand implements TabExecutor {
@@ -31,16 +32,20 @@ public class SpigotFactionCommand implements TabExecutor {
 
         if (!(sender instanceof Player player)) return false;
         FactionPlayer<?> factionPlayer = ImprovedFactions.api().getPlayer(player.getUniqueId());
-        System.out.println("exexu");
         if (factionPlayer == null) return false;
 
-        io.github.toberocat.improvedFactions.core.command.component.Command cmd =
-                handler.findCommand(String.join(" ", args));
-        if (cmd == null) return false;
+        SpigotCommandHandler.SearchResult result = handler.findCommand(String.join(" ", args));
+        args = Arrays.copyOfRange(args, result.index() + 1, args.length);
 
-        System.out.println(cmd.label());
+        io.github.toberocat.improvedFactions.core.command.component.Command
+                <io.github.toberocat.improvedFactions.core.command.component.Command.CommandPacket>
+                cmd = (io.github.toberocat.improvedFactions.core.command.component.Command
+                <io.github.toberocat.improvedFactions.core.command.component.Command.CommandPacket>)
+                result.command();
+
         io.github.toberocat.improvedFactions.core.command.component.Command.CommandPacket packet =
-                cmd.createFromArgs(factionPlayer, args);
+                result.command().createFromArgs(factionPlayer, args);
+
         if (packet == null) return false;
 
         cmd.run(packet);
@@ -52,10 +57,16 @@ public class SpigotFactionCommand implements TabExecutor {
                                                 @NotNull Command command,
                                                 @NotNull String alias,
                                                 @NotNull String[] args) {
-        io.github.toberocat.improvedFactions.core.command.component.Command cmd =
-                handler.findCommand(String.join(" ", args));
-        if (cmd == null) return List.of();
+        SpigotCommandHandler.SearchResult result = handler.findCommand(String.join(" ", args));
+        args = Arrays.copyOfRange(args, result.index() + 1, args.length);
 
-        return cmd.tabComplete(args);
+        if (sender instanceof Player player) {
+            FactionPlayer<?> executor = ImprovedFactions.api().getPlayer(player.getUniqueId());
+            if (executor == null) return null;
+
+            return result.command().tabCompletePlayer(executor, args);
+        }
+
+        return result.command().tabCompleteConsole(args);
     }
 }

@@ -43,7 +43,6 @@ public class Translation {
             LANGUAGE_LOCALE_USAGE.put(player.getUniqueId(), local);
             return;
         }
-
         /* Load language file */
         Translatable translation = readFile(local);
         if (translation == null) {

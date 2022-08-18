@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedfactions.spigot.scheduler;
 
-import io.github.toberocat.improvedFactions.core.handler.Scheduler;
+import io.github.toberocat.improvedFactions.core.handler.component.Scheduler;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
 import org.bukkit.Bukkit;
 
