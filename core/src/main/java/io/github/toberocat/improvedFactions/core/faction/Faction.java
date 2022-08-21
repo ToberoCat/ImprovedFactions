@@ -7,6 +7,7 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.Can
 import io.github.toberocat.improvedFactions.core.faction.components.Description;
 import io.github.toberocat.improvedFactions.core.faction.components.FactionClaims;
 import io.github.toberocat.improvedFactions.core.faction.components.FactionModule;
+import io.github.toberocat.improvedFactions.core.faction.components.permission.FactionPermissions;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.faction.components.report.FactionReports;
@@ -26,7 +27,7 @@ import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-public interface Faction<F extends Faction<F>> {
+public interface Faction<F extends Faction<F>> extends FactionPermissions {
     /* Static vars */
     int allyId = 0;
     int neutralId = 1;
