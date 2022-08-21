@@ -137,3 +137,13 @@ create table claims
         primary key (world, x, z)
 );
 
+-- Create faction permissions
+create table faction_permissions
+(
+    registry char(10) not null,
+    `rank` char(64) not null,
+    permission char(128) not null,
+    constraint faction_permissions_pk
+        primary key (`rank`, permission)
+);
+

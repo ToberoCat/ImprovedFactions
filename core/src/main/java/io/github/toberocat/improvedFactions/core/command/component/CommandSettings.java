@@ -12,20 +12,23 @@ public class CommandSettings {
     private boolean requiresFaction;
     private boolean requiresNoFaction;
     private int requiresRankPriority;
+    private String requiresRank;
     private String requiredFactionPermission;
     private String requiredSpigotPermission;
 
-    public boolean isAllowInConsole() {
-        return allowInConsole;
+    public CommandSettings() {
+        allowInConsole = false;
+        requiresFaction = false;
+        requiresNoFaction = false;
+        requiresRankPriority = -1;
+        requiredSpigotPermission = null;
+        requiredFactionPermission = null;
+        requiresRank = null;
     }
 
     public CommandSettings setAllowInConsole(boolean allowInConsole) {
         this.allowInConsole = allowInConsole;
         return this;
-    }
-
-    public boolean isRequiresFaction() {
-        return requiresFaction;
     }
 
     public CommandSettings setRequiresFaction(boolean requiresFaction) {
@@ -34,18 +37,10 @@ public class CommandSettings {
         return this;
     }
 
-    public boolean isRequiresNoFaction() {
-        return requiresNoFaction;
-    }
-
     public CommandSettings setRequiresNoFaction(boolean requiresNoFaction) {
         this.requiresNoFaction = requiresNoFaction;
         this.requiresFaction = false;
         return this;
-    }
-
-    public int getRequiresRankPriority() {
-        return requiresRankPriority;
     }
 
     public CommandSettings setRequiresRankPriority(int requiresRankPriority) {
@@ -53,17 +48,9 @@ public class CommandSettings {
         return this;
     }
 
-    public String getRequiredFactionPermission() {
-        return requiredFactionPermission;
-    }
-
     public CommandSettings setRequiredFactionPermission(String requiredFactionPermission) {
         this.requiredFactionPermission = requiredFactionPermission;
         return this;
-    }
-
-    public String getRequiredSpigotPermission() {
-        return requiredSpigotPermission;
     }
 
     public CommandSettings setRequiredSpigotPermission(String requiredSpigotPermission) {
@@ -71,17 +58,27 @@ public class CommandSettings {
         return this;
     }
 
+    public CommandSettings setRequiresRank(String requiresRank) {
+        this.requiresRank = requiresRank;
+        return this;
+    }
+
     public boolean showTab(@NotNull FactionPlayer<?> player) {
+        if (requiredSpigotPermission != null &&
+                player.hasPermission(requiredSpigotPermission)) return false;
+
         boolean hasFaction = player.inFaction();
-        if (requiresFaction && !hasFaction) return false;
-        if (requiresNoFaction && hasFaction) return false;
+        if (requiresFaction) return hasFaction && faction(player);
+        else if (requiresNoFaction) return !hasFaction && showNoFaction(player);
+
+        return true;
     }
 
     public boolean showTabConsole() {
-        if (!allowInConsole) return false;
+        return allowInConsole;
     }
 
-    private boolean showFaction(@NotNull FactionPlayer<?> player) {
+    private boolean faction(@NotNull FactionPlayer<?> player) {
         String registry = player.getFactionRegistry();
         if (registry == null) return false;
 
@@ -97,14 +94,29 @@ public class CommandSettings {
         int priority = Rank.getPriority(rank);
         if (priority != -1 && priority < requiresRankPriority) return false;
 
-        faction.has
+        if (requiresRank != null && !requiresRank.equals(rank.getRegistry()))
+            return false;
+
+        return requiredFactionPermission != null &&
+                !faction.hasPermission(requiredFactionPermission, rank);
+    }
+
+    private boolean showNoFaction(@NotNull FactionPlayer<?> player) {
+        return true;
     }
 
     public boolean canExecute(@NotNull FactionPlayer<?> player) {
+        if (requiredSpigotPermission != null &&
+                player.hasPermission(requiredSpigotPermission)) return false;
 
+        boolean hasFaction = player.inFaction();
+        if (requiresFaction) return hasFaction && faction(player);
+        else if (requiresNoFaction) return !hasFaction && showNoFaction(player);
+
+        return true;
     }
 
     public boolean canExecuteConsole() {
-        if (!allowInConsole) return false;
+        return true;
     }
 }

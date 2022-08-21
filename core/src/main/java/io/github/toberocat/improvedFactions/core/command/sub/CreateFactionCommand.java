@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedFactions.core.command.sub;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
+import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.*;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
@@ -19,7 +20,16 @@ public class CreateFactionCommand extends Command<CreateFactionCommand.CreateFac
     }
 
     @Override
-    public @NotNull List<String> tabCompletePlayer(@NotNull FactionPlayer<?> player, @NotNull String[] args) {
+    public CommandSettings settings() {
+        return new CommandSettings()
+                .setAllowInConsole(true)
+                .setRequiresNoFaction(true)
+                .setRequiredSpigotPermission(permission());
+    }
+
+    @Override
+    public @NotNull List<String> tabCompletePlayer(@NotNull FactionPlayer<?> player,
+                                                   @NotNull String[] args) {
         return List.of("name");
     }
 
@@ -96,10 +106,11 @@ public class CreateFactionCommand extends Command<CreateFactionCommand.CreateFac
     }
 
     @Override
-    public @Nullable CreateFactionCommand.CreateFactionPacket createFromArgs(@NotNull FactionPlayer<?> executor,
+    @Nullable
+    public CreateFactionCommand.CreateFactionPacket createFromArgs(@NotNull FactionPlayer<?> sender,
                                                                              @NotNull String[] args) {
         if (args.length != 1) {
-            executor.sendTranslatable(translatable -> translatable
+            sender.sendTranslatable(translatable -> translatable
                     .getMessages()
                     .getCommand()
                     .get(label())
@@ -108,7 +119,7 @@ public class CreateFactionCommand extends Command<CreateFactionCommand.CreateFac
         }
 
         String display = args[0];
-        return new CreateFactionPacket(display, executor);
+        return new CreateFactionPacket(display, sender);
     }
 
     @Override

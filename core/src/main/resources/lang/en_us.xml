@@ -52,7 +52,6 @@
                 <description>PLACEHOLDER</description>
                 <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
                 <faction-frozen>PLACEHOLDER</faction-frozen>
-                <player-needs-to-be-owner>PLACEHOLDER</player-needs-to-be-owner>
                 <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
             </delete>
         </command>

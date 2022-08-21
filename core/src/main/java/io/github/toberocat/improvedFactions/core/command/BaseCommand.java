@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedFactions.core.command;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
+import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
 import io.github.toberocat.improvedFactions.core.command.sub.CreateFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.DeleteFactionCommand;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
@@ -20,6 +21,11 @@ public class BaseCommand extends Command<Command.CommandPacket> {
     @Override
     public @NotNull String label() {
         return "faction";
+    }
+
+    @Override
+    public CommandSettings settings() {
+        return new CommandSettings();
     }
 
     @Override

@@ -20,10 +20,14 @@ public abstract class Command<P extends Command.CommandPacket> {
     @NotNull
     public abstract String label();
 
+    public abstract CommandSettings settings();
+
     @NotNull
     public String permission() {
         return PERMISSION_NODE + label();
     }
+
+    @NotNull
 
     public Function<Translatable, String> description() {
         return translatable -> translatable.getMessages().getCommand()

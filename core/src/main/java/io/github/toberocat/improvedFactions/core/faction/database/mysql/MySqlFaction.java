@@ -10,6 +10,9 @@ import io.github.toberocat.improvedFactions.core.exceptions.description.Descript
 import io.github.toberocat.improvedFactions.core.exceptions.faction.*;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.leave.PlayerIsOwnerException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.AlreadyInvitedException;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.CantInviteYourselfException;
+import io.github.toberocat.improvedFactions.core.faction.Faction;
+import io.github.toberocat.improvedFactions.core.faction.OpenType;
 import io.github.toberocat.improvedFactions.core.faction.components.Description;
 import io.github.toberocat.improvedFactions.core.faction.components.FactionClaims;
 import io.github.toberocat.improvedFactions.core.faction.components.FactionModule;
@@ -20,18 +23,15 @@ import io.github.toberocat.improvedFactions.core.faction.components.rank.members
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.faction.components.report.FactionReports;
 import io.github.toberocat.improvedFactions.core.faction.components.report.Report;
+import io.github.toberocat.improvedFactions.core.faction.database.mysql.module.MySqlModule;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
+import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.DateUtils;
-import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.CantInviteYourselfException;
-import io.github.toberocat.improvedFactions.core.faction.Faction;
-import io.github.toberocat.improvedFactions.core.faction.OpenType;
-import io.github.toberocat.improvedFactions.core.faction.database.mysql.module.MySqlModule;
-import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.LocalDateTime;
@@ -916,5 +916,49 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     @Override
     public String toString() {
         return getRegistry();
+    }
+
+    @Override
+    public @NotNull Stream<String> getPermission(@NotNull String permission) {
+        return database.rowSelect(new Select()
+                        .setTable("faction_permissions")
+                        .setColumns("rank")
+                        .setFilter("permission = %s", permission))
+                .getRows()
+                .stream()
+                .map(x -> x.get("rank").toString());
+    }
+
+    @Override
+    public @NotNull Stream<String> listPermissions() {
+        return database.rowSelect(new Select()
+                        .setTable("faction_permissions")
+                        .setColumns("permission"))
+                .getRows()
+                .stream()
+                .map(x -> x.get("permission").toString());
+    }
+
+    @Override
+    public @NotNull Stream<String> listPermissions(@NotNull Rank rank) {
+        return database.rowSelect(new Select()
+                        .setTable("faction_permissions")
+                        .setColumns("permission")
+                        .setFilter("rank = %s", rank.getRegistry()))
+                .getRows()
+                .stream()
+                .map(x -> x.get("permission").toString());
+    }
+
+    @Override
+    public void setPermission(@NotNull String permission, String[] ranks) {
+        for (String rank : ranks) database
+                .executeUpdate("INSERT INTO faction_permissions VALUE (%s, %s, %s)",
+                    registry, rank, permission);
+    }
+
+    @Override
+    public boolean hasPermission(@NotNull String permission, @NotNull Rank rank) {
+        return getPermission(permission).anyMatch(x -> x.equals(rank.getRegistry()));
     }
 }
