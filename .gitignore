@@ -1,4 +1,12 @@
 /.idea
 /core/target
 /spigot/target
-/spigot/spigot.iml
+/spigot/spigot.iml.idea\
+.idea\
+extensions.json
+target\
+spigot.iml
+spigot.iml
+target\
+target\
+maven-status\

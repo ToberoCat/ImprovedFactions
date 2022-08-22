@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-// ToDo: Add functionality to implemented methods
 public class MySqlFactionHandler implements FactionHandlerInterface<MySqlFaction> {
     private static MySqlFactionHandler instance;
 
