@@ -74,10 +74,6 @@ public abstract class FactionHandler {
         return handler.getAllFactions();
     }
 
-    public static void removeFactionCache(@NotNull FactionPlayer<?> player) {
-        handler.removeFactionCache(player);
-    }
-
     public static void dispose() {
         new HashMap<>(FactionHandler.getLoadedFactions())
                 .keySet()

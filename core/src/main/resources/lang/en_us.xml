@@ -54,6 +54,10 @@
                 <faction-frozen>PLACEHOLDER</faction-frozen>
                 <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
             </delete>
+            <list>
+                <description>PLACEHOLDER</description>
+                <entry>§e{faction}§7 - {description}</entry>
+            </list>
         </command>
     </messages>
     <ranks>

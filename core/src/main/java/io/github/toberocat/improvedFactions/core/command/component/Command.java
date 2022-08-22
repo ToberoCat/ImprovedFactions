@@ -16,11 +16,12 @@ public abstract class Command<P extends Command.CommandPacket> {
     public static final String PERMISSION_NODE = "faction.command.";
 
     protected final Map<String, Command<?>> commands = new HashMap<>();
+    private CommandSettings settings;
 
     @NotNull
     public abstract String label();
 
-    public abstract CommandSettings settings();
+    protected abstract CommandSettings settings();
 
     @NotNull
     public String permission() {
@@ -52,6 +53,11 @@ public abstract class Command<P extends Command.CommandPacket> {
 
     public void add(@NotNull Command<?> command) {
         commands.put(command.label(), command);
+    }
+
+    public @NotNull CommandSettings readSettings() {
+        if (settings == null) settings = settings();
+        return settings;
     }
 
     public interface CommandPacket {

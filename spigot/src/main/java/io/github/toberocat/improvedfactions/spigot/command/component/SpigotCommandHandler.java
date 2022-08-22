@@ -1,11 +1,13 @@
 package io.github.toberocat.improvedfactions.spigot.command.component;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
+import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
+import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class SpigotCommandHandler {
 
@@ -34,6 +36,56 @@ public class SpigotCommandHandler {
         }
 
         return new SearchResult(base, 0);
+    }
+
+    public boolean executeCommandChain(@NotNull FactionPlayer<?> player, @NotNull String[] args) {
+        SpigotCommandHandler.SearchResult result = findCommand(String.join(" ", args));
+        args = Arrays.copyOfRange(args, result.index() + 1, args.length);
+
+        Command<Command.CommandPacket> cmd = (Command<Command.CommandPacket>) result.command();
+        if (!cmd.readSettings().canExecute(player)) return false;
+
+        Command.CommandPacket packet = result.command().createFromArgs(player, args);
+
+        if (packet == null) return false;
+
+        cmd.run(packet);
+        return true;
+    }
+
+    public boolean executeCommandChain(@NotNull String[] args) {
+        SpigotCommandHandler.SearchResult result = findCommand(String.join(" ", args));
+        args = Arrays.copyOfRange(args, result.index() + 1, args.length);
+
+        Command<Command.CommandPacket> cmd = (Command<Command.CommandPacket>) result.command();
+        if (!cmd.readSettings().canExecuteConsole()) return false;
+
+        Command.CommandPacket packet = result.command().createFromArgs(args);
+
+        if (packet == null) return false;
+
+        cmd.run(packet);
+        return true;
+    }
+
+    public @NotNull List<String> tabCommandChain(@NotNull CommandSender sender,
+                                                 @NotNull String[] args) {
+        SpigotCommandHandler.SearchResult result = findCommand(String.join(" ", args));
+        args = Arrays.copyOfRange(args, result.index() + 1, args.length);
+
+        Command<?> command = result.command;
+        if (sender instanceof Player player) {
+            FactionPlayer<?> executor = ImprovedFactions.api().getPlayer(player.getUniqueId());
+            if (executor == null) return Collections.emptyList();
+
+            if (!command.readSettings().showTab(executor)) return Collections.emptyList();
+
+            return command.tabCompletePlayer(executor, args);
+        }
+
+        if (!command.readSettings().showTabConsole()) return Collections.emptyList();
+
+        return command.tabCompleteConsole(args);
     }
 
     public static record SearchResult(@NotNull Command<?> command, int index) {

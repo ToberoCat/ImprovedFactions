@@ -43,14 +43,21 @@
                 <illegal-naming>Name can't be used</illegal-naming>
                 <faction-already-exists>PLACEHOLDER already ex</faction-already-exists>
                 <not-enough-arguments>PLACEHOLDER no en arg</not-enough-arguments>
+                <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
+                <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
+                <player-already-in-faction>PLACEHOLDER</player-already-in-faction>
+                <not-enough-permissions>PLACEHOLDER</not-enough-permissions>
             </create>
             <delete>
                 <description>PLACEHOLDER</description>
                 <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
                 <faction-frozen>PLACEHOLDER</faction-frozen>
-                <player-needs-to-be-owner>PLACEHOLDER</player-needs-to-be-owner>
                 <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
             </delete>
+            <list>
+                <description>PLACEHOLDER</description>
+                <entry>§e{faction}§7 - {description}</entry>
+            </list>
         </command>
     </messages>
     <ranks>

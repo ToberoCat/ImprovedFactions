@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class SpigotFactionCommand implements TabExecutor {
@@ -27,27 +26,11 @@ public class SpigotFactionCommand implements TabExecutor {
                              @NotNull Command command,
                              @NotNull String label,
                              @NotNull String[] args) {
-
-        if (!(sender instanceof Player player)) return false;
-        FactionPlayer<?> factionPlayer = ImprovedFactions.api().getPlayer(player.getUniqueId());
-        if (factionPlayer == null) return false;
-
-        SpigotCommandHandler.SearchResult result = handler.findCommand(String.join(" ", args));
-        args = Arrays.copyOfRange(args, result.index() + 1, args.length);
-
-        io.github.toberocat.improvedFactions.core.command.component.Command
-                <io.github.toberocat.improvedFactions.core.command.component.Command.CommandPacket>
-                cmd = (io.github.toberocat.improvedFactions.core.command.component.Command
-                <io.github.toberocat.improvedFactions.core.command.component.Command.CommandPacket>)
-                result.command();
-
-        io.github.toberocat.improvedFactions.core.command.component.Command.CommandPacket packet =
-                result.command().createFromArgs(factionPlayer, args);
-
-        if (packet == null) return false;
-
-        cmd.run(packet);
-        return true;
+        if (sender instanceof Player player) {
+            FactionPlayer<?> factionPlayer = ImprovedFactions.api().getPlayer(player.getUniqueId());
+            if (factionPlayer == null) return false;
+            return handler.executeCommandChain(factionPlayer, args);
+        } else return handler.executeCommandChain(args);
     }
 
     @Override
@@ -55,16 +38,6 @@ public class SpigotFactionCommand implements TabExecutor {
                                                 @NotNull Command command,
                                                 @NotNull String alias,
                                                 @NotNull String[] args) {
-        SpigotCommandHandler.SearchResult result = handler.findCommand(String.join(" ", args));
-        args = Arrays.copyOfRange(args, result.index() + 1, args.length);
-
-        if (sender instanceof Player player) {
-            FactionPlayer<?> executor = ImprovedFactions.api().getPlayer(player.getUniqueId());
-            if (executor == null) return null;
-
-            return result.command().tabCompletePlayer(executor, args);
-        }
-
-        return result.command().tabCompleteConsole(args);
+        return handler.tabCommandChain(sender, args);
     }
 }

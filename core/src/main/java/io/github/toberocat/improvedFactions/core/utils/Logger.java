@@ -12,7 +12,7 @@ public interface Logger {
         return implementation;
     }
 
-    void logInfo(@NotNull String message);
+    void logInfo(@NotNull String message, Object... placeholders);
 
     void logWarning(@NotNull String message);
 

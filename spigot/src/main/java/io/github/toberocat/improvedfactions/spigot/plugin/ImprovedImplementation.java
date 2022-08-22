@@ -148,7 +148,7 @@ public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
     }
 
     @Override
-    public void logInfo(@NotNull String message) {
+    public void logInfo(@NotNull String message, Object... plObjects) {
 
     }
 

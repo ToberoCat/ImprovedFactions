@@ -36,13 +36,4 @@ public interface FactionHandlerInterface<F extends Faction<F>> {
 
         return load(registry);
     }
-
-    /**
-     * The faction cache is responsible for quick access of factions for players.
-     * But if the faction gets deleted, this cache needs to get removed, else it will
-     * wrongly display commands and crash the system trying to load the not existing faction
-     *
-     * @param player The player that should get the faction cache removed
-     */
-    void removeFactionCache(@NotNull FactionPlayer<?> player);
 }

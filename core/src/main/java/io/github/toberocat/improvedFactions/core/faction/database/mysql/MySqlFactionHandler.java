@@ -54,17 +54,30 @@ public class MySqlFactionHandler implements FactionHandlerInterface<MySqlFaction
 
     @Override
     public @NotNull MySqlFaction load(@NotNull String registry) throws FactionNotInStorage {
-        return null;
+        int size = database.rowSelect(new Select()
+                        .setTable("factions")
+                        .setColumns("")
+                        .setFilter("registry = %s", registry))
+                .getRows()
+                .size();
+        if (size != 1) throw new FactionNotInStorage(registry, FactionNotInStorage.StorageType.DATABASE);
+        return new MySqlFaction(registry);
     }
 
     @Override
     public boolean isLoaded(@NotNull String registry) {
-        return false;
+        return factions.containsKey(registry);
     }
 
     @Override
     public boolean exists(@NotNull String registry) {
-        return false;
+        if (isLoaded(registry)) return true;
+        return database.rowSelect(new Select()
+                        .setTable("factions")
+                        .setColumns("")
+                        .setFilter("registry = %s", registry))
+                .getRows()
+                .size() == 1;
     }
 
     @Override
@@ -74,12 +87,17 @@ public class MySqlFactionHandler implements FactionHandlerInterface<MySqlFaction
 
     @Override
     public @NotNull Stream<String> getAllFactions() {
-        return null;
+        return database.rowSelect(new Select()
+                .setTable("factions")
+                .setColumns("registry"))
+                .getRows()
+                .stream()
+                .map(x -> x.get("registry").toString());
     }
 
     @Override
     public void deleteCache(@NotNull String registry) {
-
+        factions.remove(registry);
     }
 
     @Override
@@ -90,17 +108,5 @@ public class MySqlFactionHandler implements FactionHandlerInterface<MySqlFaction
                         .setFilter("uuid = %s", player.getUniqueId().toString()))
                 .readRow(String.class, "member_rank")
                 .orElse(GuestRank.REGISTRY));
-    }
-
-    /**
-     * The faction cache is responsible for quick access of factions for players.
-     * But if the faction gets deleted, this cache needs to get removed, else it will
-     * wrongly display commands and crash the system trying to load the not existing faction
-     *
-     * @param player The player that should get the faction cache removed
-     */
-    @Override
-    public void removeFactionCache(@NotNull FactionPlayer<?> player) {
-
     }
 }

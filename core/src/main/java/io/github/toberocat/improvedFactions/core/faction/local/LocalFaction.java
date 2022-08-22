@@ -865,4 +865,29 @@ public class LocalFaction implements Faction<LocalFaction> {
     public String toString() {
         return registry;
     }
+
+    @Override
+    public @NotNull Stream<String> getPermission(@NotNull String permission) {
+        return null;
+    }
+
+    @Override
+    public @NotNull Stream<String> listPermissions() {
+        return null;
+    }
+
+    @Override
+    public @NotNull Stream<String> listPermissions(@NotNull Rank rank) {
+        return null;
+    }
+
+    @Override
+    public void setPermission(@NotNull String permission, String[] ranks) {
+
+    }
+
+    @Override
+    public boolean hasPermission(@NotNull String permission, @NotNull Rank rank) {
+        return false;
+    }
 }

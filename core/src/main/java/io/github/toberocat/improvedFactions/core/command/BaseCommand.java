@@ -4,6 +4,7 @@ import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
 import io.github.toberocat.improvedFactions.core.command.sub.CreateFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.DeleteFactionCommand;
+import io.github.toberocat.improvedFactions.core.command.sub.ListFactionCommand;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -16,6 +17,7 @@ public class BaseCommand extends Command<Command.CommandPacket> {
     public BaseCommand() {
         add(new CreateFactionCommand());
         add(new DeleteFactionCommand());
+        add(new ListFactionCommand());
     }
 
     @Override

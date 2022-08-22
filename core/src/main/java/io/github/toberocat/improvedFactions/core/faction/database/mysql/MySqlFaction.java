@@ -55,9 +55,6 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     private final LinkedHashMap<String, MySqlModule> modules = new LinkedHashMap<>();
 
     private String registry;
-    private String display;
-    private String motd;
-    private String tag;
 
     /**
      * Use FactionHandler#createFaction() to create a faction
@@ -74,20 +71,17 @@ public class MySqlFaction implements Faction<MySqlFaction> {
         this();
 
         this.registry = Faction.displayToRegistry(display);
-        this.display = Faction.validateDisplay(display);
 
         if (FactionHandler.getLoadedFactions().containsKey(registry)) throw new FactionAlreadyExistsException(this);
         if (!Faction.validNaming(registry)) throw new IllegalFactionNamingException(this, registry);
 
         ConfigHandler config = ConfigHandler.api();
-        this.motd = DEFAULT_MOTD;
-        this.tag = DEFAULT_TAG;
 
         database.executeUpdate(MySqlDatabase.CREATE_LAYOUT_QUERY,
                 DatabaseVar.of("registry", registry),
                 DatabaseVar.of("display", display),
-                DatabaseVar.of("motd", motd),
-                DatabaseVar.of("tag", tag),
+                DatabaseVar.of("motd", DEFAULT_MOTD),
+                DatabaseVar.of("tag", DEFAULT_TAG),
                 DatabaseVar.of("openType", DEFAULT_OPEN_TYPE.ordinal()),
                 DatabaseVar.of("frozen", DEFAULT_FROZEN),
                 DatabaseVar.of("permanent", DEFAULT_PERMANENT),
@@ -98,6 +92,12 @@ public class MySqlFaction implements Faction<MySqlFaction> {
                 DatabaseVar.of("current_power", config.getInt("faction.default.start-power")), // Todo: Remove current_power and max_power properties
                 DatabaseVar.of("max_power", config.getInt("faction.default.start-max-power"))
         );
+    }
+
+    public MySqlFaction(@NotNull String registry) {
+        this();
+
+        this.registry = registry;
     }
 
     /**
@@ -124,7 +124,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
                         .setColumns("display_name")
                         .setFilter("registry_id = %s", registry))
                 .readRow(String.class, "display_name")
-                .orElse(display);
+                .orElse(registry);
     }
 
     /**
@@ -137,7 +137,6 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     public void setDisplay(@NotNull String display) throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
-        this.display = display;
         database.executeUpdate("UPDATE factions SET " +
                 "display_name = %s WHERE registry_id = %s", display, registry);
     }
@@ -166,7 +165,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
                         .setColumns("motd")
                         .setFilter("registry_id = %s", registry))
                 .readRow(String.class, "motd")
-                .orElse(motd);
+                .orElse(DEFAULT_MOTD);
     }
 
     /**
@@ -178,8 +177,8 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     public void setMotd(@NotNull String motd) throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
-        this.motd = motd;
-        database.executeUpdate("UPDATE factions SET motd = %s WHERE registry_id = %s", motd, registry);
+        database.executeUpdate("UPDATE factions SET motd = %s WHERE registry_id = %s",
+                motd, registry);
     }
 
     /**
@@ -196,7 +195,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
                         .setColumns("tag")
                         .setFilter("registry_id = %s", registry))
                 .readRow(String.class, "tag")
-                .orElse(tag);
+                .orElse(DEFAULT_TAG);
     }
 
     /**
@@ -208,8 +207,8 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     public void setTag(@NotNull String tag) throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
-        this.tag = tag;
-        database.executeUpdate("UPDATE factions SET tag = %s WHERE registry_id = %s", tag, registry);
+        database.executeUpdate("UPDATE factions SET tag = %s WHERE registry_id = %s",
+                tag, registry);
     }
 
     /**
