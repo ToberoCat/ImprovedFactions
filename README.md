@@ -6,7 +6,7 @@
 [![forks - ImprovedFactions](https://img.shields.io/github/forks/ToberoCat/ImprovedFactions_new?style=social)](https://github.com/ToberoCat/ImprovedFactions_new)
 [![GitHub release](https://img.shields.io/github/release/ToberoCat/ImprovedFactions_new?include_prereleases=&sort=semver&color=%23FEDD58)](https://github.com/ToberoCat/ImprovedFactions_new/releases/)
 [![issues - ImprovedFactions](https://img.shields.io/github/issues/ToberoCat/ImprovedFactions_new)](https://github.com/ToberoCat/ImprovedFactions_new/issues)
-[![SpigotMain - ImprovedFactions](https://img.shields.io/badge/Spigot-ImprovedFactions-orange)](https://github.com/ToberoCat/ImprovedFactions_new](https://www.spigotmc.org/resources/improved-factions.95617 "Spigot ImprovedFactions page")
+[![SpigotMain - ImprovedFactions](https://img.shields.io/badge/Spigot-ImprovedFactions-orange)](https://www.spigotmc.org/resources/improved-factions.95617 "Spigot ImprovedFactions page")]
 [![spigot](http://badge.henrya.org/spigotbukkit/downloads?spigot=95617&bukkit=95617
 )](https://www.spigotmc.org/resources/improved-factions.95617/)
 [![CodeFactor](https://www.codefactor.io/repository/github/toberocat/improvedfactions_new/badge)](https://www.codefactor.io/repository/github/toberocat/improvedfactions_new)
