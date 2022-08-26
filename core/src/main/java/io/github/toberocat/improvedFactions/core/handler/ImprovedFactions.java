@@ -3,10 +3,9 @@ package io.github.toberocat.improvedFactions.core.handler;
 import io.github.toberocat.improvedFactions.core.exceptions.NoImplementationProvidedException;
 import io.github.toberocat.improvedFactions.core.handler.component.PlayerLister;
 import io.github.toberocat.improvedFactions.core.handler.component.Scheduler;
-import io.github.toberocat.improvedFactions.core.location.Location;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
-import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -14,7 +13,6 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 public interface ImprovedFactions<RawWorld> {
 

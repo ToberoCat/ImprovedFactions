@@ -8,7 +8,7 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerIsBann
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandlerInterface;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
-import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

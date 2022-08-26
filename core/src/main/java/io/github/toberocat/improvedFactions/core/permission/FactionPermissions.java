@@ -3,7 +3,7 @@ package io.github.toberocat.improvedFactions.core.permission;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
-import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.stream.Stream;

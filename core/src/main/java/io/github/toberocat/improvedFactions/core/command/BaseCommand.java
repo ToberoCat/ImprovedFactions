@@ -6,7 +6,7 @@ import io.github.toberocat.improvedFactions.core.command.sub.ClaimCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.CreateFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.DeleteFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.ListFactionCommand;
-import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

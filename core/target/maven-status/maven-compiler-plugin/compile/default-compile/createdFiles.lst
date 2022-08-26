@@ -61,12 +61,10 @@ io\github\toberocat\improvedFactions\core\persistent\local\LocalData$Values.clas
 io\github\toberocat\improvedFactions\core\faction\handler\FactionHandler.class
 io\github\toberocat\improvedFactions\core\faction\components\rank\allies\AllyModeratorRank.class
 io\github\toberocat\improvedFactions\core\faction\components\FactionModule.class
-io\github\toberocat\improvedFactions\core\sender\CommandSender.class
 io\github\toberocat\improvedFactions\core\faction\components\rank\members\FactionModeratorRank.class
 io\github\toberocat\improvedFactions\core\command\sub\DeleteFactionCommand$DeleteFactionConsolePacket.class
 io\github\toberocat\improvedFactions\core\database\mysql\builder\Insert.class
 io\github\toberocat\improvedFactions\core\faction\OpenType.class
-io\github\toberocat\improvedFactions\core\sender\player\FactionPlayer.class
 io\github\toberocat\improvedFactions\core\faction\local\managers\RelationManager.class
 io\github\toberocat\improvedFactions\core\exceptions\description\DescriptionHasNoLine.class
 io\github\toberocat\improvedFactions\core\command\sub\ListFactionCommand$ListPacket.class
@@ -94,6 +92,7 @@ io\github\toberocat\improvedFactions\core\handler\ConfigHandler.class
 io\github\toberocat\improvedFactions\core\claims\component\Claim.class
 io\github\toberocat\improvedFactions\core\faction\components\Description.class
 io\github\toberocat\improvedFactions\core\registry\ImplementationHolder.class
+io\github\toberocat\improvedFactions\core\setting\component\EnumSetting.class
 io\github\toberocat\improvedFactions\core\handler\component\PlayerLister.class
 io\github\toberocat\improvedFactions\core\exceptions\faction\leave\PlayerIsOwnerException.class
 io\github\toberocat\improvedFactions\core\database\mysql\builder\Row.class
@@ -119,7 +118,6 @@ io\github\toberocat\improvedFactions\core\claims\worldclaim\local\XZPair.class
 io\github\toberocat\improvedFactions\core\database\mysql\builder\Select.class
 io\github\toberocat\improvedFactions\core\item\ItemStack.class
 io\github\toberocat\improvedFactions\core\command\sub\DeleteFactionCommand$DeleteFactionPacket.class
-io\github\toberocat\improvedFactions\core\sender\player\OfflineFactionPlayer.class
 io\github\toberocat\improvedFactions\core\faction\local\LocalFaction$1.class
 io\github\toberocat\improvedFactions\core\translator\XmlLoader.class
 io\github\toberocat\improvedFactions\core\command\sub\ClaimCommand.class

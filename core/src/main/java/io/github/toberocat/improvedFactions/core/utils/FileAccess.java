@@ -16,8 +16,8 @@ public final class FileAccess {
 
     private final @NotNull File parent;
 
-    public FileAccess(@NotNull File parent) {
-        this.parent = parent;
+    public FileAccess(@NotNull File parent, @NotNull String... relativePath) {
+        this.parent = new File(parent, String.join(File.separator, relativePath));
 
         if (!parent.exists()) parent.mkdirs();
     }

@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedFactions.core.translator;
 
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
-import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
 import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;

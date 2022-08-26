@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedfactions.spigot.listener;
 
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
-import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
 import org.bukkit.Bukkit;

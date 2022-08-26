@@ -2,7 +2,7 @@ package io.github.toberocat.improvedfactions.spigot.command;
 
 import io.github.toberocat.improvedFactions.core.command.BaseCommand;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
-import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedfactions.spigot.command.component.SpigotCommandHandler;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

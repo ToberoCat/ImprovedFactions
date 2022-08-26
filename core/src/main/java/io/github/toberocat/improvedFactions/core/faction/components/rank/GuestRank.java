@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedFactions.core.faction.components.rank;
 
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
-import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import org.jetbrains.annotations.NotNull;
 
 

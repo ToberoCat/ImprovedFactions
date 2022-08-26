@@ -2,8 +2,8 @@ package io.github.toberocat.improvedFactions.core.event;
 
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
-import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.world.Chunk;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

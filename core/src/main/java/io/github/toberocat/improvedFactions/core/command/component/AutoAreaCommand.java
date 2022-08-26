@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedFactions.core.command.component;
 
 import io.github.toberocat.improvedFactions.core.location.Location;
-import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import org.jetbrains.annotations.NotNull;

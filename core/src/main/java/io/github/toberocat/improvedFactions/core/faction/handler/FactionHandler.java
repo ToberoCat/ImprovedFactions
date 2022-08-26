@@ -1,10 +1,8 @@
 package io.github.toberocat.improvedFactions.core.faction.handler;
 
 import io.github.toberocat.improvedFactions.core.exceptions.faction.*;
-import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
-import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.database.mysql.MySqlFactionHandler;
 import io.github.toberocat.improvedFactions.core.faction.local.LocalFactionHandler;

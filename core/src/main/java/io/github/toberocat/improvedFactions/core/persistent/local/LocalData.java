@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedFactions.core.persistent.local;
 
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
-import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentData;
 import org.jetbrains.annotations.NotNull;

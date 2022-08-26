@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedFactions.core.sender;
+package io.github.toberocat.improvedFactions.core.player;
 
 import org.jetbrains.annotations.NotNull;
 
