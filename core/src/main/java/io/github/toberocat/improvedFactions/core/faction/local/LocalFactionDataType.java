@@ -27,5 +27,6 @@ public record LocalFactionDataType(@NotNull String registry,
                                    @NotNull List<String> enemies,
                                    @NotNull List<Report> reports,
                                    @NotNull Map<UUID, String> ranks,
-                                   @NotNull Map<String, LocalFactionModule> modules) {
+                                   @NotNull Map<String, LocalFactionModule> modules,
+                                   @NotNull Map<String, String[]> permissions) {
 }

@@ -6,6 +6,7 @@ import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -70,7 +71,7 @@ public class LocalWorldClaim implements WorldClaim {
     }
 
     @Override
-    public @NotNull String getRegistry(int x, int z) {
+    public @Nullable String getRegistry(int x, int z) {
         XZPair pair = new XZPair(x, z);
         if (cachedClaims.containsKey(pair)) return cachedClaims.get(pair);
 
@@ -81,7 +82,7 @@ public class LocalWorldClaim implements WorldClaim {
             return registry;
         } catch (IOException e) {
             e.printStackTrace();
-            return "";
+            return null;
         }
     }
 

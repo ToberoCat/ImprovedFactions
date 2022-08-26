@@ -6,6 +6,7 @@ import io.github.toberocat.improvedFactions.core.database.DatabaseHandle;
 import io.github.toberocat.improvedFactions.core.database.mysql.MySqlDatabase;
 import io.github.toberocat.improvedFactions.core.database.mysql.builder.Select;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
 
@@ -48,13 +49,13 @@ public class MySqlWorldClaim implements WorldClaim {
     }
 
     @Override
-    public @NotNull String getRegistry(int x, int z) {
+    public @Nullable String getRegistry(int x, int z) {
         return database.rowSelect(new Select()
                         .setTable("claims")
                         .setColumns("registry")
                         .setFilter("world = %s AND x = %d AND z = %d",
                                 worldName, x, z))
                 .readRow(String.class, "registry")
-                .orElse("");
+                .orElse(null);
     }
 }

@@ -27,6 +27,7 @@ import io.github.toberocat.improvedFactions.core.faction.database.mysql.module.M
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
+import io.github.toberocat.improvedFactions.core.permission.Permission;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
@@ -913,12 +914,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     }
 
     @Override
-    public String toString() {
-        return getRegistry();
-    }
-
-    @Override
-    public @NotNull Stream<String> getPermission(@NotNull String permission) {
+    public @NotNull Stream<String> getPermission(@NotNull Permission permission) {
         return database.rowSelect(new Select()
                         .setTable("faction_permissions")
                         .setColumns("rank")
@@ -929,35 +925,40 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     }
 
     @Override
-    public @NotNull Stream<String> listPermissions() {
+    public @NotNull Stream<Permission> listPermissions() {
         return database.rowSelect(new Select()
                         .setTable("faction_permissions")
                         .setColumns("permission"))
                 .getRows()
                 .stream()
-                .map(x -> x.get("permission").toString());
+                .map(x -> () -> x.get("permission").toString());
     }
 
     @Override
-    public @NotNull Stream<String> listPermissions(@NotNull Rank rank) {
+    public @NotNull Stream<Permission> listPermissions(@NotNull Rank rank) {
         return database.rowSelect(new Select()
                         .setTable("faction_permissions")
                         .setColumns("permission")
                         .setFilter("rank = %s", rank.getRegistry()))
                 .getRows()
                 .stream()
-                .map(x -> x.get("permission").toString());
+                .map(x -> () -> x.get("permission").toString());
     }
 
     @Override
-    public void setPermission(@NotNull String permission, String[] ranks) {
+    public void setPermission(@NotNull Permission permission, String[] ranks) {
         for (String rank : ranks) database
                 .executeUpdate("INSERT INTO faction_permissions VALUE (%s, %s, %s)",
                     registry, rank, permission);
     }
 
     @Override
-    public boolean hasPermission(@NotNull String permission, @NotNull Rank rank) {
+    public boolean hasPermission(@NotNull Permission permission, @NotNull Rank rank) {
         return getPermission(permission).anyMatch(x -> x.equals(rank.getRegistry()));
+    }
+
+    @Override
+    public String toString() {
+        return getRegistry();
     }
 }

@@ -31,32 +31,6 @@ public class FactionPerm {
         memberRanks = new HashMap<>();
     }
 
-    public @NotNull Rank getPlayerRank(OfflineFactionPlayer<?> player) throws FactionNotInStorage {
-        if (faction.isMember(player)) return getRank(player);
-        if (faction.isAllied(player)) return getRank(player).getEquivalent();
-        return Rank.fromString(GuestRank.REGISTRY);
-    }
-
-    private Rank getRank(OfflineFactionPlayer<?> player) {
-        LocalFactionHandler handler = LocalFactionHandler.getInstance();
-
-        if (handler == null) throw new FactionHandlerNotFound("A local faction " +
-                "required a local handler, but didn't find it. " +
-                "This is a critical bug and needs to be reported to the dev using discord / github");
-        return Rank.fromString(memberRanks.get(player.getUniqueId()));
-    }
-
-    public void setRank(OfflineFactionPlayer<?> player, FactionRank rank) {
-        if (rank == null) {
-            memberRanks.remove(player.getUniqueId());
-            return;
-        }
-        String old = memberRanks.put(player.getUniqueId(), rank.getRegistry());
-
-        FactionRank oldRank = (FactionRank) Rank.fromString(old == null ? GuestRank.REGISTRY : old);
-        EventExecutor.getExecutor().factionMemberRankUpdate(faction, player, oldRank, rank);
-    }
-
     public Map<UUID, String> getMemberRanks() {
         return memberRanks;
     }

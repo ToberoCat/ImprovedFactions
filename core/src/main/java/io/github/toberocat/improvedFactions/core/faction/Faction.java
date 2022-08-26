@@ -7,12 +7,12 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.Can
 import io.github.toberocat.improvedFactions.core.faction.components.Description;
 import io.github.toberocat.improvedFactions.core.faction.components.FactionClaims;
 import io.github.toberocat.improvedFactions.core.faction.components.FactionModule;
-import io.github.toberocat.improvedFactions.core.faction.components.permission.FactionPermissions;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.faction.components.report.FactionReports;
 import io.github.toberocat.improvedFactions.core.handler.ColorHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
+import io.github.toberocat.improvedFactions.core.permission.FactionPermissions;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;

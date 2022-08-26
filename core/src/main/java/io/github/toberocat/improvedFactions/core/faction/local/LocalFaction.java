@@ -21,11 +21,9 @@ import io.github.toberocat.improvedFactions.core.faction.components.rank.members
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.faction.components.report.FactionReports;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
-import io.github.toberocat.improvedFactions.core.faction.local.managers.FactionMemberManager;
-import io.github.toberocat.improvedFactions.core.faction.local.managers.FactionPerm;
-import io.github.toberocat.improvedFactions.core.faction.local.managers.RelationManager;
 import io.github.toberocat.improvedFactions.core.faction.local.module.LocalFactionModule;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
+import io.github.toberocat.improvedFactions.core.permission.Permission;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
@@ -48,14 +46,19 @@ public class LocalFaction implements Faction<LocalFaction> {
 
     @JsonIgnore
     private static final FileAccess access = new FileAccess(ImprovedFactions.api().getLocalDataFolder());
-    private @NotNull
-    final String createdAt;
-    private @NotNull
-    final List<String> description;
-    private final @NotNull FactionPerm factionPermissions;
-    private final @NotNull FactionMemberManager factionMembers;
-    private final @NotNull RelationManager relationManager;
-    private final Map<String, LocalFactionModule> modules = new LinkedHashMap<>();
+
+    private final Map<String, LocalFactionModule> modules;
+    private final Map<String, String[]> permissions;
+    private final Map<UUID, String> memberRanks;
+
+    private final @NotNull List<String> description;
+    private final List<String> enemies;
+    private final List<String> allies;
+    private final List<UUID> members;
+    private final List<UUID> banned;
+
+
+    private final @NotNull String createdAt;
     private @NotNull String registry;
     private @NotNull String display;
     private @NotNull String motd;
@@ -63,6 +66,7 @@ public class LocalFaction implements Faction<LocalFaction> {
     private boolean permanent;
     private boolean frozen;
     private @NotNull UUID owner;
+
     private @NotNull OpenType type;
 
     /**
@@ -83,10 +87,15 @@ public class LocalFaction implements Faction<LocalFaction> {
 
         this.owner = UUID.randomUUID();
 
+        this.modules = new HashMap<>();
+        this.permissions = new HashMap<>();
+        this.memberRanks = new HashMap<>();
+
         this.description = new ArrayList<>();
-        this.factionPermissions = new FactionPerm(this);
-        this.factionMembers = new FactionMemberManager(this);
-        this.relationManager = new RelationManager(this);
+        this.enemies = new ArrayList<>();
+        this.allies = new ArrayList<>();
+        this.members = new ArrayList<>();
+        this.banned = new ArrayList<>();
     }
 
     public LocalFaction(@NotNull LocalFactionDataType dataType) {
@@ -101,17 +110,14 @@ public class LocalFaction implements Faction<LocalFaction> {
         this.owner = dataType.owner();
         this.description = dataType.description();
 
-        this.factionPermissions = new FactionPerm(this);
-        this.factionMembers = new FactionMemberManager(this);
-        this.relationManager = new RelationManager(this);
+        this.modules = dataType.modules();
+        this.permissions = dataType.permissions();
 
-        this.factionPermissions.setMemberRanks(dataType.ranks());
-
-        this.factionMembers.getMembers().addAll(dataType.members());
-        this.factionMembers.getBanned().addAll(dataType.banned());
-
-        this.relationManager.setAllies(dataType.allies());
-        this.relationManager.setEnemies(dataType.enemies());
+        this.memberRanks = dataType.ranks();
+        this.members = dataType.members();
+        this.banned = dataType.banned();
+        this.allies = dataType.allies();
+        this.enemies = dataType.enemies();
     }
 
     public LocalFaction(@NotNull String display, @NotNull FactionPlayer<?> owner)
@@ -131,7 +137,7 @@ public class LocalFaction implements Faction<LocalFaction> {
                 getBanned().toList(), getMembers().toList(),
                 getSentInvites().toList(), getReceivedInvites().toList(),
                 getAllies().toList(), getEnemies().toList(), new ArrayList<>(),
-                factionPermissions.getMemberRanks(), modules);
+                memberRanks, modules, permissions);
     }
 
     /**
@@ -358,12 +364,9 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public @NotNull Rank getPlayerRank(@NotNull OfflineFactionPlayer<?> player) {
-        try {
-            return factionPermissions.getPlayerRank(player);
-        } catch (FactionNotInStorage e) {
-            e.printStackTrace();
-            return Rank.fromString(GuestRank.REGISTRY);
-        }
+        if (isMember(player)) return getRank(player);
+        if (isAllied(player)) return getRank(player).getEquivalent();
+        return Rank.fromString(GuestRank.REGISTRY);
     }
 
     /**
@@ -374,7 +377,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public boolean isMember(@NotNull OfflineFactionPlayer<?> player) {
-        return factionMembers.getMembers().contains(player.getUniqueId());
+        return members.contains(player.getUniqueId());
     }
 
     /**
@@ -387,7 +390,7 @@ public class LocalFaction implements Faction<LocalFaction> {
     public void changeRank(@NotNull OfflineFactionPlayer<?> player, @NotNull FactionRank rank)
             throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
-        factionPermissions.setRank(player, rank);
+        setRank(player, rank);
     }
 
     /**
@@ -401,8 +404,8 @@ public class LocalFaction implements Faction<LocalFaction> {
         OfflineFactionPlayer<?> currentOwner = ImprovedFactions.api().getOfflinePlayer(owner);
         if (currentOwner == null) return;
 
-        factionPermissions.setRank(player, (FactionRank) Rank.fromString(FactionOwnerRank.REGISTRY));
-        factionPermissions.setRank(currentOwner, (FactionRank) Rank.fromString(FactionAdminRank.REGISTRY));
+        setRank(player, (FactionRank) Rank.fromString(FactionOwnerRank.REGISTRY));
+        setRank(currentOwner, (FactionRank) Rank.fromString(FactionAdminRank.REGISTRY));
 
         EventExecutor.getExecutor().transferOwnership(this, currentOwner, player);
     }
@@ -435,7 +438,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public @NotNull Stream<UUID> getBanned() {
-        return factionMembers.getBanned().stream();
+        return banned.stream();
     }
 
     /**
@@ -445,7 +448,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public @NotNull Stream<UUID> getMembers() {
-        return factionMembers.getMembers().stream();
+        return members.stream();
     }
 
     /**
@@ -472,8 +475,14 @@ public class LocalFaction implements Faction<LocalFaction> {
             throws FactionIsFrozenException, PlayerIsAlreadyInFactionException, PlayerIsBannedException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
-        factionMembers.join(player);
-        factionPermissions.setRank(player, rank);
+        if (player.inFaction()) throw new PlayerIsAlreadyInFactionException(this, player);
+        if (banned.contains(player.getUniqueId())) throw new PlayerIsBannedException(this, player);
+
+        player.getDataContainer().set(PersistentHandler.FACTION_KEY, registry);
+
+        members.add(player.getUniqueId());
+
+        setRank(player, rank);
         return true;
     }
 
@@ -490,8 +499,11 @@ public class LocalFaction implements Faction<LocalFaction> {
         if (!isPermanent() && getPlayerRank(player).getRegistry().equals(FactionOwnerRank.REGISTRY))
             throw new PlayerIsOwnerException(this, player);
 
-        factionMembers.leave(player);
-        factionPermissions.setRank(player, null);
+        if (!player.inFaction()) throw new PlayerHasNoFactionException(player);
+        player.getDataContainer().remove(PersistentHandler.FACTION_KEY);
+
+        members.remove(player.getUniqueId());
+        setRank(player, null);
         return true;
     }
 
@@ -506,8 +518,10 @@ public class LocalFaction implements Faction<LocalFaction> {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
         player.getDataContainer().remove(PersistentHandler.FACTION_KEY);
-        factionMembers.kick(player);
-        factionPermissions.setRank(player, null);
+        members.remove(player.getUniqueId());
+
+        player.getDataContainer().remove(PersistentHandler.FACTION_KEY);
+        setRank(player, null);
         return true;
     }
 
@@ -522,8 +536,10 @@ public class LocalFaction implements Faction<LocalFaction> {
             throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
-        factionMembers.ban(player);
-        factionPermissions.setRank(player, null);
+        banned.add(player.getUniqueId());
+        kickPlayer(player);
+
+        setRank(player, null);
         return true;
     }
 
@@ -538,7 +554,7 @@ public class LocalFaction implements Faction<LocalFaction> {
             throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
-        factionMembers.pardon(player);
+        banned.remove(player.getUniqueId());
         return true;
     }
 
@@ -550,7 +566,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public boolean isBanned(@NotNull OfflineFactionPlayer<?> player) {
-        return factionMembers.getBanned().contains(player.getUniqueId());
+        return banned.contains(player.getUniqueId());
     }
 
     /**
@@ -561,7 +577,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public @NotNull BigDecimal getTotalPower() {
-        return factionMembers.getMembers().stream().reduce(BigDecimal.ZERO,
+        return getMembers().reduce(BigDecimal.ZERO,
                 (bigDecimal, uuid) -> bigDecimal.add(BigDecimal.valueOf(playerPower(uuid))),
                 BigDecimal::add);
     }
@@ -591,7 +607,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public @NotNull BigDecimal getTotalMaxPower() {
-        return factionMembers.getMembers().stream().reduce(BigDecimal.ZERO,
+        return getMembers().reduce(BigDecimal.ZERO,
                 (bigDecimal, uuid) -> bigDecimal.add(BigDecimal.valueOf(maxPlayerPower(uuid))),
                 BigDecimal::add
         );
@@ -720,7 +736,7 @@ public class LocalFaction implements Faction<LocalFaction> {
 
         String registry = faction.getRegistry();
         if (isEnemy(registry) || isAllied(registry)) return false;
-        relationManager.getAllies().add(registry);
+        allies.add(registry);
 
         return true;
     }
@@ -733,7 +749,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public boolean isAllied(@NotNull String registry) {
-        return relationManager.getAllies().contains(registry);
+        return allies.contains(registry);
     }
 
     /**
@@ -761,7 +777,7 @@ public class LocalFaction implements Faction<LocalFaction> {
 
         String registry = faction.getRegistry();
         if (isEnemy(registry) || isAllied(registry)) return false;
-        relationManager.getEnemies().add(registry);
+        enemies.add(registry);
 
         return true;
     }
@@ -774,7 +790,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public boolean isEnemy(@NotNull String registry) {
-        return relationManager.getEnemies().contains(registry);
+        return enemies.contains(registry);
     }
 
     /**
@@ -796,7 +812,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public @NotNull Stream<String> getAllies() {
-        return relationManager.getAllies().stream();
+        return allies.stream();
     }
 
     /**
@@ -806,7 +822,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public @NotNull Stream<String> getEnemies() {
-        return relationManager.getEnemies().stream();
+        return enemies.stream();
     }
 
     /**
@@ -820,8 +836,8 @@ public class LocalFaction implements Faction<LocalFaction> {
             throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
-        relationManager.getEnemies().remove(faction.getRegistry());
-        relationManager.getAllies().remove(faction.getRegistry());
+        enemies.remove(faction.getRegistry());
+        allies.remove(faction.getRegistry());
 
         return true;
     }
@@ -898,33 +914,54 @@ public class LocalFaction implements Faction<LocalFaction> {
         modules.put(module.registry(), (LocalFactionModule) module);
     }
 
+
+    @Override
+    public @NotNull Stream<String> getPermission(@NotNull Permission permission) {
+        return null;
+    }
+
+    @Override
+    public @NotNull Stream<Permission> listPermissions() {
+        return null;
+    }
+
+    @Override
+    public @NotNull Stream<Permission> listPermissions(@NotNull Rank rank) {
+        return null;
+    }
+
+    @Override
+    public void setPermission(@NotNull Permission permission, String[] ranks) {
+
+    }
+
+    @Override
+    public boolean hasPermission(@NotNull Permission permission, @NotNull Rank rank) {
+        return false;
+    }
+
+    private void setRank(@NotNull OfflineFactionPlayer<?> player, FactionRank rank) {
+        if (rank == null) {
+            memberRanks.remove(player.getUniqueId());
+            return;
+        }
+        String old = memberRanks.put(player.getUniqueId(), rank.getRegistry());
+
+        FactionRank oldRank = (FactionRank) Rank.fromString(old == null ? GuestRank.REGISTRY : old);
+        EventExecutor.getExecutor().factionMemberRankUpdate(this, player, oldRank, rank);
+    }
+
+    private @NotNull Rank getRank(@NotNull OfflineFactionPlayer<?> player) {
+        LocalFactionHandler handler = LocalFactionHandler.getInstance();
+
+        if (handler == null) throw new FactionHandlerNotFound("A local faction " +
+                "required a local handler, but didn't find it. " +
+                "This is a critical bug and needs to be reported to the dev using discord / github");
+        return Rank.fromString(memberRanks.get(player.getUniqueId()));
+    }
+
     @Override
     public String toString() {
         return registry;
-    }
-
-    @Override
-    public @NotNull Stream<String> getPermission(@NotNull String permission) {
-        return null;
-    }
-
-    @Override
-    public @NotNull Stream<String> listPermissions() {
-        return null;
-    }
-
-    @Override
-    public @NotNull Stream<String> listPermissions(@NotNull Rank rank) {
-        return null;
-    }
-
-    @Override
-    public void setPermission(@NotNull String permission, String[] ranks) {
-
-    }
-
-    @Override
-    public boolean hasPermission(@NotNull String permission, @NotNull Rank rank) {
-        return false;
     }
 }

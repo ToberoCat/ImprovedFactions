@@ -2,6 +2,7 @@ package io.github.toberocat.improvedFactions.core.claims.worldclaim;
 
 import io.github.toberocat.improvedFactions.core.claims.component.Claim;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
 
@@ -16,6 +17,6 @@ public interface WorldClaim {
 
     @NotNull Stream<Claim> getAllClaims();
 
-    @NotNull String getRegistry(int x, int z);
+    @Nullable String getRegistry(int x, int z);
 
 }
