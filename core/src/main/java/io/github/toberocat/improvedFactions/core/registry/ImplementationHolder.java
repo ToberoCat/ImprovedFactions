@@ -44,7 +44,8 @@ public class ImplementationHolder {
     private static void createFolders() {
         File file = ImprovedFactions.api().getDataFolder();
         List.of("lang", "Data/Chunks", "Data/Factions",
-                        "Data/Persistent")
+                        "Data/Persistent",
+                        "Data/Players")
                 .forEach(x -> new File(file, x).mkdirs());
     }
 

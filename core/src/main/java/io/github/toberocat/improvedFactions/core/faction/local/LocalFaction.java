@@ -138,9 +138,13 @@ public class LocalFaction implements Faction<LocalFaction> {
     public LocalFaction(@NotNull String display, @NotNull FactionPlayer<?> owner)
             throws FactionIsFrozenException,
             PlayerIsAlreadyInFactionException,
-            PlayerIsBannedException {
+            PlayerIsBannedException, FactionAlreadyExistsException, IllegalFactionNamingException {
         this();
         this.registry = Faction.displayToRegistry(display);
+
+        if (FactionHandler.getLoadedFactions().containsKey(registry)) throw new FactionAlreadyExistsException(this);
+        if (!Faction.validNaming(registry)) throw new IllegalFactionNamingException(this, registry);
+
         this.display = display;
         this.owner = owner.getUniqueId();
         joinPlayer(owner, (FactionRank) Rank.fromString(FactionOwnerRank.REGISTRY));
