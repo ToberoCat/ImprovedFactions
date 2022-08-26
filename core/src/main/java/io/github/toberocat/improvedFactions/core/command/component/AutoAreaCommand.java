@@ -48,12 +48,16 @@ public abstract class AutoAreaCommand extends
             int y = (int) loc.y();
             int z;
 
+            Location lastLoc = null;
             for (double i = 0.0; i < 360.0; i += 0.1) {
                 double angle = i * Math.PI / 180;
                 x = (int) (loc.x() + packet.radius * Math.cos(angle));
                 z = (int) (loc.z() + packet.radius * Math.sin(angle));
+                Location now = new Location(x, y, z, loc.world());
 
-                single(player, new Location(x, y, z, loc.world()));
+                if (now != lastLoc)
+                    single(player, now);
+                lastLoc = now;
             }
         }
     }

@@ -37,7 +37,7 @@ public class LocalWorldClaim implements WorldClaim {
     @Override
     public void add(@NotNull String registry, int x, int z) {
         try {
-            access.write(new Claim(worldName, x, z, claim -> registry),
+            access.write(registry,
                     String.format("%d_%d", x, z));
             cachedClaims.put(new XZPair(x, z), registry);
         } catch (IOException e) {
@@ -47,6 +47,7 @@ public class LocalWorldClaim implements WorldClaim {
 
     @Override
     public void remove(int x, int z) {
+        System.out.println("delete");
         access.delete(String.format("%d_%d", x, z));
         cachedClaims.remove(new XZPair(x, z));
     }
