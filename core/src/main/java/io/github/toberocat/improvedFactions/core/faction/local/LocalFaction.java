@@ -20,6 +20,7 @@ import io.github.toberocat.improvedFactions.core.faction.components.rank.members
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionOwnerRank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.faction.components.report.FactionReports;
+import io.github.toberocat.improvedFactions.core.faction.components.report.Report;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.core.faction.local.module.LocalFactionModule;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
@@ -54,9 +55,11 @@ public class LocalFaction implements Faction<LocalFaction> {
     private final @NotNull List<String> description;
     private final List<String> enemies;
     private final List<String> allies;
+    private final List<String> sentInvites;
+    private final List<String> receivedInvites;
     private final List<UUID> members;
     private final List<UUID> banned;
-
+    private final List<Report> factionReports;
 
     private final @NotNull String createdAt;
     private @NotNull String registry;
@@ -96,6 +99,9 @@ public class LocalFaction implements Faction<LocalFaction> {
         this.allies = new ArrayList<>();
         this.members = new ArrayList<>();
         this.banned = new ArrayList<>();
+        this.factionReports = new ArrayList<>();
+        this.sentInvites = new ArrayList<>();
+        this.receivedInvites = new ArrayList<>();
     }
 
     public LocalFaction(@NotNull LocalFactionDataType dataType) {
@@ -118,6 +124,9 @@ public class LocalFaction implements Faction<LocalFaction> {
         this.banned = dataType.banned();
         this.allies = dataType.allies();
         this.enemies = dataType.enemies();
+        this.factionReports = dataType.reports();
+        this.sentInvites = dataType.sentInvites();
+        this.receivedInvites = dataType.receivedInvites();
     }
 
     public LocalFaction(@NotNull String display, @NotNull FactionPlayer<?> owner)
@@ -132,12 +141,9 @@ public class LocalFaction implements Faction<LocalFaction> {
     }
 
     public @NotNull LocalFactionDataType toDataType() {
-        return new LocalFactionDataType(registry, display, motd, tag, type,
-                frozen, permanent, createdAt, owner, description,
-                getBanned().toList(), getMembers().toList(),
-                getSentInvites().toList(), getReceivedInvites().toList(),
-                getAllies().toList(), getEnemies().toList(), new ArrayList<>(),
-                memberRanks, modules, permissions);
+        return new LocalFactionDataType(registry, display, motd, tag, type, frozen, permanent,
+                createdAt, owner, description, banned, members, sentInvites, receivedInvites,
+                allies, enemies, factionReports, memberRanks, modules, permissions);
     }
 
     /**
@@ -664,7 +670,21 @@ public class LocalFaction implements Faction<LocalFaction> {
     @Override
     public void inviteAlly(@NotNull Faction<?> faction) throws FactionIsFrozenException,
             FactionOwnerIsOfflineException, CantInviteYourselfException, AlreadyInvitedException {
-        // ToDo: invite ally
+
+        if (faction.isFrozen()) throw new FactionIsFrozenException(faction.getRegistry());
+        if (frozen) throw new FactionIsFrozenException(registry);
+
+        if (faction.getRegistry().equals(registry)) throw new CantInviteYourselfException();
+        if (sentInvites.contains(faction.getRegistry())) throw new AlreadyInvitedException(faction);
+
+        FactionPlayer<?> invitedOwner = ImprovedFactions.api().getPlayer(faction.getOwner());
+        if (invitedOwner == null) throw new FactionOwnerIsOfflineException(faction);
+
+        if (!(faction instanceof LocalFaction local)) return;
+
+        sentInvites.add(faction.getRegistry());
+        local.receivedInvites.add(faction.getRegistry());
+
     }
 
     /**
@@ -674,7 +694,10 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public void removeAllyInvite(@NotNull Faction<?> faction) {
-        // ToDo: remove ally invite ally
+        if (!(faction instanceof LocalFaction local)) return;
+
+        sentInvites.remove(faction.getRegistry());
+        local.receivedInvites.remove(faction.getRegistry());
     }
 
     /**
@@ -685,8 +708,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public boolean hasInvited(@NotNull Faction<?> faction) {
-        // ToDo: get if ally has been invited
-        return false;
+        return sentInvites.contains(faction.getRegistry());
     }
 
     /**
@@ -697,8 +719,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public boolean hasBeenInvitedBy(@NotNull Faction<?> faction) {
-        // ToDo: get if faction has been invited by other faction
-        return false;
+        return faction.getReceivedInvites().anyMatch(x -> x.equals(registry));
     }
 
     /**
@@ -708,8 +729,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public @NotNull Stream<String> getSentInvites() {
-        // ToDo: get all invites the faction sent
-        return Stream.empty();
+        return sentInvites.stream();
     }
 
     /**
@@ -719,8 +739,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public @NotNull Stream<String> getReceivedInvites() {
-        // ToDo: get all invites the faction received
-        return Stream.empty();
+        return receivedInvites.stream();
     }
 
     /**
@@ -801,8 +820,8 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public boolean isEnemy(@NotNull OfflineFactionPlayer<?> player) {
-        // ToDo: Get if player is enemy
-        return false;
+        String registry = player.getFactionRegistry();
+        return registry != null && enemies.contains(registry);
     }
 
     /**
@@ -849,7 +868,11 @@ public class LocalFaction implements Faction<LocalFaction> {
      */
     @Override
     public void broadcastMessage(@NotNull String msg) {
-        // ToDo: Broadcast msg
+        ImprovedFactions<?> api = ImprovedFactions.api();
+        getMembers()
+                .map(api::getPlayer)
+                .filter(Objects::nonNull)
+                .forEach(x -> x.sendMessage(msg));
     }
 
     /**
@@ -857,11 +880,14 @@ public class LocalFaction implements Faction<LocalFaction> {
      * The translation will be individual for each player based on their selected language
      *
      * @param query      The key of the translatable message.
-     * @param parseables
      */
     @Override
     public void broadcastTranslatable(@NotNull Function<Translatable, String> query, Placeholder... parseables) {
-        // ToDo: Broadcast msg
+        ImprovedFactions<?> api = ImprovedFactions.api();
+        getMembers()
+                .map(api::getPlayer)
+                .filter(Objects::nonNull)
+                .forEach(x -> x.sendTranslatable(query, parseables));
     }
 
     /**
@@ -874,11 +900,19 @@ public class LocalFaction implements Faction<LocalFaction> {
         return FactionClaims.createClaims(this);
     }
 
-
     @Override
     public @NotNull FactionReports getReports() {
-        // ToDo: Get reports
-        return null;
+        return new FactionReports() {
+            @Override
+            public void addReport(@NotNull OfflineFactionPlayer<?> reporter, @NotNull String reason) {
+                factionReports.add(new Report(reporter.getUniqueId(), reason));
+            }
+
+            @Override
+            public @NotNull Stream<Report> getReports() {
+                return factionReports.stream();
+            }
+        };
     }
 
     /**
@@ -931,7 +965,7 @@ public class LocalFaction implements Faction<LocalFaction> {
                 .stream()
                 .filter(e -> Arrays.stream(e.getValue())
                         .anyMatch(x -> x.equals(rank.getRegistry())))
-                .map(x -> x::getKey);
+                .map(x -> () -> x.getKey() == null ? "" : x.getKey());
     }
 
     @Override
