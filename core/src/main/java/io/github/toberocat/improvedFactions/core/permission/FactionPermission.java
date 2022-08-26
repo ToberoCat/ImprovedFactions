@@ -12,7 +12,7 @@ public enum FactionPermission implements Permission {
     }
 
     @Override
-    public @NotNull String getName() {
+    public @NotNull String label() {
         return name;
     }
 }

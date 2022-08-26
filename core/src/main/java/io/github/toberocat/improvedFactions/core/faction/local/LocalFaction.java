@@ -917,27 +917,32 @@ public class LocalFaction implements Faction<LocalFaction> {
 
     @Override
     public @NotNull Stream<String> getPermission(@NotNull Permission permission) {
-        return null;
+        return Arrays.stream(permissions.get(permission.label()));
     }
 
     @Override
     public @NotNull Stream<Permission> listPermissions() {
-        return null;
+        return permissions.keySet().stream().map(x -> () -> x);
     }
 
     @Override
     public @NotNull Stream<Permission> listPermissions(@NotNull Rank rank) {
-        return null;
+        return permissions.entrySet()
+                .stream()
+                .filter(e -> Arrays.stream(e.getValue())
+                        .anyMatch(x -> x.equals(rank.getRegistry())))
+                .map(x -> x::getKey);
     }
 
     @Override
     public void setPermission(@NotNull Permission permission, String[] ranks) {
-
+        permissions.put(permission.label(), ranks);
     }
 
     @Override
     public boolean hasPermission(@NotNull Permission permission, @NotNull Rank rank) {
-        return false;
+        return Arrays.stream(permissions.get(permission.label()))
+                .anyMatch(x -> x.equals(rank.getRegistry()));
     }
 
     private void setRank(@NotNull OfflineFactionPlayer<?> player, FactionRank rank) {
