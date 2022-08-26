@@ -74,26 +74,21 @@ public class ClaimHandler {
     }
 
     public static void protectChunk(@NotNull String registry, @NotNull Chunk<?> chunk) throws ChunkAlreadyClaimedException {
-        PersistentWrapper container = chunk.getDataContainer();
-        String claimed = container.get(PersistentHandler.CLAIM_KEY);
+        WorldClaim worldClaim = getWorldClaim(chunk.getWorld());
+        String claimed = worldClaim.getRegistry(chunk.getX(), chunk.getZ());
 
         if (claimed != null) throw new ChunkAlreadyClaimedException(claimed);
 
-        container.set(PersistentHandler.CLAIM_KEY, registry);
-
-        WorldClaim worldClaim = getWorldClaim(chunk.getWorld());
         worldClaim.add(registry, chunk.getX(), chunk.getZ());
-
         EventExecutor.getExecutor().protectChunk(chunk, registry);
     }
 
     public static void removeProtection(@NotNull Chunk<?> chunk) {
-        PersistentWrapper container = chunk.getDataContainer();
+        WorldClaim worldClaim = getWorldClaim(chunk.getWorld());
 
-        String previousRegistry = container.get(PersistentHandler.CLAIM_KEY);
-        container.remove(PersistentHandler.CLAIM_KEY);
+        String previousRegistry = worldClaim.getRegistry(chunk.getX(), chunk.getZ());
 
-        getWorldClaim(chunk.getWorld()).remove(chunk.getX(), chunk.getZ());
+        worldClaim.remove(chunk.getX(), chunk.getZ());
         EventExecutor.getExecutor().removeProtection(chunk, previousRegistry);
     }
 
