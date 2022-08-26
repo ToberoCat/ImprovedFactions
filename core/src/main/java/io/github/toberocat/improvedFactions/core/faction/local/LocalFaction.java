@@ -975,7 +975,8 @@ public class LocalFaction implements Faction<LocalFaction> {
 
     @Override
     public boolean hasPermission(@NotNull Permission permission, @NotNull Rank rank) {
-        return Arrays.stream(permissions.get(permission.label()))
+        if (rank.isAdmin()) return true;
+        return Arrays.stream(permissions.computeIfAbsent(permission.label(), l -> new String[0]))
                 .anyMatch(x -> x.equals(rank.getRegistry()));
     }
 

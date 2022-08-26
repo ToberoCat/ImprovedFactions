@@ -65,10 +65,10 @@ public abstract class AutoAreaCommand extends
 
     @Override
     public final @Nullable AutoAreaPacket createFromArgs(@NotNull FactionPlayer<?> executor, @NotNull String[] args) {
-        if (args.length == 0) return new AutoAreaPacket(executor, 0, false);
+        if (args.length == 0) return new AutoAreaPacket(executor, 1, false);
 
         String radius = args[0];
-        if (radius.equals("auto")) return new AutoAreaPacket(executor, 0, true);
+        if (radius.equals("auto")) return new AutoAreaPacket(executor, 1, true);
 
         try {
             return new AutoAreaPacket(executor, Integer.parseInt(radius), false);

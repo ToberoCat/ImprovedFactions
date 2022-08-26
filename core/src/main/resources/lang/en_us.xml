@@ -65,6 +65,7 @@
                 <entry>§e{faction}§7 - {description}</entry>
             </list>
             <claim>
+                <claim-chunk>PLACEHOLDER claimed</claim-chunk>
                 <radius-no-number>PLACEHOLDER</radius-no-number>
                 <auto-activated>PLACEHOLDER</auto-activated>
                 <auto-disabled>PLACEHOLDER</auto-disabled>

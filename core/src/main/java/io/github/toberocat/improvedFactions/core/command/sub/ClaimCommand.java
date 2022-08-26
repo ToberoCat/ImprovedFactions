@@ -69,6 +69,12 @@ public class ClaimCommand extends AutoAreaCommand {
             Faction<?> faction = player.getFaction();
             ClaimHandler.protectChunk(faction.getRegistry(),
                     world.getChunkAt(location.chunkX(), location.chunkZ()));
+
+            player.sendTranslatable(translatable -> translatable
+                    .getMessages()
+                    .getCommand()
+                    .get(label())
+                    .get("claim-chunk"));
         } catch (FactionNotInStorage e) {
             player.sendTranslatable(translatable -> translatable
                     .getMessages()

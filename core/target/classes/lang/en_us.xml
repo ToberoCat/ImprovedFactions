@@ -41,9 +41,6 @@
             <command-settings>
                 <resetted-faction-registry>Couldn't find your saved faction. Resetted the container</resetted-faction-registry>
             </command-settings>
-            <confirm-command>
-                <not-confirmed></not-confirmed>
-            </confirm-command>
             <create>
                 <description>PLACEHOLDER desc</description>
                 <created-faction>PLACEHOLDER{faction}</created-faction>
@@ -58,6 +55,7 @@
             <delete>
                 <description>PLACEHOLDER</description>
                 <deleted-faction>PLACEHOLDER</deleted-faction>
+                <not-confirmed>PLACEHOLDER</not-confirmed>
                 <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
                 <faction-frozen>PLACEHOLDER</faction-frozen>
                 <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
@@ -66,6 +64,15 @@
                 <description>PLACEHOLDER</description>
                 <entry>§e{faction}§7 - {description}</entry>
             </list>
+            <claim>
+                <claim-chunk>PLACEHOLDER claimed</claim-chunk>
+                <radius-no-number>PLACEHOLDER</radius-no-number>
+                <auto-activated>PLACEHOLDER</auto-activated>
+                <auto-disabled>PLACEHOLDER</auto-disabled>
+                <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
+                <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
+                <chunk-already-claimed>PLACEHOLDER</chunk-already-claimed>
+            </claim>
         </command>
     </messages>
     <ranks>
