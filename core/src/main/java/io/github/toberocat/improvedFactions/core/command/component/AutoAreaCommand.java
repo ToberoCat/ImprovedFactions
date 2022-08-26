@@ -55,7 +55,7 @@ public abstract class AutoAreaCommand extends
                 z = (int) (loc.z() + packet.radius * Math.sin(angle));
                 Location now = new Location(x, y, z, loc.world());
 
-                if (now != lastLoc)
+                if (lastLoc != null && now.chunkX() != lastLoc.chunkX() && now.chunkZ() != lastLoc.chunkZ())
                     single(player, now);
                 lastLoc = now;
             }

@@ -7,6 +7,7 @@ import io.github.toberocat.improvedfactions.spigot.handler.SpigotColorHandler;
 import io.github.toberocat.improvedfactions.spigot.handler.SpigotConfigHandler;
 import io.github.toberocat.improvedfactions.spigot.listener.PlayerJoinListener;
 import io.github.toberocat.improvedfactions.spigot.listener.PlayerLeaveListener;
+import io.github.toberocat.improvedfactions.spigot.listener.PlayerMoveListener;
 import io.github.toberocat.improvedfactions.spigot.listener.SpigotEventListener;
 import io.github.toberocat.improvedfactions.spigot.listener.world.SpigotBlockListener;
 import io.github.toberocat.improvedfactions.spigot.plugin.ImprovedImplementation;
@@ -41,7 +42,8 @@ public final class MainIF extends JavaPlugin {
         List.of(
                 new PlayerJoinListener(this),
                 new PlayerLeaveListener(this),
-                new SpigotBlockListener(this)
+                new SpigotBlockListener(this),
+                new PlayerMoveListener(this)
         ).forEach(SpigotEventListener::register);
     }
 
