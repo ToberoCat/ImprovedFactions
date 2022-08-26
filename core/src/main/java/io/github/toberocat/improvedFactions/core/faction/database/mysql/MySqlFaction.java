@@ -11,6 +11,7 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.*;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.leave.PlayerIsOwnerException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.AlreadyInvitedException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.CantInviteYourselfException;
+import io.github.toberocat.improvedFactions.core.exceptions.setting.ErrorParsingSettingException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.OpenType;
 import io.github.toberocat.improvedFactions.core.faction.components.Description;
@@ -30,6 +31,7 @@ import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.permission.Permission;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.setting.Setting;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.DateUtils;
@@ -960,5 +962,33 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     @Override
     public String toString() {
         return getRegistry();
+    }
+
+    @Override
+    public <T> void setSetting(@NotNull Setting<T> setting, T value) {
+        database.executeUpdate("INSERT INTO faction_settings VALUE (%s, %s, %s)",
+                registry, setting.label(), setting.toSave(value));
+    }
+
+    @Override
+    public <T> @NotNull T getSetting(@NotNull Setting<T> setting) throws ErrorParsingSettingException {
+        return setting.createFromSave(database.rowSelect(new Select()
+                        .setTable("faction_settings")
+                        .setColumns("value")
+                        .setFilter("registry_id = %s", registry))
+                .readRow(String.class, "value")
+                .orElseThrow(ErrorParsingSettingException::new));
+    }
+
+    @Override
+    public @NotNull Stream<Setting<?>> listSettings() {
+        return database.rowSelect(new Select()
+                        .setTable("faction_settings")
+                        .setColumns("setting")
+                        .setFilter("registry_id = %s", registry))
+                .getRows()
+                .stream()
+                .map(Object::toString)
+                .map(Setting::getSetting);
     }
 }

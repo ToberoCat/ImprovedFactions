@@ -58,7 +58,6 @@ create table IF NOT EXISTS faction_settings
 (
     registry_id VARCHAR(@max_len) not null,
     setting     TEXT              not null,
-    type        TEXT              not null,
     value       TEXT              null,
     constraint faction_settings_pk
         primary key (registry_id)
