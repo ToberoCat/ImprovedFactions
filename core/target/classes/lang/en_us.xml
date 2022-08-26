@@ -41,6 +41,9 @@
             <command-settings>
                 <resetted-faction-registry>Couldn't find your saved faction. Resetted the container</resetted-faction-registry>
             </command-settings>
+            <confirm-command>
+                <not-confirmed></not-confirmed>
+            </confirm-command>
             <create>
                 <description>PLACEHOLDER desc</description>
                 <created-faction>PLACEHOLDER{faction}</created-faction>

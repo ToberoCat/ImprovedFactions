@@ -4,6 +4,7 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotIn
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
+import io.github.toberocat.improvedFactions.core.permission.Permission;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import org.jetbrains.annotations.NotNull;
@@ -14,8 +15,8 @@ public class CommandSettings {
     private boolean requiresNoFaction;
     private int requiresRankPriority;
     private String requiresRank;
-    private String requiredFactionPermission;
     private String requiredSpigotPermission;
+    private Permission requiredFactionPermission;
 
     public CommandSettings() {
         allowInConsole = false;
@@ -49,7 +50,7 @@ public class CommandSettings {
         return this;
     }
 
-    public CommandSettings setRequiredFactionPermission(String requiredFactionPermission) {
+    public CommandSettings setRequiredFactionPermission(Permission requiredFactionPermission) {
         this.requiredFactionPermission = requiredFactionPermission;
         return this;
     }

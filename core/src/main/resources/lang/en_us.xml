@@ -55,6 +55,7 @@
             <delete>
                 <description>PLACEHOLDER</description>
                 <deleted-faction>PLACEHOLDER</deleted-faction>
+                <not-confirmed>PLACEHOLDER</not-confirmed>
                 <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
                 <faction-frozen>PLACEHOLDER</faction-frozen>
                 <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
@@ -63,6 +64,14 @@
                 <description>PLACEHOLDER</description>
                 <entry>§e{faction}§7 - {description}</entry>
             </list>
+            <claim>
+                <radius-no-number>PLACEHOLDER</radius-no-number>
+                <auto-activated>PLACEHOLDER</auto-activated>
+                <auto-disabled>PLACEHOLDER</auto-disabled>
+                <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
+                <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
+                <chunk-already-claimed>PLACEHOLDER</chunk-already-claimed>
+            </claim>
         </command>
     </messages>
     <ranks>

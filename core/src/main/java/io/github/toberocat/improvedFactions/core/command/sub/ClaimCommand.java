@@ -1,15 +1,23 @@
 package io.github.toberocat.improvedFactions.core.command.sub;
 
-import io.github.toberocat.improvedFactions.core.command.component.Command;
+import io.github.toberocat.improvedFactions.core.claims.ClaimHandler;
+import io.github.toberocat.improvedFactions.core.command.component.AutoAreaCommand;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
-import io.github.toberocat.improvedFactions.core.faction.components.permission.FactionPermissions;
+import io.github.toberocat.improvedFactions.core.exceptions.chunk.ChunkAlreadyClaimedException;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
+import io.github.toberocat.improvedFactions.core.faction.Faction;
+import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
+import io.github.toberocat.improvedFactions.core.location.Location;
+import io.github.toberocat.improvedFactions.core.permission.FactionPermission;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
+import io.github.toberocat.improvedFactions.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
+import java.util.function.Function;
 
-public class ClaimCommand extends Command<ClaimCommand.ClaimPacket, Command.ConsoleCommandPacket> {
+public class ClaimCommand extends AutoAreaCommand {
 
     @Override
     public @NotNull String label() {
@@ -22,40 +30,63 @@ public class ClaimCommand extends Command<ClaimCommand.ClaimPacket, Command.Cons
                 .setAllowInConsole(false)
                 .setRequiredSpigotPermission(permission())
                 .setRequiresFaction(true)
-                .setRequiredFactionPermission(FactionPermissions.CLAIM_PERMISSION);
+                .setRequiredFactionPermission(FactionPermission.CLAIM_PERMISSION);
     }
 
     @Override
-    public @NotNull List<String> tabCompletePlayer(@NotNull FactionPlayer<?> player, @NotNull String[] args) {
-        return null;
+    protected Function<Translatable, String> radiusNoNumber() {
+        return translatable -> translatable
+                .getMessages()
+                .getCommand()
+                .get(label())
+                .get("radius-no-number");
     }
 
     @Override
-    public @NotNull List<String> tabCompleteConsole(@NotNull String[] args) {
-        return null;
+    protected Function<Translatable, String> autoActivated() {
+        return translatable -> translatable
+                .getMessages()
+                .getCommand()
+                .get(label())
+                .get("auto-activated");
     }
 
     @Override
-    public void run(@NotNull ClaimPacket packet) {
-
+    protected Function<Translatable, String> autoDisabled() {
+        return translatable -> translatable
+                .getMessages()
+                .getCommand()
+                .get(label())
+                .get("auto-disabled");
     }
 
     @Override
-    public void runConsole(@NotNull ConsoleCommandPacket packet) {
+    protected void single(@NotNull FactionPlayer<?> player, @NotNull Location location) {
+        World<?> world = ImprovedFactions.api().getWorld(location.world());
+        if (world == null) return;
 
-    }
-
-    @Override
-    public @Nullable ClaimCommand.ClaimPacket createFromArgs(@NotNull FactionPlayer<?> executor, @NotNull String[] args) {
-        return null;
-    }
-
-    @Override
-    public @Nullable Command.ConsoleCommandPacket createFromArgs(@NotNull String[] args) {
-        return null;
-    }
-
-    protected record ClaimPacket() implements CommandPacket {
-
+        try {
+            Faction<?> faction = player.getFaction();
+            ClaimHandler.protectChunk(faction.getRegistry(),
+                    world.getChunkAt(location.chunkX(), location.chunkZ()));
+        } catch (FactionNotInStorage e) {
+            player.sendTranslatable(translatable -> translatable
+                    .getMessages()
+                    .getCommand()
+                    .get(label())
+                    .get("faction-not-in-storage"));
+        } catch (PlayerHasNoFactionException e) {
+            player.sendTranslatable(translatable -> translatable
+                    .getMessages()
+                    .getCommand()
+                    .get(label())
+                    .get("player-has-no-faction"));
+        } catch (ChunkAlreadyClaimedException e) {
+            player.sendTranslatable(translatable -> translatable
+                    .getMessages()
+                    .getCommand()
+                    .get(label())
+                    .get("chunk-already-claimed"));
+        }
     }
 }

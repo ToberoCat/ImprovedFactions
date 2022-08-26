@@ -3,7 +3,8 @@ package io.github.toberocat.improvedFactions.core.permission;
 import org.jetbrains.annotations.NotNull;
 
 public enum FactionPermission implements Permission {
-    CLAIM_PERMISSION("claim-permission");
+    CLAIM_PERMISSION("claim-chunk-permission"),
+    BREAK_PERMISSION("break-block-permission");
 
     final @NotNull String name;
 

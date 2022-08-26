@@ -2,6 +2,7 @@ package io.github.toberocat.improvedFactions.core.command;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
+import io.github.toberocat.improvedFactions.core.command.sub.ClaimCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.CreateFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.DeleteFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.ListFactionCommand;
@@ -18,6 +19,7 @@ public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleC
         add(new CreateFactionCommand());
         add(new DeleteFactionCommand());
         add(new ListFactionCommand());
+        add(new ClaimCommand());
     }
 
     @Override

@@ -8,6 +8,7 @@ import io.github.toberocat.improvedfactions.spigot.handler.SpigotConfigHandler;
 import io.github.toberocat.improvedfactions.spigot.listener.PlayerJoinListener;
 import io.github.toberocat.improvedfactions.spigot.listener.PlayerLeaveListener;
 import io.github.toberocat.improvedfactions.spigot.listener.SpigotEventListener;
+import io.github.toberocat.improvedfactions.spigot.listener.world.SpigotBlockListener;
 import io.github.toberocat.improvedfactions.spigot.plugin.ImprovedImplementation;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -39,7 +40,8 @@ public final class MainIF extends JavaPlugin {
     private void registerListener() {
         List.of(
                 new PlayerJoinListener(this),
-                new PlayerLeaveListener(this)
+                new PlayerLeaveListener(this),
+                new SpigotBlockListener(this)
         ).forEach(SpigotEventListener::register);
     }
 

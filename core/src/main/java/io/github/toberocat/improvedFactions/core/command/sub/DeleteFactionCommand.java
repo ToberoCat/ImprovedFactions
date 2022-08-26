@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedFactions.core.command.sub;
 
-import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
+import io.github.toberocat.improvedFactions.core.command.component.ConfirmCommand;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionIsFrozenException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
@@ -9,15 +9,17 @@ import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionOwnerRank;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 
-public class DeleteFactionCommand extends
-        Command<DeleteFactionCommand.DeleteFactionPacket, DeleteFactionCommand.DeleteFactionConsolePacket> {
+public class DeleteFactionCommand extends ConfirmCommand
+        <DeleteFactionCommand.DeleteFactionPacket, DeleteFactionCommand.DeleteFactionConsolePacket> {
 
     @Override
     public @NotNull String label() {
@@ -31,17 +33,6 @@ public class DeleteFactionCommand extends
                 .setRequiresFaction(true)
                 .setAllowInConsole(true)
                 .setRequiresRank(FactionOwnerRank.REGISTRY);
-    }
-
-    @Override
-    public @NotNull List<String> tabCompletePlayer(@NotNull FactionPlayer<?> player,
-                                                   @NotNull String[] args) {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public @NotNull List<String> tabCompleteConsole(@NotNull String[] args) {
-        return FactionHandler.getAllFactions().toList();
     }
 
     @Override
@@ -78,8 +69,17 @@ public class DeleteFactionCommand extends
     }
 
     @Override
-    public @Nullable DeleteFactionCommand.DeleteFactionPacket createFromArgs(@NotNull FactionPlayer<?> executor,
-                                                                             @NotNull String[] args) {
+    protected @NotNull List<String> tabCompleteConfirmed(@NotNull FactionPlayer<?> player, @NotNull String[] args) {
+        return Collections.emptyList();
+    }
+
+    @Override
+    protected @NotNull List<String> tabCompleteConfirmed(@NotNull String[] args) {
+        return FactionHandler.getAllFactions().toList();
+    }
+
+    @Override
+    protected @Nullable DeleteFactionCommand.DeleteFactionPacket createFromArgsConfirmed(@NotNull FactionPlayer<?> executor, @NotNull String[] args) {
         try {
             return new DeleteFactionPacket(executor.getFaction(), executor);
         } catch (PlayerHasNoFactionException e) {
@@ -99,7 +99,7 @@ public class DeleteFactionCommand extends
     }
 
     @Override
-    public @Nullable DeleteFactionCommand.DeleteFactionConsolePacket createFromArgs(@NotNull String[] args) {
+    protected @Nullable DeleteFactionCommand.DeleteFactionConsolePacket createFromArgsConfirmed(@NotNull String[] args) {
         String registry = args[0];
         try {
             Faction<?> faction = FactionHandler.getFaction(registry);
@@ -108,6 +108,15 @@ public class DeleteFactionCommand extends
             Logger.api().logInfo("Couldn't find faction " + args[0]);
             return null;
         }
+    }
+
+    @Override
+    protected Function<Translatable, String> notConfirmedTranslatable() {
+        return translatable -> translatable
+                .getMessages()
+                .getCommand()
+                .get(label())
+                .get("not-confirmed");
     }
 
     protected record DeleteFactionPacket(@NotNull Faction<?> faction, @NotNull FactionPlayer<?> executor)
