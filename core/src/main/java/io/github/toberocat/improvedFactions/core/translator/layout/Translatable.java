@@ -15,6 +15,7 @@ public class Translatable {
 
     private Meta meta;
     private Messages messages;
+    private String prefix;
     private Map<String, XmlRank> ranks;
 
     public Translatable() {
@@ -50,5 +51,13 @@ public class Translatable {
 
     public void setRanks(Map<String, XmlRank> ranks) {
         this.ranks = ranks;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
     }
 }

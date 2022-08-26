@@ -2,7 +2,6 @@ package io.github.toberocat.improvedFactions.core.command.sub;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
-import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
@@ -12,9 +11,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Consumer;
 
-public class ListFactionCommand extends Command<ListFactionCommand.ListPacket> {
+public class ListFactionCommand extends
+        Command<ListFactionCommand.ListPacket, ListFactionCommand.ListConsolePacket> {
 
     @Override
     public @NotNull String label() {
@@ -41,16 +40,18 @@ public class ListFactionCommand extends Command<ListFactionCommand.ListPacket> {
 
     @Override
     public void run(@NotNull ListPacket packet) {
-        Consumer<String> sender = packet.receiver == null ? f ->
-                Logger.api().logInfo("§e%s", f)
-                : f -> packet.receiver.sendTranslatable(translatable -> translatable
-                .getMessages()
-                .getCommand()
-                .get(label())
-                .get("entry"),
-                new Placeholder("{faction}", f));
+        FactionHandler.getAllFactions().forEach(f -> packet.receiver
+                .sendTranslatable(translatable -> translatable
+                                .getMessages()
+                                .getCommand()
+                                .get(label())
+                                .get("entry"),
+                        new Placeholder("{faction}", f)));
+    }
 
-        FactionHandler.getAllFactions().forEach(sender);
+    @Override
+    public void runConsole(@NotNull ListConsolePacket packet) {
+        FactionHandler.getAllFactions().forEach(f -> Logger.api().logInfo("%s", f));
     }
 
     @Override
@@ -60,12 +61,15 @@ public class ListFactionCommand extends Command<ListFactionCommand.ListPacket> {
     }
 
     @Override
-    public @Nullable ListFactionCommand.ListPacket createFromArgs(@NotNull String[] args) {
-        return new ListPacket(null);
+    public @Nullable ListFactionCommand.ListConsolePacket createFromArgs(@NotNull String[] args) {
+        return new ListConsolePacket();
     }
 
-    protected static record ListPacket(@Nullable FactionPlayer<?> receiver)
+    protected record ListPacket(@NotNull FactionPlayer<?> receiver)
             implements CommandPacket {
+    }
+
+    protected record ListConsolePacket() implements ConsoleCommandPacket {
 
     }
 }

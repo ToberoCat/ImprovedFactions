@@ -20,17 +20,20 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.stream.Stream;
 
 public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
 
     private final MainIF plugin;
     private final Scheduler scheduler;
+    private final java.util.logging.Logger logger;
 
 
     public ImprovedImplementation(MainIF plugin) {
         this.plugin = plugin;
         this.scheduler = new SpigotScheduler(plugin);
+        this.logger = plugin.getLogger();
     }
 
     @Override
@@ -149,21 +152,21 @@ public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
 
     @Override
     public void logInfo(@NotNull String message, Object... plObjects) {
-
+        logger.log(Level.INFO, String.format(message, plObjects));
     }
 
     @Override
     public void logWarning(@NotNull String message) {
-
+        logger.log(Level.WARNING, message);
     }
 
     @Override
     public void logError(@NotNull String message) {
-
+        logger.log(Level.SEVERE, message);
     }
 
     @Override
     public void logException(@NotNull Exception e) {
-
+        e.printStackTrace();
     }
 }

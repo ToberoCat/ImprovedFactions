@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedFactions.core.utils;
 
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedList;
@@ -11,7 +12,11 @@ public class StringUtils {
         if (from == null) return null;
 
         String rep = from;
-        for (Placeholder placeholder : placeholders) rep = rep.replaceAll(placeholder.from(), placeholder.to());
+        for (Placeholder placeholder : placeholders)
+            rep =
+                    rep.replaceAll(escape(placeholder.from()),
+                            escape(placeholder.to()));
+
         return rep;
     }
 
@@ -25,5 +30,18 @@ public class StringUtils {
         }
 
         return items.toArray(String[]::new);
+    }
+
+    public static String escape(@NotNull String s) {
+        return s.replace("\\", "\\\\")
+                .replace("\t", "\\t")
+                .replace("\b", "\\b")
+                .replace("\n", "\\n")
+                .replace("\r", "\\r")
+                .replace("\f", "\\f")
+                .replace("'", "\\'")
+                .replace("\"", "\\\"")
+                .replace("{", "\\{")
+                .replace("}", "\\}");
     }
 }

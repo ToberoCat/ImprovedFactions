@@ -23,6 +23,7 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
     private final Player player;
     private final Translation translation;
     private final PersistentWrapper data;
+    private final Function<Translatable, String> PREFIX_QUERY = Translatable::getPrefix;
 
     public SpigotFactionPlayer(Player player) {
         this.player = player;
@@ -71,7 +72,8 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
     @Override
     public void sendTranslatable(@NotNull Function<Translatable, String> query, Placeholder... placeholders) {
         String msg = getMessage(query, placeholders);
-        if (msg != null) player.sendMessage(msg);
+        if (msg != null)
+            player.sendMessage(translation.getMessage(PREFIX_QUERY) + msg);
     }
 
     @Override

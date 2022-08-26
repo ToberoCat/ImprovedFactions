@@ -65,7 +65,7 @@ public class CommandSettings {
 
     public boolean showTab(@NotNull FactionPlayer<?> player) {
         if (requiredSpigotPermission != null &&
-                player.hasPermission(requiredSpigotPermission)) return false;
+                !player.hasPermission(requiredSpigotPermission)) return false;
 
         boolean hasFaction = player.inFaction();
         if (requiresFaction) return hasFaction && faction(player);
@@ -82,13 +82,13 @@ public class CommandSettings {
         String registry = player.getFactionRegistry();
         if (registry == null) return false;
 
-        Faction<?> faction = null;
+        Faction<?> faction;
         try {
             faction = FactionHandler.getFaction(registry);
         } catch (FactionNotInStorage e) {
             e.printStackTrace();
+            return false;
         }
-        if (faction == null) return false;
 
         Rank rank = faction.getPlayerRank(player);
         int priority = Rank.getPriority(rank);
@@ -107,7 +107,7 @@ public class CommandSettings {
 
     public boolean canExecute(@NotNull FactionPlayer<?> player) {
         if (requiredSpigotPermission != null &&
-                player.hasPermission(requiredSpigotPermission)) return false;
+                !player.hasPermission(requiredSpigotPermission)) return false;
 
         boolean hasFaction = player.inFaction();
         if (requiresFaction) return hasFaction && faction(player);

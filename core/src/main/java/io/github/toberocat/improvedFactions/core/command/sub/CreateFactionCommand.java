@@ -3,9 +3,11 @@ package io.github.toberocat.improvedFactions.core.command.sub;
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.*;
+import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -13,7 +15,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class CreateFactionCommand extends Command<CreateFactionCommand.CreateFactionPacket> {
+public class CreateFactionCommand extends
+        Command<CreateFactionCommand.CreateFactionPacket, CreateFactionCommand.CreateFactionPacket> {
     @Override
     public @NotNull String label() {
         return "create";
@@ -58,13 +61,14 @@ public class CreateFactionCommand extends Command<CreateFactionCommand.CreateFac
         }
 
         try {
-            create(owner, packet.display);
+            Faction<?> faction = create(owner, packet.display);
 
             owner.sendTranslatable(translatable -> translatable
-                    .getMessages()
-                    .getCommand()
-                    .get(label())
-                    .get("created-faction"));
+                            .getMessages()
+                            .getCommand()
+                            .get(label())
+                            .get("created-faction"),
+                    new Placeholder("{faction}", faction.getDisplay()));
         } catch (IllegalFactionNamingException e) {
             owner.sendTranslatable(translatable -> translatable
                     .getMessages()
@@ -98,11 +102,41 @@ public class CreateFactionCommand extends Command<CreateFactionCommand.CreateFac
         }
     }
 
-    private void create(@NotNull FactionPlayer<?> owner, @NotNull String display)
+    @Override
+    public void runConsole(@NotNull CreateFactionPacket packet) {
+        FactionPlayer<?> owner = packet.owner;
+
+        Logger logger = Logger.api();
+        try {
+            Faction<?> faction = create(owner, packet.display);
+            owner.sendTranslatable(translatable -> translatable
+                            .getMessages()
+                            .getCommand()
+                            .get(label())
+                            .get("created-faction"),
+                    new Placeholder("{faction}", faction.getDisplay()));
+
+            logger.logInfo("You created faction %s for %s",
+                    faction.getDisplay(), owner.getName());
+        } catch (IllegalFactionNamingException e) {
+            logger.logInfo("You can't name the faction %s. This name isn't allowed", packet.display);
+        } catch (FactionAlreadyExistsException e) {
+            logger.logInfo("You can't name another faction %s." +
+                    " This name is in use", packet.display);
+        } catch (FactionNotInStorage factionNotInStorage) {
+            logger.logInfo("Faction can't be found on disk");
+        } catch (PlayerHasNoFactionException e) {
+            logger.logInfo("Player has no faction");
+        } catch (PlayerIsAlreadyInFactionException e) {
+            logger.logInfo("Player %s is already in a faction", owner.getName());
+        }
+    }
+
+    private @NotNull Faction<?> create(@NotNull FactionPlayer<?> owner, @NotNull String display)
             throws IllegalFactionNamingException, FactionAlreadyExistsException,
             FactionNotInStorage, PlayerHasNoFactionException, PlayerIsAlreadyInFactionException {
         if (owner.inFaction()) throw new PlayerIsAlreadyInFactionException(owner.getFaction(), owner);
-        FactionHandler.createFaction(display, owner);
+        return FactionHandler.createFaction(display, owner);
     }
 
     @Override
@@ -149,8 +183,8 @@ public class CreateFactionCommand extends Command<CreateFactionCommand.CreateFac
         return new CreateFactionPacket(display, executor);
     }
 
-    public record CreateFactionPacket(@NotNull String display,
+    protected record CreateFactionPacket(@NotNull String display,
                                       @NotNull FactionPlayer<?> owner)
-            implements CommandPacket {
+            implements CommandPacket, ConsoleCommandPacket {
     }
 }

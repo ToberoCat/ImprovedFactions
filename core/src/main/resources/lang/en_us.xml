@@ -19,6 +19,7 @@
             <contributor type="translator">Josh-65</contributor>
         </contributors>
     </meta>
+    <prefix>§8[§eIF§8]§7 </prefix>
     <messages>
         <faction>
             <player> <!-- Messages players shall receive -->

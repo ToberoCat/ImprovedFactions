@@ -1,6 +1,5 @@
 package io.github.toberocat.improvedFactions.core.command.component;
 
-import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import org.jetbrains.annotations.NotNull;
@@ -11,11 +10,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-public abstract class Command<P extends Command.CommandPacket> {
+public abstract class Command<P extends Command.CommandPacket, C extends Command.ConsoleCommandPacket> {
 
     public static final String PERMISSION_NODE = "faction.command.";
 
-    protected final Map<String, Command<?>> commands = new HashMap<>();
+    protected final Map<String, Command<?, ?>> commands = new HashMap<>();
     private CommandSettings settings;
 
     @NotNull
@@ -38,20 +37,23 @@ public abstract class Command<P extends Command.CommandPacket> {
 
     public abstract @NotNull List<String> tabCompletePlayer(@NotNull FactionPlayer<?> player,
                                                             @NotNull String[] args);
+
     public abstract @NotNull List<String> tabCompleteConsole(@NotNull String[] args);
 
     public abstract void run(@NotNull P packet);
 
+    public abstract void runConsole(@NotNull C packet);
+
     public abstract @Nullable P createFromArgs(@NotNull FactionPlayer<?> executor,
                                                @NotNull String[] args);
 
-    public abstract @Nullable P createFromArgs(@NotNull String[] args);
+    public abstract @Nullable C createFromArgs(@NotNull String[] args);
 
-    public Map<String, Command<?>> getCommands() {
+    public Map<String, Command<?, ?>> getCommands() {
         return commands;
     }
 
-    public void add(@NotNull Command<?> command) {
+    public void add(@NotNull Command<?, ?> command) {
         commands.put(command.label(), command);
     }
 
@@ -61,5 +63,9 @@ public abstract class Command<P extends Command.CommandPacket> {
     }
 
     public interface CommandPacket {
+    }
+
+    public interface ConsoleCommandPacket {
+
     }
 }

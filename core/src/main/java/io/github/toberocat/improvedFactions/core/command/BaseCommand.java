@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseCommand extends Command<Command.CommandPacket> {
+public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleCommandPacket> {
 
     public BaseCommand() {
         add(new CreateFactionCommand());
@@ -46,14 +46,19 @@ public class BaseCommand extends Command<Command.CommandPacket> {
     }
 
     @Override
+    public void runConsole(@NotNull ConsoleCommandPacket packet) {
+
+    }
+
+    @Override
     public @Nullable Command.CommandPacket createFromArgs(@NotNull FactionPlayer<?> executor, @NotNull String[] args) {
         return new CommandPacket() {
         };
     }
 
     @Override
-    public @Nullable Command.CommandPacket createFromArgs(@NotNull String[] args) {
-        return new CommandPacket() {
+    public @Nullable Command.ConsoleCommandPacket createFromArgs(@NotNull String[] args) {
+        return new ConsoleCommandPacket() {
         };
     }
 }

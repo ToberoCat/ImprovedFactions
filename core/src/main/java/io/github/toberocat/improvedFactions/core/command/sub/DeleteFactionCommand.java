@@ -16,7 +16,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class DeleteFactionCommand extends Command<DeleteFactionCommand.DeleteFactionPacket> {
+public class DeleteFactionCommand extends
+        Command<DeleteFactionCommand.DeleteFactionPacket, DeleteFactionCommand.DeleteFactionConsolePacket> {
 
     @Override
     public @NotNull String label() {
@@ -46,17 +47,27 @@ public class DeleteFactionCommand extends Command<DeleteFactionCommand.DeleteFac
     @Override
     public void run(@NotNull DeleteFactionPacket packet) {
         FactionPlayer<?> executor = packet.executor;
-        if (executor == null) packet.faction.setFrozen(false); // Admin command allows everything
 
         try {
             packet.faction.deleteFaction();
         } catch (FactionIsFrozenException e) {
-            if (executor != null) executor.sendTranslatable(translatable ->
+            executor.sendTranslatable(translatable ->
                     translatable.getMessages()
                             .getCommand()
                             .get(label())
                             .get("faction-frozen"));
-            else Logger.api().logInfo("Faction is frozen and can't get deleted");
+        }
+    }
+
+    @Override
+    public void runConsole(@NotNull DeleteFactionConsolePacket packet) {
+        Faction<?> faction = packet.faction;
+        faction.setFrozen(false);
+
+        try {
+            packet.faction.deleteFaction();
+        } catch (FactionIsFrozenException e) {
+            Logger.api().logInfo("Couldn't delete faction, because it's frozen");
         }
     }
 
@@ -82,18 +93,22 @@ public class DeleteFactionCommand extends Command<DeleteFactionCommand.DeleteFac
     }
 
     @Override
-    public @Nullable DeleteFactionCommand.DeleteFactionPacket createFromArgs(@NotNull String[] args) {
+    public @Nullable DeleteFactionCommand.DeleteFactionConsolePacket createFromArgs(@NotNull String[] args) {
         String registry = args[0];
         try {
             Faction<?> faction = FactionHandler.getFaction(registry);
-            return new DeleteFactionPacket(faction, null);
+            return new DeleteFactionConsolePacket(faction);
         } catch (FactionNotInStorage e) {
             Logger.api().logInfo("Couldn't find faction " + args[0]);
             return null;
         }
     }
 
-    public record DeleteFactionPacket(@NotNull Faction<?> faction, @Nullable FactionPlayer<?> executor)
+    protected record DeleteFactionPacket(@NotNull Faction<?> faction, @NotNull FactionPlayer<?> executor)
             implements CommandPacket {
+    }
+
+    protected record DeleteFactionConsolePacket(@NotNull Faction<?> faction)
+            implements ConsoleCommandPacket {
     }
 }
