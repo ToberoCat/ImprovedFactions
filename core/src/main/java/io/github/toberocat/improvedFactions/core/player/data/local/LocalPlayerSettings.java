@@ -1,7 +1,6 @@
 package io.github.toberocat.improvedFactions.core.player.data.local;
 
 import io.github.toberocat.improvedFactions.core.exceptions.setting.ErrorParsingSettingException;
-import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.setting.Setting;
 import io.github.toberocat.improvedFactions.core.setting.SettingHolder;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
@@ -19,10 +18,9 @@ public class LocalPlayerSettings implements SettingHolder {
     private final UUID id;
 
 
-    public LocalPlayerSettings(@NotNull UUID id) {
+    public LocalPlayerSettings(@NotNull FileAccess access, @NotNull UUID id) {
         this.id = id;
-        this.access = new FileAccess(ImprovedFactions.api().getDataFolder(),
-                FileAccess.PLAYERS_FOLDER);
+        this.access = access;
         this.settingValues = loadFromFile().settingValues();
     }
 

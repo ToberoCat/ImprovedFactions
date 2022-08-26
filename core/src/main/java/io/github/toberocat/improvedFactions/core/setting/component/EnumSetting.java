@@ -4,7 +4,14 @@ import io.github.toberocat.improvedFactions.core.exceptions.setting.ErrorParsing
 import io.github.toberocat.improvedFactions.core.setting.Setting;
 import org.jetbrains.annotations.NotNull;
 
-public record EnumSetting<E extends Enum<E>>(@NotNull String label) extends Setting<E> {
+public class EnumSetting<E extends Enum<E>> extends Setting<E> {
+
+    private final String label;
+
+    public EnumSetting(String label) {
+        this.label = label;
+    }
+
     @Override
     public @NotNull E createFromSave(@NotNull String saved) throws ErrorParsingSettingException {
         String[] split = saved.split(":");
@@ -22,5 +29,10 @@ public record EnumSetting<E extends Enum<E>>(@NotNull String label) extends Sett
     @Override
     public @NotNull String toSave(E value) {
         return value.getClass().getName() + ":" + value.ordinal();
+    }
+
+    @Override
+    public @NotNull String label() {
+        return label;
     }
 }

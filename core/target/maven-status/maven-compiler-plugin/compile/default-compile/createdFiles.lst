@@ -82,6 +82,7 @@ io\github\toberocat\improvedFactions\core\faction\components\rank\allies\AllyOwn
 io\github\toberocat\improvedFactions\core\claims\worldclaim\local\LocalWorldClaim.class
 io\github\toberocat\improvedFactions\core\command\BaseCommand$2.class
 io\github\toberocat\improvedFactions\core\faction\local\module\LocalFactionModule.class
+io\github\toberocat\improvedFactions\core\player\data\local\LocalPlayerSettings$MapWrapper.class
 io\github\toberocat\improvedFactions\core\temp\TempDataManager.class
 io\github\toberocat\improvedFactions\core\faction\components\rank\members\FactionOwnerRank.class
 io\github\toberocat\improvedFactions\core\utils\DateUtils.class
@@ -118,6 +119,7 @@ io\github\toberocat\improvedFactions\core\claims\worldclaim\local\XZPair.class
 io\github\toberocat\improvedFactions\core\database\mysql\builder\Select.class
 io\github\toberocat\improvedFactions\core\item\ItemStack.class
 io\github\toberocat\improvedFactions\core\command\sub\DeleteFactionCommand$DeleteFactionPacket.class
+io\github\toberocat\improvedFactions\core\player\data\local\LocalPlayerSettings.class
 io\github\toberocat\improvedFactions\core\faction\local\LocalFaction$1.class
 io\github\toberocat\improvedFactions\core\translator\XmlLoader.class
 io\github\toberocat\improvedFactions\core\command\sub\ClaimCommand.class
@@ -134,6 +136,7 @@ io\github\toberocat\improvedFactions\core\exceptions\faction\FactionException.cl
 io\github\toberocat\improvedFactions\core\event\EventListener.class
 io\github\toberocat\improvedFactions\core\faction\components\rank\members\FactionAdminRank.class
 io\github\toberocat\improvedFactions\core\faction\local\LocalFactionDataType.class
+io\github\toberocat\improvedFactions\core\player\data\database\sql\MySqlPlayerHandler$1.class
 io\github\toberocat\improvedFactions\core\exceptions\NoImplementationProvidedException.class
 io\github\toberocat\improvedFactions\core\command\sub\CreateFactionCommand$CreateFactionPacket.class
 io\github\toberocat\improvedFactions\core\database\DatabaseHandle.class

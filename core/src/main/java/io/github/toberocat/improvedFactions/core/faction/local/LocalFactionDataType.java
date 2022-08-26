@@ -28,5 +28,6 @@ public record LocalFactionDataType(@NotNull String registry,
                                    @NotNull List<Report> reports,
                                    @NotNull Map<UUID, String> ranks,
                                    @NotNull Map<String, LocalFactionModule> modules,
-                                   @NotNull Map<String, String[]> permissions) {
+                                   @NotNull Map<String, String[]> permissions,
+                                   @NotNull Map<String, String> settingValues) {
 }

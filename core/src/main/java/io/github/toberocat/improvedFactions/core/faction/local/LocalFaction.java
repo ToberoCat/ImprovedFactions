@@ -8,6 +8,7 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.*;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.leave.PlayerIsOwnerException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.AlreadyInvitedException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.CantInviteYourselfException;
+import io.github.toberocat.improvedFactions.core.exceptions.setting.ErrorParsingSettingException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.OpenType;
 import io.github.toberocat.improvedFactions.core.faction.components.Description;
@@ -28,6 +29,7 @@ import io.github.toberocat.improvedFactions.core.permission.Permission;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.setting.Setting;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.DateUtils;
@@ -51,6 +53,8 @@ public class LocalFaction implements Faction<LocalFaction> {
     private final Map<String, LocalFactionModule> modules;
     private final Map<String, String[]> permissions;
     private final Map<UUID, String> memberRanks;
+    private final Map<String, String> settingValues;
+
 
     private final @NotNull List<String> description;
     private final List<String> enemies;
@@ -93,6 +97,7 @@ public class LocalFaction implements Faction<LocalFaction> {
         this.modules = new HashMap<>();
         this.permissions = new HashMap<>();
         this.memberRanks = new HashMap<>();
+        this.settingValues = new HashMap<>();
 
         this.description = new ArrayList<>();
         this.enemies = new ArrayList<>();
@@ -118,6 +123,7 @@ public class LocalFaction implements Faction<LocalFaction> {
 
         this.modules = dataType.modules();
         this.permissions = dataType.permissions();
+        this.settingValues = dataType.settingValues();
 
         this.memberRanks = dataType.ranks();
         this.members = dataType.members();
@@ -143,7 +149,7 @@ public class LocalFaction implements Faction<LocalFaction> {
     public @NotNull LocalFactionDataType toDataType() {
         return new LocalFactionDataType(registry, display, motd, tag, type, frozen, permanent,
                 createdAt, owner, description, banned, members, sentInvites, receivedInvites,
-                allies, enemies, factionReports, memberRanks, modules, permissions);
+                allies, enemies, factionReports, memberRanks, modules, permissions, settingValues);
     }
 
     /**
@@ -1003,5 +1009,26 @@ public class LocalFaction implements Faction<LocalFaction> {
     @Override
     public String toString() {
         return registry;
+    }
+
+    @Override
+    public <T> void setSetting(@NotNull Setting<T> setting, T value) {
+        settingValues.put(setting.label(), setting.toSave(value));
+    }
+
+    @Override
+    public <T> @NotNull T getSetting(@NotNull Setting<T> setting) throws ErrorParsingSettingException {
+        String value = settingValues.get(setting.label());
+        if (value == null) throw new ErrorParsingSettingException();
+
+        return setting.createFromSave(value);
+    }
+
+    @Override
+    public @NotNull Stream<Setting<?>> listSettings() {
+        return settingValues
+                .keySet()
+                .stream()
+                .map(Setting::getSetting);
     }
 }
