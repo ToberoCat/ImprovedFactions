@@ -1,12 +1,14 @@
 package io.github.toberocat.improvedFactions.core.faction.local;
 
 import io.github.toberocat.improvedFactions.core.event.EventExecutor;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionIsFrozenException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
-import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerIsAlreadyInFactionException;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerIsBannedException;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandlerInterface;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
+import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -19,9 +21,9 @@ import java.util.stream.Stream;
 
 // ToDo: Implement everything
 public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction> {
+    private static LocalFactionHandler instance;
     private final Map<String, LocalFaction> factions;
     private final FileAccess access;
-    private static LocalFactionHandler instance;
 
     public LocalFactionHandler() {
         this.factions = new HashMap<>();
@@ -35,10 +37,14 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
     }
 
     @Override
-    public @NotNull LocalFaction create(@NotNull String display, @NotNull FactionPlayer<?> owner) {
+    public @NotNull LocalFaction create(@NotNull String display, @NotNull FactionPlayer<?> owner)
+            throws FactionIsFrozenException,
+            PlayerIsAlreadyInFactionException,
+            PlayerIsBannedException {
         LocalFaction faction = new LocalFaction(display, owner);
-        factions.put(faction.getRegistry(), faction);
+        owner.getDataContainer().set(PersistentHandler.FACTION_KEY, faction.getRegistry());
 
+        factions.put(faction.getRegistry(), faction);
         EventExecutor.getExecutor().createFaction(faction, owner);
         return faction;
     }
@@ -49,8 +55,8 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
                 new FactionNotInStorage(registry, FactionNotInStorage.StorageType.LOCAL_FILE);
 
         try {
-            return access.read(LocalFaction.class,
-                    FileAccess.FACTION_FOLDER, registry + ".json");
+            return new LocalFaction(access.read(LocalFactionDataType.class,
+                    FileAccess.FACTION_FOLDER, registry + ".json"));
         } catch (IOException e) {
             throw new FactionNotInStorage(registry, FactionNotInStorage.StorageType.LOCAL_FILE);
         }
@@ -78,11 +84,20 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
 
     @Override
     public void deleteCache(@NotNull String registry) {
-        factions.remove(registry);
+        LocalFaction faction = factions.remove(registry);
+        if (faction == null) return;
+
+        try {
+            access.write(faction.toDataType(),
+                    FileAccess.FACTION_FOLDER, registry + ".json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public @NotNull FactionRank getSavedRank(@NotNull OfflineFactionPlayer<?> player) {
-        return null;
+    public void deleteFromFile(@NotNull String registry) {
+        factions.remove(registry);
+        access.getFile(FileAccess.FACTION_FOLDER, registry + ".json").delete();
     }
 }

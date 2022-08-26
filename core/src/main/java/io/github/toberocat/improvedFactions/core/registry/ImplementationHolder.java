@@ -2,6 +2,7 @@ package io.github.toberocat.improvedFactions.core.registry;
 
 import io.github.toberocat.improvedFactions.core.claims.ClaimHandler;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
+import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.core.handler.*;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
@@ -42,7 +43,8 @@ public class ImplementationHolder {
 
     private static void createFolders() {
         File file = ImprovedFactions.api().getDataFolder();
-        List.of("lang", "Data/Chunks", "Data/Factions")
+        List.of("lang", "Data/Chunks", "Data/Factions",
+                        "Data/Persistent")
                 .forEach(x -> new File(file, x).mkdirs());
     }
 
@@ -71,6 +73,7 @@ public class ImplementationHolder {
         ClaimHandler.dispose();
         Translation.dispose();
         PersistentHandler.api().dispose();
+        FactionHandler.dispose();
     }
 
     public static void playerJoin(@NotNull FactionPlayer<?> player) {

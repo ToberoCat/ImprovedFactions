@@ -4,6 +4,7 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotIn
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
+import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import org.jetbrains.annotations.NotNull;
 
@@ -86,7 +87,12 @@ public class CommandSettings {
         try {
             faction = FactionHandler.getFaction(registry);
         } catch (FactionNotInStorage e) {
-            e.printStackTrace();
+            player.getDataContainer().remove(PersistentHandler.FACTION_KEY);
+            player.sendTranslatable(translatable -> translatable
+                    .getMessages()
+                    .getCommand()
+                    .get("command-settings")
+                    .get("resetted-faction-registry"));
             return false;
         }
 
@@ -97,8 +103,8 @@ public class CommandSettings {
         if (requiresRank != null && !requiresRank.equals(rank.getRegistry()))
             return false;
 
-        return requiredFactionPermission != null &&
-                !faction.hasPermission(requiredFactionPermission, rank);
+        return requiredFactionPermission == null ||
+                faction.hasPermission(requiredFactionPermission, rank);
     }
 
     private boolean showNoFaction(@NotNull FactionPlayer<?> player) {

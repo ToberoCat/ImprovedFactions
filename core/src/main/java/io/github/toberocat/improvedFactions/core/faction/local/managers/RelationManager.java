@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 
 import java.util.ArrayList;
+import java.util.List;
 
 //ToDo: Rewrite required
 public class RelationManager {
     protected final ArrayList<String> allyInvitations;
-    private ArrayList<String> enemies;
-    private ArrayList<String> allies;
+    private List<String> enemies;
+    private List<String> allies;
     private Faction<?> faction;
 
     public RelationManager() {
@@ -26,19 +27,19 @@ public class RelationManager {
         this.faction = faction;
     }
 
-    public ArrayList<String> getEnemies() {
+    public List<String> getEnemies() {
         return enemies;
     }
 
-    public void setEnemies(ArrayList<String> enemies) {
+    public void setEnemies(List<String> enemies) {
         this.enemies = enemies;
     }
 
-    public ArrayList<String> getAllies() {
+    public List<String> getAllies() {
         return allies;
     }
 
-    public void setAllies(ArrayList<String> allies) {
+    public void setAllies(List<String> allies) {
         this.allies = allies;
     }
 

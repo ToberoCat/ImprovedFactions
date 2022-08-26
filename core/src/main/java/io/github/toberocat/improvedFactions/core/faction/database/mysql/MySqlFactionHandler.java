@@ -1,16 +1,19 @@
 package io.github.toberocat.improvedFactions.core.faction.database.mysql;
 
 import io.github.toberocat.improvedFactions.core.database.DatabaseHandle;
+import io.github.toberocat.improvedFactions.core.database.DatabaseVar;
 import io.github.toberocat.improvedFactions.core.database.mysql.MySqlDatabase;
 import io.github.toberocat.improvedFactions.core.database.mysql.builder.Select;
 import io.github.toberocat.improvedFactions.core.event.EventExecutor;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionAlreadyExistsException;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionIsFrozenException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.IllegalFactionNamingException;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.GuestRank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandlerInterface;
+import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
 import org.jetbrains.annotations.NotNull;
@@ -45,8 +48,9 @@ public class MySqlFactionHandler implements FactionHandlerInterface<MySqlFaction
     @Override
     public @NotNull MySqlFaction create(@NotNull String display, @NotNull FactionPlayer<?> owner)
             throws IllegalFactionNamingException, FactionAlreadyExistsException {
-
         MySqlFaction faction = new MySqlFaction(display, owner);
+        owner.getDataContainer().set(PersistentHandler.FACTION_KEY, faction.getRegistry());
+
         EventExecutor.getExecutor().createFaction(faction, owner);
         return faction;
     }
@@ -87,8 +91,8 @@ public class MySqlFactionHandler implements FactionHandlerInterface<MySqlFaction
     @Override
     public @NotNull Stream<String> getAllFactions() {
         return database.rowSelect(new Select()
-                .setTable("factions")
-                .setColumns("registry"))
+                        .setTable("factions")
+                        .setColumns("registry"))
                 .getRows()
                 .stream()
                 .map(x -> x.get("registry").toString());
@@ -100,6 +104,11 @@ public class MySqlFactionHandler implements FactionHandlerInterface<MySqlFaction
     }
 
     @Override
+    public void deleteFromFile(@NotNull String registry) {
+        factions.remove(registry);
+        database.executeUpdate(MySqlDatabase.DELETE_FACTION, DatabaseVar.of("registry", registry));
+    }
+
     public @NotNull FactionRank getSavedRank(@NotNull OfflineFactionPlayer<?> player) {
         return (FactionRank) Rank.fromString(database.rowSelect(new Select()
                         .setTable("players")

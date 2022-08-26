@@ -6,6 +6,10 @@ import io.github.toberocat.improvedFactions.core.event.EventExecutor;
 import io.github.toberocat.improvedFactions.core.exceptions.description.DescriptionHasNoLine;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.*;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.leave.PlayerIsOwnerException;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.AlreadyInvitedException;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.CantInviteYourselfException;
+import io.github.toberocat.improvedFactions.core.faction.Faction;
+import io.github.toberocat.improvedFactions.core.faction.OpenType;
 import io.github.toberocat.improvedFactions.core.faction.components.Description;
 import io.github.toberocat.improvedFactions.core.faction.components.FactionClaims;
 import io.github.toberocat.improvedFactions.core.faction.components.FactionModule;
@@ -16,22 +20,19 @@ import io.github.toberocat.improvedFactions.core.faction.components.rank.members
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionOwnerRank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.faction.components.report.FactionReports;
+import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
+import io.github.toberocat.improvedFactions.core.faction.local.managers.FactionMemberManager;
+import io.github.toberocat.improvedFactions.core.faction.local.managers.FactionPerm;
+import io.github.toberocat.improvedFactions.core.faction.local.managers.RelationManager;
 import io.github.toberocat.improvedFactions.core.faction.local.module.LocalFactionModule;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
+import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.DateUtils;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
-import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.AlreadyInvitedException;
-import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.CantInviteYourselfException;
-import io.github.toberocat.improvedFactions.core.faction.Faction;
-import io.github.toberocat.improvedFactions.core.faction.OpenType;
-import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
-import io.github.toberocat.improvedFactions.core.faction.local.managers.FactionMemberManager;
-import io.github.toberocat.improvedFactions.core.faction.local.managers.FactionPerm;
-import io.github.toberocat.improvedFactions.core.faction.local.managers.RelationManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.LocalDateTime;
@@ -88,11 +89,49 @@ public class LocalFaction implements Faction<LocalFaction> {
         this.relationManager = new RelationManager(this);
     }
 
-    public LocalFaction(@NotNull String display, @NotNull FactionPlayer<?> owner) {
+    public LocalFaction(@NotNull LocalFactionDataType dataType) {
+        this.registry = dataType.registry();
+        this.display = dataType.display();
+        this.motd = dataType.motd();
+        this.tag = dataType.tag();
+        this.permanent = dataType.permanent();
+        this.frozen = dataType.frozen();
+        this.createdAt = dataType.createdAt();
+        this.type = dataType.openType();
+        this.owner = dataType.owner();
+        this.description = dataType.description();
+
+        this.factionPermissions = new FactionPerm(this);
+        this.factionMembers = new FactionMemberManager(this);
+        this.relationManager = new RelationManager(this);
+
+        this.factionPermissions.setMemberRanks(dataType.ranks());
+
+        this.factionMembers.getMembers().addAll(dataType.members());
+        this.factionMembers.getBanned().addAll(dataType.banned());
+
+        this.relationManager.setAllies(dataType.allies());
+        this.relationManager.setEnemies(dataType.enemies());
+    }
+
+    public LocalFaction(@NotNull String display, @NotNull FactionPlayer<?> owner)
+            throws FactionIsFrozenException,
+            PlayerIsAlreadyInFactionException,
+            PlayerIsBannedException {
         this();
         this.registry = Faction.displayToRegistry(display);
         this.display = display;
         this.owner = owner.getUniqueId();
+        joinPlayer(owner, (FactionRank) Rank.fromString(FactionOwnerRank.REGISTRY));
+    }
+
+    public @NotNull LocalFactionDataType toDataType() {
+        return new LocalFactionDataType(registry, display, motd, tag, type,
+                frozen, permanent, createdAt, owner, description,
+                getBanned().toList(), getMembers().toList(),
+                getSentInvites().toList(), getReceivedInvites().toList(),
+                getAllies().toList(), getEnemies().toList(), new ArrayList<>(),
+                factionPermissions.getMemberRanks(), modules);
     }
 
     /**
@@ -379,10 +418,7 @@ public class LocalFaction implements Faction<LocalFaction> {
             OfflineFactionPlayer<?> player = ImprovedFactions.api().getOfflinePlayer(uuid);
             if (player == null) return;
 
-            try {
-                kickPlayer(player);
-            } catch (FactionIsFrozenException ignored) {
-            }
+            player.getDataContainer().remove(PersistentHandler.FACTION_KEY);
         });
 
         getClaims().unclaimAll();
@@ -469,6 +505,7 @@ public class LocalFaction implements Faction<LocalFaction> {
     public boolean kickPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
+        player.getDataContainer().remove(PersistentHandler.FACTION_KEY);
         factionMembers.kick(player);
         factionPermissions.setRank(player, null);
         return true;
@@ -656,7 +693,7 @@ public class LocalFaction implements Faction<LocalFaction> {
     @Override
     public @NotNull Stream<String> getSentInvites() {
         // ToDo: get all invites the faction sent
-        return null;
+        return Stream.empty();
     }
 
     /**
@@ -667,7 +704,7 @@ public class LocalFaction implements Faction<LocalFaction> {
     @Override
     public @NotNull Stream<String> getReceivedInvites() {
         // ToDo: get all invites the faction received
-        return null;
+        return Stream.empty();
     }
 
     /**
@@ -803,7 +840,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      * Broadcast a translatable message to all players.
      * The translation will be individual for each player based on their selected language
      *
-     * @param query        The key of the translatable message.
+     * @param query      The key of the translatable message.
      * @param parseables
      */
     @Override

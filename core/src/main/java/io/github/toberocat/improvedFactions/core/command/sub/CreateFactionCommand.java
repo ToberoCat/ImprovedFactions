@@ -99,6 +99,8 @@ public class CreateFactionCommand extends
                     .getCommand()
                     .get(label())
                     .get("player-already-in-faction"));
+        } catch (FactionIsFrozenException | PlayerIsBannedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -129,12 +131,15 @@ public class CreateFactionCommand extends
             logger.logInfo("Player has no faction");
         } catch (PlayerIsAlreadyInFactionException e) {
             logger.logInfo("Player %s is already in a faction", owner.getName());
+        } catch (FactionIsFrozenException | PlayerIsBannedException e) {
+            e.printStackTrace();
         }
     }
 
     private @NotNull Faction<?> create(@NotNull FactionPlayer<?> owner, @NotNull String display)
             throws IllegalFactionNamingException, FactionAlreadyExistsException,
-            FactionNotInStorage, PlayerHasNoFactionException, PlayerIsAlreadyInFactionException {
+            FactionNotInStorage, PlayerHasNoFactionException, PlayerIsAlreadyInFactionException,
+            FactionIsFrozenException, PlayerIsBannedException {
         if (owner.inFaction()) throw new PlayerIsAlreadyInFactionException(owner.getFaction(), owner);
         return FactionHandler.createFaction(display, owner);
     }

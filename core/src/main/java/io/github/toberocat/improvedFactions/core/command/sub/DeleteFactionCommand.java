@@ -50,6 +50,11 @@ public class DeleteFactionCommand extends
 
         try {
             packet.faction.deleteFaction();
+            executor.sendTranslatable(translatable -> translatable
+                    .getMessages()
+                    .getCommand()
+                    .get(label())
+                    .get("deleted-faction"));
         } catch (FactionIsFrozenException e) {
             executor.sendTranslatable(translatable ->
                     translatable.getMessages()
@@ -66,6 +71,7 @@ public class DeleteFactionCommand extends
 
         try {
             packet.faction.deleteFaction();
+            Logger.api().logInfo("Faction %s got deleted", packet.faction.getRegistry());
         } catch (FactionIsFrozenException e) {
             Logger.api().logInfo("Couldn't delete faction, because it's frozen");
         }

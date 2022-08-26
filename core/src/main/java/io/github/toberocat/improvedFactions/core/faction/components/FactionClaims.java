@@ -84,6 +84,8 @@ public final class FactionClaims<F extends Faction<F>> {
     }
 
     public void unclaimAll() {
+        if (claims == null) forceCalculate();
+
         claims.forEach((worldName, chunks) -> chunks.forEach(FactionClaim::unclaim));
         claims.clear();
     }

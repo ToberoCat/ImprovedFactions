@@ -128,6 +128,7 @@ io\github\toberocat\improvedFactions\core\claims\worldclaim\database\mysql\MySql
 io\github\toberocat\improvedFactions\core\exceptions\faction\FactionException.class
 io\github\toberocat\improvedFactions\core\event\EventListener.class
 io\github\toberocat\improvedFactions\core\faction\components\rank\members\FactionAdminRank.class
+io\github\toberocat\improvedFactions\core\faction\local\LocalFactionDataType.class
 io\github\toberocat\improvedFactions\core\exceptions\NoImplementationProvidedException.class
 io\github\toberocat\improvedFactions\core\command\sub\CreateFactionCommand$CreateFactionPacket.class
 io\github\toberocat\improvedFactions\core\database\DatabaseHandle.class

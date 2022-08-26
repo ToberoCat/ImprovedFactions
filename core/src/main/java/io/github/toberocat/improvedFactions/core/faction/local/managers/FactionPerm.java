@@ -10,6 +10,7 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionHandl
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.local.LocalFactionHandler;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class FactionPerm {
         memberRanks = new HashMap<>();
     }
 
-    public Rank getPlayerRank(OfflineFactionPlayer<?> player) throws FactionNotInStorage {
+    public @NotNull Rank getPlayerRank(OfflineFactionPlayer<?> player) throws FactionNotInStorage {
         if (faction.isMember(player)) return getRank(player);
         if (faction.isAllied(player)) return getRank(player).getEquivalent();
         return Rank.fromString(GuestRank.REGISTRY);
@@ -42,7 +43,7 @@ public class FactionPerm {
         if (handler == null) throw new FactionHandlerNotFound("A local faction " +
                 "required a local handler, but didn't find it. " +
                 "This is a critical bug and needs to be reported to the dev using discord / github");
-        return handler.getSavedRank(player);
+        return Rank.fromString(memberRanks.get(player.getUniqueId()));
     }
 
     public void setRank(OfflineFactionPlayer<?> player, FactionRank rank) {

@@ -19,6 +19,7 @@
             <contributor type="translator">Josh-65</contributor>
         </contributors>
     </meta>
+    <prefix>§8[§eIF§8]§7 </prefix>
     <messages>
         <faction>
             <player> <!-- Messages players shall receive -->
@@ -37,6 +38,9 @@
             </broadcast>
         </faction>
         <command>
+            <command-settings>
+                <resetted-faction-registry>Couldn't find your saved faction. Resetted the container</resetted-faction-registry>
+            </command-settings>
             <create>
                 <description>PLACEHOLDER desc</description>
                 <created-faction>PLACEHOLDER{faction}</created-faction>
@@ -50,6 +54,7 @@
             </create>
             <delete>
                 <description>PLACEHOLDER</description>
+                <deleted-faction>PLACEHOLDER</deleted-faction>
                 <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
                 <faction-frozen>PLACEHOLDER</faction-frozen>
                 <player-has-no-faction>PLACEHOLDER</player-has-no-faction>

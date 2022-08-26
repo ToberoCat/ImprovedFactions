@@ -1,12 +1,10 @@
 package io.github.toberocat.improvedFactions.core.faction.handler;
 
-import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionAlreadyExistsException;
-import io.github.toberocat.improvedFactions.core.exceptions.faction.IllegalFactionNamingException;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.*;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.sender.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.sender.player.OfflineFactionPlayer;
-import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.database.mysql.MySqlFactionHandler;
 import io.github.toberocat.improvedFactions.core.faction.local.LocalFactionHandler;
@@ -33,7 +31,8 @@ public abstract class FactionHandler {
 
     public static @NotNull Faction<?> createFaction(@NotNull String display,
                                                     @NotNull FactionPlayer<?> owner)
-            throws IllegalFactionNamingException, FactionAlreadyExistsException {
+            throws IllegalFactionNamingException, FactionAlreadyExistsException,
+            FactionIsFrozenException, PlayerIsAlreadyInFactionException, PlayerIsBannedException {
         return handler.create(display, owner);
     }
 
@@ -58,6 +57,10 @@ public abstract class FactionHandler {
         handler.deleteCache(registry);
     }
 
+    public static void deleteFromFile(@NotNull String registry) {
+        handler.deleteFromFile(registry);
+    }
+
     public static boolean exists(@NotNull String registry) {
         return handler.exists(registry);
     }
@@ -79,18 +82,4 @@ public abstract class FactionHandler {
                 .keySet()
                 .forEach(FactionHandler::deleteCache);
     }
-
-    /**
-     * Gets the rank that's being saved for a player. No post-processing got done with this rank yet.
-     * It can only be a faction rank (Owner, Admin, Moderator, Elder, Member) and a Guest (No faction)
-     * <p>
-     * Note: Ally relation is being ignored!
-     *
-     * @param player The player you ant to get the rank from
-     * @return The raw rank of the player
-     */
-    public static @NotNull FactionRank getSavedRank(@NotNull OfflineFactionPlayer<?> player) {
-        return handler.getSavedRank(player);
-    }
-
 }
