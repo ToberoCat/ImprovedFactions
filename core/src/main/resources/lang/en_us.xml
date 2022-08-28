@@ -61,7 +61,7 @@
                 <player-has-no-faction>That player is not in a faction</player-has-no-faction>
             </delete>
             <list>
-                <description>PLACEHOLDER</description>
+                <description>List all factions that exists on the server</description>
                 <entry>§e{faction}§7 - {description}</entry>
             </list>
             <claim>
