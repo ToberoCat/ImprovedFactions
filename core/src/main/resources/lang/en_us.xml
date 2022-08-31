@@ -72,6 +72,7 @@
                 <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
                 <player-has-no-faction>That player is not in a faction.</player-has-no-faction>
                 <chunk-already-claimed>This chunk has already been claimed.</chunk-already-claimed>
+                <total-area>You claimed §e{success}/{total}§7 chunks successfully</total-area>
             </claim>
         </command>
     </messages>

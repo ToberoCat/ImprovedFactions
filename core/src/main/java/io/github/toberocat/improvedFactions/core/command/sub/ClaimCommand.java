@@ -61,16 +61,16 @@ public class ClaimCommand extends AutoAreaCommand {
     }
 
     @Override
-    protected void single(@NotNull FactionPlayer<?> player, @NotNull Location location) {
-        System.out.println(location);
+    protected boolean single(@NotNull FactionPlayer<?> player, @NotNull Location location, boolean area) {
         World<?> world = ImprovedFactions.api().getWorld(location.world());
-        if (world == null) return;
+        if (world == null) return false;
 
         try {
             Faction<?> faction = player.getFaction();
             ClaimHandler.protectChunk(faction.getRegistry(),
                     world.getChunkAt(location.chunkX(), location.chunkZ()));
 
+            if (area) return true;
             player.sendTranslatable(translatable -> translatable
                     .getMessages()
                     .getCommand()
@@ -95,5 +95,15 @@ public class ClaimCommand extends AutoAreaCommand {
                     .get(label())
                     .get("chunk-already-claimed"));
         }
+        return false;
+    }
+
+    @Override
+    protected Function<Translatable, String> sendTotal() {
+        return translatable -> translatable
+                .getMessages()
+                .getCommand()
+                .get(label())
+                .get("total-area");
     }
 }

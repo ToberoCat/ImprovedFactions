@@ -23,6 +23,7 @@ io\github\toberocat\improvedFactions\core\translator\layout\messages\Messages.cl
 io\github\toberocat\improvedFactions\core\item\Item.class
 io\github\toberocat\improvedFactions\core\utils\CUtils.class
 io\github\toberocat\improvedFactions\core\command\sub\CreateFactionCommand.class
+io\github\toberocat\improvedFactions\core\command\sub\Unclaim.class
 io\github\toberocat\improvedFactions\core\database\Database.class
 io\github\toberocat\improvedFactions\core\translator\layout\ranks\XmlRank.class
 io\github\toberocat\improvedFactions\core\exceptions\faction\PlayerIsBannedException.class

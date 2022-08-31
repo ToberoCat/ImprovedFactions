@@ -2,6 +2,7 @@ package io.github.toberocat.improvedFactions.core.command.component;
 
 import io.github.toberocat.improvedFactions.core.location.Location;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -42,26 +43,25 @@ public abstract class AutoAreaCommand extends
                 player.sendTranslatable(autoDisabled());
             } else {
                 CHUNK_MOVES.computeIfAbsent(player.getUniqueId(), id -> user ->
-                        single(user, user.getLocation()));
+                        single(user, user.getLocation(), false));
                 player.sendTranslatable(autoActivated());
             }
         } else {
             Location loc = player.getLocation();
-            int x;
-            int y = (int) loc.y();
-            int z;
 
-            Location lastLoc = null;
-            for (double i = 0.0; i < 360.0; i += 0.1) {
-                double angle = i * Math.PI / 180;
-                x = (int) (loc.x() + packet.radius * Math.cos(angle));
-                z = (int) (loc.z() + packet.radius * Math.sin(angle));
-                Location now = new Location(x, y, z, loc.world());
-
-                if (lastLoc == null || (now.chunkX() != lastLoc.chunkX() && now.chunkZ() != lastLoc.chunkZ()))
-                    single(player, now);
-                lastLoc = now;
+            int radius = packet.radius;
+            int success = 0, fail = 0;
+            for (int i = -radius; i < radius; i++) {
+                for (int j = -radius; j < radius; j++) {
+                    Location now = new Location(loc.x() + i * 16, loc.y(), loc.z() + j * 16, loc.world());
+                    if(single(player, now, true)) success++;
+                    else fail++;
+                }
             }
+
+            player.sendTranslatable(sendTotal(),
+                    new Placeholder("{success}", String.valueOf(success)),
+                    new Placeholder("{total}", String.valueOf(success + fail)));
         }
     }
 
@@ -96,7 +96,9 @@ public abstract class AutoAreaCommand extends
 
     protected abstract Function<Translatable, String> autoDisabled();
 
-    protected abstract void single(@NotNull FactionPlayer<?> player, @NotNull Location location);
+    protected abstract boolean single(@NotNull FactionPlayer<?> player, @NotNull Location location, boolean area);
+
+    protected abstract Function<Translatable, String> sendTotal();
 
     protected record AutoAreaPacket(@NotNull FactionPlayer<?> player, int radius,
                                     boolean auto) implements CommandPacket {

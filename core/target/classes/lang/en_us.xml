@@ -42,36 +42,37 @@
                 <resetted-faction-registry>Couldn't find your saved faction. Resetted the container</resetted-faction-registry>
             </command-settings>
             <create>
-                <description>PLACEHOLDER desc</description>
-                <created-faction>PLACEHOLDER{faction}</created-faction>
-                <illegal-naming>Name can't be used</illegal-naming>
-                <faction-already-exists>PLACEHOLDER already ex</faction-already-exists>
-                <not-enough-arguments>PLACEHOLDER no en arg</not-enough-arguments>
+                <description>Creates a faction with a given name.</description>
+                <created-faction>{faction} has been created.</created-faction>
+                <illegal-naming>That name can't be used.</illegal-naming>
+                <faction-already-exists>{faction} already exists.</faction-already-exists>
+                <not-enough-arguments>Enter a faction name.</not-enough-arguments>
                 <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
-                <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
-                <player-already-in-faction>PLACEHOLDER</player-already-in-faction>
-                <not-enough-permissions>PLACEHOLDER</not-enough-permissions>
+                <player-has-no-faction>That player is not in a faction.</player-has-no-faction>
+                <player-already-in-faction>That player is already in a faction.</player-already-in-faction>
+                <not-enough-permissions>§cYou do not have permission for that command.</not-enough-permissions>
             </create>
             <delete>
-                <description>PLACEHOLDER</description>
-                <deleted-faction>PLACEHOLDER</deleted-faction>
-                <not-confirmed>PLACEHOLDER</not-confirmed>
+                <description>Deletes a faction with a given name.</description>
+                <deleted-faction>The faction has been deleted.</deleted-faction>
+                <not-confirmed>§cPlease use §2/f confirm §cto delete.</not-confirmed>
                 <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
                 <faction-frozen>PLACEHOLDER</faction-frozen>
-                <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
+                <player-has-no-faction>That player is not in a faction.</player-has-no-faction>
             </delete>
             <list>
-                <description>PLACEHOLDER</description>
+                <description>Lists all factions that exists on the server.</description>
                 <entry>§e{faction}§7 - {description}</entry>
             </list>
             <claim>
-                <claim-chunk>PLACEHOLDER claimed</claim-chunk>
-                <radius-no-number>PLACEHOLDER</radius-no-number>
-                <auto-activated>PLACEHOLDER</auto-activated>
-                <auto-disabled>PLACEHOLDER</auto-disabled>
+                <claim-chunk>Chunk claimed.</claim-chunk>
+                <radius-no-number>Please provide a number of chunks to claim.</radius-no-number>
+                <auto-activated>Auto claim on. All chunks entered will be claimed with the faction your in.</auto-activated>
+                <auto-disabled>Auto claim off.</auto-disabled>
                 <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
-                <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
-                <chunk-already-claimed>PLACEHOLDER</chunk-already-claimed>
+                <player-has-no-faction>That player is not in a faction.</player-has-no-faction>
+                <chunk-already-claimed>This chunk has already been claimed.</chunk-already-claimed>
+                <total-area>You claimed §e{success}/{total}§7 chunks successfully</total-area>
             </claim>
         </command>
     </messages>
