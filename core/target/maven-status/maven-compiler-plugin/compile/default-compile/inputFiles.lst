@@ -7,6 +7,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\c
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\player\data\PlayerDataHandler.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\handler\ImprovedFactions.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\permission\Permission.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\task\AsyncTask.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\persistent\component\PersistentWrapper.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\faction\FactionException.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\translator\Placeholder.java
@@ -57,11 +58,11 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\c
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\database\mysql\MySqlFaction.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\faction\leave\PlayerIsOwnerException.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\command\sub\ListFactionCommand.java
-C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\command\sub\Unclaim.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\command\component\CommandSettings.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\components\report\Report.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\NoImplementationProvidedException.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\player\data\local\LocalPlayerSettings.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\task\SharedTask.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\database\mysql\MySqlDatabase.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\components\rank\members\FactionMemberRank.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\registry\RankHolder.java
@@ -94,6 +95,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\c
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\faction\relation\FactionHasntInvitedException.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\components\rank\allies\AllyOwnerRank.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\components\FactionClaims.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\task\TaskPromise.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\utils\CUtils.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\claims\worldclaim\local\LocalWorldClaimHandler.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\database\mysql\builder\Update.java
@@ -119,6 +121,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\c
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\command\sub\CreateFactionCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\translator\layout\Translatable.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\claims\worldclaim\database\mysql\MySqlWorldClaimHandler.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\task\Promise.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\faction\PlayerIsAlreadyInFactionException.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\local\LocalFactionHandler.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\claims\worldclaim\WorldClaim.java
@@ -138,4 +141,5 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\c
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\faction\power\FactionHasNoPowerException.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\database\DatabaseVar.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\database\mysql\builder\UpdateValue.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\task\TaskChain.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\components\rank\members\FactionOwnerRank.java

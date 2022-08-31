@@ -8,23 +8,33 @@ import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
+import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 public class CreateFactionCommand extends
         Command<CreateFactionCommand.CreateFactionPacket, CreateFactionCommand.CreateFactionPacket> {
+
+    public static final String LABEL = "create";
+    private static final Function<Translatable, Map<String, String>> node = translatable -> translatable
+            .getMessages()
+            .getCommand()
+            .get(LABEL);
+
     @Override
     public @NotNull String label() {
-        return "create";
+        return LABEL;
     }
 
     @Override
     public CommandSettings settings() {
-        return new CommandSettings()
+        return new CommandSettings(node)
                 .setAllowInConsole(true)
                 .setRequiresNoFaction(true)
                 .setRequiredSpigotPermission(permission());
@@ -52,53 +62,25 @@ public class CreateFactionCommand extends
     public void run(@NotNull CreateFactionPacket packet) {
         FactionPlayer<?> owner = packet.owner;
         if (!owner.hasPermission(permission())) {
-            owner.sendTranslatable(translatable -> translatable
-                    .getMessages()
-                    .getCommand()
-                    .get(label())
-                    .get("not-enough-permissions"));
+            owner.sendTranslatable(node.andThen(map -> map.get("not-enough-permissions")));
             return;
         }
 
         try {
             Faction<?> faction = create(owner, packet.display);
 
-            owner.sendTranslatable(translatable -> translatable
-                            .getMessages()
-                            .getCommand()
-                            .get(label())
-                            .get("created-faction"),
+            owner.sendTranslatable(node.andThen(map -> map.get("created-faction")),
                     new Placeholder("{faction}", faction.getDisplay()));
         } catch (IllegalFactionNamingException e) {
-            owner.sendTranslatable(translatable -> translatable
-                    .getMessages()
-                    .getCommand()
-                    .get(label())
-                    .get("illegal-naming"));
+            owner.sendTranslatable(node.andThen(map -> map.get("illegal-naming")));
         } catch (FactionAlreadyExistsException e) {
-            owner.sendTranslatable(translatable -> translatable
-                    .getMessages()
-                    .getCommand()
-                    .get(label())
-                    .get("faction-already-exists"));
+            owner.sendTranslatable(node.andThen(map -> map.get("faction-already-exists")));
         } catch (FactionNotInStorage factionNotInStorage) {
-            owner.sendTranslatable(translatable -> translatable
-                    .getMessages()
-                    .getCommand()
-                    .get(label())
-                    .get("faction-not-in-storage"));
+            owner.sendTranslatable(node.andThen(map -> map.get("faction-not-in-storage")));
         } catch (PlayerHasNoFactionException e) {
-            owner.sendTranslatable(translatable -> translatable
-                    .getMessages()
-                    .getCommand()
-                    .get(label())
-                    .get("player-has-no-faction"));
+            owner.sendTranslatable(node.andThen(map -> map.get("player-has-no-faction")));
         } catch (PlayerIsAlreadyInFactionException e) {
-            owner.sendTranslatable(translatable -> translatable
-                    .getMessages()
-                    .getCommand()
-                    .get(label())
-                    .get("player-already-in-faction"));
+            owner.sendTranslatable(node.andThen(map -> map.get("player-already-in-faction")));
         } catch (FactionIsFrozenException | PlayerIsBannedException e) {
             e.printStackTrace();
         }
@@ -111,11 +93,7 @@ public class CreateFactionCommand extends
         Logger logger = Logger.api();
         try {
             Faction<?> faction = create(owner, packet.display);
-            owner.sendTranslatable(translatable -> translatable
-                            .getMessages()
-                            .getCommand()
-                            .get(label())
-                            .get("created-faction"),
+            owner.sendTranslatable(node.andThen(map -> map.get("created-faction")),
                     new Placeholder("{faction}", faction.getDisplay()));
 
             logger.logInfo("You created faction %s for %s",
@@ -149,11 +127,7 @@ public class CreateFactionCommand extends
     public CreateFactionCommand.CreateFactionPacket createFromArgs(@NotNull FactionPlayer<?> sender,
                                                                              @NotNull String[] args) {
         if (args.length != 1) {
-            sender.sendTranslatable(translatable -> translatable
-                    .getMessages()
-                    .getCommand()
-                    .get(label())
-                    .get("not-enough-arguments"));
+            sender.sendTranslatable(node.andThen(map -> map.get("not-enough-arguments")));
             return null;
         }
 

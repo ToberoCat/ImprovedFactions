@@ -23,7 +23,6 @@ io\github\toberocat\improvedFactions\core\translator\layout\messages\Messages.cl
 io\github\toberocat\improvedFactions\core\item\Item.class
 io\github\toberocat\improvedFactions\core\utils\CUtils.class
 io\github\toberocat\improvedFactions\core\command\sub\CreateFactionCommand.class
-io\github\toberocat\improvedFactions\core\command\sub\Unclaim.class
 io\github\toberocat\improvedFactions\core\database\Database.class
 io\github\toberocat\improvedFactions\core\translator\layout\ranks\XmlRank.class
 io\github\toberocat\improvedFactions\core\exceptions\faction\PlayerIsBannedException.class
@@ -88,6 +87,7 @@ io\github\toberocat\improvedFactions\core\temp\TempDataManager.class
 io\github\toberocat\improvedFactions\core\faction\components\rank\members\FactionOwnerRank.class
 io\github\toberocat\improvedFactions\core\utils\DateUtils.class
 io\github\toberocat\improvedFactions\core\faction\components\rank\allies\AllyElderRank.class
+io\github\toberocat\improvedFactions\core\command\component\AutoAreaCommand$AsyncClaimPacket.class
 io\github\toberocat\improvedFactions\core\exceptions\faction\PlayerIsNotOwnerException.class
 io\github\toberocat\improvedFactions\core\exceptions\faction\FactionNotFoundException.class
 io\github\toberocat\improvedFactions\core\handler\ConfigHandler.class
@@ -114,6 +114,7 @@ io\github\toberocat\improvedFactions\core\utils\Logger.class
 io\github\toberocat\improvedFactions\core\exceptions\faction\relation\FactionHasntInvitedException.class
 io\github\toberocat\improvedFactions\core\database\mysql\builder\UpdateValue.class
 io\github\toberocat\improvedFactions\core\exceptions\faction\FactionHandlerNotFound.class
+io\github\toberocat\improvedFactions\core\command\component\CommandSettings$SettingResult.class
 io\github\toberocat\improvedFactions\core\faction\database\mysql\module\MySqlModule.class
 io\github\toberocat\improvedFactions\core\faction\local\managers\FactionPerm.class
 io\github\toberocat\improvedFactions\core\claims\worldclaim\local\XZPair.class

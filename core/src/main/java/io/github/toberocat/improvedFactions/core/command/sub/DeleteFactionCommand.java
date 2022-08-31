@@ -16,19 +16,26 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 public class DeleteFactionCommand extends ConfirmCommand
         <DeleteFactionCommand.DeleteFactionPacket, DeleteFactionCommand.DeleteFactionConsolePacket> {
 
+    public static final String LABEL = "delete";
+    private static final Function<Translatable, Map<String, String>> node = translatable -> translatable
+            .getMessages()
+            .getCommand()
+            .get(LABEL);
+
     @Override
     public @NotNull String label() {
-        return "delete";
+        return LABEL;
     }
 
     @Override
     public CommandSettings settings() {
-        return new CommandSettings()
+        return new CommandSettings(node)
                 .setRequiredSpigotPermission(permission())
                 .setRequiresFaction(true)
                 .setAllowInConsole(true)
@@ -41,17 +48,9 @@ public class DeleteFactionCommand extends ConfirmCommand
 
         try {
             packet.faction.deleteFaction();
-            executor.sendTranslatable(translatable -> translatable
-                    .getMessages()
-                    .getCommand()
-                    .get(label())
-                    .get("deleted-faction"));
+            executor.sendTranslatable(node.andThen(map -> map.get("deleted-faction")));
         } catch (FactionIsFrozenException e) {
-            executor.sendTranslatable(translatable ->
-                    translatable.getMessages()
-                            .getCommand()
-                            .get(label())
-                            .get("faction-frozen"));
+            executor.sendTranslatable(node.andThen(map -> map.get("faction-frozen")));
         }
     }
 
@@ -83,17 +82,9 @@ public class DeleteFactionCommand extends ConfirmCommand
         try {
             return new DeleteFactionPacket(executor.getFaction(), executor);
         } catch (PlayerHasNoFactionException e) {
-            executor.sendTranslatable(translatable -> translatable
-                    .getMessages()
-                    .getCommand()
-                    .get(label())
-                    .get("player-has-no-faction"));
+            executor.sendTranslatable(node.andThen(map -> map.get("player-has-no-faction")));
         } catch (FactionNotInStorage factionNotInStorage) {
-            executor.sendTranslatable(translatable -> translatable
-                    .getMessages()
-                    .getCommand()
-                    .get(label())
-                    .get("faction-not-in-storage"));
+            executor.sendTranslatable(node.andThen(map -> map.get("faction-not-in-storage")));
         }
         return null;
     }
@@ -112,11 +103,7 @@ public class DeleteFactionCommand extends ConfirmCommand
 
     @Override
     protected Function<Translatable, String> notConfirmedTranslatable() {
-        return translatable -> translatable
-                .getMessages()
-                .getCommand()
-                .get(label())
-                .get("not-confirmed");
+        return node.andThen(map -> map.get("not-confirmed"));
     }
 
     protected record DeleteFactionPacket(@NotNull Faction<?> faction, @NotNull FactionPlayer<?> executor)

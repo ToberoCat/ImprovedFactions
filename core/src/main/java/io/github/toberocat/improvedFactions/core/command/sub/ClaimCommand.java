@@ -15,18 +15,25 @@ import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.world.World;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Map;
 import java.util.function.Function;
 
 public class ClaimCommand extends AutoAreaCommand {
 
+    public static final String LABEL = "claim";
+    private static final Function<Translatable, Map<String, String>> node = translatable -> translatable
+            .getMessages()
+            .getCommand()
+            .get(LABEL);
+
     @Override
     public @NotNull String label() {
-        return "claim";
+        return LABEL;
     }
 
     @Override
     protected CommandSettings settings() {
-        return new CommandSettings()
+        return new CommandSettings(node)
                 .setAllowInConsole(false)
                 .setRequiredSpigotPermission(permission())
                 .setRequiresFaction(true)
@@ -35,29 +42,17 @@ public class ClaimCommand extends AutoAreaCommand {
 
     @Override
     protected Function<Translatable, String> radiusNoNumber() {
-        return translatable -> translatable
-                .getMessages()
-                .getCommand()
-                .get(label())
-                .get("radius-no-number");
+        return node.andThen(map -> map.get("radius-no-number"));
     }
 
     @Override
     protected Function<Translatable, String> autoActivated() {
-        return translatable -> translatable
-                .getMessages()
-                .getCommand()
-                .get(label())
-                .get("auto-activated");
+        return node.andThen(map -> map.get("auto-activated"));
     }
 
     @Override
     protected Function<Translatable, String> autoDisabled() {
-        return translatable -> translatable
-                .getMessages()
-                .getCommand()
-                .get(label())
-                .get("auto-disabled");
+        return node.andThen(map -> map.get("auto-disabled"));
     }
 
     @Override
@@ -71,39 +66,19 @@ public class ClaimCommand extends AutoAreaCommand {
                     world.getChunkAt(location.chunkX(), location.chunkZ()));
 
             if (area) return true;
-            player.sendTranslatable(translatable -> translatable
-                    .getMessages()
-                    .getCommand()
-                    .get(label())
-                    .get("claim-chunk"));
+            player.sendTranslatable(node.andThen(map -> map.get("claim-chunk")));
         } catch (FactionNotInStorage e) {
-            player.sendTranslatable(translatable -> translatable
-                    .getMessages()
-                    .getCommand()
-                    .get(label())
-                    .get("faction-not-in-storage"));
+            player.sendTranslatable(node.andThen(map -> map.get("faction-not-in-storage")));
         } catch (PlayerHasNoFactionException e) {
-            player.sendTranslatable(translatable -> translatable
-                    .getMessages()
-                    .getCommand()
-                    .get(label())
-                    .get("player-has-no-faction"));
+            player.sendTranslatable(node.andThen(map -> map.get("player-has-no-faction")));
         } catch (ChunkAlreadyClaimedException e) {
-            player.sendTranslatable(translatable -> translatable
-                    .getMessages()
-                    .getCommand()
-                    .get(label())
-                    .get("chunk-already-claimed"));
+            player.sendTranslatable(node.andThen(map -> map.get("chunk-already-claimed")));
         }
         return false;
     }
 
     @Override
     protected Function<Translatable, String> sendTotal() {
-        return translatable -> translatable
-                .getMessages()
-                .getCommand()
-                .get(label())
-                .get("total-area");
+        return node.andThen(map -> map.get("total-area"));
     }
 }

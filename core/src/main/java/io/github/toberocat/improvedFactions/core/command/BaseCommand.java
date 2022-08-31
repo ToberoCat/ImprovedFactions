@@ -29,7 +29,9 @@ public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleC
 
     @Override
     public CommandSettings settings() {
-        return new CommandSettings();
+        return new CommandSettings(translatable -> translatable.getMessages()
+                .getCommand()
+                .get("command-settings"));
     }
 
     @Override

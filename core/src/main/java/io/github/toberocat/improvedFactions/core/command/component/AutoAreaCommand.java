@@ -2,6 +2,7 @@ package io.github.toberocat.improvedFactions.core.command.component;
 
 import io.github.toberocat.improvedFactions.core.location.Location;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.task.AsyncTask;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
@@ -47,21 +48,24 @@ public abstract class AutoAreaCommand extends
                 player.sendTranslatable(autoActivated());
             }
         } else {
-            Location loc = player.getLocation();
+            new AsyncTask<>(() -> {
+                Location loc = player.getLocation();
 
-            int radius = packet.radius;
-            int success = 0, fail = 0;
-            for (int i = -radius; i < radius; i++) {
-                for (int j = -radius; j < radius; j++) {
-                    Location now = new Location(loc.x() + i * 16, loc.y(), loc.z() + j * 16, loc.world());
-                    if(single(player, now, true)) success++;
-                    else fail++;
+                int radius = packet.radius;
+                int success = 0, fail = 0;
+                for (int i = -radius; i < radius; i++) {
+                    for (int j = -radius; j < radius; j++) {
+                        Location now = new Location(loc.x() + i * 16, loc.y(), loc.z() + j * 16, loc.world());
+                        if (single(player, now, true)) success++;
+                        else fail++;
+                    }
                 }
-            }
 
-            player.sendTranslatable(sendTotal(),
-                    new Placeholder("{success}", String.valueOf(success)),
-                    new Placeholder("{total}", String.valueOf(success + fail)));
+                return new AsyncClaimPacket(success, fail);
+            }).start().then(claim -> player.sendTranslatable(sendTotal(),
+                    new Placeholder("{success}", String.valueOf(claim.success)),
+                    new Placeholder("{total}", String.valueOf(claim.success + claim.fail))
+            ));
         }
     }
 
@@ -102,6 +106,10 @@ public abstract class AutoAreaCommand extends
 
     protected record AutoAreaPacket(@NotNull FactionPlayer<?> player, int radius,
                                     boolean auto) implements CommandPacket {
+
+    }
+
+    private record AsyncClaimPacket(int success, int fail) {
 
     }
 }

@@ -1,11 +1,13 @@
 package io.github.toberocat.improvedfactions.spigot.command.component;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
+import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -35,7 +37,7 @@ public class SpigotCommandHandler {
             if (cmd != null) return new SearchResult(cmd, i);
         }
 
-        return new SearchResult(base, 0);
+        return new SearchResult(null, 0);
     }
 
     public boolean executeCommandChain(@NotNull FactionPlayer<?> player, @NotNull String[] args) {
@@ -45,9 +47,22 @@ public class SpigotCommandHandler {
         args = Arrays.copyOfRange(args, result.index() + 1, args.length);
 
         Command<Command.CommandPacket, ?> cmd = (Command<Command.CommandPacket, ?>) result.command();
-        if (!cmd.readSettings().canExecute(player)) return false;
+        if (cmd == null) {
+            player.sendTranslatable(translatable -> translatable
+                    .getMessages()
+                    .getCommand()
+                    .get("command-settings")
+                    .get("no-command-found"));
+            return false;
+        }
 
-        Command.CommandPacket packet = result.command().createFromArgs(player, args);
+        CommandSettings.SettingResult query = cmd.readSettings().canExecute(player);
+        if (!query.result()) {
+            if (query.errorMessage() != null) player.sendTranslatable(query.errorMessage());
+            return false;
+        }
+
+        Command.CommandPacket packet = cmd.createFromArgs(player, args);
         if (packet == null) return false;
 
         cmd.run(packet);
@@ -62,9 +77,12 @@ public class SpigotCommandHandler {
 
         Command<?, Command.ConsoleCommandPacket> cmd = (Command<?, Command.ConsoleCommandPacket>)
                 result.command();
+        if (cmd == null) return false;
+
+
         if (!cmd.readSettings().canExecuteConsole()) return false;
 
-        Command.ConsoleCommandPacket packet = result.command().createFromArgs(args);
+        Command.ConsoleCommandPacket packet = cmd.createFromArgs(args);
 
         if (packet == null) return false;
 
@@ -78,6 +96,8 @@ public class SpigotCommandHandler {
         args = Arrays.copyOfRange(args, result.index() + 1, args.length);
 
         Command<?, ?> command = result.command;
+        if (command == null) command = base;
+
         if (sender instanceof Player player) {
             FactionPlayer<?> executor = ImprovedFactions.api().getPlayer(player.getUniqueId());
             if (executor == null) return Collections.emptyList();
@@ -97,7 +117,7 @@ public class SpigotCommandHandler {
         return command.tabCompleteConsole(args);
     }
 
-    public static record SearchResult(@NotNull Command<?, ?> command, int index) {
+    public static record SearchResult(@Nullable Command<?, ?> command, int index) {
 
     }
 }

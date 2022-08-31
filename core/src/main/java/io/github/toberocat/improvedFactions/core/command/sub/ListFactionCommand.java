@@ -5,24 +5,33 @@ import io.github.toberocat.improvedFactions.core.command.component.CommandSettin
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
+import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 public class ListFactionCommand extends
         Command<ListFactionCommand.ListPacket, ListFactionCommand.ListConsolePacket> {
 
+    public static final String LABEL = "list";
+    private static final Function<Translatable, Map<String, String>> node = translatable -> translatable
+            .getMessages()
+            .getCommand()
+            .get(LABEL);
+
     @Override
     public @NotNull String label() {
-        return "list";
+        return LABEL;
     }
 
     @Override
     protected CommandSettings settings() {
-        return new CommandSettings()
+        return new CommandSettings(node)
                 .setAllowInConsole(true)
                 .setRequiredSpigotPermission(permission());
     }
@@ -40,12 +49,10 @@ public class ListFactionCommand extends
 
     @Override
     public void run(@NotNull ListPacket packet) {
-        FactionHandler.getAllFactions().forEach(f -> packet.receiver
-                .sendTranslatable(translatable -> translatable
-                                .getMessages()
-                                .getCommand()
-                                .get(label())
-                                .get("entry"),
+        List<String> factions = FactionHandler.getAllFactions().toList();
+        if (factions.size() == 0) {
+            packet.receiver.sendTranslatable(node.andThen(map -> map.get("no-entries")));
+        } else factions.forEach(f -> packet.receiver.sendTranslatable(node.andThen(map -> map.get("entry")),
                         new Placeholder("{faction}", f)));
     }
 

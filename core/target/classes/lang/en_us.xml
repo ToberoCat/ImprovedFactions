@@ -1,3 +1,17 @@
+<!--
+
+All command setting values:
+
+<missing-spigot-permission>PLACEHOLDER</missing-spigot-permission>
+<requires-faction>PLACEHOLDER</requires-faction>
+<requires-no-faction>PLACEHOLDER</requires-no-faction>
+<not-enough-priority>PLACEHOLDER</not-enough-priority>
+<wrong-rank>PLACEHOLDER</wrong-rank>
+<missing-faction-permissions>PLACEHOLDER</missing-faction-permissions>
+
+-->
+
+
 <translatable version="1.0">
     <meta>
         <supported-languages> <!-- See this page (https://www.andiamo.co.uk/resources/iso-language-codes/) to get language codes. Replace - with underscore -->
@@ -40,6 +54,7 @@
         <command>
             <command-settings>
                 <resetted-faction-registry>Couldn't find your saved faction. Resetted the container</resetted-faction-registry>
+                <no-command-found>§cCouldn't find the command you where searching for</no-command-found>
             </command-settings>
             <create>
                 <description>Creates a faction with a given name.</description>
@@ -51,6 +66,10 @@
                 <player-has-no-faction>That player is not in a faction.</player-has-no-faction>
                 <player-already-in-faction>That player is already in a faction.</player-already-in-faction>
                 <not-enough-permissions>§cYou do not have permission for that command.</not-enough-permissions>
+
+                <!-- This section is for default execution errors -->
+                <missing-spigot-permission>PLACEHOLDER</missing-spigot-permission>
+                <requires-no-faction>PLACEHOLDER</requires-no-faction>
             </create>
             <delete>
                 <description>Deletes a faction with a given name.</description>
@@ -59,10 +78,19 @@
                 <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
                 <faction-frozen>PLACEHOLDER</faction-frozen>
                 <player-has-no-faction>That player is not in a faction.</player-has-no-faction>
+
+                <!-- This section is for default execution errors -->
+                <missing-spigot-permission>PLACEHOLDER</missing-spigot-permission>
+                <requires-faction>PLACEHOLDER</requires-faction>
+                <wrong-rank>PLACEHOLDER</wrong-rank>
             </delete>
             <list>
                 <description>Lists all factions that exists on the server.</description>
                 <entry>§e{faction}§7 - {description}</entry>
+                <no-entries>PLACEHOLDER</no-entries>
+
+                <!-- This section is for default execution errors -->
+                <missing-spigot-permission>PLACEHOLDER</missing-spigot-permission>
             </list>
             <claim>
                 <claim-chunk>Chunk claimed.</claim-chunk>
@@ -73,6 +101,11 @@
                 <player-has-no-faction>That player is not in a faction.</player-has-no-faction>
                 <chunk-already-claimed>This chunk has already been claimed.</chunk-already-claimed>
                 <total-area>You claimed §e{success}/{total}§7 chunks successfully</total-area>
+
+                <!-- This section is for default execution errors -->
+                <missing-spigot-permission>PLACEHOLDER</missing-spigot-permission>
+                <requires-faction>PLACEHOLDER</requires-faction>
+                <missing-faction-permissions>PLACEHOLDER</missing-faction-permissions>
             </claim>
         </command>
     </messages>
