@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedFactions.core.utils;
 
 import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
+import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.world.World;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,8 +41,13 @@ public final class CUtils {
         return array;
     }
 
-    public static void copyResource(String res, String dest, Class<?> c) throws IOException {
-        InputStream src = c.getResourceAsStream(res);
-        Files.copy(src, Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
+    public static void copyResource(@NotNull String res) throws IOException {
+        InputStream src = CUtils.class.getResourceAsStream(res);
+        if (src == null) return;
+
+        File file = new File(ImprovedFactions.api().getDataFolder().getAbsolutePath(), res);
+        if (file.exists()) return;
+
+        Files.copy(src, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 }

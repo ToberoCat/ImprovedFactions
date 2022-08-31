@@ -43,23 +43,22 @@ public class ImplementationHolder {
 
     private static void createFolders() {
         File file = ImprovedFactions.api().getDataFolder();
-        List.of("lang", "Data/Chunks", "Data/Factions",
-                        "Data/Persistent",
-                        "Data/Players")
+        List.of("lang", "commands", "data/Chunks", "data/Factions",
+                        "data/Persistent",
+                        "data/Players")
                 .forEach(x -> new File(file, x).mkdirs());
     }
 
 
     private static void copyResources() throws IOException {
         copyLang("en_us.xml");
-        CUtils.copyResource("/config.yml", ImprovedFactions.api().getDataFolder()
-                .getAbsolutePath() + "/config.yml", ImplementationHolder.class);
+        CUtils.copyResource("/config.yml");
+        CUtils.copyResource("/commands/claim-command.yml");
     }
 
+
     private static void copyLang(@NotNull String name) throws IOException {
-        CUtils.copyResource("/lang/" + name,
-                ImprovedFactions.api().getLangFolder().getAbsolutePath() + "/" + name,
-                ImplementationHolder.class);
+        CUtils.copyResource("/lang/" + name);
     }
 
     /**

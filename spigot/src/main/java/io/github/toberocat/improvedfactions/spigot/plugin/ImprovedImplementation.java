@@ -135,7 +135,7 @@ public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
 
     @Override
     public @NotNull File getLocalDataFolder() {
-        return new File(getDataFolder(), "Data");
+        return new File(getDataFolder(), "data");
     }
 
     @Override
