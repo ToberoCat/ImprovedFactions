@@ -64,9 +64,8 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
      */
     static @NotNull String displayToRegistry(@NotNull String display) {
         return validateDisplay(display)
-                .toLowerCase()
                 .transform(x -> ColorHandler.api().stripColor(x))
-                .replaceAll("[^a-z]", "");
+                .replaceAll("[\\\\/:*?\"<>|§]", "");
     }
 
     static @NotNull String validateDisplay(@NotNull String display) {
