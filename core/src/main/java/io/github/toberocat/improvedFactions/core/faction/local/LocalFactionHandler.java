@@ -1,10 +1,7 @@
 package io.github.toberocat.improvedFactions.core.faction.local;
 
 import io.github.toberocat.improvedFactions.core.event.EventExecutor;
-import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionIsFrozenException;
-import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
-import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerIsAlreadyInFactionException;
-import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerIsBannedException;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.*;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandlerInterface;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
@@ -40,7 +37,7 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
     public @NotNull LocalFaction create(@NotNull String display, @NotNull FactionPlayer<?> owner)
             throws FactionIsFrozenException,
             PlayerIsAlreadyInFactionException,
-            PlayerIsBannedException {
+            PlayerIsBannedException, IllegalFactionNamingException, FactionAlreadyExistsException {
         LocalFaction faction = new LocalFaction(display, owner);
         owner.getDataContainer().set(PersistentHandler.FACTION_KEY, faction.getRegistry());
 

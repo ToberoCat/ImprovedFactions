@@ -20,6 +20,7 @@ public class PlayerMoveListener extends SpigotEventListener {
         FactionPlayer<?> player = ImprovedFactions.api().getPlayer(event.getPlayer().getUniqueId());
         if (player == null) return;
 
+        if (event.getFrom().getChunk().equals(event.getTo().getChunk())) return;
         AutoAreaCommand.move(player);
     }
 }

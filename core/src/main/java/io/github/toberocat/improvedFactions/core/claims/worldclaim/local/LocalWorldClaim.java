@@ -82,7 +82,6 @@ public class LocalWorldClaim implements WorldClaim {
 
             return registry;
         } catch (IOException e) {
-            e.printStackTrace();
             return null;
         }
     }

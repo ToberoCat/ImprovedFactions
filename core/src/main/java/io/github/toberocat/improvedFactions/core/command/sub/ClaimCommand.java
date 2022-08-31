@@ -62,6 +62,7 @@ public class ClaimCommand extends AutoAreaCommand {
 
     @Override
     protected void single(@NotNull FactionPlayer<?> player, @NotNull Location location) {
+        System.out.println(location);
         World<?> world = ImprovedFactions.api().getWorld(location.world());
         if (world == null) return;
 

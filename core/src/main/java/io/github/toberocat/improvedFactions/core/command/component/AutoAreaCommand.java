@@ -17,7 +17,10 @@ public abstract class AutoAreaCommand extends
     private static final Map<UUID, Consumer<FactionPlayer<?>>> CHUNK_MOVES = new HashMap<>();
 
     public static void move(@NotNull FactionPlayer<?> player) {
-        CHUNK_MOVES.get(player.getUniqueId()).accept(player);
+        Consumer<FactionPlayer<?>> consumer = CHUNK_MOVES.get(player.getUniqueId());
+        if (consumer == null) return;
+
+        consumer.accept(player);
     }
 
     @Override
@@ -55,7 +58,7 @@ public abstract class AutoAreaCommand extends
                 z = (int) (loc.z() + packet.radius * Math.sin(angle));
                 Location now = new Location(x, y, z, loc.world());
 
-                if (lastLoc != null && now.chunkX() != lastLoc.chunkX() && now.chunkZ() != lastLoc.chunkZ())
+                if (lastLoc == null || (now.chunkX() != lastLoc.chunkX() && now.chunkZ() != lastLoc.chunkZ()))
                     single(player, now);
                 lastLoc = now;
             }
