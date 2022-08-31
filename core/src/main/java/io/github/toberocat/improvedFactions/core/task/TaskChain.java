@@ -11,17 +11,15 @@ import java.util.function.Supplier;
 public class TaskChain<R> {
 
     private final AsyncTask<R> rTask;
+    private Runnable finished;
 
-    public TaskChain(AsyncTask<R> task) {
+    public TaskChain(AsyncTask<R> task, Runnable finished) {
         this.rTask = task;
+        this.finished = finished;
     }
 
     public static @NotNull <R> TaskChain<R> asyncFirst(@NotNull Supplier<R> action) {
-        return new TaskChain<>(new AsyncTask<>(action).start());
-    }
-
-    public static @NotNull <R> TaskChain<R> syncFirst(@NotNull Supplier<R> action) {
-        return new TaskChain<>(new AsyncTask<>(action).start());
+        return new TaskChain<>(new AsyncTask<>(action).start(), null);
     }
 
     public @NotNull <T> TaskChain<T> async(@NotNull Function<R, T> supplier) {
@@ -30,11 +28,18 @@ public class TaskChain<R> {
                 tTask.supply(() ->
                         supplier.apply(r)).start());
 
-        return new TaskChain<>(tTask);
+        return new TaskChain<>(tTask, finished);
     }
 
-    public void async(@NotNull Consumer<R> consumer) {
-        rTask.then(consumer);
+    public @NotNull TaskPromise async(@NotNull Consumer<R> consumer) {
+        TaskPromise promise = new TaskPromise();
+        rTask.then(r -> {
+            consumer.accept(r);
+            promise.resolve();
+            if (finished != null) finished.run();
+        });
+
+        return promise;
     }
 
     public @NotNull <T> TaskChain<T> sync(@NotNull Function<R, T> supplier) {
@@ -44,11 +49,18 @@ public class TaskChain<R> {
                         tTask.supply(() ->
                                 supplier.apply(r)).start()));
 
-        return new TaskChain<>(tTask);
+        return new TaskChain<>(tTask, finished);
     }
 
-    public void sync(@NotNull Consumer<R> consumer) {
-        rTask.then(consumer);
+    public @NotNull TaskPromise sync(@NotNull Consumer<R> consumer) {
+        TaskPromise promise = new TaskPromise();
+        rTask.then(r -> {
+            consumer.accept(r);
+            promise.resolve();
+            if (finished != null) finished.run();
+        });
+
+        return promise;
     }
 
     public @NotNull TaskChain<R> abortIf(@NotNull Predicate<R> abort, @NotNull Consumer<R> aborted) {
@@ -57,7 +69,7 @@ public class TaskChain<R> {
             if (abort.test(r)) aborted.accept(r);
             else tTask.supply(() -> r).start();
         });
-        return new TaskChain<>(tTask);
+        return new TaskChain<>(tTask, finished);
     }
 
     public @NotNull TaskChain<R> abortIfNull(@NotNull Runnable aborted) {
@@ -66,6 +78,10 @@ public class TaskChain<R> {
             if (r == null) aborted.run();
             else tTask.supply(() -> r).start();
         });
-        return new TaskChain<>(tTask);
+        return new TaskChain<>(tTask, finished);
+    }
+
+    public synchronized void then(@NotNull Runnable finished) {
+        this.finished = finished;
     }
 }
