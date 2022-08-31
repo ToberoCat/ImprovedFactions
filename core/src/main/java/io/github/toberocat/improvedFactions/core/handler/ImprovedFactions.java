@@ -50,4 +50,8 @@ public interface ImprovedFactions<RawWorld> {
     @NotNull File getTempFolder();
     @NotNull File getLangFolder();
 
+    /* Config */
+
+    @NotNull ConfigHandler getConfig(@NotNull String relativePath);
+
 }

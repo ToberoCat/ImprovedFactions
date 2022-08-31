@@ -91,6 +91,7 @@ io\github\toberocat\improvedFactions\core\command\component\AutoAreaCommand$Asyn
 io\github\toberocat\improvedFactions\core\exceptions\faction\PlayerIsNotOwnerException.class
 io\github\toberocat\improvedFactions\core\exceptions\faction\FactionNotFoundException.class
 io\github\toberocat\improvedFactions\core\handler\ConfigHandler.class
+io\github\toberocat\improvedFactions\core\utils\FileUtils.class
 io\github\toberocat\improvedFactions\core\claims\component\Claim.class
 io\github\toberocat\improvedFactions\core\faction\components\Description.class
 io\github\toberocat\improvedFactions\core\registry\ImplementationHolder.class

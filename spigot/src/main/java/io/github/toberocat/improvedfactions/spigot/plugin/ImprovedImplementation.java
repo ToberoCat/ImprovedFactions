@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedfactions.spigot.plugin;
 
+import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.handler.component.PlayerLister;
 import io.github.toberocat.improvedFactions.core.handler.component.Scheduler;
@@ -7,9 +8,11 @@ import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
+import io.github.toberocat.improvedfactions.spigot.handler.SpigotConfigHandler;
 import io.github.toberocat.improvedfactions.spigot.player.SpigotFactionPlayer;
 import io.github.toberocat.improvedfactions.spigot.player.SpigotOfflineFactionPlayer;
 import io.github.toberocat.improvedfactions.spigot.scheduler.SpigotScheduler;
+import io.github.toberocat.improvedfactions.spigot.utils.YamlLoader;
 import io.github.toberocat.improvedfactions.spigot.world.SpigotWorld;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -148,6 +151,14 @@ public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
     @Override
     public @NotNull File getLangFolder() {
         return new File(getDataFolder(), "lang");
+    }
+
+    @Override
+    public @NotNull ConfigHandler getConfig(@NotNull String relativePath) {
+        return new SpigotConfigHandler(new YamlLoader(new File(relativePath), plugin)
+                .logger(logger)
+                .load()
+                .fileConfiguration());
     }
 
     @Override

@@ -1,5 +1,7 @@
 package io.github.toberocat.improvedFactions.core.command.component;
 
+import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
+import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import org.jetbrains.annotations.NotNull;
@@ -16,6 +18,7 @@ public abstract class Command<P extends Command.CommandPacket, C extends Command
 
     protected final Map<String, Command<?, ?>> commands = new HashMap<>();
     private CommandSettings settings;
+    private ConfigHandler config;
 
     @NotNull
     public abstract String label();
@@ -60,6 +63,12 @@ public abstract class Command<P extends Command.CommandPacket, C extends Command
     public @NotNull CommandSettings readSettings() {
         if (settings == null) settings = settings();
         return settings;
+    }
+
+    public @NotNull ConfigHandler config() {
+        if (config == null)
+            config = ImprovedFactions.api().getConfig("commands/" + label() + "-command.yml");
+        return config;
     }
 
     public interface CommandPacket {

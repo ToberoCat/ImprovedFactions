@@ -72,6 +72,7 @@ public class ClaimCommand extends AutoAreaCommand {
         } catch (PlayerHasNoFactionException e) {
             player.sendTranslatable(node.andThen(map -> map.get("player-has-no-faction")));
         } catch (ChunkAlreadyClaimedException e) {
+            if (area) return false;
             player.sendTranslatable(node.andThen(map -> map.get("chunk-already-claimed")));
         }
         return false;

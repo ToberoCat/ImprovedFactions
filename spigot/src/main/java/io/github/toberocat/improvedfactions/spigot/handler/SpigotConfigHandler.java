@@ -7,26 +7,23 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class SpigotConfigHandler implements ConfigHandler {
-
-    private final FileConfiguration config;
-
-    public SpigotConfigHandler(FileConfiguration config) {
-        this.config = config;
-    }
+public record SpigotConfigHandler(@NotNull FileConfiguration config) implements ConfigHandler {
 
     @Override
-    public @Nullable String getString(@NotNull String path) {
+    public @Nullable
+    String getString(@NotNull String path) {
         return config.getString(path);
     }
 
     @Override
-    public @NotNull String getString(@NotNull String path, @NotNull String def) {
+    public @NotNull
+    String getString(@NotNull String path, @NotNull String def) {
         return config.getString(path, def);
     }
 
     @Override
-    public @NotNull List<String> getList(@NotNull String path) {
+    public @NotNull
+    List<String> getList(@NotNull String path) {
         return config.getStringList(path);
     }
 

@@ -51,17 +51,24 @@ public abstract class AutoAreaCommand extends
             new AsyncTask<>(() -> {
                 Location loc = player.getLocation();
 
-                int radius = packet.radius;
-                int success = 0, fail = 0;
-                for (int i = -radius; i < radius; i++) {
-                    for (int j = -radius; j < radius; j++) {
-                        Location now = new Location(loc.x() + i * 16, loc.y(), loc.z() + j * 16, loc.world());
-                        if (single(player, now, true)) success++;
-                        else fail++;
-                    }
-                }
+                int maxRadius = config().getInt("max-radius", 5);
+                int radius = Math.min(packet.radius, maxRadius);
+                if (radius == 1) {
+                    int success = single(player, loc, false) ? 1 : 0;
+                    return new AsyncClaimPacket(success, 1 - success);
+                } else {
 
-                return new AsyncClaimPacket(success, fail);
+                    int success = 0, fail = 0;
+                    for (int i = -radius; i <= radius; i++) {
+                        for (int j = -radius; j <= radius; j++) {
+                            Location now = new Location(loc.x() + i * 16, loc.y(), loc.z() + j * 16, loc.world());
+                            if (single(player, now, true)) success++;
+                            else fail++;
+                        }
+                    }
+
+                    return new AsyncClaimPacket(success, fail);
+                }
             }).start().then(claim -> player.sendTranslatable(sendTotal(),
                     new Placeholder("{success}", String.valueOf(claim.success)),
                     new Placeholder("{total}", String.valueOf(claim.success + claim.fail))
