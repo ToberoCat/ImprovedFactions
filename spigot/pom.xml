@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>spigot</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>2.0.0-dev.2</version>
     <packaging>jar</packaging>
     <name>ImprovedFactions Spigot</name>
 
