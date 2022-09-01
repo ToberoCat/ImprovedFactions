@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedFactions.core.faction;
 
+import io.github.toberocat.improvedFactions.core.claims.ClaimHandler;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.*;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.leave.PlayerIsOwnerException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.AlreadyInvitedException;
@@ -24,6 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -84,8 +86,10 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
      * @return If the name is valid
      */
     static boolean validNaming(@NotNull String name) {
-        return !name.equalsIgnoreCase("safezone") &&
-                !name.equalsIgnoreCase("warzone");
+        return !List.of(ClaimHandler.SAFEZONE_REGISTRY,
+                ClaimHandler.WARZONE_REGISTRY,
+                ClaimHandler.UNCLAIMABLE_REGISTRY,
+                ClaimHandler.WILDERNESS_REGISTRY).contains(name);
     }
 
     /* Faction infos */

@@ -17,4 +17,8 @@ public interface FactionPlayer<P> extends CommandSender, OfflineFactionPlayer<P>
     @NotNull Location getLocation();
 
     @NotNull String getLocal();
+
+    void sendTitle(@NotNull String title, @NotNull String subtitle);
+
+    void sendTitle(@NotNull Function<Translatable, String> title);
 }

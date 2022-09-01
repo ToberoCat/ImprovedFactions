@@ -58,6 +58,17 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
     }
 
     @Override
+    public void sendTitle(@NotNull String title, @NotNull String subtitle) {
+        player.sendTitle(title, subtitle, 0, 20, 0);
+    }
+
+    @Override
+    public void sendTitle(@NotNull Function<Translatable, String> query) {
+        String title = getMessage(query);
+        player.sendTitle(title, "", 0, 20, 0);
+    }
+
+    @Override
     public @NotNull Faction<?> getFaction() throws PlayerHasNoFactionException, FactionNotInStorage {
         String registry = getFactionRegistry();
         if (registry == null) throw new PlayerHasNoFactionException(this);

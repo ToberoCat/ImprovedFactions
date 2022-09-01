@@ -37,6 +37,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\c
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\description\DescriptionHasNoLine.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\faction\PlayerIsBannedException.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\OpenType.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\translator\TranslationFixer.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\handler\ColorHandler.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\utils\DateUtils.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\utils\StringUtils.java
@@ -49,12 +50,14 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\c
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\components\rank\allies\AllyElderRank.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\persistent\PersistentHandler.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\command\sub\DeleteFactionCommand.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\translator\XmlManager.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\handler\ItemHandler.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\handler\component\Scheduler.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\player\OfflineFactionPlayer.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\translator\layout\meta\contributor\BetaTesterContributor.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\faction\FactionIsFrozenException.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\translator\layout\ranks\XmlSingleRank.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\command\sub\UnclaimCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\database\mysql\MySqlFaction.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\faction\leave\PlayerIsOwnerException.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\command\sub\ListFactionCommand.java
@@ -68,7 +71,6 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\c
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\registry\RankHolder.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\faction\relation\CantInviteYourselfException.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\components\Description.java
-C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\translator\XmlLoader.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\components\rank\Rank.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\faction\FactionAlreadyExistsException.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\handler\MessagingHandler.java
@@ -105,11 +107,13 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\c
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\local\managers\FactionPerm.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\faction\FactionNotFoundException.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\components\rank\allies\AllyModeratorRank.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\faction\FactionDoesntOwnChunkException.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\database\mysql\MySqlFactionHandler.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\item\ItemStack.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\faction\PlayerIsNotOwnerException.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\database\CantRequestDatabaseRuntimeException.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\player\data\local\LocalPlayerHandler.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\utils\FileUtils.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\handler\FactionHandlerInterface.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\components\rank\members\FactionAdminRank.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\database\mysql\module\MySqlModule.java
@@ -134,6 +138,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\c
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\setting\Setting.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\claims\ClaimHandler.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\database\mysql\builder\Result.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\listener\MoveListener.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\command\component\Command.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\persistent\PersistentData.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\claims\worldclaim\database\mysql\MySqlWorldClaim.java

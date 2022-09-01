@@ -10,13 +10,17 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Scanner;
 
-public class XmlLoader {
+public class XmlManager {
     private static final XmlMapper XML_MAPPER = createMapper();
 
     private static @NotNull XmlMapper createMapper() {
         XmlMapper mapper = new XmlMapper();
 
         return mapper;
+    }
+
+    public static <T> void write(@NotNull T t, @NotNull File file) throws IOException {
+        XML_MAPPER.writerWithDefaultPrettyPrinter().writeValue(file, t);
     }
 
     public static  <T> T read(@NotNull Class<T> clazz, @NotNull URL url) throws IOException {

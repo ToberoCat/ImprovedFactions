@@ -57,7 +57,7 @@ public abstract class AutoAreaCommand extends
                     int success = single(player, loc, false) ? 1 : 0;
                     return new AsyncClaimPacket(success, 1 - success);
                 } else {
-
+                    radius /= 2;
                     int success = 0, fail = 0;
                     for (int i = -radius; i <= radius; i++) {
                         for (int j = -radius; j <= radius; j++) {

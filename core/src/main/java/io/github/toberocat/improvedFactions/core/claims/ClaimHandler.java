@@ -25,6 +25,7 @@ public class ClaimHandler {
     public static final String SAFEZONE_REGISTRY = "__glb:safezone__";
     public static final String WARZONE_REGISTRY = "__glb:warzone__";
     public static final String UNCLAIMABLE_REGISTRY = "__glb:unclaimable__";
+    public static final String WILDERNESS_REGISTRY = "__glb:wilderness__";
 
     private static final Map<String, WorldClaim> claims = new HashMap<>();
 

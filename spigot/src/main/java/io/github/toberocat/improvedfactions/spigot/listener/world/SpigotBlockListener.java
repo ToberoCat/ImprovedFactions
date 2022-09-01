@@ -10,6 +10,7 @@ import io.github.toberocat.improvedfactions.spigot.listener.SpigotEventListener;
 import org.bukkit.Chunk;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class SpigotBlockListener extends SpigotEventListener {
@@ -34,6 +35,22 @@ public class SpigotBlockListener extends SpigotEventListener {
         Chunk chunk = event.getBlock().getChunk();
         try {
             blockListener.breakBlock(player, world, chunk.getX(), chunk.getZ());
+        } catch (FactionNotInStorage e) {
+            e.printStackTrace();
+        }
+    }
+
+    @EventHandler
+    private void placeBlock(BlockPlaceEvent event) {
+        FactionPlayer<?> player = factions.getPlayer(event.getPlayer().getUniqueId());
+        if (player == null) return;
+
+        World<?> world = factions.getWorld(event.getBlock().getWorld().getName());
+        if (world == null) return;
+
+        Chunk chunk = event.getBlock().getChunk();
+        try {
+            blockListener.placeBlock(player, world, chunk.getX(), chunk.getZ());
         } catch (FactionNotInStorage e) {
             e.printStackTrace();
         }

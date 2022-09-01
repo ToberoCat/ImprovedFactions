@@ -17,6 +17,7 @@ public class Translatable {
     private Messages messages;
     private String prefix;
     private Map<String, XmlRank> ranks;
+    private Map<String, String> zones;
 
     public Translatable() {
     }
@@ -59,5 +60,13 @@ public class Translatable {
 
     public void setPrefix(String prefix) {
         this.prefix = prefix;
+    }
+
+    public Map<String, String> getZones() {
+        return zones;
+    }
+
+    public void setZones(Map<String, String> zones) {
+        this.zones = zones;
     }
 }

@@ -3,6 +3,7 @@ package io.github.toberocat.improvedFactions.core.faction.components;
 import io.github.toberocat.improvedFactions.core.claims.ClaimHandler;
 import io.github.toberocat.improvedFactions.core.claims.component.Claim;
 import io.github.toberocat.improvedFactions.core.exceptions.chunk.ChunkAlreadyClaimedException;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionDoesntOwnChunkException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
@@ -70,6 +71,10 @@ public final class FactionClaims<F extends Faction<F>> {
         }
     }
 
+    public FactionClaim<F> getClaim(@NotNull Chunk<?> chunk) throws FactionDoesntOwnChunkException {
+        return FactionClaim.fromClaim(faction, chunk);
+    }
+
     private void overclaim(@NotNull Chunk<?> chunk, @NotNull Faction<?> faction, @NotNull String claim)
             throws ChunkAlreadyClaimedException, FactionNotInStorage {
         if (faction.getRegistry().equals(claim)) throw new ChunkAlreadyClaimedException(claim);
@@ -121,11 +126,23 @@ public final class FactionClaims<F extends Faction<F>> {
     }
 
 
-    public record FactionClaim<F extends Faction<F>>(Faction<F> faction, String world, int x, int z) {
+    public record FactionClaim<F extends Faction<F>>(F faction, String world, int x, int z) {
 
         public static <F extends Faction<F>> FactionClaim<F> fromClaim(@NotNull F faction,
                                                                        @NotNull Claim claim) {
             return new FactionClaim<>(faction, claim.getWorld(), claim.getX(), claim.getZ());
+        }
+
+        public static <F extends Faction<F>> FactionClaim<F> fromClaim(@NotNull F faction,
+                                                                       @NotNull Chunk<?> chunk) throws FactionDoesntOwnChunkException {
+            World<?> world = chunk.getWorld();
+            int x = chunk.getX();
+            int z = chunk.getZ();
+
+            String registry = ClaimHandler.getWorldClaim(world).getRegistry(x, z);
+            if (registry == null || !faction.getRegistry().equals(registry))
+                throw new FactionDoesntOwnChunkException(registry);
+            return new FactionClaim<>(faction, world.getWorldName(), x, z);
         }
 
         public void unclaim() {

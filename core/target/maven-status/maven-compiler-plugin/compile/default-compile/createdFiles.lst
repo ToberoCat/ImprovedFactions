@@ -48,6 +48,7 @@ io\github\toberocat\improvedFactions\core\exceptions\faction\FactionNotInStorage
 io\github\toberocat\improvedFactions\core\handler\MessagingHandler.class
 io\github\toberocat\improvedFactions\core\database\DatabaseVar.class
 io\github\toberocat\improvedFactions\core\faction\database\mysql\MySqlFaction$2.class
+io\github\toberocat\improvedFactions\core\translator\XmlManager.class
 io\github\toberocat\improvedFactions\core\faction\components\FactionClaims$FactionClaim.class
 io\github\toberocat\improvedFactions\core\faction\components\rank\Rank.class
 io\github\toberocat\improvedFactions\core\translator\layout\Translatable.class
@@ -71,6 +72,7 @@ io\github\toberocat\improvedFactions\core\command\sub\ListFactionCommand$ListPac
 io\github\toberocat\improvedFactions\core\claims\worldclaim\WorldClaim.class
 io\github\toberocat\improvedFactions\core\command\component\AutoAreaCommand$AutoAreaPacket.class
 io\github\toberocat\improvedFactions\core\faction\local\LocalFaction$2.class
+io\github\toberocat\improvedFactions\core\listener\MoveListener.class
 io\github\toberocat\improvedFactions\core\persistent\component\PersistentWrapper.class
 io\github\toberocat\improvedFactions\core\translator\layout\messages\faction\FactionMessage.class
 io\github\toberocat\improvedFactions\core\permission\Permission.class
@@ -78,6 +80,7 @@ io\github\toberocat\improvedFactions\core\command\component\Command.class
 io\github\toberocat\improvedFactions\core\translator\layout\meta\Meta.class
 io\github\toberocat\improvedFactions\core\handler\ImprovedFactions.class
 io\github\toberocat\improvedFactions\core\persistent\PersistentHandler.class
+io\github\toberocat\improvedFactions\core\exceptions\faction\FactionDoesntOwnChunkException.class
 io\github\toberocat\improvedFactions\core\faction\components\rank\allies\AllyOwnerRank.class
 io\github\toberocat\improvedFactions\core\claims\worldclaim\local\LocalWorldClaim.class
 io\github\toberocat\improvedFactions\core\command\BaseCommand$2.class
@@ -106,7 +109,9 @@ io\github\toberocat\improvedFactions\core\utils\StringUtils.class
 io\github\toberocat\improvedFactions\core\handler\ItemHandler.class
 io\github\toberocat\improvedFactions\core\exceptions\faction\relation\AlreadyInvitedException.class
 io\github\toberocat\improvedFactions\core\exceptions\faction\IllegalFactionNamingException.class
+io\github\toberocat\improvedFactions\core\translator\TranslationFixer.class
 io\github\toberocat\improvedFactions\core\faction\Faction.class
+io\github\toberocat\improvedFactions\core\command\sub\UnclaimCommand.class
 io\github\toberocat\improvedFactions\core\exceptions\faction\PlayerIsAlreadyInFactionException.class
 io\github\toberocat\improvedFactions\core\command\component\ConfirmCommand.class
 io\github\toberocat\improvedFactions\core\exceptions\faction\power\FactionHasNoPowerException.class
@@ -124,7 +129,6 @@ io\github\toberocat\improvedFactions\core\item\ItemStack.class
 io\github\toberocat\improvedFactions\core\command\sub\DeleteFactionCommand$DeleteFactionPacket.class
 io\github\toberocat\improvedFactions\core\player\data\local\LocalPlayerSettings.class
 io\github\toberocat\improvedFactions\core\faction\local\LocalFaction$1.class
-io\github\toberocat\improvedFactions\core\translator\XmlLoader.class
 io\github\toberocat\improvedFactions\core\command\sub\ClaimCommand.class
 io\github\toberocat\improvedFactions\core\faction\local\LocalFactionHandler.class
 io\github\toberocat\improvedFactions\core\permission\FactionPermission.class

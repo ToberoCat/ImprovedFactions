@@ -74,7 +74,7 @@ All command setting values:
             <delete>
                 <description>Deletes a faction with a given name.</description>
                 <deleted-faction>The faction has been deleted.</deleted-faction>
-                <not-confirmed>§cPlease use §2/f confirm §cto delete.</not-confirmed>
+                <not-confirmed>§cPlease use §e/f delete confirm §cto delete.</not-confirmed>
                 <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
                 <faction-frozen>PLACEHOLDER</faction-frozen>
                 <player-has-no-faction>That player is not in a faction.</player-has-no-faction>
@@ -107,6 +107,21 @@ All command setting values:
                 <requires-faction>PLACEHOLDER</requires-faction>
                 <missing-faction-permissions>PLACEHOLDER</missing-faction-permissions>
             </claim>
+            <unclaim>
+                <unclaim-chunk>PLACEHOLDER unclaimed</unclaim-chunk>
+                <faction-not-in-storage>Faction not found in storage medium</faction-not-in-storage>
+                <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
+                <chunk-not-yours>PLACEHOLDER {claim}</chunk-not-yours>
+                <total-area>You claimed §e{success}/{total}§7 chunks successfully</total-area>
+                <radius-no-number>Please provide a number of chunks to claim.</radius-no-number>
+                <auto-activated>Auto claim on. All chunks entered will be claimed with the faction your in.</auto-activated>
+                <auto-disabled>Auto claim off.</auto-disabled>
+
+                <!-- This section is for default execution errors -->
+                <missing-spigot-permission>PLACEHOLDER</missing-spigot-permission>
+                <requires-faction>PLACEHOLDER</requires-faction>
+                <missing-faction-permissions>PLACEHOLDER</missing-faction-permissions>
+            </unclaim>
         </command>
     </messages>
     <ranks>
@@ -201,4 +216,10 @@ All command setting values:
             </ally>
         </member>
     </ranks>
+    <zones>
+        <__glbsafezone__>Safezone</__glbsafezone__>
+        <__glbwarzone__>Warzone</__glbwarzone__>
+        <__glbunclaimable__/>
+        <__glbwilderness__>Wilderness</__glbwilderness__>
+    </zones>
 </translatable>

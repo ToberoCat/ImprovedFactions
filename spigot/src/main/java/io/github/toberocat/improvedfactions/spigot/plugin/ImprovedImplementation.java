@@ -155,7 +155,7 @@ public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
 
     @Override
     public @NotNull ConfigHandler getConfig(@NotNull String relativePath) {
-        return new SpigotConfigHandler(new YamlLoader(new File(relativePath), plugin)
+        return new SpigotConfigHandler(new YamlLoader(new File(getDataFolder(), relativePath), plugin)
                 .logger(logger)
                 .load()
                 .fileConfiguration());

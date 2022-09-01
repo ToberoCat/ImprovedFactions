@@ -4,7 +4,9 @@ import org.jetbrains.annotations.NotNull;
 
 public enum FactionPermission implements Permission {
     CLAIM_PERMISSION("claim-chunk-permission"),
-    BREAK_PERMISSION("break-block-permission");
+    UNCLAIM_PERMISSION("unclaim-chunk-permission"),
+    BREAK_PERMISSION("break-block-permission"),
+    PLACE_PERMISSION("place-block-permission");
 
     final @NotNull String name;
 

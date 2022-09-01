@@ -31,7 +31,7 @@ public class Translation {
     /* Static manager methods */
     public static void createLocaleMap() throws IOException {
         for (File file : ACCESS.listFiles())
-            XmlLoader.read(Translatable.class, file)
+            XmlManager.read(Translatable.class, file)
                     .getMeta()
                     .getLanguages()
                     .forEach(x -> LOCALE_TO_FILE_MAP.put(x, file.getName()));
@@ -79,7 +79,7 @@ public class Translation {
         if (!langFile.exists()) return null;
 
         try {
-            return XmlLoader.read(Translatable.class, langFile);
+            return XmlManager.read(Translatable.class, langFile);
         } catch (IOException e) {
             return null;
         }
