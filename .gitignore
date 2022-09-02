@@ -96,6 +96,10 @@ $RECYCLE.BIN/
 *.lnk
 
 target/
+/target/
+*/target/**
+**/META-INF/
+!.mvn/wrapper/maven-wrapper.jar
 
 pom.xml.tag
 pom.xml.releaseBackup
