@@ -97,8 +97,8 @@
                 <player-has-no-faction>That player is not in a faction</player-has-no-faction>
                 <chunk-not-yours>§cYou can not unclaim other factions chunks.</chunk-not-yours>
                 <total-area>You unclaimed §e{success}/{total}§f chunks successfully</total-area>
-                <radius-no-number>Please provide a number of chunks to claim</radius-no-number>
-                <auto-activated>Auto unclaim on All chunks entered will be claimed with the faction your in</auto-activated>
+                <radius-no-number>Please provide a number of chunks to unclaim</radius-no-number>
+                <auto-activated>Auto unclaim on, All chunks entered will be unclaimed with the faction your in</auto-activated>
                 <auto-disabled>Auto unclaim off</auto-disabled>
 
                 <!-- This section is for default execution errors -->
