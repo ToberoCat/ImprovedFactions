@@ -1,17 +1,3 @@
-<!--
-
-All command setting values:
-
-<missing-spigot-permission>PLACEHOLDER</missing-spigot-permission>
-<requires-faction>PLACEHOLDER</requires-faction>
-<requires-no-faction>PLACEHOLDER</requires-no-faction>
-<not-enough-priority>PLACEHOLDER</not-enough-priority>
-<wrong-rank>PLACEHOLDER</wrong-rank>
-<missing-faction-permissions>PLACEHOLDER</missing-faction-permissions>
-
--->
-
-
 <translatable version="1.0">
     <meta>
         <supported-languages> <!-- See this page (https://www.andiamo.co.uk/resources/iso-language-codes/) to get language codes. Replace - with underscore -->
@@ -25,15 +11,13 @@ All command setting values:
             <lang-code>en_nz</lang-code>
             <lang-code>en_za</lang-code>
             <lang-code>en_tt</lang-code>
-            <lang-code>en_tt</lang-code>
-            <lang-code>en_tt</lang-code>
         </supported-languages>
         <contributors>
             <contributor type="developer">Tobero</contributor>
             <contributor type="translator">Josh-65</contributor>
         </contributors>
     </meta>
-    <prefix>§8[§eIF§8]§7 </prefix>
+    <prefix>[§eIF§f] </prefix>
     <messages>
         <faction>
             <player> <!-- Messages players shall receive -->
@@ -53,74 +37,74 @@ All command setting values:
         </faction>
         <command>
             <command-settings>
-                <resetted-faction-registry>Couldn't find your saved faction. Resetted the container</resetted-faction-registry>
-                <no-command-found>§cCouldn't find the command you where searching for</no-command-found>
+                <resetted-faction-registry>Could not find your saved faction. Resetted the container</resetted-faction-registry>
+                <no-command-found>§cThat command does not exists</no-command-found>
             </command-settings>
             <create>
-                <description>Creates a faction with a given name.</description>
-                <created-faction>{faction} has been created.</created-faction>
-                <illegal-naming>That name can't be used.</illegal-naming>
-                <faction-already-exists>{faction} already exists.</faction-already-exists>
-                <not-enough-arguments>Enter a faction name.</not-enough-arguments>
-                <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
-                <player-has-no-faction>That player is not in a faction.</player-has-no-faction>
-                <player-already-in-faction>That player is already in a faction.</player-already-in-faction>
-                <not-enough-permissions>§cYou do not have permission for that command.</not-enough-permissions>
+                <description>Creates a faction with a given name</description>
+                <created-faction>{faction} has been created</created-faction>
+                <illegal-naming>That name can't be used</illegal-naming>
+                <faction-already-exists>{faction} already exists</faction-already-exists>
+                <not-enough-arguments>Enter a faction name</not-enough-arguments>
+                <faction-not-in-storage>Faction not found in storage medium</faction-not-in-storage>
+                <player-has-no-faction>That player is not in a faction</player-has-no-faction>
+                <player-already-in-faction>That player is already in a faction</player-already-in-faction>
+                <not-enough-permissions>§cYou do not have permission for that command</not-enough-permissions>
 
                 <!-- This section is for default execution errors -->
-                <missing-spigot-permission>PLACEHOLDER</missing-spigot-permission>
-                <requires-no-faction>PLACEHOLDER</requires-no-faction>
+                <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
+                <requires-no-faction>§cYou need to be in a faction to use this</requires-no-faction>
             </create>
             <delete>
-                <description>Deletes a faction with a given name.</description>
-                <deleted-faction>The faction has been deleted.</deleted-faction>
-                <not-confirmed>§cPlease use §e/f delete confirm §cto delete.</not-confirmed>
-                <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
-                <faction-frozen>PLACEHOLDER</faction-frozen>
-                <player-has-no-faction>That player is not in a faction.</player-has-no-faction>
+                <description>Deletes a faction with a given name</description>
+                <deleted-faction>The faction has been deleted</deleted-faction>
+                <not-confirmed>§cPlease use §e/f delete confirm §cto delete</not-confirmed>
+                <faction-not-in-storage>Faction not found in storage medium</faction-not-in-storage>
+                <faction-frozen>This faction has been frozen and can not be modifyed ingame</faction-frozen>
+                <player-has-no-faction>That player is not in a faction</player-has-no-faction>
 
                 <!-- This section is for default execution errors -->
-                <missing-spigot-permission>PLACEHOLDER</missing-spigot-permission>
-                <requires-faction>PLACEHOLDER</requires-faction>
-                <wrong-rank>PLACEHOLDER</wrong-rank>
+                <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
+                <requires-faction>§cYou need to be in a faction to use this</requires-faction>
+                <wrong-rank>§cYou do not have the required rank to do this</wrong-rank>
             </delete>
             <list>
-                <description>Lists all factions that exists on the server.</description>
-                <entry>§e{faction}§7 - {description}</entry>
-                <no-entries>PLACEHOLDER</no-entries>
+                <description>Lists all factions that exists on the server</description>
+                <entry>§e{faction}§f - {description}</entry>
+                <no-entries>§cThere are no factions saved</no-entries>
 
                 <!-- This section is for default execution errors -->
-                <missing-spigot-permission>PLACEHOLDER</missing-spigot-permission>
+                <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </list>
             <claim>
-                <claim-chunk>Chunk claimed.</claim-chunk>
-                <radius-no-number>Please provide a number of chunks to claim.</radius-no-number>
-                <auto-activated>Auto claim on. All chunks entered will be claimed with the faction your in.</auto-activated>
-                <auto-disabled>Auto claim off.</auto-disabled>
-                <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
-                <player-has-no-faction>That player is not in a faction.</player-has-no-faction>
-                <chunk-already-claimed>This chunk has already been claimed.</chunk-already-claimed>
-                <total-area>You claimed §e{success}/{total}§7 chunks successfully</total-area>
+                <claim-chunk>Chunk claimed</claim-chunk>
+                <radius-no-number>Please provide a number of chunks to claim</radius-no-number>
+                <auto-activated>Auto claim on, all chunks entered will be claimed with the faction your in</auto-activated>
+                <auto-disabled>Auto claim off</auto-disabled>
+                <faction-not-in-storage>Faction not in storage</faction-not-in-storage>
+                <player-has-no-faction>That player is not in a faction</player-has-no-faction>
+                <chunk-already-claimed>This chunk has already been claimed</chunk-already-claimed>
+                <total-area>You claimed §e{success}/{total}§f chunks successfully</total-area>
 
                 <!-- This section is for default execution errors -->
-                <missing-spigot-permission>PLACEHOLDER</missing-spigot-permission>
-                <requires-faction>PLACEHOLDER</requires-faction>
-                <missing-faction-permissions>PLACEHOLDER</missing-faction-permissions>
+                <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
+                <requires-faction>You need to be in a faction to use this</requires-faction>
+                <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>
             </claim>
             <unclaim>
-                <unclaim-chunk>PLACEHOLDER unclaimed</unclaim-chunk>
+                <unclaim-chunk>Chunk unclaimed</unclaim-chunk>
                 <faction-not-in-storage>Faction not found in storage medium</faction-not-in-storage>
-                <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
-                <chunk-not-yours>PLACEHOLDER {claim}</chunk-not-yours>
-                <total-area>You claimed §e{success}/{total}§7 chunks successfully</total-area>
-                <radius-no-number>Please provide a number of chunks to claim.</radius-no-number>
-                <auto-activated>Auto claim on. All chunks entered will be claimed with the faction your in.</auto-activated>
-                <auto-disabled>Auto claim off.</auto-disabled>
+                <player-has-no-faction>That player is not in a faction</player-has-no-faction>
+                <chunk-not-yours>§cYou can not unclaim other factions chunks.</chunk-not-yours>
+                <total-area>You unclaimed §e{success}/{total}§f chunks successfully</total-area>
+                <radius-no-number>Please provide a number of chunks to unclaim</radius-no-number>
+                <auto-activated>Auto unclaim on, All chunks entered will be unclaimed with the faction your in</auto-activated>
+                <auto-disabled>Auto unclaim off</auto-disabled>
 
                 <!-- This section is for default execution errors -->
-                <missing-spigot-permission>PLACEHOLDER</missing-spigot-permission>
-                <requires-faction>PLACEHOLDER</requires-faction>
-                <missing-faction-permissions>PLACEHOLDER</missing-faction-permissions>
+                <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
+                <requires-faction>You need to be in a faction to use this</requires-faction>
+                <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>
             </unclaim>
         </command>
     </messages>
@@ -129,15 +113,15 @@ All command setting values:
             <faction>
                 <title>§eGuest rank</title>
                 <description>
-                    <line>§8A guest is everyone that has no</line>
-                    <line>§8relation to your faction</line>
+                    <line>A guest is everyone that has no</line>
+                    <line>relation to your faction</line>
                 </description>
             </faction>
             <ally>
                 <title>§eGuest rank</title>
                 <description>
-                    <line>§8A guest is everyone that has no</line>
-                    <line>§8relation to your faction</line>
+                    <line>A guest is everyone that has no</line>
+                    <line>relation to your faction</line>
                 </description>
             </ally>
         </guest>
@@ -145,14 +129,14 @@ All command setting values:
             <faction>
                 <title>§eOwner rank</title>
                 <description>
-                    <line>§8The creator the faction</line>
-                    <line>§8they have all permissions</line>
+                    <line>The creator the faction</line>
+                    <line>they have all permissions</line>
                 </description>
             </faction>
             <ally>
                 <title>§bAlly Owner rank</title>
                 <description>
-                    <line>§8The creator of an allied faction</line>
+                    <line>The creator of an allied faction</line>
                 </description>
             </ally>
         </owner>
@@ -160,15 +144,15 @@ All command setting values:
             <faction>
                 <title>§eAdmin rank</title>
                 <description>
-                    <line>§8A admin is much like a owner</line>
-                    <line>§8but can't delete the faction or make other players admins</line>
+                    <line>A admin is much like a owner</line>
+                    <line>but can't delete the faction or make other players admins</line>
                 </description>
             </faction>
             <ally>
                 <title>§bAlly admin rank</title>
                 <description>
-                    <line>§8A admin of one of your allied factions</line>
-                    <line>§8They are trustworthy people</line>
+                    <line>A admin of one of your allied factions</line>
+                    <line>They are trustworthy people</line>
                 </description>
             </ally>
         </admin>
@@ -176,14 +160,14 @@ All command setting values:
             <faction>
                 <title>§eModerator rank</title>
                 <description>
-                    <line>§8A manager of this faction</line>
-                    <line>§8They have some management control</line>
+                    <line>A manager of this faction</line>
+                    <line>They have some management control</line>
                 </description>
             </faction>
             <ally>
                 <title>§bAlly Moderator rank</title>
                 <description>
-                    <line>§8A member of an allied faction with a moderator rank</line>
+                    <line>A member of an allied faction with a moderator rank</line>
                 </description>
             </ally>
         </moderator>
@@ -191,13 +175,13 @@ All command setting values:
             <faction>
                 <title>§eElder rank</title>
                 <description>
-                    <line>§8These players have been in the faction for a long time</line>
+                    <line>These players have been in the faction for a long time</line>
                 </description>
             </faction>
             <ally>
                 <title>§bElder rank</title>
                 <description>
-                    <line>§8A member of an allied faction with an elder rank</line>
+                    <line>A member of an allied faction with an elder rank</line>
                 </description>
             </ally>
         </elder>
@@ -205,13 +189,13 @@ All command setting values:
             <faction>
                 <title>§eMember rank</title>
                 <description>
-                    <line>§8A member of this faction</line>
+                    <line>A member of this faction</line>
                 </description>
             </faction>
             <ally>
                 <title>§bMember ally rank</title>
                 <description>
-                    <line>§8A member of an allied faction</line>
+                    <line>A member of an allied faction</line>
                 </description>
             </ally>
         </member>
@@ -219,7 +203,7 @@ All command setting values:
     <zones>
         <__glbsafezone__>Safezone</__glbsafezone__>
         <__glbwarzone__>Warzone</__glbwarzone__>
-        <__glbunclaimable__/>
+        <__glbunclaimable__>Unclaimable</__glbunclaimable__>
         <__glbwilderness__>Wilderness</__glbwilderness__>
     </zones>
 </translatable>
