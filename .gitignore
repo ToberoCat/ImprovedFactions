@@ -96,8 +96,6 @@ $RECYCLE.BIN/
 *.lnk
 
 target/
-core/target/
-spigot/target/
 
 pom.xml.tag
 pom.xml.releaseBackup
