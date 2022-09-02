@@ -18,6 +18,7 @@ public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleC
         add(new ListFactionCommand());
         add(new ClaimCommand());
         add(new UnclaimCommand());
+        add(new JoinFactionCommand());
     }
 
     @Override
@@ -26,7 +27,7 @@ public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleC
     }
 
     @Override
-    public CommandSettings settings() {
+    public @NotNull CommandSettings createSettings() {
         return new CommandSettings(translatable -> translatable.getMessages()
                 .getCommand()
                 .get("command-settings"));

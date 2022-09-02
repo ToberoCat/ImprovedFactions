@@ -22,10 +22,6 @@ public class CreateFactionCommand extends
         Command<CreateFactionCommand.CreateFactionPacket, CreateFactionCommand.CreateFactionPacket> {
 
     public static final String LABEL = "create";
-    private static final Function<Translatable, Map<String, String>> node = translatable -> translatable
-            .getMessages()
-            .getCommand()
-            .get(LABEL);
 
     @Override
     public @NotNull String label() {
@@ -33,7 +29,7 @@ public class CreateFactionCommand extends
     }
 
     @Override
-    public CommandSettings settings() {
+    public @NotNull CommandSettings createSettings() {
         return new CommandSettings(node)
                 .setAllowInConsole(true)
                 .setRequiresNoFaction(true)

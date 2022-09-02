@@ -17,33 +17,43 @@ public record TranslationFixer(@NotNull Translatable internal,
         internal.getMessages()
                 .getFaction()
                 .getBroadcast()
+                .keySet()
                 .stream()
                 .filter(x -> !external
                         .getMessages()
                         .getFaction()
                         .getBroadcast()
-                        .contains(x))
+                        .containsKey(x))
                 .forEach(x -> external
                         .getMessages()
                         .getFaction()
                         .getBroadcast()
-                        .add(x));
+                        .put(x, internal
+                                .getMessages()
+                                .getFaction()
+                                .getBroadcast()
+                                .get(x)));
 
         // Players
         internal.getMessages()
                 .getFaction()
                 .getPlayer()
+                .keySet()
                 .stream()
                 .filter(x -> !external
                         .getMessages()
                         .getFaction()
                         .getPlayer()
-                        .contains(x))
+                        .containsKey(x))
                 .forEach(x -> external
                         .getMessages()
                         .getFaction()
                         .getPlayer()
-                        .add(x));
+                        .put(x, internal
+                                .getMessages()
+                                .getFaction()
+                                .getPlayer()
+                                .get(x)));
 
         // Command messages
         internal.getMessages()

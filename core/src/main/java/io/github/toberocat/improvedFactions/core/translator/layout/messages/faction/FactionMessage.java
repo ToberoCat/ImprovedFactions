@@ -1,28 +1,28 @@
 package io.github.toberocat.improvedFactions.core.translator.layout.messages.faction;
 
-import java.util.List;
+import java.util.Map;
 
 public class FactionMessage {
-    private List<String> player;
-    private List<String> broadcast;
+    private Map<String, String> player;
+    private Map<String, String> broadcast;
 
     public FactionMessage() {
 
     }
 
-    public List<String> getPlayer() {
+    public Map<String, String> getPlayer() {
         return player;
     }
 
-    public void setPlayer(List<String> player) {
+    public void setPlayer(Map<String, String> player) {
         this.player = player;
     }
 
-    public List<String> getBroadcast() {
+    public Map<String, String> getBroadcast() {
         return broadcast;
     }
 
-    public void setBroadcast(List<String> broadcast) {
+    public void setBroadcast(Map<String, String> broadcast) {
         this.broadcast = broadcast;
     }
 }

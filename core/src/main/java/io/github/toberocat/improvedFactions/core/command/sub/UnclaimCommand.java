@@ -21,11 +21,6 @@ import java.util.function.Function;
 public class UnclaimCommand extends AutoAreaCommand {
 
     public static final String LABEL = "unclaim";
-    private static final Function<Translatable, Map<String, String>> node = translatable -> translatable
-            .getMessages()
-            .getCommand()
-            .get(LABEL);
-
 
     @Override
     public @NotNull String label() {
@@ -33,7 +28,7 @@ public class UnclaimCommand extends AutoAreaCommand {
     }
 
     @Override
-    protected CommandSettings settings() {
+    protected @NotNull CommandSettings createSettings() {
         return new CommandSettings(node)
                 .setAllowInConsole(false)
                 .setRequiredSpigotPermission(permission())

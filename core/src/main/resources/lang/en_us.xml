@@ -27,11 +27,11 @@
                 <player>You got unbanned from §e{faction}</player>
             </player>
             <broadcast>
-                <broadcast>§ePlayer {player} joined your faction as {rank}</broadcast>
-                <broadcast>§cPlayer {player} left your faction</broadcast>
-                <broadcast>§6Player {player} got kicked out of your faction</broadcast>
-                <broadcast>§cPlayer {player} got banned from your faction</broadcast>
-                <broadcast>§ePlayer {player} got unbanned. They are now able to join your faction again</broadcast>
+                <player-join>§ePlayer {player} joined your faction as {rank}</player-join>
+                <player-left>§cPlayer {player} left your faction</player-left>
+                <player-kick>§6Player {player} got kicked out of your faction</player-kick>
+                <player-ban>§cPlayer {player} got banned from your faction</player-ban>
+                <player-pardon>§ePlayer {player} got unbanned. They are now able to join your faction again</player-pardon>
             </broadcast>
         </faction>
         <command>
@@ -95,6 +95,17 @@
                 <total-area>You unclaimed §e{success}/{total}§f chunks successfully</total-area>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </unclaim>
+            <join>
+                <success>PLACEHOLDER joined</success>
+                <not-enough-args>PLACEHOLDER</not-enough-args>
+                <faction-not-joinable>PLACEHOLDER</faction-not-joinable>
+                <faction-not-found>PLACEHOLDER not found</faction-not-found>
+                <faction-frozen>PLACEHOLDER</faction-frozen>
+                <already-in-faction>PLACEHOLDER</already-in-faction>
+                <player-banned>PLACEHOLDER</player-banned>
+                <requires-no-faction>§cYou need to be in a faction to use this</requires-no-faction>
+                <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
+            </join>
         </command>
     </messages>
     <prefix>§8[§eIF§8]§f </prefix>

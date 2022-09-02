@@ -23,10 +23,6 @@ public class DeleteFactionCommand extends ConfirmCommand
         <DeleteFactionCommand.DeleteFactionPacket, DeleteFactionCommand.DeleteFactionConsolePacket> {
 
     public static final String LABEL = "delete";
-    private static final Function<Translatable, Map<String, String>> node = translatable -> translatable
-            .getMessages()
-            .getCommand()
-            .get(LABEL);
 
     @Override
     public @NotNull String label() {
@@ -34,7 +30,7 @@ public class DeleteFactionCommand extends ConfirmCommand
     }
 
     @Override
-    public CommandSettings settings() {
+    public @NotNull CommandSettings createSettings() {
         return new CommandSettings(node)
                 .setRequiredSpigotPermission(permission())
                 .setRequiresFaction(true)

@@ -17,42 +17,39 @@ public abstract class Command<P extends Command.CommandPacket, C extends Command
     public static final String PERMISSION_NODE = "faction.command.";
 
     protected final Map<String, Command<?, ?>> commands = new HashMap<>();
-    private CommandSettings settings;
-    private ConfigHandler config;
+    protected final Function<Translatable, Map<String, String>> node;
 
-    @NotNull
-    public abstract String label();
+    private final CommandSettings settings;
+    private final ConfigHandler config;
 
-    protected abstract CommandSettings settings();
+    public Command() {
+        this.node = translatable -> translatable
+                .getMessages()
+                .getCommand()
+                .get(label());
+        this.settings = createSettings();
+        this.config = config();
+    }
 
-    @NotNull
-    public String permission() {
+    public @NotNull String permission() {
         return PERMISSION_NODE + label();
     }
 
-    @NotNull
-
-    public Function<Translatable, String> description() {
+    public @NotNull Function<Translatable, String> description() {
         return translatable -> translatable.getMessages().getCommand()
                 .get(label())
                 .get("description");
     }
 
-    public abstract @NotNull List<String> tabCompletePlayer(@NotNull FactionPlayer<?> player,
-                                                            @NotNull String[] args);
+    public @NotNull CommandSettings settings() {
+        return settings;
+    }
 
-    public abstract @NotNull List<String> tabCompleteConsole(@NotNull String[] args);
+    public @NotNull ConfigHandler config() {
+        return config;
+    }
 
-    public abstract void run(@NotNull P packet);
-
-    public abstract void runConsole(@NotNull C packet);
-
-    public abstract @Nullable P createFromArgs(@NotNull FactionPlayer<?> executor,
-                                               @NotNull String[] args);
-
-    public abstract @Nullable C createFromArgs(@NotNull String[] args);
-
-    public Map<String, Command<?, ?>> getCommands() {
+    public @NotNull Map<String, Command<?, ?>> getCommands() {
         return commands;
     }
 
@@ -60,16 +57,28 @@ public abstract class Command<P extends Command.CommandPacket, C extends Command
         commands.put(command.label(), command);
     }
 
-    public @NotNull CommandSettings readSettings() {
-        if (settings == null) settings = settings();
-        return settings;
-    }
+    public abstract @NotNull String label();
 
-    public @NotNull ConfigHandler config() {
-        if (config == null)
-            config = ImprovedFactions.api().getConfig("commands/" + label() + "-command.yml");
-        return config;
-    }
+    protected abstract @NotNull CommandSettings createSettings();
+
+    /* Tab complete */
+    public abstract @NotNull List<String> tabCompleteConsole(@NotNull String[] args);
+
+    public abstract @NotNull List<String> tabCompletePlayer(@NotNull FactionPlayer<?> player,
+                                                            @NotNull String[] args);
+
+    /* Command execution */
+    public abstract void run(@NotNull P packet);
+
+    public abstract void runConsole(@NotNull C packet);
+
+    /* Packet creation */
+    public abstract @Nullable P createFromArgs(@NotNull FactionPlayer<?> executor,
+                                               @NotNull String[] args);
+
+    public abstract @Nullable C createFromArgs(@NotNull String[] args);
+
+    /* Interfaces */
 
     public interface CommandPacket {
     }

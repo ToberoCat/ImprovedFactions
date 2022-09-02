@@ -499,6 +499,11 @@ public class LocalFaction implements Faction<LocalFaction> {
         members.add(player.getUniqueId());
 
         setRank(player, rank);
+        broadcastTranslatable(translatable -> translatable
+                .getMessages()
+                .getFaction()
+                .getBroadcast()
+                .get("player-join"));
         return true;
     }
 

@@ -56,7 +56,7 @@ public class SpigotCommandHandler {
             return false;
         }
 
-        CommandSettings.SettingResult query = cmd.readSettings().canExecute(player);
+        CommandSettings.SettingResult query = cmd.settings().canExecute(player);
         if (!query.result()) {
             if (query.errorMessage() != null) player.sendTranslatable(query.errorMessage());
             return false;
@@ -80,7 +80,7 @@ public class SpigotCommandHandler {
         if (cmd == null) return false;
 
 
-        if (!cmd.readSettings().canExecuteConsole()) return false;
+        if (!cmd.settings().canExecuteConsole()) return false;
 
         Command.ConsoleCommandPacket packet = cmd.createFromArgs(args);
 
@@ -102,17 +102,17 @@ public class SpigotCommandHandler {
             FactionPlayer<?> executor = ImprovedFactions.api().getPlayer(player.getUniqueId());
             if (executor == null) return Collections.emptyList();
 
-            if (!command.readSettings().showTab(executor)) return Collections.emptyList();
+            if (!command.settings().showTab(executor)) return Collections.emptyList();
 
             List<String> autoTabs = command.getCommands().values()
                     .stream()
-                    .filter(x -> x.readSettings().showTab(executor))
+                    .filter(x -> x.settings().showTab(executor))
                     .map(Command::label)
                     .toList();
             return autoTabs.size() == 0 ? command.tabCompletePlayer(executor, args) : autoTabs;
         }
 
-        if (!command.readSettings().showTabConsole()) return Collections.emptyList();
+        if (!command.settings().showTabConsole()) return Collections.emptyList();
 
         return command.tabCompleteConsole(args);
     }

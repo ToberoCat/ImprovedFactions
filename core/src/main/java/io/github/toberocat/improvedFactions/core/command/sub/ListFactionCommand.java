@@ -19,10 +19,6 @@ public class ListFactionCommand extends
         Command<ListFactionCommand.ListPacket, ListFactionCommand.ListConsolePacket> {
 
     public static final String LABEL = "list";
-    private static final Function<Translatable, Map<String, String>> node = translatable -> translatable
-            .getMessages()
-            .getCommand()
-            .get(LABEL);
 
     @Override
     public @NotNull String label() {
@@ -30,7 +26,7 @@ public class ListFactionCommand extends
     }
 
     @Override
-    protected CommandSettings settings() {
+    protected @NotNull CommandSettings createSettings() {
         return new CommandSettings(node)
                 .setAllowInConsole(true)
                 .setRequiredSpigotPermission(permission());

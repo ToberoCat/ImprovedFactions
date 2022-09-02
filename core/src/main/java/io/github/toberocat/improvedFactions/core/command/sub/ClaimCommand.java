@@ -32,7 +32,7 @@ public class ClaimCommand extends AutoAreaCommand {
     }
 
     @Override
-    protected CommandSettings settings() {
+    protected @NotNull CommandSettings createSettings() {
         return new CommandSettings(node)
                 .setAllowInConsole(false)
                 .setRequiredSpigotPermission(permission())

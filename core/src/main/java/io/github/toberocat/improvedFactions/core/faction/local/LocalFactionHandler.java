@@ -43,6 +43,15 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
 
         factions.put(faction.getRegistry(), faction);
         EventExecutor.getExecutor().createFaction(faction, owner);
+
+        try {
+            access.write(faction.toDataType(),
+                    FileAccess.FACTION_FOLDER,
+                    faction.getRegistry() + ".json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return faction;
     }
 
@@ -76,7 +85,10 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
 
     @Override
     public @NotNull Stream<String> getAllFactions() {
-        return Arrays.stream(access.list(FileAccess.FACTION_FOLDER));
+        return Stream.concat(
+                Arrays.stream(access.list(FileAccess.FACTION_FOLDER)),
+                factions.keySet().stream()
+        );
     }
 
     @Override
