@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>core</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>2.0.0-dev.3</version>
     <name>ImprovedFactions Core</name>
 
     <parent>
         <groupId>io.github.toberocat.improvedfactions</groupId>
         <artifactId>factions</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>2.0.0-dev.3</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
