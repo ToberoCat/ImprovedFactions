@@ -28,6 +28,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public interface Faction<F extends Faction<F>> extends FactionPermissions, SettingHolder {
@@ -35,6 +36,8 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
     int allyId = 0;
     int neutralId = 1;
     int enemyId = 2;
+
+    Pattern REGISTRY_PATTERN = Pattern.compile("[\\\\/:*?\"<>|§]");
 
     /* Config values */
     long activeThreshold = ConfigHandler.api().getInt("faction.active-member-threshold", 60);
@@ -67,12 +70,13 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
     static @NotNull String displayToRegistry(@NotNull String display) {
         return validateDisplay(display)
                 .transform(x -> ColorHandler.api().stripColor(x))
-                .replaceAll("[\\\\/:*?\"<>|§]", "");
+                .replaceAll(REGISTRY_PATTERN.pattern(), "");
     }
 
     static @NotNull String validateDisplay(@NotNull String display) {
         return display.length() <= 10 ? display : display
-                .substring(0, ConfigHandler.api().getInt("faction.max-display-length", 10));
+                .substring(0, ConfigHandler.api().getInt("faction.max-display-length", 10))
+                .replaceAll(REGISTRY_PATTERN.pattern(), "x");
     }
 
     /**
@@ -86,7 +90,7 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
      * @return If the name is valid
      */
     static boolean validNaming(@NotNull String name) {
-        return !List.of(ClaimHandler.SAFEZONE_REGISTRY,
+        return !REGISTRY_PATTERN.matcher(name).find() && !List.of(ClaimHandler.SAFEZONE_REGISTRY,
                 ClaimHandler.WARZONE_REGISTRY,
                 ClaimHandler.UNCLAIMABLE_REGISTRY,
                 ClaimHandler.WILDERNESS_REGISTRY).contains(name);
