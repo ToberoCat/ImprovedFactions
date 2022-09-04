@@ -106,6 +106,17 @@
                 <requires-no-faction>§cYou need to be in a faction to use this</requires-no-faction>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </join>
+            <leave>
+                <player-left>PLACEHOLDER left</player-left>
+                <not-enough-args>PLACEHOLDER</not-enough-args>
+                <faction-not-found>PLACEHOLDER</faction-not-found>
+                <faction-frozen>PLACEHOLDER</faction-frozen>
+                <player-is-owner>PLACEHOLDER</player-is-owner>
+                <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
+                <missing-spigot-permission>PLACEHOLDER</missing-spigot-permission>
+                <requires-faction>PLACEHOLDER</requires-faction>
+
+            </leave>
         </command>
     </messages>
     <prefix>§8[§eIF§8]§f </prefix>
