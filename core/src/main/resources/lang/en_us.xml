@@ -115,7 +115,6 @@
                 <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
                 <missing-spigot-permission>PLACEHOLDER</missing-spigot-permission>
                 <requires-faction>PLACEHOLDER</requires-faction>
-
             </leave>
         </command>
     </messages>

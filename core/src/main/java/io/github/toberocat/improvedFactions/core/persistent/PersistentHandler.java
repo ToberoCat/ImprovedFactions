@@ -8,6 +8,8 @@ public final class PersistentHandler {
 
     public static final String FACTION_KEY = "faction_registry";
     public static final String CLAIM_KEY = "claim_registry";
+    public static final String RECEIVED_INVITE_KEY = "received_invite";
+    public static final String SENT_INVITE_KEY = "received_invite";
 
     private static final PersistentData implementation = createImplementation();
 
