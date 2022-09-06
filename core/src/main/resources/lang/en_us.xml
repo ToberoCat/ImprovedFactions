@@ -33,6 +33,8 @@
                 <player-ban>§cPlayer {player} got banned from your faction</player-ban>
                 <player-pardon>§ePlayer {player} got unbanned. They are now able to join your faction again</player-pardon>
                 <invite-sent>§e{sender}§f invited §e{received}§f to join your faction</invite-sent>
+                <invite-cancelled>§e{sender}§f cancelled the invite for §e{received}§f to join your faction</invite-cancelled>
+                <invite-accepted>§e{received}§f accepted §e{sender}§f invite</invite-accepted>
             </broadcast>
         </faction>
         <command>

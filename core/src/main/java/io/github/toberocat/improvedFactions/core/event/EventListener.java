@@ -54,4 +54,14 @@ public interface EventListener {
                       @NotNull FactionPlayer<?> sender,
                       @NotNull Faction<?> faction,
                       @NotNull FactionRank rank);
+
+    void cancelInvite(@NotNull OfflineFactionPlayer<?> receiver,
+                @NotNull OfflineFactionPlayer<?> sender,
+                @NotNull Faction<?> faction,
+                @NotNull FactionRank rank);
+
+    void acceptInvite(@NotNull OfflineFactionPlayer<?> receiver,
+                      @NotNull OfflineFactionPlayer<?> sender,
+                      @NotNull Faction<?> faction,
+                      @NotNull FactionRank rank);
 }
