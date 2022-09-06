@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedFactions.core.player;
 
-import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.persistent.component.PersistentWrapper;
@@ -20,6 +20,7 @@ public interface OfflineFactionPlayer<P> {
     }
 
     @NotNull Faction<?> getFaction() throws PlayerHasNoFactionException, FactionNotInStorage;
+
     @Nullable String getFactionRegistry();
 
 
@@ -34,9 +35,13 @@ public interface OfflineFactionPlayer<P> {
 
     /* Player */
     @Nullable FactionPlayer<?> getPlayer();
+
     @NotNull UUID getUniqueId();
+
     @NotNull String getName();
+
     long getLastPlayed();
+
     boolean isOnline();
 
     /* Persistent data */

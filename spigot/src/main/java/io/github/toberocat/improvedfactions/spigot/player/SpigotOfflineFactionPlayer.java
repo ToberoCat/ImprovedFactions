@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedfactions.spigot.player;
 
+import io.github.toberocat.improvedFactions.core.exceptions.NoImplementationProvidedException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
@@ -12,6 +13,7 @@ import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
+import org.apache.commons.lang.NotImplementedException;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -53,12 +55,12 @@ public class SpigotOfflineFactionPlayer implements OfflineFactionPlayer<OfflineP
 
     @Override
     public void sendMessage(@NotNull String message) {
-
+        throw new NotImplementedException("Not implemented");
     }
 
     @Override
     public void sendTranslatable(@NotNull Function<Translatable, String> query, Placeholder... placeholders) {
-
+        throw new NotImplementedException("Not implemented");
     }
 
     @Override
