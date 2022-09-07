@@ -90,6 +90,7 @@ public class InviteHandler {
         invites.sender().getDataContainer()
                 .remove(PersistentHandler.SENT_INVITE_KEY + "_" + faction.getRegistry());
 
+
         invites.faction().broadcastTranslatable(translatable -> translatable
                 .getMessages()
                 .getFaction()
