@@ -20,6 +20,7 @@ public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleC
         add(new UnclaimCommand());
         add(new JoinFactionCommand());
         add(new LeaveFactionCommand());
+        add(new InviteCommand());
     }
 
     @Override
