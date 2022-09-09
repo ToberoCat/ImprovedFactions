@@ -47,7 +47,7 @@
                 <created-faction>§a{faction} has been created</created-faction>
                 <player-already-in-faction>§cThat player is already in a faction</player-already-in-faction>
                 <illegal-naming>§cThat name can't be used</illegal-naming>
-                <player-has-no-faction>That player is not in a faction</player-has-no-faction>
+                <player-has-no-faction>§cThat player is not in a faction</player-has-no-faction>
                 <not-enough-permissions>§cYou do not have permission for that command</not-enough-permissions>
                 <faction-already-exists>§c{faction} already exists</faction-already-exists>
                 <description>Creates a faction with a given name</description>
@@ -60,7 +60,7 @@
                 <deleted-faction>§cThe faction has been deleted</deleted-faction>
                 <wrong-rank>§cYou do not have the required rank to do this</wrong-rank>
                 <requires-faction>§cYou need to be in a faction to use this</requires-faction>
-                <player-has-no-faction>That player is not in a faction</player-has-no-faction>
+                <player-has-no-faction>§cThat player is not in a faction</player-has-no-faction>
                 <faction-frozen>§cThis faction has been frozen and can not be modifyed ingame</faction-frozen>
                 <description>Deletes a faction with a given name</description>
                 <not-confirmed>§cPlease use §e/f delete confirm §cto delete</not-confirmed>
@@ -76,7 +76,7 @@
                 <faction-not-in-storage>§cFaction not in storage</faction-not-in-storage>
                 <radius-no-number>Please provide a number of chunks to claim</radius-no-number>
                 <requires-faction>You need to be in a faction to use this</requires-faction>
-                <player-has-no-faction>That player is not in a faction</player-has-no-faction>
+                <player-has-no-faction>§cThat player is not in a faction</player-has-no-faction>
                 <auto-disabled>Auto claim off</auto-disabled>
                 <claim-chunk>§aChunk claimed</claim-chunk>
                 <auto-activated>Auto claim on, all chunks entered will be claimed with the faction your in</auto-activated>
@@ -90,7 +90,7 @@
                 <unclaim-chunk>§aChunk unclaimed</unclaim-chunk>
                 <radius-no-number>§cPlease provide a number of chunks to unclaim</radius-no-number>
                 <requires-faction>§cYou need to be in a faction to use this</requires-faction>
-                <player-has-no-faction>That player is not in a faction</player-has-no-faction>
+                <player-has-no-faction>§cThat player is not in a faction</player-has-no-faction>
                 <auto-disabled>Auto unclaim off</auto-disabled>
                 <auto-activated>Auto unclaim on, All chunks entered will be unclaimed with the faction your in</auto-activated>
                 <chunk-not-yours>§cYou can not unclaim other factions chunks.</chunk-not-yours>
@@ -99,30 +99,30 @@
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </unclaim>
             <join>
-                <success>{player} joined your faction</success>
+                <success>§6{player} has joined your faction</success>
                 <not-enough-args>§cNot enough arguments. Please add a faction name</not-enough-args>
                 <faction-not-joinable>§cYou can not join this faction</faction-not-joinable>
                 <faction-not-found>§cFaction not found</faction-not-found>
                 <faction-frozen>§cThis faction has been frozen and can not be modifyed ingame</faction-frozen>
-                <already-in-faction>You are already in a faction</already-in-faction>
+                <already-in-faction>§cYou are already in a faction</already-in-faction>
                 <player-banned>§cYou have been banned from this faction</player-banned>
                 <requires-no-faction>§cYou need to leave your current faction to do this</requires-no-faction>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </join>
             <leave>
-                <player-left>{player} left your faction</player-left>
+                <player-left>§6{player} left your faction</player-left>
                 <not-enough-args>§cNot enough arguments. Please add a faction name</not-enough-args>
                 <faction-not-found>§cFaction not found</faction-not-found>
                 <faction-frozen>§cThis faction has been frozen and can not be modifyed ingame</faction-frozen>
                 <player-is-owner>You are the owner. use §e/f delete §fto delete and leave faction</player-is-owner>
-                <player-has-no-faction>§eThat player is not in a faction</player-has-no-faction>
+                <player-has-no-faction>§cYou are not in a faction</player-has-no-faction>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
                 <requires-faction>§cYou need to be in a faction to do this</requires-faction>
             </leave>
             <invite>
                 <faction-not-in-storage>§cFaction not found in storage medium</faction-not-in-storage>
-                <player-has-been-invited>§2Faction invite sent to {received}</player-has-been-invited>
-                <player-has-no-faction>§eThat player is not in a faction</player-has-no-faction>
+                <player-has-been-invited>§6Faction invite sent to {received}</player-has-been-invited>
+                <player-has-no-faction>§cThat player is not in a faction</player-has-no-faction>
                 <rank-not-found>§cRank not found</rank-not-found>
                 <player-not-found>§cPlayer not found</player-not-found>
                 <not-enough-args>§cNot enough arguments. Please add the player name</not-enough-args>
