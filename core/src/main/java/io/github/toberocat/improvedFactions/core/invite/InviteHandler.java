@@ -27,17 +27,14 @@ public class InviteHandler {
                                   @NotNull FactionPlayer<?> sender,
                                   @NotNull Faction<?> faction,
                                   @NotNull FactionRank rank) throws PlayerHasBeenInvitedException {
-        if (hasInvite(receiver, faction)) throw HAS_BEEN_INVITED;
-        receiver.getDataContainer()
-                .set(PersistentHandler.RECEIVED_INVITE_KEY + "_" + faction.getRegistry(), String
-                        .format("sender=%s;registry=%s;rank=%s",
-                                sender.getUniqueId(),
-                                faction.getRegistry(),
-                                rank.getRegistry()));
+        if (hasInvite(sender, faction)) throw HAS_BEEN_INVITED;
+        PersistentInvites.writeReceiver(receiver.getDataContainer(),
+                sender.getUniqueId(),
+                faction.getRegistry(),
+                rank.getRegistry());
 
-        sender.getDataContainer()
-                .set(PersistentHandler.SENT_INVITE_KEY + "_" + faction.getRegistry(), String
-                        .format("receiver=%s", sender.getUniqueId()));
+        PersistentInvites.writeSender(sender.getDataContainer(),
+                receiver.getUniqueId());
 
         faction.broadcastTranslatable(translatable -> translatable
                         .getMessages()
@@ -54,16 +51,16 @@ public class InviteHandler {
                                     @NotNull Faction<?> faction)
             throws PlayerHasntBeenInvitedException {
         String entry = receiver.getDataContainer()
-                .get(PersistentHandler.RECEIVED_INVITE_KEY + "_" + faction.getRegistry());
+                .get(PersistentHandler.RECEIVED_INVITE_KEY);
         if (entry == null) throw NOT_INVITED_EXCEPTION;
 
         ReceivedInvites invites = parseReceived(receiver, entry);
         if (invites == null) return;
 
         receiver.getDataContainer()
-                        .remove(PersistentHandler.RECEIVED_INVITE_KEY + "_" + faction.getRegistry());
+                .remove(PersistentHandler.RECEIVED_INVITE_KEY);
         invites.sender().getDataContainer()
-                .remove(PersistentHandler.SENT_INVITE_KEY + "_" + faction.getRegistry());
+                .remove(PersistentHandler.SENT_INVITE_KEY);
 
         invites.faction().broadcastTranslatable(translatable -> translatable
                 .getMessages()
@@ -79,16 +76,16 @@ public class InviteHandler {
     public static void acceptInvite(@NotNull OfflineFactionPlayer<?> receiver,
                                     @NotNull Faction<?> faction) throws PlayerHasntBeenInvitedException {
         String entry = receiver.getDataContainer()
-                .get(PersistentHandler.RECEIVED_INVITE_KEY + "_" + faction.getRegistry());
+                .get(PersistentHandler.RECEIVED_INVITE_KEY);
         if (entry == null) throw NOT_INVITED_EXCEPTION;
 
         ReceivedInvites invites = parseReceived(receiver, entry);
         if (invites == null) return;
 
         receiver.getDataContainer()
-                .remove(PersistentHandler.RECEIVED_INVITE_KEY + "_" + faction.getRegistry());
+                .remove(PersistentHandler.RECEIVED_INVITE_KEY);
         invites.sender().getDataContainer()
-                .remove(PersistentHandler.SENT_INVITE_KEY + "_" + faction.getRegistry());
+                .remove(PersistentHandler.SENT_INVITE_KEY);
 
 
         invites.faction().broadcastTranslatable(translatable -> translatable
@@ -102,11 +99,9 @@ public class InviteHandler {
                 faction, invites.rank());
     }
 
-    public static boolean hasInvite(@NotNull OfflineFactionPlayer<?> receiver,
+    public static boolean hasInvite(@NotNull OfflineFactionPlayer<?> sender,
                                     @NotNull Faction<?> faction) {
-        String entry = receiver.getDataContainer()
-                .get(PersistentHandler.RECEIVED_INVITE_KEY + "_" + faction.getRegistry());
-        return entry == null;
+        return PersistentInvites.hasBeenInvited(sender.getDataContainer(), faction.getRegistry());
     }
 
     private static @Nullable ReceivedInvites parseReceived(@NotNull OfflineFactionPlayer<?> receiver,

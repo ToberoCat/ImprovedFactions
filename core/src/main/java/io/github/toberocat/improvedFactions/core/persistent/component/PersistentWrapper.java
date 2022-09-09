@@ -17,15 +17,15 @@ public class PersistentWrapper {
         this.handle = PersistentHandler.api();
     }
 
-    public @Nullable String set(@NotNull String key, @NotNull String value) {
+    public @Nullable Object set(@NotNull String key, @NotNull Object value) {
         return handle.set(id, key, value);
     }
 
-    public @Nullable String remove(@NotNull String key) {
+    public @Nullable Object remove(@NotNull String key) {
         return handle.remove(id, key);
     }
 
-    public @Nullable String get(@NotNull String key) {
+    public @Nullable Object get(@NotNull String key) {
         return handle.get(id, key);
     }
 

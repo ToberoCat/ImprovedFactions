@@ -6,6 +6,7 @@ import io.github.toberocat.improvedFactions.core.command.sub.chunk.ClaimCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.chunk.UnclaimCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.CreateFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.DeleteFactionCommand;
+import io.github.toberocat.improvedFactions.core.command.sub.invite.AcceptInviteCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.invite.InviteCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.member.JoinFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.member.LeaveFactionCommand;
@@ -28,6 +29,7 @@ public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleC
         add(new JoinFactionCommand());
         add(new LeaveFactionCommand());
         add(new InviteCommand());
+        add(new AcceptInviteCommand());
     }
 
     @Override

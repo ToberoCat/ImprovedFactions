@@ -23,24 +23,23 @@ public class LocalData implements PersistentData {
     }
 
     @Override
-    public @Nullable String set(@NotNull UUID id, @NotNull String key, @NotNull String value) {
-        return getValues(id).getValues().put(key, value);
+    public @Nullable Object set(@NotNull UUID id, @NotNull String key, @NotNull Object value) {
+        return getValues(id).getRawMap().put(key, value);
     }
 
     @Override
-    public @Nullable String remove(@NotNull UUID id, @NotNull String key) {
-
-        return getValues(id).getValues().remove(key);
+    public @Nullable Object remove(@NotNull UUID id, @NotNull String key) {
+        return getValues(id).getRawMap().remove(key);
     }
 
     @Override
-    public @Nullable String get(@NotNull UUID id, @NotNull String key) {
-        return getValues(id).getValues().get(key);
+    public @Nullable Object get(@NotNull UUID id, @NotNull String key) {
+        return getValues(id).getRawMap().get(key);
     }
 
     @Override
     public boolean has(@NotNull UUID id, @NotNull String key) {
-        return getValues(id).getValues().containsKey(key);
+        return getValues(id).getRawMap().containsKey(key);
     }
 
     @Override
@@ -86,14 +85,14 @@ public class LocalData implements PersistentData {
     }
 
     private static class Values {
-        private Map<String, String> values = new HashMap<>();
+        private Map<String, Object> rawMap = new HashMap<>();
 
-        public Map<String, String> getValues() {
-            return values;
+        public Map<String, Object> getRawMap() {
+            return rawMap;
         }
 
-        public void setValues(Map<String, String> values) {
-            this.values = values;
+        public void setRawMap(Map<String, Object> rawMap) {
+            this.rawMap = rawMap;
         }
     }
 }
