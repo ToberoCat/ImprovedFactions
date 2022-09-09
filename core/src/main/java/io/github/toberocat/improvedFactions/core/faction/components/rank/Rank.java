@@ -19,6 +19,7 @@ public abstract class Rank {
     private final boolean isAdmin;
     private final int priority;
 
+
     public Rank(Function<Translatable, String> title, String registryName, int permissionPriority, boolean isAdmin) {
         this.title = title;
         this.registry = registryName;

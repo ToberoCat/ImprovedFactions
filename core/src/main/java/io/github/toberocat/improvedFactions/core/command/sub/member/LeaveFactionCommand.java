@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedFactions.core.command.sub;
+package io.github.toberocat.improvedFactions.core.command.sub.member;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
@@ -7,10 +7,6 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotIn
 import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.leave.PlayerIsOwnerException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
-import io.github.toberocat.improvedFactions.core.faction.OpenType;
-import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
-import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionMemberRank;
-import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;

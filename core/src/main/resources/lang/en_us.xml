@@ -32,6 +32,9 @@
                 <player-kick>§6Player {player} got kicked out of your faction</player-kick>
                 <player-ban>§cPlayer {player} got banned from your faction</player-ban>
                 <player-pardon>§ePlayer {player} got unbanned. They are now able to join your faction again</player-pardon>
+                <invite-sent>§e{sender}§f invited §e{received}§f to join your faction</invite-sent>
+                <invite-cancelled>§e{sender}§f cancelled the invite for §e{received}§f to join your faction</invite-cancelled>
+                <invite-accepted>§e{received}§f accepted §e{sender}§f invite</invite-accepted>
             </broadcast>
         </faction>
         <command>
@@ -116,6 +119,16 @@
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
                 <requires-faction>§cYou need to be in a faction to do this</requires-faction>
             </leave>
+            <invite>
+                <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
+                <player-has-been-invited>PLACEHOLDER</player-has-been-invited>
+                <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
+                <rank-not-found>PLACEHOLDER</rank-not-found>
+                <player-not-found>PLACEHOLDER</player-not-found>
+                <not-enough-args>PLACEHOLDER</not-enough-args>
+                <missing-spigot-permission>PLACEHOLDER</missing-spigot-permission>
+                <requires-faction>PLACEHOLDER</requires-faction>
+            </invite>
         </command>
     </messages>
     <prefix>[§eIF§f] </prefix>

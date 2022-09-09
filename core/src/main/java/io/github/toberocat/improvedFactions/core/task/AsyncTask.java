@@ -2,10 +2,15 @@ package io.github.toberocat.improvedFactions.core.task;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class AsyncTask<R> implements Runnable {
+
+    private static final ExecutorService threadPool = Executors.newCachedThreadPool();
 
     private Supplier<R> supplier;
     private Consumer<R> consumer;
@@ -20,8 +25,7 @@ public class AsyncTask<R> implements Runnable {
     }
 
     public @NotNull AsyncTask<R> start() {
-        Thread thread = new Thread(this);
-        thread.start();
+        threadPool.submit(this);
         return this;
     }
 

@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedFactions.core.command.sub;
+package io.github.toberocat.improvedFactions.core.command.sub.faction;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
@@ -8,15 +8,12 @@ import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
-import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 
 public class CreateFactionCommand extends
         Command<CreateFactionCommand.CreateFactionPacket, CreateFactionCommand.CreateFactionPacket> {

@@ -13,6 +13,8 @@ import java.util.List;
 
 /**
  * This class should emit events to make
+ *
+ * Event calls could be sent from a thread, which threatens thread safety
  */
 public interface EventListener {
 
@@ -47,4 +49,19 @@ public interface EventListener {
     void allyFaction(@NotNull Faction<?> first, @NotNull Faction<?> second);
 
     void createFaction(@NotNull Faction<?> faction, FactionPlayer<?> owner);
+
+    void invitePlayer(@NotNull OfflineFactionPlayer<?> receiver,
+                      @NotNull FactionPlayer<?> sender,
+                      @NotNull Faction<?> faction,
+                      @NotNull FactionRank rank);
+
+    void cancelInvite(@NotNull OfflineFactionPlayer<?> receiver,
+                @NotNull OfflineFactionPlayer<?> sender,
+                @NotNull Faction<?> faction,
+                @NotNull FactionRank rank);
+
+    void acceptInvite(@NotNull OfflineFactionPlayer<?> receiver,
+                      @NotNull OfflineFactionPlayer<?> sender,
+                      @NotNull Faction<?> faction,
+                      @NotNull FactionRank rank);
 }
