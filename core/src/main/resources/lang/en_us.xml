@@ -115,19 +115,19 @@
                 <faction-not-found>§cFaction not found</faction-not-found>
                 <faction-frozen>§cThis faction has been frozen and can not be modifyed ingame</faction-frozen>
                 <player-is-owner>You are the owner. use §e/f delete §fto delete and leave faction</player-is-owner>
-                <player-has-no-faction>That player is not in a faction</player-has-no-faction>
+                <player-has-no-faction>§eThat player is not in a faction</player-has-no-faction>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
                 <requires-faction>§cYou need to be in a faction to do this</requires-faction>
             </leave>
             <invite>
-                <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
-                <player-has-been-invited>PLACEHOLDER</player-has-been-invited>
-                <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
-                <rank-not-found>PLACEHOLDER</rank-not-found>
-                <player-not-found>PLACEHOLDER</player-not-found>
-                <not-enough-args>PLACEHOLDER</not-enough-args>
-                <missing-spigot-permission>PLACEHOLDER</missing-spigot-permission>
-                <requires-faction>PLACEHOLDER</requires-faction>
+                <faction-not-in-storage>§cFaction not found in storage medium</faction-not-in-storage>
+                <player-has-been-invited>§2Faction invite sent to {player}</player-has-been-invited>
+                <player-has-no-faction>§eThat player is not in a faction</player-has-no-faction>
+                <rank-not-found>§cRank not found</rank-not-found>
+                <player-not-found>§cPlayer not found</player-not-found>
+                <not-enough-args>§cNot enough arguments. Please add the player name</not-enough-args>
+                <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
+                <requires-faction>§cYou need to be in a faction to do this</requires-faction>
             </invite>
         </command>
     </messages>
