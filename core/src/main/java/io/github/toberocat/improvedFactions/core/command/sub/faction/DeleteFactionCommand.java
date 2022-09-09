@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedFactions.core.command.sub;
+package io.github.toberocat.improvedFactions.core.command.sub.faction;
 
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
 import io.github.toberocat.improvedFactions.core.command.component.ConfirmCommand;
@@ -16,7 +16,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 
 public class DeleteFactionCommand extends ConfirmCommand

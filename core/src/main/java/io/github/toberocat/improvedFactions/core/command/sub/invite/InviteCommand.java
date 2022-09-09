@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedFactions.core.command.sub;
+package io.github.toberocat.improvedFactions.core.command.sub.invite;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;

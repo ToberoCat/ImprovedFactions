@@ -2,7 +2,14 @@ package io.github.toberocat.improvedFactions.core.command;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
-import io.github.toberocat.improvedFactions.core.command.sub.*;
+import io.github.toberocat.improvedFactions.core.command.sub.chunk.ClaimCommand;
+import io.github.toberocat.improvedFactions.core.command.sub.chunk.UnclaimCommand;
+import io.github.toberocat.improvedFactions.core.command.sub.faction.CreateFactionCommand;
+import io.github.toberocat.improvedFactions.core.command.sub.faction.DeleteFactionCommand;
+import io.github.toberocat.improvedFactions.core.command.sub.invite.InviteCommand;
+import io.github.toberocat.improvedFactions.core.command.sub.member.JoinFactionCommand;
+import io.github.toberocat.improvedFactions.core.command.sub.member.LeaveFactionCommand;
+import io.github.toberocat.improvedFactions.core.command.sub.utils.ListFactionCommand;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
