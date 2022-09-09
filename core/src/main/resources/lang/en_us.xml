@@ -121,7 +121,7 @@
             </leave>
             <invite>
                 <faction-not-in-storage>§cFaction not found in storage medium</faction-not-in-storage>
-                <player-has-been-invited>§2Faction invite sent to {player}</player-has-been-invited>
+                <player-has-been-invited>§2Faction invite sent to {received}</player-has-been-invited>
                 <player-has-no-faction>§eThat player is not in a faction</player-has-no-faction>
                 <rank-not-found>§cRank not found</rank-not-found>
                 <player-not-found>§cPlayer not found</player-not-found>
