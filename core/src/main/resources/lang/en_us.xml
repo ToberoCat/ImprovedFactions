@@ -119,6 +119,16 @@
                 <missing-spigot-permission>PLACEHOLDER</missing-spigot-permission>
                 <requires-faction>PLACEHOLDER</requires-faction>
             </leave>
+            <invite>
+                <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
+                <player-has-been-invited>PLACEHOLDER</player-has-been-invited>
+                <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
+                <rank-not-found>PLACEHOLDER</rank-not-found>
+                <player-not-found>PLACEHOLDER</player-not-found>
+                <not-enough-args>PLACEHOLDER</not-enough-args>
+                <missing-spigot-permission>PLACEHOLDER</missing-spigot-permission>
+                <requires-faction>PLACEHOLDER</requires-faction>
+            </invite>
         </command>
     </messages>
     <prefix>§8[§eIF§8]§f </prefix>

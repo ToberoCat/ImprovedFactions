@@ -9,6 +9,7 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerIsBann
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.OpenType;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
+import io.github.toberocat.improvedFactions.core.faction.components.rank.RankContainers;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.*;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
@@ -23,13 +24,6 @@ import java.util.Objects;
 public class JoinFactionCommand extends Command<JoinFactionCommand.JoinPacket, JoinFactionCommand.JoinPacket> {
 
     public static final String LABEL = "join";
-
-    private static final List<String> factionRanks = List.of(
-            FactionMemberRank.REGISTRY,
-            FactionElderRank.REGISTRY,
-            FactionModeratorRank.REGISTRY,
-            FactionAdminRank.REGISTRY
-    );
 
     @Override
     public @NotNull String label() {
@@ -53,7 +47,7 @@ public class JoinFactionCommand extends Command<JoinFactionCommand.JoinPacket, J
     public @NotNull List<String> tabCompleteConsole(@NotNull String[] args) {
         if (args.length <= 1) return ImprovedFactions.api().listPlayers().getOnlinePlayerNames().toList();
         else if (args.length <= 2) return getJoinableFactions();
-        else return factionRanks;
+        else return RankContainers.DEFAULT_FACTION_RANKS_CONTAINERS;
     }
 
     @Override
