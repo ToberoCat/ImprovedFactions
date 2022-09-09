@@ -62,6 +62,7 @@ public class InviteCommand extends Command<InviteCommand.InvitePacket, InviteCom
                     packet.rank);
         } catch (PlayerHasBeenInvitedException e) {
             packet.receiver.sendTranslatable(node.andThen(map -> map.get("player-has-been-invited")));
+            //ToDo: Send clickable accept message
         }
     }
 
@@ -75,6 +76,8 @@ public class InviteCommand extends Command<InviteCommand.InvitePacket, InviteCom
                     packet.rank);
         } catch (PlayerHasBeenInvitedException e) {
             Logger.api().logInfo("Player has already been invited");
+            //ToDo: Send clickable accept message
+
         }
     }
 
