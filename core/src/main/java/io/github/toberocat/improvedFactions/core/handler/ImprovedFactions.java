@@ -49,6 +49,7 @@ public interface ImprovedFactions<RawWorld> {
     @NotNull File getDataFolder();
     @NotNull File getTempFolder();
     @NotNull File getLangFolder();
+    @NotNull File getGuiFolder();
 
     /* Config */
 

@@ -879,35 +879,6 @@ public class LocalFaction implements Faction<LocalFaction> {
     }
 
     /**
-     * BroadcastMessage takes a String as message that should egt sent to everyone
-     *
-     * @param msg The message to broadcast to all members.
-     */
-    @Override
-    public void broadcastMessage(@NotNull String msg) {
-        ImprovedFactions<?> api = ImprovedFactions.api();
-        getMembers()
-                .map(api::getPlayer)
-                .filter(Objects::nonNull)
-                .forEach(x -> x.sendMessage(msg));
-    }
-
-    /**
-     * Broadcast a translatable message to all players.
-     * The translation will be individual for each player based on their selected language
-     *
-     * @param query      The key of the translatable message.
-     */
-    @Override
-    public void broadcastTranslatable(@NotNull Function<Translatable, String> query, Placeholder... parseables) {
-        ImprovedFactions<?> api = ImprovedFactions.api();
-        getMembers()
-                .map(api::getPlayer)
-                .filter(Objects::nonNull)
-                .forEach(x -> x.sendTranslatable(query, parseables));
-    }
-
-    /**
      * Returns the claims of this faction.
      *
      * @return A list of claims.

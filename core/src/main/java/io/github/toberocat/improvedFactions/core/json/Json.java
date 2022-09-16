@@ -2,11 +2,24 @@ package io.github.toberocat.improvedFactions.core.json;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import io.github.toberocat.improvedFactions.core.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
+import java.io.IOException;
+
 public class Json {
-    private static final ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper mapper = new ObjectMapper()
+            .registerModule(new SimpleModule()
+                    .addKeySerializer(ItemStack.class, new MapKeySerializer())
+                    .addKeyDeserializer(ItemStack.class, new MapKeyDeserializer()));
+
+
+    public static void writeToFile(@NotNull Object item) {
+        return mapper.writeValueAsString(item);
+    }
 
     public static @NotNull String parse(@NotNull Object item) throws JsonProcessingException {
         return mapper.writeValueAsString(item);
@@ -15,5 +28,9 @@ public class Json {
     public static @NotNull Object parse(@NotNull Class<?> clazz, @Nullable String item)
             throws JsonProcessingException {
         return mapper.readValue(item, clazz);
+    }
+
+    public static @NotNull <T> T parse(@NotNull Class<T> clazz, @NotNull File file) throws IOException {
+        return mapper.readValue(file, clazz);
     }
 }

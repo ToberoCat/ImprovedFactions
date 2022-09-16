@@ -20,4 +20,6 @@ public interface ItemHandler {
 
     @NotNull ItemStack createSkull(@NotNull URL textureId, @NotNull String title, String... lore);
 
+    @NotNull ItemStack deserializeBytes(byte[] bytes);
+
 }

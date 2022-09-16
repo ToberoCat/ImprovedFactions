@@ -1,0 +1,2 @@
+execution: # Messages don't have to be specified in this file will get sent from lang files automatically
+  - "[open-gui] FACTION_ICON_EDITOR" # Open the manage gui for the executing player

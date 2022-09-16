@@ -26,6 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.regex.Pattern;
@@ -535,7 +536,13 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
      *
      * @param msg The message to broadcast to all members.
      */
-    void broadcastMessage(@NotNull String msg);
+    default void broadcastMessage(@NotNull String msg) {
+        ImprovedFactions<?> api = ImprovedFactions.api();
+        getMembers()
+                .map(api::getOfflinePlayer)
+                .filter(Objects::nonNull)
+                .forEach(x -> x.sendMessage(msg));
+    }
 
     /**
      * Broadcast a translatable message to all players.
@@ -543,7 +550,13 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
      *
      * @param query The key of the translatable message.
      */
-    void broadcastTranslatable(@NotNull Function<Translatable, String> query, Placeholder... parseables);
+    default void broadcastTranslatable(@NotNull Function<Translatable, String> query, Placeholder... parseables) {
+        ImprovedFactions<?> api = ImprovedFactions.api();
+        getMembers()
+                .map(api::getOfflinePlayer)
+                .filter(Objects::nonNull)
+                .forEach(x -> x.sendTranslatable(query, parseables));
+    }
 
     /* Claim management */
 

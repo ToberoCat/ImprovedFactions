@@ -836,33 +836,6 @@ public class MySqlFaction implements Faction<MySqlFaction> {
                 "relation_registry_id = %s", registry);
     }
 
-    /**
-     * BroadcastMessage takes a String as message that should egt sent to everyone
-     *
-     * @param msg The message to broadcast to all members.
-     */
-    @Override
-    public void broadcastMessage(@NotNull String msg) {
-        getMembers()
-                .map(x -> ImprovedFactions.api().getPlayer(x))
-                .filter(Objects::nonNull)
-                .forEach(player -> player.sendMessage(msg));
-    }
-
-    /**
-     * Broadcast a translatable message to all players.
-     * The translation will be individual for each player based on their selected language
-     *
-     * @param query The query that should get
-     */
-    @Override
-    public void broadcastTranslatable(@NotNull Function<Translatable, String> query,
-                                      Placeholder... parseables) {
-        getMembers()
-                .map(x -> ImprovedFactions.api().getPlayer(x))
-                .filter(Objects::nonNull)
-                .forEach(player -> player.sendTranslatable(query, parseables));
-    }
 
     @Override
     public @NotNull FactionClaims<MySqlFaction> getClaims() {
