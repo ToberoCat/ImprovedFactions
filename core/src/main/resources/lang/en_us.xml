@@ -27,7 +27,7 @@
                 <player>You got unbanned from §e{faction}</player>
             </player>
             <broadcast>
-                <player-join>§ePlayer {player} joined your faction as {rank}</player-join>
+                <player-join>§fPlayer §e{player} §fjoined your faction as §e{rank}</player-join>
                 <player-left>§cPlayer {player} left your faction</player-left>
                 <player-kick>§6Player {player} got kicked out of your faction</player-kick>
                 <player-ban>§cPlayer {player} got banned from your faction</player-ban>
@@ -120,15 +120,33 @@
                 <requires-faction>§cYou need to be in a faction to do this</requires-faction>
             </leave>
             <invite>
+                <invited-player>PLACEHOLDER</invited-player>
+                <you-have-been-invited>§e{player}§f invited you to join §e{faction}§f as a §e{rank}</you-have-been-invited>
                 <faction-not-in-storage>§cFaction not found in storage medium</faction-not-in-storage>
-                <player-has-been-invited>§6Faction invite sent to {received}</player-has-been-invited>
+                <player-already-been-invited>§6Player already invited</player-already-been-invited>
                 <player-has-no-faction>§cThat player is not in a faction</player-has-no-faction>
                 <rank-not-found>§cRank not found</rank-not-found>
                 <player-not-found>§cPlayer not found</player-not-found>
-                <not-enough-args>§cNot enough arguments. Please add the player name</not-enough-args>
+                <cant-invite-yourself>PLACEHOLDER</cant-invite-yourself>
+                <already-member>PLACEHOLDER</already-member>
+                <already-in-faction>PLACEHOLDER</already-in-faction>
+                <not-enough-args>§cNot enough arguments. Please add a player name and optionally the rank</not-enough-args>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
                 <requires-faction>§cYou need to be in a faction to do this</requires-faction>
             </invite>
+            <acceptinvite>
+                <accepted>PLACEHOLDER</accepted>
+                <not-enough-args>PLACEHOLDER</not-enough-args>
+                <not-invited>PLACEHOLDER{faction}</not-invited>
+                <inviter-not-found>PLACEHOLDER</inviter-not-found>
+                <invalid-rank>PLACEHOLDER</invalid-rank>
+                <faction-frozen>PLACEHOLDER</faction-frozen>
+                <already-in-faction>PLACEHOLDER</already-in-faction>
+                <cant-find-faction>PLACEHOLDER{faction}</cant-find-faction>
+                <player-banned>PLACEHOLDER</player-banned>
+                <requires-no-faction>PLACEHOLDER</requires-no-faction>
+                <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
+            </acceptinvite>
         </command>
     </messages>
     <prefix>[§eIF§f] </prefix>

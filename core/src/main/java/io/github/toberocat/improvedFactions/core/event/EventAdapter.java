@@ -8,6 +8,8 @@ import io.github.toberocat.improvedFactions.core.faction.Faction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.UUID;
+
 public class EventAdapter implements EventListener {
 
     public EventAdapter() {
@@ -66,6 +68,21 @@ public class EventAdapter implements EventListener {
 
     @Override
     public void createFaction(@NotNull Faction<?> faction, FactionPlayer<?> owner) {
+
+    }
+
+    @Override
+    public void invitePlayer(@NotNull OfflineFactionPlayer<?> receiver, @NotNull FactionPlayer<?> sender, @NotNull Faction<?> faction, @NotNull FactionRank rank) {
+
+    }
+
+    @Override
+    public void cancelInvite(@NotNull OfflineFactionPlayer<?> receiver, @NotNull UUID sender, @NotNull Faction<?> faction, @NotNull String rank) {
+
+    }
+
+    @Override
+    public void acceptInvite(@NotNull OfflineFactionPlayer<?> receiver, @NotNull UUID sender, @NotNull Faction<?> faction, @NotNull FactionRank rank) {
 
     }
 }

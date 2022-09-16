@@ -10,6 +10,7 @@ import io.github.toberocat.improvedFactions.core.command.sub.invite.AcceptInvite
 import io.github.toberocat.improvedFactions.core.command.sub.invite.InviteCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.member.JoinFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.member.LeaveFactionCommand;
+import io.github.toberocat.improvedFactions.core.command.sub.utils.BakePermissionsCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.utils.ListFactionCommand;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import org.jetbrains.annotations.NotNull;
@@ -30,6 +31,12 @@ public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleC
         add(new LeaveFactionCommand());
         add(new InviteCommand());
         add(new AcceptInviteCommand());
+        add(new BakePermissionsCommand());
+    }
+
+    @Override
+    public boolean isAdmin() {
+        return false;
     }
 
     @Override

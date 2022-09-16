@@ -1,9 +1,9 @@
 package io.github.toberocat.improvedFactions.core.command.component;
 
 import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
-import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
+import io.github.toberocat.improvedFactions.core.utils.PermissionFileTool;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,11 +29,15 @@ public abstract class Command<P extends Command.CommandPacket, C extends Command
                 .get(label());
         this.settings = createSettings();
         this.config = config();
+
+        PermissionFileTool.addPermission(permission(), isAdmin());
     }
 
     public @NotNull String permission() {
         return PERMISSION_NODE + label();
     }
+
+    public abstract boolean isAdmin();
 
     public @NotNull Function<Translatable, String> description() {
         return translatable -> translatable.getMessages().getCommand()

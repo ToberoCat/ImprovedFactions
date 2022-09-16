@@ -33,6 +33,8 @@ public interface OfflineFactionPlayer<P> {
     void sendTranslatable(@NotNull Function<Translatable, String> query,
                           Placeholder... placeholders);
 
+    void sendClickableTranslatable(@NotNull Function<Translatable, String> query,@NotNull String command,
+                                   Placeholder... placeholders);
     /* Player */
     @Nullable FactionPlayer<?> getPlayer();
 

@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedList;
+import java.util.UUID;
 
 public class EventExecutor implements EventListener {
 
@@ -85,5 +86,23 @@ public class EventExecutor implements EventListener {
     public void createFaction(@NotNull Faction<?> faction, FactionPlayer<?> owner) {
         new LinkedList<>(EventListener.HANDLER_LIST) // Make save copy
                 .forEach(x -> x.createFaction(faction, owner));
+    }
+
+    @Override
+    public void invitePlayer(@NotNull OfflineFactionPlayer<?> receiver, @NotNull FactionPlayer<?> sender, @NotNull Faction<?> faction, @NotNull FactionRank rank) {
+        new LinkedList<>(EventListener.HANDLER_LIST) // Make save copy
+                .forEach(x -> x.invitePlayer(receiver, sender, faction, rank));
+    }
+
+    @Override
+    public void cancelInvite(@NotNull OfflineFactionPlayer<?> receiver, @NotNull UUID sender, @NotNull Faction<?> faction, @NotNull String rank) {
+        new LinkedList<>(EventListener.HANDLER_LIST) // Make save copy
+                .forEach(x -> x.cancelInvite(receiver, sender, faction, rank));
+    }
+
+    @Override
+    public void acceptInvite(@NotNull OfflineFactionPlayer<?> receiver, @NotNull UUID sender, @NotNull Faction<?> faction, @NotNull FactionRank rank) {
+        new LinkedList<>(EventListener.HANDLER_LIST) // Make save copy
+                .forEach(x -> x.acceptInvite(receiver, sender, faction, rank));
     }
 }

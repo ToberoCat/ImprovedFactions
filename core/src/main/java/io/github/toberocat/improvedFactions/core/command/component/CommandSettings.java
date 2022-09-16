@@ -123,8 +123,7 @@ public class CommandSettings {
     }
 
     private @NotNull SettingResult check(@NotNull FactionPlayer<?> player) {
-        if (requiredSpigotPermission != null &&
-                !player.hasPermission(requiredSpigotPermission))
+        if (requiredSpigotPermission != null && !player.hasPermission(requiredSpigotPermission))
             return new SettingResult(false, query.andThen(map -> map.get("missing-spigot-permission")));
 
         boolean hasFaction = player.inFaction();

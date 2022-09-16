@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
 
-public class Translation {
+public record Translation(@NotNull String locale) {
 
     public static final String DEFAULT_LANG_FILE = ConfigHandler.api()
             .getString("language.default-file", "en_us");
@@ -26,8 +26,6 @@ public class Translation {
 
     private static final FileAccess ACCESS = new FileAccess(ImprovedFactions.api().getLangFolder());
 
-    private final UUID playerId;
-
     /* Static manager methods */
     public static void createLocaleMap() throws IOException {
         for (File file : ACCESS.listFiles())
@@ -35,23 +33,6 @@ public class Translation {
                     .getMeta()
                     .getLanguages()
                     .forEach(x -> LOCALE_TO_FILE_MAP.put(x, file.getName()));
-    }
-
-    public static void playerJoin(@NotNull FactionPlayer<?> player) {
-        String local = player.getLocal();
-        if (TRANSLATABLE_MAP.containsKey(local)) {
-            LANGUAGE_LOCALE_USAGE.put(player.getUniqueId(), local);
-            return;
-        }
-        /* Load language file */
-        Translatable translation = readFile(local);
-        if (translation == null) {
-            LANGUAGE_LOCALE_USAGE.put(player.getUniqueId(), DEFAULT_LANG_FILE);
-            return;
-        }
-
-        TRANSLATABLE_MAP.put(local, translation);
-        LANGUAGE_LOCALE_USAGE.put(player.getUniqueId(), local);
     }
 
     public static void playerLeave(@NotNull FactionPlayer<?> player) {
@@ -85,27 +66,17 @@ public class Translation {
         }
     }
 
-    public Translation(UUID playerId) {
-        this.playerId = playerId;
-    }
-
     public @Nullable String getMessage(@NotNull Function<Translatable, String> query) {
-        String locale = LANGUAGE_LOCALE_USAGE.get(playerId);
-        Translatable translatable = TRANSLATABLE_MAP.get(locale);
+        Translatable translatable = TRANSLATABLE_MAP.computeIfAbsent(locale, Translation::readFile);
         if (translatable == null) return null;
 
         return query.apply(translatable);
     }
 
     public @Nullable String[] getMessages(@NotNull Function<Translatable, String[]> query) {
-        String locale = LANGUAGE_LOCALE_USAGE.get(playerId);
-        Translatable translatable = TRANSLATABLE_MAP.get(locale);
+        Translatable translatable = TRANSLATABLE_MAP.computeIfAbsent(locale, Translation::readFile);
         if (translatable == null) return null;
 
         return query.apply(translatable);
-    }
-
-    public UUID getPlayerId() {
-        return playerId;
     }
 }

@@ -31,7 +31,7 @@ public class TaskChain<R> {
         return new TaskChain<>(tTask, finished);
     }
 
-    public @NotNull TaskPromise async(@NotNull Consumer<R> consumer) {
+    public @NotNull TaskPromise lastAsync(@NotNull Consumer<R> consumer) {
         TaskPromise promise = new TaskPromise();
         rTask.then(r -> {
             consumer.accept(r);
@@ -52,7 +52,7 @@ public class TaskChain<R> {
         return new TaskChain<>(tTask, finished);
     }
 
-    public @NotNull TaskPromise sync(@NotNull Consumer<R> consumer) {
+    public @NotNull TaskPromise lastSync(@NotNull Consumer<R> consumer) {
         TaskPromise promise = new TaskPromise();
         rTask.then(r -> {
             consumer.accept(r);

@@ -26,6 +26,11 @@ public class LeaveFactionCommand extends Command<LeaveFactionCommand.LeavePacket
     }
 
     @Override
+    public boolean isAdmin() {
+        return false;
+    }
+
+    @Override
     protected @NotNull CommandSettings createSettings() {
         return new CommandSettings(node)
                 .setAllowInConsole(true)

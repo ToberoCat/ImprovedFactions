@@ -23,6 +23,11 @@ public class ListFactionCommand extends
     }
 
     @Override
+    public boolean isAdmin() {
+        return false;
+    }
+
+    @Override
     protected @NotNull CommandSettings createSettings() {
         return new CommandSettings(node)
                 .setAllowInConsole(true)

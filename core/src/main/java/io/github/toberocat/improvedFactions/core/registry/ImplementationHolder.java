@@ -47,9 +47,12 @@ public class ImplementationHolder {
 
     private static void createFolders() {
         File file = ImprovedFactions.api().getDataFolder();
-        List.of("lang", "commands", "data/Chunks", "data/Factions",
-                        "data/Persistent",
-                        "data/Players")
+        List.of("lang", "commands",
+                        "data/chunks",
+                        "data/factions",
+                        "data/persistent",
+                        "data/players",
+                        "data/messages")
                 .forEach(x -> new File(file, x).mkdirs());
     }
 
@@ -94,10 +97,6 @@ public class ImplementationHolder {
         Translation.dispose();
         PersistentHandler.api().dispose();
         FactionHandler.dispose();
-    }
-
-    public static void playerJoin(@NotNull FactionPlayer<?> player) {
-        Translation.playerJoin(player);
     }
 
     public static void playerLeave(@NotNull FactionPlayer<?> player) {

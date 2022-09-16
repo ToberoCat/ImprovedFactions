@@ -503,7 +503,9 @@ public class LocalFaction implements Faction<LocalFaction> {
                 .getMessages()
                 .getFaction()
                 .getBroadcast()
-                .get("player-join"));
+                .get("player-join"),
+                new Placeholder("{player}", player.getName()),
+                new Placeholder("{rank}", player.getMessage(rank.getTitle())));
         return true;
     }
 

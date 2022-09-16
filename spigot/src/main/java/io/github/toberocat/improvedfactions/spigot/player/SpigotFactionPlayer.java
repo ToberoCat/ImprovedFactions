@@ -12,6 +12,10 @@ import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.translator.Translation;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.StringUtils;
+import io.github.toberocat.improvedFactions.core.utils.PermissionFileTool;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -29,7 +33,7 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
 
     public SpigotFactionPlayer(Player player) {
         this.player = player;
-        this.translation = new Translation(player.getUniqueId());
+        this.translation = new Translation(player.getLocale());
         this.data = new PersistentWrapper(getUniqueId());
     }
 
@@ -77,7 +81,7 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
 
     @Override
     public @Nullable String getFactionRegistry() {
-        return data.get(PersistentHandler.FACTION_KEY);
+        return data.get(PersistentHandler.FACTION_KEY) instanceof String registry ? registry : null;
     }
 
     @Override
@@ -95,6 +99,17 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
         String msg = getMessage(query, placeholders);
         if (msg != null)
             player.sendMessage(translation.getMessage(PREFIX_QUERY) + msg);
+    }
+
+    @Override
+    public void sendClickableTranslatable(@NotNull Function<Translatable, String> query, @NotNull String command, Placeholder... placeholders) {
+        String msg = getMessage(query, placeholders);
+        if (msg == null) return;
+
+        TextComponent component = new TextComponent(TextComponent.fromLegacyText(
+                ChatColor.translateAlternateColorCodes('&', msg)));
+        component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + command));
+        player.spigot().sendMessage(component);
     }
 
     @Override

@@ -29,6 +29,11 @@ public class DeleteFactionCommand extends ConfirmCommand
     }
 
     @Override
+    public boolean isAdmin() {
+        return false;
+    }
+
+    @Override
     public @NotNull CommandSettings createSettings() {
         return new CommandSettings(node)
                 .setRequiredSpigotPermission(permission())

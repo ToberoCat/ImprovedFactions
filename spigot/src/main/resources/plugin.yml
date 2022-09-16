@@ -7,3 +7,40 @@ authors: [ Tobero ]
 commands:
   faction:
     aliases: [ "f", "fac" ]
+
+permissions:
+  faction.command.unclaim:
+    default: not op
+  faction.command.join:
+    default: not op
+  faction.command.acceptinvite:
+    default: not op
+  faction.command.faction:
+    default: not op
+  faction.command.list:
+    default: not op
+  faction.command.leave:
+    default: not op
+  faction.command.invite:
+    default: not op
+  faction.command.bakePerms:
+    default: op
+  faction.command.create:
+    default: not op
+  faction.command.delete:
+    default: not op
+  faction.command.claim:
+    default: not op
+  faction.commands.*:
+    children:
+      faction.command.unclaim: true
+      faction.command.join: true
+      faction.command.acceptinvite: true
+      faction.command.faction: true
+      faction.command.list: true
+      faction.command.leave: true
+      faction.command.invite: true
+      faction.command.bakePerms: true
+      faction.command.create: true
+      faction.command.delete: true
+      faction.command.claim: true

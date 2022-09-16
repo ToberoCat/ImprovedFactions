@@ -31,6 +31,11 @@ public class JoinFactionCommand extends Command<JoinFactionCommand.JoinPacket, J
     }
 
     @Override
+    public boolean isAdmin() {
+        return false;
+    }
+
+    @Override
     protected @NotNull CommandSettings createSettings() {
         return new CommandSettings(node)
                 .setRequiresNoFaction(true)

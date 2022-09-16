@@ -1,14 +1,19 @@
 package io.github.toberocat.improvedFactions.core.command.sub.invite;
 
+import io.github.toberocat.improvedFactions.core.command.BaseCommand;
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerIsAlreadyInFactionException;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.relation.CantInviteYourselfException;
+import io.github.toberocat.improvedFactions.core.exceptions.invite.PlayerAlreadyMemberException;
 import io.github.toberocat.improvedFactions.core.exceptions.invite.PlayerHasBeenInvitedException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.GuestRank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.RankContainers;
+import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionMemberRank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
@@ -28,6 +33,11 @@ public class InviteCommand extends Command<InviteCommand.InvitePacket, InviteCom
     @Override
     public @NotNull String label() {
         return LABEL;
+    }
+
+    @Override
+    public boolean isAdmin() {
+        return false;
     }
 
     @Override
@@ -60,9 +70,18 @@ public class InviteCommand extends Command<InviteCommand.InvitePacket, InviteCom
                     packet.sender,
                     packet.faction,
                     packet.rank);
-        } catch (PlayerHasBeenInvitedException e) {
-            packet.receiver.sendTranslatable(node.andThen(map -> map.get("player-has-been-invited")));
             //ToDo: Send clickable accept message
+            packet.sender.sendTranslatable(node.andThen(map -> map.get("invited-player")));
+            packet.receiver.sendClickableTranslatable(node.andThen(map -> map.get("you-have-been-invited")),
+                    "f " + AcceptInviteCommand.LABEL + " " + packet.faction.getRegistry());
+        } catch (PlayerHasBeenInvitedException e) {
+            packet.sender.sendTranslatable(node.andThen(map -> map.get("player-already-been-invited")));
+        } catch (CantInviteYourselfException e) {
+            packet.sender.sendTranslatable(node.andThen(map -> map.get("cant-invite-yourself")));
+        } catch (PlayerAlreadyMemberException e) {
+            packet.sender.sendTranslatable(node.andThen(map -> map.get("already-member")));
+        } catch (PlayerIsAlreadyInFactionException e) {
+            packet.sender.sendTranslatable(node.andThen(map -> map.get("already-in-faction")));
         }
     }
 
@@ -74,17 +93,23 @@ public class InviteCommand extends Command<InviteCommand.InvitePacket, InviteCom
                     packet.sender,
                     packet.faction,
                     packet.rank);
+            //ToDo: Send clickable accept message
         } catch (PlayerHasBeenInvitedException e) {
             Logger.api().logInfo("Player has already been invited");
-            //ToDo: Send clickable accept message
 
+        } catch (CantInviteYourselfException e) {
+            Logger.api().logInfo("Cant invite yourself");
+        } catch (PlayerAlreadyMemberException e) {
+            Logger.api().logInfo("Player already member");
+        } catch (PlayerIsAlreadyInFactionException e) {
+            Logger.api().logInfo("Player has already a faction");
         }
     }
 
     @Override
     public @Nullable InviteCommand.InvitePacket createFromArgs(@NotNull FactionPlayer<?> executor,
                                                                @NotNull String[] args) {
-        if (args.length != 2) {
+        if (args.length <= 0) {
             executor.sendTranslatable(node.andThen(map -> map.get("not-enough-args")));
             return null;
         }
@@ -95,11 +120,15 @@ public class InviteCommand extends Command<InviteCommand.InvitePacket, InviteCom
             return null;
         }
 
-        Rank rank = Rank.fromString(args[1]);
-        if (rank.getRegistry().equals(GuestRank.REGISTRY) ||
-                !(rank instanceof FactionRank factionRank)) {
-            executor.sendTranslatable(node.andThen(map -> map.get("rank-not-found")));
-            return null;
+        FactionRank factionRank = (FactionRank) Rank.fromString(FactionMemberRank.REGISTRY);
+        if (args.length > 1) {
+            Rank rank = Rank.fromString(args[1]);
+            if (rank.getRegistry().equals(GuestRank.REGISTRY) ||
+                    !(rank instanceof FactionRank fRank)) {
+                executor.sendTranslatable(node.andThen(map -> map.get("rank-not-found")));
+                return null;
+            }
+            factionRank = fRank;
         }
 
         try {

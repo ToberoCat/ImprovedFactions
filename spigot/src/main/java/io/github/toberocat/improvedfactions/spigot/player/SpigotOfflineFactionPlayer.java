@@ -1,6 +1,5 @@
 package io.github.toberocat.improvedfactions.spigot.player;
 
-import io.github.toberocat.improvedFactions.core.exceptions.NoImplementationProvidedException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
@@ -12,8 +11,7 @@ import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
-import io.github.toberocat.improvedfactions.spigot.MainIF;
-import org.apache.commons.lang.NotImplementedException;
+import io.github.toberocat.improvedfactions.spigot.handler.message.MessageHandler;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -25,13 +23,11 @@ import java.util.function.Function;
 public class SpigotOfflineFactionPlayer implements OfflineFactionPlayer<OfflinePlayer> {
 
     private final OfflinePlayer player;
-    private final MainIF plugin;
     private final PersistentWrapper data;
 
 
-    public SpigotOfflineFactionPlayer(OfflinePlayer player, MainIF plugin) {
+    public SpigotOfflineFactionPlayer(OfflinePlayer player) {
         this.player = player;
-        this.plugin = plugin;
         this.data = new PersistentWrapper(getUniqueId());
     }
 
@@ -45,7 +41,7 @@ public class SpigotOfflineFactionPlayer implements OfflineFactionPlayer<OfflineP
 
     @Override
     public @Nullable String getFactionRegistry() {
-        return data.get(PersistentHandler.FACTION_KEY);
+        return data.get(PersistentHandler.FACTION_KEY) instanceof String registry ? registry : null;
     }
 
     @Override
@@ -55,12 +51,23 @@ public class SpigotOfflineFactionPlayer implements OfflineFactionPlayer<OfflineP
 
     @Override
     public void sendMessage(@NotNull String message) {
-        throw new NotImplementedException("Not implemented");
+        FactionPlayer<?> on = getPlayer();
+        if (on != null) on.sendMessage(message);
+        else MessageHandler.api.sendMessage(player.getUniqueId(), message);
     }
 
     @Override
     public void sendTranslatable(@NotNull Function<Translatable, String> query, Placeholder... placeholders) {
-        throw new NotImplementedException("Not implemented");
+        FactionPlayer<?> on = getPlayer();
+        if (on != null) on.sendTranslatable(query, placeholders);
+        else MessageHandler.api.sendTranslatable(player.getUniqueId(), query, placeholders);
+    }
+
+    @Override
+    public void sendClickableTranslatable(@NotNull Function<Translatable, String> query, @NotNull String command, Placeholder... placeholders) {
+        FactionPlayer<?> on = getPlayer();
+        if (on != null) on.sendClickableTranslatable(query, command, placeholders);
+        else MessageHandler.api.sendClickableTranslatable(player.getUniqueId(), query, command, placeholders);
     }
 
     @Override

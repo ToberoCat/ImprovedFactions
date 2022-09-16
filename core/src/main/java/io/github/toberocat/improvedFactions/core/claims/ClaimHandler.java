@@ -6,8 +6,6 @@ import io.github.toberocat.improvedFactions.core.claims.worldclaim.handler.World
 import io.github.toberocat.improvedFactions.core.event.EventExecutor;
 import io.github.toberocat.improvedFactions.core.exceptions.chunk.ChunkAlreadyClaimedException;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
-import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
-import io.github.toberocat.improvedFactions.core.persistent.component.PersistentWrapper;
 import io.github.toberocat.improvedFactions.core.world.Chunk;
 import io.github.toberocat.improvedFactions.core.world.World;
 import org.jetbrains.annotations.NotNull;

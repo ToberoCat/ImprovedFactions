@@ -15,7 +15,6 @@ import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.world.World;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
 import java.util.function.Function;
 
 public class UnclaimCommand extends AutoAreaCommand {
@@ -25,6 +24,11 @@ public class UnclaimCommand extends AutoAreaCommand {
     @Override
     public @NotNull String label() {
         return LABEL;
+    }
+
+    @Override
+    public boolean isAdmin() {
+        return false;
     }
 
     @Override

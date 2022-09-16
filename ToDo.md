@@ -47,3 +47,5 @@
 - [ ] Report system
 - [ ] Make enemy invites
 - [ ] MongoDB
+- [ ] Add option to receive invites even when in faction
+- [ ] Allow offline players to receive translated messages too

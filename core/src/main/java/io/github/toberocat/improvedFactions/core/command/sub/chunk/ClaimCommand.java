@@ -27,6 +27,11 @@ public class ClaimCommand extends AutoAreaCommand {
             .get(LABEL);
 
     @Override
+    public boolean isAdmin() {
+        return false;
+    }
+
+    @Override
     public @NotNull String label() {
         return LABEL;
     }

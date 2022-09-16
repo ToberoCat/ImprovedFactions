@@ -17,6 +17,7 @@ import io.github.toberocat.improvedfactions.spigot.world.SpigotWorld;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -31,12 +32,14 @@ public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
     private final MainIF plugin;
     private final Scheduler scheduler;
     private final java.util.logging.Logger logger;
+    private final ConsoleCommandSender sender;
 
 
     public ImprovedImplementation(MainIF plugin) {
         this.plugin = plugin;
         this.scheduler = new SpigotScheduler(plugin);
         this.logger = plugin.getLogger();
+        this.sender = Bukkit.getConsoleSender();
     }
 
     @Override
@@ -56,7 +59,7 @@ public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
     @Override
     public @NotNull OfflineFactionPlayer<?> getOfflinePlayer(@NotNull UUID id) {
         OfflinePlayer player = Bukkit.getOfflinePlayer(id);
-        return new SpigotOfflineFactionPlayer(player, plugin);
+        return new SpigotOfflineFactionPlayer(player);
     }
 
     @Override
@@ -67,7 +70,7 @@ public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
                 .orElse(null);
         if (player == null) return null;
 
-        return new SpigotOfflineFactionPlayer(player, plugin);
+        return new SpigotOfflineFactionPlayer(player);
     }
 
     @Override
@@ -163,7 +166,7 @@ public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
 
     @Override
     public void logInfo(@NotNull String message, Object... plObjects) {
-        logger.log(Level.INFO, String.format(message, plObjects));
+        sender.sendMessage(String.format("[ImprovedFactions] " + message, plObjects));
     }
 
     @Override

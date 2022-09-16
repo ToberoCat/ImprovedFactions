@@ -7,10 +7,11 @@ import java.io.File;
 import java.io.IOException;
 
 public final class FileAccess {
-    public static final String FACTION_FOLDER = "Factions";
-    public static final String PERSISTENT_FOLDER = "Persistent";
-    public static final String CHUNKS_FOLDER = "Chunks";
-    public static final String PLAYERS_FOLDER = "Players";
+    public static final String FACTION_FOLDER = "factions";
+    public static final String PERSISTENT_FOLDER = "persistent";
+    public static final String CHUNKS_FOLDER = "chunks";
+    public static final String PLAYERS_FOLDER = "players";
+    public static final String MESSAGES_FOLDER = "messages";
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
