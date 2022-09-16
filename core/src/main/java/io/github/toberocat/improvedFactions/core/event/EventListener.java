@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * This class should emit events to make
@@ -56,12 +57,12 @@ public interface EventListener {
                       @NotNull FactionRank rank);
 
     void cancelInvite(@NotNull OfflineFactionPlayer<?> receiver,
-                @NotNull OfflineFactionPlayer<?> sender,
+                @NotNull UUID sender,
                 @NotNull Faction<?> faction,
-                @NotNull FactionRank rank);
+                @NotNull String rank);
 
     void acceptInvite(@NotNull OfflineFactionPlayer<?> receiver,
-                      @NotNull OfflineFactionPlayer<?> sender,
+                      @NotNull UUID sender,
                       @NotNull Faction<?> faction,
                       @NotNull FactionRank rank);
 }

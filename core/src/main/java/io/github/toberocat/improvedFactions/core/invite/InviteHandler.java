@@ -1,9 +1,14 @@
 package io.github.toberocat.improvedFactions.core.invite;
 
 import io.github.toberocat.improvedFactions.core.event.EventExecutor;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionIsFrozenException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerIsAlreadyInFactionException;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerIsBannedException;
+import io.github.toberocat.improvedFactions.core.exceptions.invite.JoinWithRankInvalidException;
 import io.github.toberocat.improvedFactions.core.exceptions.invite.PlayerHasBeenInvitedException;
 import io.github.toberocat.improvedFactions.core.exceptions.invite.PlayerHasntBeenInvitedException;
+import io.github.toberocat.improvedFactions.core.exceptions.player.PlayerNotFoundException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
@@ -16,6 +21,7 @@ import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
 import java.util.UUID;
 
 public class InviteHandler {
@@ -47,84 +53,51 @@ public class InviteHandler {
         EventExecutor.getExecutor().invitePlayer(receiver, sender, faction, rank);
     }
 
-    public static void cancelInvite(@NotNull OfflineFactionPlayer<?> receiver,
+    public static void cancelInvite(@NotNull OfflineFactionPlayer<?> invited,
                                     @NotNull Faction<?> faction)
-            throws PlayerHasntBeenInvitedException {
-        String entry = receiver.getDataContainer()
-                .get(PersistentHandler.RECEIVED_INVITE_KEY);
-        if (entry == null) throw NOT_INVITED_EXCEPTION;
+            throws PlayerHasntBeenInvitedException, PlayerNotFoundException {
+        PersistentInvites.PersistentReceivedInvite invite = PersistentInvites.removeInvite(invited, faction.getRegistry());
 
-        ReceivedInvites invites = parseReceived(receiver, entry);
-        if (invites == null) return;
-
-        receiver.getDataContainer()
-                .remove(PersistentHandler.RECEIVED_INVITE_KEY);
-        invites.sender().getDataContainer()
-                .remove(PersistentHandler.SENT_INVITE_KEY);
-
-        invites.faction().broadcastTranslatable(translatable -> translatable
+        faction.broadcastTranslatable(translatable -> translatable
                 .getMessages()
                 .getFaction()
                 .getBroadcast()
                 .get("invite-cancelled"));
 
-        EventExecutor.getExecutor().cancelInvite(receiver,
-                invites.sender(),
-                faction, invites.rank());
+        EventExecutor.getExecutor().cancelInvite(invited,
+                invite.sender(),
+                faction, invite.rank());
     }
 
-    public static void acceptInvite(@NotNull OfflineFactionPlayer<?> receiver,
-                                    @NotNull Faction<?> faction) throws PlayerHasntBeenInvitedException {
-        String entry = receiver.getDataContainer()
-                .get(PersistentHandler.RECEIVED_INVITE_KEY);
-        if (entry == null) throw NOT_INVITED_EXCEPTION;
+    public static void acceptInvite(@NotNull FactionPlayer<?> invited,
+                                    @NotNull Faction<?> faction)
+            throws PlayerHasntBeenInvitedException, PlayerNotFoundException,
+            JoinWithRankInvalidException, FactionIsFrozenException,
+            PlayerIsAlreadyInFactionException, PlayerIsBannedException {
+        PersistentInvites.PersistentReceivedInvite invite = PersistentInvites.removeInvite(invited, faction.getRegistry());
 
-        ReceivedInvites invites = parseReceived(receiver, entry);
-        if (invites == null) return;
+        if (!(Rank.fromString(invite.rank()) instanceof FactionRank rank))
+            throw new JoinWithRankInvalidException();
 
-        receiver.getDataContainer()
-                .remove(PersistentHandler.RECEIVED_INVITE_KEY);
-        invites.sender().getDataContainer()
-                .remove(PersistentHandler.SENT_INVITE_KEY);
+        faction.joinPlayer(invited, rank);
 
-
-        invites.faction().broadcastTranslatable(translatable -> translatable
+        faction.broadcastTranslatable(translatable -> translatable
                 .getMessages()
                 .getFaction()
                 .getBroadcast()
                 .get("invite-accepted"));
 
-        EventExecutor.getExecutor().acceptInvite(receiver,
-                invites.sender(),
-                faction, invites.rank());
+        EventExecutor.getExecutor().acceptInvite(invited,
+                invite.sender(),
+                faction, rank);
     }
 
-    public static boolean hasInvite(@NotNull OfflineFactionPlayer<?> sender,
+    public static @Nullable PersistentInvites.ReceiverMap getInvites(@NotNull OfflineFactionPlayer<?> invited) {
+        return PersistentInvites.getInvites(invited.getDataContainer());
+    }
+
+    public static boolean hasInvite(@NotNull OfflineFactionPlayer<?> invited,
                                     @NotNull Faction<?> faction) {
-        return PersistentInvites.hasBeenInvited(sender.getDataContainer(), faction.getRegistry());
-    }
-
-    private static @Nullable ReceivedInvites parseReceived(@NotNull OfflineFactionPlayer<?> receiver,
-                                                           @NotNull String str) {
-        String[] part = str.split(";");
-        if (part.length == 3) return null;
-
-        //ToDo: Check length of parts before actually using it
-        UUID senderUuid = UUID.fromString(part[0].split("=")[1]);
-        String registry = part[1].split("=")[1];
-        String rankId = part[2].split("=")[1];
-
-        ImprovedFactions<?> api = ImprovedFactions.api();
-        OfflineFactionPlayer<?> sender = api.getOfflinePlayer(senderUuid);
-        if (sender == null) return null;
-
-        try {
-            Faction<?> faction = FactionHandler.getFaction(registry);
-            if (!(Rank.fromString(rankId) instanceof FactionRank rank)) return null;
-
-            return new ReceivedInvites(receiver, sender, faction, rank);
-        } catch (FactionNotInStorage e) {
-            return null;
-        }
+        return PersistentInvites.hasBeenInvited(invited.getDataContainer(), faction.getRegistry());
     }
 }
