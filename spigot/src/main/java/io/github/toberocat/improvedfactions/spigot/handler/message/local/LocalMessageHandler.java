@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.UUID;
 import java.util.function.Function;
 
+import static io.github.toberocat.improvedfactions.spigot.player.SpigotFactionPlayer.PREFIX_QUERY;
+
 public class LocalMessageHandler extends SpigotEventListener implements MessageHandler {
 
     private final FileAccess fileAccess;
@@ -82,7 +84,7 @@ public class LocalMessageHandler extends SpigotEventListener implements MessageH
                                  @NotNull Function<Translatable, String> query,
                                  Placeholder... placeholders) {
         String msg = translation.getMessage(query);
-        if (msg != null) addMessage(player, msg, null);
+        if (msg != null) addMessage(player, translation.getMessage(PREFIX_QUERY) + msg, null);
     }
 
     @Override
@@ -90,7 +92,7 @@ public class LocalMessageHandler extends SpigotEventListener implements MessageH
                                           @NotNull Function<Translatable, String> query,
                                           @NotNull String command, Placeholder... placeholders) {
         String msg = translation.getMessage(query);
-        if (msg != null) addMessage(player, msg, command);
+        if (msg != null) addMessage(player, translation.getMessage(PREFIX_QUERY) + msg, command);
     }
 
     protected static class LocalMessages extends ArrayList<Message> {

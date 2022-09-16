@@ -20,6 +20,7 @@ import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.invite.InviteHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
+import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -70,10 +71,12 @@ public class InviteCommand extends Command<InviteCommand.InvitePacket, InviteCom
                     packet.sender,
                     packet.faction,
                     packet.rank);
-            //ToDo: Send clickable accept message
             packet.sender.sendTranslatable(node.andThen(map -> map.get("invited-player")));
             packet.receiver.sendClickableTranslatable(node.andThen(map -> map.get("you-have-been-invited")),
-                    "f " + AcceptInviteCommand.LABEL + " " + packet.faction.getRegistry());
+                    "f " + AcceptInviteCommand.LABEL + " " + packet.faction.getRegistry(),
+                    new Placeholder("{player}", packet.sender().getName()),
+                    new Placeholder("{faction}", packet.faction.getDisplay()),
+                    new Placeholder("{rank}", packet.rank.getRegistry()));
         } catch (PlayerHasBeenInvitedException e) {
             packet.sender.sendTranslatable(node.andThen(map -> map.get("player-already-been-invited")));
         } catch (CantInviteYourselfException e) {
@@ -132,7 +135,7 @@ public class InviteCommand extends Command<InviteCommand.InvitePacket, InviteCom
         }
 
         try {
-            Faction<?> faction = player.getFaction();
+            Faction<?> faction = executor.getFaction();
             return new InvitePacket(executor, player, faction, factionRank);
         } catch (PlayerHasNoFactionException e) {
             executor.sendTranslatable(node.andThen(map -> map.get("player-has-no-faction")));

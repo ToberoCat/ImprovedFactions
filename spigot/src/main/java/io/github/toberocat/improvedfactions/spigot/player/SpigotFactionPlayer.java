@@ -25,11 +25,11 @@ import java.util.UUID;
 import java.util.function.Function;
 
 public class SpigotFactionPlayer implements FactionPlayer<Player> {
+    public static final Function<Translatable, String> PREFIX_QUERY = Translatable::getPrefix;
 
     private final Player player;
     private final Translation translation;
     private final PersistentWrapper data;
-    private final Function<Translatable, String> PREFIX_QUERY = Translatable::getPrefix;
 
     public SpigotFactionPlayer(Player player) {
         this.player = player;
@@ -107,7 +107,8 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
         if (msg == null) return;
 
         TextComponent component = new TextComponent(TextComponent.fromLegacyText(
-                ChatColor.translateAlternateColorCodes('&', msg)));
+                ChatColor.translateAlternateColorCodes('&',
+                        translation.getMessage(PREFIX_QUERY) + msg)));
         component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + command));
         player.spigot().sendMessage(component);
     }

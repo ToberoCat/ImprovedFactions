@@ -72,7 +72,8 @@ public class CreateFactionCommand extends
         } catch (IllegalFactionNamingException e) {
             owner.sendTranslatable(node.andThen(map -> map.get("illegal-naming")));
         } catch (FactionAlreadyExistsException e) {
-            owner.sendTranslatable(node.andThen(map -> map.get("faction-already-exists")));
+            owner.sendTranslatable(node.andThen(map -> map.get("faction-already-exists")),
+                    new Placeholder("{faction}", packet.display));
         } catch (FactionNotInStorage factionNotInStorage) {
             owner.sendTranslatable(node.andThen(map -> map.get("faction-not-in-storage")));
         } catch (PlayerHasNoFactionException e) {

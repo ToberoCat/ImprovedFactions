@@ -85,7 +85,8 @@ public class InviteHandler {
                 .getMessages()
                 .getFaction()
                 .getBroadcast()
-                .get("invite-accepted"));
+                .get("invite-accepted"),
+                new Placeholder("{received}", invited.getName()));
 
         EventExecutor.getExecutor().acceptInvite(invited,
                 invite.sender(),
