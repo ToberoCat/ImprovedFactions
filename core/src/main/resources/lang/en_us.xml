@@ -120,31 +120,31 @@
                 <requires-faction>§cYou need to be in a faction to do this</requires-faction>
             </leave>
             <invite>
-                <invited-player>PLACEHOLDER</invited-player>
+                <invited-player>Invited sent to {player}</invited-player>
                 <you-have-been-invited>§e{player}§f invited you to join §e{faction}§f as a §e{rank}</you-have-been-invited>
                 <faction-not-in-storage>§cFaction not found in storage medium</faction-not-in-storage>
                 <player-already-been-invited>§6Player already invited</player-already-been-invited>
                 <player-has-no-faction>§cThat player is not in a faction</player-has-no-faction>
                 <rank-not-found>§cRank not found</rank-not-found>
                 <player-not-found>§cPlayer not found</player-not-found>
-                <cant-invite-yourself>PLACEHOLDER</cant-invite-yourself>
-                <already-member>PLACEHOLDER</already-member>
-                <already-in-faction>PLACEHOLDER</already-in-faction>
+                <cant-invite-yourself>§cYou can not invite yourself</cant-invite-yourself>
+                <already-member>§cYou are already in this faction</already-member>
+                <already-in-faction>§cYou are already in a faction</already-in-faction>
                 <not-enough-args>§cNot enough arguments. Please add a player name and optionally the rank</not-enough-args>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
                 <requires-faction>§cYou need to be in a faction to do this</requires-faction>
             </invite>
             <acceptinvite>
-                <accepted>PLACEHOLDER</accepted>
-                <not-enough-args>PLACEHOLDER</not-enough-args>
-                <not-invited>PLACEHOLDER{faction}</not-invited>
-                <inviter-not-found>PLACEHOLDER</inviter-not-found>
-                <invalid-rank>PLACEHOLDER</invalid-rank>
-                <faction-frozen>PLACEHOLDER</faction-frozen>
-                <already-in-faction>PLACEHOLDER</already-in-faction>
-                <cant-find-faction>PLACEHOLDER{faction}</cant-find-faction>
-                <player-banned>PLACEHOLDER</player-banned>
-                <requires-no-faction>PLACEHOLDER</requires-no-faction>
+                <accepted>§eInvite accepted</accepted>
+                <not-enough-args>§cNot enough arguments. Please add the faction name</not-enough-args>
+                <not-invited>§cYou have not been invited to {faction}</not-invited>
+                <inviter-not-found>§cCan not find that faction</inviter-not-found>
+                <invalid-rank>§cinvalid rank</invalid-rank>
+                <faction-frozen>§cThis faction has been frozen and can not be modifyed ingame</faction-frozen>
+                <already-in-faction>§cYou are already in a faction. use §6/f leave §fto join this one</already-in-faction>
+                <cant-find-faction>§c{faction} not found</cant-find-faction>
+                <player-banned>§cYou are banned in this faction</player-banned>
+                <requires-no-faction>§cYou are already in a faction. use §6/f leave §fto join this one</requires-no-faction>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </acceptinvite>
         </command>
@@ -153,14 +153,14 @@
     <ranks>
         <guest>
             <faction>
-                <title>§eGuest rank</title>
+                <title>§eGuest</title>
                 <description>
                     <description>A guest is everyone that has no</description>
                     <description>relation to your faction</description>
                 </description>
             </faction>
             <ally>
-                <title>§eAlly Guest rank</title>
+                <title>§eAlly Guest</title>
                 <description>
                     <description>A guest is everyone that has no</description>
                     <description>relation to your faction</description>
@@ -169,14 +169,14 @@
         </guest>
         <owner>
             <faction>
-                <title>§eOwner rank</title>
+                <title>§eOwner</title>
                 <description>
                     <description>The creator the faction</description>
                     <description>they have all permissions</description>
                 </description>
             </faction>
             <ally>
-                <title>§bAlly Owner rank</title>
+                <title>§bAlly Owner</title>
                 <description>
                     <description>The creator of an allied faction</description>
                 </description>
@@ -184,14 +184,14 @@
         </owner>
         <admin>
             <faction>
-                <title>§eAdmin rank</title>
+                <title>§eAdmin</title>
                 <description>
                     <description>A admin is much like a owner</description>
                     <description>but can't delete the faction or make other players admins</description>
                 </description>
             </faction>
             <ally>
-                <title>§bAlly admin rank</title>
+                <title>§bAlly admin</title>
                 <description>
                     <description>A admin of one of your allied factions</description>
                     <description>They are trustworthy people</description>
@@ -200,14 +200,14 @@
         </admin>
         <moderator>
             <faction>
-                <title>§eModerator rank</title>
+                <title>§eModerator</title>
                 <description>
                     <description>A manager of this faction</description>
                     <description>They have some management control</description>
                 </description>
             </faction>
             <ally>
-                <title>§bAlly Moderator rank</title>
+                <title>§bAlly Moderator</title>
                 <description>
                     <description>A member of an allied faction with a moderator rank</description>
                 </description>
@@ -215,13 +215,13 @@
         </moderator>
         <elder>
             <faction>
-                <title>§eElder rank</title>
+                <title>§eElder</title>
                 <description>
                     <description>These players have been in the faction for a long time</description>
                 </description>
             </faction>
             <ally>
-                <title>§bAlly Elder rank</title>
+                <title>§bAlly Elder</title>
                 <description>
                     <description>A member of an allied faction with an elder rank</description>
                 </description>
@@ -229,13 +229,13 @@
         </elder>
         <member>
             <faction>
-                <title>§eMember rank</title>
+                <title>§eMember</title>
                 <description>
                     <description>A member of this faction</description>
                 </description>
             </faction>
             <ally>
-                <title>§bAlly Member rank</title>
+                <title>§bAlly Member</title>
                 <description>
                     <description>A member of an allied faction</description>
                 </description>
