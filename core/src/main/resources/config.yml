@@ -22,21 +22,21 @@ language:
 
 zones:
   safezone:
-    translation-id: "territory.safezone"
+    translation-id: "safezone"
     registry: "__glb:safezone__"
     color: 0x00bfff
     managed: true # Determines if the claim will be handled by improved factions
     protection: true
     pvp: false
   warzone:
-    translation-id: "territory.warzone"
+    translation-id: "warzone"
     registry: "__glb:warzone__"
     color: 0xb30000
     managed: true # Determines if the claim will be handled by improved factions
     protection: true
     pvp: true
   unclaimable:
-    translation-id: "territory.unclaimable"
+    translation-id: "unclaimable"
     registry: "__glb:unclaimable__"
     color: 0xb30000
     managed: false # This will just prevent the chunks from being claimed

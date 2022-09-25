@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 public interface World<R> {
     @NotNull String getWorldName();
 
-    @NotNull Chunk getChunkAt(int x, int z);
+    @NotNull Chunk<?> getChunkAt(int x, int z);
 
     @NotNull R getRaw();
 }

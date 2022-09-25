@@ -2,6 +2,7 @@ package io.github.toberocat.improvedFactions.core.listener;
 
 import io.github.toberocat.improvedFactions.core.claims.ClaimHandler;
 import io.github.toberocat.improvedFactions.core.claims.worldclaim.WorldClaim;
+import io.github.toberocat.improvedFactions.core.claims.zone.Zone;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
@@ -21,12 +22,12 @@ public class MoveListener {
         int toX = to.getX(), toZ = to.getZ();
         if (fromX == toX && fromZ == toZ) return;
 
-        WorldClaim claim = ClaimHandler.getWorldClaim(fromWorld);
-
-        String fromRegistry = claim.getRegistry(fromX, fromZ);
+        WorldClaim fromClaim = ClaimHandler.getWorldClaim(fromWorld);
+        String fromRegistry = fromClaim.getRegistry(fromX, fromZ);
         if (fromRegistry == null) fromRegistry = ClaimHandler.WILDERNESS_REGISTRY;
 
-        String toRegistry = claim.getRegistry(toX, toZ);
+        WorldClaim toClaim = ClaimHandler.getWorldClaim(toWorld);
+        String toRegistry = toClaim.getRegistry(toX, toZ);
         if (toRegistry == null) toRegistry = ClaimHandler.WILDERNESS_REGISTRY;
 
         if (fromRegistry.equals(toRegistry)) return;
@@ -35,10 +36,18 @@ public class MoveListener {
             Faction<?> faction = FactionHandler.getFaction(toRegistry);
             player.sendTitle(faction.getDisplay(), "");
         } catch (FactionNotInStorage e) {
-            String finalToRegistry = toRegistry;
+            String translationId;
+            Zone zone = ClaimHandler.getZone(toRegistry);
+            if (zone != null) {
+                if (!zone.managed()) return;
+                translationId = zone.translationId();
+            } else {
+                translationId = toRegistry.replaceAll(":", "");
+            }
+
             player.sendTitle(translatable -> translatable
                     .getZones()
-                    .get(finalToRegistry.replaceAll(":", "")));
+                    .get(translationId));
 
         }
 

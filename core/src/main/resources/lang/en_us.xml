@@ -82,7 +82,7 @@
                 <auto-activated>Auto claim on, all chunks entered will be claimed with the faction your in</auto-activated>
                 <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>
                 <chunk-already-claimed>This chunk has already been claimed</chunk-already-claimed>
-                <total-area>You have §e{success}/{total}§f chunks claimed</total-area>
+                <total-area>You have claimed §e{success}/{total}§f chunks</total-area>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </claim>
             <unclaim>
@@ -95,7 +95,7 @@
                 <auto-activated>Auto unclaim on, All chunks entered will be unclaimed with the faction your in</auto-activated>
                 <chunk-not-yours>§cYou can not unclaim other factions chunks.</chunk-not-yours>
                 <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>
-                <total-area>You have §e{success}/{total}§f chunks claimed</total-area>
+                <total-area>You have unclaimed §e{success}/{total}§f chunks</total-area>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </unclaim>
             <join>
@@ -141,7 +141,7 @@
                 <auto-activated>PLACEHOLDER</auto-activated>
                 <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>
                 <chunk-already-claimed>This chunk has already been claimed</chunk-already-claimed>
-                <total-area>You have §e{success}/{total}§f chunks claimed</total-area>
+                <total-area>You have claimed §e{success}/{total}§f chunks</total-area>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </zone>
             <acceptinvite>
@@ -253,9 +253,9 @@
         </member>
     </ranks>
     <zones>
-        <__glbsafezone__>§bSafezone</__glbsafezone__>
-        <__glbwarzone__>§4Warzone</__glbwarzone__>
-        <__glbunclaimable__>§fUnclaimable</__glbunclaimable__>
+        <safezone>§bSafezone</safezone>
+        <warzone>§4Warzone</warzone>
+        <unclaimable>§fUnclaimable</unclaimable>
         <__glbwilderness__>§2Wilderness</__glbwilderness__>
     </zones>
 </translatable>

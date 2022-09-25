@@ -34,7 +34,10 @@ public class SpigotBlockListener extends SpigotEventListener {
 
         Chunk chunk = event.getBlock().getChunk();
         try {
-            blockListener.breakBlock(player, world, chunk.getX(), chunk.getZ());
+            if (blockListener.breakBlock(player, world, chunk.getX(), chunk.getZ())) {
+                event.setDropItems(false);
+                event.setCancelled(true);
+            }
         } catch (FactionNotInStorage e) {
             e.printStackTrace();
         }
@@ -50,7 +53,7 @@ public class SpigotBlockListener extends SpigotEventListener {
 
         Chunk chunk = event.getBlock().getChunk();
         try {
-            blockListener.placeBlock(player, world, chunk.getX(), chunk.getZ());
+            if (blockListener.placeBlock(player, world, chunk.getX(), chunk.getZ())) event.setCancelled(true);
         } catch (FactionNotInStorage e) {
             e.printStackTrace();
         }

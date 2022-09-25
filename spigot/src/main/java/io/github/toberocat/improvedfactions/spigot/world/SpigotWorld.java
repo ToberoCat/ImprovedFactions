@@ -18,7 +18,7 @@ public class SpigotWorld implements World<org.bukkit.World> {
     }
 
     @Override
-    public @NotNull Chunk getChunkAt(int x, int z) {
+    public @NotNull Chunk<org.bukkit.Chunk> getChunkAt(int x, int z) {
         return new SpigotChunk(this, world.getChunkAt(x, z));
     }
 

@@ -82,7 +82,6 @@ public class ImplementationHolder {
             Translatable local = XmlManager.read(Translatable.class, localFile);
             Translatable external = XmlManager.read(Translatable.class, externalFile);
 
-            System.out.println("fixing translations");
             new TranslationFixer(local, external).fix();
             XmlManager.write(external, externalFile);
         }

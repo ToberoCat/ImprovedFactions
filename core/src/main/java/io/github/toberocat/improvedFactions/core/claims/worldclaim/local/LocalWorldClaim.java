@@ -47,7 +47,6 @@ public class LocalWorldClaim implements WorldClaim {
 
     @Override
     public void remove(int x, int z) {
-        System.out.println("delete");
         access.delete(String.format("%d_%d", x, z));
         cachedClaims.remove(new XZPair(x, z));
     }

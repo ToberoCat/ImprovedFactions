@@ -5,6 +5,7 @@ import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
 import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
+import io.github.toberocat.improvedFactions.core.utils.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -68,7 +69,10 @@ public record Translation(@NotNull String locale) {
 
     public @Nullable String getMessage(@NotNull Function<Translatable, String> query) {
         Translatable translatable = TRANSLATABLE_MAP.computeIfAbsent(locale, Translation::readFile);
-        if (translatable == null) return null;
+        if (translatable == null) {
+            Logger.api().logWarning("Couldn't find " + locale + " as lang file");
+            return null;
+        }
 
         return query.apply(translatable);
     }

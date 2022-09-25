@@ -58,7 +58,6 @@ public class ClaimHandler {
         ConfigHandler api = ConfigHandler.api();
         api.getSubSections("zones").stream()
                 .map(zone -> {
-                    System.out.println("creating zone " + zone);
                     String root = "zones." + zone;
                     String translationId = api.getString(root + ".translation-id",
                             "territory." + zone);
