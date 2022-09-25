@@ -4,6 +4,7 @@ import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
 import io.github.toberocat.improvedFactions.core.command.sub.chunk.ClaimCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.chunk.UnclaimCommand;
+import io.github.toberocat.improvedFactions.core.command.sub.chunk.zone.ZoneRootCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.CreateFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.DeleteFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.invite.AcceptInviteCommand;
@@ -32,6 +33,7 @@ public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleC
         add(new InviteCommand());
         add(new AcceptInviteCommand());
         add(new BakePermissionsCommand());
+        add(new ZoneRootCommand());
     }
 
     @Override

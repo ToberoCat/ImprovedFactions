@@ -3,6 +3,8 @@ version: '${project.version}'
 main: io.github.toberocat.improvedfactions.spigot.MainIF
 api-version: 1.16
 authors: [ Tobero ]
+softdepend:
+  - WorldGuard
 
 commands:
   faction:

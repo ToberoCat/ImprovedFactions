@@ -64,12 +64,12 @@ public class ClaimHandler {
                     String registry = api.getString(root + ".registry", "__glb:" + zone + "__");
                     int color = api.getInt(root + ".color", 0);
                     if (!api.getBool(root + ".managed", true))
-                        return new Zone(translationId, registry, color, false, false,
+                        return new Zone(zone, translationId, registry, color, false, false,
                                 false);
 
                     boolean protection = api.getBool(root + ".protection", true);
                     boolean pvp = api.getBool(root + ".pvp", false);
-                    return new Zone(translationId, registry, color, true, protection, pvp);
+                    return new Zone(zone, translationId, registry, color, true, protection, pvp);
                 })
                 .forEach(x -> zones.put(x.registry(), x));
     }

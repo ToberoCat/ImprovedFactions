@@ -1,0 +1,5 @@
+commands:
+  claim-command:
+    max-radius: 5
+  unclaim-command:
+    max-radius: 5

@@ -134,6 +134,16 @@
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
                 <requires-faction>§cYou need to be in a faction to do this</requires-faction>
             </invite>
+            <zone>
+                <radius-no-number>Please provide a number of chunks to claim</radius-no-number>
+                <auto-disabled>Auto claim off</auto-disabled>
+                <claim-chunk>§aChunk claimed</claim-chunk>
+                <auto-activated>PLACEHOLDER</auto-activated>
+                <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>
+                <chunk-already-claimed>This chunk has already been claimed</chunk-already-claimed>
+                <total-area>You have §e{success}/{total}§f chunks claimed</total-area>
+                <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
+            </zone>
             <acceptinvite>
                 <accepted>§eInvite accepted</accepted>
                 <not-enough-args>§cNot enough arguments. Please add the faction name</not-enough-args>

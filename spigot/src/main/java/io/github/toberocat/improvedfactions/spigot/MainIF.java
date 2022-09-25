@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedfactions.spigot;
 
+import io.github.toberocat.improvedFactions.core.command.sub.chunk.zone.ZoneRootCommand;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import io.github.toberocat.improvedfactions.spigot.command.SpigotFactionCommand;

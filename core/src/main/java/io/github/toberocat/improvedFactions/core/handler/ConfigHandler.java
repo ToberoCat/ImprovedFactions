@@ -29,4 +29,6 @@ public interface ConfigHandler {
 
     boolean getBool(@NotNull String path);
     boolean getBool(@NotNull String path, boolean def);
+
+    @NotNull ConfigHandler getSection(@NotNull String path);
 }
