@@ -32,9 +32,9 @@
                 <player-kick>§6Player {player} got kicked out of your faction</player-kick>
                 <player-ban>§cPlayer {player} got banned from your faction</player-ban>
                 <player-pardon>§ePlayer {player} got unbanned. They are now able to join your faction again</player-pardon>
-                <invite-sent>§e{sender}§f invited §e{received}§f to join your faction</invite-sent>
+                <invite-sent>§e{sender}§f invited §e{receiver}§f to join your faction</invite-sent>
                 <invite-cancelled>§e{sender}§f cancelled the invite for §e{received}§f to join your faction</invite-cancelled>
-                <invite-accepted>§e{received}§f accepted §e{sender}§f invite</invite-accepted>
+                <invite-accepted>§e{received}§f accepted their invite to join this faction</invite-accepted>
             </broadcast>
         </faction>
         <command>
@@ -149,7 +149,7 @@
             </acceptinvite>
         </command>
     </messages>
-    <prefix>[§eIF§f] </prefix>
+    <prefix>§8[§eIF§8]§f </prefix>
     <ranks>
         <guest>
             <faction>
@@ -245,7 +245,7 @@
     <zones>
         <__glbsafezone__>§bSafezone</__glbsafezone__>
         <__glbwarzone__>§4Warzone</__glbwarzone__>
-        <__glbunclaimable__>§7Unclaimable</__glbunclaimable__>
+        <__glbunclaimable__>§fUnclaimable</__glbunclaimable__>
         <__glbwilderness__>§2Wilderness</__glbwilderness__>
     </zones>
 </translatable>
