@@ -157,11 +157,16 @@ public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
     }
 
     @Override
+    public @NotNull File getGuiFolder() {
+        return new File(getDataFolder(), "gui");
+    }
+
+    @Override
     public @NotNull ConfigHandler getConfig(@NotNull String relativePath) {
         return new SpigotConfigHandler(new YamlLoader(new File(getDataFolder(), relativePath), plugin)
                 .logger(logger)
                 .load()
-                .fileConfiguration());
+                .fileConfiguration(), "");
     }
 
     @Override

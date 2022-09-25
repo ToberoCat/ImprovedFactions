@@ -1,6 +1,5 @@
 package io.github.toberocat.improvedfactions.spigot;
 
-import io.github.toberocat.improvedFactions.core.command.sub.chunk.zone.ZoneRootCommand;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import io.github.toberocat.improvedfactions.spigot.command.SpigotFactionCommand;
@@ -66,7 +65,7 @@ public final class MainIF extends JavaPlugin {
 
     private void registerHandlers() {
         ImplementationHolder.colorHandler = new SpigotColorHandler();
-        ImplementationHolder.configHandler = new SpigotConfigHandler(getConfig());
+        ImplementationHolder.configHandler = new SpigotConfigHandler(getConfig(), "");
 
         ImprovedImplementation implementation = new ImprovedImplementation(this);
         ImplementationHolder.improvedFactions = implementation;
