@@ -5,13 +5,11 @@ import io.github.toberocat.improvedFactions.core.claims.zone.Zone;
 import io.github.toberocat.improvedFactions.core.command.component.AutoAreaCommand;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
 import io.github.toberocat.improvedFactions.core.exceptions.chunk.ChunkAlreadyClaimedException;
-import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
-import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
-import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.location.Location;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
+import io.github.toberocat.improvedFactions.core.utils.PermissionFileTool;
 import io.github.toberocat.improvedFactions.core.world.World;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,7 +20,16 @@ public class SingleZoneCommand extends AutoAreaCommand {
     private final Zone zone;
 
     public SingleZoneCommand(@NotNull Zone zone) {
+        super(true);
         this.zone = zone;
+
+        this.node = translatable -> translatable
+                .getMessages()
+                .getCommand()
+                .get("zone");
+        this.settings = createSettings();
+        this.config = createConfig();
+        PermissionFileTool.addPermission(permission(), isAdmin());
     }
 
     @Override

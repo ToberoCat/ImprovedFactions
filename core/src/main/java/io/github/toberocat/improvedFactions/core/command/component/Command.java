@@ -18,10 +18,10 @@ public abstract class Command<P extends Command.CommandPacket, C extends Command
     public static final String PERMISSION_NODE = "faction.command.";
 
     protected final Map<String, Command<?, ?>> commands = new HashMap<>();
-    protected final Function<Translatable, Map<String, String>> node;
+    protected Function<Translatable, Map<String, String>> node;
 
-    private final CommandSettings settings;
-    private final ConfigHandler config;
+    protected CommandSettings settings;
+    protected ConfigHandler config;
 
     public Command() {
         this.node = translatable -> translatable
@@ -34,7 +34,20 @@ public abstract class Command<P extends Command.CommandPacket, C extends Command
         PermissionFileTool.addPermission(permission(), isAdmin());
     }
 
-    private @NotNull ConfigHandler createConfig() {
+    public Command(boolean setManually) {
+        if (setManually) return;
+        this.node = translatable -> translatable
+                .getMessages()
+                .getCommand()
+                .get(label());
+
+        this.settings = createSettings();
+        this.config = createConfig();
+
+        PermissionFileTool.addPermission(permission(), isAdmin());
+    }
+
+    protected @NotNull ConfigHandler createConfig() {
         return ImprovedFactions.api().getConfig("commands.yml").getSection(label() + "-command");
     }
 
@@ -86,6 +99,11 @@ public abstract class Command<P extends Command.CommandPacket, C extends Command
                                                @NotNull String[] args);
 
     public abstract @Nullable C createFromArgs(@NotNull String[] args);
+
+    @Override
+    public String toString() {
+        return "Command{" + label() + "}";
+    }
 
     /* Interfaces */
 

@@ -47,12 +47,12 @@ public class ScanRegionsToZone extends Command<ScanRegionsToZone.ScanPacket, Sca
 
     @Override
     public @NotNull List<String> tabCompleteConsole(@NotNull String[] args) {
-        return ClaimHandler.getZones();
+        return ClaimHandler.getZones().stream().toList();
     }
 
     @Override
     public @NotNull List<String> tabCompletePlayer(@NotNull FactionPlayer<?> player, @NotNull String[] args) {
-        return ClaimHandler.getZones();
+        return ClaimHandler.getZones().stream().toList();
     }
 
     @Override

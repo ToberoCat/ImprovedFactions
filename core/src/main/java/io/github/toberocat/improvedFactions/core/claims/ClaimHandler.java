@@ -14,8 +14,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
@@ -30,8 +30,8 @@ public class ClaimHandler {
         return zones.get(registry);
     }
 
-    public static @NotNull List<String> getZones() {
-        return ConfigHandler.api().getSubSections("zones");
+    public static Set<String> getZones() {
+        return zones.keySet();
     }
 
 
@@ -58,6 +58,7 @@ public class ClaimHandler {
         ConfigHandler api = ConfigHandler.api();
         api.getSubSections("zones").stream()
                 .map(zone -> {
+                    System.out.println("creating zone " + zone);
                     String root = "zones." + zone;
                     String translationId = api.getString(root + ".translation-id",
                             "territory." + zone);

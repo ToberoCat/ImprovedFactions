@@ -30,21 +30,21 @@ zones:
     pvp: false
   warzone:
     translation-id: "territory.warzone"
-    registry: "__glb:warzone"
+    registry: "__glb:warzone__"
     color: 0xb30000
     managed: true # Determines if the claim will be handled by improved factions
     protection: true
     pvp: true
   unclaimable:
-    translation-id: "territory.warzone"
-    registry: "__glb:warzone"
+    translation-id: "territory.unclaimable"
+    registry: "__glb:unclaimable__"
     color: 0xb30000
     managed: false # This will just prevent the chunks from being claimed
 
 
 world:
   disabled-worlds: # A list of worlds that don't allow improved factions
-#  - "Disabled faction world"
+  #  - "Disabled faction world"
   enabled-worlds: # When having too many worlds and only want a small amount to be faction worlds, use this list. This list will calculate a disabled worlds list
 #  - "Enabled faction world"
 

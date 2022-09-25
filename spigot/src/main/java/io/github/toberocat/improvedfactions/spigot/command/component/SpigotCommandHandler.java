@@ -27,9 +27,11 @@ public class SpigotCommandHandler {
             base.getCommands().get("zones").getCommands().put("scanWg", new ScanRegionsToZone());
 
         call(base);
+        System.out.println(lookup);
     }
 
     private void call(@NotNull Command<?, ?> command) {
+        System.out.println(command.label());
         lookup.putAll(command.getCommands());
         command.getCommands()
                 .values()

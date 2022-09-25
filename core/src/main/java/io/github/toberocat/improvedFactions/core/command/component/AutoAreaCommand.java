@@ -18,6 +18,13 @@ public abstract class AutoAreaCommand extends
 
     private static final Map<UUID, Consumer<FactionPlayer<?>>> CHUNK_MOVES = new HashMap<>();
 
+    public AutoAreaCommand() {
+    }
+
+    public AutoAreaCommand(boolean setManually) {
+        super(setManually);
+    }
+
     public static void move(@NotNull FactionPlayer<?> player) {
         Consumer<FactionPlayer<?>> consumer = CHUNK_MOVES.get(player.getUniqueId());
         if (consumer == null) return;

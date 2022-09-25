@@ -46,7 +46,7 @@ public class ZoneRootCommand extends
 
     @Override
     public void run(@NotNull Command.CommandPacket packet) {
-
+        System.out.println("zones got executed");
     }
 
     @Override
