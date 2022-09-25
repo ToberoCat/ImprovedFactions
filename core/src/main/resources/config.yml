@@ -20,6 +20,28 @@ performance:
 language:
   default-local: "en_us" # Change this to your server main language, as long as a file with this name exists within lang/ folder
 
+zones:
+  safezone:
+    translation-id: "territory.safezone"
+    registry: "__glb:safezone__"
+    color: 0x00bfff
+    managed: true # Determines if the claim will be handled by improved factions
+    protection: true
+    pvp: false
+  warzone:
+    translation-id: "territory.warzone"
+    registry: "__glb:warzone"
+    color: 0xb30000
+    managed: true # Determines if the claim will be handled by improved factions
+    protection: true
+    pvp: true
+  unclaimable:
+    translation-id: "territory.warzone"
+    registry: "__glb:warzone"
+    color: 0xb30000
+    managed: false # This will just prevent the chunks from being claimed
+
+
 world:
   disabled-worlds: # A list of worlds that don't allow improved factions
 #  - "Disabled faction world"

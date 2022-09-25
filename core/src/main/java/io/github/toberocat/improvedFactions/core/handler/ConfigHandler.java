@@ -19,6 +19,7 @@ public interface ConfigHandler {
     @NotNull String getString(@NotNull String path, @NotNull String def);
 
     @NotNull List<String> getList(@NotNull String path);
+    @NotNull List<String> getSubSections(@NotNull String section);
 
     int getInt(@NotNull String path);
     int getInt(@NotNull String path, int def);

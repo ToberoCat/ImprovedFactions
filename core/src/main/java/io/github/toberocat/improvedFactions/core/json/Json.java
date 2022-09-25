@@ -17,8 +17,8 @@ public class Json {
                     .addKeyDeserializer(ItemStack.class, new MapKeyDeserializer()));
 
 
-    public static void writeToFile(@NotNull Object item) {
-        return mapper.writeValueAsString(item);
+    public static void writeToFile(@NotNull File file, @NotNull Object item) throws IOException {
+        mapper.writeValue(file, item);
     }
 
     public static @NotNull String parse(@NotNull Object item) throws JsonProcessingException {

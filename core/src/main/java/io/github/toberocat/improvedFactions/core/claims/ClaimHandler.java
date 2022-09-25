@@ -3,15 +3,16 @@ package io.github.toberocat.improvedFactions.core.claims;
 import io.github.toberocat.improvedFactions.core.claims.component.Claim;
 import io.github.toberocat.improvedFactions.core.claims.worldclaim.WorldClaim;
 import io.github.toberocat.improvedFactions.core.claims.worldclaim.handler.WorldClaimHandler;
+import io.github.toberocat.improvedFactions.core.claims.zone.Zone;
 import io.github.toberocat.improvedFactions.core.event.EventExecutor;
 import io.github.toberocat.improvedFactions.core.exceptions.chunk.ChunkAlreadyClaimedException;
+import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.world.Chunk;
 import io.github.toberocat.improvedFactions.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,33 +21,19 @@ import java.util.stream.Stream;
 
 public class ClaimHandler {
 
-    public static final String SAFEZONE_REGISTRY = "__glb:safezone__";
-    public static final String WARZONE_REGISTRY = "__glb:warzone__";
-    public static final String UNCLAIMABLE_REGISTRY = "__glb:unclaimable__";
     public static final String WILDERNESS_REGISTRY = "__glb:wilderness__";
 
     private static final Map<String, WorldClaim> claims = new HashMap<>();
+    private static final Map<String, Zone> zones = new HashMap<>();
 
-    public static int getRegistryColor(@NotNull String registry) {
-        return switch (registry) {
-            case SAFEZONE_REGISTRY -> 0x00bfff;
-            case WARZONE_REGISTRY -> 0xb30000;
-            case UNCLAIMABLE_REGISTRY -> 0x88858e;
-            default -> throw new IllegalArgumentException("Registry has no zone color");
-        };
+    public static @Nullable Zone getZone(@NotNull String registry) {
+        return zones.get(registry);
     }
 
     public static @NotNull List<String> getZones() {
-        return new ArrayList<>(List.of(SAFEZONE_REGISTRY, WARZONE_REGISTRY, UNCLAIMABLE_REGISTRY));
+        return ConfigHandler.api().getSubSections("zones");
     }
 
-    public static @Nullable String getZoneDisplay(@NotNull String registry) {
-        return switch (registry) {
-            case SAFEZONE_REGISTRY -> "territory.safezone";
-            case WARZONE_REGISTRY -> "territory.warzone";
-            default -> null;
-        };
-    }
 
     public static boolean isManageableZone(@Nullable String registry) {
         return getZones().contains(registry);
@@ -63,6 +50,28 @@ public class ClaimHandler {
     public static void dispose() {
         claims.values().forEach(WorldClaim::dispose);
         claims.clear();
+        zones.clear();
+    }
+
+    public static void reload() {
+        zones.clear();
+        ConfigHandler api = ConfigHandler.api();
+        api.getSubSections("zones").stream()
+                .map(zone -> {
+                    String root = "zones." + zone;
+                    String translationId = api.getString(root + ".translation-id",
+                            "territory." + zone);
+                    String registry = api.getString(root + ".registry", "__glb:" + zone + "__");
+                    int color = api.getInt(root + ".color", 0);
+                    if (!api.getBool(root + ".managed", true))
+                        return new Zone(translationId, registry, color, false, false,
+                                false);
+
+                    boolean protection = api.getBool(root + ".protection", true);
+                    boolean pvp = api.getBool(root + ".pvp", false);
+                    return new Zone(translationId, registry, color, true, protection, pvp);
+                })
+                .forEach(x -> zones.put(x.registry(), x));
     }
 
     public static @NotNull Stream<Claim> registryClaims(@NotNull String registry) {
@@ -72,7 +81,8 @@ public class ClaimHandler {
                 .filter(x -> x.getRegistry().equals(registry));
     }
 
-    public static void protectChunk(@NotNull String registry, @NotNull Chunk<?> chunk) throws ChunkAlreadyClaimedException {
+    public static void protectChunk(@NotNull String registry, @NotNull Chunk<?> chunk)
+            throws ChunkAlreadyClaimedException {
         WorldClaim worldClaim = getWorldClaim(chunk.getWorld());
         String claimed = worldClaim.getRegistry(chunk.getX(), chunk.getZ());
 

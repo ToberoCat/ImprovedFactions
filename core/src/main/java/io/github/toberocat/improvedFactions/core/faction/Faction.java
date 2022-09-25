@@ -91,10 +91,7 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
      * @return If the name is valid
      */
     static boolean validNaming(@NotNull String name) {
-        return !REGISTRY_PATTERN.matcher(name).find() && !List.of(ClaimHandler.SAFEZONE_REGISTRY,
-                ClaimHandler.WARZONE_REGISTRY,
-                ClaimHandler.UNCLAIMABLE_REGISTRY,
-                ClaimHandler.WILDERNESS_REGISTRY).contains(name);
+        return !REGISTRY_PATTERN.matcher(name).find() && !ClaimHandler.getZones().contains(name);
     }
 
     /* Faction infos */

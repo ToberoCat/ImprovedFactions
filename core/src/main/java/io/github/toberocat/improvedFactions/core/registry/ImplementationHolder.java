@@ -43,6 +43,12 @@ public class ImplementationHolder {
         Rank.register();
         ClaimHandler.cacheAllWorlds();
         Translation.createLocaleMap();
+
+        reload();
+    }
+
+    public static void reload() { // Reload the data from config
+        ClaimHandler.reload();
     }
 
     private static void createFolders() {
