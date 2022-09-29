@@ -23,7 +23,7 @@ import java.util.List;
 
 public final class MainIF extends JavaPlugin {
 
-    private final String currentVersion = "2.0.0-dev.3";
+    private final String currentVersion = "2.0.0-dev.4";
     private boolean enabledSuccessfully = false;
 
     @Override

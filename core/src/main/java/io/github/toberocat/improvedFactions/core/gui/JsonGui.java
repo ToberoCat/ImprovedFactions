@@ -26,8 +26,17 @@ public class JsonGui {
     protected JsonGui(@NotNull Map<ItemContainer, String> content, @NotNull String guiId) {
         this.content = content;
         this.guiId = guiId;
+        rows = 6;
+        title = guiId;
     }
 
+    public void write() {
+        try {
+            Json.writeToFile(new File(ImprovedFactions.api().getGuiFolder(), guiId + ".gui"), this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Map<ItemContainer, String> getContent() {
         return content;
@@ -35,6 +44,9 @@ public class JsonGui {
 
     public void setContent(Map<ItemContainer, String> content) {
         this.content = content;
+        content.forEach((x, action) -> {
+            if (x != null) System.out.println(x);
+        });
     }
 
     public int getRows() {

@@ -4,6 +4,7 @@ import io.github.toberocat.improvedFactions.core.claims.ClaimHandler;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.core.gui.EditorGui;
+import io.github.toberocat.improvedFactions.core.gui.GuiManager;
 import io.github.toberocat.improvedFactions.core.handler.*;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
@@ -41,6 +42,7 @@ public class ImplementationHolder {
     public static void register() throws IOException {
         createFolders();
         copyResources();
+        registerGuis();
 
         Rank.register();
         ClaimHandler.cacheAllWorlds();
@@ -55,7 +57,7 @@ public class ImplementationHolder {
 
     private static void createFolders() {
         File file = ImprovedFactions.api().getDataFolder();
-        List.of("lang", "commands",
+        List.of("lang", "gui", "commands",
                         "data/chunks",
                         "data/factions",
                         "data/persistent",
@@ -64,6 +66,9 @@ public class ImplementationHolder {
                 .forEach(x -> new File(file, x).mkdirs());
     }
 
+    private static void registerGuis() {
+        GuiManager.registerGui("manage-faction");
+    }
 
     private static void copyResources() throws IOException {
         copyLang("en_us.xml");

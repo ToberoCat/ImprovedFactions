@@ -9,4 +9,9 @@ public class SpigotColorHandler implements ColorHandler {
     public @NotNull String stripColor(@NotNull String text) {
         return ChatColor.stripColor(text);
     }
+
+    @Override
+    public @NotNull String format(@NotNull String text) {
+        return ChatColor.translateAlternateColorCodes('&', text);
+    }
 }

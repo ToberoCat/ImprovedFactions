@@ -3,7 +3,6 @@ package io.github.toberocat.improvedfactions.spigot.gui;
 import io.github.toberocat.improvedfactions.spigot.gui.page.AutoNavPage;
 import io.github.toberocat.improvedfactions.spigot.gui.page.AutoPage;
 import io.github.toberocat.improvedfactions.spigot.gui.page.Page;
-import io.github.toberocat.improvedfactions.spigot.gui.slot.EnumSlot;
 import io.github.toberocat.improvedfactions.spigot.gui.slot.Slot;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -38,23 +37,6 @@ public abstract class AutoGui extends AbstractGui {
         boolean execute = false;
         if (page instanceof AutoPage auto) execute = auto.addSlot(slot);
         else if (page instanceof AutoNavPage navPage) execute = navPage.addSlot(slot);
-        if (execute) addPage();
-    }
-
-    public <T extends Enum<T>> void addEnumSlot(ItemStack stack, Class<T> enumType, Consumer<String> updateSelector) {
-        Page page = pages.get(pages.size() - 1);
-        EnumSlot<T> slot = new EnumSlot<>(stack, enumType, 0, this::render) {
-            @Override
-            public void changeSelected(String newValue) {
-                updateSelector.accept(newValue);
-            }
-        };
-
-
-        boolean execute = false;
-        if (page instanceof AutoPage auto) execute = auto.addSlot(slot);
-        else if (page instanceof AutoNavPage navPage) execute = navPage.addSlot(slot);
-
         if (execute) addPage();
     }
 

@@ -3,12 +3,12 @@ package io.github.toberocat.improvedfactions.spigot.gui;
 import io.github.toberocat.improvedFactions.core.handler.ColorHandler;
 import io.github.toberocat.improvedfactions.spigot.gui.page.Page;
 import io.github.toberocat.improvedfactions.spigot.gui.settings.GuiSettings;
-import io.github.toberocat.improvedfactions.spigot.gui.slot.EnumSlot;
 import io.github.toberocat.improvedfactions.spigot.gui.slot.Slot;
 import io.github.toberocat.improvedfactions.spigot.listener.GuiListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
@@ -59,6 +59,33 @@ public abstract class AbstractGui {
 
     /* Event methods */
 
+    public void click(InventoryClickEvent event) {
+        event.setCancelled(true);
+        int lastCurrentPage = currentPage;
+
+        if (settings.isPageArrows()) {
+            ItemStack clicked = event.getCurrentItem();
+            if (clicked == null) return;
+
+            if (event.getSlot() == inventory.getSize() - 9 &&
+                    clicked.getType() == Material.ARROW) currentPage--;
+
+            if (event.getSlot() == inventory.getSize() - 1 &&
+                    clicked.getType() == Material.ARROW) currentPage++;
+        }
+
+        if (settings.getQuitGui() != null && event.getSlot() == inventory.getSize() - 5) {
+            settings.getQuitGui().run();
+            return;
+        }
+
+        currentPage += pages.get(currentPage).click(event, currentPage);
+        currentPage = clamp(currentPage, 0, pages.size());
+
+
+        if (lastCurrentPage != currentPage) render();
+    }
+
     public void drag(InventoryDragEvent event) {
         event.setCancelled(true);
     }
@@ -96,15 +123,6 @@ public abstract class AbstractGui {
 
     public void addSlot(Slot slot, int page, int invSlot) {
         if (pages.get(page).addSlot(slot, invSlot)) addPage();
-    }
-
-    public <T extends Enum<T>> void addEnumSlot(ItemStack stack, Class<T> enumType, int page, int invSlot, Consumer<String> updateSelector) {
-        if (pages.get(page).addSlot(new EnumSlot<>(stack, enumType, 0, this::render) {
-            @Override
-            public void changeSelected(String newValue) {
-                updateSelector.accept(newValue);
-            }
-        }, invSlot)) addPage();
     }
 
     public void addSlot(ItemStack stack, int page, int invSlot, BiConsumer<Player, ItemStack> click) {
