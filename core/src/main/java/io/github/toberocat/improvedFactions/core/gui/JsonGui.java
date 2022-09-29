@@ -26,22 +26,6 @@ public class JsonGui {
         this.guiId = guiId;
     }
 
-    public static @Nullable JsonGui loadGui(@NotNull String guiId) {
-        try {
-            JsonGui gui = Json.parse(JsonGui.class,
-                    new File(ImprovedFactions.api().getGuiFolder(), guiId + ".gui"));
-            gui.setGuiId(guiId);
-
-            return gui;
-        } catch (IOException e) {
-            Logger.api().logException(e);
-            return null;
-        }
-    }
-
-    public void writeToFile() {
-
-    }
 
     public Map<ItemStack, String> getContent() {
         return content;

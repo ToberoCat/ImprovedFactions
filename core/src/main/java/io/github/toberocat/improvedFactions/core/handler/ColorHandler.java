@@ -13,4 +13,6 @@ public interface ColorHandler {
     }
 
     @NotNull String stripColor(@NotNull String text);
+
+    @NotNull String format(@NotNull String text);
 }

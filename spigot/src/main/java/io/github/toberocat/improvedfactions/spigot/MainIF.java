@@ -3,8 +3,12 @@ package io.github.toberocat.improvedfactions.spigot;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import io.github.toberocat.improvedfactions.spigot.command.SpigotFactionCommand;
+import io.github.toberocat.improvedfactions.spigot.gui.provided.SpigotEditorGuiManager;
+import io.github.toberocat.improvedfactions.spigot.gui.provided.SpigotGuiSelector;
 import io.github.toberocat.improvedfactions.spigot.handler.SpigotColorHandler;
 import io.github.toberocat.improvedfactions.spigot.handler.SpigotConfigHandler;
+import io.github.toberocat.improvedfactions.spigot.item.SpigotItemHandler;
+import io.github.toberocat.improvedfactions.spigot.listener.GuiListener;
 import io.github.toberocat.improvedfactions.spigot.listener.PlayerLeaveListener;
 import io.github.toberocat.improvedfactions.spigot.listener.PlayerMoveListener;
 import io.github.toberocat.improvedfactions.spigot.listener.SpigotEventListener;
@@ -59,13 +63,16 @@ public final class MainIF extends JavaPlugin {
         List.of(
                 new PlayerLeaveListener(this),
                 new SpigotBlockListener(this),
-                new PlayerMoveListener(this)
+                new PlayerMoveListener(this),
+                new GuiListener(this)
         ).forEach(SpigotEventListener::register);
     }
 
     private void registerHandlers() {
         ImplementationHolder.colorHandler = new SpigotColorHandler();
         ImplementationHolder.configHandler = new SpigotConfigHandler(getConfig(), "");
+        ImplementationHolder.editorGui = new SpigotEditorGuiManager();
+        ImplementationHolder.itemHandler = new SpigotItemHandler();
 
         ImprovedImplementation implementation = new ImprovedImplementation(this);
         ImplementationHolder.improvedFactions = implementation;

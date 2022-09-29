@@ -3,6 +3,7 @@ package io.github.toberocat.improvedFactions.core.registry;
 import io.github.toberocat.improvedFactions.core.claims.ClaimHandler;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
+import io.github.toberocat.improvedFactions.core.gui.EditorGui;
 import io.github.toberocat.improvedFactions.core.handler.*;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
@@ -30,6 +31,7 @@ public class ImplementationHolder {
     public static @Nullable ItemHandler itemHandler;
     public static @Nullable MessagingHandler messagingHandler;
     public static @Nullable Logger logger;
+    public static @Nullable EditorGui editorGui;
 
     public static @Nullable ImprovedFactions<?> improvedFactions;
 

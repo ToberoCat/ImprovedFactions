@@ -1,5 +1,9 @@
 package io.github.toberocat.improvedFactions.core.item;
 
+import org.jetbrains.annotations.NotNull;
+
 public interface ItemStack {
-    byte[] serializeAsBytes();
+    @NotNull String toBase64();
+
+    @NotNull Object getRaw();
 }

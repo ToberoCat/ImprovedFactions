@@ -11,6 +11,6 @@ public class MapKeyDeserializer extends KeyDeserializer {
 
     @Override
     public Object deserializeKey(String key, DeserializationContext ctxt) throws IOException {
-        return ItemHandler.api().deserializeBytes(Base64.getDecoder().decode(key));
+        return ItemHandler.api().fromBase64(Base64.getDecoder().decode(key));
     }
 }

@@ -13,6 +13,6 @@ public class MapKeySerializer extends JsonSerializer<ItemStack> {
     @Override
     public void serialize(ItemStack value, JsonGenerator gen, SerializerProvider serializers)
             throws IOException {
-        gen.writeFieldName(Base64.getEncoder().encodeToString(value.serializeAsBytes()));
+        gen.writeFieldName(Base64.getEncoder().encodeToString(value.toBase64()));
     }
 }

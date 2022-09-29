@@ -2,6 +2,7 @@ package io.github.toberocat.improvedFactions.core.command;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
+import io.github.toberocat.improvedFactions.core.command.sub.admin.AdminRoot;
 import io.github.toberocat.improvedFactions.core.command.sub.chunk.ClaimCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.chunk.UnclaimCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.chunk.zone.ZoneRootCommand;
@@ -34,6 +35,7 @@ public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleC
         add(new AcceptInviteCommand());
         add(new BakePermissionsCommand());
         add(new ZoneRootCommand());
+        add(new AdminRoot());
     }
 
     @Override

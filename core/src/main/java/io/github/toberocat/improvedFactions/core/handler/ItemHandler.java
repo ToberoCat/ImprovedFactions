@@ -6,6 +6,7 @@ import io.github.toberocat.improvedFactions.core.item.ItemStack;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.net.URL;
 
 public interface ItemHandler {
@@ -16,10 +17,10 @@ public interface ItemHandler {
         return implementation;
     }
 
-    @NotNull ItemStack createStack(@NotNull Item material, @NotNull String title, int quantity, String... lore);
+    @NotNull ItemStack createStack(@NotNull String material, @NotNull String title, int quantity, String... lore);
 
     @NotNull ItemStack createSkull(@NotNull URL textureId, @NotNull String title, String... lore);
 
-    @NotNull ItemStack deserializeBytes(byte[] bytes);
+    @NotNull ItemStack fromBase64(@NotNull String data) throws IOException;
 
 }
