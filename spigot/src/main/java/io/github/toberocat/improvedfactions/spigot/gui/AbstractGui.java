@@ -9,7 +9,6 @@ import io.github.toberocat.improvedfactions.spigot.listener.GuiListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
@@ -59,33 +58,6 @@ public abstract class AbstractGui {
 
 
     /* Event methods */
-
-    public void click(InventoryClickEvent event) {
-        event.setCancelled(true);
-        int lastCurrentPage = currentPage;
-
-        if (settings.isPageArrows()) {
-            ItemStack clicked = event.getCurrentItem();
-            if (clicked == null) return;
-
-            if (event.getSlot() == inventory.getSize() - 9 &&
-                    clicked.getType() == Material.ARROW) currentPage--;
-
-            if (event.getSlot() == inventory.getSize() - 1 &&
-                    clicked.getType() == Material.ARROW) currentPage++;
-        }
-
-        if (settings.getQuitGui() != null && event.getSlot() == inventory.getSize() - 5) {
-            settings.getQuitGui().run();
-            return;
-        }
-
-        currentPage += pages.get(currentPage).click(event, currentPage);
-        currentPage = clamp(currentPage, 0, pages.size());
-
-
-        if (lastCurrentPage != currentPage) render();
-    }
 
     public void drag(InventoryDragEvent event) {
         event.setCancelled(true);
@@ -167,7 +139,7 @@ public abstract class AbstractGui {
         this.inventory = inventory;
     }
 
-    private int clamp(int value, int min, int max) {
+    protected int clamp(int value, int min, int max) {
         return Math.max(Math.min(value, max), min);
     }
 

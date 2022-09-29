@@ -1,4 +1,6 @@
 {
+  "title": "Manage {faction}",
+  "rows": 6,
   "content": {
     "gfgjahfghjgshfghj": "action/path"
   }

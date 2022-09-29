@@ -5,11 +5,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
+import java.util.function.Consumer;
+
 public class Page {
     protected Slot[] slots;
+    protected Consumer<Integer> consumer;
 
-    public Page(int inventorySize) {
-        slots = new Slot[inventorySize];
+    public Page(int inventorySize, Consumer<Integer> consumer) {
+        this.slots = new Slot[inventorySize];
+        this.consumer = consumer;
     }
 
     public void render(Inventory inventory) {
@@ -35,6 +39,8 @@ public class Page {
 
         if (event.getWhoClicked() instanceof Player player) {
             Slot slot = slots[event.getSlot()];
+            consumer.accept(event.getSlot());
+
             if (slot == null) return 0;
             if (event.getClick().isRightClick()) slot.rightClick(player, event.getCursor());
             else slot.click(player, event.getCursor());

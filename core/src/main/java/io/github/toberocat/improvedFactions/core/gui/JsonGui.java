@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.util.Map;
 
 public class JsonGui {
-    private Map<ItemStack, String> content;
+    private Map<ItemContainer, String> content;
+    private int rows;
+    private String title;
 
     private String guiId;
 
@@ -21,18 +23,34 @@ public class JsonGui {
 
     }
 
-    protected JsonGui(@NotNull Map<ItemStack, String> content, @NotNull String guiId) {
+    protected JsonGui(@NotNull Map<ItemContainer, String> content, @NotNull String guiId) {
         this.content = content;
         this.guiId = guiId;
     }
 
 
-    public Map<ItemStack, String> getContent() {
+    public Map<ItemContainer, String> getContent() {
         return content;
     }
 
-    public void setContent(Map<ItemStack, String> content) {
+    public void setContent(Map<ItemContainer, String> content) {
         this.content = content;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @JsonIgnore
