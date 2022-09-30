@@ -49,3 +49,7 @@
 - [ ] MongoDB
 - [ ] Add option to receive invites even when in faction
 - [ ] Allow offline players to receive translated messages too
+
+# Placeholder
+- %faction_maxpower%
+- %faction_currentpower%

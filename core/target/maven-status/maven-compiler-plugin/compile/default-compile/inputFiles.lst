@@ -79,6 +79,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\c
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\components\rank\members\FactionMemberRank.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\registry\RankHolder.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\faction\relation\CantInviteYourselfException.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\translator\layout\item\XmlItem.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\components\Description.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\components\rank\Rank.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\invite\InviteHandler.java

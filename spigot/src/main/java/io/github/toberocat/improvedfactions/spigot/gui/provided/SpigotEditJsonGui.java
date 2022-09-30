@@ -3,6 +3,7 @@ package io.github.toberocat.improvedfactions.spigot.gui.provided;
 import io.github.toberocat.improvedFactions.core.gui.ItemContainer;
 import io.github.toberocat.improvedFactions.core.gui.JsonGui;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.translator.layout.item.XmlItem;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
 import io.github.toberocat.improvedfactions.spigot.gui.AbstractGui;
 import io.github.toberocat.improvedfactions.spigot.gui.page.Page;
@@ -16,6 +17,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -24,6 +26,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SpigotEditJsonGui extends AbstractGui {
@@ -50,14 +53,14 @@ public class SpigotEditJsonGui extends AbstractGui {
                         .set(ORIGINAL_NAME_KEY, PersistentDataType.STRING,
                                 meta.getDisplayName());
 
+                String id = meta.getDisplayName();
                 meta.setDisplayName(fPlayer.getMessage(translatable -> translatable.getItems()
                         .get(jsonGui.getGuiId())
-                        .get(meta.getDisplayName())
+                        .get(id)
                         .title()));
                 meta.setLore(Arrays.stream(fPlayer.getMessageBatch(translatable -> translatable.getItems()
                         .get(jsonGui.getGuiId())
-                        .get(meta.getDisplayName())
-                        .description().toArray(String[]::new))).toList());
+                        .get(id).description().toArray(String[]::new))).toList());
             }
             stack.setItemMeta(meta);
 
@@ -77,6 +80,23 @@ public class SpigotEditJsonGui extends AbstractGui {
 
     private void updateContent() {
         io.github.toberocat.improvedFactions.core.item.ItemStack[] stacks = Arrays.stream(inventory.getContents())
+                .peek(x -> {
+                    if (x == null) return;
+
+                    ItemMeta meta = x.getItemMeta();
+                    if (meta != null) {
+                        String old = meta.getPersistentDataContainer()
+                                .get(ORIGINAL_NAME_KEY, PersistentDataType.STRING);
+                        if (old == null) return;
+
+                        meta.getPersistentDataContainer()
+                                .remove(ORIGINAL_NAME_KEY);
+
+                        meta.setDisplayName(old);
+                        meta.setLore(List.of());
+                    }
+                    x.setItemMeta(meta);
+                })
                 .map(SpigotItemStack::new)
                 .toArray(SpigotItemStack[]::new);
         Map<ItemContainer, String> actionMap = new HashMap<>();
@@ -120,6 +140,12 @@ public class SpigotEditJsonGui extends AbstractGui {
     @Override
     public void click(InventoryClickEvent event) {
         super.click(event);
+        if (event.getCursor() != null) event.setCancelled(false);
+    }
+
+    @Override
+    public void drag(InventoryDragEvent event) {
+        super.drag(event);
         if (event.getCursor() != null) event.setCancelled(false);
     }
 

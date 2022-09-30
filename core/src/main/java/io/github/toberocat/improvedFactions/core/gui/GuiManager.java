@@ -29,7 +29,6 @@ public class GuiManager {
             gui.setGuiId(guiId);
             return gui;
         } catch (IOException e) {
-            e.printStackTrace();
             return new JsonGui(new HashMap<>(), guiId);
         }
     }

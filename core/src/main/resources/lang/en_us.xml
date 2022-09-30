@@ -159,17 +159,6 @@
       </translate>
     </command>
   </messages>
-  <items>
-    <manage-faction>
-      <members>
-        <title>Members</title>
-        <description>
-          <line/>
-          <line>§7Manage your members</line>
-        </description>
-      </members>
-    </manage-faction>
-  </items>
   <prefix>§8[§eIF§8]§f </prefix>
   <ranks>
     <guest>
@@ -267,6 +256,93 @@
     <safezone>§bSafezone</safezone>
     <warzone>§4Warzone</warzone>
     <unclaimable>§fUnclaimable</unclaimable>
+    <animal-zone>§6Animals</animal-zone>
     <__glbwilderness__>§2Wilderness</__glbwilderness__>
   </zones>
+  <items>
+    <manage-faction>
+      <members>
+        <title>§6§lMembers</title>
+        <description>
+          <description></description>
+          <description>§7Manage your members</description>
+        </description>
+      </members>
+      <faction-icon>
+        <title>§6§lFaction Icon</title>
+        <description>
+          <description></description>
+          <description>§7Change your icon</description>
+        </description>
+      </faction-icon>
+      <permissions>
+        <title>§6§lPermissions</title>
+        <description>
+          <description></description>
+          <description>§7Manage your faction</description>
+          <description>§7permissions.</description>
+          <description></description>
+          <description>§7Grant a group the build</description>
+          <description>§7permissions or revoke them</description>
+        </description>
+      </permissions>
+      <max-power>
+        <title>§6§lMax power</title>
+        <description>
+          <description></description>
+          <description>§7You have §b%faction_maxpower%</description>
+          <description>§7max power</description>
+        </description>
+      </max-power>
+      <current-power>
+        <title>§6§lCurrent power</title>
+        <description>
+          <description></description>
+          <description>§7You have §b%faction_currentpower%</description>
+          <description>§7current power</description>
+        </description>
+      </current-power>
+      <rename>
+        <title>§6§lRename</title>
+        <description>
+          <description></description>
+          <description>§7Rename your faction</description>
+        </description>
+      </rename>
+      <description>
+        <title>§6§lChange Description</title>
+        <description>
+          <description></description>
+          <description>§7Set the description</description>
+          <description>§7of your faction</description>
+        </description>
+      </description>
+      <motd>
+        <title>§6§lChange Motd</title>
+        <description>
+          <description></description>
+          <description>§7Set the motd</description>
+          <description>§7of your faction</description>
+        </description>
+      </motd>
+      <relations>
+        <title>§6§lRelations</title>
+        <description>
+          <description></description>
+          <description>§7Manage your relations</description>
+        </description>
+      </relations>
+      <open-type>
+        <title>§6§lOpen Type</title>
+        <description>
+          <description></description>
+          <description>§7The open type your faction uses</description>
+        </description>
+      </open-type>
+      <background-tile>
+        <title> </title>
+        <description/>
+      </background-tile>
+    </manage-faction>
+  </items>
 </translatable>
