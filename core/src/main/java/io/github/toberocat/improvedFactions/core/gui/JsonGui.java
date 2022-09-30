@@ -2,11 +2,8 @@ package io.github.toberocat.improvedFactions.core.gui;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
-import io.github.toberocat.improvedFactions.core.item.ItemStack;
 import io.github.toberocat.improvedFactions.core.json.Json;
-import io.github.toberocat.improvedFactions.core.utils.Logger;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,9 +41,6 @@ public class JsonGui {
 
     public void setContent(Map<ItemContainer, String> content) {
         this.content = content;
-        content.forEach((x, action) -> {
-            if (x != null) System.out.println(x);
-        });
     }
 
     public int getRows() {

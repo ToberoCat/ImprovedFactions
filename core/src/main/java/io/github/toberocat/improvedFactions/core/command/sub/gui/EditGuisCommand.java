@@ -1,17 +1,17 @@
-package io.github.toberocat.improvedFactions.core.command.sub.admin;
+package io.github.toberocat.improvedFactions.core.command.sub.gui;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
-import io.github.toberocat.improvedFactions.core.command.sub.gui.EditGuisCommand;
+import io.github.toberocat.improvedFactions.core.gui.EditorGui;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
 
-public class AdminRoot extends Command<Command.CommandPacket, Command.ConsoleCommandPacket> {
-
+public class EditGuisCommand extends Command<EditGuisCommand.EditorGuiPacket, Command.ConsoleCommandPacket> {
     @Override
     public boolean isAdmin() {
         return true;
@@ -19,14 +19,14 @@ public class AdminRoot extends Command<Command.CommandPacket, Command.ConsoleCom
 
     @Override
     public @NotNull String label() {
-        return "admin";
+        return "editGuis";
     }
 
     @Override
     protected @NotNull CommandSettings createSettings() {
         return new CommandSettings(node)
-                .setAllowInConsole(true)
-                .setRequiredSpigotPermission(permission());
+                .setRequiredSpigotPermission(permission())
+                .setAllowInConsole(false);
     }
 
     @Override
@@ -40,8 +40,14 @@ public class AdminRoot extends Command<Command.CommandPacket, Command.ConsoleCom
     }
 
     @Override
-    public void run(@NotNull CommandPacket packet) {
+    public void run(@NotNull EditorGuiPacket packet) {
+        EditorGui editor = ImplementationHolder.editorGui;
+        if (editor == null) {
+            packet.player.sendMessage("Editor hasn't been set yet");
+            return;
+        }
 
+        editor.open(packet.player);
     }
 
     @Override
@@ -50,12 +56,17 @@ public class AdminRoot extends Command<Command.CommandPacket, Command.ConsoleCom
     }
 
     @Override
-    public @Nullable Command.CommandPacket createFromArgs(@NotNull FactionPlayer<?> executor, @NotNull String[] args) {
-        return null;
+    public @Nullable EditorGuiPacket createFromArgs(@NotNull FactionPlayer<?> executor, @NotNull String[] args) {
+        return new EditorGuiPacket(executor);
     }
 
     @Override
     public @Nullable Command.ConsoleCommandPacket createFromArgs(@NotNull String[] args) {
-        return null;
+        return new ConsoleCommandPacket() {
+        };
+    }
+
+    protected record EditorGuiPacket(@NotNull FactionPlayer<?> player) implements CommandPacket {
+
     }
 }

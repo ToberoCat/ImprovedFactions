@@ -85,8 +85,8 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\c
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\faction\FactionAlreadyExistsException.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\handler\MessagingHandler.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\gui\JsonGui.java
-C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\command\sub\admin\EditGuisCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\utils\PermissionFileTool.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\command\sub\gui\GuiRoot.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\components\report\FactionReports.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\translator\layout\messages\Messages.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\permission\FactionPermission.java
@@ -156,6 +156,7 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\c
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\claims\worldclaim\WorldClaim.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\command\component\AutoAreaCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\chunk\PlayerIsInSameFactionException.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\command\sub\gui\ItemTranslatableCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\components\rank\GuestRank.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\item\Item.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\registry\ImplementationHolder.java
@@ -175,5 +176,6 @@ C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\c
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\database\DatabaseVar.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\database\mysql\builder\UpdateValue.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\task\TaskChain.java
+C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\command\sub\gui\EditGuisCommand.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\faction\components\rank\members\FactionOwnerRank.java
 C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Projects\ImprovedFactions\core\src\main\java\io\github\toberocat\improvedFactions\core\exceptions\chunk\ChunkHasNoRegistryException.java

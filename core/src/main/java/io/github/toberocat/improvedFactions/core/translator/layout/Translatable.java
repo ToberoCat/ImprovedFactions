@@ -2,6 +2,7 @@ package io.github.toberocat.improvedFactions.core.translator.layout;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import io.github.toberocat.improvedFactions.core.translator.layout.item.XmlItem;
 import io.github.toberocat.improvedFactions.core.translator.layout.messages.Messages;
 import io.github.toberocat.improvedFactions.core.translator.layout.ranks.XmlRank;
 import io.github.toberocat.improvedFactions.core.translator.layout.meta.Meta;
@@ -18,6 +19,7 @@ public class Translatable {
     private String prefix;
     private Map<String, XmlRank> ranks;
     private Map<String, String> zones;
+    private Map<String, Map<String, XmlItem>> items;
 
     public Translatable() {
     }
@@ -68,5 +70,13 @@ public class Translatable {
 
     public void setZones(Map<String, String> zones) {
         this.zones = zones;
+    }
+
+    public Map<String, Map<String, XmlItem>> getItems() {
+        return items;
+    }
+
+    public void setItems(Map<String, Map<String, XmlItem>> items) {
+        this.items = items;
     }
 }

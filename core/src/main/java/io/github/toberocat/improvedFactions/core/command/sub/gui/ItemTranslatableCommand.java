@@ -1,17 +1,24 @@
-package io.github.toberocat.improvedFactions.core.command.sub.admin;
+/**
+ * Created: 30/09/2022
+ *
+ * @author Tobias Madlberger (Tobias)
+ */
+
+package io.github.toberocat.improvedFactions.core.command.sub.gui;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
-import io.github.toberocat.improvedFactions.core.gui.EditorGui;
+import io.github.toberocat.improvedFactions.core.item.ItemStack;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
 
-public class EditGuisCommand extends Command<EditGuisCommand.EditorGuiPacket, Command.ConsoleCommandPacket> {
+public class ItemTranslatableCommand
+        extends Command<ItemTranslatableCommand.TranslatePacket, Command.ConsoleCommandPacket> {
+
     @Override
     public boolean isAdmin() {
         return true;
@@ -19,7 +26,7 @@ public class EditGuisCommand extends Command<EditGuisCommand.EditorGuiPacket, Co
 
     @Override
     public @NotNull String label() {
-        return "editGuis";
+        return "translate";
     }
 
     @Override
@@ -31,7 +38,7 @@ public class EditGuisCommand extends Command<EditGuisCommand.EditorGuiPacket, Co
 
     @Override
     public @NotNull List<String> tabCompleteConsole(@NotNull String[] args) {
-        return Collections.emptyList();
+        return List.of("name");
     }
 
     @Override
@@ -40,14 +47,11 @@ public class EditGuisCommand extends Command<EditGuisCommand.EditorGuiPacket, Co
     }
 
     @Override
-    public void run(@NotNull EditorGuiPacket packet) {
-        EditorGui editor = ImplementationHolder.editorGui;
-        if (editor == null) {
-            packet.player.sendMessage("Editor hasn't been set yet");
-            return;
-        }
+    public void run(@NotNull TranslatePacket packet) {
+        ItemStack item = packet.player.getMainItem();
+        item.setName(packet.itemName);
 
-        editor.open(packet.player);
+        packet.player.sendTranslatable(node.andThen(map -> map.get("set-name")));
     }
 
     @Override
@@ -56,17 +60,24 @@ public class EditGuisCommand extends Command<EditGuisCommand.EditorGuiPacket, Co
     }
 
     @Override
-    public @Nullable EditorGuiPacket createFromArgs(@NotNull FactionPlayer<?> executor, @NotNull String[] args) {
-        return new EditorGuiPacket(executor);
+    public @Nullable ItemTranslatableCommand.TranslatePacket createFromArgs(@NotNull FactionPlayer<?> executor,
+                                                                            @NotNull String[] args) {
+        if (args.length != 1) {
+            executor.sendTranslatable(node.andThen(map -> map.get("not-enough-args")));
+            return null;
+        }
+
+        return new TranslatePacket(executor, args[0]);
     }
 
     @Override
     public @Nullable Command.ConsoleCommandPacket createFromArgs(@NotNull String[] args) {
-        return new ConsoleCommandPacket() {
-        };
+        return null;
     }
 
-    protected record EditorGuiPacket(@NotNull FactionPlayer<?> player) implements CommandPacket {
+    protected record TranslatePacket(@NotNull FactionPlayer<?> player,
+                                     @NotNull String itemName)
+            implements CommandPacket {
 
     }
 }

@@ -39,11 +39,13 @@ public class Page {
 
         if (event.getWhoClicked() instanceof Player player) {
             Slot slot = slots[event.getSlot()];
-            consumer.accept(event.getSlot());
 
             if (slot == null) return 0;
             if (event.getClick().isRightClick()) slot.rightClick(player, event.getCursor());
-            else slot.click(player, event.getCursor());
+            else {
+                slot.click(player, event.getCursor());
+                consumer.accept(event.getSlot());
+            }
         }
         return 0;
     }

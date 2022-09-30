@@ -65,17 +65,17 @@ public class ItemUtils {
         return item;
     }
 
-    public static ItemStack createItem(final Material material, int amount, final String name, final String[] lore) {
+    public static ItemStack createItem(Material material, int amount, String name, String[] lore) {
         final ItemStack item = new ItemStack(material, amount);
         final ItemMeta meta = item.getItemMeta();
 
-        assert meta != null;
-        meta.setDisplayName(ColorHandler.api().format(name));
+        if (meta != null) {
+            meta.setDisplayName(ColorHandler.api().format(name));
 
-        meta.setLore(Objects.requireNonNull(setLore(item, lore).getItemMeta()).getLore());
+            meta.setLore(Objects.requireNonNull(setLore(item, lore).getItemMeta()).getLore());
 
-        item.setItemMeta(meta);
-
+            item.setItemMeta(meta);
+        }
         return item;
     }
 }

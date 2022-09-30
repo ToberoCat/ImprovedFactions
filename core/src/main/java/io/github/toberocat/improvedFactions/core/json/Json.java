@@ -14,6 +14,7 @@ import java.io.IOException;
 public class Json {
     private static final ObjectMapper mapper = new ObjectMapper()
             .registerModule(new SimpleModule()
+                    .addSerializer(ItemContainer.class, new MapKeySerializer())
                     .addKeySerializer(ItemContainer.class, new MapKeySerializer())
                     .addKeyDeserializer(ItemContainer.class, new MapKeyDeserializer()));
 

@@ -4,6 +4,7 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotIn
 import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
+import io.github.toberocat.improvedFactions.core.item.ItemStack;
 import io.github.toberocat.improvedFactions.core.location.Location;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.persistent.component.PersistentWrapper;
@@ -12,7 +13,7 @@ import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.translator.Translation;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.StringUtils;
-import io.github.toberocat.improvedFactions.core.utils.PermissionFileTool;
+import io.github.toberocat.improvedfactions.spigot.item.SpigotItemStack;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
@@ -59,6 +60,11 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
     @Override
     public @NotNull String getLocal() {
         return player.getLocale();
+    }
+
+    @Override
+    public @NotNull ItemStack getMainItem() {
+        return new SpigotItemStack(player.getInventory().getItemInMainHand());
     }
 
     @Override

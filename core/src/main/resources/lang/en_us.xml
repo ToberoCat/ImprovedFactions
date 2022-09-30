@@ -153,8 +153,23 @@
         <requires-no-faction>§cYou are already in a faction. use §6/f leave §fto join this one</requires-no-faction>
         <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
       </acceptinvite>
+      <translate>
+        <set-name>You changed the items name</set-name>
+        <not-enough-args>§cYou have to specify a name for this item</not-enough-args>
+      </translate>
     </command>
   </messages>
+  <items>
+    <manage-faction>
+      <members>
+        <title>Members</title>
+        <description>
+          <line/>
+          <line>§7Manage your members</line>
+        </description>
+      </members>
+    </manage-faction>
+  </items>
   <prefix>§8[§eIF§8]§f </prefix>
   <ranks>
     <guest>

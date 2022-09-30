@@ -23,13 +23,13 @@ public class GuiManager {
     }
 
     public static @NotNull JsonGui getGui(@NotNull String guiId) {
-        JsonGui gui;
         try {
-            gui = Json.parse(JsonGui.class,
+            JsonGui gui = Json.parse(JsonGui.class,
                     new File(ImprovedFactions.api().getGuiFolder(), guiId + ".gui"));
             gui.setGuiId(guiId);
             return gui;
         } catch (IOException e) {
+            e.printStackTrace();
             return new JsonGui(new HashMap<>(), guiId);
         }
     }

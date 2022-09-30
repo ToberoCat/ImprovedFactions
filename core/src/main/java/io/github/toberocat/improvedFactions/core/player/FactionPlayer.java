@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedFactions.core.player;
 
+import io.github.toberocat.improvedFactions.core.item.ItemStack;
 import io.github.toberocat.improvedFactions.core.location.Location;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
@@ -17,6 +18,8 @@ public interface FactionPlayer<P> extends CommandSender, OfflineFactionPlayer<P>
     @NotNull Location getLocation();
 
     @NotNull String getLocal();
+
+    @NotNull ItemStack getMainItem();
 
     void sendTitle(@NotNull String title, @NotNull String subtitle);
 

@@ -1,8 +1,13 @@
-package io.github.toberocat.improvedFactions.core.command.sub.admin;
+/**
+ * Created: 30/09/2022
+ *
+ * @author Tobias Madlberger (Tobias)
+ */
+
+package io.github.toberocat.improvedFactions.core.command.sub.gui;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
-import io.github.toberocat.improvedFactions.core.command.sub.gui.EditGuisCommand;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -10,7 +15,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class AdminRoot extends Command<Command.CommandPacket, Command.ConsoleCommandPacket> {
+public class GuiRoot extends Command<Command.CommandPacket, Command.ConsoleCommandPacket> {
+
+    public GuiRoot() {
+        add(new ItemTranslatableCommand());
+        add(new EditGuisCommand());
+    }
 
     @Override
     public boolean isAdmin() {
@@ -19,13 +29,12 @@ public class AdminRoot extends Command<Command.CommandPacket, Command.ConsoleCom
 
     @Override
     public @NotNull String label() {
-        return "admin";
+        return "gui";
     }
 
     @Override
     protected @NotNull CommandSettings createSettings() {
         return new CommandSettings(node)
-                .setAllowInConsole(true)
                 .setRequiredSpigotPermission(permission());
     }
 
