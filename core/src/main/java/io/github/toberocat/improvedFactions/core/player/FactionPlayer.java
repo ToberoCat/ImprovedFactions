@@ -24,4 +24,10 @@ public interface FactionPlayer<P> extends CommandSender, OfflineFactionPlayer<P>
     void sendTitle(@NotNull String title, @NotNull String subtitle);
 
     void sendTitle(@NotNull Function<Translatable, String> title);
+
+    void sendActionBar(@NotNull String actionbar);
+
+    void sendActionBar(@NotNull Function<Translatable, String> actionbar);
+
+    void closeGuis();
 }

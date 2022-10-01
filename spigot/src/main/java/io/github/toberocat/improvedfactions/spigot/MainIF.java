@@ -3,8 +3,9 @@ package io.github.toberocat.improvedfactions.spigot;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import io.github.toberocat.improvedfactions.spigot.command.SpigotFactionCommand;
-import io.github.toberocat.improvedfactions.spigot.gui.provided.SpigotEditorGuiManager;
-import io.github.toberocat.improvedfactions.spigot.handler.SpigotMessageHandler;
+import io.github.toberocat.improvedfactions.spigot.gui.provided.SpigotGuiImplementationManager;
+import io.github.toberocat.improvedfactions.spigot.handler.SpigotSoundHandler;
+import io.github.toberocat.improvedfactions.spigot.handler.message.SpigotMessageHandler;
 import io.github.toberocat.improvedfactions.spigot.handler.SpigotConfigHandler;
 import io.github.toberocat.improvedfactions.spigot.item.SpigotItemHandler;
 import io.github.toberocat.improvedfactions.spigot.listener.GuiListener;
@@ -71,8 +72,9 @@ public final class MainIF extends JavaPlugin {
     private void registerHandlers() {
         ImplementationHolder.messageHandler = new SpigotMessageHandler();
         ImplementationHolder.configHandler = new SpigotConfigHandler(getConfig(), "");
-        ImplementationHolder.editorGui = new SpigotEditorGuiManager();
+        ImplementationHolder.editorGui = new SpigotGuiImplementationManager();
         ImplementationHolder.itemHandler = new SpigotItemHandler();
+        ImplementationHolder.soundHandler = new SpigotSoundHandler();
 
         ImprovedImplementation implementation = new ImprovedImplementation(this);
         ImplementationHolder.improvedFactions = implementation;

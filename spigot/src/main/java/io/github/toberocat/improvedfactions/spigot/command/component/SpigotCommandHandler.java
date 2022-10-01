@@ -43,25 +43,23 @@ public class SpigotCommandHandler {
             if (cmd != null) return new SearchResult(cmd, i);
         }
 
-        return new SearchResult(null, 0);
+        return new SearchResult(base, 0);
     }
 
     public boolean executeCommandChain(@NotNull FactionPlayer<?> player, @NotNull String[] args) {
         SpigotCommandHandler.SearchResult result = findCommand(String.join(" ", args));
-        if (args.length == 0) return false;
+        if (args.length == 0)
+            return runCommand((Command<Command.CommandPacket, ?>) base, player, new String[0]);
+
 
         args = Arrays.copyOfRange(args, result.index() + 1, args.length);
 
         Command<Command.CommandPacket, ?> cmd = (Command<Command.CommandPacket, ?>) result.command();
-        if (cmd == null) {
-            player.sendTranslatable(translatable -> translatable
-                    .getMessages()
-                    .getCommand()
-                    .get("command-settings")
-                    .get("no-command-found"));
-            return false;
-        }
 
+        return runCommand(cmd, player, args);
+    }
+
+    private boolean runCommand(Command<Command.CommandPacket, ?> cmd, FactionPlayer<?> player, String[] args) {
         CommandSettings.SettingResult query = cmd.settings().canExecute(player);
         if (!query.result()) {
             if (query.errorMessage() != null) player.sendTranslatable(query.errorMessage());
@@ -83,8 +81,6 @@ public class SpigotCommandHandler {
 
         Command<?, Command.ConsoleCommandPacket> cmd = (Command<?, Command.ConsoleCommandPacket>)
                 result.command();
-        if (cmd == null) return false;
-
 
         if (!cmd.settings().canExecuteConsole()) return false;
 
@@ -102,7 +98,6 @@ public class SpigotCommandHandler {
         args = Arrays.copyOfRange(args, result.index() + 1, args.length);
 
         Command<?, ?> command = result.command;
-        if (command == null) command = base;
 
         if (sender instanceof Player player) {
             FactionPlayer<?> executor = ImprovedFactions.api().getPlayer(player.getUniqueId());
@@ -123,7 +118,7 @@ public class SpigotCommandHandler {
         return command.tabCompleteConsole(args);
     }
 
-    public static record SearchResult(@Nullable Command<?, ?> command, int index) {
+    public static record SearchResult(@NotNull Command<?, ?> command, int index) {
 
     }
 }

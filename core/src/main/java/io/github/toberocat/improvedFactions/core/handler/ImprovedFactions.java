@@ -33,6 +33,10 @@ public interface ImprovedFactions<RawWorld> {
 
     @NotNull PlayerLister<?, ?> listPlayers();
 
+    void broadcast(@NotNull String message);
+
+    void runCommand(@NotNull String command);
+
     /* Scheduler */
 
     @NotNull Scheduler getScheduler();

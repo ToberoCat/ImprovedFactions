@@ -2,6 +2,7 @@ package io.github.toberocat.improvedfactions.spigot.gui.provided;
 
 import io.github.toberocat.improvedFactions.core.gui.ItemContainer;
 import io.github.toberocat.improvedFactions.core.gui.JsonGui;
+import io.github.toberocat.improvedFactions.core.handler.MessageHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
 import io.github.toberocat.improvedfactions.spigot.gui.AbstractGui;
@@ -19,10 +20,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SpigotEditJsonGui extends AbstractGui {
 
@@ -51,13 +49,18 @@ public class SpigotEditJsonGui extends AbstractGui {
                                 meta.getDisplayName());
 
                 String id = meta.getDisplayName();
-                meta.setDisplayName(fPlayer.getMessage(translatable -> translatable.getItems()
+                MessageHandler api = MessageHandler.api();
+                meta.setDisplayName(api.format(fPlayer, Objects.requireNonNullElse(fPlayer.getMessage(translatable -> translatable.getItems()
                         .get(jsonGui.getGuiId())
                         .get(id)
-                        .title()));
+                        .title()), "")));
                 meta.setLore(Arrays.stream(fPlayer.getMessageBatch(translatable -> translatable.getItems()
-                        .get(jsonGui.getGuiId())
-                        .get(id).description().toArray(String[]::new))).toList());
+                                .get(jsonGui.getGuiId())
+                                .get(id).description()
+                                .stream()
+                                .map(x -> api.format(fPlayer, x))
+                                .toArray(String[]::new)))
+                        .toList());
             }
             stack.setItemMeta(meta);
 

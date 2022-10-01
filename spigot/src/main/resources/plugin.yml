@@ -5,6 +5,7 @@ api-version: 1.16
 authors: [ Tobero ]
 softdepend:
   - WorldGuard
+  - PlaceholderAPI
 
 commands:
   faction:

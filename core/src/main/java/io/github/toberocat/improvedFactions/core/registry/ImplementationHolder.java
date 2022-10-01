@@ -3,8 +3,7 @@ package io.github.toberocat.improvedFactions.core.registry;
 import io.github.toberocat.improvedFactions.core.claims.ClaimHandler;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
-import io.github.toberocat.improvedFactions.core.gui.EditorGui;
-import io.github.toberocat.improvedFactions.core.gui.GuiManager;
+import io.github.toberocat.improvedFactions.core.gui.GuiImplementation;
 import io.github.toberocat.improvedFactions.core.handler.*;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
@@ -35,7 +34,8 @@ public class ImplementationHolder {
     public static @Nullable ItemHandler itemHandler;
     public static @Nullable MessagingHandler messagingHandler;
     public static @Nullable Logger logger;
-    public static @Nullable EditorGui editorGui;
+    public static @Nullable GuiImplementation editorGui;
+    public static @Nullable SoundHandler soundHandler;
 
     public static @Nullable ImprovedFactions<?> improvedFactions;
 
@@ -45,7 +45,6 @@ public class ImplementationHolder {
     public static void register() throws IOException, URISyntaxException {
         createFolders();
         copyResources();
-        registerGuis();
 
         Rank.register();
         ClaimHandler.cacheAllWorlds();
@@ -67,10 +66,6 @@ public class ImplementationHolder {
                         "data/players",
                         "data/messages")
                 .forEach(x -> new File(file, x).mkdirs());
-    }
-
-    private static void registerGuis() {
-        GuiManager.registerGui("manage-faction");
     }
 
     private static void copyResources() throws IOException, URISyntaxException {

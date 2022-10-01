@@ -1,8 +1,15 @@
-package io.github.toberocat.improvedFactions.core.command.sub.gui;
+/**
+ * Created: 01/10/2022
+ *
+ * @author Tobias Madlberger (Tobias)
+ */
+
+package io.github.toberocat.improvedFactions.core.command.sub.faction;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
-import io.github.toberocat.improvedFactions.core.gui.GuiImplementation;
+import io.github.toberocat.improvedFactions.core.gui.GuiManager;
+import io.github.toberocat.improvedFactions.core.permission.FactionPermission;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import org.jetbrains.annotations.NotNull;
@@ -11,22 +18,25 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class EditGuisCommand extends Command<EditGuisCommand.EditorGuiPacket, Command.ConsoleCommandPacket> {
+public class SettingCommand extends Command<SettingCommand.SettingPacket, Command.ConsoleCommandPacket> {
+
     @Override
     public boolean isAdmin() {
-        return true;
+        return false;
     }
 
     @Override
     public @NotNull String label() {
-        return "editGuis";
+        return "settings";
     }
 
     @Override
     protected @NotNull CommandSettings createSettings() {
         return new CommandSettings(node)
+                .setAllowInConsole(false)
                 .setRequiredSpigotPermission(permission())
-                .setAllowInConsole(false);
+                .setRequiresFaction(true)
+                .setRequiredFactionPermission(FactionPermission.OPEN_SETTINGS_PERMISSION);
     }
 
     @Override
@@ -40,14 +50,8 @@ public class EditGuisCommand extends Command<EditGuisCommand.EditorGuiPacket, Co
     }
 
     @Override
-    public void run(@NotNull EditorGuiPacket packet) {
-        GuiImplementation editor = ImplementationHolder.editorGui;
-        if (editor == null) {
-            packet.player.sendMessage("Editor hasn't been set yet");
-            return;
-        }
-
-        editor.openEditor(packet.player);
+    public void run(@NotNull SettingPacket packet) {
+        GuiManager.openGui("manage-settings", packet.factionPlayer);
     }
 
     @Override
@@ -56,8 +60,8 @@ public class EditGuisCommand extends Command<EditGuisCommand.EditorGuiPacket, Co
     }
 
     @Override
-    public @Nullable EditorGuiPacket createFromArgs(@NotNull FactionPlayer<?> executor, @NotNull String[] args) {
-        return new EditorGuiPacket(executor);
+    public @Nullable SettingCommand.SettingPacket createFromArgs(@NotNull FactionPlayer<?> executor, @NotNull String[] args) {
+        return new SettingPacket(executor);
     }
 
     @Override
@@ -66,7 +70,7 @@ public class EditGuisCommand extends Command<EditGuisCommand.EditorGuiPacket, Co
         };
     }
 
-    protected record EditorGuiPacket(@NotNull FactionPlayer<?> player) implements CommandPacket {
+    protected record SettingPacket(@NotNull FactionPlayer<?> factionPlayer) implements CommandPacket {
 
     }
 }

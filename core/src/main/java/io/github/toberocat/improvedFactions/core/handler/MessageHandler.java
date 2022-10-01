@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedFactions.core.handler;
 
 import io.github.toberocat.improvedFactions.core.exceptions.NoImplementationProvidedException;
+import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,4 +16,6 @@ public interface MessageHandler {
     @NotNull String stripColor(@NotNull String text);
 
     @NotNull String format(@NotNull String text);
+
+    @NotNull String format(@NotNull OfflineFactionPlayer<?> player, @NotNull String text);
 }

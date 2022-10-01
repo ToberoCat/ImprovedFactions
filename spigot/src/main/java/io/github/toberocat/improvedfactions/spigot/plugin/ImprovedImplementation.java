@@ -116,6 +116,16 @@ public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
     }
 
     @Override
+    public void broadcast(@NotNull String message) {
+        Bukkit.broadcastMessage(message);
+    }
+
+    @Override
+    public void runCommand(@NotNull String command) {
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+    }
+
+    @Override
     public @NotNull Scheduler getScheduler() {
         return scheduler;
     }

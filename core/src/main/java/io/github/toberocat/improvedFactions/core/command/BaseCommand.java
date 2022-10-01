@@ -69,7 +69,6 @@ public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleC
 
     @Override
     public void run(@NotNull CommandPacket packet) {
-
     }
 
     @Override
