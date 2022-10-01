@@ -13,6 +13,7 @@ import io.github.toberocat.improvedFactions.core.faction.components.rank.members
 import io.github.toberocat.improvedFactions.core.faction.components.report.FactionReports;
 import io.github.toberocat.improvedFactions.core.handler.MessageHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
+import io.github.toberocat.improvedFactions.core.item.ItemStack;
 import io.github.toberocat.improvedFactions.core.permission.FactionPermissions;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
@@ -114,11 +115,25 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
     @NotNull String getDisplay();
 
     /**
+     * Get the icon of this faction
+     * @return The icon
+     */
+    @NotNull ItemStack getIcon();
+
+    /**
      * Sets the display name of the faction
      *
      * @param display The display name of the faction.
      */
     void setDisplay(@NotNull String display) throws FactionIsFrozenException;
+
+    /**
+     * Set the icon of this faction
+     *
+     * @param factionIcon The new icon of this faction
+     * @throws FactionIsFrozenException Thrown when the faction is frozen and can't be modifed
+     */
+    void setIcon(@NotNull ItemStack factionIcon) throws FactionIsFrozenException;
 
     /* Setter */
 

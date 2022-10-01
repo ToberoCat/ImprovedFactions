@@ -15,6 +15,7 @@ import io.github.toberocat.improvedFactions.core.handler.MessageHandler;
 import io.github.toberocat.improvedFactions.core.permission.FactionPermission;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
+import io.github.toberocat.improvedfactions.spigot.loom.BannerDesigner;
 import io.github.toberocat.improvedfactions.spigot.utils.ItemUtils;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Material;
@@ -46,5 +47,19 @@ public record SpigotActionHandler(@NotNull MainIF plugin) implements ActionHandl
                 .itemLeft(ItemUtils.createItem(Material.WHITE_BANNER, faction.getDisplay()))
                 .plugin(plugin)
                 .open((Player) player.getRaw());
+    }
+
+    @Override
+    public void changeFactionIcon(@NotNull FactionPlayer<?> player) {
+        Faction<?> faction;
+        try {
+            faction = player.getFaction();
+            if (!faction.hasPermission(FactionPermission.RENAME_FACTION, player))
+                return;
+        } catch (PlayerHasNoFactionException | FactionNotInStorage e) {
+            return;
+        }
+
+        new BannerDesigner((Player) player.getRaw(), MainIF.getPlugin(MainIF.class));
     }
 }

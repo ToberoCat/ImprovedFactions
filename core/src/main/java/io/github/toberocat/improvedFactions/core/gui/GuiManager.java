@@ -15,6 +15,7 @@ import java.util.List;
 public class GuiManager {
 
     public static final String SETTINGS_GUI = "manage-faction";
+    public static final String PLAYER_ICON_DESIGNER_INV = "player-inv-banner-designer";
 
     private static final List<String> guis = new LinkedList<>();
 
@@ -46,5 +47,6 @@ public class GuiManager {
 
     static {
         registerGui(SETTINGS_GUI);
+        registerGui(PLAYER_ICON_DESIGNER_INV);
     }
 }

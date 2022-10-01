@@ -4,6 +4,8 @@ import io.github.toberocat.improvedFactions.core.gui.ItemContainer;
 import io.github.toberocat.improvedFactions.core.gui.JsonGui;
 import io.github.toberocat.improvedFactions.core.handler.MessageHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.translator.layout.item.XmlItem;
+import io.github.toberocat.improvedFactions.core.utils.Logger;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
 import io.github.toberocat.improvedfactions.spigot.gui.AbstractGui;
 import io.github.toberocat.improvedfactions.spigot.gui.page.Page;
@@ -50,10 +52,15 @@ public class SpigotEditJsonGui extends AbstractGui {
 
                 String id = meta.getDisplayName();
                 MessageHandler api = MessageHandler.api();
-                meta.setDisplayName(api.format(fPlayer, Objects.requireNonNullElse(fPlayer.getMessage(translatable -> translatable.getItems()
-                        .get(jsonGui.getGuiId())
-                        .get(id)
-                        .title()), "")));
+                String title = fPlayer.getMessage(translatable -> {
+                    XmlItem xml = translatable.getItems()
+                            .get(jsonGui.getGuiId())
+                            .get(id);
+                    if (xml != null) return xml.title();
+                    Logger.api().logWarning(id + " has missing title");
+                    return null;
+                });
+                meta.setDisplayName(api.format(fPlayer, Objects.requireNonNullElse(title, "")));
                 meta.setLore(Arrays.stream(fPlayer.getMessageBatch(translatable -> translatable.getItems()
                                 .get(jsonGui.getGuiId())
                                 .get(id).description()

@@ -19,4 +19,6 @@ public interface ActionHandler {
     }
 
     void renameFaction(@NotNull FactionPlayer<?> player);
+
+    void changeFactionIcon(@NotNull FactionPlayer<?> player);
 }

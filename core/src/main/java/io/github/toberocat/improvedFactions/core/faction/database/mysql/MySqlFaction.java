@@ -6,6 +6,7 @@ import io.github.toberocat.improvedFactions.core.database.mysql.MySqlDatabase;
 import io.github.toberocat.improvedFactions.core.database.mysql.builder.Insert;
 import io.github.toberocat.improvedFactions.core.database.mysql.builder.Select;
 import io.github.toberocat.improvedFactions.core.event.EventExecutor;
+import io.github.toberocat.improvedFactions.core.exceptions.NoImplementationProvidedException;
 import io.github.toberocat.improvedFactions.core.exceptions.description.DescriptionHasNoLine;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.*;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.leave.PlayerIsOwnerException;
@@ -28,6 +29,7 @@ import io.github.toberocat.improvedFactions.core.faction.database.mysql.module.M
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
+import io.github.toberocat.improvedFactions.core.item.ItemStack;
 import io.github.toberocat.improvedFactions.core.permission.Permission;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
@@ -131,6 +133,16 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     }
 
     /**
+     * Get the icon of this faction
+     *
+     * @return The icon
+     */
+    @Override
+    public @NotNull ItemStack getIcon() {
+        throw new NoImplementationProvidedException("getIcon in mysqlFaction");
+    }
+
+    /**
      * Set the display name of the faction to the given value locally, and update the database.
      *
      * @param display The display name of the faction.
@@ -142,6 +154,18 @@ public class MySqlFaction implements Faction<MySqlFaction> {
 
         database.executeUpdate("UPDATE factions SET " +
                 "display_name = %s WHERE registry_id = %s", display, registry);
+    }
+
+    /**
+     * Set the icon of this faction
+     *
+     * @param factionIcon The new icon of this faction
+     * @throws FactionIsFrozenException Thrown when the faction is frozen and can't be modifed
+     */
+    @Override
+    public void setIcon(@NotNull ItemStack factionIcon) throws FactionIsFrozenException {
+        throw new NoImplementationProvidedException("setIcon in mysqlFaction");
+
     }
 
     /**

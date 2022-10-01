@@ -25,6 +25,8 @@ import io.github.toberocat.improvedFactions.core.faction.components.report.Repor
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.core.faction.local.module.LocalFactionModule;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
+import io.github.toberocat.improvedFactions.core.handler.ItemHandler;
+import io.github.toberocat.improvedFactions.core.item.ItemStack;
 import io.github.toberocat.improvedFactions.core.permission.Permission;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
@@ -38,6 +40,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.LocalDateTime;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.*;
@@ -54,7 +57,6 @@ public class LocalFaction implements Faction<LocalFaction> {
     private final Map<String, String[]> permissions;
     private final Map<UUID, String> memberRanks;
     private final Map<String, String> settingValues;
-
 
     private final @NotNull List<String> description;
     private final List<String> enemies;
@@ -75,6 +77,7 @@ public class LocalFaction implements Faction<LocalFaction> {
     private @NotNull UUID owner;
 
     private @NotNull OpenType type;
+    private ItemStack factionIcon;
 
     /**
      * Jackson constructor. Don't use it
@@ -93,6 +96,7 @@ public class LocalFaction implements Faction<LocalFaction> {
         this.type = DEFAULT_OPEN_TYPE;
 
         this.owner = UUID.randomUUID();
+        this.factionIcon = ItemHandler.api().createStack("minecraft:white_banner", display, 1);
 
         this.modules = new HashMap<>();
         this.permissions = new HashMap<>();
@@ -133,6 +137,13 @@ public class LocalFaction implements Faction<LocalFaction> {
         this.factionReports = dataType.reports();
         this.sentInvites = dataType.sentInvites();
         this.receivedInvites = dataType.receivedInvites();
+
+        try {
+            this.factionIcon = ItemHandler.api().fromBase64(dataType.iconBase64());
+        } catch (IOException e) {
+            e.printStackTrace();
+            this.factionIcon = ItemHandler.api().createStack("minecraft:white_banner", display, 1);
+        }
     }
 
     public LocalFaction(@NotNull String display, @NotNull FactionPlayer<?> owner)
@@ -151,9 +162,10 @@ public class LocalFaction implements Faction<LocalFaction> {
     }
 
     public @NotNull LocalFactionDataType toDataType() {
-        return new LocalFactionDataType(registry, display, motd, tag, type, frozen, permanent,
-                createdAt, owner, description, banned, members, sentInvites, receivedInvites,
-                allies, enemies, factionReports, memberRanks, modules, permissions, settingValues);
+        return new LocalFactionDataType(registry, display, motd, tag, factionIcon.toBase64(),
+                type, frozen, permanent, createdAt, owner, description, banned, members, sentInvites,
+                receivedInvites, allies, enemies, factionReports, memberRanks, modules, permissions,
+                settingValues);
     }
 
     /**
@@ -179,6 +191,16 @@ public class LocalFaction implements Faction<LocalFaction> {
     }
 
     /**
+     * Get the icon of this faction
+     *
+     * @return The icon
+     */
+    @Override
+    public @NotNull ItemStack getIcon() {
+        return factionIcon;
+    }
+
+    /**
      * Sets the display name of the faction
      *
      * @param display The display name of the faction.
@@ -187,6 +209,17 @@ public class LocalFaction implements Faction<LocalFaction> {
     public void setDisplay(@NotNull String display) throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
         this.display = display;
+    }
+
+    /**
+     * Set the icon of this faction
+     *
+     * @throws FactionIsFrozenException Thrown when the faction is frozen and can't be modifed
+     */
+    @Override
+    public void setIcon(@NotNull ItemStack factionIcon) throws FactionIsFrozenException {
+        if (isFrozen()) throw new FactionIsFrozenException(registry);
+        this.factionIcon = factionIcon;
     }
 
     /**

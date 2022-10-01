@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedFactions.core.action;
 
+import io.github.toberocat.improvedFactions.core.action.provided.faction.FactionIconAction;
 import io.github.toberocat.improvedFactions.core.action.provided.faction.FactionRenameAction;
 import io.github.toberocat.improvedFactions.core.action.provided.general.*;
 import io.github.toberocat.improvedFactions.core.player.CommandSender;
@@ -31,6 +32,7 @@ public final class ActionCore {
         register(new SoundAction());
         register(new TitleAction());
         register(new FactionRenameAction());
+        register(new FactionIconAction());
     }
 
     private static @Nullable Action getAction(@NotNull String formattedLabel) {

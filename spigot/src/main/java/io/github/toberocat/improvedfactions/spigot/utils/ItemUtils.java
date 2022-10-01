@@ -40,7 +40,7 @@ public class ItemUtils {
             ItemStack item = stack == null ? null : ItemStack.deserialize(stack);
             dataInput.close();
             return item;
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | NullPointerException e) {
             throw new IOException("Unable to decode class type.", e);
         }
     }

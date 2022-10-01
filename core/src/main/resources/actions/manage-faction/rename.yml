@@ -10,6 +10,7 @@
 # [title] <title> <subtitle> - Send a title to the executing player
 # ---------------------------------( Faction Actions )---------------------------------
 # [faction-rename] - Open a faction rename prompt
+# [faction-edit-icon] - Edit the faction icon
 
 left-click:
   - "[faction-rename]"

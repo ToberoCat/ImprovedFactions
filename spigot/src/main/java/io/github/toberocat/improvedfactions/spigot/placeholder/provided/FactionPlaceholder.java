@@ -19,7 +19,6 @@ public interface FactionPlaceholder extends Function<OfflinePlayer, String> {
         try {
             return run(player, fP.getFaction());
         } catch (PlayerHasNoFactionException | FactionNotInStorage e) {
-            e.printStackTrace();
             return null;
         }
     }
