@@ -14,6 +14,7 @@ import io.github.toberocat.improvedfactions.spigot.listener.PlayerLeaveListener;
 import io.github.toberocat.improvedfactions.spigot.listener.PlayerMoveListener;
 import io.github.toberocat.improvedfactions.spigot.listener.SpigotEventListener;
 import io.github.toberocat.improvedfactions.spigot.listener.world.SpigotBlockListener;
+import io.github.toberocat.improvedfactions.spigot.placeholder.FactionExpansion;
 import io.github.toberocat.improvedfactions.spigot.plugin.ImprovedImplementation;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
@@ -43,6 +44,7 @@ public final class MainIF extends JavaPlugin {
 
         registerCommands();
         registerListener();
+        registerPapi();
         Logger.api().logInfo("§aLoaded ImprovedFactions with version §6%s", currentVersion);
     }
 
@@ -54,7 +56,9 @@ public final class MainIF extends JavaPlugin {
         try {
             Class.forName("io.github.toberocat.improvedFactions.core.utils.CheckerClass");
         } catch (ClassNotFoundException e) {
-            Bukkit.getConsoleSender().sendMessage("[ImprovedFactions]§c Detected a change within the binaries. Saving will be skipped, because it would lead into many corrupted files");
+            Bukkit.getConsoleSender().sendMessage("[ImprovedFactions]§c Detected a change " +
+                    "within the binaries. Saving will be skipped, because it would lead into many " +
+                    "corrupted files");
             return;
         }
 
@@ -94,5 +98,22 @@ public final class MainIF extends JavaPlugin {
 
         pluginCommand.setTabCompleter(command);
         pluginCommand.setExecutor(command);
+    }
+
+    private void registerPapi() {
+        if (!Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            Logger.api().logWarning("To increase performance with ImprovedFactions, " +
+                    "you should install PlaceHolderAPI for placeholder formatting");
+            Logger.api().logInfo("§aUsing §6Integrated Placeholders§a for placeholder formatting");
+            return;
+        }
+
+        new FactionExpansion().register();
+        Logger.api().logInfo("§6Papi§a expansion registered");
+
+    }
+
+    public String getCurrentVersion() {
+        return currentVersion;
     }
 }

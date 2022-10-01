@@ -308,16 +308,14 @@
                 <title>§6§lMax power</title>
                 <description>
                     <description/>
-                    <description>§7You have §b%faction_maxpower%</description>
-                    <description>§7max power</description>
+                    <description>§7You have §b%faction_maxpower% §7max power</description>
                 </description>
             </max-power>
             <current-power>
                 <title>§6§lCurrent power</title>
                 <description>
                     <description/>
-                    <description>§7You have §b%faction_currentpower%</description>
-                    <description>§7current power</description>
+                    <description>§7You have §b%faction_currentpower% §7current power</description>
                 </description>
             </current-power>
             <rename>

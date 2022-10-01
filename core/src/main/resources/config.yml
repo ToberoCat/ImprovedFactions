@@ -48,6 +48,14 @@ world:
   enabled-worlds: # When having too many worlds and only want a small amount to be faction worlds, use this list. This list will calculate a disabled worlds list
 #  - "Enabled faction world"
 
+number-symbols: # These symbols will be used to shorten a number for better display in text or gui
+  k: 1000
+  m: 1000000
+  b: 1000000000
+  t: 1000000000000
+  q: 1000000000000000
+  Q: 1000000000000000000
+
 ################# Advanced config options #####################
 #
 # A database always syncs up ith the server, meaning that you can run this plugin on multiple
