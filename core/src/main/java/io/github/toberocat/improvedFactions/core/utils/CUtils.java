@@ -45,7 +45,8 @@ public final class CUtils {
         if (src == null) return;
 
         File file = new File(ImprovedFactions.api().getDataFolder().getAbsolutePath(), res);
-        if (file.exists()) return;
+        if (!file.exists()) file.mkdirs();
+        else return;
 
         Files.copy(src, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
