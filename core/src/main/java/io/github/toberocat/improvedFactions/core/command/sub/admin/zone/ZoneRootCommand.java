@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedFactions.core.command.sub.chunk.zone;
+package io.github.toberocat.improvedFactions.core.command.sub.admin.zone;
 
 import io.github.toberocat.improvedFactions.core.claims.ClaimHandler;
 import io.github.toberocat.improvedFactions.core.claims.zone.Zone;

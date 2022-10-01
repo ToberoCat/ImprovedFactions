@@ -4,7 +4,7 @@
  * @author Tobias Madlberger (Tobias)
  */
 
-package io.github.toberocat.improvedFactions.core.command.sub.gui;
+package io.github.toberocat.improvedFactions.core.command.sub.admin.gui;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;

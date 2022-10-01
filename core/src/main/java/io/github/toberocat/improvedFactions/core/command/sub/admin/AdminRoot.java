@@ -2,7 +2,9 @@ package io.github.toberocat.improvedFactions.core.command.sub.admin;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
-import io.github.toberocat.improvedFactions.core.command.sub.gui.EditGuisCommand;
+import io.github.toberocat.improvedFactions.core.command.sub.admin.gui.EditGuisCommand;
+import io.github.toberocat.improvedFactions.core.command.sub.admin.gui.ItemTranslatableCommand;
+import io.github.toberocat.improvedFactions.core.command.sub.admin.zone.ZoneRootCommand;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -11,6 +13,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class AdminRoot extends Command<Command.CommandPacket, Command.ConsoleCommandPacket> {
+
+    public AdminRoot() {
+        add(new ItemTranslatableCommand());
+        add(new EditGuisCommand());
+        add(new ZoneRootCommand());
+    }
 
     @Override
     public boolean isAdmin() {

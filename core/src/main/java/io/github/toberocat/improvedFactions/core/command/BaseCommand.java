@@ -5,11 +5,10 @@ import io.github.toberocat.improvedFactions.core.command.component.CommandSettin
 import io.github.toberocat.improvedFactions.core.command.sub.admin.AdminRoot;
 import io.github.toberocat.improvedFactions.core.command.sub.chunk.ClaimCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.chunk.UnclaimCommand;
-import io.github.toberocat.improvedFactions.core.command.sub.chunk.zone.ZoneRootCommand;
+import io.github.toberocat.improvedFactions.core.command.sub.admin.zone.ZoneRootCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.CreateFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.DeleteFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.SettingCommand;
-import io.github.toberocat.improvedFactions.core.command.sub.gui.GuiRoot;
 import io.github.toberocat.improvedFactions.core.command.sub.invite.AcceptInviteCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.invite.InviteCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.member.JoinFactionCommand;
@@ -38,9 +37,7 @@ public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleC
         add(new InviteCommand());
         add(new AcceptInviteCommand());
         add(new BakePermissionsCommand());
-        add(new ZoneRootCommand());
         add(new AdminRoot());
-        add(new GuiRoot());
         add(new SettingCommand());
     }
 
