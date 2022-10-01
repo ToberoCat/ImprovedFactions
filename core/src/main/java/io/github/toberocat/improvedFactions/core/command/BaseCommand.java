@@ -17,11 +17,14 @@ import io.github.toberocat.improvedFactions.core.command.sub.member.LeaveFaction
 import io.github.toberocat.improvedFactions.core.command.sub.utils.BakePermissionsCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.utils.ListFactionCommand;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 public class BaseCommand extends Command<SettingCommand.SettingPacket, Command.ConsoleCommandPacket> {
 
@@ -58,7 +61,7 @@ public class BaseCommand extends Command<SettingCommand.SettingPacket, Command.C
 
     @Override
     public @NotNull CommandSettings createSettings() {
-        return settingCommand.settings();
+        return new BaseSettings(node);
     }
 
     @Override
@@ -92,4 +95,25 @@ public class BaseCommand extends Command<SettingCommand.SettingPacket, Command.C
         };
     }
 
+    protected class BaseSettings extends CommandSettings {
+
+        public BaseSettings(@NotNull Function<Translatable, Map<String, String>> node) {
+            super(node);
+        }
+
+        @Override
+        public boolean showTab(@NotNull FactionPlayer<?> player) {
+            return settingCommand.settings().showTab(player);
+        }
+
+        @Override
+        public boolean showTabConsole() {
+            return settingCommand.settings().showTabConsole();
+        }
+
+        @Override
+        public @NotNull SettingResult canExecute(@NotNull FactionPlayer<?> player) {
+            return settingCommand.settings().canExecute(player);
+        }
+    }
 }

@@ -72,7 +72,7 @@ public final class MainIF extends JavaPlugin {
     private void registerHandlers() {
         ImplementationHolder.messageHandler = new SpigotMessageHandler();
         ImplementationHolder.configHandler = new SpigotConfigHandler(getConfig(), "");
-        ImplementationHolder.editorGui = new SpigotGuiImplementationManager();
+        ImplementationHolder.guiImplementation = new SpigotGuiImplementationManager();
         ImplementationHolder.itemHandler = new SpigotItemHandler();
         ImplementationHolder.soundHandler = new SpigotSoundHandler();
 

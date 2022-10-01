@@ -41,7 +41,7 @@ public class EditGuisCommand extends Command<EditGuisCommand.EditorGuiPacket, Co
 
     @Override
     public void run(@NotNull EditorGuiPacket packet) {
-        GuiImplementation editor = ImplementationHolder.editorGui;
+        GuiImplementation editor = ImplementationHolder.guiImplementation;
         if (editor == null) {
             packet.player.sendMessage("Editor hasn't been set yet");
             return;
