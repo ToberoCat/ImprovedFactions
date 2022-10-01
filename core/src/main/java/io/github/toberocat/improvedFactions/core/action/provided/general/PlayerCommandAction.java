@@ -1,18 +1,18 @@
-package io.github.toberocat.improvedFactions.core.action.provided;
+package io.github.toberocat.improvedFactions.core.action.provided.general;
 
 import io.github.toberocat.improvedFactions.core.action.Action;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import org.jetbrains.annotations.NotNull;
 
-public class CloseAction extends Action {
+public class PlayerCommandAction extends Action {
 
     @Override
     public @NotNull String label() {
-        return "close";
+        return "player";
     }
 
     @Override
     public void run(@NotNull FactionPlayer<?> player, @NotNull String provided) {
-        player.closeGuis();
+        player.runCommand(provided);
     }
 }

@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedFactions.core.action;
 
-import io.github.toberocat.improvedFactions.core.action.provided.*;
+import io.github.toberocat.improvedFactions.core.action.provided.faction.FactionRenameAction;
+import io.github.toberocat.improvedFactions.core.action.provided.general.*;
 import io.github.toberocat.improvedFactions.core.player.CommandSender;
 import io.github.toberocat.improvedFactions.core.player.ConsoleCommandSender;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
@@ -29,6 +30,7 @@ public final class ActionCore {
         register(new PlayerCommandAction());
         register(new SoundAction());
         register(new TitleAction());
+        register(new FactionRenameAction());
     }
 
     private static @Nullable Action getAction(@NotNull String formattedLabel) {

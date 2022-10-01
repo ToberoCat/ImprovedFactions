@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedFactions.core.action.provided;
+package io.github.toberocat.improvedFactions.core.action.provided.general;
 
 import io.github.toberocat.improvedFactions.core.action.Action;
 import io.github.toberocat.improvedFactions.core.handler.SoundHandler;

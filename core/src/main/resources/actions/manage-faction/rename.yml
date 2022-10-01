@@ -1,0 +1,15 @@
+# ---------------------------------( Actions )---------------------------------
+# [actionbar] <text> - Send a actionbar to the executing player
+# [broadcast] <text> - Send a broadcast to all players
+# [close] - Close current gui
+# [console] <command> - Run console command
+# [message] <text> - Send the executing player a message
+# [open-gui] <gui-id> - Open a gui with the id
+# [player] <command> - Run a command as executing player
+# [sound] <sound_id> <volume> <pitch> - Play a sound for the executing player
+# [title] <title> <subtitle> - Send a title to the executing player
+# ---------------------------------( Faction Actions )---------------------------------
+# [faction-rename] - Open a faction rename prompt
+
+left-click:
+  - "[faction-rename]"

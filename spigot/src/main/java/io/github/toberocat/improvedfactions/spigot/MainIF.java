@@ -4,6 +4,7 @@ import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import io.github.toberocat.improvedfactions.spigot.command.SpigotFactionCommand;
 import io.github.toberocat.improvedfactions.spigot.gui.provided.SpigotGuiImplementationManager;
+import io.github.toberocat.improvedfactions.spigot.handler.SpigotActionHandler;
 import io.github.toberocat.improvedfactions.spigot.handler.SpigotSoundHandler;
 import io.github.toberocat.improvedfactions.spigot.handler.message.SpigotMessageHandler;
 import io.github.toberocat.improvedfactions.spigot.handler.SpigotConfigHandler;
@@ -75,6 +76,7 @@ public final class MainIF extends JavaPlugin {
         ImplementationHolder.guiImplementation = new SpigotGuiImplementationManager();
         ImplementationHolder.itemHandler = new SpigotItemHandler();
         ImplementationHolder.soundHandler = new SpigotSoundHandler();
+        ImplementationHolder.actionHandler = new SpigotActionHandler(this);
 
         ImprovedImplementation implementation = new ImprovedImplementation(this);
         ImplementationHolder.improvedFactions = implementation;

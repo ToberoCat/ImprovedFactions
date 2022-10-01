@@ -69,7 +69,6 @@ public final class FileUtils {
         List<Path> paths = new LinkedList<>();
         for (Iterator<Path> it = walk.iterator(); it.hasNext(); ) {
             Path path = it.next();
-            System.out.println(path.getFileName());
             paths.add(path);
         }
         return paths;

@@ -18,13 +18,13 @@ public class CommandSettings {
 
     private final Function<Translatable, Map<String, String>> query;
 
-    private boolean allowInConsole;
-    private boolean requiresFaction;
-    private boolean requiresNoFaction;
-    private int requiresRankPriority;
-    private String requiresRank;
-    private String requiredSpigotPermission;
-    private Permission requiredFactionPermission;
+    protected boolean allowInConsole;
+    protected boolean requiresFaction;
+    protected boolean requiresNoFaction;
+    protected int requiresRankPriority;
+    protected String requiresRank;
+    protected String requiredSpigotPermission;
+    protected Permission requiredFactionPermission;
 
     public CommandSettings(@NotNull Function<Translatable, Map<String, String>> node) {
         allowInConsole = false;
@@ -82,7 +82,7 @@ public class CommandSettings {
         return allowInConsole;
     }
 
-    private @NotNull SettingResult faction(@NotNull FactionPlayer<?> player) {
+    protected @NotNull SettingResult faction(@NotNull FactionPlayer<?> player) {
         String registry = player.getFactionRegistry();
         if (registry == null) return new SettingResult(false,
                 query.andThen(map -> map.get("requires-faction")));
@@ -114,7 +114,7 @@ public class CommandSettings {
                 map.get("missing-faction-permissions")));
     }
 
-    private boolean showNoFaction(@NotNull FactionPlayer<?> player) {
+    protected boolean showNoFaction(@NotNull FactionPlayer<?> player) {
         return true;
     }
 
@@ -122,7 +122,7 @@ public class CommandSettings {
         return check(player);
     }
 
-    private @NotNull SettingResult check(@NotNull FactionPlayer<?> player) {
+    protected @NotNull SettingResult check(@NotNull FactionPlayer<?> player) {
         if (requiredSpigotPermission != null && !player.hasPermission(requiredSpigotPermission))
             return new SettingResult(false, query.andThen(map -> map.get("missing-spigot-permission")));
 

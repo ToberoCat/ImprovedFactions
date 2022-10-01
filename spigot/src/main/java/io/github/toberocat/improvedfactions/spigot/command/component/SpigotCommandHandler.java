@@ -2,7 +2,6 @@ package io.github.toberocat.improvedfactions.spigot.command.component;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
-import io.github.toberocat.improvedFactions.core.command.sub.chunk.zone.ZoneRootCommand;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedfactions.spigot.command.worldguard.ScanRegionsToZone;
@@ -10,7 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -115,7 +113,19 @@ public class SpigotCommandHandler {
 
         if (!command.settings().showTabConsole()) return Collections.emptyList();
 
-        return command.tabCompleteConsole(args);
+        List<String> commands = command.tabCompleteConsole(args);
+
+        // Sort results
+        List<String> results = new ArrayList<>();
+        for (String arg : args) {
+            for (String a : commands) {
+                if (a.toLowerCase().startsWith(arg.toLowerCase())) {
+                    results.add(a);
+                }
+            }
+        }
+
+        return results;
     }
 
     public static record SearchResult(@NotNull Command<?, ?> command, int index) {

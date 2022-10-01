@@ -36,6 +36,7 @@ public class ImplementationHolder {
     public static @Nullable Logger logger;
     public static @Nullable GuiImplementation guiImplementation;
     public static @Nullable SoundHandler soundHandler;
+    public static @Nullable ActionHandler actionHandler;
 
     public static @Nullable ImprovedFactions<?> improvedFactions;
 

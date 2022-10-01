@@ -7,7 +7,8 @@ public enum FactionPermission implements Permission {
     UNCLAIM_PERMISSION("unclaim-chunk-permission"),
     BREAK_PERMISSION("break-block-permission"),
     PLACE_PERMISSION("place-block-permission"),
-    OPEN_SETTINGS_PERMISSION("open-settings-permission");
+    OPEN_SETTINGS_PERMISSION("open-settings-permission"),
+    RENAME_FACTION("rename-permission");
 
     final @NotNull String name;
 

@@ -1,4 +1,7 @@
+#--------------------------------- ( PREVIEW ) ---------------------------------
+# This is a none working sample of how something in future will look like
+
 listening: "createFaction"
 execution: # Messages don't have to be specified in this file will get sent from lang files automatically
   - "[vault] DRAW 50" # Requires the VaultActionExtension
-  - "[open-gui] MANAGE_FACTION" # Open the manage gui for the executing player
+  - "[open-gui] manage-faction" # Open the manage gui for the executing player

@@ -95,12 +95,13 @@ public class SpigotGuiView extends AbstractGui {
     }
 
     private void callAction(@NotNull String id, @NotNull String actionPath) {
-        File file = new File(files, id);
+        File file = new File(files, id + ".yml");
         if (!file.exists()) return;
         List<String> actions = new YamlLoader(file, MainIF.getPlugin(MainIF.class))
                 .load()
                 .fileConfiguration()
                 .getStringList(actionPath);
+        System.out.println(actions.size());
         new Actions(actions)
                 .run(fPlayer);
     }

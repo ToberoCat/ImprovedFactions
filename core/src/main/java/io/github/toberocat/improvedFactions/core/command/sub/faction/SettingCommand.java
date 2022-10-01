@@ -11,12 +11,14 @@ import io.github.toberocat.improvedFactions.core.command.component.CommandSettin
 import io.github.toberocat.improvedFactions.core.gui.GuiManager;
 import io.github.toberocat.improvedFactions.core.permission.FactionPermission;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
+import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 public class SettingCommand extends Command<SettingCommand.SettingPacket, Command.ConsoleCommandPacket> {
 
@@ -51,7 +53,7 @@ public class SettingCommand extends Command<SettingCommand.SettingPacket, Comman
 
     @Override
     public void run(@NotNull SettingPacket packet) {
-        GuiManager.openGui("manage-settings", packet.factionPlayer);
+        GuiManager.openGui(GuiManager.SETTINGS_GUI, packet.factionPlayer);
     }
 
     @Override
@@ -70,7 +72,13 @@ public class SettingCommand extends Command<SettingCommand.SettingPacket, Comman
         };
     }
 
-    public record SettingPacket(@NotNull FactionPlayer<?> factionPlayer) implements CommandPacket {
+    public Function<Translatable, Map<String, String>> getNode() {
+        return node;
+    }
+
+    protected record SettingPacket(@NotNull FactionPlayer<?> factionPlayer) implements CommandPacket {
 
     }
+
+
 }
