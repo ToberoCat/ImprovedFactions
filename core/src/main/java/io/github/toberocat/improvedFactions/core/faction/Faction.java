@@ -11,7 +11,7 @@ import io.github.toberocat.improvedFactions.core.faction.components.FactionModul
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.faction.components.report.FactionReports;
-import io.github.toberocat.improvedFactions.core.handler.ColorHandler;
+import io.github.toberocat.improvedFactions.core.handler.MessageHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.permission.FactionPermissions;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
@@ -25,7 +25,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Function;
@@ -70,7 +69,7 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
      */
     static @NotNull String displayToRegistry(@NotNull String display) {
         return validateDisplay(display)
-                .transform(x -> ColorHandler.api().stripColor(x))
+                .transform(x -> MessageHandler.api().stripColor(x))
                 .replaceAll(REGISTRY_PATTERN.pattern(), "");
     }
 

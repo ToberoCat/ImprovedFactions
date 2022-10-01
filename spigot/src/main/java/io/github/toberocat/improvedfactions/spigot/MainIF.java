@@ -4,7 +4,7 @@ import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import io.github.toberocat.improvedfactions.spigot.command.SpigotFactionCommand;
 import io.github.toberocat.improvedfactions.spigot.gui.provided.SpigotEditorGuiManager;
-import io.github.toberocat.improvedfactions.spigot.handler.SpigotColorHandler;
+import io.github.toberocat.improvedfactions.spigot.handler.SpigotMessageHandler;
 import io.github.toberocat.improvedfactions.spigot.handler.SpigotConfigHandler;
 import io.github.toberocat.improvedfactions.spigot.item.SpigotItemHandler;
 import io.github.toberocat.improvedfactions.spigot.listener.GuiListener;
@@ -69,7 +69,7 @@ public final class MainIF extends JavaPlugin {
     }
 
     private void registerHandlers() {
-        ImplementationHolder.colorHandler = new SpigotColorHandler();
+        ImplementationHolder.messageHandler = new SpigotMessageHandler();
         ImplementationHolder.configHandler = new SpigotConfigHandler(getConfig(), "");
         ImplementationHolder.editorGui = new SpigotEditorGuiManager();
         ImplementationHolder.itemHandler = new SpigotItemHandler();

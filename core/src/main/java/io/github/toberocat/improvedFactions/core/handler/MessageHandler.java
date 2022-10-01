@@ -4,11 +4,11 @@ import io.github.toberocat.improvedFactions.core.exceptions.NoImplementationProv
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import org.jetbrains.annotations.NotNull;
 
-public interface ColorHandler {
+public interface MessageHandler {
 
-    static @NotNull ColorHandler api() {
-        ColorHandler implementation = ImplementationHolder.colorHandler;
-        if (implementation == null) throw new NoImplementationProvidedException("color handler");
+    static @NotNull MessageHandler api() {
+        MessageHandler implementation = ImplementationHolder.messageHandler;
+        if (implementation == null) throw new NoImplementationProvidedException("message handler");
         return implementation;
     }
 

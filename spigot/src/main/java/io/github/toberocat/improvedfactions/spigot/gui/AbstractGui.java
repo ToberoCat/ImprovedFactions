@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedfactions.spigot.gui;
 
-import io.github.toberocat.improvedFactions.core.handler.ColorHandler;
+import io.github.toberocat.improvedFactions.core.handler.MessageHandler;
 import io.github.toberocat.improvedfactions.spigot.gui.page.Page;
 import io.github.toberocat.improvedfactions.spigot.gui.settings.GuiSettings;
 import io.github.toberocat.improvedfactions.spigot.gui.slot.Slot;
@@ -47,7 +47,7 @@ public abstract class AbstractGui {
 
     /* Static utility function */
     public static Inventory createInventory(Player player, int size, String title) {
-        return Bukkit.createInventory(player, size, ColorHandler.api().format(title).strip());
+        return Bukkit.createInventory(player, size, MessageHandler.api().format(title).strip());
     }
 
     /* Abstract methods */

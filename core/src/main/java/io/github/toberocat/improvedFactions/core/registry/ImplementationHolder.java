@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class ImplementationHolder {
     public static @Nullable ConfigHandler configHandler;
-    public static @Nullable ColorHandler colorHandler;
+    public static @Nullable MessageHandler messageHandler;
     public static @Nullable RankHolder rankHolder;
     public static @Nullable ItemHandler itemHandler;
     public static @Nullable MessagingHandler messagingHandler;

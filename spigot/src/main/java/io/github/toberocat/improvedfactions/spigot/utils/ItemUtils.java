@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedfactions.spigot.utils;
 
-import io.github.toberocat.improvedFactions.core.handler.ColorHandler;
+import io.github.toberocat.improvedFactions.core.handler.MessageHandler;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -49,7 +49,7 @@ public class ItemUtils {
         ItemStack newStack = new ItemStack(stack);
         ItemMeta meta = newStack.getItemMeta();
         assert meta != null;
-        meta.setLore(Arrays.stream(lore).map(x -> ColorHandler.api().format(x)).toList());
+        meta.setLore(Arrays.stream(lore).map(x -> MessageHandler.api().format(x)).toList());
         newStack.setItemMeta(meta);
         return newStack;
     }
@@ -59,7 +59,7 @@ public class ItemUtils {
         final ItemMeta meta = item.getItemMeta();
 
         assert meta != null;
-        meta.setDisplayName(ColorHandler.api().format(name));
+        meta.setDisplayName(MessageHandler.api().format(name));
         item.setItemMeta(meta);
 
         return item;
@@ -70,7 +70,7 @@ public class ItemUtils {
         final ItemMeta meta = item.getItemMeta();
 
         if (meta != null) {
-            meta.setDisplayName(ColorHandler.api().format(name));
+            meta.setDisplayName(MessageHandler.api().format(name));
 
             meta.setLore(Objects.requireNonNull(setLore(item, lore).getItemMeta()).getLore());
 

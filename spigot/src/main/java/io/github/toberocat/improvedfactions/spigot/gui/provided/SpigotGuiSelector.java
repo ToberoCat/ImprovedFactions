@@ -2,7 +2,7 @@ package io.github.toberocat.improvedfactions.spigot.gui.provided;
 
 import io.github.toberocat.improvedFactions.core.gui.GuiManager;
 import io.github.toberocat.improvedFactions.core.gui.JsonGui;
-import io.github.toberocat.improvedFactions.core.handler.ColorHandler;
+import io.github.toberocat.improvedFactions.core.handler.MessageHandler;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
 import io.github.toberocat.improvedfactions.spigot.gui.TabbedGui;
 import io.github.toberocat.improvedfactions.spigot.gui.slot.Slot;
@@ -48,7 +48,7 @@ public class SpigotGuiSelector extends TabbedGui {
             public void rightClick(@NotNull Player player, @Nullable ItemStack cursor) {
                 new AnvilGUI.Builder()
                         .onComplete((u, text) -> {
-                            gui.setTitle(ColorHandler.api().format(text));
+                            gui.setTitle(MessageHandler.api().format(text));
                             gui.write();
                             new SpigotGuiSelector(u);
                             return AnvilGUI.Response.close();
