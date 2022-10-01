@@ -43,7 +43,7 @@ public abstract class AutoGui extends AbstractGui {
     public void addSlot(ItemStack stack, BiConsumer<Player, ItemStack> click) {
         addSlot(new Slot(stack) {
             @Override
-            public void click(@NotNull Player player, @Nullable ItemStack cursor) {
+            public void leftClick(@NotNull Player player, @Nullable ItemStack cursor) {
                 click.accept(player, cursor);
             }
 

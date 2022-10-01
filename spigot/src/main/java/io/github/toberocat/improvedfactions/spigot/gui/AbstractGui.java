@@ -128,7 +128,7 @@ public abstract class AbstractGui {
     public void addSlot(ItemStack stack, int page, int invSlot, BiConsumer<Player, ItemStack> click) {
         if (pages.get(page).addSlot(new Slot(stack) {
             @Override
-            public void click(@NotNull Player player, @Nullable ItemStack cursor) {
+            public void leftClick(@NotNull Player player, @Nullable ItemStack cursor) {
                 click.accept(player, cursor);
             }
         }, invSlot)) addPage();
@@ -157,7 +157,7 @@ public abstract class AbstractGui {
         this.inventory = inventory;
     }
 
-    protected int clamp(int value, int min, int max) {
+    protected static int clamp(int value, int min, int max) {
         return Math.max(Math.min(value, max), min);
     }
 

@@ -3,17 +3,12 @@ package io.github.toberocat.improvedfactions.spigot.gui.provided;
 import io.github.toberocat.improvedFactions.core.gui.ItemContainer;
 import io.github.toberocat.improvedFactions.core.gui.JsonGui;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.core.translator.layout.item.XmlItem;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
 import io.github.toberocat.improvedfactions.spigot.gui.AbstractGui;
 import io.github.toberocat.improvedfactions.spigot.gui.page.Page;
 import io.github.toberocat.improvedfactions.spigot.gui.settings.GuiSettings;
 import io.github.toberocat.improvedfactions.spigot.item.SpigotItemStack;
 import io.github.toberocat.improvedfactions.spigot.player.SpigotFactionPlayer;
-import io.github.toberocat.improvedfactions.spigot.utils.ItemUtils;
-import net.wesjd.anvilgui.AnvilGUI;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -44,6 +39,8 @@ public class SpigotEditJsonGui extends AbstractGui {
 
         ItemStack[] content = new org.bukkit.inventory.ItemStack[inventory.getSize()];
         jsonGui.getContent().forEach((item, action) -> {
+            if (item.slot() >= slotActions.length) return;
+
             slotActions[item.slot()] = action;
             ItemStack stack = (ItemStack) item.stack().getRaw();
             ItemMeta meta = stack.getItemMeta();
@@ -75,7 +72,7 @@ public class SpigotEditJsonGui extends AbstractGui {
     }
 
     private static Inventory createInv(@NotNull Player player, @NotNull JsonGui jsonGui) {
-        return createInventory(player, 54, jsonGui.getGuiId());
+        return createInventory(player, clamp(jsonGui.getRows() * 9, 9, 54), jsonGui.getTitle());
     }
 
     private void updateContent() {
@@ -113,28 +110,7 @@ public class SpigotEditJsonGui extends AbstractGui {
 
     @Override
     protected void addPage() {
-        MainIF main = MainIF.getPlugin(MainIF.class);
-        pages.add(new Page(inventory.getSize(), slot -> {
-            ItemStack stack = inventory.getContents()[slot];
-            if (stack == null) return;
-
-            String action = slotActions[slot];
-            System.out.println(slotActions[slot]);
-            new AnvilGUI.Builder()
-                    .onComplete((user, text) -> {
-                        slotActions[slot] = text;
-
-                        updateContent();
-                        Bukkit.getScheduler().runTaskLater(main,
-                                () -> new SpigotEditJsonGui(player, jsonGui), 1);
-                        return AnvilGUI.Response.close();
-                    })
-                    .text(action == null ? "no/action" : action)
-                    .itemLeft(ItemUtils.createItem(Material.PAPER, "§6§lEnter action path"))
-                    .title("§6§lEnter action path")
-                    .plugin(main)
-                    .open(player);
-        }));
+        pages.add(new Page(inventory.getSize()));
     }
 
     @Override

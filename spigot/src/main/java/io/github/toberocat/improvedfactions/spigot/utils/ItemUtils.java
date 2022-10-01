@@ -65,7 +65,7 @@ public class ItemUtils {
         return item;
     }
 
-    public static ItemStack createItem(Material material, int amount, String name, String[] lore) {
+    public static ItemStack createItem(Material material, int amount, String name, String... lore) {
         final ItemStack item = new ItemStack(material, amount);
         final ItemMeta meta = item.getItemMeta();
 

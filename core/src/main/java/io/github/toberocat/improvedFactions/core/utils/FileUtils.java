@@ -4,8 +4,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.*;
+import java.util.*;
+import java.util.stream.Stream;
 
 
 public final class FileUtils {
@@ -41,5 +45,33 @@ public final class FileUtils {
 
         Files.move(f, t);
         return success;
+    }
+
+    public static @NotNull List<Path> list(@NotNull String root) throws IOException, URISyntaxException {
+        URL url = FileUtils.class.getResource("/" + root);
+        if (url == null) return Collections.emptyList();
+
+        URI uri = url.toURI();
+        Path myPath;
+        if (uri.getScheme().equals("jar")) {
+            FileSystem fileSystem;
+            try {
+                fileSystem = FileSystems.newFileSystem(uri, Collections.emptyMap());
+            } catch (FileSystemAlreadyExistsException e) {
+                fileSystem = FileSystems.getFileSystem(uri);
+            }
+
+            myPath = fileSystem.getPath("/" + root);
+        } else {
+            myPath = Paths.get(uri);
+        }
+        Stream<Path> walk = Files.walk(myPath, 1);
+        List<Path> paths = new LinkedList<>();
+        for (Iterator<Path> it = walk.iterator(); it.hasNext(); ) {
+            Path path = it.next();
+            System.out.println(path.getFileName());
+            paths.add(path);
+        }
+        return paths;
     }
 }

@@ -8,7 +8,7 @@ public class AutoPage extends Page {
     protected int lastFree;
 
     public AutoPage(int inventorySize, int[] freeSlots) {
-        super(inventorySize, slot -> {});
+        super(inventorySize);
         this.freeSlots = freeSlots;
     }
 

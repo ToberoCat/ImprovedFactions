@@ -4,7 +4,6 @@ import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import io.github.toberocat.improvedfactions.spigot.command.SpigotFactionCommand;
 import io.github.toberocat.improvedfactions.spigot.gui.provided.SpigotEditorGuiManager;
-import io.github.toberocat.improvedfactions.spigot.gui.provided.SpigotGuiSelector;
 import io.github.toberocat.improvedfactions.spigot.handler.SpigotColorHandler;
 import io.github.toberocat.improvedfactions.spigot.handler.SpigotConfigHandler;
 import io.github.toberocat.improvedfactions.spigot.item.SpigotItemHandler;
@@ -19,6 +18,7 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 public final class MainIF extends JavaPlugin {
@@ -31,7 +31,7 @@ public final class MainIF extends JavaPlugin {
         registerHandlers();
         try {
             ImplementationHolder.register();
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             Logger.api().logException(e);
             Logger.api().logError("Couldn't load the entire ImprovedFactions backend. Disabling... ");
             Bukkit.getPluginManager().disablePlugin(this);

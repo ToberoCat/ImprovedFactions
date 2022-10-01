@@ -6,7 +6,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class NavigationPage extends Page {
     public NavigationPage(int inventorySize) {
-        super(inventorySize, slot -> {});
+        super(inventorySize);
     }
 
     @Override

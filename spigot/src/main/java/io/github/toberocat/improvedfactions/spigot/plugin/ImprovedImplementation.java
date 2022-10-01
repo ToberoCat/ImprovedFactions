@@ -158,7 +158,7 @@ public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
 
     @Override
     public @NotNull File getGuiFolder() {
-        return new File(getDataFolder(), "gui");
+        return new File(getDataFolder(), "guis");
     }
 
     @Override

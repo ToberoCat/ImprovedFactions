@@ -12,7 +12,15 @@ public abstract class Slot {
         this.stack = stack;
     }
 
-    public abstract void click(@NotNull Player player, @Nullable ItemStack cursor);
+    public abstract void leftClick(@NotNull Player player, @Nullable ItemStack cursor);
+
+    public void shiftLeftClick(@NotNull Player player, @Nullable ItemStack cursor) {
+
+    }
+
+    public void shiftRightClick(@NotNull Player player, @Nullable ItemStack cursor) {
+
+    }
 
     public void rightClick(@NotNull Player player, @Nullable ItemStack cursor) {
     }

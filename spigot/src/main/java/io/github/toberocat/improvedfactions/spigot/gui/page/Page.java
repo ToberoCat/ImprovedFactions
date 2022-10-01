@@ -9,11 +9,9 @@ import java.util.function.Consumer;
 
 public class Page {
     protected Slot[] slots;
-    protected Consumer<Integer> consumer;
 
-    public Page(int inventorySize, Consumer<Integer> consumer) {
+    public Page(int inventorySize) {
         this.slots = new Slot[inventorySize];
-        this.consumer = consumer;
     }
 
     public void render(Inventory inventory) {
@@ -41,10 +39,13 @@ public class Page {
             Slot slot = slots[event.getSlot()];
 
             if (slot == null) return 0;
-            if (event.getClick().isRightClick()) slot.rightClick(player, event.getCursor());
+            if (event.getClick().isRightClick()) {
+                if (event.getClick().isShiftClick()) slot.shiftRightClick(player, event.getCursor());
+                else slot.rightClick(player, event.getCursor());
+            }
             else {
-                slot.click(player, event.getCursor());
-                consumer.accept(event.getSlot());
+                if (event.getClick().isShiftClick()) slot.shiftLeftClick(player, event.getCursor());
+                else slot.leftClick(player, event.getCursor());
             }
         }
         return 0;
