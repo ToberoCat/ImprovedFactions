@@ -14,6 +14,7 @@ import io.github.toberocat.improvedFactions.core.translator.Translation;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.StringUtils;
 import io.github.toberocat.improvedfactions.spigot.item.SpigotItemStack;
+import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
@@ -76,6 +77,24 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
     public void sendTitle(@NotNull Function<Translatable, String> query) {
         String title = getMessage(query);
         player.sendTitle(title, "", 0, 20, 0);
+    }
+
+    @Override
+    public void sendActionBar(@NotNull String actionbar) {
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(actionbar));
+    }
+
+    @Override
+    public void sendActionBar(@NotNull Function<Translatable, String> query) {
+        String actionbar = getMessage(query);
+        if (actionbar == null) return;
+
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(actionbar));
+    }
+
+    @Override
+    public void closeGuis() {
+        player.closeInventory();
     }
 
     @Override

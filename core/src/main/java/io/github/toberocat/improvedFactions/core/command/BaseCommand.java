@@ -8,6 +8,7 @@ import io.github.toberocat.improvedFactions.core.command.sub.chunk.UnclaimComman
 import io.github.toberocat.improvedFactions.core.command.sub.chunk.zone.ZoneRootCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.CreateFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.DeleteFactionCommand;
+import io.github.toberocat.improvedFactions.core.command.sub.faction.SettingCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.gui.GuiRoot;
 import io.github.toberocat.improvedFactions.core.command.sub.invite.AcceptInviteCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.invite.InviteCommand;
@@ -22,9 +23,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleCommandPacket> {
+public class BaseCommand extends Command<SettingCommand.SettingPacket, Command.ConsoleCommandPacket> {
+
+    private final SettingCommand settingCommand;
 
     public BaseCommand() {
+        settingCommand = new SettingCommand();
+
         add(new CreateFactionCommand());
         add(new DeleteFactionCommand());
         add(new ListFactionCommand());
@@ -38,6 +43,7 @@ public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleC
         add(new ZoneRootCommand());
         add(new AdminRoot());
         add(new GuiRoot());
+        add(settingCommand);
     }
 
     @Override
@@ -52,9 +58,7 @@ public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleC
 
     @Override
     public @NotNull CommandSettings createSettings() {
-        return new CommandSettings(translatable -> translatable.getMessages()
-                .getCommand()
-                .get("command-settings"));
+        return settingCommand.settings();
     }
 
     @Override
@@ -68,7 +72,8 @@ public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleC
     }
 
     @Override
-    public void run(@NotNull CommandPacket packet) {
+    public void run(@NotNull SettingCommand.SettingPacket packet) {
+        settingCommand.run(packet);
     }
 
     @Override
@@ -77,9 +82,8 @@ public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleC
     }
 
     @Override
-    public @Nullable Command.CommandPacket createFromArgs(@NotNull FactionPlayer<?> executor, @NotNull String[] args) {
-        return new CommandPacket() {
-        };
+    public @Nullable SettingCommand.SettingPacket createFromArgs(@NotNull FactionPlayer<?> executor, @NotNull String[] args) {
+        return settingCommand.createFromArgs(executor, args);
     }
 
     @Override
@@ -87,4 +91,5 @@ public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleC
         return new ConsoleCommandPacket() {
         };
     }
+
 }

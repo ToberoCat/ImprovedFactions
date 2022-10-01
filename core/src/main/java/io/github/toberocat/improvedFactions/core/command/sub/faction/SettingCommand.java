@@ -70,7 +70,7 @@ public class SettingCommand extends Command<SettingCommand.SettingPacket, Comman
         };
     }
 
-    protected record SettingPacket(@NotNull FactionPlayer<?> factionPlayer) implements CommandPacket {
+    public record SettingPacket(@NotNull FactionPlayer<?> factionPlayer) implements CommandPacket {
 
     }
 }
