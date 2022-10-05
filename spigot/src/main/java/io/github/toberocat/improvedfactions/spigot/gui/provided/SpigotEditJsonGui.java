@@ -12,6 +12,7 @@ import io.github.toberocat.improvedfactions.spigot.gui.page.Page;
 import io.github.toberocat.improvedfactions.spigot.gui.settings.GuiSettings;
 import io.github.toberocat.improvedfactions.spigot.item.SpigotItemStack;
 import io.github.toberocat.improvedfactions.spigot.player.SpigotFactionPlayer;
+import io.github.toberocat.improvedfactions.spigot.utils.ItemUtils;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -24,10 +25,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class SpigotEditJsonGui extends AbstractGui {
+import static io.github.toberocat.improvedfactions.spigot.utils.ItemUtils.ORIGINAL_NAME_KEY;
+import static io.github.toberocat.improvedfactions.spigot.utils.ItemUtils.resetTranslation;
 
-    private static final NamespacedKey ORIGINAL_NAME_KEY = new NamespacedKey(MainIF.getPlugin(MainIF.class),
-            "original_naming");
+public class SpigotEditJsonGui extends AbstractGui {
 
     private final String[] slotActions;
     private final JsonGui jsonGui;
@@ -43,33 +44,7 @@ public class SpigotEditJsonGui extends AbstractGui {
 
             slotActions[item.slot()] = action;
             ItemStack stack = (ItemStack) item.stack().getRaw();
-            ItemMeta meta = stack.getItemMeta();
-            if (meta != null) {
-                FactionPlayer<Player> fPlayer = new SpigotFactionPlayer(player);
-                meta.getPersistentDataContainer()
-                        .set(ORIGINAL_NAME_KEY, PersistentDataType.STRING,
-                                meta.getDisplayName());
-
-                String id = meta.getDisplayName();
-                MessageHandler api = MessageHandler.api();
-                String title = fPlayer.getMessage(translatable -> {
-                    XmlItem xml = translatable.getItems()
-                            .get(jsonGui.getGuiId())
-                            .get(id);
-                    if (xml != null) return xml.title();
-                    Logger.api().logWarning(id + " has missing title");
-                    return null;
-                });
-                meta.setDisplayName(api.format(fPlayer, Objects.requireNonNullElse(title, "")));
-                meta.setLore(Arrays.stream(fPlayer.getMessageBatch(translatable -> translatable.getItems()
-                                .get(jsonGui.getGuiId())
-                                .get(id).description()
-                                .stream()
-                                .map(x -> api.format(fPlayer, x))
-                                .toArray(String[]::new)))
-                        .toList());
-            }
-            stack.setItemMeta(meta);
+            ItemUtils.translateItem(new SpigotFactionPlayer(player), jsonGui.getGuiId(), stack);
 
             content[item.slot()] = stack;
         });
@@ -87,23 +62,7 @@ public class SpigotEditJsonGui extends AbstractGui {
 
     private void updateContent() {
         io.github.toberocat.improvedFactions.core.item.ItemStack[] stacks = Arrays.stream(inventory.getContents())
-                .peek(x -> {
-                    if (x == null) return;
-
-                    ItemMeta meta = x.getItemMeta();
-                    if (meta != null) {
-                        String old = meta.getPersistentDataContainer()
-                                .get(ORIGINAL_NAME_KEY, PersistentDataType.STRING);
-                        if (old == null) return;
-
-                        meta.getPersistentDataContainer()
-                                .remove(ORIGINAL_NAME_KEY);
-
-                        meta.setDisplayName(old);
-                        meta.setLore(List.of());
-                    }
-                    x.setItemMeta(meta);
-                })
+                .peek(ItemUtils::resetTranslation)
                 .map(SpigotItemStack::new)
                 .toArray(SpigotItemStack[]::new);
         Map<ItemContainer, String> actionMap = new HashMap<>();

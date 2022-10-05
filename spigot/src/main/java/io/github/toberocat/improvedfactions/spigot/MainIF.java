@@ -14,6 +14,7 @@ import io.github.toberocat.improvedfactions.spigot.listener.PlayerLeaveListener;
 import io.github.toberocat.improvedfactions.spigot.listener.PlayerMoveListener;
 import io.github.toberocat.improvedfactions.spigot.listener.SpigotEventListener;
 import io.github.toberocat.improvedfactions.spigot.listener.world.SpigotBlockListener;
+import io.github.toberocat.improvedfactions.spigot.loom.BannerDesigner;
 import io.github.toberocat.improvedfactions.spigot.placeholder.FactionExpansion;
 import io.github.toberocat.improvedfactions.spigot.plugin.ImprovedImplementation;
 import org.bukkit.Bukkit;
@@ -62,6 +63,7 @@ public final class MainIF extends JavaPlugin {
             return;
         }
 
+        BannerDesigner.dispose();
         ImplementationHolder.dispose();
     }
 

@@ -1,9 +1,3 @@
-/**
- * Created: 01/10/2022
- *
- * @author Tobias Madlberger (Tobias)
- */
-
 package io.github.toberocat.improvedfactions.spigot.handler;
 
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionIsFrozenException;
@@ -60,6 +54,10 @@ public record SpigotActionHandler(@NotNull MainIF plugin) implements ActionHandl
             return;
         }
 
-        new BannerDesigner((Player) player.getRaw(), MainIF.getPlugin(MainIF.class));
+        try {
+            new BannerDesigner(player, MainIF.getPlugin(MainIF.class));
+        } catch (FactionNotInStorage | PlayerHasNoFactionException e) {
+            e.printStackTrace();
+        }
     }
 }
