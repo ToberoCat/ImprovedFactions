@@ -33,7 +33,7 @@ import java.util.Objects;
 public class SpigotGuiView extends AbstractGui {
 
     private final File files;
-    private FactionPlayer<?> fPlayer;
+    private final FactionPlayer<?> fPlayer;
 
     public SpigotGuiView(@NotNull Player player, JsonGui jsonGui) {
         super(player, createInventory(player, jsonGui.getRows() * 9, jsonGui.getTitle()));

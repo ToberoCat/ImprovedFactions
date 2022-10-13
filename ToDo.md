@@ -40,7 +40,7 @@
 - [ ] Mute (Player in f chat)
 - [ ] Unmute
 - [ ] Wildness command (Tps to random location) (Extension)
-- [ ] %faction_rank% as papi placeholder to get the players rank
+- [x] %faction_rank% as papi placeholder to get the players rank
 - [ ] Recommendation system (Allows faction to search for users. Users can search for factions too, using a gui)
 - [ ] Dynmap add option to appear as one unit
 - [ ] Buffs for having a power
@@ -49,6 +49,7 @@
 - [ ] MongoDB
 - [ ] Add option to receive invites even when in faction
 - [ ] Allow offline players to receive translated messages too
+- [ ] Finish icon editor
 
 # Placeholder
 - %faction_maxpower%

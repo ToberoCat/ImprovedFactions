@@ -8,12 +8,12 @@ package io.github.toberocat.improvedfactions.spigot.placeholder;
 
 import io.github.toberocat.improvedfactions.spigot.placeholder.provided.CurrentPowerPlaceholder;
 import io.github.toberocat.improvedfactions.spigot.placeholder.provided.MaxPowerPlaceholder;
+import io.github.toberocat.improvedfactions.spigot.placeholder.provided.RankPlaceholder;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 
 public class PlaceholderFormatter {
@@ -30,6 +30,7 @@ public class PlaceholderFormatter {
     static {
         register("currentpower", new CurrentPowerPlaceholder());
         register("maxpower", new MaxPowerPlaceholder());
+        register("rank", new RankPlaceholder());
     }
 
     public static @NotNull String parse(OfflinePlayer player, @NotNull String text) {

@@ -8,6 +8,7 @@ import io.github.toberocat.improvedFactions.core.utils.CUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
+import java.util.Objects;
 
 public abstract class AllyRank extends Rank {
 
@@ -34,6 +35,11 @@ public abstract class AllyRank extends Rank {
     public String[] description(FactionPlayer<?> player) {
         return player.getMessageBatch(translatable -> translatable.getRanks().get(key)
                 .getAlly().getDescription().toArray(String[]::new));
+    }
+
+    @Override
+    public @NotNull String title(FactionPlayer<?> player) {
+        return Objects.requireNonNullElse(player.getMessage(title), "");
     }
 
     @Override

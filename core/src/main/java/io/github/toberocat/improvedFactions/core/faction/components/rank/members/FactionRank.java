@@ -10,6 +10,7 @@ import io.github.toberocat.improvedFactions.core.utils.CUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.function.Function;
 
 public abstract class FactionRank extends Rank {
@@ -43,6 +44,11 @@ public abstract class FactionRank extends Rank {
     public String[] description(FactionPlayer<?> player) {
         return player.getMessageBatch(translatable -> translatable.getRanks().get(key)
                 .getFaction().getDescription().toArray(String[]::new));
+    }
+
+    @Override
+    public @NotNull String title(FactionPlayer<?> player) {
+        return Objects.requireNonNullElse(player.getMessage(title), "");
     }
 
     @Override

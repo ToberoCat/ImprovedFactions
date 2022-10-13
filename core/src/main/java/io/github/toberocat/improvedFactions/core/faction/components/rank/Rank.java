@@ -71,7 +71,9 @@ public abstract class Rank {
         return registry;
     }
 
-    public abstract String[] description(FactionPlayer<?> player);
+    public abstract @NotNull String[] description(FactionPlayer<?> player);
+
+    public abstract @NotNull String title(FactionPlayer<?> player);
 
     public abstract ItemStack getItem(FactionPlayer<?> player);
 
