@@ -47,8 +47,7 @@
                     unclaimed
                 </auto-activated>
                 <chunk-not-yours>§cYou can not unclaim other factions chunks.</chunk-not-yours>
-                <missing-faction-permission>§cYou do not have the required FACTION permission
-                </missing-faction-permission>
+                <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>
                 <total-area>You have claimed §e{success}/{total}§f chunks</total-area>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </unclaim>
@@ -126,7 +125,7 @@
                 <not-enough-args>§cNot enough arguments. Please add a player name and optionally the rank
                 </not-enough-args>
                 <rank-not-found>§cRank not found</rank-not-found>
-                <already-member>§cYou are already in this faction</already-member>
+                <already-member>§cPlayer is already in this faction</already-member>
                 <invited-player>Invited sent to {player}</invited-player>
                 <player-not-found>§cPlayer not found</player-not-found>
                 <player-has-no-faction>§cThat player is not in a faction</player-has-no-faction>
@@ -171,13 +170,13 @@
                 <not-enough-args>§cYou have to specify a name for this item</not-enough-args>
             </translate>
             <settings>
-                <requires-faction>PLACEHOLDER</requires-faction>
-                <missing-faction-permission>PLACEHOLDER</missing-faction-permission>
-                <missing-spgito-permission>PLACEHOLDER</missing-spgito-permission>
+                <requires-faction>§cYou need to be in a faction to use this</requires-faction>
+                <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>
+                <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </settings>
         </command>
     </messages>
-    <prefix>§8[§eIF§8]§f</prefix>
+    <prefix>§8[§eIF§8]§f </prefix>
     <ranks>
         <guest>
             <faction>
