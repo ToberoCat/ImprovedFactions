@@ -36,9 +36,9 @@ public abstract class AbstractGui {
         GuiListener.GUIS.add(this);
 
         this.inventory = inventory;
-        this.pages = new ArrayList<>();
-        this.currentPage = 0;
-        this.settings = readSettings();
+        pages = new ArrayList<>();
+        currentPage = 0;
+        settings = readSettings();
         this.player = player;
 
         player.openInventory(inventory);

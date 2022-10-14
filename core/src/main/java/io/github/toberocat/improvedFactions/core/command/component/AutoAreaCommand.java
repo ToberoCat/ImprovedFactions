@@ -119,7 +119,7 @@ public abstract class AutoAreaCommand extends
     protected abstract Function<Translatable, String> sendTotal();
 
     protected record AutoAreaPacket(@NotNull FactionPlayer<?> player, int radius,
-                                    boolean auto) implements CommandPacket {
+                                    boolean auto) implements Command.CommandPacket {
 
     }
 

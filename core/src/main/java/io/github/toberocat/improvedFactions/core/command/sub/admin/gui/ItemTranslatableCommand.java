@@ -77,7 +77,7 @@ public class ItemTranslatableCommand
 
     protected record TranslatePacket(@NotNull FactionPlayer<?> player,
                                      @NotNull String itemName)
-            implements CommandPacket {
+            implements Command.CommandPacket {
 
     }
 }

@@ -48,7 +48,7 @@ public class BannerDesigner implements Listener {
 
         this.player = (Player) player.getRaw();
         Faction<?> faction = player.getFaction();
-        this.oldPlayerInventory = this.player.getInventory().getContents();
+        oldPlayerInventory = this.player.getInventory().getContents();
         this.mainIF = mainIF;
 
         loomInventory = createInventory();

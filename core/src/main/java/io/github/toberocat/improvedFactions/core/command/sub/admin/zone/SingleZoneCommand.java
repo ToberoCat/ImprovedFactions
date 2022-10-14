@@ -23,12 +23,12 @@ public class SingleZoneCommand extends AutoAreaCommand {
         super(true);
         this.zone = zone;
 
-        this.node = translatable -> translatable
+        node = translatable -> translatable
                 .getMessages()
                 .getCommand()
                 .get("zone");
-        this.settings = createSettings();
-        this.config = createConfig();
+        settings = createSettings();
+        config = createConfig();
         PermissionFileTool.addPermission(permission(), isAdmin());
     }
 

@@ -14,7 +14,7 @@ public class PersistentWrapper {
 
     public PersistentWrapper(@NotNull UUID id) {
         this.id = id;
-        this.handle = PersistentHandler.api();
+        handle = PersistentHandler.api();
     }
 
     public @Nullable Object set(@NotNull String key, @NotNull Object value) {

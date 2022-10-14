@@ -28,10 +28,10 @@ public final class CUtils {
 
     public static byte[] convertToByteArray(int... pIntArray)
     {
-        final byte[] array = new byte[pIntArray.length * 4];
+        byte[] array = new byte[pIntArray.length * 4];
         for (int j = 0; j < pIntArray.length; j++)
         {
-            final int c = pIntArray[j];
+            int c = pIntArray[j];
             array[j * 4] = (byte)((c & 0xFF000000) >> 24);
             array[j * 4 + 1] = (byte)((c & 0xFF0000) >> 16);
             array[j * 4 + 2] = (byte)((c & 0xFF00) >> 8);

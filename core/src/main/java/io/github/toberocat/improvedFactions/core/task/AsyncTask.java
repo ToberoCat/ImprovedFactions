@@ -34,8 +34,8 @@ public class AsyncTask<R> implements Runnable {
     }
 
     public void then(@NotNull Consumer<R> then) {
-        this.consumer = then;
-        if (run) this.consumer.accept(result);
+        consumer = then;
+        if (run) consumer.accept(result);
     }
 
     @Override

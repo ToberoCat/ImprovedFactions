@@ -51,7 +51,7 @@ public class EditGuisCommand extends Command<EditGuisCommand.EditorGuiPacket, Co
     }
 
     @Override
-    public void runConsole(@NotNull ConsoleCommandPacket packet) {
+    public void runConsole(@NotNull Command.ConsoleCommandPacket packet) {
 
     }
 
@@ -62,11 +62,11 @@ public class EditGuisCommand extends Command<EditGuisCommand.EditorGuiPacket, Co
 
     @Override
     public @Nullable Command.ConsoleCommandPacket createFromArgs(@NotNull String[] args) {
-        return new ConsoleCommandPacket() {
+        return new Command.ConsoleCommandPacket() {
         };
     }
 
-    protected record EditorGuiPacket(@NotNull FactionPlayer<?> player) implements CommandPacket {
+    protected record EditorGuiPacket(@NotNull FactionPlayer<?> player) implements Command.CommandPacket {
 
     }
 }

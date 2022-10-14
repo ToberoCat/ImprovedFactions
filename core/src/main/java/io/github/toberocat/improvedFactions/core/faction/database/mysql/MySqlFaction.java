@@ -65,7 +65,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
      * Use FactionHandler#createFaction() to create a faction
      */
     public MySqlFaction() {
-        this.database = DatabaseHandle.requestMySql();
+        database = DatabaseHandle.requestMySql();
     }
 
     /**
@@ -75,7 +75,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
             throws IllegalFactionNamingException, FactionAlreadyExistsException {
         this();
 
-        this.registry = Faction.displayToRegistry(display);
+        registry = Faction.displayToRegistry(display);
 
         if (FactionHandler.getLoadedFactions().containsKey(registry)) throw new FactionAlreadyExistsException(this);
         if (!Faction.validNaming(registry)) throw new IllegalFactionNamingException(this, registry);
@@ -85,15 +85,15 @@ public class MySqlFaction implements Faction<MySqlFaction> {
         database.executeUpdate(MySqlDatabase.CREATE_LAYOUT_QUERY,
                 DatabaseVar.of("registry", registry),
                 DatabaseVar.of("display", display),
-                DatabaseVar.of("motd", DEFAULT_MOTD),
-                DatabaseVar.of("tag", DEFAULT_TAG),
-                DatabaseVar.of("openType", DEFAULT_OPEN_TYPE.ordinal()),
-                DatabaseVar.of("frozen", DEFAULT_FROZEN),
-                DatabaseVar.of("permanent", DEFAULT_PERMANENT),
+                DatabaseVar.of("motd", Faction.DEFAULT_MOTD),
+                DatabaseVar.of("tag", Faction.DEFAULT_TAG),
+                DatabaseVar.of("openType", Faction.DEFAULT_OPEN_TYPE.ordinal()),
+                DatabaseVar.of("frozen", Faction.DEFAULT_FROZEN),
+                DatabaseVar.of("permanent", Faction.DEFAULT_PERMANENT),
                 DatabaseVar.of("created_at", DateUtils.TIME_FORMAT.print(new LocalDateTime())),
                 DatabaseVar.of("owner", owner.getUniqueId().toString()),
                 DatabaseVar.of("claimed_chunks", 0),
-                DatabaseVar.of("balance", DEFAULT_START_BALANCE),
+                DatabaseVar.of("balance", Faction.DEFAULT_START_BALANCE),
                 DatabaseVar.of("current_power", config.getInt("faction.default.start-power")), // Todo: Remove current_power and max_power properties
                 DatabaseVar.of("max_power", config.getInt("faction.default.start-max-power"))
         );
@@ -149,7 +149,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
      * @throws FactionIsFrozenException gets thrown when the faction is frozen
      */
     @Override
-    public void setDisplay(@NotNull String display) throws FactionIsFrozenException {
+    public void renameFaction(@NotNull String display) throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
         database.executeUpdate("UPDATE factions SET " +
@@ -192,7 +192,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
                         .setColumns("motd")
                         .setFilter("registry_id = %s", registry))
                 .readRow(String.class, "motd")
-                .orElse(DEFAULT_MOTD);
+                .orElse(Faction.DEFAULT_MOTD);
     }
 
     /**
@@ -222,7 +222,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
                         .setColumns("tag")
                         .setFilter("registry_id = %s", registry))
                 .readRow(String.class, "tag")
-                .orElse(DEFAULT_TAG);
+                .orElse(Faction.DEFAULT_TAG);
     }
 
     /**
@@ -759,7 +759,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
 
     @Override
     public boolean addAlly(@NotNull Faction<?> faction) throws FactionIsFrozenException {
-        if (setStatus(faction, allyId)) return false;
+        if (setStatus(faction, Faction.allyId)) return false;
 
         EventExecutor.getExecutor().allyFaction(this, faction);
         return true;
@@ -772,8 +772,8 @@ public class MySqlFaction implements Faction<MySqlFaction> {
                         .setColumns("relation_status")
                         .setFilter("registry_id = %s", registry))
                 .readRow(Integer.class, "relation_status")
-                .orElse(neutralId)
-                == allyId;
+                .orElse(Faction.neutralId)
+                == Faction.allyId;
     }
 
     @Override
@@ -788,7 +788,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
 
     @Override
     public boolean addEnemy(@NotNull Faction<?> faction) throws FactionIsFrozenException {
-        return !setStatus(faction, enemyId);
+        return !setStatus(faction, Faction.enemyId);
     }
 
     private boolean setStatus(@NotNull Faction<?> faction, int status)
@@ -810,8 +810,8 @@ public class MySqlFaction implements Faction<MySqlFaction> {
                         .setColumns("relation_status")
                         .setFilter("registry_id = %s", registry))
                 .readRow(Integer.class, "relation_status")
-                .orElse(neutralId)
-                == enemyId;
+                .orElse(Faction.neutralId)
+                == Faction.enemyId;
     }
 
     /**
@@ -831,7 +831,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
                         .setTable("faction_relations")
                         .setColumns("relation_registry_id")
                         .setFilter("registry_id = %s AND relation_status = %d",
-                                registry, allyId))
+                                registry, Faction.allyId))
                 .getRows()
                 .stream()
                 .map(x -> x.get("relation_registry_id").toString());
@@ -843,7 +843,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
                         .setTable("faction_relations")
                         .setColumns("relation_registry_id")
                         .setFilter("registry_id = %s AND relation_status = %d",
-                                registry, enemyId))
+                                registry, Faction.enemyId))
                 .getRows()
                 .stream()
                 .map(x -> x.get("relation_registry_id").toString());
@@ -946,9 +946,10 @@ public class MySqlFaction implements Faction<MySqlFaction> {
 
     @Override
     public void setPermission(@NotNull Permission permission, String[] ranks) {
-        for (String rank : ranks) database
+        for (String rank : ranks)
+            database
                 .executeUpdate("INSERT INTO faction_permissions VALUE (%s, %s, %s)",
-                    registry, rank, permission);
+                        registry, rank, permission);
     }
 
     @Override

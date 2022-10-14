@@ -18,7 +18,7 @@ public class SpigotFactionCommand implements TabExecutor {
     private final SpigotCommandHandler handler;
 
     public SpigotFactionCommand() {
-        this.handler = new SpigotCommandHandler(new BaseCommand());
+        handler = new SpigotCommandHandler(new BaseCommand());
     }
 
     @Override

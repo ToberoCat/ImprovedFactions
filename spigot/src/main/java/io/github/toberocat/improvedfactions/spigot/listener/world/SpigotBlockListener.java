@@ -20,8 +20,8 @@ public class SpigotBlockListener extends SpigotEventListener {
 
     public SpigotBlockListener(@NotNull MainIF plugin) {
         super(plugin);
-        this.blockListener = new BlockListener();
-        this.factions = ImprovedFactions.api();
+        blockListener = new BlockListener();
+        factions = ImprovedFactions.api();
     }
 
     @EventHandler

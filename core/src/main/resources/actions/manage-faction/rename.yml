@@ -11,6 +11,8 @@
 # ---------------------------------( Faction Actions )---------------------------------
 # [faction-rename] - Open a faction rename prompt
 # [faction-edit-icon] - Edit the faction icon
+# [faction-motd] - Edit the faction motd
+# [faction-description] - Edit the faction description
 
 left-click:
   - "[faction-rename]"

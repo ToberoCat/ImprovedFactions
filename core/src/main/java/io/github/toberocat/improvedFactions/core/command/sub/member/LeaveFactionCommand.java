@@ -112,7 +112,7 @@ public class LeaveFactionCommand extends Command<LeaveFactionCommand.LeavePacket
 
     protected record LeavePacket(@NotNull FactionPlayer<?> player,
                                  @NotNull Faction<?> faction)
-    implements CommandPacket, ConsoleCommandPacket {
+    implements Command.CommandPacket, Command.ConsoleCommandPacket {
 
     }
 }

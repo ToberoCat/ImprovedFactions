@@ -14,7 +14,7 @@ public final class Claim {
         this.x = x;
         this.z = z;
         this.world = world;
-        this.compute = registryComputer;
+        compute = registryComputer;
     }
 
 

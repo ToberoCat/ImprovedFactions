@@ -24,25 +24,25 @@ public abstract class Command<P extends Command.CommandPacket, C extends Command
     protected ConfigHandler config;
 
     public Command() {
-        this.node = translatable -> translatable
+        node = translatable -> translatable
                 .getMessages()
                 .getCommand()
                 .get(label());
-        this.settings = createSettings();
-        this.config = createConfig();
+        settings = createSettings();
+        config = createConfig();
 
         PermissionFileTool.addPermission(permission(), isAdmin());
     }
 
     public Command(boolean setManually) {
         if (setManually) return;
-        this.node = translatable -> translatable
+        node = translatable -> translatable
                 .getMessages()
                 .getCommand()
                 .get(label());
 
-        this.settings = createSettings();
-        this.config = createConfig();
+        settings = createSettings();
+        config = createConfig();
 
         PermissionFileTool.addPermission(permission(), isAdmin());
     }

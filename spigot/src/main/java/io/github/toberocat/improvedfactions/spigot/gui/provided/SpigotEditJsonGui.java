@@ -35,7 +35,7 @@ public class SpigotEditJsonGui extends AbstractGui {
 
     public SpigotEditJsonGui(@NotNull Player player, @NotNull JsonGui jsonGui) {
         super(player, createInv(player, jsonGui));
-        this.slotActions = new String[inventory.getSize()];
+        slotActions = new String[inventory.getSize()];
         this.jsonGui = jsonGui;
 
         ItemStack[] content = new org.bukkit.inventory.ItemStack[inventory.getSize()];
@@ -57,7 +57,7 @@ public class SpigotEditJsonGui extends AbstractGui {
     }
 
     private static Inventory createInv(@NotNull Player player, @NotNull JsonGui jsonGui) {
-        return createInventory(player, clamp(jsonGui.getRows() * 9, 9, 54), jsonGui.getTitle());
+        return AbstractGui.createInventory(player, AbstractGui.clamp(jsonGui.getRows() * 9, 9, 54), jsonGui.getTitle());
     }
 
     private void updateContent() {

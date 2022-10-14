@@ -22,9 +22,9 @@ public abstract class Rank {
 
     public Rank(Function<Translatable, String> title, String registryName, int permissionPriority, boolean isAdmin) {
         this.title = title;
-        this.registry = registryName;
+        registry = registryName;
         this.isAdmin = isAdmin;
-        this.priority = permissionPriority;
+        priority = permissionPriority;
         ranks.put(registryName, this);
     }
 

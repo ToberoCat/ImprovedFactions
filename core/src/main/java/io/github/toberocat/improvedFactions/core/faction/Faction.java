@@ -125,7 +125,7 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
      *
      * @param display The display name of the faction.
      */
-    void setDisplay(@NotNull String display) throws FactionIsFrozenException;
+    void renameFaction(@NotNull String display) throws FactionIsFrozenException, FactionCantBeRenamedToThisLiteralException;
 
     /**
      * Set the icon of this faction

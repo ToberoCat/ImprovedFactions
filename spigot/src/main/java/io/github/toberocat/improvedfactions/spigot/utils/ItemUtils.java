@@ -10,6 +10,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 import org.jetbrains.annotations.NotNull;
@@ -26,7 +27,7 @@ import java.util.Objects;
 
 public class ItemUtils {
 
-    public static final NamespacedKey ORIGINAL_NAME_KEY = new NamespacedKey(MainIF.getPlugin(MainIF.class),
+    public static final NamespacedKey ORIGINAL_NAME_KEY = new NamespacedKey(JavaPlugin.getPlugin(MainIF.class),
             "original_naming");
 
     public static String itemToBase64(ItemStack item) throws IllegalStateException {
@@ -114,9 +115,9 @@ public class ItemUtils {
         return newStack;
     }
 
-    public static ItemStack createItem(final Material material, final String name) {
-        final ItemStack item = new ItemStack(material, 1);
-        final ItemMeta meta = item.getItemMeta();
+    public static ItemStack createItem(Material material, String name) {
+        ItemStack item = new ItemStack(material, 1);
+        ItemMeta meta = item.getItemMeta();
 
         assert meta != null;
         meta.setDisplayName(MessageHandler.api().format(name));
@@ -126,8 +127,8 @@ public class ItemUtils {
     }
 
     public static ItemStack createItem(Material material, int amount, String name, String... lore) {
-        final ItemStack item = new ItemStack(material, amount);
-        final ItemMeta meta = item.getItemMeta();
+        ItemStack item = new ItemStack(material, amount);
+        ItemMeta meta = item.getItemMeta();
 
         if (meta != null) {
             meta.setDisplayName(MessageHandler.api().format(name));

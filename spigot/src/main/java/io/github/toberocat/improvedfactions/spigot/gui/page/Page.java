@@ -11,7 +11,7 @@ public class Page {
     protected Slot[] slots;
 
     public Page(int inventorySize) {
-        this.slots = new Slot[inventorySize];
+        slots = new Slot[inventorySize];
     }
 
     public void render(Inventory inventory) {

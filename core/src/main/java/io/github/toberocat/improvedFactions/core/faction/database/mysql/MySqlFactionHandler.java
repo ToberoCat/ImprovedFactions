@@ -29,7 +29,7 @@ public class MySqlFactionHandler implements FactionHandlerInterface<MySqlFaction
     private final MySqlDatabase database;
 
     public MySqlFactionHandler() {
-        this.database = DatabaseHandle.requestMySql();
+        database = DatabaseHandle.requestMySql();
 
         instance = this;
     }

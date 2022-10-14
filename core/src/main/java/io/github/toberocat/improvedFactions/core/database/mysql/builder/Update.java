@@ -2,7 +2,7 @@ package io.github.toberocat.improvedFactions.core.database.mysql.builder;
 
 public class Update {
     private String table = "";
-    private UpdateValue value = null;
+    private UpdateValue value;
     private String filter = "";
 
     public Update() {

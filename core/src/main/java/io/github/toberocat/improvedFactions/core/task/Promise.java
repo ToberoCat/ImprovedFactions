@@ -24,7 +24,7 @@ public class Promise<T> implements Consumer<T> {
 
     @Override
     public void accept(T t) {
-        this.result = t;
+        result = t;
         synchronized (this) {
             notifyAll();
         }

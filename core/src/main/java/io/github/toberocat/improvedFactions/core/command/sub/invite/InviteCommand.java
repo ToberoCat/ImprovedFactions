@@ -188,7 +188,7 @@ public class InviteCommand extends Command<InviteCommand.InvitePacket, InviteCom
                                   @NotNull OfflineFactionPlayer<?> receiver,
                                   @NotNull Faction<?> faction,
                                   @NotNull FactionRank rank)
-            implements CommandPacket, ConsoleCommandPacket {
+            implements Command.CommandPacket, Command.ConsoleCommandPacket {
     }
 
 }

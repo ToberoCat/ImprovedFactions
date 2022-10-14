@@ -9,7 +9,6 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.*;
-import java.util.Map.Entry;
 
 @SuppressWarnings("unused")
 public final class Formatting {
@@ -49,8 +48,8 @@ public final class Formatting {
         return DECIMAL_POTENTIAL_FORMAT.format(arg);
     }
 
-    public static @NotNull SortedSet<Entry<String, BigDecimal>> numberSymbols() {
-        SortedSet<Entry<String, BigDecimal>> set = new TreeSet<>(Entry.comparingByValue());
+    public static @NotNull SortedSet<Map.Entry<String, BigDecimal>> numberSymbols() {
+        SortedSet<Map.Entry<String, BigDecimal>> set = new TreeSet<>(Map.Entry.comparingByValue());
         ConfigHandler api = ConfigHandler.api();
         List<String> symbols = api.getSubSections("number-symbols");
         for (String symbol : symbols)
@@ -60,9 +59,9 @@ public final class Formatting {
     }
 
     public static @NotNull String shorten(@NotNull BigDecimal arg) {
-        Entry<String, BigDecimal> checkpoint = null;
+        Map.Entry<String, BigDecimal> checkpoint = null;
 
-        for (Entry<String, BigDecimal> entry : numberSymbols()) {
+        for (Map.Entry<String, BigDecimal> entry : numberSymbols()) {
             BigDecimal number = entry.getValue();
 
             if (arg.compareTo(number) >= 0) {

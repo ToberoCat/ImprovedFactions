@@ -21,7 +21,7 @@ public class LocalPlayerSettings implements SettingHolder {
     public LocalPlayerSettings(@NotNull FileAccess access, @NotNull UUID id) {
         this.id = id;
         this.access = access;
-        this.settingValues = loadFromFile().settingValues();
+        settingValues = loadFromFile().settingValues();
     }
 
     private @NotNull MapWrapper loadFromFile() {

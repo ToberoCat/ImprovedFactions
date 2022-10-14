@@ -35,8 +35,8 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
 
     public SpigotFactionPlayer(Player player) {
         this.player = player;
-        this.translation = new Translation(player.getLocale());
-        this.data = new PersistentWrapper(getUniqueId());
+        translation = new Translation(player.getLocale());
+        data = new PersistentWrapper(getUniqueId());
     }
 
     @Override

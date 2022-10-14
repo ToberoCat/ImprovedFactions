@@ -17,7 +17,7 @@ public class MySqlData implements PersistentData {
     private final MySqlDatabase database;
 
     public MySqlData() {
-        this.database = DatabaseHandle.requestMySql();
+        database = DatabaseHandle.requestMySql();
     }
 
 

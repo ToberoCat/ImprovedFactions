@@ -22,6 +22,7 @@ import io.github.toberocat.improvedfactions.spigot.utils.YamlLoader;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,9 +37,9 @@ public class SpigotGuiView extends AbstractGui {
     private final FactionPlayer<?> fPlayer;
 
     public SpigotGuiView(@NotNull Player player, JsonGui jsonGui) {
-        super(player, createInventory(player, jsonGui.getRows() * 9, jsonGui.getTitle()));
-        this.fPlayer = new SpigotFactionPlayer(player);
-        this.files = new File(ImprovedFactions.api().getDataFolder(), "actions/" + jsonGui.getGuiId());
+        super(player, AbstractGui.createInventory(player, jsonGui.getRows() * 9, jsonGui.getTitle()));
+        fPlayer = new SpigotFactionPlayer(player);
+        files = new File(ImprovedFactions.api().getDataFolder(), "actions/" + jsonGui.getGuiId());
         if (!files.exists()) {
             if (!files.mkdir()) Logger.api()
                     .logWarning("Couldn't create gui actions folder for gui " + jsonGui.getGuiId());
@@ -97,7 +98,7 @@ public class SpigotGuiView extends AbstractGui {
     private void callAction(@NotNull String id, @NotNull String actionPath) {
         File file = new File(files, id + ".yml");
         if (!file.exists()) return;
-        List<String> actions = new YamlLoader(file, MainIF.getPlugin(MainIF.class))
+        List<String> actions = new YamlLoader(file, JavaPlugin.getPlugin(MainIF.class))
                 .load()
                 .fileConfiguration()
                 .getStringList(actionPath);

@@ -16,7 +16,7 @@ public class MySqlWorldClaim implements WorldClaim {
     private final String worldName;
 
     public MySqlWorldClaim(@NotNull String worldName) {
-        this.database = DatabaseHandle.requestMySql();
+        database = DatabaseHandle.requestMySql();
         this.worldName = worldName;
     }
 

@@ -9,6 +9,7 @@ package io.github.toberocat.improvedfactions.spigot.placeholder;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,7 +34,7 @@ public class FactionExpansion extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getVersion() {
-        return MainIF.getPlugin(MainIF.class).getCurrentVersion();
+        return JavaPlugin.getPlugin(MainIF.class).getCurrentVersion();
     }
 
     @Override

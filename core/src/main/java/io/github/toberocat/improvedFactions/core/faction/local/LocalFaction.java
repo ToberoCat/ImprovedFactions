@@ -33,7 +33,6 @@ import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.setting.Setting;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
-import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.DateUtils;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
 import org.jetbrains.annotations.NotNull;
@@ -44,7 +43,6 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Stream;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
@@ -83,66 +81,66 @@ public class LocalFaction implements Faction<LocalFaction> {
      * Jackson constructor. Don't use it
      */
     public LocalFaction() {
-        this.registry = "";
-        this.display = "";
+        registry = "";
+        display = "";
 
-        this.motd = DEFAULT_MOTD;
-        this.tag = DEFAULT_TAG;
-        this.permanent = DEFAULT_PERMANENT;
-        this.frozen = DEFAULT_FROZEN;
+        motd = Faction.DEFAULT_MOTD;
+        tag = Faction.DEFAULT_TAG;
+        permanent = Faction.DEFAULT_PERMANENT;
+        frozen = Faction.DEFAULT_FROZEN;
 
-        this.createdAt = DateUtils.TIME_FORMAT.print(new LocalDateTime());
+        createdAt = DateUtils.TIME_FORMAT.print(new LocalDateTime());
 
-        this.type = DEFAULT_OPEN_TYPE;
+        type = Faction.DEFAULT_OPEN_TYPE;
 
-        this.owner = UUID.randomUUID();
-        this.factionIcon = ItemHandler.api().createStack("minecraft:white_banner", display, 1);
+        owner = UUID.randomUUID();
+        factionIcon = ItemHandler.api().createStack("minecraft:white_banner", display, 1);
 
-        this.modules = new HashMap<>();
-        this.permissions = new HashMap<>();
-        this.memberRanks = new HashMap<>();
-        this.settingValues = new HashMap<>();
+        modules = new HashMap<>();
+        permissions = new HashMap<>();
+        memberRanks = new HashMap<>();
+        settingValues = new HashMap<>();
 
-        this.description = new ArrayList<>();
-        this.enemies = new ArrayList<>();
-        this.allies = new ArrayList<>();
-        this.members = new ArrayList<>();
-        this.banned = new ArrayList<>();
-        this.factionReports = new ArrayList<>();
-        this.sentInvites = new ArrayList<>();
-        this.receivedInvites = new ArrayList<>();
+        description = new ArrayList<>();
+        enemies = new ArrayList<>();
+        allies = new ArrayList<>();
+        members = new ArrayList<>();
+        banned = new ArrayList<>();
+        factionReports = new ArrayList<>();
+        sentInvites = new ArrayList<>();
+        receivedInvites = new ArrayList<>();
     }
 
     public LocalFaction(@NotNull LocalFactionDataType dataType) {
-        this.registry = dataType.registry();
-        this.display = dataType.display();
-        this.motd = dataType.motd();
-        this.tag = dataType.tag();
-        this.permanent = dataType.permanent();
-        this.frozen = dataType.frozen();
-        this.createdAt = dataType.createdAt();
-        this.type = dataType.openType();
-        this.owner = dataType.owner();
-        this.description = dataType.description();
+        registry = dataType.registry();
+        display = dataType.display();
+        motd = dataType.motd();
+        tag = dataType.tag();
+        permanent = dataType.permanent();
+        frozen = dataType.frozen();
+        createdAt = dataType.createdAt();
+        type = dataType.openType();
+        owner = dataType.owner();
+        description = dataType.description();
 
-        this.modules = dataType.modules();
-        this.permissions = dataType.permissions();
-        this.settingValues = dataType.settingValues();
+        modules = dataType.modules();
+        permissions = dataType.permissions();
+        settingValues = dataType.settingValues();
 
-        this.memberRanks = dataType.ranks();
-        this.members = dataType.members();
-        this.banned = dataType.banned();
-        this.allies = dataType.allies();
-        this.enemies = dataType.enemies();
-        this.factionReports = dataType.reports();
-        this.sentInvites = dataType.sentInvites();
-        this.receivedInvites = dataType.receivedInvites();
+        memberRanks = dataType.ranks();
+        members = dataType.members();
+        banned = dataType.banned();
+        allies = dataType.allies();
+        enemies = dataType.enemies();
+        factionReports = dataType.reports();
+        sentInvites = dataType.sentInvites();
+        receivedInvites = dataType.receivedInvites();
 
         try {
-            this.factionIcon = ItemHandler.api().fromBase64(dataType.iconBase64());
+            factionIcon = ItemHandler.api().fromBase64(dataType.iconBase64());
         } catch (IOException e) {
             e.printStackTrace();
-            this.factionIcon = ItemHandler.api().createStack("minecraft:white_banner", display, 1);
+            factionIcon = ItemHandler.api().createStack("minecraft:white_banner", display, 1);
         }
     }
 
@@ -151,10 +149,12 @@ public class LocalFaction implements Faction<LocalFaction> {
             PlayerIsAlreadyInFactionException,
             PlayerIsBannedException, FactionAlreadyExistsException, IllegalFactionNamingException {
         this();
-        this.registry = Faction.displayToRegistry(display);
+        registry = Faction.displayToRegistry(display);
 
-        if (FactionHandler.getLoadedFactions().containsKey(registry)) throw new FactionAlreadyExistsException(this);
-        if (!Faction.validNaming(registry)) throw new IllegalFactionNamingException(this, registry);
+        if (FactionHandler.getLoadedFactions().containsKey(registry))
+            throw new FactionAlreadyExistsException(this);
+        if (!Faction.validNaming(registry))
+            throw new IllegalFactionNamingException(this, registry);
 
         this.display = display;
         this.owner = owner.getUniqueId();
@@ -206,9 +206,11 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @param display The display name of the faction.
      */
     @Override
-    public void setDisplay(@NotNull String display) throws FactionIsFrozenException {
+    public void renameFaction(@NotNull String display)
+            throws FactionIsFrozenException, FactionCantBeRenamedToThisLiteralException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
-        this.display = display;
+        if (!Faction.validNaming(display)) throw new FactionCantBeRenamedToThisLiteralException();
+        this.display = Faction.validateDisplay(display);
     }
 
     /**

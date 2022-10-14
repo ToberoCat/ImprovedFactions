@@ -21,9 +21,9 @@ public abstract class FactionModule<F extends Faction<F>> {
     @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
-        if (obj == null || obj.getClass() != this.getClass()) return false;
+        if (obj == null || obj.getClass() != getClass()) return false;
         var that = (FactionModule<?>) obj;
-        return Objects.equals(this.faction, that.faction);
+        return Objects.equals(faction, that.faction);
     }
 
     @Override

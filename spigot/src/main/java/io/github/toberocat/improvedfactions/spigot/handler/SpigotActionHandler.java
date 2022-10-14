@@ -14,6 +14,7 @@ import io.github.toberocat.improvedfactions.spigot.utils.ItemUtils;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 public record SpigotActionHandler(@NotNull MainIF plugin) implements ActionHandler {
@@ -31,7 +32,7 @@ public record SpigotActionHandler(@NotNull MainIF plugin) implements ActionHandl
         new AnvilGUI.Builder()
                 .onComplete((u, text) -> {
                     try {
-                        faction.setDisplay(MessageHandler.api().format(text));
+                        faction.renameFaction(MessageHandler.api().format(text));
                     } catch (FactionIsFrozenException e) {
                         e.printStackTrace();
                     }
@@ -55,7 +56,7 @@ public record SpigotActionHandler(@NotNull MainIF plugin) implements ActionHandl
         }
 
         try {
-            new BannerDesigner(player, MainIF.getPlugin(MainIF.class));
+            new BannerDesigner(player, JavaPlugin.getPlugin(MainIF.class));
         } catch (FactionNotInStorage | PlayerHasNoFactionException e) {
             e.printStackTrace();
         }

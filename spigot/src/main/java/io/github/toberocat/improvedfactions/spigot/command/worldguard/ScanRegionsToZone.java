@@ -189,11 +189,11 @@ public class ScanRegionsToZone extends Command<ScanRegionsToZone.ScanPacket, Sca
         return new ScanConsolePacket(zone);
     }
 
-    protected record ScanPacket(@NotNull FactionPlayer<?> player, @NotNull Zone zone) implements CommandPacket {
+    protected record ScanPacket(@NotNull FactionPlayer<?> player, @NotNull Zone zone) implements Command.CommandPacket {
 
     }
 
-    protected record ScanConsolePacket(@NotNull Zone zone) implements ConsoleCommandPacket {
+    protected record ScanConsolePacket(@NotNull Zone zone) implements Command.ConsoleCommandPacket {
 
     }
 }

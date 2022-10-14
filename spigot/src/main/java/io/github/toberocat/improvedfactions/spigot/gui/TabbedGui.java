@@ -6,31 +6,31 @@ import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
 public class TabbedGui extends AutoGui {
-    public static final int[] USABLE_SLOTS_5 = new int[]{
+    public static final int[] USABLE_SLOTS_5 = {
             1, 10, 19, 28, 37, // First column
             4, 13, 22, 31, 40, // Second column
             7, 16, 25, 34, 43  // Last column
     };
 
-    public static final int[] USABLE_SLOTS_4 = new int[]{
+    public static final int[] USABLE_SLOTS_4 = {
             1, 10, 19, 28,
             4, 13, 22, 31,
             7, 16, 25, 34
     };
 
-    public static final int[] USABLE_SLOTS_3 = new int[]{
+    public static final int[] USABLE_SLOTS_3 = {
             1, 10, 19,
             4, 13, 22,
             7, 16, 25
     };
 
-    public static final int[] USABLE_SLOTS_2 = new int[]{
+    public static final int[] USABLE_SLOTS_2 = {
             1, 10,
             4, 13,
             7, 16
     };
 
-    public static final int[] USABLE_SLOTS_1 = new int[]{
+    public static final int[] USABLE_SLOTS_1 = {
             1,
             4,
             7

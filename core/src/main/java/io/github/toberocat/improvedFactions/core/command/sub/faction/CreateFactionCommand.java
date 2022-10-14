@@ -163,6 +163,6 @@ public class CreateFactionCommand extends
 
     protected record CreateFactionPacket(@NotNull String display,
                                       @NotNull FactionPlayer<?> owner)
-            implements CommandPacket, ConsoleCommandPacket {
+            implements Command.CommandPacket, Command.ConsoleCommandPacket {
     }
 }

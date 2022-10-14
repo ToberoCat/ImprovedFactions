@@ -78,7 +78,7 @@ public class AcceptInviteCommand extends Command<AcceptInviteCommand.AcceptPacke
     }
 
     @Override
-    public void runConsole(@NotNull ConsoleCommandPacket packet) {
+    public void runConsole(@NotNull Command.ConsoleCommandPacket packet) {
 
     }
 
@@ -123,7 +123,7 @@ public class AcceptInviteCommand extends Command<AcceptInviteCommand.AcceptPacke
 
     protected record AcceptPacket(@NotNull Faction<?> faction,
                                   @NotNull FactionPlayer<?> receiver)
-            implements CommandPacket, ConsoleCommandPacket {
+            implements Command.CommandPacket, Command.ConsoleCommandPacket {
 
     }
 }

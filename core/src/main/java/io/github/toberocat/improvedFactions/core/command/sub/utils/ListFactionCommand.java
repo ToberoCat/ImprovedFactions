@@ -71,10 +71,10 @@ public class ListFactionCommand extends
     }
 
     protected record ListPacket(@NotNull FactionPlayer<?> receiver)
-            implements CommandPacket {
+            implements Command.CommandPacket {
     }
 
-    protected record ListConsolePacket() implements ConsoleCommandPacket {
+    protected record ListConsolePacket() implements Command.ConsoleCommandPacket {
 
     }
 }

@@ -25,14 +25,14 @@ public abstract class FactionRank extends Rank {
                        @NotNull String base64Icon) {
         super(translatable -> translatable.getRanks().get(key).getFaction().getTitle(), registry, priority, admin);
         this.key = key;
-        this.icon = CUtils.createUrl("https://textures.minecraft.net/texture/" + base64Icon);
+        icon = CUtils.createUrl("https://textures.minecraft.net/texture/" + base64Icon);
     }
 
     public FactionRank(Function<Translatable, String> title, String registryName, String base64Icon,
                        int permissionPriority, boolean isAdmin) {
         super(title, registryName, permissionPriority, isAdmin);
-        this.key = "";
-        this.icon = CUtils.createUrl("https://textures.minecraft.net/texture/" + base64Icon);
+        key = "";
+        icon = CUtils.createUrl("https://textures.minecraft.net/texture/" + base64Icon);
     }
 
     @Override

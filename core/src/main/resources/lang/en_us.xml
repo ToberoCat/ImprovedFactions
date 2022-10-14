@@ -169,6 +169,17 @@
                 <set-name>You changed the items name</set-name>
                 <not-enough-args>§cYou have to specify a name for this item</not-enough-args>
             </translate>
+            <rename>
+                <renamed>PLACEHOLDER</renamed>
+                <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
+                <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
+                <invalid-faction-name>PLACEHOLDER</invalid-faction-name>
+                <faction-is-frozen>PLACEHOLDER</faction-is-frozen>
+                <not-enough-args>PLACEHOLDER</not-enough-args>
+                <requires-faction>§cYou need to be in a faction to use this</requires-faction>
+                <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>
+                <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
+            </rename>
             <settings>
                 <requires-faction>§cYou need to be in a faction to use this</requires-faction>
                 <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>

@@ -14,7 +14,7 @@ public class TaskChain<R> {
     private Runnable finished;
 
     public TaskChain(AsyncTask<R> task, Runnable finished) {
-        this.rTask = task;
+        rTask = task;
         this.finished = finished;
     }
 

@@ -23,11 +23,11 @@ public class YamlLoader {
     private Player player;
     private String resource;
 
-    private boolean loaded = false;
-    private boolean success = false;
-    private boolean invalidConfiguration = false;
+    private boolean loaded;
+    private boolean success;
+    private boolean invalidConfiguration;
 
-    private FileConfiguration fileConfiguration = null;
+    private FileConfiguration fileConfiguration;
 
     public YamlLoader(@NotNull File file, @NotNull Plugin plugin) {
         this.plugin = plugin;

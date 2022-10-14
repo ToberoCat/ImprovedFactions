@@ -169,7 +169,7 @@ public class JoinFactionCommand extends Command<JoinFactionCommand.JoinPacket, J
     protected record JoinPacket(@NotNull FactionPlayer<?> player,
                                 @NotNull Faction<?> faction,
                                 @NotNull FactionRank rank)
-            implements CommandPacket, ConsoleCommandPacket {
+            implements Command.CommandPacket, Command.ConsoleCommandPacket {
 
     }
 }

@@ -18,8 +18,10 @@ public class MoveListener {
         World<?> toWorld = to.getWorld();
         if (!fromWorld.getWorldName().equals(toWorld.getWorldName())) return;
 
-        int fromX = from.getX(), fromZ = from.getZ();
-        int toX = to.getX(), toZ = to.getZ();
+        int fromX = from.getX();
+        int fromZ = from.getZ();
+        int toX = to.getX();
+        int toZ = to.getZ();
         if (fromX == toX && fromZ == toZ) return;
 
         WorldClaim fromClaim = ClaimHandler.getWorldClaim(fromWorld);

@@ -11,12 +11,13 @@ import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SpigotGuiSelector extends TabbedGui {
     public SpigotGuiSelector(@NotNull Player player) {
-        super(player, createInventory(player, 54, "Select a gui"));
+        super(player, AbstractGui.createInventory(player, 54, "Select a gui"));
         GuiManager.getGuis().forEach(this::addEditor);
 
         render();
@@ -55,7 +56,7 @@ public class SpigotGuiSelector extends TabbedGui {
                         })
                         .text(gui.getTitle().replaceAll("§", "&"))
                         .itemLeft(ItemUtils.createItem(Material.BOOK, gui.getTitle()))
-                        .plugin(MainIF.getPlugin(MainIF.class))
+                        .plugin(JavaPlugin.getPlugin(MainIF.class))
                         .open(player);
             }
 
@@ -74,7 +75,7 @@ public class SpigotGuiSelector extends TabbedGui {
                         })
                         .text(String.valueOf(gui.getRows()))
                         .itemLeft(ItemUtils.createItem(Material.BOOK, gui.getTitle()))
-                        .plugin(MainIF.getPlugin(MainIF.class))
+                        .plugin(JavaPlugin.getPlugin(MainIF.class))
                         .open(player);
             }
         });

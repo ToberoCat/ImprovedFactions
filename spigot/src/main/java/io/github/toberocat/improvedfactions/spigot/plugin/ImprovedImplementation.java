@@ -37,9 +37,9 @@ public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
 
     public ImprovedImplementation(MainIF plugin) {
         this.plugin = plugin;
-        this.scheduler = new SpigotScheduler(plugin);
-        this.logger = plugin.getLogger();
-        this.sender = Bukkit.getConsoleSender();
+        scheduler = new SpigotScheduler(plugin);
+        logger = plugin.getLogger();
+        sender = Bukkit.getConsoleSender();
     }
 
     @Override

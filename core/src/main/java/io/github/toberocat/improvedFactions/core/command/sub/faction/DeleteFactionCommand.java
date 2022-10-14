@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedFactions.core.command.sub.faction;
 
+import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
 import io.github.toberocat.improvedFactions.core.command.component.ConfirmCommand;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionIsFrozenException;
@@ -107,10 +108,10 @@ public class DeleteFactionCommand extends ConfirmCommand
     }
 
     protected record DeleteFactionPacket(@NotNull Faction<?> faction, @NotNull FactionPlayer<?> executor)
-            implements CommandPacket {
+            implements Command.CommandPacket {
     }
 
     protected record DeleteFactionConsolePacket(@NotNull Faction<?> faction)
-            implements ConsoleCommandPacket {
+            implements Command.ConsoleCommandPacket {
     }
 }

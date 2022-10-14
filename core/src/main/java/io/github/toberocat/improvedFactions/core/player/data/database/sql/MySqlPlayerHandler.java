@@ -17,7 +17,7 @@ public class MySqlPlayerHandler extends PlayerDataHandler {
     private final MySqlDatabase database;
 
     public MySqlPlayerHandler() {
-        this.database = DatabaseHandle.requestMySql();
+        database = DatabaseHandle.requestMySql();
     }
 
     @Override

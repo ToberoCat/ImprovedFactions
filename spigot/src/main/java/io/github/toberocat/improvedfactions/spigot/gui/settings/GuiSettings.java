@@ -5,8 +5,8 @@ public class GuiSettings {
     private Runnable quitGui;
 
     public GuiSettings() {
-        this.pageArrows = false;
-        this.quitGui = null;
+        pageArrows = false;
+        quitGui = null;
     }
 
     public boolean isPageArrows() {

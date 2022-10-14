@@ -31,9 +31,9 @@ public class LocalMessageHandler extends SpigotEventListener implements MessageH
 
     public LocalMessageHandler(@NotNull MainIF plugin) {
         super(plugin);
-        this.fileAccess = new FileAccess(plugin.getDataFolder(),
+        fileAccess = new FileAccess(plugin.getDataFolder(),
                 "data", FileAccess.MESSAGES_FOLDER);
-        this.translation = new Translation("en_us");
+        translation = new Translation("en_us");
 
         register();
     }

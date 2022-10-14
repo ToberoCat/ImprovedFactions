@@ -44,13 +44,13 @@ public class CommandSettings {
 
     public CommandSettings setRequiresFaction(boolean requiresFaction) {
         this.requiresFaction = requiresFaction;
-        this.requiresNoFaction = false;
+        requiresNoFaction = false;
         return this;
     }
 
     public CommandSettings setRequiresNoFaction(boolean requiresNoFaction) {
         this.requiresNoFaction = requiresNoFaction;
-        this.requiresFaction = false;
+        requiresFaction = false;
         return this;
     }
 

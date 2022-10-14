@@ -3,7 +3,7 @@ package io.github.toberocat.improvedFactions.core.database.mysql.builder;
 public class Insert {
     private String table = "";
     private String columns = "";
-    private String[] data = null;
+    private String[] data;
 
     public Insert(String table, String columns, String... data) {
         this.table = table;

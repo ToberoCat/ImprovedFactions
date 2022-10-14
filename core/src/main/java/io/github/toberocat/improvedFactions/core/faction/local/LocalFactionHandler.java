@@ -23,7 +23,7 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
     private final FileAccess access;
 
     public LocalFactionHandler() {
-        this.factions = new HashMap<>();
+        factions = new HashMap<>();
         access = new FileAccess(ImprovedFactions.api().getLocalDataFolder());
 
         instance = this;

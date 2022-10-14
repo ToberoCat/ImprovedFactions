@@ -28,7 +28,7 @@ public class MySqlDatabase implements Database {
                          int port) {
         this.host = host;
         this.user = user;
-        this.password = pw;
+        password = pw;
         this.db = db;
         this.port = port;
     }

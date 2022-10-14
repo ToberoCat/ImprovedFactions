@@ -15,7 +15,7 @@ public class LocalPlayerHandler extends PlayerDataHandler {
     private final FileAccess access;
 
     public LocalPlayerHandler() {
-        this.access = new FileAccess(ImprovedFactions.api().getDataFolder(),
+        access = new FileAccess(ImprovedFactions.api().getDataFolder(),
                 FileAccess.PLAYERS_FOLDER);
     }
 

@@ -18,7 +18,7 @@ public class SpigotCommandHandler {
     private final Command<?, ?> base;
 
     public SpigotCommandHandler(@NotNull Command<?, ?> base) {
-        this.lookup = new HashMap<>();
+        lookup = new HashMap<>();
         this.base = base;
 
         if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard"))

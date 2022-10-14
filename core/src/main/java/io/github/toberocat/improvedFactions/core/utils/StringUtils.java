@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringUtils {
-    public static @Nullable String replaceAll(final String from, Placeholder... placeholders) {
+    public static @Nullable String replaceAll(String from, Placeholder... placeholders) {
         if (from == null) return null;
 
         String rep = from;
@@ -24,7 +24,7 @@ public class StringUtils {
         return rep;
     }
 
-    public static @Nullable String[] replaceAll(final String[] from, Placeholder... placeholders) {
+    public static @Nullable String[] replaceAll(String[] from, Placeholder... placeholders) {
         if (from == null) return null;
 
         List<String> items = new LinkedList<>();

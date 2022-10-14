@@ -28,7 +28,7 @@ public class SpigotOfflineFactionPlayer implements OfflineFactionPlayer<OfflineP
 
     public SpigotOfflineFactionPlayer(OfflinePlayer player) {
         this.player = player;
-        this.data = new PersistentWrapper(getUniqueId());
+        data = new PersistentWrapper(getUniqueId());
     }
 
     @Override

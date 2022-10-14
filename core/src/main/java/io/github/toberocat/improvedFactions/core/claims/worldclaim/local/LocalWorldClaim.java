@@ -27,7 +27,7 @@ public class LocalWorldClaim implements WorldClaim {
     public LocalWorldClaim(@NotNull String worldName, @NotNull FileAccess access) {
         this.access = access;
         this.worldName = worldName;
-        this.cachedClaims = new HashMap<>();
+        cachedClaims = new HashMap<>();
 
         taskId = ImprovedFactions.api()
                 .getScheduler()

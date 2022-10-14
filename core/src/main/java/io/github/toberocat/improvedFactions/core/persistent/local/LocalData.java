@@ -18,8 +18,8 @@ public class LocalData implements PersistentData {
     private final FileAccess access;
 
     public LocalData() {
-        this.entries = new HashMap<>();
-        this.access = new FileAccess(ImprovedFactions.api().getLocalDataFolder());
+        entries = new HashMap<>();
+        access = new FileAccess(ImprovedFactions.api().getLocalDataFolder());
     }
 
     @Override

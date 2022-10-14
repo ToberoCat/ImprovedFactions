@@ -23,7 +23,7 @@ public final class FactionClaims<F extends Faction<F>> {
 
     public FactionClaims(F faction) {
         this.faction = faction;
-        this.claims = null;
+        claims = null;
     }
 
     public static <F extends Faction<F>> FactionClaims<F> createClaims(@NotNull F faction) {
@@ -107,10 +107,10 @@ public final class FactionClaims<F extends Faction<F>> {
     @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
-        if (obj == null || obj.getClass() != this.getClass()) return false;
+        if (obj == null || obj.getClass() != getClass()) return false;
         var that = (FactionClaims<?>) obj;
-        return Objects.equals(this.claims, that.claims) &&
-                Objects.equals(this.faction, that.faction);
+        return Objects.equals(claims, that.claims) &&
+                Objects.equals(faction, that.faction);
     }
 
     @Override

@@ -22,8 +22,8 @@ public abstract class AllyRank extends Rank {
         super(translatable -> translatable.getRanks().get(key).getAlly().getTitle(),
                 registry, -1, false);
         this.key = key;
-        this.icon = CUtils.createUrl("https://textures.minecraft.net/texture/" + base64Icon);
-        this.factionRank = registry.replace(ALLY_IDENTIFIER, "");
+        icon = CUtils.createUrl("https://textures.minecraft.net/texture/" + base64Icon);
+        factionRank = registry.replace(ALLY_IDENTIFIER, "");
     }
 
     @Override

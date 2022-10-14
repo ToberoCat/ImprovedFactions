@@ -40,7 +40,7 @@ public class BakePermissionsCommand extends Command<Command.CommandPacket, Comma
     }
 
     @Override
-    public void run(@NotNull CommandPacket packet) {
+    public void run(@NotNull Command.CommandPacket packet) {
         try {
             PermissionFileTool.bakeToFile(new File(ImprovedFactions.api().getTempFolder(),
                     "baked-permissions.yml"));
@@ -56,7 +56,7 @@ public class BakePermissionsCommand extends Command<Command.CommandPacket, Comma
 
     @Override
     public @Nullable Command.CommandPacket createFromArgs(@NotNull FactionPlayer<?> executor, @NotNull String[] args) {
-        return new CommandPacket() {
+        return new Command.CommandPacket() {
         };
     }
 

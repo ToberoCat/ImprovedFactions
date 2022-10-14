@@ -57,7 +57,7 @@ public class SettingCommand extends Command<SettingCommand.SettingPacket, Comman
     }
 
     @Override
-    public void runConsole(@NotNull ConsoleCommandPacket packet) {
+    public void runConsole(@NotNull Command.ConsoleCommandPacket packet) {
 
     }
 
@@ -68,7 +68,7 @@ public class SettingCommand extends Command<SettingCommand.SettingPacket, Comman
 
     @Override
     public @Nullable Command.ConsoleCommandPacket createFromArgs(@NotNull String[] args) {
-        return new ConsoleCommandPacket() {
+        return new Command.ConsoleCommandPacket() {
         };
     }
 
@@ -76,7 +76,7 @@ public class SettingCommand extends Command<SettingCommand.SettingPacket, Comman
         return node;
     }
 
-    protected record SettingPacket(@NotNull FactionPlayer<?> factionPlayer) implements CommandPacket {
+    protected record SettingPacket(@NotNull FactionPlayer<?> factionPlayer) implements Command.CommandPacket {
 
     }
 

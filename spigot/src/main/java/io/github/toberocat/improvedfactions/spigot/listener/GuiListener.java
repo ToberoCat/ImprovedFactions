@@ -22,20 +22,20 @@ public class GuiListener extends SpigotEventListener {
     }
 
     @EventHandler
-    public void onInventoryClick(final InventoryClickEvent e) {
+    public void onInventoryClick(InventoryClickEvent e) {
         if (GUIS.stream().noneMatch(x -> x.getInventory() == e.getClickedInventory())) return;
 
         for (AbstractGui gui : new ArrayList<>(GUIS)) gui.click(e);
     }
 
     @EventHandler
-    public void onInventoryDrag(final InventoryDragEvent e) {
+    public void onInventoryDrag(InventoryDragEvent e) {
         for (AbstractGui gui : new ArrayList<>(GUIS)) gui.drag(e);
 
     }
 
     @EventHandler
-    public void onInventoryClose(final InventoryCloseEvent e) {
+    public void onInventoryClose(InventoryCloseEvent e) {
         for (AbstractGui gui : new ArrayList<>(GUIS)) gui.close(e);
 
     }

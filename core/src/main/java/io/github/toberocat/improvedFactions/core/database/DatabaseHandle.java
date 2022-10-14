@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class DatabaseHandle {
 
-    private static MySqlDatabase mySqlDatabase = null;
+    private static MySqlDatabase mySqlDatabase;
 
     public static @NotNull MySqlDatabase requestMySql() {
         ConfigHandler config = ConfigHandler.api();
