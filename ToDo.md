@@ -1,3 +1,4 @@
+- [ ] Fix critical bug that allows faction registry to be a mysql statement. This allows them to fuck up the database
 - [ ] Faction map
 - [ ] Faction map rotation fix
 - [ ] Faction map show zones
