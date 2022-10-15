@@ -1,3 +1,4 @@
+- [ ] Fix issue where you can us /f create safezone to claim a safezone chunk
 - [ ] Fix critical bug that allows faction registry to be a mysql statement. This allows them to fuck up the database
 - [ ] Faction map
 - [ ] Faction map rotation fix

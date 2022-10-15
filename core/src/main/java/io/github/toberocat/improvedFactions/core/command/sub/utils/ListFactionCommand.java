@@ -2,6 +2,8 @@ package io.github.toberocat.improvedFactions.core.command.sub.utils;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
@@ -50,9 +52,15 @@ public class ListFactionCommand extends
         List<String> factions = FactionHandler.getAllFactions().toList();
         if (factions.size() == 0) {
             packet.player().sendTranslatable(node.andThen(map -> map.get("no-entries")));
-        } else factions.forEach(f ->
-                packet.player().sendTranslatable(node.andThen(map -> map.get("entry")),
-                        new Placeholder("{faction}", f)));
+        } else {
+            factions.forEach(f ->
+                    packet.player().sendTranslatable(node.andThen(map -> map.get("entry")),
+                            new Placeholder("{faction}", f)));
+            packet.player().sendTranslatable(node.andThen(map -> map.get("lower-text")),
+                    new Placeholder("{factions}", String.valueOf(factions.size())),
+                    new Placeholder("{loaded}",
+                            String.valueOf(FactionHandler.getLoadedFactions().size())));
+        }
     }
 
     @Override
@@ -62,7 +70,7 @@ public class ListFactionCommand extends
 
     @Override
     public @Nullable Command.PlayerPacket createFromArgs(@NotNull FactionPlayer<?> executor,
-                                                                  @NotNull String[] args) {
+                                                         @NotNull String[] args) {
         return new Command.PlayerPacket(executor);
     }
 

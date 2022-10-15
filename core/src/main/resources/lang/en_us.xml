@@ -136,6 +136,7 @@
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </invite>
             <list>
+                <lower-text>There is a total of §a{factions}§f factions on the server. §c{loaded}§f are active right now</lower-text>
                 <entry>§e{faction}</entry>
                 <no-entries>§cThere are no factions saved</no-entries>
                 <description>Lists all factions that exists on the server</description>

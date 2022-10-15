@@ -151,7 +151,7 @@ public class LocalFaction implements Faction<LocalFaction> {
         this();
         registry = Faction.displayToRegistry(display);
 
-        if (FactionHandler.getLoadedFactions().containsKey(registry))
+        if (FactionHandler.getAllFactions().anyMatch(x -> x.equals(registry)))
             throw new FactionAlreadyExistsException(this);
         if (!Faction.validNaming(registry))
             throw new IllegalFactionNamingException(this, registry);

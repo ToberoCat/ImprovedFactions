@@ -117,13 +117,10 @@ public class SpigotCommandHandler {
 
         // Sort results
         List<String> results = new ArrayList<>();
-        for (String arg : args) {
-            for (String a : commands) {
-                if (a.toLowerCase().startsWith(arg.toLowerCase())) {
+        for (String arg : args)
+            for (String a : commands)
+                if (a.toLowerCase().startsWith(arg.toLowerCase()))
                     results.add(a);
-                }
-            }
-        }
 
         return results;
     }

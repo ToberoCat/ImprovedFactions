@@ -86,9 +86,11 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
     @Override
     public @NotNull Stream<String> getAllFactions() {
         return Stream.concat(
-                Arrays.stream(access.list(FileAccess.FACTION_FOLDER)),
-                factions.keySet().stream()
-        );
+                        Arrays.stream(access.list(FileAccess.FACTION_FOLDER)),
+                        factions.keySet().stream()
+                )
+                .map(x -> x.split("\\.")[0])
+                .distinct();
     }
 
     @Override
