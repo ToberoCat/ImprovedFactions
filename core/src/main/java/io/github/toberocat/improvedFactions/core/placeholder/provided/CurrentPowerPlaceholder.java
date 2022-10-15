@@ -1,19 +1,14 @@
-/**
- * Created: 01/10/2022
- *
- * @author Tobias Madlberger (Tobias)
- */
-
-package io.github.toberocat.improvedfactions.spigot.placeholder.provided;
+package io.github.toberocat.improvedFactions.core.placeholder.provided;
 
 import io.github.toberocat.improvedFactions.core.faction.Faction;
+import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.utils.Formatting;
-import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
 public class CurrentPowerPlaceholder implements FactionPlaceholder {
     @Override
-    public @NotNull String run(@NotNull OfflinePlayer player, @NotNull Faction<?> faction) {
+    public @NotNull String run(@NotNull OfflineFactionPlayer<?> player,
+                               @NotNull Faction<?> faction) {
         return Formatting.shorten(faction.getActivePower());
     }
 }

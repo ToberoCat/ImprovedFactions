@@ -9,7 +9,7 @@ package io.github.toberocat.improvedFactions.core.command.sub.faction;
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
 import io.github.toberocat.improvedFactions.core.gui.GuiManager;
-import io.github.toberocat.improvedFactions.core.permission.FactionPermission;
+import io.github.toberocat.improvedFactions.core.faction.components.FactionPermission;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import org.jetbrains.annotations.NotNull;

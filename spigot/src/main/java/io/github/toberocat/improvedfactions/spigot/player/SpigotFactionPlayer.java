@@ -4,6 +4,7 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotIn
 import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
+import io.github.toberocat.improvedFactions.core.handler.MessageHandler;
 import io.github.toberocat.improvedFactions.core.item.ItemStack;
 import io.github.toberocat.improvedFactions.core.location.Location;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
@@ -120,14 +121,17 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
     }
 
     @Override
-    public void sendTranslatable(@NotNull Function<Translatable, String> query, Placeholder... placeholders) {
+    public void sendTranslatable(@NotNull Function<Translatable, String> query,
+                                 Placeholder... placeholders) {
         String msg = getMessage(query, placeholders);
         if (msg != null)
-            player.sendMessage(translation.getMessage(PREFIX_QUERY) + msg);
+            player.sendMessage(MessageHandler.api().format(this,
+                            translation.getMessage(PREFIX_QUERY) + msg));
     }
 
     @Override
-    public void sendClickableTranslatable(@NotNull Function<Translatable, String> query, @NotNull String command, Placeholder... placeholders) {
+    public void sendClickableTranslatable(@NotNull Function<Translatable, String> query,
+                                          @NotNull String command, Placeholder... placeholders) {
         String msg = getMessage(query, placeholders);
         if (msg == null) return;
 

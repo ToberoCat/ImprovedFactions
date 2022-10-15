@@ -5,7 +5,7 @@ import io.github.toberocat.improvedFactions.core.claims.zone.Zone;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
-import io.github.toberocat.improvedFactions.core.permission.FactionPermission;
+import io.github.toberocat.improvedFactions.core.faction.components.FactionPermission;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.world.World;
 import org.jetbrains.annotations.NotNull;

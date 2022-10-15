@@ -1,12 +1,9 @@
-/**
- * Created: 01/10/2022
- *
- * @author Tobias Madlberger (Tobias)
- */
-
 package io.github.toberocat.improvedfactions.spigot.placeholder;
 
+import io.github.toberocat.improvedFactions.core.placeholder.PlaceholderFormatter;
+import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
+import io.github.toberocat.improvedfactions.spigot.player.SpigotOfflineFactionPlayer;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -39,8 +36,9 @@ public class FactionExpansion extends PlaceholderExpansion {
 
     @Override
     public @Nullable String onRequest(OfflinePlayer player, @NotNull String params) {
-        Function<OfflinePlayer, String> function = PlaceholderFormatter.getPlaceholders().get(params);
+        Function<OfflineFactionPlayer<?>, String> function =
+                PlaceholderFormatter.getPlaceholders().get(params);
         if (function == null) return null;
-        return function.apply(player);
+        return function.apply(new SpigotOfflineFactionPlayer(player));
     }
 }

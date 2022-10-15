@@ -20,7 +20,9 @@
     <messages>
         <faction>
             <player>
-                <player>You got unbanned from §e{faction}</player>
+                <unbanned>You got unbanned from §e{faction}</unbanned>
+                <invalid-faction-name>PLACEHOLDER</invalid-faction-name>
+                <faction-is-frozen>PLACEHOLDER</faction-is-frozen>
             </player>
             <broadcast>
                 <player-join>§fPlayer §e{player} §fjoined your faction as §e{rank}</player-join>
@@ -180,6 +182,25 @@
                 <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </rename>
+            <power>
+                <get-power>Your faction has §b%faction_power% / %faction_maxpower% §fpower</get-power>
+                <requires-faction>§cYou need to be in a faction to use this</requires-faction>
+                <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>
+                <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
+            </power>
+            <motd>
+                <set-motd>PLACEHOLDER</set-motd>
+                <send-motd>PLACEHOLDER %faction_motd%</send-motd>
+                <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
+                <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
+                <faction-is-frozen>PLACEHOLDER</faction-is-frozen>
+                <missing-set-motd-permissions>PLACEHOLDER</missing-set-motd-permissions>
+                <not-enough-args>PLACEHOLDER</not-enough-args>
+                <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
+                <requires-faction>§cYou need to be in a faction to use this</requires-faction>
+                <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>
+                <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
+            </motd>
             <settings>
                 <requires-faction>§cYou need to be in a faction to use this</requires-faction>
                 <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>

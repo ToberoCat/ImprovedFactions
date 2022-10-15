@@ -8,7 +8,7 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoF
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.location.Location;
-import io.github.toberocat.improvedFactions.core.permission.FactionPermission;
+import io.github.toberocat.improvedFactions.core.faction.components.FactionPermission;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;

@@ -4,6 +4,7 @@ import io.github.toberocat.improvedFactions.core.gui.GuiManager;
 import io.github.toberocat.improvedFactions.core.gui.JsonGui;
 import io.github.toberocat.improvedFactions.core.handler.MessageHandler;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
+import io.github.toberocat.improvedfactions.spigot.gui.AbstractGui;
 import io.github.toberocat.improvedfactions.spigot.gui.TabbedGui;
 import io.github.toberocat.improvedfactions.spigot.gui.slot.Slot;
 import io.github.toberocat.improvedfactions.spigot.utils.ItemUtils;

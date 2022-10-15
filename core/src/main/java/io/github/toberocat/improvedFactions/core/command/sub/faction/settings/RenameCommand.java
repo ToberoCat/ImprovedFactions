@@ -8,7 +8,7 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotIn
 import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
-import io.github.toberocat.improvedFactions.core.permission.FactionPermission;
+import io.github.toberocat.improvedFactions.core.faction.components.FactionPermission;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import org.jetbrains.annotations.NotNull;

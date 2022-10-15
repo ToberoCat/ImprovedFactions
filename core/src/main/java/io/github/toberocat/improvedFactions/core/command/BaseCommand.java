@@ -5,14 +5,12 @@ import io.github.toberocat.improvedFactions.core.command.component.CommandSettin
 import io.github.toberocat.improvedFactions.core.command.sub.admin.AdminRoot;
 import io.github.toberocat.improvedFactions.core.command.sub.chunk.ClaimCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.chunk.UnclaimCommand;
-import io.github.toberocat.improvedFactions.core.command.sub.admin.zone.ZoneRootCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.CreateFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.DeleteFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.SettingCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.settings.MotdCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.settings.PowerCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.settings.RenameCommand;
-import io.github.toberocat.improvedFactions.core.command.sub.faction.settings.description.DescriptionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.invite.AcceptInviteCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.invite.InviteCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.member.JoinFactionCommand;
@@ -46,7 +44,6 @@ public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleC
         add(new MotdCommand());
         add(new PowerCommand());
         add(new RenameCommand());
-        add(new DescriptionCommand());
     }
 
     @Override

@@ -113,4 +113,12 @@ public abstract class Command<P extends Command.CommandPacket, C extends Command
     public interface ConsoleCommandPacket {
 
     }
+
+    public static record PlayerPacket(FactionPlayer<?> player) implements CommandPacket {
+
+    }
+
+    public static record ConsolePacket() implements ConsoleCommandPacket {
+
+    }
 }

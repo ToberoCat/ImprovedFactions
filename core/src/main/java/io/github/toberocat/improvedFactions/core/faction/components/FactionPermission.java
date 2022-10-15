@@ -1,5 +1,6 @@
-package io.github.toberocat.improvedFactions.core.permission;
+package io.github.toberocat.improvedFactions.core.faction.components;
 
+import io.github.toberocat.improvedFactions.core.permission.Permission;
 import org.jetbrains.annotations.NotNull;
 
 public enum FactionPermission implements Permission {
@@ -8,7 +9,9 @@ public enum FactionPermission implements Permission {
     BREAK_PERMISSION("break-block-permission"),
     PLACE_PERMISSION("place-block-permission"),
     OPEN_SETTINGS_PERMISSION("open-settings-permission"),
-    RENAME_FACTION("rename-permission");
+    RENAME_FACTION("rename-permission"),
+    VIEW_POWER("view-power"),
+    SET_MOTD("set-motd");
 
     final @NotNull String name;
 

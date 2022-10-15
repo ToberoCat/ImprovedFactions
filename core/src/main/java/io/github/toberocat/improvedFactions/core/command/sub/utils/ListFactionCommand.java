@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ListFactionCommand extends
-        Command<ListFactionCommand.ListPacket, ListFactionCommand.ListConsolePacket> {
+        Command<Command.PlayerPacket, Command.ConsolePacket> {
 
     public static final String LABEL = "list";
 
@@ -46,35 +46,28 @@ public class ListFactionCommand extends
     }
 
     @Override
-    public void run(@NotNull ListPacket packet) {
+    public void run(@NotNull Command.PlayerPacket packet) {
         List<String> factions = FactionHandler.getAllFactions().toList();
         if (factions.size() == 0) {
-            packet.receiver.sendTranslatable(node.andThen(map -> map.get("no-entries")));
-        } else factions.forEach(f -> packet.receiver.sendTranslatable(node.andThen(map -> map.get("entry")),
+            packet.player().sendTranslatable(node.andThen(map -> map.get("no-entries")));
+        } else factions.forEach(f ->
+                packet.player().sendTranslatable(node.andThen(map -> map.get("entry")),
                         new Placeholder("{faction}", f)));
     }
 
     @Override
-    public void runConsole(@NotNull ListConsolePacket packet) {
+    public void runConsole(@NotNull ConsolePacket packet) {
         FactionHandler.getAllFactions().forEach(f -> Logger.api().logInfo("%s", f));
     }
 
     @Override
-    public @Nullable ListFactionCommand.ListPacket createFromArgs(@NotNull FactionPlayer<?> executor,
+    public @Nullable Command.PlayerPacket createFromArgs(@NotNull FactionPlayer<?> executor,
                                                                   @NotNull String[] args) {
-        return new ListPacket(executor);
+        return new Command.PlayerPacket(executor);
     }
 
     @Override
-    public @Nullable ListFactionCommand.ListConsolePacket createFromArgs(@NotNull String[] args) {
-        return new ListConsolePacket();
-    }
-
-    protected record ListPacket(@NotNull FactionPlayer<?> receiver)
-            implements Command.CommandPacket {
-    }
-
-    protected record ListConsolePacket() implements Command.ConsoleCommandPacket {
-
+    public @Nullable ConsolePacket createFromArgs(@NotNull String[] args) {
+        return new ConsolePacket();
     }
 }

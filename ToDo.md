@@ -50,7 +50,10 @@
 - [ ] Add option to receive invites even when in faction
 - [ ] Allow offline players to receive translated messages too
 - [ ] Finish icon editor
+- [ ] Add description command
 
-# Placeholder
+# Placeholder (Implemented)
 - %faction_maxpower%
 - %faction_currentpower%
+- %faction_rank%
+- %faction_motd%

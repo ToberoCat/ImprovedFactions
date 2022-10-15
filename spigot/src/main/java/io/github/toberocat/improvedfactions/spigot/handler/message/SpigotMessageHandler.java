@@ -2,8 +2,8 @@ package io.github.toberocat.improvedfactions.spigot.handler.message;
 
 import io.github.toberocat.improvedFactions.core.handler.MessageHandler;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
-import io.github.toberocat.improvedFactions.core.utils.Formatting;
-import io.github.toberocat.improvedfactions.spigot.placeholder.PlaceholderFormatter;
+import io.github.toberocat.improvedFactions.core.placeholder.PlaceholderFormatter;
+import io.github.toberocat.improvedfactions.spigot.player.SpigotOfflineFactionPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -17,7 +17,8 @@ public class SpigotMessageHandler implements MessageHandler {
 
     public SpigotMessageHandler() {
         processor = Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") ?
-                new PlaceHolderAPIProcessor() : PlaceholderFormatter::parse;
+                new PlaceHolderAPIProcessor() : (player, s) ->
+                PlaceholderFormatter.parse(new SpigotOfflineFactionPlayer(player), s);
     }
 
     @Override
