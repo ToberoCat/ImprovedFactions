@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedfactions.spigot.gui.provided;
 
+import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.gui.GuiImplementation;
 import io.github.toberocat.improvedFactions.core.gui.GuiManager;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
@@ -14,7 +15,9 @@ public class SpigotGuiImplementationManager implements GuiImplementation {
     }
 
     @Override
-    public void openGui(@NotNull FactionPlayer<?> player, @NotNull String guiId) {
+    public void openGui(@NotNull FactionPlayer<?> player,
+                        @NotNull String guiId) {
         new SpigotGuiView((Player) player.getRaw(), GuiManager.getGui(guiId));
     }
+
 }

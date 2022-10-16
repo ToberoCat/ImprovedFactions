@@ -6,20 +6,20 @@
 
 package io.github.toberocat.improvedFactions.core.placeholder;
 
-import io.github.toberocat.improvedFactions.core.placeholder.provided.CurrentPowerPlaceholder;
-import io.github.toberocat.improvedFactions.core.placeholder.provided.MaxPowerPlaceholder;
-import io.github.toberocat.improvedFactions.core.placeholder.provided.MotdPlaceholder;
-import io.github.toberocat.improvedFactions.core.placeholder.provided.RankPlaceholder;
+import io.github.toberocat.improvedFactions.core.placeholder.provided.*;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
 public class PlaceholderFormatter {
     private static final Map<String, Function<OfflineFactionPlayer<?>, String>> placeholders =
             new HashMap<>();
+    private static final List<UnboundPlaceholder> universalPlaceholders = new ArrayList<>();
 
     static {
         register("currentpower", new CurrentPowerPlaceholder());
@@ -33,18 +33,34 @@ public class PlaceholderFormatter {
         placeholders.put(placeholder, query);
     }
 
+    public static void register(@NotNull UnboundPlaceholder query) {
+        universalPlaceholders.add(query);
+    }
+
+
     public static Map<String, Function<OfflineFactionPlayer<?>, String>> getPlaceholders() {
         return placeholders;
     }
 
     public static @NotNull String parse(OfflineFactionPlayer<?> player, @NotNull String text) {
-        var ref = new Object() {
-            String fText = text;
-        };
-        placeholders.forEach((literal, function) ->
-                ref.fText = ref.fText.replaceAll("%faction_" + literal + "%",
-                        function.apply(player)));
+        String[] parts = text.split("%");
+        for (int i = 0; i < parts.length; i += 2) {
+            System.out.println("Text: " + parts[i]);
+            if (i + 1 < parts.length) {
+                String placeholder = parts[i + 1];
+                if (!placeholders.containsKey(placeholder)) {
+                    UnboundPlaceholder action = universalPlaceholders
+                            .stream()
+                            .filter(x -> x.canParse(placeholder))
+                            .findFirst()
+                            .orElse(null);
 
-        return ref.fText;
+                    if (action != null)
+                        parts[i + 1] = action.apply(placeholder, player);
+                } else parts[i + 1] = placeholders.get(placeholder).apply(player);
+            }
+        }
+
+        return String.join(" ", parts);
     }
 }

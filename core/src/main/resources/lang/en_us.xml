@@ -137,7 +137,8 @@
             </invite>
             <list>
                 <lower-text>There is a total of §a{factions}§f factions on the server. §c{loaded}§f are active right now</lower-text>
-                <entry>§e{faction}</entry>
+                <entry-loaded>§e{faction} - §aActive</entry-loaded>
+                <entry-unloaded>§e{faction} - §cInactive</entry-unloaded>
                 <no-entries>§cThere are no factions saved</no-entries>
                 <description>Lists all factions that exists on the server</description>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
@@ -202,6 +203,20 @@
                 <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </motd>
+            <who>
+                <who-entry-0>§7----( §e{faction-name} §7)----</who-entry-0>
+                <who-entry-1>§e{faction-description}</who-entry-1>
+                <who-entry-2/>
+                <who-entry-3>Motd: §e{faction-motd}</who-entry-3>
+                <who-entry-4>Registry: §e{faction-registry}</who-entry-4>
+                <who-entry-5>Owner: §e{faction-owner}</who-entry-5>
+                <who-entry-5>Members: §e{faction-online}/{faction-members}</who-entry-5>
+                <who-entry-5>Power: §e{faction-power}/{faction-maxpower}</who-entry-5>
+
+                <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
+                <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
+                <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
+            </who>
             <settings>
                 <requires-faction>§cYou need to be in a faction to use this</requires-faction>
                 <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>

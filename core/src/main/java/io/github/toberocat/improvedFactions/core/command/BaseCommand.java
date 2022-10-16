@@ -17,6 +17,7 @@ import io.github.toberocat.improvedFactions.core.command.sub.member.JoinFactionC
 import io.github.toberocat.improvedFactions.core.command.sub.member.LeaveFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.utils.BakePermissionsCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.utils.ListFactionCommand;
+import io.github.toberocat.improvedFactions.core.command.sub.utils.WhoFactionCommand;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -44,6 +45,7 @@ public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleC
         add(new MotdCommand());
         add(new PowerCommand());
         add(new RenameCommand());
+        add(new WhoFactionCommand());
     }
 
     @Override
