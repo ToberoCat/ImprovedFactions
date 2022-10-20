@@ -81,7 +81,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- ImprovedFactions Core - Requires local build -->
+        <!-- ImprovedFactions Core - Requires localFaction build -->
         <dependency>
             <groupId>io.github.toberocat.improvedfactions</groupId>
             <artifactId>core</artifactId>

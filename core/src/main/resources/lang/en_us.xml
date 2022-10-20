@@ -49,7 +49,8 @@
                     unclaimed
                 </auto-activated>
                 <chunk-not-yours>§cYou can not unclaim other factions chunks.</chunk-not-yours>
-                <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>
+                <missing-faction-permission>§cYou do not have the required FACTION permission
+                </missing-faction-permission>
                 <total-area>You have claimed §e{success}/{total}§f chunks</total-area>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </unclaim>
@@ -136,7 +137,9 @@
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </invite>
             <list>
-                <lower-text>There is a total of §a{factions}§f factions on the server. §c{loaded}§f are active right now</lower-text>
+                <lower-text>There is a total of §a{factions}§f factions on the server. §c{loaded}§f are active right
+                    now
+                </lower-text>
                 <entry-loaded>§e{faction} - §aActive</entry-loaded>
                 <entry-unloaded>§e{faction} - §cInactive</entry-unloaded>
                 <no-entries>§cThere are no factions saved</no-entries>
@@ -181,13 +184,15 @@
                 <faction-is-frozen>PLACEHOLDER</faction-is-frozen>
                 <not-enough-args>PLACEHOLDER</not-enough-args>
                 <requires-faction>§cYou need to be in a faction to use this</requires-faction>
-                <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>
+                <missing-faction-permission>§cYou do not have the required FACTION permission
+                </missing-faction-permission>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </rename>
             <power>
                 <get-power>Your faction has §b%faction_power% / %faction_maxpower% §fpower</get-power>
                 <requires-faction>§cYou need to be in a faction to use this</requires-faction>
-                <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>
+                <missing-faction-permission>§cYou do not have the required FACTION permission
+                </missing-faction-permission>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </power>
             <motd>
@@ -200,7 +205,8 @@
                 <not-enough-args>PLACEHOLDER</not-enough-args>
                 <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
                 <requires-faction>§cYou need to be in a faction to use this</requires-faction>
-                <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>
+                <missing-faction-permission>§cYou do not have the required FACTION permission
+                </missing-faction-permission>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </motd>
             <who>
@@ -217,14 +223,26 @@
                 <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </who>
+            <kick>
+                <kicked-player>PLACEHOLDER</kicked-player>
+                <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
+                <not-enough-args>PLACEHOLDER</not-enough-args>
+                <player-not-found>PLACEHOLDER</player-not-found>
+                <faction-is-frozen>PLACEHOLDER</faction-is-frozen>
+                <kicked-not-in-faction>PLACEHOLDER</kicked-not-in-faction>
+                <faction-not-in-storage>PLACEHOLDER</faction-not-in-storage>
+                <player-has-no-faction>PLACEHOLDER</player-has-no-faction>
+                <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
+            </kick>
             <settings>
                 <requires-faction>§cYou need to be in a faction to use this</requires-faction>
-                <missing-faction-permission>§cYou do not have the required FACTION permission</missing-faction-permission>
+                <missing-faction-permission>§cYou do not have the required FACTION permission
+                </missing-faction-permission>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </settings>
         </command>
     </messages>
-    <prefix>§8[§eIF§8]§f </prefix>
+    <prefix>§8[§eIF§8]§f</prefix>
     <ranks>
         <guest>
             <faction>

@@ -2,6 +2,7 @@ package io.github.toberocat.improvedFactions.core.utils;
 
 import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
+import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.world.World;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,6 +11,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
+import java.util.stream.Stream;
 
 public final class CUtils {
     public static URL createUrl(@NotNull String url) {
@@ -49,5 +54,12 @@ public final class CUtils {
         else return;
 
         Files.copy(src, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+    }
+
+    public static @NotNull List<String> mapToPlayerNames(Stream<UUID> uuidStream) {
+        return uuidStream.map(x -> ImprovedFactions.api().getOfflinePlayer(x))
+                .filter(Objects::nonNull)
+                .map(OfflineFactionPlayer::getName)
+                .toList();
     }
 }

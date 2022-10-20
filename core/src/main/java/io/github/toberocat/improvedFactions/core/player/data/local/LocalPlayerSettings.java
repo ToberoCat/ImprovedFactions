@@ -2,7 +2,7 @@ package io.github.toberocat.improvedFactions.core.player.data.local;
 
 import io.github.toberocat.improvedFactions.core.exceptions.setting.ErrorParsingSettingException;
 import io.github.toberocat.improvedFactions.core.setting.Setting;
-import io.github.toberocat.improvedFactions.core.setting.SettingHolder;
+import io.github.toberocat.improvedFactions.core.setting.Settings;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-public class LocalPlayerSettings implements SettingHolder {
+public class LocalPlayerSettings implements Settings {
 
     private final HashMap<String, String> settingValues;
     private final FileAccess access;

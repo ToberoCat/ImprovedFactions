@@ -8,6 +8,7 @@ import io.github.toberocat.improvedFactions.core.command.sub.chunk.UnclaimComman
 import io.github.toberocat.improvedFactions.core.command.sub.faction.CreateFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.DeleteFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.SettingCommand;
+import io.github.toberocat.improvedFactions.core.command.sub.faction.management.KickFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.settings.MotdCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.settings.PowerCommand;
 import io.github.toberocat.improvedFactions.core.command.sub.faction.settings.RenameCommand;
@@ -46,6 +47,7 @@ public class BaseCommand extends Command<Command.CommandPacket, Command.ConsoleC
         add(new PowerCommand());
         add(new RenameCommand());
         add(new WhoFactionCommand());
+        add(new KickFactionCommand());
     }
 
     @Override

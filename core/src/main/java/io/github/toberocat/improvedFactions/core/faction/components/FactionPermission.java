@@ -11,6 +11,7 @@ public enum FactionPermission implements Permission {
     OPEN_SETTINGS_PERMISSION("open-settings-permission"),
     RENAME_FACTION("rename-permission"),
     VIEW_POWER("view-power"),
+    KICK_PLAYER("kick-player"),
     SET_MOTD("set-motd");
 
     final @NotNull String name;

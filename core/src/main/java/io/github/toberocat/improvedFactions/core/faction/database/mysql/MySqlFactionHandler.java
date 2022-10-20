@@ -20,6 +20,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 public class MySqlFactionHandler implements FactionHandlerInterface<MySqlFaction> {
@@ -108,11 +109,11 @@ public class MySqlFactionHandler implements FactionHandlerInterface<MySqlFaction
         database.executeUpdate(MySqlDatabase.DELETE_FACTION, DatabaseVar.of("registry", registry));
     }
 
-    public @NotNull FactionRank getSavedRank(@NotNull OfflineFactionPlayer<?> player) {
+    public @NotNull FactionRank getSavedRank(@NotNull UUID player) {
         return (FactionRank) Rank.fromString(database.rowSelect(new Select()
                         .setTable("players")
                         .setColumns("member_rank")
-                        .setFilter("uuid = %s", player.getUniqueId().toString()))
+                        .setFilter("uuid = %s", player.toString()))
                 .readRow(String.class, "member_rank")
                 .orElse(GuestRank.REGISTRY));
     }

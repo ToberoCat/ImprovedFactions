@@ -14,10 +14,10 @@ import io.github.toberocat.improvedFactions.core.faction.components.report.Facti
 import io.github.toberocat.improvedFactions.core.handler.MessageHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.item.ItemStack;
-import io.github.toberocat.improvedFactions.core.permission.FactionPermissions;
+import io.github.toberocat.improvedFactions.core.permission.Permissions;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
-import io.github.toberocat.improvedFactions.core.setting.SettingHolder;
+import io.github.toberocat.improvedFactions.core.setting.Settings;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
@@ -32,7 +32,7 @@ import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-public interface Faction<F extends Faction<F>> extends FactionPermissions, SettingHolder {
+public interface Faction<F extends Faction<F>> extends Permissions, Settings {
     /* Static vars */
     int allyId = 0;
     int neutralId = 1;
@@ -45,7 +45,8 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
 
     /* Default values */
 
-    String DEFAULT_MOTD = ConfigHandler.api().getString("faction.default.motd", "Newly created faction");
+    String DEFAULT_MOTD = ConfigHandler.api().getString("faction.default.motd",
+            "Newly created faction");
     String DEFAULT_TAG = ConfigHandler.api().getString("faction.default.tag", "IFF");
 
     boolean DEFAULT_FROZEN = ConfigHandler.api().getBool("faction.default.frozen");
@@ -84,7 +85,8 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
      * If the name is 'safezone' or 'warzone', return false. Otherwise, return the result of the
      * ForbiddenChecker.checkName() function.
      * <p>
-     * The ForbiddenChecker.checkName() function is defined in the same file, and it's a bit more complicated.
+     * The ForbiddenChecker.checkName() function is defined in the same file,
+     * and it's a bit more complicated.
      * It checks if a word has an high similarity to an forbidden one
      *
      * @param name The name of the faction
@@ -116,6 +118,7 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
 
     /**
      * Get the icon of this faction
+     *
      * @return The icon
      */
     @NotNull ItemStack getIcon();
@@ -125,7 +128,8 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
      *
      * @param display The display name of the faction.
      */
-    void renameFaction(@NotNull String display) throws FactionIsFrozenException, FactionCantBeRenamedToThisLiteralException;
+    void renameFaction(@NotNull String display) throws FactionIsFrozenException,
+            FactionCantBeRenamedToThisLiteralException;
 
     /**
      * Set the icon of this faction
@@ -218,7 +222,8 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
     /**
      * Sets whether the faction is permanent or not
      *
-     * @param permanent If true, the faction will be stored permanently. If false, the faction needs to be
+     * @param permanent If true, the faction will be stored permanently.
+     *                  If false, the faction needs to be
      *                  deleted when the owner tries to leave
      */
     void setPermanent(boolean permanent);
@@ -249,12 +254,29 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
     @NotNull Rank getPlayerRank(@NotNull OfflineFactionPlayer<?> player);
 
     /**
+     * Gets the rank of the specified player
+     *
+     * @param id The player's uuid
+     * @return The rank of the player
+     */
+    @NotNull Rank getPlayerRank(@NotNull UUID id);
+
+    /**
      * Returns true if the player is a member of the faction
      *
      * @param player The player to check.
      * @return If the player is in the faction
      */
     boolean isMember(@NotNull OfflineFactionPlayer<?> player);
+
+
+    /**
+     * Returns true if the player is a member of the faction
+     *
+     * @param player The player to check.
+     * @return If the player is in the faction
+     */
+    boolean isMember(@NotNull UUID player);
 
     /**
      * Changes the rank of the specified player to the specified rank
@@ -317,7 +339,9 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
      * @param player The player to join the game.
      * @return If it was able to join
      */
-    boolean joinPlayer(@NotNull FactionPlayer<?> player) throws FactionIsFrozenException, PlayerIsAlreadyInFactionException, PlayerIsBannedException;
+    boolean joinPlayer(@NotNull FactionPlayer<?> player)
+            throws FactionIsFrozenException, PlayerIsAlreadyInFactionException,
+            PlayerIsBannedException;
 
     /**
      * Join a player in a faction to a rank.
@@ -326,7 +350,9 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
      * @param rank   The rank that the player will be joining as.
      * @return If the player was able to join
      */
-    boolean joinPlayer(@NotNull FactionPlayer<?> player, @NotNull FactionRank rank) throws FactionIsFrozenException, PlayerIsAlreadyInFactionException, PlayerIsBannedException;
+    boolean joinPlayer(@NotNull FactionPlayer<?> player, @NotNull FactionRank rank)
+            throws FactionIsFrozenException, PlayerIsAlreadyInFactionException,
+            PlayerIsBannedException;
 
     /**
      * Removes a player from the faction
@@ -334,7 +360,9 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
      * @param player The player to leave the faction.
      * @return If the player was able to leave
      */
-    boolean leavePlayer(@NotNull FactionPlayer<?> player) throws FactionIsFrozenException, PlayerIsOwnerException, PlayerHasNoFactionException;
+    boolean leavePlayer(@NotNull FactionPlayer<?> player)
+            throws FactionIsFrozenException, PlayerIsOwnerException,
+            PlayerHasNoFactionException;
 
     /**
      * This function kicks a player from the faction
@@ -342,7 +370,8 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
      * @param player The player to kick.
      * @return If the player was able to kicked
      */
-    boolean kickPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException;
+    boolean kickPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException,
+            PlayerNotAMember;
 
     /**
      * This function bans a player.
@@ -350,7 +379,7 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
      * @param player The player to ban.
      * @return If the player was able to get banned
      */
-    boolean banPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException;
+    boolean banPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException, PlayerNotAMember;
 
     /**
      * Pardon a player from the ban list.
@@ -561,7 +590,9 @@ public interface Faction<F extends Faction<F>> extends FactionPermissions, Setti
      *
      * @param query The key of the translatable message.
      */
-    default void broadcastTranslatable(@NotNull Function<Translatable, String> query, Placeholder... parseables) {
+    default void broadcastTranslatable(@NotNull Function<Translatable,
+            @NotNull String> query,
+            Placeholder... parseables) {
         ImprovedFactions<?> api = ImprovedFactions.api();
         getMembers()
                 .map(api::getOfflinePlayer)

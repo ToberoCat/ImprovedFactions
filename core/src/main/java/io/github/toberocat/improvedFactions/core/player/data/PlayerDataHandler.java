@@ -3,7 +3,7 @@ package io.github.toberocat.improvedFactions.core.player.data;
 import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
 import io.github.toberocat.improvedFactions.core.player.data.database.sql.MySqlPlayerHandler;
 import io.github.toberocat.improvedFactions.core.player.data.local.LocalPlayerHandler;
-import io.github.toberocat.improvedFactions.core.setting.SettingHolder;
+import io.github.toberocat.improvedFactions.core.setting.Settings;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
@@ -17,7 +17,7 @@ public abstract class PlayerDataHandler {
         return new LocalPlayerHandler();
     }
 
-    public abstract @NotNull SettingHolder getSettings(@NotNull UUID id);
+    public abstract @NotNull Settings getSettings(@NotNull UUID id);
 
     public void leave(@NotNull UUID id) {
 

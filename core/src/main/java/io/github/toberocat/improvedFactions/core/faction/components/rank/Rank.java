@@ -7,7 +7,9 @@ import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -46,7 +48,9 @@ public abstract class Rank {
 
     public static Stream<Rank> getPriorityRanks(Rank rank) {
         int priority = getPriority(rank);
-        return ranks.values().stream().filter(x -> x.priority >= 0 && x.priority < priority);
+        return ranks.values()
+                .stream()
+                .filter(x -> x.priority >= 0 && x.priority < priority);
     }
 
     public static @NotNull Rank fromString(String str) {
@@ -56,9 +60,14 @@ public abstract class Rank {
     public static int getPriority(@NotNull Rank rank) {
         return rank.priority < 0 ?
                 rank.getRegistry().equals(FactionOwnerRank.REGISTRY)
-                        ? 100
+                        ? 1000
                         : -1
+
                 : rank.priority;
+    }
+
+    public static Collection<Rank> getRanks() {
+        return ranks.values();
     }
 
     public abstract @NotNull Rank getEquivalent();

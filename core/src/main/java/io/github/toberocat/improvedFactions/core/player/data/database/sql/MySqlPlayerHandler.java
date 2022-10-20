@@ -6,7 +6,7 @@ import io.github.toberocat.improvedFactions.core.database.mysql.builder.Select;
 import io.github.toberocat.improvedFactions.core.exceptions.setting.ErrorParsingSettingException;
 import io.github.toberocat.improvedFactions.core.player.data.PlayerDataHandler;
 import io.github.toberocat.improvedFactions.core.setting.Setting;
-import io.github.toberocat.improvedFactions.core.setting.SettingHolder;
+import io.github.toberocat.improvedFactions.core.setting.Settings;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
@@ -21,8 +21,8 @@ public class MySqlPlayerHandler extends PlayerDataHandler {
     }
 
     @Override
-    public @NotNull SettingHolder getSettings(@NotNull UUID id) {
-        return new SettingHolder() {
+    public @NotNull Settings getSettings(@NotNull UUID id) {
+        return new Settings() {
             @Override
             public <T> void setSetting(@NotNull Setting<T> setting, T value) {
                 database.executeUpdate("INSERT INTO player_settings VALUE (%s, %s, %s)",

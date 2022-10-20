@@ -34,8 +34,6 @@ import io.github.toberocat.improvedFactions.core.permission.Permission;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.setting.Setting;
-import io.github.toberocat.improvedFactions.core.translator.Placeholder;
-import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.DateUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -44,7 +42,6 @@ import org.joda.time.LocalDateTime;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Stream;
 
 /**
@@ -399,12 +396,19 @@ public class MySqlFaction implements Faction<MySqlFaction> {
 
     @Override
     public @NotNull Rank getPlayerRank(@NotNull OfflineFactionPlayer<?> player) {
-        if (isMember(player)) return getDbRank(player);
-        if (isAllied(player)) return getDbRank(player).getEquivalent();
+        if (isMember(player)) return getDbRank(player.getUniqueId());
+        if (isAllied(player)) return getDbRank(player.getUniqueId()).getEquivalent();
         return Rank.fromString(GuestRank.REGISTRY);
     }
 
-    private @NotNull FactionRank getDbRank(@NotNull OfflineFactionPlayer<?> player) {
+    @Override
+    public @NotNull Rank getPlayerRank(@NotNull UUID id) {
+        if (isMember(id)) return getDbRank(id);
+        if (isAllied(id)) return getDbRank(id).getEquivalent();
+        return Rank.fromString(GuestRank.REGISTRY);
+    }
+
+    private @NotNull FactionRank getDbRank(@NotNull UUID player) {
         MySqlFactionHandler handler = MySqlFactionHandler.getInstance();
 
         if (handler == null) throw new FactionHandlerNotFound("A database faction " +
@@ -424,6 +428,17 @@ public class MySqlFaction implements Faction<MySqlFaction> {
                 .equals(registry);
     }
 
+    @Override
+    public boolean isMember(@NotNull UUID player) {
+        return database.rowSelect(new Select()
+                        .setTable("players")
+                        .setColumns("faction")
+                        .setFilter("uuid = %s", player.toString()))
+                .readRow(String.class, "faction")
+                .orElse("")
+                .equals(registry);
+    }
+
 
     /**
      * @param player The player you want to change the rank of.
@@ -435,7 +450,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
         if (!isMember(player)) return;
-        FactionRank previous = getDbRank(player);
+        FactionRank previous = getDbRank(player.getUniqueId());
 
         database.executeUpdate("UPDATE players SET member_rank = %s WHERE uuid = %s",
                 rank.getRegistry(), player.getUniqueId().toString());
@@ -548,7 +563,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
         database.executeUpdate("UPDATE players SET faction = %s WHERE uuid = %s",
                 null, player.getUniqueId().toString());
 
-        FactionRank previous = getDbRank(player);
+        FactionRank previous = getDbRank(player.getUniqueId());
 
         database.executeUpdate("UPDATE players SET member_rank = %s WHERE uuid = %s",
                 GuestRank.REGISTRY, player.getUniqueId().toString());
@@ -786,6 +801,15 @@ public class MySqlFaction implements Faction<MySqlFaction> {
                 .orElse("")));
     }
 
+    public boolean isAllied(@NotNull UUID player) {
+        return getAllies().anyMatch(x -> x.equals(database.rowSelect(new Select()
+                        .setTable("players")
+                        .setColumns("faction")
+                        .setFilter("uuid = %s", player.toString()))
+                .readRow(String.class, "faction")
+                .orElse("")));
+    }
+
     @Override
     public boolean addEnemy(@NotNull Faction<?> faction) throws FactionIsFrozenException {
         return !setStatus(faction, Faction.enemyId);
@@ -948,8 +972,8 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     public void setPermission(@NotNull Permission permission, String[] ranks) {
         for (String rank : ranks)
             database
-                .executeUpdate("INSERT INTO faction_permissions VALUE (%s, %s, %s)",
-                        registry, rank, permission);
+                    .executeUpdate("INSERT INTO faction_permissions VALUE (%s, %s, %s)",
+                            registry, rank, permission);
     }
 
     @Override
