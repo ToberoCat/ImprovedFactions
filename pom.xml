@@ -54,11 +54,6 @@
         </dependency>
     </dependencies>
 
-    <modules>
-        <module>core</module>
-        <module>spigot</module>
-    </modules>
-
     <build>
         <defaultGoal>clean package</defaultGoal>
         <finalName>${project.name}-${project.version}</finalName>
