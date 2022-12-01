@@ -1,0 +1,108 @@
+.wrapper, html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.flex-container {
+    display: flex;
+    width: 100%;
+    height: 10%;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.shadow {
+    box-shadow: 0 0 20px 1px #cccccc;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.break {
+    flex-basis: 100%;
+    height: 0;
+}
+
+#header {
+    width: 100%;
+    height: 10vh;
+    margin-bottom: 5px;
+}
+
+#properties-window {
+    flex-grow: 1;
+}
+
+#gui {
+    flex-grow: 2;
+    max-width: 700px;
+}
+
+#item-window {
+    flex-grow: 1;
+    min-width: 20%;
+    max-width: 25%;
+    min-height: 85vh;
+    max-height: 85vh;
+    overflow-y: scroll;
+}
+
+#item-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#item-search {
+    position: sticky;
+    margin-top: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
+    top: 0;
+    width: 97%;
+}
+
+#properties-container {
+    margin: 20px 0 20px 20px;
+}
+
+#gui-slots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.slot {
+    image-rendering: pixelated;
+    width: 30px;
+    height: 30px;
+}
+
+.properties-label {
+    position: relative;
+}
+
+.properties-input {
+    float: right;
+    margin-right: 10px;
+}
+
+.logo-image {
+    position: relative;
+    top: 1vh;
+    left: 1vh;
+    width: 8vh;
+    height: 8vh;
+}
