@@ -1,6 +1,7 @@
-.wrapper, html, body {
+html, body {
     height: 100%;
     margin: 0;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .flex-container {
@@ -36,68 +37,6 @@
     margin-bottom: 5px;
 }
 
-#properties-window {
-    flex-grow: 1;
-}
-
-#gui {
-    flex-grow: 2;
-    max-width: 700px;
-}
-
-#item-window {
-    flex-grow: 1;
-    min-width: 20%;
-    max-width: 25%;
-    min-height: 85vh;
-    max-height: 85vh;
-    overflow-y: scroll;
-}
-
-#item-container {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-#item-search {
-    position: sticky;
-    margin-top: 10px;
-    margin-left: 2px;
-    margin-right: 2px;
-    top: 0;
-    width: 97%;
-}
-
-#properties-container {
-    margin: 20px 0 20px 20px;
-}
-
-#gui-slots {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.slot {
-    image-rendering: pixelated;
-    width: 30px;
-    height: 30px;
-}
-
-.properties-label {
-    position: relative;
-}
-
-.properties-input {
-    float: right;
-    margin-right: 10px;
-}
 
 .logo-image {
     position: relative;
@@ -106,3 +45,56 @@
     width: 8vh;
     height: 8vh;
 }
+
+/*
+
+@media only screen and (max-width: 1320px) {
+    body {
+        background: #3a3a3a;
+    }
+
+    .flex-container {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: normal;
+        align-items: stretch;
+        align-content: stretch;
+    }
+
+    #properties-window {
+        display: block;
+        flex-grow: 1;
+        flex-shrink: 1;
+        align-self: auto;
+        order: 0;
+        min-width: revert;
+        max-width: none;
+        flex-basis: 100%;
+        width: 100%;
+    }
+
+    #gui {
+        display: block;
+        flex-grow: 1;
+        flex-shrink: 1;
+        align-self: auto;
+        order: 0;
+        min-width: revert;
+        max-width: none;
+        width: 100%;
+        flex-basis: 100%;
+    }
+
+    #item-window {
+        display: block;
+        flex-grow: 1;
+        flex-shrink: 1;
+        align-self: auto;
+        order: 0;
+        min-width: revert;
+        max-width: none;
+        width: 100%;
+        flex-basis: 100%;
+    }
+}*/

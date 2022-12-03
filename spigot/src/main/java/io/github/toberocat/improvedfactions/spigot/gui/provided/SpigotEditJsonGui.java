@@ -65,16 +65,16 @@ public class SpigotEditJsonGui extends AbstractGui {
                 .peek(ItemUtils::resetTranslation)
                 .map(SpigotItemStack::new)
                 .toArray(SpigotItemStack[]::new);
-        Map<ItemContainer, String> actionMap = new HashMap<>();
+        Map<String, ItemContainer> stateMap = new HashMap<>();
         for (int i = 0; i < stacks.length; i++) {
             io.github.toberocat.improvedFactions.core.item.ItemStack stack = stacks[i];
             if (stack == null) continue;
 
-            String actions = slotActions[i];
-            actionMap.put(new ItemContainer(i, stack), actions);
+            String state = slotActions[i];
+            stateMap.put(state, new ItemContainer(i, stack));
         }
 
-        jsonGui.setContent(actionMap);
+        jsonGui.setContent(stateMap);
     }
 
     @Override

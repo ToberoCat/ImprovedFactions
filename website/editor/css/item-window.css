@@ -1,0 +1,22 @@
+#item-window {
+    flex-grow: 1;
+    min-width: 20%;
+    max-width: 25%;
+    min-height: 85vh;
+    max-height: 85vh;
+    overflow-y: scroll;
+}
+
+#item-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#item-search {
+    position: sticky;
+    margin-top: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
+    top: 0;
+    width: 97%;
+}

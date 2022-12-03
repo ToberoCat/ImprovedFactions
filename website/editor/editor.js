@@ -90,15 +90,51 @@ class Gui {
         this.properties = properties;
     }
 
+    generateGui() {
+        return this.parseQueryGui()
+            .then(content => {
+                this.content = content;
+                if (this.content)
+                    return;
+                this.content = {
+                    guiTitleTranslation: "none",
+                    rows: 6,
+                    items: []
+                };
+            })
+            .catch(err => console.log("Couldn't read gui from query"));
+    }
+
+    parseQueryGui() {
+        return new Promise((resolve, reject) => {
+            const params = new Proxy(new URLSearchParams(window.location.search), {
+                get: (searchParams, prop) => searchParams.get(prop),
+            });
+             resolve(JSON.parse(atob(params.gui)));
+        });
+    }
+
     renderGui() {
         this.parent.innerHTML = "";
         const rows = Math.min(6, Math.max(1, parseInt(this.properties.getProperty("Rows"))));
         for (let i = 0; i < rows; i++) {
             const container = document.createElement("div");
+            if (!this.content.items[i])
+                this.content.items.push([]);
+
             this.parent.appendChild(container);
             for (let j = 0; j < 9; j++) {
+                if (!this.content.items[i][j])
+                    this.content.items[i].push({
+                        defaultState: {
+                            id: "air",
+                            translationId: "none",
+                        }
+                    });
+
                 const background = document.createElement("img");
-                background.src = "res/slot.png";
+                const reference = document.getElementById(this.content.items[i][j].defaultState.id);
+                background.src = reference.src;
                 background.classList.add("slot");
                 background.classList.add("unselectable");
 
@@ -108,6 +144,7 @@ class Gui {
                     cancelDefault(e);
                     const item = document.getElementById(e.dataTransfer.getData("text/plain"));
                     background.src = item.src;
+                    this.content.items[i][j].defaultState.id = item.id;
                 });
 
                 container.appendChild(background);
@@ -118,6 +155,31 @@ class Gui {
             this.parent.appendChild(breakElm);
         }
     }
+
+    toBase64() {
+        return btoa(JSON.stringify(this.content));
+    }
+}
+
+function addExportListener() {
+    document.getElementById("export-gui-button").addEventListener("click", () => {
+        navigator.clipboard.writeText("/f editor apply " + gui.toBase64())
+            .then(r => Toast.show("Copied command into clipboard", "success"))
+            .catch(e => {
+                console.error(e);
+                Toast.show("Error occurred while coping to clipboard", "error")
+            });
+    });
+
+    document.getElementById("share-gui-button").addEventListener("click", () => {
+        navigator.clipboard.writeText(window.location.href.split('?')[0] + "?gui=" + gui.toBase64())
+            .then(r => Toast.show("Copied link into clipboard", "success"))
+            .catch(e => {
+                console.error(e);
+                Toast.show("Error occurred while coping to clipboard", "error")
+            });
+        gui.toBase64();
+    });
 }
 
 function cancelDefault(e) {
@@ -129,14 +191,17 @@ function cancelDefault(e) {
 const properties = new PropertyWindow();
 const itemWindow = new ItemWindow();
 const gui = new Gui(properties);
+gui.generateGui()
+    .then(() => {
+        addExportListener();
 
+        properties.addProperty("Title", "&eTitle");
+        properties.addProperty("Rows", 5);
 
-properties.addProperty("Title", "&eTitle");
-properties.addProperty("Rows", 5);
+        properties.onupdate("Rows", () => {
+            gui.renderGui();
+        })
 
-properties.onupdate("Rows", () => {
-    gui.renderGui();
-})
-
-itemWindow.loadItems();
-gui.renderGui();
+        itemWindow.loadItems()
+            .then(() => gui.renderGui());
+    });

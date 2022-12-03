@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Map;
 
 public class JsonGui {
-    private Map<ItemContainer, String> content;
+    private Map<String, ItemContainer> content;
     private int rows;
     private String title;
 
@@ -20,7 +20,7 @@ public class JsonGui {
 
     }
 
-    protected JsonGui(@NotNull Map<ItemContainer, String> content, @NotNull String guiId) {
+    protected JsonGui(@NotNull Map<String, ItemContainer> content, @NotNull String guiId) {
         this.content = content;
         this.guiId = guiId;
         rows = 6;
@@ -35,11 +35,11 @@ public class JsonGui {
         }
     }
 
-    public Map<ItemContainer, String> getContent() {
+    public Map<String, ItemContainer> getContent() {
         return content;
     }
 
-    public void setContent(Map<ItemContainer, String> content) {
+    public void setContent(Map<String, ItemContainer> content) {
         this.content = content;
     }
 

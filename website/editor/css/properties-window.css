@@ -1,0 +1,16 @@
+#properties-window {
+    flex-grow: 1;
+}
+
+#properties-container {
+    margin: 20px 0 20px 20px;
+}
+
+.properties-label {
+    position: relative;
+}
+
+.properties-input {
+    float: right;
+    margin-right: 10px;
+}

@@ -1,0 +1,23 @@
+#gui {
+    flex-grow: 2;
+    max-width: 700px;
+}
+
+#gui-slots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.slot {
+    image-rendering: pixelated;
+    width: 30px;
+    height: 30px;
+}
