@@ -33,6 +33,17 @@ function createListeners() {
         });
 }
 
+function htmlToElement(html) {
+    var template = document.createElement('template');
+    html = html.trim(); // Never return a text node of whitespace as the result
+    template.innerHTML = html;
+    return template.content.firstChild;
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 const rowElement = document.getElementById("rows");
 
 const itemWindow = new ItemWindow();

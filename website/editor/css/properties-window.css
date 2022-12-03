@@ -1,5 +1,7 @@
 #properties-window {
     grid-area: properties;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 #properties-container {
@@ -12,4 +14,8 @@
 
 .properties-input {
     float: right;
+}
+
+.properties-states {
+    text-align: center;
 }
