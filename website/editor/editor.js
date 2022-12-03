@@ -48,6 +48,7 @@ const rowElement = document.getElementById("rows");
 
 const itemWindow = new ItemWindow();
 const gui = new Gui();
+
 createUI()
     .then(() => Toast.show("Editor loaded successfully", "success"))
     .catch(() => Toast.show("Editor didn't load correctly", "error"));

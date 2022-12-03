@@ -6,6 +6,8 @@ class Gui {
 
         this.properties.style.visibility = "hidden";
         document.getElementById("properties-window").style.overflowY = "hidden";
+
+        document.getElementById("rows").addEventListener("change", () => this.renderGui());
     }
 
     generateGui() {
@@ -20,7 +22,7 @@ class Gui {
                 this.content = {
                     guiTitleTranslation: "none",
                     rows: 6,
-                    states: ["defaultState", "testState"],
+                    states: ["defaultState"],
                     items: []
                 };
             });
