@@ -94,6 +94,9 @@ class Gui {
         return this.parseQueryGui()
             .then(content => {
                 this.content = content;
+            })
+            .catch(err => console.log("Couldn't read gui from query"))
+            .finally(() => {
                 if (this.content)
                     return;
                 this.content = {
@@ -101,8 +104,7 @@ class Gui {
                     rows: 6,
                     items: []
                 };
-            })
-            .catch(err => console.log("Couldn't read gui from query"));
+            });
     }
 
     parseQueryGui() {
