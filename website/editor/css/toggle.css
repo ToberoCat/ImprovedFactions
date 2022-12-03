@@ -1,0 +1,47 @@
+#darkmode-toggle-label {
+    width: 50px;
+    height: 20px;
+    position: relative;
+    float: right;
+    margin-top: 25px;
+    margin-right: 10px;
+    display: block;
+    border-radius: 20px;
+    box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.4), inset 0 -5px 15px rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+#darkmode-toggle-label:after {
+    content: "";
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    background: linear-gradient(180deg, #ffcc89, #d8860b);
+    border-radius: 100px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+}
+
+#darkmode-toggle {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+#darkmode-toggle:checked + label {
+    background: #242424;
+}
+
+#darkmode-toggle:checked + label:after {
+    left: 49px;
+    transform: translateX(-100%);
+    background: linear-gradient(180deg, #777, #3a3a3a);
+}
+
+#darkmode-toggle-label:active:after {
+    width: 30px;
+}

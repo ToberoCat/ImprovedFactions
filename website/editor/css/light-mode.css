@@ -1,0 +1,36 @@
+body {
+    background: #FFFFFF;
+    color: #000000;
+}
+
+input[type=text] {
+    background: #FFFFFF;
+    color: #000000;
+    border: 1px solid #CCCCCC;
+}
+
+input[type=number] {
+    background: #FFFFFF;
+    color: #000000;
+    border: 1px solid #CCCCCC;
+}
+
+.shadow {
+    box-shadow: 0 0 20px 1px #CCCCCC;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

@@ -1,0 +1,36 @@
+body {
+    background: linear-gradient(#292d33, #121212);
+    color: #FFFFFF;
+}
+
+input[type=text] {
+    background: linear-gradient(#181818, #121212);
+    color: #FFFFFF;
+    border: 1px solid #333333;
+}
+
+input[type=number] {
+    background: linear-gradient(#181818, #121212);
+    color: #FFFFFF;
+    border: 1px solid #333333;
+}
+
+.shadow {
+    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #24252a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #111111;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #101010;
+}

@@ -30,6 +30,10 @@ class Gui {
         });
     }
 
+    renderStateProperties() {
+
+    }
+
     renderGui() {
         this.parent.innerHTML = "";
         const rows = Math.min(6, Math.max(1, parseInt(rowElement.value)));

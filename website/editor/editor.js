@@ -1,8 +1,13 @@
-async function createUI() {
-    await gui.generateGui();
-    await itemWindow.loadItems();
-    createListeners();
-    gui.renderGui();
+function createUI() {
+    return new Promise(async resolve => {
+        await gui.generateGui();
+        await itemWindow.loadItems();
+
+        createListeners();
+        gui.renderGui();
+        gui.renderStateProperties();
+        resolve();
+    });
 }
 
 function createListeners() {
