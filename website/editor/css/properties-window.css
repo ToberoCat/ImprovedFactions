@@ -1,5 +1,5 @@
 #properties-window {
-    flex-grow: 1;
+    grid-area: properties;
 }
 
 #properties-container {

@@ -1,10 +1,7 @@
 #item-window {
-    flex-grow: 1;
-    min-width: 20%;
-    max-width: 25%;
-    min-height: 85vh;
-    max-height: 85vh;
+    grid-area: items;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 #item-container {

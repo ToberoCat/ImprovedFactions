@@ -120,11 +120,9 @@ class Gui {
         this.parent.innerHTML = "";
         const rows = Math.min(6, Math.max(1, parseInt(this.properties.getProperty("Rows"))));
         for (let i = 0; i < rows; i++) {
-            const container = document.createElement("div");
             if (!this.content.items[i])
                 this.content.items.push([]);
 
-            this.parent.appendChild(container);
             for (let j = 0; j < 9; j++) {
                 if (!this.content.items[i][j])
                     this.content.items[i].push({
@@ -149,7 +147,7 @@ class Gui {
                     this.content.items[i][j].defaultState.id = item.id;
                 });
 
-                container.appendChild(background);
+                this.parent.appendChild(background);
             }
 
             const breakElm = document.createElement("div");
@@ -198,7 +196,7 @@ gui.generateGui()
         addExportListener();
 
         properties.addProperty("Title", "&eTitle");
-        properties.addProperty("Rows", 5);
+        properties.addProperty("Rows", 6);
 
         properties.onupdate("Rows", () => {
             gui.renderGui();
