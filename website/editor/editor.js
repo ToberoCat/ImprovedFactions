@@ -62,7 +62,7 @@ class ItemWindow {
     async loadItems() {
         this.elements = await (await fetch("items.json")).json();
         this.parent.innerHTML = "";
-        this.#displayItems(this.elements, "s");
+        this.#displayItems(this.elements, "");
     }
 
     #displayItems(items, filter) {
@@ -76,7 +76,9 @@ class ItemWindow {
             item.name = jsonItem.title;
             item.alt = jsonItem.title;
             item.title = jsonItem.title;
+            item.id = jsonItem.title.toLowerCase().replace(" ", "_");
 
+            item.addEventListener("dragstart", e => e.dataTransfer.setData("text/plain", item.id));
             this.parent.appendChild(item);
         }
     }
@@ -100,13 +102,13 @@ class Gui {
                 background.classList.add("slot");
                 background.classList.add("unselectable");
 
-                background.addEventListener("drop", e => {
-                    cancelDefault(e);
-                    background.src = e.dataTransfer.getData("text/plain");
-                });
                 background.addEventListener("dragenter", cancelDefault);
                 background.addEventListener("dragover", cancelDefault);
-
+                background.addEventListener("drop", e => {
+                    cancelDefault(e);
+                    const item = document.getElementById(e.dataTransfer.getData("text/plain"));
+                    background.src = item.src;
+                });
 
                 container.appendChild(background);
             }
