@@ -25,12 +25,22 @@
                 <img src="../images/icon.png" class="logo-image" alt="Improved Factions Logo">
             </a>
             <button id="export-gui-button" class="button">Export Gui</button>
-            <input id="share-gui-button" class="button" type="image" name="Share gui" src="res/share.png" alt="Share your gui">
+            <input id="share-gui-button" class="button" type="image" name="Share gui" src="res/share.png"
+                   alt="Share your gui">
 
         </div>
         <div id="properties-window" class="shadow">
             <div id="properties-container">
+                <label for="title" class="properties-label">Title</label>
+                <input id="title" type="text" name="Title" value="&eTitle" class="properties-input">
+                <br>
+                <br>
+                <label for="rows" class="properties-label">Rows</label>
+                <input id="rows" type="number" name="Rows" value=5 min=1 max=6 class="properties-input">
+                <hr>
 
+                <label for="item-translation-id" class="properties-label">Item Translation Id</label>
+                <input id="item-translation-id" type="text" name="iti" value="item-0" class="properties-input">
             </div>
         </div>
         <div id="gui" class="shadow">
@@ -45,6 +55,8 @@
         </div>
     </div>
 
+    <script src="js/Gui.js"></script>
+    <script src="js/ItemIndex.js"></script>
     <script src="editor.js"></script>
     <noscript>You need javascript to run this editor</noscript>
 </body>

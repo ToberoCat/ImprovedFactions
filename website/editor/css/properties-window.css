@@ -3,7 +3,7 @@
 }
 
 #properties-container {
-    margin: 20px 0 20px 20px;
+    margin: 20px 20px 20px 20px;
 }
 
 .properties-label {
@@ -12,5 +12,4 @@
 
 .properties-input {
     float: right;
-    margin-right: 10px;
 }
