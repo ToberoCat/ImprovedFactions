@@ -82,6 +82,8 @@ class Gui {
 
     renderGui() {
         this.parent.innerHTML = "";
+        document.getElementById("rows").value = this.content.rows;
+        document.getElementById("title").value = this.content.title;
         const rows = Math.min(6, Math.max(1, parseInt(rowElement.value)));
         for (let i = 0; i < rows; i++) {
             if (!this.content.items[i])
