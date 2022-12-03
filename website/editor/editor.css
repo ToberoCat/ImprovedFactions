@@ -54,52 +54,13 @@ html, body {
         width: 100%;
     }
 
-}
-
-@media only screen and (max-height: 700px) {
-    .slot {
-        width: 15px;
-        height: 15px;
+    .flex-container {
+        grid:
+                "header" 10%
+                "properties" 20%
+                "gui" 25%
+                "items" 30%
+    / 100%;
     }
 
-    #gui-slots:nth-child(1n) {
-        width: 140px;
-        flex-basis: 100%;
-    }
-}
-
-@media only screen and (max-height: 800px) {
-    .slot {
-        width: 18px;
-        height: 18px;
-    }
-
-    #gui-slots:nth-child(1n) {
-        width: 170px;
-        flex-basis: 100%;
-    }
-}
-
-@media only screen and (max-height: 1000px) {
-    .slot {
-        width: 19px;
-        height: 19px;
-    }
-
-    #gui-slots:nth-child(1n) {
-        width: 180px;
-        flex-basis: 100%;
-    }
-}
-
-@media only screen and (max-height: 1500px) {
-    .slot {
-        width: 30px;
-        height: 30px;
-    }
-
-    #gui-slots:nth-child(1n) {
-        width: 290px;
-        flex-basis: 100%;
-    }
 }
