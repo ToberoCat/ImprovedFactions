@@ -53,13 +53,13 @@ public class LeaveFactionCommand extends Command<LeaveFactionCommand.LeavePacket
         FactionPlayer<?> player = packet.player;
         try {
             packet.faction.leavePlayer(player);
-            player.sendTranslatable(node.andThen(map -> map.get("player-left")));
+            player.sendTranslatable(node.andThen(map -> map.get("sender-left")));
         } catch (FactionIsFrozenException e) {
             player.sendTranslatable(node.andThen(map -> map.get("faction-frozen")));
         } catch (PlayerIsOwnerException e) {
-            player.sendTranslatable(node.andThen(map -> map.get("player-is-owner")));
+            player.sendTranslatable(node.andThen(map -> map.get("sender-is-owner")));
         } catch (PlayerHasNoFactionException e) {
-            player.sendTranslatable(node.andThen(map -> map.get("player-has-no-faction")));
+            player.sendTranslatable(node.andThen(map -> map.get("sender-has-no-faction")));
         }
     }
 
@@ -88,7 +88,7 @@ public class LeaveFactionCommand extends Command<LeaveFactionCommand.LeavePacket
     @Override
     public @Nullable LeaveFactionCommand.LeavePacket createFromArgs(@NotNull String[] args) {
         if (args.length != 1) {
-            Logger.api().logInfo("You need to give a player");
+            Logger.api().logInfo("You need to give a sender");
             return null;
         }
         String playerName = args[0];

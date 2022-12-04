@@ -47,8 +47,8 @@ public class InviteHandler {
                         .getFaction()
                         .getBroadcast()
                         .get("invite-sent"),
-                new Placeholder("{sender}", sender.getName()),
-                new Placeholder("{receiver}", receiver.getName()));
+                new Placeholder("sender", sender.getName()),
+                new Placeholder("receiver", receiver.getName()));
 
         EventExecutor.getExecutor().invitePlayer(receiver, sender, faction, rank);
     }
@@ -86,7 +86,7 @@ public class InviteHandler {
                 .getFaction()
                 .getBroadcast()
                 .get("invite-accepted"),
-                new Placeholder("{received}", invited.getName()));
+                new Placeholder("received", invited.getName()));
 
         EventExecutor.getExecutor().acceptInvite(invited,
                 invite.sender(),

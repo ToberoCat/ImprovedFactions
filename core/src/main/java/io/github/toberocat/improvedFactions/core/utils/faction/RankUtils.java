@@ -11,12 +11,12 @@ import java.util.stream.Stream;
 public final class RankUtils {
 
     /**
-     * Get all member uuids of a faction that can be modified by the player you specified.
+     * Get all member uuids of a faction that can be modified by the sender you specified.
      *
      * @param faction The faction you want to get the players rank priority from
-     * @param player  The player you want to get all relative manageable ranks
+     * @param player  The sender you want to get all relative manageable ranks
      * @return A stream container all member uuids of the faction,
-     * that can be modified by this player, based on their rank priority
+     * that can be modified by this sender, based on their rank priority
      */
     public static @NotNull Stream<UUID> getManageablePlayers(@NotNull Faction<?> faction,
                                                              @NotNull FactionPlayer<?> player) {

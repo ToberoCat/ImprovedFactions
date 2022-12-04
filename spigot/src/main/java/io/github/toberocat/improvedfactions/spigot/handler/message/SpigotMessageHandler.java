@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedfactions.spigot.handler.message;
 
-import io.github.toberocat.improvedFactions.core.handler.MessageHandler;
+import io.github.toberocat.improvedFactions.core.handler.message.MessageHandler;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.placeholder.PlaceholderFormatter;
 import io.github.toberocat.improvedfactions.spigot.player.SpigotOfflineFactionPlayer;

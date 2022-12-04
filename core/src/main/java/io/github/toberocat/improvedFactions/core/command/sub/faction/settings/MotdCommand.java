@@ -56,7 +56,7 @@ public class MotdCommand extends Command<MotdCommand.MotdPacket, MotdCommand.Mot
         try {
             faction = packet.player.getFaction();
         } catch (PlayerHasNoFactionException e) {
-            packet.player.sendTranslatable(node.andThen(map -> "player-has-no-faction"));
+            packet.player.sendTranslatable(node.andThen(map -> "sender-has-no-faction"));
             return;
         } catch (FactionNotInStorage e) {
             packet.player.sendTranslatable(node.andThen(map -> "faction-not-in-storage"));
@@ -84,7 +84,7 @@ public class MotdCommand extends Command<MotdCommand.MotdPacket, MotdCommand.Mot
                         .andThen(map -> map.get("faction-not-in-storage")));
             } catch (PlayerHasNoFactionException e) {
                 packet.player.sendTranslatable(node
-                        .andThen(map -> map.get("player-has-no-faction")));
+                        .andThen(map -> map.get("sender-has-no-faction")));
             }
         }
     }

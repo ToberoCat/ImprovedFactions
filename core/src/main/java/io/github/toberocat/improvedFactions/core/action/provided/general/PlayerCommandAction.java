@@ -8,7 +8,7 @@ public class PlayerCommandAction extends Action {
 
     @Override
     public @NotNull String label() {
-        return "player";
+        return "sender";
     }
 
     @Override

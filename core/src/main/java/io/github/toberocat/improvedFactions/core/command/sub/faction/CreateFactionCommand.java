@@ -68,18 +68,18 @@ public class CreateFactionCommand extends
             Faction<?> faction = create(owner, packet.display);
 
             owner.sendTranslatable(node.andThen(map -> map.get("created-faction")),
-                    new Placeholder("{faction}", faction.getDisplay()));
+                    new Placeholder("faction", faction.getDisplay()));
         } catch (IllegalFactionNamingException e) {
             owner.sendTranslatable(node.andThen(map -> map.get("illegal-naming")));
         } catch (FactionAlreadyExistsException e) {
             owner.sendTranslatable(node.andThen(map -> map.get("faction-already-exists")),
-                    new Placeholder("{faction}", packet.display));
+                    new Placeholder("faction", packet.display));
         } catch (FactionNotInStorage factionNotInStorage) {
             owner.sendTranslatable(node.andThen(map -> map.get("faction-not-in-storage")));
         } catch (PlayerHasNoFactionException e) {
-            owner.sendTranslatable(node.andThen(map -> map.get("player-has-no-faction")));
+            owner.sendTranslatable(node.andThen(map -> map.get("sender-has-no-faction")));
         } catch (PlayerIsAlreadyInFactionException e) {
-            owner.sendTranslatable(node.andThen(map -> map.get("player-already-in-faction")));
+            owner.sendTranslatable(node.andThen(map -> map.get("sender-already-in-faction")));
         } catch (FactionIsFrozenException | PlayerIsBannedException e) {
             e.printStackTrace();
         }
@@ -93,7 +93,7 @@ public class CreateFactionCommand extends
         try {
             Faction<?> faction = create(owner, packet.display);
             owner.sendTranslatable(node.andThen(map -> map.get("created-faction")),
-                    new Placeholder("{faction}", faction.getDisplay()));
+                    new Placeholder("faction", faction.getDisplay()));
 
             logger.logInfo("You created faction %s for %s",
                     faction.getDisplay(), owner.getName());
@@ -137,7 +137,7 @@ public class CreateFactionCommand extends
     @Override
     public @Nullable CreateFactionCommand.CreateFactionPacket createFromArgs(@NotNull String[] args) {
         if (args.length != 2) {
-            Logger.api().logInfo("You need to specify the player who creates a " +
+            Logger.api().logInfo("You need to specify the sender who creates a " +
                     "faction, as well as it's name");
             return null;
         }
@@ -147,13 +147,13 @@ public class CreateFactionCommand extends
         if (api.listPlayers()
                 .getOnlinePlayerNames()
                 .noneMatch(x -> x.equals(player))) {
-            Logger.api().logInfo("Couldn't find a online player with this name");
+            Logger.api().logInfo("Couldn't find a online sender with this name");
             return null;
         }
 
         FactionPlayer<?> executor = api.getPlayer(player);
         if (executor == null) {
-            Logger.api().logInfo("Couldn't find a online player with this name");
+            Logger.api().logInfo("Couldn't find a online sender with this name");
             return null;
         }
 

@@ -4,6 +4,7 @@ import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.handler.component.PlayerLister;
 import io.github.toberocat.improvedFactions.core.handler.component.Scheduler;
+import io.github.toberocat.improvedFactions.core.handler.message.MessageHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
@@ -177,6 +178,31 @@ public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
                 .logger(logger)
                 .load()
                 .fileConfiguration(), "");
+    }
+
+    /**
+     * Gives an instance of the console sender
+     *
+     * @return The console sender for this server
+     */
+    @Override
+    public io.github.toberocat.improvedFactions.core.player.@NotNull ConsoleCommandSender getConsoleSender() {
+        return new io.github.toberocat.improvedFactions.core.player.ConsoleCommandSender() {
+            @Override
+            public void runCommand(@NotNull String command) {
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+            }
+
+            @Override
+            public boolean hasPermission(@NotNull String permission) {
+                return Bukkit.getConsoleSender().hasPermission(permission);
+            }
+
+            @Override
+            public void sendMessage(@NotNull String message) {
+                Bukkit.getConsoleSender().sendMessage(MessageHandler.api().format(message));
+            }
+        };
     }
 
     @Override

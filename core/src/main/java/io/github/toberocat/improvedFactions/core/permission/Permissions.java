@@ -54,11 +54,11 @@ public interface Permissions {
     boolean hasPermission(@NotNull Permission permission, @NotNull Rank rank);
 
     /**
-     * Returns true if the given player has the given permission.
+     * Returns true if the given sender has the given permission.
      *
      * @param permission The permission you want to check.
-     * @param player The player to check the permission for.
-     * @return If the player has the specified permission
+     * @param player The sender to check the permission for.
+     * @return If the sender has the specified permission
      */
     default boolean hasPermission(@NotNull Permission permission, @NotNull OfflineFactionPlayer<?> player)
             throws FactionNotInStorage, PlayerHasNoFactionException {

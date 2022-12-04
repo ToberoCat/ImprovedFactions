@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedfactions.spigot.gui;
 
-import io.github.toberocat.improvedFactions.core.handler.MessageHandler;
+import io.github.toberocat.improvedFactions.core.handler.message.MessageHandler;
 import io.github.toberocat.improvedfactions.spigot.gui.page.Page;
 import io.github.toberocat.improvedfactions.spigot.gui.settings.GuiSettings;
 import io.github.toberocat.improvedfactions.spigot.gui.slot.Slot;

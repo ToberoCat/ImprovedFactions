@@ -66,7 +66,7 @@ public class JoinFactionCommand extends Command<JoinFactionCommand.JoinPacket, J
         } catch (PlayerIsAlreadyInFactionException e) {
             player.sendTranslatable(node.andThen(map -> map.get("already-in-faction")));
         } catch (PlayerIsBannedException e) {
-            player.sendTranslatable(node.andThen(map -> map.get("player-banned")));
+            player.sendTranslatable(node.andThen(map -> map.get("sender-banned")));
         }
     }
 
@@ -116,7 +116,7 @@ public class JoinFactionCommand extends Command<JoinFactionCommand.JoinPacket, J
     @Override
     public @Nullable JoinFactionCommand.JoinPacket createFromArgs(@NotNull String[] args) {
         if (args.length != 3) {
-            Logger.api().logInfo("You need to give a player, a faction and a rank");
+            Logger.api().logInfo("You need to give a sender, a faction and a rank");
             return null;
         }
         String playerName = args[0];

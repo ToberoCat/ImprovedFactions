@@ -113,7 +113,7 @@
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <outputFile>
-                                ..\builds\spigot\${project.name}-${project.version}.${project.packaging}
+                                C:\Users\Tobias\Desktop\Development\Minecraft\Spigot\Server1.18\plugins\${project.name}-${project.version}.${project.packaging}
                             </outputFile>
                             <relocations>
                                 <relocation>

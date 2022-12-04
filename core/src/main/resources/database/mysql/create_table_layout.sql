@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS players
         PRIMARY KEY (uuid)
 );
 
--- Create player settings
+-- Create sender settings
 create table IF NOT EXISTS player_settings
 (
     uuid    CHAR(36) not null,

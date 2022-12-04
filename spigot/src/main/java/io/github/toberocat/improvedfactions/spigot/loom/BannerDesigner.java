@@ -3,8 +3,8 @@ package io.github.toberocat.improvedfactions.spigot.loom;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
-import io.github.toberocat.improvedFactions.core.gui.GuiManager;
-import io.github.toberocat.improvedFactions.core.gui.JsonGui;
+import io.github.toberocat.improvedFactions.core.gui.manager.GuiManager;
+import io.github.toberocat.improvedFactions.core.gui.content.GuiContent;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
 import io.github.toberocat.improvedfactions.spigot.utils.ItemUtils;
@@ -30,7 +30,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class BannerDesigner implements Listener {
+public class BannerDesigner implements Listener { // ToDo: Fix Faction Icon designer
 
     private static final List<BannerDesigner> openedInstances = new LinkedList<>();
 
@@ -75,13 +75,13 @@ public class BannerDesigner implements Listener {
     private void cloneJsonGui(@NotNull FactionPlayer<?> player) {
         this.player.getInventory().clear();
 
-        JsonGui jsonGui = GuiManager.getGui(GuiManager.PLAYER_ICON_DESIGNER_INV);
-        jsonGui.getContent().forEach((container, action) -> {
+        GuiContent guiContent = GuiManager.getGui(GuiManager.PLAYER_ICON_DESIGNER_INV);
+/*        guiContent.getContent().forEach((container, action) -> {
             ItemStack stack = (ItemStack) container.stack().getRaw();
-            ItemUtils.translateItem(player, jsonGui.getGuiId(), stack);
+            ItemUtils.translateItem(sender, guiContent.getGuiId(), stack);
 
-            this.player.getInventory().setItem(9 + container.slot(), stack);
-        });
+            this.sender.getInventory().setItem(9 + container.slot(), stack);
+        });*/
     }
 
     @EventHandler

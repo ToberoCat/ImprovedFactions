@@ -57,18 +57,18 @@ public class WhoFactionCommand
                 .toArray(String[]::new)));
         for (String message : messages) {
             packet.player.sendTranslatable(node.andThen(map -> map.get(message)),
-                    new Placeholder("{faction-name}", packet.faction.getDisplay()),
-                    new Placeholder("{faction-motd}", packet.faction.getMotd()),
-                    new Placeholder("{faction-registry}", packet.faction.getRegistry()),
-                    new Placeholder("{faction-owner}", Objects.requireNonNull(ImprovedFactions
+                    new Placeholder("faction-name", packet.faction.getDisplay()),
+                    new Placeholder("faction-motd", packet.faction.getMotd()),
+                    new Placeholder("faction-registry", packet.faction.getRegistry()),
+                    new Placeholder("faction-owner", Objects.requireNonNull(ImprovedFactions
                                     .api()
                                     .getOfflinePlayer(packet.faction.getOwner()))
                             .getName()),
-                    new Placeholder("{faction-online}", "" + packet.faction.getOnlineMembers().count()),
-                    new Placeholder("{faction-members}", "" + packet.faction.getMembers().count()),
-                    new Placeholder("{faction-power}", "" + packet.faction.getTotalPower()),
-                    new Placeholder("{faction-members}", "" + packet.faction.getTotalMaxPower()),
-                    new Placeholder("{faction-description}", "" + packet.faction
+                    new Placeholder("faction-online", "" + packet.faction.getOnlineMembers().count()),
+                    new Placeholder("faction-members", "" + packet.faction.getMembers().count()),
+                    new Placeholder("faction-power", "" + packet.faction.getTotalPower()),
+                    new Placeholder("faction-members", "" + packet.faction.getTotalMaxPower()),
+                    new Placeholder("faction-description", "" + packet.faction
                             .getDescription()
                             .getLines()
                             .collect(Collectors.joining("\n")))
@@ -96,7 +96,7 @@ public class WhoFactionCommand
         } catch (FactionNotInStorage e) {
             executor.sendTranslatable(node.andThen(map -> map.get("faction-not-in-storage")));
         } catch (PlayerHasNoFactionException e) {
-            executor.sendTranslatable(node.andThen(map -> map.get("player-has-no-faction")));
+            executor.sendTranslatable(node.andThen(map -> map.get("sender-has-no-faction")));
         }
 
         return null;

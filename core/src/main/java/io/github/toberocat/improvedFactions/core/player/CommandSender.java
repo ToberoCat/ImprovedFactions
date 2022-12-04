@@ -6,4 +6,6 @@ public interface CommandSender {
     void runCommand(@NotNull String command);
 
     boolean hasPermission(@NotNull String permission);
+
+    void sendMessage(@NotNull String message);
 }

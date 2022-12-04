@@ -8,6 +8,8 @@ public class Messages {
     private FactionMessage faction;
     private HashMap<String, HashMap<String, String>> command;
 
+    private HashMap<String, HashMap<String, String>> misc;
+
     public Messages() {
     }
 
@@ -25,5 +27,13 @@ public class Messages {
 
     public void setCommand(HashMap<String, HashMap<String, String>> command) {
         this.command = command;
+    }
+
+    public HashMap<String, HashMap<String, String>> getMisc() {
+        return misc;
+    }
+
+    public void setMisc(HashMap<String, HashMap<String, String>> misc) {
+        this.misc = misc;
     }
 }

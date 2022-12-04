@@ -22,14 +22,30 @@ public interface MessageHandler {
         return new LocalMessageHandler(JavaPlugin.getPlugin(MainIF.class));
     }
 
+    /**
+     * @deprecated Use {@link MessageHandler#sendFancyMessage(UUID, Function, Placeholder...)} instead
+     */
+    @Deprecated
     void sendMessage(@NotNull UUID player, @NotNull String message);
 
+    /**
+     * @deprecated Use {@link MessageHandler#sendFancyMessage(UUID, Function, Placeholder...)} instead
+     */
+    @Deprecated
     void sendTranslatable(@NotNull UUID player,
                           @NotNull Function<Translatable, String> query,
                           Placeholder... placeholders);
 
+    /**
+     * @deprecated Use {@link MessageHandler#sendFancyMessage(UUID, Function, Placeholder...)} instead
+     */
+    @Deprecated
     void sendClickableTranslatable(@NotNull UUID player,
                                    @NotNull Function<Translatable, String> query,
                                    @NotNull String command,
                                    Placeholder... placeholders);
+
+    void sendFancyMessage(@NotNull UUID player,
+                          @NotNull Function<Translatable, String> query,
+                          Placeholder... placeholders);
 }

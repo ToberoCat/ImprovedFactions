@@ -83,7 +83,7 @@ public class DeleteFactionCommand extends ConfirmCommand
         try {
             return new DeleteFactionPacket(executor.getFaction(), executor);
         } catch (PlayerHasNoFactionException e) {
-            executor.sendTranslatable(node.andThen(map -> map.get("player-has-no-faction")));
+            executor.sendTranslatable(node.andThen(map -> map.get("sender-has-no-faction")));
         } catch (FactionNotInStorage factionNotInStorage) {
             executor.sendTranslatable(node.andThen(map -> map.get("faction-not-in-storage")));
         }

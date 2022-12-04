@@ -408,10 +408,10 @@ public class LocalFaction implements Faction<LocalFaction> {
     }
 
     /**
-     * Gets the rank of the specified player.
+     * Gets the rank of the specified sender.
      *
-     * @param player The player to get the rank of.
-     * @return The rank of the player.
+     * @param player The sender to get the rank of.
+     * @return The rank of the sender.
      */
     @Override
     public @NotNull Rank getPlayerRank(@NotNull OfflineFactionPlayer<?> player) {
@@ -427,10 +427,10 @@ public class LocalFaction implements Faction<LocalFaction> {
     }
 
     /**
-     * Returns true if the player is a member of the faction
+     * Returns true if the sender is a member of the faction
      *
-     * @param player The player to check.
-     * @return If the player is in the faction
+     * @param player The sender to check.
+     * @return If the sender is in the faction
      */
     @Override
     public boolean isMember(@NotNull OfflineFactionPlayer<?> player) {
@@ -443,10 +443,10 @@ public class LocalFaction implements Faction<LocalFaction> {
     }
 
     /**
-     * Changes the rank of the specified player to the specified rank
+     * Changes the rank of the specified sender to the specified rank
      *
-     * @param player The player you want to change the rank of.
-     * @param rank   The rank you want to change the player to.
+     * @param player The sender you want to change the rank of.
+     * @param rank   The rank you want to change the sender to.
      */
     @Override
     public void changeRank(@NotNull OfflineFactionPlayer<?> player, @NotNull FactionRank rank)
@@ -456,9 +456,9 @@ public class LocalFaction implements Faction<LocalFaction> {
     }
 
     /**
-     * Transfer ownership of the faction to the specified player.
+     * Transfer ownership of the faction to the specified sender.
      *
-     * @param player The player who will be the new owner of the faction.
+     * @param player The sender who will be the new owner of the faction.
      */
     @Override
     public void transferOwnership(@NotNull FactionPlayer<?> player) throws FactionIsFrozenException {
@@ -514,9 +514,9 @@ public class LocalFaction implements Faction<LocalFaction> {
     }
 
     /**
-     * joinPlayer joins a player to the faction
+     * joinPlayer joins a sender to the faction
      *
-     * @param player The player to join the game.
+     * @param player The sender to join the game.
      * @return If it was able to join
      */
     @Override
@@ -526,11 +526,11 @@ public class LocalFaction implements Faction<LocalFaction> {
     }
 
     /**
-     * Join a player in a faction to a rank.
+     * Join a sender in a faction to a rank.
      *
-     * @param player The player to join the faction.
-     * @param rank   The rank that the player will be joining as.
-     * @return If the player was able to join
+     * @param player The sender to join the faction.
+     * @param rank   The rank that the sender will be joining as.
+     * @return If the sender was able to join
      */
     @Override
     public boolean joinPlayer(@NotNull FactionPlayer<?> player, @NotNull FactionRank rank)
@@ -549,17 +549,17 @@ public class LocalFaction implements Faction<LocalFaction> {
                 .getMessages()
                 .getFaction()
                 .getBroadcast()
-                .get("player-join"),
-                new Placeholder("{player}", player.getName()),
-                new Placeholder("{rank}", player.getMessage(rank.getTitle())));
+                .get("sender-join"),
+                new Placeholder("sender", player.getName()),
+                new Placeholder("rank", player.getMessage(rank.getTitle())));
         return true;
     }
 
     /**
-     * Removes a player from the faction
+     * Removes a sender from the faction
      *
-     * @param player The player to leave the faction.
-     * @return If the player was able to leave
+     * @param player The sender to leave the faction.
+     * @return If the sender was able to leave
      */
     @Override
     public boolean leavePlayer(@NotNull FactionPlayer<?> player)
@@ -577,10 +577,10 @@ public class LocalFaction implements Faction<LocalFaction> {
     }
 
     /**
-     * This function kicks a player from the faction
+     * This function kicks a sender from the faction
      *
-     * @param player The player to kick.
-     * @return If the player was able to kicked
+     * @param player The sender to kick.
+     * @return If the sender was able to kicked
      */
     @Override
     public boolean kickPlayer(@NotNull OfflineFactionPlayer<?> player)
@@ -597,10 +597,10 @@ public class LocalFaction implements Faction<LocalFaction> {
     }
 
     /**
-     * This function bans a player.
+     * This function bans a sender.
      *
-     * @param player The player to ban.
-     * @return If the player got removed from th faction
+     * @param player The sender to ban.
+     * @return If the sender got removed from th faction
      */
     @Override
     public boolean banPlayer(@NotNull OfflineFactionPlayer<?> player)
@@ -620,10 +620,10 @@ public class LocalFaction implements Faction<LocalFaction> {
     }
 
     /**
-     * Pardon a player from the ban list.
+     * Pardon a sender from the ban list.
      *
-     * @param player The player to pardon.
-     * @return If the player was able to be pardoned
+     * @param player The sender to pardon.
+     * @return If the sender was able to be pardoned
      */
     @Override
     public boolean pardonPlayer(@NotNull OfflineFactionPlayer<?> player)
@@ -635,9 +635,9 @@ public class LocalFaction implements Faction<LocalFaction> {
     }
 
     /**
-     * Returns true if the player is banned, false otherwise.
+     * Returns true if the sender is banned, false otherwise.
      *
-     * @param player The player to check
+     * @param player The sender to check
      * @return If banned or not
      */
     @Override
@@ -647,7 +647,7 @@ public class LocalFaction implements Faction<LocalFaction> {
 
     /**
      * Returns the power of the faction
-     * It sums all player power
+     * It sums all sender power
      *
      * @return A BigDecimal representing the total power
      */
@@ -677,7 +677,7 @@ public class LocalFaction implements Faction<LocalFaction> {
 
     /**
      * Returns the maximum power that can be generated by the faction
-     * It sums all player's maxpower
+     * It sums all sender's maxpower
      *
      * @return A BigDecimal representing the max reachable power
      */
@@ -707,27 +707,27 @@ public class LocalFaction implements Faction<LocalFaction> {
     }
 
     /**
-     * Returns the power of the player with the given UUID.
+     * Returns the power of the sender with the given UUID.
      * *
      *
-     * @param player The player's UUID
-     * @return The player power
+     * @param player The sender's UUID
+     * @return The sender power
      */
     @Override
     public double playerPower(@NotNull UUID player) {
-        // ToDo: Get player power
+        // ToDo: Get sender power
         return 0;
     }
 
     /**
-     * Returns the maximum power of the given player.
+     * Returns the maximum power of the given sender.
      *
-     * @param player The player's UUID
-     * @return The maximum power of the player.
+     * @param player The sender's UUID
+     * @return The maximum power of the sender.
      */
     @Override
     public double maxPlayerPower(@NotNull UUID player) {
-        // ToDo: Get player max power
+        // ToDo: Get sender max power
         return 0;
     }
 
@@ -842,9 +842,9 @@ public class LocalFaction implements Faction<LocalFaction> {
     }
 
     /**
-     * Returns true if the player is in an allied faction of this.
+     * Returns true if the sender is in an allied faction of this.
      *
-     * @param player The player to check.
+     * @param player The sender to check.
      * @return If allied or not
      */
     @Override
@@ -883,10 +883,10 @@ public class LocalFaction implements Faction<LocalFaction> {
     }
 
     /**
-     * Returns true if the given player is an enemy of this faction
+     * Returns true if the given sender is an enemy of this faction
      *
-     * @param player The player to check.
-     * @return If the player's faction is an enemy
+     * @param player The sender to check.
+     * @return If the sender's faction is an enemy
      */
     @Override
     public boolean isEnemy(@NotNull OfflineFactionPlayer<?> player) {

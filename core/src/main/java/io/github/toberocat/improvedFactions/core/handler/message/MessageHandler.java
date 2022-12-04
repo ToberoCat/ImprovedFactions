@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedFactions.core.handler;
+package io.github.toberocat.improvedFactions.core.handler.message;
 
 import io.github.toberocat.improvedFactions.core.exceptions.NoImplementationProvidedException;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;

@@ -24,7 +24,7 @@ import java.util.function.Function;
 
 import static io.github.toberocat.improvedfactions.spigot.player.SpigotFactionPlayer.PREFIX_QUERY;
 
-public class LocalMessageHandler extends SpigotEventListener implements MessageHandler {
+public class LocalMessageHandler extends SpigotEventListener implements MessageHandler { // ToDo: Store the query path instead of an hardcoded translation file
 
     private final FileAccess fileAccess;
     private final Translation translation;
@@ -93,6 +93,13 @@ public class LocalMessageHandler extends SpigotEventListener implements MessageH
                                           @NotNull String command, Placeholder... placeholders) {
         String msg = translation.getMessage(query);
         if (msg != null) addMessage(player, translation.getMessage(PREFIX_QUERY) + msg, command);
+    }
+
+    @Override
+    public void sendFancyMessage(@NotNull UUID player, @NotNull Function<Translatable, String> query, Placeholder... placeholders) {
+        String msg = translation.getMessage(query);
+        if (msg != null)
+            addMessage(player, translation.getMessage(PREFIX_QUERY) + msg, null);
     }
 
     protected static class LocalMessages extends ArrayList<Message> {

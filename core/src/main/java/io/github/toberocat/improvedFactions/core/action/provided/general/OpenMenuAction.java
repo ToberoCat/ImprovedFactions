@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedFactions.core.action.provided.general;
 
 import io.github.toberocat.improvedFactions.core.action.Action;
-import io.github.toberocat.improvedFactions.core.gui.GuiManager;
+import io.github.toberocat.improvedFactions.core.gui.manager.GuiManager;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import org.jetbrains.annotations.NotNull;
 

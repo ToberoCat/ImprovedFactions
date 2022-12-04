@@ -11,7 +11,7 @@ import io.github.toberocat.improvedFactions.core.faction.components.FactionModul
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.faction.components.report.FactionReports;
-import io.github.toberocat.improvedFactions.core.handler.MessageHandler;
+import io.github.toberocat.improvedFactions.core.handler.message.MessageHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.item.ItemStack;
 import io.github.toberocat.improvedFactions.core.permission.Permissions;
@@ -246,43 +246,43 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
     /* Rank management */
 
     /**
-     * Gets the rank of the specified player.
+     * Gets the rank of the specified sender.
      *
-     * @param player The player to get the rank of.
-     * @return The rank of the player.
+     * @param player The sender to get the rank of.
+     * @return The rank of the sender.
      */
     @NotNull Rank getPlayerRank(@NotNull OfflineFactionPlayer<?> player);
 
     /**
-     * Gets the rank of the specified player
+     * Gets the rank of the specified sender
      *
-     * @param id The player's uuid
-     * @return The rank of the player
+     * @param id The sender's uuid
+     * @return The rank of the sender
      */
     @NotNull Rank getPlayerRank(@NotNull UUID id);
 
     /**
-     * Returns true if the player is a member of the faction
+     * Returns true if the sender is a member of the faction
      *
-     * @param player The player to check.
-     * @return If the player is in the faction
+     * @param player The sender to check.
+     * @return If the sender is in the faction
      */
     boolean isMember(@NotNull OfflineFactionPlayer<?> player);
 
 
     /**
-     * Returns true if the player is a member of the faction
+     * Returns true if the sender is a member of the faction
      *
-     * @param player The player to check.
-     * @return If the player is in the faction
+     * @param player The sender to check.
+     * @return If the sender is in the faction
      */
     boolean isMember(@NotNull UUID player);
 
     /**
-     * Changes the rank of the specified player to the specified rank
+     * Changes the rank of the specified sender to the specified rank
      *
-     * @param player The player you want to change the rank of.
-     * @param rank   The rank you want to change the player to.
+     * @param player The sender you want to change the rank of.
+     * @param rank   The rank you want to change the sender to.
      */
     void changeRank(@NotNull OfflineFactionPlayer<?> player, @NotNull FactionRank rank)
             throws FactionIsFrozenException;
@@ -290,9 +290,9 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
     /* Faction management */
 
     /**
-     * Transfer ownership of the faction to the specified player.
+     * Transfer ownership of the faction to the specified sender.
      *
-     * @param player The player who will be the new owner of the faction.
+     * @param player The sender who will be the new owner of the faction.
      */
     void transferOwnership(@NotNull FactionPlayer<?> player) throws FactionIsFrozenException;
 
@@ -334,9 +334,9 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
 
 
     /**
-     * joinPlayer joins a player to the faction
+     * joinPlayer joins a sender to the faction
      *
-     * @param player The player to join the game.
+     * @param player The sender to join the game.
      * @return If it was able to join
      */
     boolean joinPlayer(@NotNull FactionPlayer<?> player)
@@ -344,55 +344,55 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
             PlayerIsBannedException;
 
     /**
-     * Join a player in a faction to a rank.
+     * Join a sender in a faction to a rank.
      *
-     * @param player The player to join the faction.
-     * @param rank   The rank that the player will be joining as.
-     * @return If the player was able to join
+     * @param player The sender to join the faction.
+     * @param rank   The rank that the sender will be joining as.
+     * @return If the sender was able to join
      */
     boolean joinPlayer(@NotNull FactionPlayer<?> player, @NotNull FactionRank rank)
             throws FactionIsFrozenException, PlayerIsAlreadyInFactionException,
             PlayerIsBannedException;
 
     /**
-     * Removes a player from the faction
+     * Removes a sender from the faction
      *
-     * @param player The player to leave the faction.
-     * @return If the player was able to leave
+     * @param player The sender to leave the faction.
+     * @return If the sender was able to leave
      */
     boolean leavePlayer(@NotNull FactionPlayer<?> player)
             throws FactionIsFrozenException, PlayerIsOwnerException,
             PlayerHasNoFactionException;
 
     /**
-     * This function kicks a player from the faction
+     * This function kicks a sender from the faction
      *
-     * @param player The player to kick.
-     * @return If the player was able to kicked
+     * @param player The sender to kick.
+     * @return If the sender was able to kicked
      */
     boolean kickPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException,
             PlayerNotAMember;
 
     /**
-     * This function bans a player.
+     * This function bans a sender.
      *
-     * @param player The player to ban.
-     * @return If the player was able to get banned
+     * @param player The sender to ban.
+     * @return If the sender was able to get banned
      */
     boolean banPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException, PlayerNotAMember;
 
     /**
-     * Pardon a player from the ban list.
+     * Pardon a sender from the ban list.
      *
-     * @param player The player to pardon.
-     * @return If the player was able to be pardoned
+     * @param player The sender to pardon.
+     * @return If the sender was able to be pardoned
      */
     boolean pardonPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException;
 
     /**
-     * Returns true if the player is banned, false otherwise.
+     * Returns true if the sender is banned, false otherwise.
      *
-     * @param player The player to check
+     * @param player The sender to check
      * @return If banned or not
      */
     boolean isBanned(@NotNull OfflineFactionPlayer<?> player);
@@ -402,7 +402,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
 
     /**
      * Returns the power of the faction
-     * It sums all player power
+     * It sums all sender power
      *
      * @return A BigDecimal representing the total power
      */
@@ -419,7 +419,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
 
     /**
      * Returns the maximum power that can be generated by the faction
-     * It sums all player's maxpower
+     * It sums all sender's maxpower
      *
      * @return A BigDecimal representing the max reachable power
      */
@@ -435,19 +435,19 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
     @NotNull BigDecimal getActiveMaxPower();
 
     /**
-     * Returns the power of the player with the given UUID.
+     * Returns the power of the sender with the given UUID.
      * *
      *
-     * @param player The player's UUID
-     * @return The player power
+     * @param player The sender's UUID
+     * @return The sender power
      */
     double playerPower(@NotNull UUID player);
 
     /**
-     * Returns the maximum power of the given player.
+     * Returns the maximum power of the given sender.
      *
-     * @param player The player's UUID
-     * @return The maximum power of the player.
+     * @param player The sender's UUID
+     * @return The maximum power of the sender.
      */
     double maxPlayerPower(@NotNull UUID player);
 
@@ -516,9 +516,9 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
     boolean isAllied(@NotNull String registry);
 
     /**
-     * Returns true if the player is in an allied faction of this.
+     * Returns true if the sender is in an allied faction of this.
      *
-     * @param player The player to check.
+     * @param player The sender to check.
      * @return If allied or not
      */
     boolean isAllied(@NotNull OfflineFactionPlayer<?> player);
@@ -540,10 +540,10 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
     boolean isEnemy(@NotNull String registry);
 
     /**
-     * Returns true if the given player is an enemy of this faction
+     * Returns true if the given sender is an enemy of this faction
      *
-     * @param player The player to check.
-     * @return If the player's faction is an enemy
+     * @param player The sender to check.
+     * @return If the sender's faction is an enemy
      */
     boolean isEnemy(@NotNull OfflineFactionPlayer<?> player);
 
@@ -586,7 +586,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
 
     /**
      * Broadcast a translatable message to all players.
-     * The translation will be individual for each player based on their selected language
+     * The translation will be individual for each sender based on their selected language
      *
      * @param query The key of the translatable message.
      */

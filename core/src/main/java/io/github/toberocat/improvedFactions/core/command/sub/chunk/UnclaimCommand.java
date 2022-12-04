@@ -56,12 +56,12 @@ public class UnclaimCommand extends AutoAreaCommand {
         } catch (FactionNotInStorage e) {
             player.sendTranslatable(node.andThen(map -> map.get("faction-not-in-storage")));
         } catch (PlayerHasNoFactionException e) {
-            player.sendTranslatable(node.andThen(map -> map.get("player-has-no-faction")));
+            player.sendTranslatable(node.andThen(map -> map.get("sender-has-no-faction")));
         } catch (FactionDoesntOwnChunkException e) {
             if (area) return false;
 
             player.sendTranslatable(node.andThen(map -> map.get("chunk-not-yours")),
-                    new Placeholder("{claim}", e.getActualClaim() == null ? "§2wilderness" : e.getActualClaim()));
+                    new Placeholder("claim", e.getActualClaim() == null ? "§2wilderness" : e.getActualClaim()));
         }
         return false;
     }

@@ -58,7 +58,7 @@ public class RenameCommand
             faction.renameFaction(packet.newName);
             packet.player.sendTranslatable(node.andThen(map -> "renamed"));
         } catch (PlayerHasNoFactionException e) {
-            packet.player.sendTranslatable(node.andThen(map -> "player-has-no-faction"));
+            packet.player.sendTranslatable(node.andThen(map -> "sender-has-no-faction"));
         } catch (FactionNotInStorage e) {
             packet.player.sendTranslatable(node.andThen(map -> "faction-not-in-storage"));
         } catch (FactionCantBeRenamedToThisLiteralException e) {

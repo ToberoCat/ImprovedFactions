@@ -7,7 +7,7 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoF
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.components.FactionPermission;
 import io.github.toberocat.improvedFactions.core.handler.ActionHandler;
-import io.github.toberocat.improvedFactions.core.handler.MessageHandler;
+import io.github.toberocat.improvedFactions.core.handler.message.MessageHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
 import io.github.toberocat.improvedfactions.spigot.loom.BannerDesigner;

@@ -63,7 +63,7 @@ public class AcceptInviteCommand extends Command<AcceptInviteCommand.AcceptPacke
             InviteHandler.acceptInvite(packet.receiver, packet.faction);
         } catch (PlayerHasntBeenInvitedException e) {
             packet.receiver.sendTranslatable(node.andThen(map -> map.get("not-invited")),
-                    new Placeholder("{faction}", packet.faction.getDisplay()));
+                    new Placeholder("faction", packet.faction.getDisplay()));
         } catch (PlayerNotFoundException e) {
             packet.receiver.sendTranslatable(node.andThen(map -> map.get("inviter-not-found")));
         } catch (JoinWithRankInvalidException e) {
@@ -73,7 +73,7 @@ public class AcceptInviteCommand extends Command<AcceptInviteCommand.AcceptPacke
         } catch (PlayerIsAlreadyInFactionException e) {
             packet.receiver.sendTranslatable(node.andThen(map -> map.get("already-in-faction")));
         } catch (PlayerIsBannedException e) {
-            packet.receiver.sendTranslatable(node.andThen(map -> map.get("player-banned")));
+            packet.receiver.sendTranslatable(node.andThen(map -> map.get("sender-banned")));
         }
     }
 
@@ -93,13 +93,13 @@ public class AcceptInviteCommand extends Command<AcceptInviteCommand.AcceptPacke
         PersistentInvites.ReceiverMap invites = InviteHandler.getInvites(executor);
         if (invites == null) {
             executor.sendTranslatable(node.andThen(map -> map.get("not-invited")),
-                    new Placeholder("{faction}", args[0]));
+                    new Placeholder("faction", args[0]));
             return null;
         }
 
         if (!invites.containsKey(args[0])) {
             executor.sendTranslatable(node.andThen(map -> map.get("not-invited")),
-                    new Placeholder("{faction}", args[0]));
+                    new Placeholder("faction", args[0]));
             return null;
         }
 
@@ -108,7 +108,7 @@ public class AcceptInviteCommand extends Command<AcceptInviteCommand.AcceptPacke
             faction = FactionHandler.getFaction(args[0]);
         } catch (FactionNotInStorage e) {
             executor.sendTranslatable(node.andThen(map -> map.get("cant-find-faction")),
-                    new Placeholder("{faction}", args[0]));
+                    new Placeholder("faction", args[0]));
             return null;
         }
 

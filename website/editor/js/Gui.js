@@ -20,7 +20,7 @@ class Gui {
                 if (this.content)
                     return;
                 this.content = {
-                    guiTitleTranslation: "none",
+                    guiId: "gui-0",
                     rows: 6,
                     states: ["defaultState"],
                     items: []
@@ -96,6 +96,7 @@ class Gui {
                         json[state] = {
                             id: "air",
                             translationId: "none",
+                            customData: null
                         };
                     }
                     this.content.items[i].push(json);

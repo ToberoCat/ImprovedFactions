@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedFactions.core.action.provided.general;
 
 import io.github.toberocat.improvedFactions.core.action.Action;
-import io.github.toberocat.improvedFactions.core.handler.MessageHandler;
+import io.github.toberocat.improvedFactions.core.handler.message.MessageHandler;
 import io.github.toberocat.improvedFactions.core.player.ConsoleCommandSender;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.utils.Logger;

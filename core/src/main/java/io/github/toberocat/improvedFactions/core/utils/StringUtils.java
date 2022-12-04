@@ -5,20 +5,17 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringUtils {
-    public static @Nullable String replaceAll(String from, Placeholder... placeholders) {
+    public static @Nullable String replaceAll(@Nullable String from, Placeholder... placeholders) {
         if (from == null) return null;
 
         String rep = from;
         for (Placeholder placeholder : placeholders)
-            rep =
-                    rep.replaceAll(escape(placeholder.from()),
+            rep = rep.replaceAll(escape(placeholder.from()),
                             escape(placeholder.to()));
 
         return rep;

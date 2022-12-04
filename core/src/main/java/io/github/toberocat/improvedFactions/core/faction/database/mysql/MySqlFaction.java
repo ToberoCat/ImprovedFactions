@@ -441,8 +441,8 @@ public class MySqlFaction implements Faction<MySqlFaction> {
 
 
     /**
-     * @param player The player you want to change the rank of.
-     * @param rank   The rank you want to change the player to.
+     * @param player The sender you want to change the rank of.
+     * @param rank   The rank you want to change the sender to.
      */
     @Override
     public void changeRank(@NotNull OfflineFactionPlayer<?> player, @NotNull FactionRank rank)
@@ -839,10 +839,10 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     }
 
     /**
-     * Returns true if the given player is an enemy of this faction
+     * Returns true if the given sender is an enemy of this faction
      *
-     * @param player The player to check.
-     * @return If the player's faction is an enemy
+     * @param player The sender to check.
+     * @return If the sender's faction is an enemy
      */
     @Override
     public boolean isEnemy(@NotNull OfflineFactionPlayer<?> player) {

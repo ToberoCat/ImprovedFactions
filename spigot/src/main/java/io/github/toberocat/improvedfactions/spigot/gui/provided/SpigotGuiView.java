@@ -7,45 +7,39 @@
 package io.github.toberocat.improvedfactions.spigot.gui.provided;
 
 import io.github.toberocat.improvedFactions.core.action.Actions;
-import io.github.toberocat.improvedFactions.core.gui.JsonGui;
+import io.github.toberocat.improvedFactions.core.gui.content.GuiContent;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
-import io.github.toberocat.improvedFactions.core.handler.MessageHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
 import io.github.toberocat.improvedfactions.spigot.gui.AbstractGui;
 import io.github.toberocat.improvedfactions.spigot.gui.page.Page;
 import io.github.toberocat.improvedfactions.spigot.gui.settings.GuiSettings;
-import io.github.toberocat.improvedfactions.spigot.gui.slot.Slot;
 import io.github.toberocat.improvedfactions.spigot.player.SpigotFactionPlayer;
 import io.github.toberocat.improvedfactions.spigot.utils.YamlLoader;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
-public class SpigotGuiView extends AbstractGui {
+public class SpigotGuiView extends AbstractGui { // Todo: Fix gui view
 
     private final File files;
     private final FactionPlayer<?> fPlayer;
 
-    public SpigotGuiView(@NotNull Player player, JsonGui jsonGui) {
-        super(player, AbstractGui.createInventory(player, jsonGui.getRows() * 9, jsonGui.getTitle()));
+    public SpigotGuiView(@NotNull Player player, GuiContent guiContent) {
+        super(player, AbstractGui.createInventory(player, guiContent.getRows() * 9, guiContent.getGuiId()));
         fPlayer = new SpigotFactionPlayer(player);
-        files = new File(ImprovedFactions.api().getDataFolder(), "actions/" + jsonGui.getGuiId());
+        files = new File(ImprovedFactions.api().getDataFolder(), "actions/" + guiContent.getGuiId());
         if (!files.exists()) {
             if (!files.mkdir()) Logger.api()
-                    .logWarning("Couldn't create gui actions folder for gui " + jsonGui.getGuiId());
+                    .logWarning("Couldn't create gui actions folder for gui " + guiContent.getGuiId());
         }
+/*
 
-        jsonGui.getContent().forEach((item, action) -> {
+        guiContent.getContent().forEach((item, action) -> {
             if (item.slot() >= inventory.getSize()) return;
 
             ItemStack stack = (ItemStack) item.stack().getRaw();
@@ -55,12 +49,12 @@ public class SpigotGuiView extends AbstractGui {
             String id = meta.getDisplayName();
             MessageHandler api = MessageHandler.api();
             meta.setDisplayName(api.format(fPlayer, Objects.requireNonNullElse(fPlayer.getMessage(translatable -> translatable.getItems()
-                    .get(jsonGui.getGuiId())
+                    .get(guiContent.getGuiId())
                     .get(id)
                     .title()), "")));
 
             meta.setLore(Arrays.stream(fPlayer.getMessageBatch(translatable -> translatable.getItems()
-                            .get(jsonGui.getGuiId())
+                            .get(guiContent.getGuiId())
                             .get(id).description()
                             .stream()
                             .map(x -> api.format(fPlayer, x))
@@ -71,26 +65,27 @@ public class SpigotGuiView extends AbstractGui {
 
             addSlot(new Slot(stack) {
                 @Override
-                public void leftClick(@NotNull Player player, @Nullable ItemStack cursor) {
+                public void leftClick(@NotNull Player sender, @Nullable ItemStack cursor) {
                     callAction(id, "left-click");
                 }
 
                 @Override
-                public void shiftLeftClick(@NotNull Player player, @Nullable ItemStack cursor) {
+                public void shiftLeftClick(@NotNull Player sender, @Nullable ItemStack cursor) {
                     callAction(id, "shift-left-click");
                 }
 
                 @Override
-                public void rightClick(@NotNull Player player, @Nullable ItemStack cursor) {
+                public void rightClick(@NotNull Player sender, @Nullable ItemStack cursor) {
                     callAction(id, "right-click");
                 }
 
                 @Override
-                public void shiftRightClick(@NotNull Player player, @Nullable ItemStack cursor) {
+                public void shiftRightClick(@NotNull Player sender, @Nullable ItemStack cursor) {
                     callAction(id, "shift-right-click");
                 }
             }, 0, item.slot());
         });
+*/
 
         render();
     }

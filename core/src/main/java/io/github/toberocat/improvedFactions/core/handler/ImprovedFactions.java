@@ -3,6 +3,7 @@ package io.github.toberocat.improvedFactions.core.handler;
 import io.github.toberocat.improvedFactions.core.exceptions.NoImplementationProvidedException;
 import io.github.toberocat.improvedFactions.core.handler.component.PlayerLister;
 import io.github.toberocat.improvedFactions.core.handler.component.Scheduler;
+import io.github.toberocat.improvedFactions.core.player.ConsoleCommandSender;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
@@ -58,5 +59,13 @@ public interface ImprovedFactions<RawWorld> {
     /* Config */
 
     @NotNull ConfigHandler getConfig(@NotNull String relativePath);
+
+    /* Sender */
+
+    /**
+     * Gives an instance of the console sender
+     * @return The console sender for this server
+     */
+    @NotNull ConsoleCommandSender getConsoleSender();
 
 }

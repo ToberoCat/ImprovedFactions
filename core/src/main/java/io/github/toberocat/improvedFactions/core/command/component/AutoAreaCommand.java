@@ -77,8 +77,8 @@ public abstract class AutoAreaCommand extends
                     return new AsyncClaimPacket(success, fail);
                 }
             }).start().then(claim -> player.sendTranslatable(sendTotal(),
-                    new Placeholder("{success}", String.valueOf(claim.success)),
-                    new Placeholder("{total}", String.valueOf(claim.success + claim.fail))
+                    new Placeholder("success", String.valueOf(claim.success)),
+                    new Placeholder("total", String.valueOf(claim.success + claim.fail))
             ));
         }
     }

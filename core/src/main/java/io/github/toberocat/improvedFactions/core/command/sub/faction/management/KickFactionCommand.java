@@ -74,11 +74,11 @@ public class KickFactionCommand extends
     public void run(@NotNull KickPacket packet) {
         try {
             packet.executor.getFaction().kickPlayer(packet.kicked);
-            packet.executor.sendTranslatable(node.andThen(map -> map.get("kicked-player")));
+            packet.executor.sendTranslatable(node.andThen(map -> map.get("kicked-sender")));
         } catch (FactionIsFrozenException e) {
             packet.executor.sendTranslatable(node.andThen(map -> map.get("faction-is-frozen")));
         } catch (PlayerHasNoFactionException e) {
-            packet.executor.sendTranslatable(node.andThen(map -> map.get("player-has-no-faction")));
+            packet.executor.sendTranslatable(node.andThen(map -> map.get("sender-has-no-faction")));
         } catch (FactionNotInStorage e) {
             packet.executor.sendTranslatable(node.andThen(map -> map.get("faction-not-in-storage")));
         } catch (PlayerNotAMember e) {
@@ -90,7 +90,7 @@ public class KickFactionCommand extends
     public void runConsole(@NotNull KickConsolePacket packet) {
         try {
             packet.faction.kickPlayer(packet.kicked);
-            Logger.api().logInfo("Kicked player");
+            Logger.api().logInfo("Kicked sender");
         } catch (FactionIsFrozenException e) {
             Logger.api().logInfo("Faction is frozen");
         } catch (PlayerNotAMember e) {
@@ -108,7 +108,7 @@ public class KickFactionCommand extends
 
         OfflineFactionPlayer<?> player = ImprovedFactions.api().getOfflinePlayer(args[1]);
         if (player == null) {
-            executor.sendTranslatable(node.andThen(map -> map.get("player-not-found")));
+            executor.sendTranslatable(node.andThen(map -> map.get("sender-not-found")));
             return null;
         }
 
@@ -118,7 +118,7 @@ public class KickFactionCommand extends
     @Override
     public @Nullable KickFactionCommand.KickConsolePacket createFromArgs(@NotNull String[] args) {
         if (args.length <= 2) {
-            Logger.api().logInfo("You need a faction and the player you want to kick");
+            Logger.api().logInfo("You need a faction and the sender you want to kick");
             return null;
         }
 

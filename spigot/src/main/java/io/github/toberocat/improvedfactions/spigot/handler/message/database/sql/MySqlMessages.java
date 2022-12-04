@@ -24,4 +24,9 @@ public class MySqlMessages implements MessageHandler {
     public void sendClickableTranslatable(@NotNull UUID player, @NotNull Function<Translatable, String> query, @NotNull String command, Placeholder... placeholders) {
         throw new NotImplementedException();
     }
+
+    @Override
+    public void sendFancyMessage(@NotNull UUID player, @NotNull Function<Translatable, String> query, Placeholder... placeholders) {
+        throw new NotImplementedException();
+    }
 }

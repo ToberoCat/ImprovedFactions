@@ -71,14 +71,14 @@ public class InviteCommand extends Command<InviteCommand.InvitePacket, InviteCom
                     packet.sender,
                     packet.faction,
                     packet.rank);
-            packet.sender.sendTranslatable(node.andThen(map -> map.get("invited-player")));
+            packet.sender.sendTranslatable(node.andThen(map -> map.get("invited-sender")));
             packet.receiver.sendClickableTranslatable(node.andThen(map -> map.get("you-have-been-invited")),
                     "f " + AcceptInviteCommand.LABEL + " " + packet.faction.getRegistry(),
-                    new Placeholder("{player}", packet.sender().getName()),
-                    new Placeholder("{faction}", packet.faction.getDisplay()),
-                    new Placeholder("{rank}", packet.rank.getRegistry()));
+                    new Placeholder("sender", packet.sender().getName()),
+                    new Placeholder("faction", packet.faction.getDisplay()),
+                    new Placeholder("rank", packet.rank.getRegistry()));
         } catch (PlayerHasBeenInvitedException e) {
-            packet.sender.sendTranslatable(node.andThen(map -> map.get("player-already-been-invited")));
+            packet.sender.sendTranslatable(node.andThen(map -> map.get("sender-already-been-invited")));
         } catch (CantInviteYourselfException e) {
             packet.sender.sendTranslatable(node.andThen(map -> map.get("cant-invite-yourself")));
         } catch (PlayerAlreadyMemberException e) {
@@ -119,7 +119,7 @@ public class InviteCommand extends Command<InviteCommand.InvitePacket, InviteCom
 
         OfflineFactionPlayer<?> player = ImprovedFactions.api().getOfflinePlayer(args[0]);
         if (player == null) {
-            executor.sendTranslatable(node.andThen(map -> map.get("player-not-found")));
+            executor.sendTranslatable(node.andThen(map -> map.get("sender-not-found")));
             return null;
         }
 
@@ -138,7 +138,7 @@ public class InviteCommand extends Command<InviteCommand.InvitePacket, InviteCom
             Faction<?> faction = executor.getFaction();
             return new InvitePacket(executor, player, faction, factionRank);
         } catch (PlayerHasNoFactionException e) {
-            executor.sendTranslatable(node.andThen(map -> map.get("player-has-no-faction")));
+            executor.sendTranslatable(node.andThen(map -> map.get("sender-has-no-faction")));
         } catch (FactionNotInStorage e) {
             executor.sendTranslatable(node.andThen(map -> map.get("faction-not-in-storage")));
         }

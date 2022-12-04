@@ -4,7 +4,7 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotIn
 import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
-import io.github.toberocat.improvedFactions.core.handler.MessageHandler;
+import io.github.toberocat.improvedFactions.core.handler.message.MessageHandler;
 import io.github.toberocat.improvedFactions.core.item.ItemStack;
 import io.github.toberocat.improvedFactions.core.location.Location;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
@@ -15,6 +15,7 @@ import io.github.toberocat.improvedFactions.core.translator.Translation;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.StringUtils;
 import io.github.toberocat.improvedfactions.spigot.item.SpigotItemStack;
+import io.github.toberocat.improvedfactions.spigot.utils.FancyMessage;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -85,6 +86,7 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(actionbar));
     }
 
+
     @Override
     public void sendActionBar(@NotNull Function<Translatable, String> query) {
         String actionbar = getMessage(query);
@@ -126,7 +128,7 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
         String msg = getMessage(query, placeholders);
         if (msg != null)
             player.sendMessage(MessageHandler.api().format(this,
-                            translation.getMessage(PREFIX_QUERY) + msg));
+                    translation.getMessage(PREFIX_QUERY) + msg));
     }
 
     @Override
@@ -140,6 +142,49 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
                         translation.getMessage(PREFIX_QUERY) + msg)));
         component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + command));
         player.spigot().sendMessage(component);
+    }
+
+    /**
+     * Fancy message
+     * An utility to make sending messages with
+     * hovering and clickable text easier to use
+     * and more available to end users
+     * <p>
+     * Example messages:
+     * <ul>
+     *     <li>
+     *         {text:&6Sample colored text}
+     *     </li>
+     *     <li>
+     *         {text:Hover over the message; hover:&cHello}
+     *     </li>
+     *     <li>
+     *         {text:Click here to say hi in chat; command:Hi everyone!}
+     *     </li>
+     *     <li>
+     *         {text:Click here to change your gamemode; command:/gamemode creative}
+     *     </li>
+     *     <li>
+     *         {text:Click here to go to youtube; url:https://youtube.com/}
+     *     </li>
+     *     <li>
+     *         {text:Multiple attributes; hover:Hovering; suggest_command:This is a command suggestion}
+     *     </li>
+     *     <li>
+     *         {text:First hover; hover:First} {text:Second hover; hover:Second} {text:Broadcast; command:/broadcast Hello!}
+     *     </li>
+     * </ul>
+     *
+     * @param query        The message query in the lang file
+     * @param placeholders The placeholders provided for this message only
+     * @author iDarkyy
+     */
+    @Override
+    public void sendFancyMessage(@NotNull Function<Translatable, String> query,
+                                 Placeholder... placeholders) {
+        String msg = getMessage(query, placeholders);
+        if (msg == null) return;
+        new FancyMessage("{text:" + getPrefix() + "}" + msg).send(player);
     }
 
     @Override
@@ -185,5 +230,9 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
     @Override
     public boolean hasPermission(@NotNull String permission) {
         return player.hasPermission(permission);
+    }
+
+    private @Nullable String getPrefix() {
+        return translation.getMessage(PREFIX_QUERY);
     }
 }

@@ -56,10 +56,10 @@ public class ListFactionCommand extends
             factions.forEach(f ->
                     packet.player().sendTranslatable(node.andThen(map -> map.get(
                                     loaded.contains(f) ? "entry-loaded" : "entry-unloaded")),
-                            new Placeholder("{faction}", f)));
+                            new Placeholder("faction", f)));
             packet.player().sendTranslatable(node.andThen(map -> map.get("lower-text")),
-                    new Placeholder("{factions}", String.valueOf(factions.size())),
-                    new Placeholder("{loaded}",
+                    new Placeholder("factions", String.valueOf(factions.size())),
+                    new Placeholder("loaded",
                             String.valueOf(loaded.size())));
         }
     }
