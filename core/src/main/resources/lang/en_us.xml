@@ -22,7 +22,7 @@
             <player>
                 <unbanned>You got unbanned from §e{faction}</unbanned>
                 <invalid-faction-name>§cYou can not use that name</invalid-faction-name>
-                <faction-is-frozen>§cThis faction has been frozen and can not be modifyed ingame</faction-is-frozen>
+                <faction-is-frozen>§cThis faction has been frozen and can not be modified ingame</faction-is-frozen>
             </player>
             <broadcast>
                 <player-join>§fPlayer §e{player} §fjoined your faction as §e{rank}</player-join>

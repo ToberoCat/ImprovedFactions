@@ -21,8 +21,8 @@ public class SpigotCommandHandler {
         lookup = new HashMap<>();
         this.base = base;
 
-        if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard"))
-            base.getCommands().get("zones").getCommands().put("scanWg", new ScanRegionsToZone());
+        //if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard")) ToDo: Fix the scan command
+            //base.getCommands().get("zones").getCommands().put("scanWg", new ScanRegionsToZone());
 
         call(base);
     }
