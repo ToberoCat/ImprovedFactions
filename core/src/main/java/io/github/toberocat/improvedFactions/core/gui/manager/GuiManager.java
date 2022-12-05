@@ -52,7 +52,7 @@ public class GuiManager { // ToDo: Get rid of the static method spam and make th
             gui.setGuiId(guiId);
             return gui;
         } catch (IOException e) {
-            return new GuiContent(guiId, 6, new String[]{"defaultState"}, new HashMap[9][6]);
+            return new GuiContent(guiId, 6);
         }
     }
 

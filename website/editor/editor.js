@@ -13,29 +13,41 @@ function createUI() {
 function createListeners() {
     document.getElementById("export-gui-button")
         .addEventListener("click", () => {
-            navigator.clipboard.writeText("/f editor apply " + gui.toBase64())
-                .then(r => Toast.show("Copied command into clipboard", "success"))
-                .catch(e => {
-                    console.error(e);
-                    Toast.show("Error occurred while coping to clipboard", "error")
+            downloadGui(gui.exportGui(), "text/plain", gui.content.guiId + ".gui")
+                .then(r => Toast.show("Exported command into gui file", "success"))
+                .catch(err => {
+                    console.log(err);
+                    Toast.show("Failed exporting your gui", "error")
                 });
         });
 
     document.getElementById("share-gui-button")
         .addEventListener("click", () => {
-            navigator.clipboard.writeText(window.location.href.split('?')[0] + "?gui=" + gui.toBase64())
+            navigator.clipboard.writeText(window.location.href.split('?')[0] + "?gui=" + gui.exportGui())
                 .then(r => Toast.show("Copied link into clipboard", "success"))
                 .catch(e => {
                     console.error(e);
                     Toast.show("Error occurred while coping to clipboard", "error")
                 });
-            gui.toBase64();
+            gui.exportGui();
         });
 }
 
+function downloadGui(content, mimeType, filename){
+    return new Promise(resolve => {
+        const a = document.createElement('a');
+        const blob = new Blob([content], {type: mimeType});
+        const url = URL.createObjectURL(blob);
+        a.setAttribute('href', url);
+        a.setAttribute('download', filename);
+        a.click();
+        resolve();
+    });
+}
+
 function htmlToElement(html) {
-    var template = document.createElement('template');
-    html = html.trim(); // Never return a text node of whitespace as the result
+    const template = document.createElement('template');
+    html = html.trim();
     template.innerHTML = html;
     return template.content.firstChild;
 }

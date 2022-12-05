@@ -12,10 +12,9 @@ import io.github.toberocat.improvedFactions.core.utils.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
 import java.util.List;
 
-public class EditGuisCommand extends Command<EditGuisCommand.EditorGuiPacket, EditGuisCommand.EditorGuiPacket> {
+public class EditGuiCommand extends Command<EditGuiCommand.EditorGuiPacket, EditGuiCommand.EditorGuiPacket> {
     @Override
     public boolean isAdmin() {
         return true;
@@ -23,7 +22,7 @@ public class EditGuisCommand extends Command<EditGuisCommand.EditorGuiPacket, Ed
 
     @Override
     public @NotNull String label() {
-        return "editGuis";
+        return "edit";
     }
 
     @Override
@@ -35,12 +34,12 @@ public class EditGuisCommand extends Command<EditGuisCommand.EditorGuiPacket, Ed
 
     @Override
     public @NotNull List<String> tabCompleteConsole(@NotNull String[] args) {
-        return Collections.emptyList();
+        return GuiManager.getGuis();
     }
 
     @Override
     public @NotNull List<String> tabCompletePlayer(@NotNull FactionPlayer<?> player, @NotNull String[] args) {
-        return Collections.emptyList();
+        return GuiManager.getGuis();
     }
 
     @Override

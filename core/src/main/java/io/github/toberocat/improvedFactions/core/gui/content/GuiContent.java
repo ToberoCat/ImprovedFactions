@@ -1,9 +1,15 @@
 package io.github.toberocat.improvedFactions.core.gui.content;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.github.toberocat.improvedFactions.core.gui.manager.BrowserGuiImplementation;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 
 public class GuiContent {
@@ -15,11 +21,33 @@ public class GuiContent {
     public GuiContent() {
     }
 
-    public GuiContent(String guiId, int rows, String[] states,  Map<String, ItemState>[][] items) {
+    public GuiContent(@NotNull String guiId, int rows, String... states) {
         this.guiId = guiId;
         this.rows = rows;
-        this.states = states;
-        this.items = items;
+        this.states = getStates(states);
+        this.items = createItems();
+    }
+
+    private @NotNull Map<String, ItemState>[][] createItems() {
+        Map<String, ItemState>[][] items = new HashMap[rows][9];
+
+        for (int i = 0; i < rows; i++) {
+            items[i] = new HashMap[9];
+            for (int j = 0; j < 9; j++) {
+                items[i][j] = new HashMap<>();
+                for (String state : states)
+                    items[i][j].put(state, new ItemState("air", "none"));
+            }
+        }
+
+        return items;
+    }
+
+    private @NotNull String[] getStates(String... states) {
+        return Stream.concat(
+                        Stream.of("defaultState"),
+                        Stream.of(states)
+                ).toArray(String[]::new);
     }
 
     @JsonIgnore

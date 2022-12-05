@@ -3,11 +3,15 @@ class Gui {
         this.parent = document.getElementById("gui-slots");
         this.properties = document.getElementById("item-meta");
         this.selectedSlot = null;
+        this.rowsElement = document.getElementById("rows");
 
         this.properties.style.visibility = "hidden";
         document.getElementById("properties-window").style.overflowY = "hidden";
 
-        document.getElementById("rows").addEventListener("change", () => this.renderGui());
+        this.rowsElement.addEventListener("change", () => {
+            this.content.rows = this.rowsElement.value;
+            this.renderGui();
+        });
     }
 
     generateGui() {
@@ -17,14 +21,14 @@ class Gui {
             })
             .catch(err => console.log("Couldn't read gui from query"))
             .finally(() => {
-                if (this.content)
-                    return;
-                this.content = {
-                    guiId: "gui-0",
-                    rows: 6,
-                    states: ["defaultState"],
-                    items: []
-                };
+                if (!this.content)
+                    this.content = {
+                        guiId: "gui-0",
+                        rows: 6,
+                        states: ["defaultState"],
+                        items: []
+                    };
+                this.rowsElement.value = this.content.rows;
             });
     }
 
@@ -53,7 +57,7 @@ class Gui {
             const itemTranslationLabel = htmlToElement(`<label for="item-translation-id-${state}" class="properties-label">Item Translation Id</label>`);
             const itemTranslationInput = htmlToElement(`<input id="item-translation-id-${state}" type="text" name="Item translation id" value="item-0" class="properties-input">`);
             itemTranslationInput.addEventListener("change", () => {
-               this.selectedSlot[state].translationId = itemTranslationInput.value;
+                this.selectedSlot[state].translationId = itemTranslationInput.value;
             });
 
 
@@ -82,8 +86,7 @@ class Gui {
 
     renderGui() {
         this.parent.innerHTML = "";
-        document.getElementById("rows").value = this.content.rows;
-        document.getElementById("title").value = this.content.title;
+        this.rowsElement.value = this.content.rows;
         const rows = Math.min(6, Math.max(1, parseInt(rowElement.value)));
         for (let i = 0; i < rows; i++) {
             if (!this.content.items[i])
@@ -146,7 +149,7 @@ class Gui {
         }
     }
 
-    toBase64() {
-        return btoa(JSON.stringify(this.content));
+    exportGui() {
+        return JSON.stringify(this.content);
     }
 }

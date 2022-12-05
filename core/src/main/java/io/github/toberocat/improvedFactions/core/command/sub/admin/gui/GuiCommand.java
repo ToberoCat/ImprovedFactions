@@ -1,10 +1,7 @@
-package io.github.toberocat.improvedFactions.core.command.sub.admin;
+package io.github.toberocat.improvedFactions.core.command.sub.admin.gui;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
-import io.github.toberocat.improvedFactions.core.command.sub.admin.gui.EditGuiCommand;
-import io.github.toberocat.improvedFactions.core.command.sub.admin.gui.GuiCommand;
-import io.github.toberocat.improvedFactions.core.command.sub.admin.zone.ZoneRootCommand;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -12,13 +9,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class AdminRoot extends Command<Command.CommandPacket, Command.ConsoleCommandPacket> {
+public class GuiCommand extends Command<Command.CommandPacket, Command.ConsoleCommandPacket> {
 
-    public AdminRoot() {
-        add(new GuiCommand());
-        add(new ZoneRootCommand());
+    public GuiCommand() {
+        add(new EditGuiCommand());
     }
-
     @Override
     public boolean isAdmin() {
         return true;
@@ -26,14 +21,13 @@ public class AdminRoot extends Command<Command.CommandPacket, Command.ConsoleCom
 
     @Override
     public @NotNull String label() {
-        return "admin";
+        return "gui";
     }
 
     @Override
     protected @NotNull CommandSettings createSettings() {
         return new CommandSettings(node)
-                .setAllowInConsole(true)
-                .setRequiredSpigotPermission(permission());
+                .setAllowInConsole(true);
     }
 
     @Override
