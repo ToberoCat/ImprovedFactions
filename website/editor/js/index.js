@@ -23,7 +23,8 @@ function createListeners() {
 
     document.getElementById("share-gui-button")
         .addEventListener("click", () => {
-            navigator.clipboard.writeText(window.location.href.split('?')[0] + "?gui=" + gui.exportGui())
+            navigator.clipboard.writeText(window.location.href.split('?')[0] + "?gui="
+                + btoa(gui.exportGui()))
                 .then(r => Toast.show("Copied link into clipboard", "success"))
                 .catch(e => {
                     console.error(e);

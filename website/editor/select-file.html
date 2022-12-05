@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File selector</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/select-file/select-file.css">
+    <link rel="stylesheet" href="css/default-scrollbar.css">
+    <link rel="stylesheet" href="css/toggle.css">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/select-file/file-chooser.css">
+
+    <!-- Modes -->
+    <link id="dark-mode" rel="stylesheet" href="css/dark-mode.css">
+    <link id="light-mode" rel="stylesheet" href="css/light-mode.css">
+
+    <!-- Font -->
+    <link id="u-theme-google-font" rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+
+    <!-- Toasts -->
+    <link rel="stylesheet" href="toast/toast.css">
+    <script src="toast/toast.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <input type="file" id="file-upload" accept=".gui" style="display:none"/>
+    <div class="layout">
+        <div id="header" class="shadow unselectable">
+            <a class="unselectable" href="https://www.spigotmc.org/resources/improved-factions.95617/" data-image-width="150"
+               data-image-height="150"><img src="../images/icon.png" class="logo-image" alt="Improved Factions Logo">
+            </a>
+            <input type="checkbox" id="darkmode-toggle" value=false>
+            <label id="darkmode-toggle-label" for="darkmode-toggle"></label>
+        </div>
+        <div id="file-section">
+            <h1>Please select a gui file</h1>
+            <p>You can find them in plugins/ImprovedFactions/guis</p>
+            <div id="file-chooser" class="shadow unselectable">
+                <h4>Drop your file here</h4>
+                <h5>or click to upload</h5>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/LightDarkMode.js"></script>
+    <script src="js/SelectFile.js"></script>
+</body>
+</html>

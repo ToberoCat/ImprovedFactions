@@ -19,7 +19,10 @@ class Gui {
             .then(content => {
                 this.content = content;
             })
-            .catch(err => console.log("Couldn't read gui from query"))
+            .catch(err => {
+                const currentUrl = window.location.href.split(/(?<=editor)\//gm)[0];
+                location.href = `${currentUrl}/select-file.html`;
+            })
             .finally(() => {
                 if (!this.content)
                     this.content = {

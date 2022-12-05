@@ -24,11 +24,11 @@ input[type=number] {
 }
 
 ::-webkit-scrollbar-track {
-    background: #24252a;
+    background: #111111;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #111111;
+    background: #24252a;
 }
 
 ::-webkit-scrollbar-thumb:hover {
