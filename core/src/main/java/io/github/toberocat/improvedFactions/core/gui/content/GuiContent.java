@@ -1,13 +1,11 @@
 package io.github.toberocat.improvedFactions.core.gui.content;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.github.toberocat.improvedFactions.core.gui.manager.BrowserGuiImplementation;
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.Stream;
 

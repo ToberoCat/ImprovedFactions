@@ -14,7 +14,7 @@ import java.util.Base64;
 public interface BrowserGuiImplementation extends GuiImplementation {
 
     String editorUrl = "https://toberocat.github.io/ImprovedFactions_new/" +
-            "website/editor/editor.html";
+            "website/editor";
 
     @Override
     default void openEditor(@NotNull CommandSender sender, @NotNull String guiId) {

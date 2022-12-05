@@ -19,7 +19,6 @@ public class FancyMessage {
      */
     public FancyMessage(String raw) {
         this.raw = raw;
-        System.out.println(raw);
         format();
     }
 
@@ -41,10 +40,6 @@ public class FancyMessage {
 
             if (match.matches("\\{[^{}]+}")) {
                 HashMap<String, String> attributes = this.getAttributes(match.substring(1, match.length() - 1));
-
-                for (String key : attributes.keySet()) {
-                    System.out.println(key + " : " + attributes.get(key));
-                }
 
                 BaseComponent component = new TextComponent(color(attributes.get("text")));
 

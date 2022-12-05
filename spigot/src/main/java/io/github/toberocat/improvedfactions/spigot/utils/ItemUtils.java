@@ -69,7 +69,7 @@ public class ItemUtils {
         String id = meta.getDisplayName();
         MessageHandler api = MessageHandler.api();
         String title = player.getMessage(translatable -> {
-            XmlItem xml = translatable.getItems()
+            XmlItem xml = translatable.getGuis()
                     .get(guiId)
                     .get(id);
             if (xml != null) return xml.title();
@@ -77,7 +77,7 @@ public class ItemUtils {
             return null;
         });
         meta.setDisplayName(api.format(player, Objects.requireNonNullElse(title, "")));
-        meta.setLore(Arrays.stream(player.getMessageBatch(translatable -> translatable.getItems()
+        meta.setLore(Arrays.stream(player.getMessageBatch(translatable -> translatable.getGuis()
                         .get(guiId)
                         .get(id).description()
                         .stream()

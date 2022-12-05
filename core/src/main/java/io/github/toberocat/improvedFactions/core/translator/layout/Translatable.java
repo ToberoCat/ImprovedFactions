@@ -19,7 +19,7 @@ public class Translatable {
     private String prefix;
     private Map<String, XmlRank> ranks;
     private Map<String, String> zones;
-    private Map<String, Map<String, XmlItem>> items;
+    private Map<String, Map<String, XmlItem>> guis;
 
     public Translatable() {
     }
@@ -72,11 +72,11 @@ public class Translatable {
         this.zones = zones;
     }
 
-    public Map<String, Map<String, XmlItem>> getItems() {
-        return items;
+    public Map<String, Map<String, XmlItem>> getGuis() {
+        return guis;
     }
 
-    public void setItems(Map<String, Map<String, XmlItem>> items) {
-        this.items = items;
+    public void setGuis(Map<String, Map<String, XmlItem>> guis) {
+        this.guis = guis;
     }
 }

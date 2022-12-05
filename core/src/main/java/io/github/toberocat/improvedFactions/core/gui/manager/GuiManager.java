@@ -47,12 +47,14 @@ public class GuiManager { // ToDo: Get rid of the static method spam and make th
 
     public static @NotNull GuiContent getGui(@NotNull String guiId) {
         try {
+            System.out.println(getFile(guiId).getAbsolutePath());
             GuiContent gui = Json.parse(GuiContent.class,
                     getFile(guiId));
             gui.setGuiId(guiId);
             return gui;
         } catch (IOException e) {
-            return new GuiContent(guiId, 6);
+            throw new RuntimeException(e);
+            //  return new GuiContent(guiId, 6);
         }
     }
 

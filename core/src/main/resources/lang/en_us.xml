@@ -239,12 +239,12 @@
                 </missing-faction-permission>
                 <missing-spigot-permission>§cYou do not have the required SERVER permission</missing-spigot-permission>
             </settings>
-            <editGuis>
+            <edit>
                 <not-enough-arguments>{text:This command needs a valid gui id that should be edited}
                 </not-enough-arguments>
                 <gui-couldnt-be-found>{text:The given guiId couldn't be found in the gui registry}
                 </gui-couldnt-be-found>
-            </editGuis>
+            </edit>
         </command>
         <misc>
             <gui-editor>
@@ -353,198 +353,21 @@
         <animal-zone>§6Animals</animal-zone>
         <__glbwilderness__>§2Wilderness</__glbwilderness__>
     </zones>
-    <items>
+    <guis>
         <manage-faction>
-            <members>
-                <title>§6§lMembers</title>
+            <empty>
+                <title></title>
                 <description>
-                    <description/>
-                    <description>§7Manage your members</description>
                 </description>
-            </members>
+            </empty>
             <faction-icon>
-                <title>§6§lFaction Icon</title>
+                <title>§eFaction Icon</title>
                 <description>
-                    <description/>
-                    <description>§7Change your icon</description>
+                    <line></line>
+                    <line>§7This is your factions icon</line>
+                    <line>§7click §6§lhere§7 to change it</line>
                 </description>
             </faction-icon>
-            <permissions>
-                <title>§6§lPermissions</title>
-                <description>
-                    <description/>
-                    <description>§7Manage your faction</description>
-                    <description>§7permissions.</description>
-                    <description/>
-                    <description>§7Grant a group the build</description>
-                    <description>§7permissions or revoke them</description>
-                </description>
-            </permissions>
-            <max-power>
-                <title>§6§lMax power</title>
-                <description>
-                    <description/>
-                    <description>§7You have §b%faction_maxpower% §7max power</description>
-                </description>
-            </max-power>
-            <current-power>
-                <title>§6§lCurrent power</title>
-                <description>
-                    <description/>
-                    <description>§7You have §b%faction_currentpower% §7current power</description>
-                </description>
-            </current-power>
-            <rename>
-                <title>§6§lRename</title>
-                <description>
-                    <description/>
-                    <description>§7Rename your faction</description>
-                </description>
-            </rename>
-            <description>
-                <title>§6§lChange Description</title>
-                <description>
-                    <description/>
-                    <description>§7Set the description</description>
-                    <description>§7of your faction</description>
-                </description>
-            </description>
-            <motd>
-                <title>§6§lChange Motd</title>
-                <description>
-                    <description/>
-                    <description>§7Set the motd</description>
-                    <description>§7of your faction</description>
-                </description>
-            </motd>
-            <relations>
-                <title>§6§lRelations</title>
-                <description>
-                    <description/>
-                    <description>§7Manage your relations</description>
-                </description>
-            </relations>
-            <open-type>
-                <title>§6§lOpen Type</title>
-                <description>
-                    <description/>
-                    <description>§7The open type your faction uses</description>
-                </description>
-            </open-type>
-            <background-tile>
-                <title xml:space="preserve"> </title>
-                <description/>
-            </background-tile>
         </manage-faction>
-        <player-inv-banner-designer>
-            <empty-icon>
-                <title>§6§lEmpty Icon</title>
-                <description/>
-            </empty-icon>
-            <pattern-thing>
-                <title>§6§lPattern Thing</title>
-                <description/>
-            </pattern-thing>
-            <pattern-creeper>
-                <title>§6§lPattern Creeper</title>
-                <description/>
-            </pattern-creeper>
-            <pattern-globe>
-                <title>§6§lPattern Globe</title>
-                <description/>
-            </pattern-globe>
-            <pattern-flower>
-                <title>§6§lPattern Flower</title>
-                <description/>
-            </pattern-flower>
-            <pattern-skull>
-                <title>§6§lPattern Skull</title>
-                <description/>
-            </pattern-skull>
-            <pattern-snout>
-                <title>§6§lPattern Snout</title>
-                <description/>
-            </pattern-snout>
-            <confirm-icon>
-                <title>§a§lConfirm icon</title>
-                <description>
-                    <description/>
-                    <description>§7By click this, you'll</description>
-                    <description>§7overwrite the old faction icon</description>
-                </description>
-            </confirm-icon>
-            <reject-icon>
-                <title>§c§lReject icon</title>
-                <description>
-                    <description/>
-                    <description>§7By click this, you'll</description>
-                    <description>§7throw away your current changes</description>
-                </description>
-            </reject-icon>
-            <white-dye>
-                <title>§6§lWhite Dye</title>
-                <description/>
-            </white-dye>
-            <black-dye>
-                <title>§6§lBlack Dye</title>
-                <description/>
-            </black-dye>
-            <red-dye>
-                <title>§6§lRed Dye</title>
-                <description/>
-            </red-dye>
-            <brown-dye>
-                <title>§6§lBrown Dye</title>
-                <description/>
-            </brown-dye>
-            <lime-dye>
-                <title>§6§lLime Dye</title>
-                <description/>
-            </lime-dye>
-            <green-dye>
-                <title>§6§lGreen Dye</title>
-                <description/>
-            </green-dye>
-            <gray-dye>
-                <title>§6§lGray Dye</title>
-                <description/>
-            </gray-dye>
-            <lgray-dye>
-                <title>§6§lLight Gray Dye</title>
-                <description/>
-            </lgray-dye>
-            <yellow-dye>
-                <title>§6§lYellow Dye</title>
-                <description/>
-            </yellow-dye>
-            <orange-dye>
-                <title>§6§lOrange Dye</title>
-                <description/>
-            </orange-dye>
-            <blue-dye>
-                <title>§6§lBlue Dye</title>
-                <description/>
-            </blue-dye>
-            <cyan-dye>
-                <title>§6§lCyan Dye</title>
-                <description/>
-            </cyan-dye>
-            <lblue-dye>
-                <title>§6§lLight Blue Dye</title>
-                <description/>
-            </lblue-dye>
-            <pink-dye>
-                <title>§6§lPink Dye</title>
-                <description/>
-            </pink-dye>
-            <purple-dye>
-                <title>§6§lPurple Dye</title>
-                <description/>
-            </purple-dye>
-            <magenta-dye>
-                <title>§6§lMagenta Dye</title>
-                <description/>
-            </magenta-dye>
-        </player-inv-banner-designer>
-    </items>
+    </guis>
 </translatable>
