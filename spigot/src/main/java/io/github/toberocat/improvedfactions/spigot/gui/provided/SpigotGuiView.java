@@ -9,6 +9,8 @@ package io.github.toberocat.improvedfactions.spigot.gui.provided;
 import io.github.toberocat.improvedFactions.core.action.Actions;
 import io.github.toberocat.improvedFactions.core.gui.content.GuiContent;
 import io.github.toberocat.improvedFactions.core.gui.content.ItemState;
+import io.github.toberocat.improvedFactions.core.gui.manager.GuiManager;
+import io.github.toberocat.improvedFactions.core.gui.manager.GuiProvider;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
@@ -44,10 +46,11 @@ public class SpigotGuiView extends AbstractGui { // Todo: Fix gui view
         }
 
         Map<String, ItemState>[][] items = guiContent.getItems();
+        GuiProvider provider = GuiManager.getGuis().get(guiContent.getGuiId());
         for (int i = 0; i < items.length; i++) {
             for (int j = 0; j < items[i].length; j++) {
                 Map<String, ItemState> states = items[i][j];
-                ItemState state = states.get("defaultState");
+                ItemState state = provider.getState(states);
                 Material material = Material.getMaterial(state
                         .getId()
                         .replaceAll(" ", "_")
