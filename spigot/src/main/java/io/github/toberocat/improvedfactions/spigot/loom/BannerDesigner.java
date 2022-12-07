@@ -75,7 +75,6 @@ public class BannerDesigner implements Listener { // ToDo: Fix Faction Icon desi
     private void cloneJsonGui(@NotNull FactionPlayer<?> player) {
         this.player.getInventory().clear();
 
-        GuiContent guiContent = GuiManager.getGui(GuiManager.PLAYER_ICON_DESIGNER_INV);
 /*        guiContent.getContent().forEach((container, action) -> {
             ItemStack stack = (ItemStack) container.stack().getRaw();
             ItemUtils.translateItem(sender, guiContent.getGuiId(), stack);

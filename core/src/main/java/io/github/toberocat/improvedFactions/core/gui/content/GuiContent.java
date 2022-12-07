@@ -45,7 +45,8 @@ public class GuiContent {
         return Stream.concat(
                         Stream.of("defaultState"),
                         Stream.of(states)
-                ).toArray(String[]::new);
+                ).distinct()
+                .toArray(String[]::new);
     }
 
     @JsonIgnore

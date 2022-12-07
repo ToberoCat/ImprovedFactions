@@ -34,12 +34,21 @@ public class EditGuiCommand extends Command<EditGuiCommand.EditorGuiPacket, Edit
 
     @Override
     public @NotNull List<String> tabCompleteConsole(@NotNull String[] args) {
-        return GuiManager.getGuis();
+        return GuiManager
+                .getGuis()
+                .keySet()
+                .stream()
+                .toList();
     }
 
     @Override
-    public @NotNull List<String> tabCompletePlayer(@NotNull FactionPlayer<?> player, @NotNull String[] args) {
-        return GuiManager.getGuis();
+    public @NotNull List<String> tabCompletePlayer(@NotNull FactionPlayer<?> player,
+                                                   @NotNull String[] args) {
+        return GuiManager
+                .getGuis()
+                .keySet()
+                .stream()
+                .toList();
     }
 
     @Override
@@ -67,7 +76,7 @@ public class EditGuiCommand extends Command<EditGuiCommand.EditorGuiPacket, Edit
             return null;
         }
         String guiId = args[0];
-        if (!GuiManager.getGuis().contains(guiId)) {
+        if (!GuiManager.getGuis().containsKey(guiId)) {
             executor.sendFancyMessage(node.andThen(map -> map.get("gui-couldnt-be-found")));
             return null;
         }
@@ -82,7 +91,7 @@ public class EditGuiCommand extends Command<EditGuiCommand.EditorGuiPacket, Edit
             return null;
         }
         String guiId = args[0];
-        if (!GuiManager.getGuis().contains(guiId)) {
+        if (!GuiManager.getGuis().containsKey(guiId)) {
             Logger.api().logInfo("The given gui id wasn't found in the registry");
             return null;
         }

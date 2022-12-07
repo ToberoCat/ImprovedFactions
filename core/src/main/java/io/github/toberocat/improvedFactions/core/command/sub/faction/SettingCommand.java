@@ -10,6 +10,7 @@ import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
 import io.github.toberocat.improvedFactions.core.gui.manager.GuiManager;
 import io.github.toberocat.improvedFactions.core.faction.components.FactionPermission;
+import io.github.toberocat.improvedFactions.core.gui.provided.SettingGui;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import org.jetbrains.annotations.NotNull;
@@ -53,7 +54,7 @@ public class SettingCommand extends Command<SettingCommand.SettingPacket, Comman
 
     @Override
     public void run(@NotNull SettingPacket packet) {
-        GuiManager.openGui(GuiManager.SETTINGS_GUI, packet.factionPlayer);
+        GuiManager.openGui(SettingGui.GUI_ID, packet.factionPlayer);
     }
 
     @Override

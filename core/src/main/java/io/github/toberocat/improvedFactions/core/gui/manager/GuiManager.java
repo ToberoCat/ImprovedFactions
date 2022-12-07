@@ -1,9 +1,7 @@
 package io.github.toberocat.improvedFactions.core.gui.manager;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.github.toberocat.improvedFactions.core.gui.content.GuiContent;
-import io.github.toberocat.improvedFactions.core.gui.content.ItemState;
-import io.github.toberocat.improvedFactions.core.gui.manager.GuiImplementation;
+import io.github.toberocat.improvedFactions.core.gui.provided.SettingGui;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.json.Json;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
@@ -12,24 +10,21 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class GuiManager { // ToDo: Get rid of the static method spam and make the code much cleaner
+    private static final Map<String, GuiProvider> guis = new HashMap<>();
 
-    public static final String SETTINGS_GUI = "manage-faction";
-    public static final String PLAYER_ICON_DESIGNER_INV = "sender-inv-banner-designer";
+    static {
+        registerGui(new SettingGui());
+    }
 
-    private static final List<String> guis = new LinkedList<>();
-
-    public static @NotNull List<String> getGuis() {
+    public static @NotNull Map<String, GuiProvider> getGuis() {
         return guis;
     }
 
-    public static void registerGui(@NotNull String gui) {
-        guis.add(gui);
+    public static void registerGui(@NotNull GuiProvider guiProvider) {
+        guis.put(guiProvider.getGuiId(), guiProvider);
     }
 
     public static void openGui(@NotNull String guiId, @NotNull FactionPlayer<?> player) {
@@ -39,15 +34,8 @@ public class GuiManager { // ToDo: Get rid of the static method spam and make th
         implementation.openGui(player, guiId);
     }
 
-    public static void createGuiFromEditor(@NotNull String editorBase64Gui) throws IOException {
-        byte[] decodedBytes = Base64.getDecoder().decode(editorBase64Gui);
-        GuiContent gui = Json.parse(GuiContent.class, new String(decodedBytes));
-        Json.writeToFile(getFile(gui.getGuiId()), gui);
-    }
-
     public static @NotNull GuiContent getGui(@NotNull String guiId) {
         try {
-            System.out.println(getFile(guiId).getAbsolutePath());
             GuiContent gui = Json.parse(GuiContent.class,
                     getFile(guiId));
             gui.setGuiId(guiId);
@@ -60,10 +48,5 @@ public class GuiManager { // ToDo: Get rid of the static method spam and make th
 
     private static @NotNull File getFile(@NotNull String guiId) {
         return new File(ImprovedFactions.api().getGuiFolder(), guiId + ".gui");
-    }
-
-    static {
-        registerGui(SETTINGS_GUI);
-        registerGui(PLAYER_ICON_DESIGNER_INV);
     }
 }
