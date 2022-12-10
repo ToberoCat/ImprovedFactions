@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedfactions.spigot.gui.provided;
 
-import io.github.toberocat.improvedFactions.core.gui.manager.BrowserGuiImplementation;
+import io.github.toberocat.improvedFactions.core.gui.manager.impl.BrowserGuiImplementation;
 import io.github.toberocat.improvedFactions.core.gui.manager.GuiManager;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import org.bukkit.entity.Player;

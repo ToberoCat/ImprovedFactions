@@ -40,6 +40,11 @@
         </div>
         <div id="properties-window" class="shadow">
             <div id="properties-container">
+                <h3 id="gui-id">GuiID</h3>
+                <select name="States" id="display-states">
+                </select>
+                <br>
+                <br>
                 <label for="rows" class="properties-label">Rows</label>
                 <input id="rows" type="number" name="Rows" value=5 min=1 max=6 class="properties-input">
                 <hr>
@@ -54,8 +59,18 @@
             </div>
         </div>
         <div id="item-window" class="shadow">
-            <input type="text" id="item-search" type="search">
-            <div id="item-container">
+            <div id="tab-header">
+                <button class="tablinks" onclick="openTab('item-tab')">Items</button>
+                <button class="tablinks" onclick="openTab('head-tab')">Heads</button>
+            </div>
+            <div id="tab-container">
+                <div id="item-tab">
+                    <input type="text" id="item-search" type="search">
+                    <div id="item-container"></div>
+                </div>
+                <div id="head-tab">
+
+                </div>
             </div>
         </div>
     </div>

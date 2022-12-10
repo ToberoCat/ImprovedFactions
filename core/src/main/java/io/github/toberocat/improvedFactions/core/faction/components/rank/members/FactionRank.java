@@ -15,6 +15,13 @@ import java.util.function.Function;
 
 public abstract class FactionRank extends Rank {
 
+    public static final String[] FACTION_RANKS = new String[] {
+            "Owner",
+            "Admin",
+            "Moderator",
+            "Elder",
+            "Member"
+    };
     private final String key;
     private final URL icon;
 

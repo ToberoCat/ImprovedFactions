@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedFactions.core.gui.manager;
 
 import io.github.toberocat.improvedFactions.core.gui.content.GuiContent;
+import io.github.toberocat.improvedFactions.core.gui.manager.impl.GuiImplementation;
 import io.github.toberocat.improvedFactions.core.gui.provided.SettingGui;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.json.Json;

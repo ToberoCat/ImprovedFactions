@@ -2,7 +2,7 @@ package io.github.toberocat.improvedFactions.core.command.sub.admin.gui;
 
 import io.github.toberocat.improvedFactions.core.command.component.Command;
 import io.github.toberocat.improvedFactions.core.command.component.CommandSettings;
-import io.github.toberocat.improvedFactions.core.gui.manager.GuiImplementation;
+import io.github.toberocat.improvedFactions.core.gui.manager.impl.GuiImplementation;
 import io.github.toberocat.improvedFactions.core.gui.manager.GuiManager;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.player.CommandSender;

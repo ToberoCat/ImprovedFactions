@@ -1,12 +1,11 @@
 package io.github.toberocat.improvedFactions.core.gui.content;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import io.github.toberocat.improvedFactions.core.gui.provided.SettingGui;
+import io.github.toberocat.improvedFactions.core.json.Json;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 
@@ -14,16 +13,24 @@ public class GuiContent {
     private String guiId;
     private int rows;
     private String[] states;
+    private Flag[] flags;
     private Map<String, ItemState>[][] items;
 
     public GuiContent() {
     }
 
-    public GuiContent(@NotNull String guiId, int rows, String... states) {
+    public GuiContent(@NotNull String guiId, int rows, Flag[] flags, String... states) {
         this.guiId = guiId;
         this.rows = rows;
         this.states = getStates(states);
+        this.flags = flags;
         this.items = createItems();
+    }
+
+    public static void main(String[] args) throws JsonProcessingException {
+        System.out.println(Json.parse(new GuiContent("manage-faction", 6, new Flag[]{
+                new Flag("Faction Icon", SettingGui.FACTION_ICON_FLAG)
+        }, "test")));
     }
 
     private @NotNull Map<String, ItemState>[][] createItems() {
@@ -34,7 +41,10 @@ public class GuiContent {
             for (int j = 0; j < 9; j++) {
                 items[i][j] = new HashMap<>();
                 for (String state : states)
-                    items[i][j].put(state, new ItemState("air", "none"));
+                    items[i][j].put(state, new ItemState("air",
+                            "none",
+                            Collections.emptyList()
+                    ));
             }
         }
 
@@ -48,21 +58,6 @@ public class GuiContent {
                 ).distinct()
                 .toArray(String[]::new);
     }
-
-    @JsonIgnore
-    public @NotNull String getItemAt(int index) {
-        return getItemAt(index, "defaultState");
-    }
-
-
-    @JsonIgnore
-    public @NotNull String getItemAt(int index, @NotNull String state) {
-        int row = index / 9;
-        int column = index % 9;
-
-        return items[row][column].get("defaultState").getId(); // ToDo: Fix it with translation
-    }
-
     public String getGuiId() {
         return guiId;
     }
@@ -93,5 +88,13 @@ public class GuiContent {
 
     public void setItems(Map<String, ItemState>[][] items) {
         this.items = items;
+    }
+
+    public Flag[] getFlags() {
+        return flags;
+    }
+
+    public void setFlags(Flag[] flags) {
+        this.flags = flags;
     }
 }

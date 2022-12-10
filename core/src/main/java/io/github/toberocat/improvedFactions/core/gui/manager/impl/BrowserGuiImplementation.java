@@ -1,7 +1,7 @@
-package io.github.toberocat.improvedFactions.core.gui.manager;
+package io.github.toberocat.improvedFactions.core.gui.manager.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.github.toberocat.improvedFactions.core.gui.content.GuiContent;
+import io.github.toberocat.improvedFactions.core.gui.manager.GuiManager;
 import io.github.toberocat.improvedFactions.core.json.Json;
 import io.github.toberocat.improvedFactions.core.player.CommandSender;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;

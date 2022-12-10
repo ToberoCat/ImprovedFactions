@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedFactions.core.gui.manager;
+package io.github.toberocat.improvedFactions.core.gui.manager.impl;
 
 import io.github.toberocat.improvedFactions.core.player.CommandSender;
 import io.github.toberocat.improvedFactions.core.player.ConsoleCommandSender;

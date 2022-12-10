@@ -2,396 +2,781 @@
   "guiId": "manage-faction",
   "rows": 6,
   "states": [
-    "defaultState"
+    "defaultState",
+    "test"
+  ],
+  "flags": [
+    {
+      "name": "Faction Icon",
+      "id": 0
+    }
   ],
   "items": [
     [
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "white_banner",
-          "translationId": "faction-icon",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       }
     ],
     [
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       }
     ],
     [
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       }
     ],
     [
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       }
     ],
     [
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       }
     ],
     [
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       },
       {
         "defaultState": {
-          "id": "black_stained glass pane",
-          "translationId": "empty",
-          "customData": null
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
+        },
+        "test": {
+          "id": "air",
+          "translationId": "none",
+          "customData": null,
+          "flags": []
         }
       }
     ]

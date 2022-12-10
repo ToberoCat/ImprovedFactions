@@ -3,7 +3,7 @@ package io.github.toberocat.improvedFactions.core.registry;
 import io.github.toberocat.improvedFactions.core.claims.ClaimHandler;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
-import io.github.toberocat.improvedFactions.core.gui.manager.GuiImplementation;
+import io.github.toberocat.improvedFactions.core.gui.manager.impl.GuiImplementation;
 import io.github.toberocat.improvedFactions.core.handler.*;
 import io.github.toberocat.improvedFactions.core.handler.message.MessageHandler;
 import io.github.toberocat.improvedFactions.core.handler.message.MessagingHandler;

@@ -45,3 +45,11 @@ function cancelDefault(e) {
     e.stopPropagation();
     return false;
 }
+
+let currentTab = "item-tab";
+function openTab(tabId) {
+    document.getElementById(currentTab).style.visibility = "hidden";
+    document.getElementById(tabId).style.visibility = "visible";
+
+    currentTab = tabId;
+}

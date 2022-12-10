@@ -57,6 +57,12 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+function capitalizeBySpace(string) {
+    return string.split(" ")
+        .map(x => x.charAt(0).toUpperCase() + x.slice(1))
+        .reduce((previousValue, currentValue) => previousValue + currentValue);
+}
+
 const rowElement = document.getElementById("rows");
 
 const itemWindow = new ItemWindow();

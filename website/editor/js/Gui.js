@@ -4,6 +4,7 @@ class Gui {
         this.properties = document.getElementById("item-meta");
         this.selectedSlot = null;
         this.rowsElement = document.getElementById("rows");
+        this.showState = "defaultState";
 
         this.properties.style.visibility = "hidden";
         document.getElementById("properties-window").style.overflowY = "hidden";
@@ -12,6 +13,13 @@ class Gui {
             this.content.rows = this.rowsElement.value;
             this.renderGui();
         });
+
+        const stateSelector = document.getElementById("display-states");
+        stateSelector.addEventListener("change", e => {
+            this.showState = stateSelector.value;
+            this.renderGui();
+            if (this.selectedSlot) this.updateSelected();
+        })
     }
 
     generateGui() {
@@ -31,7 +39,11 @@ class Gui {
                         states: ["defaultState"],
                         items: []
                     };
+                document.getElementById("gui-id").innerText = capitalizeBySpace(this.content.guiId.replaceAll("-", " "));
                 this.rowsElement.value = this.content.rows;
+                const stateSelector = document.getElementById("display-states");
+                for (let state of this.content.states) stateSelector.appendChild(htmlToElement(
+                    `<option value="${state}">${capitalizeFirstLetter(state)}</option>`));
             });
     }
 
@@ -54,7 +66,7 @@ class Gui {
             stateInput.id = "item-state-" + state;
 
             const label = document.createElement("label");
-            label.textContent = state;
+            label.textContent = "Item";
             label.classList.add("properties-label");
 
             const itemTranslationLabel = htmlToElement(`<label for="item-translation-id-${state}" class="properties-label">Item Translation Id</label>`);
@@ -84,6 +96,29 @@ class Gui {
             this.properties.appendChild(document.createElement("br"));
             this.properties.appendChild(label);
             this.properties.appendChild(stateInput);
+
+            for (let flag of this.content.flags) {
+                this.properties.appendChild(document.createElement("br"));
+                this.properties.appendChild(document.createElement("br"));
+
+                const flagLabel = htmlToElement(`<label for='flag-${state}-${flag.id}' class="properties-label">${flag.name}</label>`);
+                const flagBox = htmlToElement(`<input type="checkbox" id='flag-${state}-${flag.id}' name="${flag.name}" value=false class="properties-input">`);
+                flagBox.addEventListener("change", e => {
+                    console.log("Change");
+                    const flags = this.selectedSlot[state].flags;
+                    if (!e.target.value) {
+                        const index = flags.indexOf(flag.id);
+                        if (index <= -1)
+                            return;
+                        flags.splice(index, 1);
+                    } else
+                        flags.push(flag.id);
+
+                });
+
+                this.properties.appendChild(flagLabel);
+                this.properties.appendChild(flagBox);
+            }
         }
     }
 
@@ -109,7 +144,7 @@ class Gui {
                 }
 
                 const background = document.createElement("img");
-                const reference = document.getElementById(this.content.items[i][j].defaultState.id);
+                const reference = document.getElementById(this.content.items[i][j][this.showState].id);
                 background.src = reference.src;
                 background.classList.add("slot");
                 background.classList.add("unselectable");
@@ -120,11 +155,11 @@ class Gui {
                     cancelDefault(e);
                     const item = document.getElementById(e.dataTransfer.getData("text/plain"));
                     background.src = item.src;
-                    this.content.items[i][j].defaultState.id = item.id;
-                    document.getElementById("item-state-defaultState").src = item.src;
+                    this.content.items[i][j][this.showState].id = item.id;
+                    document.getElementById("item-state-" + this.showState).src = item.src;
                 });
                 background.addEventListener("dragstart", e => e.dataTransfer.setData("text/plain",
-                    this.content.items[i][j].defaultState.id));
+                    this.content.items[i][j][this.showState].id));
 
                 background.addEventListener("click", () => {
                     this.selectedSlot = this.content.items[i][j];
@@ -146,9 +181,16 @@ class Gui {
         for (let state of this.content.states) {
             const stateJson = this.selectedSlot[state];
             const stateItem = document.getElementById("item-state-" + state);
+            if (state === this.showState) stateItem.removeAttribute("disabled");
+            else stateItem.setAttribute("disabled", "disabled");
             const stateTranslationId = document.getElementById(`item-translation-id-${state}`);
             stateItem.src = document.getElementById(stateJson.id).src;
             stateTranslationId.value = stateJson.translationId;
+
+            for (let flag of this.content.flags) {
+                document.getElementById(`flag-${state}-${flag.id}`).checked =
+                    stateJson.flags.includes(flag.id);
+            }
         }
     }
 
