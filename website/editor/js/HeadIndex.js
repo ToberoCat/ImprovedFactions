@@ -33,7 +33,7 @@ class HeadIndex {
             const head = this.elements[headId];
             this.container.appendChild(htmlToElement(
                 `<input type="image" src="data:image/png;base64,${head.icon}" 
-                           name="name" alt="name" title="name" id="${headId}">`
+                           name="${head.name}" alt="${head.name}" title="${head.name}" id="${headId}">`
             ))
         }
     }
