@@ -14,11 +14,7 @@
 }
 
 #display-states {
-    display: block;
     float: right;
-    padding: 5px 35px 5px 5px;
-    border-radius: 2px;
-    font-family: 'Open Sans', sans-serif;
 }
 
 .properties-label {

@@ -34,4 +34,19 @@
                 "items" 30%
     / 100%;
     }
+
+    .head-layout {
+        grid:
+    "search" auto
+    "index" auto
+    / 100%;
+    }
+    .item-scroll-grid {
+        grid: "scroll" 25vh
+    / 100%;
+    }
+    .head-scroll-grid {
+        grid: "scroll" 15vh
+    / 100%;
+    }
 }

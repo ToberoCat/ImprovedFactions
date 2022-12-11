@@ -24,7 +24,6 @@
     <!-- Toasts -->
     <link rel="stylesheet" href="toast/toast.css">
     <script src="toast/toast.js"></script>
-    <script src="js/HeadRenderer.js"></script>
 </head>
 <body>
     <div class="layout">
@@ -66,11 +65,39 @@
             </div>
             <div id="tab-container">
                 <div id="item-tab">
-                    <input type="text" id="item-search" type="search">
-                    <div id="item-container"></div>
+                    <div class="item-scroll-grid">
+                        <div class="scroll-box">
+                            <input type="text" id="item-search" type="search">
+                            <div id="item-container"></div>
+                        </div>
+                    </div>
                 </div>
                 <div id="head-tab">
+                    <div class="head-layout">
+                        <div class="head-scroll-grid">
+                            <div class="scroll-box">
+                                <div id="head-container">
 
+                                </div>
+                            </div>
+                        </div>
+                        <div id="head-search">
+                            <h3>Head Search</h3>
+                            <label for="head-category-selector" class="properties-label">Category</label>
+                            <select class="properties-input" id="head-category-selector">
+                                <option value="alphabet">Alphabet</option>
+                                <option value="animals">Animals</option>
+                                <option value="blocks">Blocks</option>
+                                <option value="decoration">Decoration</option>
+                                <option value="food-drinks">Food & drinks</option>
+                                <option value="humanoid">Humanoid</option>
+                                <option value="humans">Humans</option>
+                                <option value="miscellaneous">Miscellaneous</option>
+                                <option value="monsters">Monsters</option>
+                                <option value="plants">Plants</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -78,6 +105,7 @@
 
     <script src="js/Gui.js"></script>
     <script src="js/ItemIndex.js"></script>
+    <script src="js/HeadIndex.js"></script>
     <script src="js/index.js"></script>
     <script src="js/LightDarkMode.js"></script>
     <noscript>You need javascript to run this editor</noscript>

@@ -4,8 +4,7 @@
 
 #tab-container {
     max-height: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 #item-container {
@@ -20,4 +19,59 @@
     margin-right: 2px;
     top: 0;
     width: 99%;
+}
+
+#head-tab {
+    visibility: hidden;
+    display: none;
+}
+
+.head-layout {
+    width: 100%;
+
+    display: grid;
+    grid:
+    "index search" auto
+    / 60% auto;
+    gap: 8px;
+}
+
+#head-container {
+    grid-area: index;
+}
+
+#head-search {
+    grid-area: search;
+}
+
+#head-search h3 {
+    text-align: center;
+}
+
+.scroll-box {
+    grid-area: scroll;
+    overflow-y: scroll !important;
+    overflow-x: hidden;
+}
+
+.item-scroll-grid {
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    grid: "scroll" 35vh
+    / 100%;
+}
+
+.head-scroll-grid {
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    grid: "scroll" 35vh
+    / 100%;
+}
+
+#head-category-selector {
+    margin-right: 5px;
 }

@@ -8,6 +8,13 @@ a {
     text-decoration: none;
 }
 
+select {
+    display: block;
+    padding: 5px 35px 5px 5px;
+    border-radius: 2px;
+    font-family: 'Open Sans', sans-serif;
+}
+
 .logo-image {
     position: relative;
     top: 1vh;

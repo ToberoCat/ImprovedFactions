@@ -49,7 +49,9 @@ function cancelDefault(e) {
 let currentTab = "item-tab";
 function openTab(tabId) {
     document.getElementById(currentTab).style.visibility = "hidden";
+    document.getElementById(currentTab).style.display = "none";
     document.getElementById(tabId).style.visibility = "visible";
+    document.getElementById(tabId).style.display = "initial";
 
     currentTab = tabId;
 }

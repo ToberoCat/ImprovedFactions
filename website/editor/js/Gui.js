@@ -28,8 +28,8 @@ class Gui {
                 this.content = content;
             })
             .catch(err => {
-                const currentUrl = window.location.href.split(/(?<=editor)\//gm)[0];
-                location.href = `${currentUrl}/select-file.html`;
+/*                const currentUrl = window.location.href.split(/(?<=editor)\//gm)[0];
+                location.href = `${currentUrl}/select-file.html`;*/ // ToDo: Open the file seleciton
             })
             .finally(() => {
                 if (!this.content)
