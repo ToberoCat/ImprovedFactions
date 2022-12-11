@@ -37,6 +37,10 @@ class Gui {
                         guiId: "gui-0",
                         rows: 6,
                         states: ["defaultState"],
+                        flags: [{
+                            id: 0,
+                            name: "Sample Flag"
+                        }],
                         items: []
                     };
                 document.getElementById("gui-id").innerText = capitalizeBySpace(this.content.guiId.replaceAll("-", " "));

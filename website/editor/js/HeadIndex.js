@@ -1,6 +1,14 @@
 const categoryPages = {
     "alphabet": 6,
-    "animals": 4
+    "animals": 4,
+    "blocks": 2,
+    "decoration": 12,
+    "food-drinks": 2,
+    "humanoid": 7,
+    "humans": 12,
+    "miscellaneous": 3,
+    "monsters": 4,
+    "plants": 2
 }
 class HeadIndex {
     constructor() {
