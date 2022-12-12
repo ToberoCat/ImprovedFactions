@@ -34,7 +34,7 @@ class ItemWindow {
             item.title = jsonItem.title;
             item.id = jsonItem.title.toLowerCase().replace(" ", "_");
 
-            item.addEventListener("dragstart", e => e.dataTransfer.setData("text/plain", item.id));
+            makeDraggableItem(item, false, () => item.id, () => null);
             this.parent.appendChild(item);
         }
     }

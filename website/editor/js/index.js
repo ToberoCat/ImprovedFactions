@@ -2,6 +2,7 @@ function createUI() {
     return new Promise(async resolve => {
         await gui.generateGui();
         await itemWindow.loadItems();
+        await headIndex.loadEverything();
 
         createListeners();
         gui.renderGui();
@@ -61,6 +62,12 @@ function capitalizeBySpace(string) {
     return string.split(" ")
         .map(x => x.charAt(0).toUpperCase() + x.slice(1))
         .reduce((previousValue, currentValue) => previousValue + currentValue);
+}
+
+function makeDraggableItem(htmlElement, isHead, idSupplier, customDataSupplier) {
+    htmlElement.addEventListener("dragstart", e => {
+        e.dataTransfer.setData("text/plain", idSupplier() + ";;;" + isHead + ";;;" + customDataSupplier());
+    });
 }
 
 const rowElement = document.getElementById("rows");

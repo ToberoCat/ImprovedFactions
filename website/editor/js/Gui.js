@@ -28,8 +28,8 @@ class Gui {
                 this.content = content;
             })
             .catch(err => {
-/*                const currentUrl = window.location.href.split(/(?<=editor)\//gm)[0];
-                location.href = `${currentUrl}/select-file.html`;*/ // ToDo: Open the file seleciton
+                /*                const currentUrl = window.location.href.split(/(?<=editor)\//gm)[0];
+                                location.href = `${currentUrl}/select-file.html`;*/ // ToDo: Open the file seleciton
             })
             .finally(() => {
                 if (!this.content)
@@ -37,10 +37,7 @@ class Gui {
                         guiId: "gui-0",
                         rows: 6,
                         states: ["defaultState"],
-                        flags: [{
-                            id: 0,
-                            name: "Sample Flag"
-                        }],
+                        flags: [{"name": "Sample Flag", "id": 0}],
                         items: []
                     };
                 document.getElementById("gui-id").innerText = capitalizeBySpace(this.content.guiId.replaceAll("-", " "));
@@ -84,14 +81,22 @@ class Gui {
             stateInput.addEventListener("dragover", cancelDefault);
             stateInput.addEventListener("drop", e => {
                 cancelDefault(e);
-                const item = document.getElementById(e.dataTransfer.getData("text/plain"));
+                const parts = e.dataTransfer.getData("text/plain").split(";;;");
+                const id = parts[0];
+                const isHead = parts[1] === "true";
+                const customData = parts[2];
+
+                const item = document.getElementById(id);
                 stateInput.src = item.src;
-                this.selectedSlot[state].id = item.id;
+                this.selectedSlot[state].id = isHead ? "player_head" : item.id;
+                this.selectedSlot[state].customData = customData;
                 this.renderGui();
             });
-            stateInput.addEventListener("dragstart", e => e.dataTransfer.setData("text/plain",
-                this.selectedSlot[state].id));
 
+            makeDraggableItem(stateInput, false,
+                () => this.selectedSlot[state].id,
+                () => this.selectedSlot[state].customData
+            );
 
             this.properties.appendChild(htmlToElement(`<h4 class="properties-states">${capitalizeFirstLetter(state)}</h4>`));
             this.properties.appendChild(itemTranslationLabel);
@@ -141,14 +146,17 @@ class Gui {
                         json[state] = {
                             id: "air",
                             translationId: "none",
-                            customData: null
+                            customData: null,
+                            flags: []
                         };
                     }
                     this.content.items[i].push(json);
                 }
 
                 const background = document.createElement("img");
-                const reference = document.getElementById(this.content.items[i][j][this.showState].id);
+                const reference = this.getReferenceItem(this.content.items[i][j][this.showState], headItem => {
+                    background.src = "data:image/png;base64," + headItem.icon;
+                });
                 background.src = reference.src;
                 background.classList.add("slot");
                 background.classList.add("unselectable");
@@ -157,13 +165,22 @@ class Gui {
                 background.addEventListener("dragover", cancelDefault);
                 background.addEventListener("drop", e => {
                     cancelDefault(e);
-                    const item = document.getElementById(e.dataTransfer.getData("text/plain"));
+                    const parts = e.dataTransfer.getData("text/plain").split(";;;");
+                    const id = parts[0];
+                    const isHead = parts[1] === "true";
+                    const customData = parts[2];
+
+                    const item = document.getElementById(id);
                     background.src = item.src;
-                    this.content.items[i][j][this.showState].id = item.id;
+                    this.content.items[i][j][this.showState].id = isHead ? "player_head" : item.id;
+                    this.content.items[i][j][this.showState].customData = customData;
                     document.getElementById("item-state-" + this.showState).src = item.src;
                 });
-                background.addEventListener("dragstart", e => e.dataTransfer.setData("text/plain",
-                    this.content.items[i][j][this.showState].id));
+
+                makeDraggableItem(background, false,
+                    () => this.content.items[i][j][this.showState].id,
+                    () => this.content.items[i][j][this.showState].customData
+                );
 
                 background.addEventListener("click", () => {
                     this.selectedSlot = this.content.items[i][j];
@@ -177,6 +194,18 @@ class Gui {
             breakElm.classList.add("break");
             this.parent.appendChild(breakElm);
         }
+    }
+
+    getReferenceItem(state, loadCb) {
+        if (state.id !== "player_head")
+            return document.getElementById(state.id);
+        const texture = state.customData;
+        if (texture == null)
+            return document.getElementById(state.id);
+        headIndex.getHeadId(texture)
+            .then(x => loadCb(x))
+            .catch(() => Toast.show("Couldn't fetch head " + state.id, "error"));
+        return headNotLoadedImage;
     }
 
     updateSelected() {
