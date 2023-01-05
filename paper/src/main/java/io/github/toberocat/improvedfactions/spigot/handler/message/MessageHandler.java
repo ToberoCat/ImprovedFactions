@@ -24,6 +24,9 @@ public interface MessageHandler {
     }
 
     void sendMessage(@NotNull UUID player,
+                     @NotNull String message);
+
+    void sendMessage(@NotNull UUID player,
                      @NotNull Function<Translatable, String> query,
                      Placeholder... placeholders);
 }

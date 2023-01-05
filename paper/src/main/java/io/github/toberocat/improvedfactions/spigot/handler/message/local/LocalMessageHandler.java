@@ -8,9 +8,7 @@ import io.github.toberocat.improvedFactions.core.utils.Logger;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
 import io.github.toberocat.improvedfactions.spigot.handler.message.MessageHandler;
 import io.github.toberocat.improvedfactions.spigot.listener.SpigotEventListener;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -19,12 +17,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.function.Function;
 
 import static io.github.toberocat.improvedfactions.spigot.player.SpigotFactionPlayer.PREFIX_QUERY;
 
-public class LocalMessageHandler extends SpigotEventListener implements MessageHandler { // ToDo: Store the query path instead of an hardcoded translation file
+public class LocalMessageHandler extends SpigotEventListener implements MessageHandler {
+    // ToDo: Store the query path instead of an hardcoded translation file
 
     private final FileAccess fileAccess;
     private final Translation translation;
@@ -33,7 +33,7 @@ public class LocalMessageHandler extends SpigotEventListener implements MessageH
         super(plugin);
         fileAccess = new FileAccess(plugin.getDataFolder(),
                 "data", FileAccess.MESSAGES_FOLDER);
-        translation = new Translation("en_us");
+        translation = new Translation(Locale.US);
 
         register();
     }
@@ -43,14 +43,7 @@ public class LocalMessageHandler extends SpigotEventListener implements MessageH
         Player player = event.getPlayer();
 
         getMessages(player.getUniqueId()).forEach(m -> {
-            if (m.run == null) {
-                player.sendMessage(m.message);
-            } else {
-                TextComponent component = new TextComponent(TextComponent.fromLegacyText(
-                        ChatColor.translateAlternateColorCodes('&', m.message)));
-                component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/" + m.run));
-                player.spigot().sendMessage(component);
-            }
+                player.sendMessage(MiniMessage.miniMessage().deserialize(m.message));
         });
     }
 
@@ -62,9 +55,9 @@ public class LocalMessageHandler extends SpigotEventListener implements MessageH
         }
     }
 
-    private void addMessage(@NotNull UUID id, @NotNull String message, @Nullable String run) {
+    private void addMessage(@NotNull UUID id, @NotNull String message) {
         LocalMessages messages = getMessages(id);
-        messages.add(new Message(message, run));
+        messages.add(new Message(message, null));
 
         try {
             fileAccess.write(message, id.toString());
@@ -74,10 +67,15 @@ public class LocalMessageHandler extends SpigotEventListener implements MessageH
     }
 
     @Override
+    public void sendMessage(@NotNull UUID player, @NotNull String message) {
+        addMessage(player, translation.getMessage(PREFIX_QUERY) + message);
+    }
+
+    @Override
     public void sendMessage(@NotNull UUID player, @NotNull Function<Translatable, String> query, Placeholder... placeholders) {
         String msg = translation.getMessage(query);
         if (msg != null)
-            addMessage(player, translation.getMessage(PREFIX_QUERY) + msg, null);
+            addMessage(player, translation.getMessage(PREFIX_QUERY) + msg);
     }
 
     protected static class LocalMessages extends ArrayList<Message> {

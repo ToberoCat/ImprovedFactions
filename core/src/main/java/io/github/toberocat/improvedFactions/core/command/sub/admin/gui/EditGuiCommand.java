@@ -72,12 +72,12 @@ public class EditGuiCommand extends Command<EditGuiCommand.EditorGuiPacket, Edit
     public @Nullable EditorGuiPacket createFromArgs(@NotNull FactionPlayer<?> executor,
                                                     @NotNull String[] args) {
         if (args.length != 1) {
-            executor.sendFancyMessage(node.andThen(map -> map.get("not-enough-arguments")));
+            executor.sendMessage(node.andThen(map -> map.get("not-enough-arguments")));
             return null;
         }
         String guiId = args[0];
         if (!GuiManager.getGuis().containsKey(guiId)) {
-            executor.sendFancyMessage(node.andThen(map -> map.get("gui-couldnt-be-found")));
+            executor.sendMessage(node.andThen(map -> map.get("gui-couldnt-be-found")));
             return null;
         }
 

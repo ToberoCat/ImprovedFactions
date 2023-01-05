@@ -29,60 +29,21 @@ public interface OfflineFactionPlayer<P> {
     /* Messages */
 
     /**
-     * @deprecated Use {@link OfflineFactionPlayer#sendFancyMessage(Function, Placeholder...)} instead
+     * @deprecated Use {@link OfflineFactionPlayer#sendMessage(Function, Placeholder...)} instead
      */
     @Deprecated
     void sendMessage(@NotNull String message);
 
     /**
-     * @deprecated Use {@link OfflineFactionPlayer#sendFancyMessage(Function, Placeholder...)} instead
+     * @deprecated Use {@link OfflineFactionPlayer#sendMessage(Function, Placeholder...)} instead
      */
     @Deprecated
     void sendTranslatable(@NotNull Function<Translatable, String> query,
                           Placeholder... placeholders);
 
-    /**
-     * @deprecated Use {@link OfflineFactionPlayer#sendFancyMessage(Function, Placeholder...)} instead
-     */
-    @Deprecated
-    void sendClickableTranslatable(@NotNull Function<Translatable, String> query,@NotNull String command,
-                                   Placeholder... placeholders);
 
-    /**
-     * Fancy message
-     * An utility to make sending messages with
-     * hovering and clickable text easier to use
-     * and more available to end users
-     * <p>
-     * Example messages:
-     * <ul>
-     *     <li>
-     *         {text:&6Sample colored text}
-     *     </li>
-     *     <li>
-     *         {text:Hover over the message; hover:&cHello}
-     *     </li>
-     *     <li>
-     *         {text:Click here to say hi in chat; command:Hi everyone!}
-     *     </li>
-     *     <li>
-     *         {text:Click here to change your gamemode; command:/gamemode creative}
-     *     </li>
-     *     <li>
-     *         {text:Click here to go to youtube; url:https://youtube.com/}
-     *     </li>
-     *     <li>
-     *         {text:Multiple attributes; hover:Hovering; suggest_command:This is a command suggestion}
-     *     </li>
-     *     <li>
-     *         {text:First hover; hover:First} {text:Second hover; hover:Second} {text:Broadcast; command:/broadcast Hello!}
-     *     </li>
-     * </ul>
-     *
-     * @author iDarkyy
-     */
-    void sendFancyMessage(@NotNull Function<Translatable, String> fancyMessage,
-                          Placeholder... placeholders);
+    void sendMessage(@NotNull Function<Translatable, String> fancyMessage,
+                     Placeholder... placeholders);
 
     /* Player */
     @Nullable FactionPlayer<?> getPlayer();

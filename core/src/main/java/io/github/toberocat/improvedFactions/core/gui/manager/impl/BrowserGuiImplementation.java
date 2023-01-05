@@ -19,7 +19,7 @@ public interface BrowserGuiImplementation extends GuiImplementation {
     @Override
     default void openEditor(@NotNull CommandSender sender, @NotNull String guiId) {
         if (sender instanceof FactionPlayer<?> player)
-            player.sendFancyMessage(translatable -> translatable
+            player.sendMessage(translatable -> translatable
                             .getMessages()
                             .getMisc()
                             .get("gui-editor")

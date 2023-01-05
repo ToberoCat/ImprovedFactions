@@ -72,10 +72,9 @@ public class InviteCommand extends Command<InviteCommand.InvitePacket, InviteCom
                     packet.faction,
                     packet.rank);
             packet.sender.sendTranslatable(node.andThen(map -> map.get("invited-sender")));
-            packet.receiver.sendClickableTranslatable(node.andThen(map -> map.get("you-have-been-invited")),
-                    "f " + AcceptInviteCommand.LABEL + " " + packet.faction.getRegistry(),
+            packet.receiver.sendMessage(node.andThen(map -> map.get("you-have-been-invited")),
                     new Placeholder("sender", packet.sender().getName()),
-                    new Placeholder("faction", packet.faction.getDisplay()),
+                    new Placeholder("faction", packet.faction.getRegistry()),
                     new Placeholder("rank", packet.rank.getRegistry()));
         } catch (PlayerHasBeenInvitedException e) {
             packet.sender.sendTranslatable(node.andThen(map -> map.get("sender-already-been-invited")));

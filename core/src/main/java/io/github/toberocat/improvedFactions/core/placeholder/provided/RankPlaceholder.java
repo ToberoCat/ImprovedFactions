@@ -5,7 +5,12 @@ import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import org.jetbrains.annotations.NotNull;
 
-public class RankPlaceholder implements FactionPlaceholder {
+public class RankPlaceholder implements PlayerPlaceholder {
+    @Override
+    public @NotNull String label() {
+        return "rank";
+    }
+
     @Override
     public @NotNull String run(@NotNull OfflineFactionPlayer<?> player,
                                @NotNull Faction<?> faction) {

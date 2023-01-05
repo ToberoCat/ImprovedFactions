@@ -7,6 +7,7 @@ import java.util.HashMap;
 public class Messages {
     private FactionMessage faction;
     private HashMap<String, HashMap<String, String>> command;
+    private HashMap<String, String> hoverables;
 
     private HashMap<String, HashMap<String, String>> misc;
 
@@ -35,5 +36,13 @@ public class Messages {
 
     public void setMisc(HashMap<String, HashMap<String, String>> misc) {
         this.misc = misc;
+    }
+
+    public HashMap<String, String> getHoverables() {
+        return hoverables;
+    }
+
+    public void setHoverables(HashMap<String, String> hoverables) {
+        this.hoverables = hoverables;
     }
 }

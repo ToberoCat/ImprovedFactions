@@ -7,8 +7,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class MaxPowerPlaceholder implements FactionPlaceholder {
     @Override
-    public @NotNull String run(@NotNull OfflineFactionPlayer<?> player,
-                               @NotNull Faction<?> faction) {
+    public @NotNull String run(@NotNull Faction<?> faction) {
         return Formatting.shorten(faction.getTotalMaxPower());
+    }
+
+    @Override
+    public @NotNull String label() {
+        return "maxpower";
     }
 }

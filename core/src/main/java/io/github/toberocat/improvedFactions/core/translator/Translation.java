@@ -4,7 +4,6 @@ import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
-import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -12,14 +11,12 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
 
-public record Translation(@NotNull String locale) {
-
-    public static final String DEFAULT_LANG_FILE = ConfigHandler.api()
-            .getString("language.default-file", "en_us");
+public record Translation(@NotNull Locale locale) {
 
     private static final Map<String, Translatable> TRANSLATABLE_MAP = new HashMap<>();
     private static final Map<UUID, String> LANGUAGE_LOCALE_USAGE = new HashMap<>();
@@ -30,7 +27,7 @@ public record Translation(@NotNull String locale) {
     /* Static manager methods */
     public static void createLocaleMap() throws IOException {
         for (File file : ACCESS.listFiles())
-            XmlManager.read(Translatable.class, file)
+            YmlManager.read(Translatable.class, file)
                     .getMeta()
                     .getLanguages()
                     .forEach(x -> LOCALE_TO_FILE_MAP.put(x, file.getName()));
@@ -61,14 +58,14 @@ public record Translation(@NotNull String locale) {
         if (!langFile.exists()) return null;
 
         try {
-            return XmlManager.read(Translatable.class, langFile);
+            return YmlManager.read(Translatable.class, langFile);
         } catch (IOException e) {
             return null;
         }
     }
 
     public @Nullable String getMessage(@NotNull Function<Translatable, String> query) {
-        Translatable translatable = TRANSLATABLE_MAP.computeIfAbsent(locale, Translation::readFile);
+        Translatable translatable = TRANSLATABLE_MAP.computeIfAbsent(locale.getCountry(), Translation::readFile);
         if (translatable == null) {
             Logger.api().logWarning("Couldn't find " + locale + " as lang file");
             return null;
@@ -78,7 +75,7 @@ public record Translation(@NotNull String locale) {
     }
 
     public @Nullable String[] getMessages(@NotNull Function<Translatable, String[]> query) {
-        Translatable translatable = TRANSLATABLE_MAP.computeIfAbsent(locale, Translation::readFile);
+        Translatable translatable = TRANSLATABLE_MAP.computeIfAbsent(locale.getCountry(), Translation::readFile);
         if (translatable == null) return null;
 
         return query.apply(translatable);

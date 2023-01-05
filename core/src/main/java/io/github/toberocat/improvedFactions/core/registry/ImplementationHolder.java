@@ -11,7 +11,7 @@ import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.Translation;
 import io.github.toberocat.improvedFactions.core.translator.TranslationFixer;
-import io.github.toberocat.improvedFactions.core.translator.XmlManager;
+import io.github.toberocat.improvedFactions.core.translator.YmlManager;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.CUtils;
 import io.github.toberocat.improvedFactions.core.utils.FileUtils;
@@ -99,11 +99,11 @@ public class ImplementationHolder {
             URL localFile = ImplementationHolder.class.getResource(res);
             if (localFile == null) return;
 
-            Translatable local = XmlManager.read(Translatable.class, localFile);
-            Translatable external = XmlManager.read(Translatable.class, externalFile);
+            Translatable local = YmlManager.read(Translatable.class, localFile);
+            Translatable external = YmlManager.read(Translatable.class, externalFile);
 
             new TranslationFixer(local, external).fix();
-            XmlManager.write(external, externalFile);
+            YmlManager.write(external, externalFile);
         }
 
         CUtils.copyResource(res);
