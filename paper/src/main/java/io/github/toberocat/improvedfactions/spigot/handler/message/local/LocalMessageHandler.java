@@ -74,29 +74,7 @@ public class LocalMessageHandler extends SpigotEventListener implements MessageH
     }
 
     @Override
-    public void sendMessage(@NotNull UUID player,
-                            @NotNull String message) {
-        addMessage(player, message, null);
-    }
-
-    @Override
-    public void sendTranslatable(@NotNull UUID player,
-                                 @NotNull Function<Translatable, String> query,
-                                 Placeholder... placeholders) {
-        String msg = translation.getMessage(query);
-        if (msg != null) addMessage(player, translation.getMessage(PREFIX_QUERY) + msg, null);
-    }
-
-    @Override
-    public void sendClickableTranslatable(@NotNull UUID player,
-                                          @NotNull Function<Translatable, String> query,
-                                          @NotNull String command, Placeholder... placeholders) {
-        String msg = translation.getMessage(query);
-        if (msg != null) addMessage(player, translation.getMessage(PREFIX_QUERY) + msg, command);
-    }
-
-    @Override
-    public void sendFancyMessage(@NotNull UUID player, @NotNull Function<Translatable, String> query, Placeholder... placeholders) {
+    public void sendMessage(@NotNull UUID player, @NotNull Function<Translatable, String> query, Placeholder... placeholders) {
         String msg = translation.getMessage(query);
         if (msg != null)
             addMessage(player, translation.getMessage(PREFIX_QUERY) + msg, null);

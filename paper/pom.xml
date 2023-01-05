@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spigot</artifactId>
+    <artifactId>paper</artifactId>
     <version>2.0.0-dev.5</version>
     <packaging>jar</packaging>
-    <name>ImprovedFactions Spigot</name>
+    <name>ImprovedFactions Paper</name>
 
     <parent>
         <groupId>io.github.toberocat.improvedfactions</groupId>
@@ -24,10 +24,10 @@
     </properties>
 
     <repositories>
-        <!-- Spigot -->
+        <!-- Paper -->
         <repository>
-            <id>spigotmc-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
 
         <!-- Worldguard -->
@@ -50,10 +50,10 @@
     </repositories>
 
     <dependencies>
-        <!-- Spigot -->
+        <!-- Paper -->
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
+            <groupId>com.destroystokyo.paper</groupId>
+            <artifactId>paper-api</artifactId>
             <version>1.16.5-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
@@ -86,6 +86,20 @@
             <groupId>io.github.toberocat.improvedfactions</groupId>
             <artifactId>core</artifactId>
             <version>${improvedfactions.version}</version>
+        </dependency>
+
+        <!-- Kyori Adventure API -->
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-api</artifactId>
+            <version>4.12.0</version>
+        </dependency>
+
+        <!-- Kyori MiniMessages -->
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-minimessage</artifactId>
+            <version>4.12.0</version>
         </dependency>
     </dependencies>
 

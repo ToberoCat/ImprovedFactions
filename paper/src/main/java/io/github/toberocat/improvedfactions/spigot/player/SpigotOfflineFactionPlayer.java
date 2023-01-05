@@ -58,57 +58,16 @@ public class SpigotOfflineFactionPlayer implements OfflineFactionPlayer<OfflineP
 
     @Override
     public void sendTranslatable(@NotNull Function<Translatable, String> query, Placeholder... placeholders) {
-        FactionPlayer<?> on = getPlayer();
-        if (on != null) on.sendTranslatable(query, placeholders);
-        else MessageHandler.api.sendTranslatable(player.getUniqueId(), query, placeholders);
+        sendMessage(query, placeholders);
     }
 
     @Override
-    public void sendClickableTranslatable(@NotNull Function<Translatable, String> query, @NotNull String command, Placeholder... placeholders) {
+    public void sendMessage(@NotNull Function<Translatable, String> query, Placeholder... placeholders) {
         FactionPlayer<?> on = getPlayer();
-        if (on != null) on.sendClickableTranslatable(query, command, placeholders);
-        else MessageHandler.api.sendClickableTranslatable(player.getUniqueId(), query, command, placeholders);
-    }
-
-    /**
-     * Fancy message
-     * An utility to make sending messages with
-     * hovering and clickable text easier to use
-     * and more available to end users
-     * <p>
-     * Example messages:
-     * <ul>
-     *     <li>
-     *         {text:&6Sample colored text}
-     *     </li>
-     *     <li>
-     *         {text:Hover over the message; hover:&cHello}
-     *     </li>
-     *     <li>
-     *         {text:Click here to say hi in chat; command:Hi everyone!}
-     *     </li>
-     *     <li>
-     *         {text:Click here to change your gamemode; command:/gamemode creative}
-     *     </li>
-     *     <li>
-     *         {text:Click here to go to youtube; url:https://youtube.com/}
-     *     </li>
-     *     <li>
-     *         {text:Multiple attributes; hover:Hovering; suggest_command:This is a command suggestion}
-     *     </li>
-     *     <li>
-     *         {text:First hover; hover:First} {text:Second hover; hover:Second} {text:Broadcast; command:/broadcast Hello!}
-     *     </li>
-     * </ul>
-     *
-     * @param placeholders
-     * @author iDarkyy
-     */
-    @Override
-    public void sendFancyMessage(@NotNull Function<Translatable, String> query, Placeholder... placeholders) {
-        FactionPlayer<?> on = getPlayer();
-        if (on != null) on.sendFancyMessage(query, placeholders);
-        else MessageHandler.api.sendFancyMessage(player.getUniqueId(), query, placeholders);
+        if (on != null)
+            on.sendMessage(query, placeholders);
+        else
+            MessageHandler.api.sendMessage(player.getUniqueId(), query, placeholders);
     }
 
     @Override

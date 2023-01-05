@@ -23,18 +23,4 @@ public record SpigotItemStack(org.bukkit.inventory.ItemStack itemStack) implemen
     public @NotNull org.bukkit.inventory.ItemStack getRaw() {
         return itemStack;
     }
-
-    @Override
-    public void setName(@NotNull String name) {
-        ItemMeta meta = itemStack.getItemMeta();
-        if (meta != null) meta.setDisplayName(name);
-        itemStack.setItemMeta(meta);
-    }
-
-    @Override
-    public void setLore(@NotNull String... lore) {
-        ItemMeta meta = itemStack.getItemMeta();
-        if (meta != null) meta.setLore(Arrays.stream(lore).toList());
-        itemStack.setItemMeta(meta);
-    }
 }

@@ -23,6 +23,5 @@ public class PlaceHolderAPIProcessor implements BiFunction<OfflinePlayer, String
     @Override
     public String apply(OfflinePlayer player, String text) {
         return PlaceholderAPI.setPlaceholders(player, text);
-
     }
 }
