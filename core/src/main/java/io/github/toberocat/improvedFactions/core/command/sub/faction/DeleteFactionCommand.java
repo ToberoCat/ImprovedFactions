@@ -49,9 +49,9 @@ public class DeleteFactionCommand extends ConfirmCommand
 
         try {
             packet.faction.deleteFaction();
-            executor.sendTranslatable(node.andThen(map -> map.get("deleted-faction")));
+            executor.sendMessage(node.andThen(map -> map.get("deleted-faction")));
         } catch (FactionIsFrozenException e) {
-            executor.sendTranslatable(node.andThen(map -> map.get("faction-frozen")));
+            executor.sendMessage(node.andThen(map -> map.get("faction-frozen")));
         }
     }
 
@@ -83,9 +83,9 @@ public class DeleteFactionCommand extends ConfirmCommand
         try {
             return new DeleteFactionPacket(executor.getFaction(), executor);
         } catch (PlayerHasNoFactionException e) {
-            executor.sendTranslatable(node.andThen(map -> map.get("sender-has-no-faction")));
+            executor.sendMessage(node.andThen(map -> map.get("sender-has-no-faction")));
         } catch (FactionNotInStorage factionNotInStorage) {
-            executor.sendTranslatable(node.andThen(map -> map.get("faction-not-in-storage")));
+            executor.sendMessage(node.andThen(map -> map.get("faction-not-in-storage")));
         }
         return null;
     }

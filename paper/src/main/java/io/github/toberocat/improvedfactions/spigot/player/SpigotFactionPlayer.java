@@ -129,7 +129,7 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
                             Placeholder... placeholders) {
         String msg = getMessage(query, placeholders);
         if (msg == null) return;
-        MiniMessage.miniMessage().deserialize(getPrefix() + msg);
+        player.sendMessage(MiniMessage.miniMessage().deserialize(getPrefix() + msg));
     }
 
     @Override

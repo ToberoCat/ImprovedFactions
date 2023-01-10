@@ -60,26 +60,26 @@ public class CreateFactionCommand extends
     public void run(@NotNull CreateFactionPacket packet) {
         FactionPlayer<?> owner = packet.owner;
         if (!owner.hasPermission(permission())) {
-            owner.sendTranslatable(node.andThen(map -> map.get("not-enough-permissions")));
+            owner.sendMessage(node.andThen(map -> map.get("not-enough-permissions")));
             return;
         }
 
         try {
             Faction<?> faction = create(owner, packet.display);
 
-            owner.sendTranslatable(node.andThen(map -> map.get("created-faction")),
+            owner.sendMessage(node.andThen(map -> map.get("created-faction")),
                     new Placeholder("faction", faction.getDisplay()));
         } catch (IllegalFactionNamingException e) {
-            owner.sendTranslatable(node.andThen(map -> map.get("illegal-naming")));
+            owner.sendMessage(node.andThen(map -> map.get("illegal-naming")));
         } catch (FactionAlreadyExistsException e) {
-            owner.sendTranslatable(node.andThen(map -> map.get("faction-already-exists")),
+            owner.sendMessage(node.andThen(map -> map.get("faction-already-exists")),
                     new Placeholder("faction", packet.display));
         } catch (FactionNotInStorage factionNotInStorage) {
-            owner.sendTranslatable(node.andThen(map -> map.get("faction-not-in-storage")));
+            owner.sendMessage(node.andThen(map -> map.get("faction-not-in-storage")));
         } catch (PlayerHasNoFactionException e) {
-            owner.sendTranslatable(node.andThen(map -> map.get("sender-has-no-faction")));
+            owner.sendMessage(node.andThen(map -> map.get("sender-has-no-faction")));
         } catch (PlayerIsAlreadyInFactionException e) {
-            owner.sendTranslatable(node.andThen(map -> map.get("sender-already-in-faction")));
+            owner.sendMessage(node.andThen(map -> map.get("sender-already-in-faction")));
         } catch (FactionIsFrozenException | PlayerIsBannedException e) {
             e.printStackTrace();
         }
@@ -92,7 +92,7 @@ public class CreateFactionCommand extends
         Logger logger = Logger.api();
         try {
             Faction<?> faction = create(owner, packet.display);
-            owner.sendTranslatable(node.andThen(map -> map.get("created-faction")),
+            owner.sendMessage(node.andThen(map -> map.get("created-faction")),
                     new Placeholder("faction", faction.getDisplay()));
 
             logger.logInfo("You created faction %s for %s",
@@ -126,7 +126,7 @@ public class CreateFactionCommand extends
     public CreateFactionCommand.CreateFactionPacket createFromArgs(@NotNull FactionPlayer<?> sender,
                                                                              @NotNull String[] args) {
         if (args.length != 1) {
-            sender.sendTranslatable(node.andThen(map -> map.get("not-enough-arguments")));
+            sender.sendMessage(node.andThen(map -> map.get("not-enough-arguments")));
             return null;
         }
 

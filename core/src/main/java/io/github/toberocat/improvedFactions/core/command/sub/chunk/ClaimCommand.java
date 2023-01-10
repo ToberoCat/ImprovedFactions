@@ -70,15 +70,15 @@ public class ClaimCommand extends AutoAreaCommand {
             ClaimHandler.protectChunk(faction.getRegistry(),
                     world.getChunkAt(location.chunkX(), location.chunkZ()));
 
-            if (!area) player.sendTranslatable(node.andThen(map -> map.get("claim-chunk")));
+            if (!area) player.sendMessage(node.andThen(map -> map.get("claim-chunk")));
             return true;
         } catch (FactionNotInStorage e) {
-            player.sendTranslatable(node.andThen(map -> map.get("faction-not-in-storage")));
+            player.sendMessage(node.andThen(map -> map.get("faction-not-in-storage")));
         } catch (PlayerHasNoFactionException e) {
-            player.sendTranslatable(node.andThen(map -> map.get("sender-has-no-faction")));
+            player.sendMessage(node.andThen(map -> map.get("sender-has-no-faction")));
         } catch (ChunkAlreadyClaimedException e) {
             if (area) return false;
-            player.sendTranslatable(node.andThen(map -> map.get("chunk-already-claimed")));
+            player.sendMessage(node.andThen(map -> map.get("chunk-already-claimed")));
         }
         return false;
     }

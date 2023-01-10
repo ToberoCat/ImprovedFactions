@@ -53,13 +53,13 @@ public class LeaveFactionCommand extends Command<LeaveFactionCommand.LeavePacket
         FactionPlayer<?> player = packet.player;
         try {
             packet.faction.leavePlayer(player);
-            player.sendTranslatable(node.andThen(map -> map.get("sender-left")));
+            player.sendMessage(node.andThen(map -> map.get("sender-left")));
         } catch (FactionIsFrozenException e) {
-            player.sendTranslatable(node.andThen(map -> map.get("faction-frozen")));
+            player.sendMessage(node.andThen(map -> map.get("faction-frozen")));
         } catch (PlayerIsOwnerException e) {
-            player.sendTranslatable(node.andThen(map -> map.get("sender-is-owner")));
+            player.sendMessage(node.andThen(map -> map.get("sender-is-owner")));
         } catch (PlayerHasNoFactionException e) {
-            player.sendTranslatable(node.andThen(map -> map.get("sender-has-no-faction")));
+            player.sendMessage(node.andThen(map -> map.get("sender-has-no-faction")));
         }
     }
 
@@ -72,7 +72,7 @@ public class LeaveFactionCommand extends Command<LeaveFactionCommand.LeavePacket
     public @Nullable LeaveFactionCommand.LeavePacket createFromArgs(@NotNull FactionPlayer<?> executor,
                                                                     @NotNull String[] args) {
         if (args.length != 1) {
-            executor.sendTranslatable(node.andThen(map -> map.get("not-enough-args")));
+            executor.sendMessage(node.andThen(map -> map.get("not-enough-args")));
             return null;
         }
 
@@ -80,7 +80,7 @@ public class LeaveFactionCommand extends Command<LeaveFactionCommand.LeavePacket
             Faction<?> faction = FactionHandler.getFaction(args[0]);
             return new LeavePacket(executor, faction);
         } catch (FactionNotInStorage e) {
-            executor.sendTranslatable(node.andThen(map -> map.get("faction-not-found")));
+            executor.sendMessage(node.andThen(map -> map.get("faction-not-found")));
             return null;
         }
     }

@@ -72,7 +72,7 @@ public class ImplementationHolder {
     }
 
     private static void copyResources() throws IOException, URISyntaxException {
-        copyLang("en_us.xml");
+        copyLang("en_us.yml");
         CUtils.copyResource("config.yml");
         copyAll("actions");
         copyAll("guis");

@@ -62,18 +62,18 @@ public class AcceptInviteCommand extends Command<AcceptInviteCommand.AcceptPacke
         try {
             InviteHandler.acceptInvite(packet.receiver, packet.faction);
         } catch (PlayerHasntBeenInvitedException e) {
-            packet.receiver.sendTranslatable(node.andThen(map -> map.get("not-invited")),
+            packet.receiver.sendMessage(node.andThen(map -> map.get("not-invited")),
                     new Placeholder("faction", packet.faction.getDisplay()));
         } catch (PlayerNotFoundException e) {
-            packet.receiver.sendTranslatable(node.andThen(map -> map.get("inviter-not-found")));
+            packet.receiver.sendMessage(node.andThen(map -> map.get("inviter-not-found")));
         } catch (JoinWithRankInvalidException e) {
-            packet.receiver.sendTranslatable(node.andThen(map -> map.get("invalid-rank")));
+            packet.receiver.sendMessage(node.andThen(map -> map.get("invalid-rank")));
         } catch (FactionIsFrozenException e) {
-            packet.receiver.sendTranslatable(node.andThen(map -> map.get("faction-frozen")));
+            packet.receiver.sendMessage(node.andThen(map -> map.get("faction-frozen")));
         } catch (PlayerIsAlreadyInFactionException e) {
-            packet.receiver.sendTranslatable(node.andThen(map -> map.get("already-in-faction")));
+            packet.receiver.sendMessage(node.andThen(map -> map.get("already-in-faction")));
         } catch (PlayerIsBannedException e) {
-            packet.receiver.sendTranslatable(node.andThen(map -> map.get("sender-banned")));
+            packet.receiver.sendMessage(node.andThen(map -> map.get("sender-banned")));
         }
     }
 
@@ -86,19 +86,19 @@ public class AcceptInviteCommand extends Command<AcceptInviteCommand.AcceptPacke
     public @Nullable AcceptInviteCommand.AcceptPacket createFromArgs(@NotNull FactionPlayer<?> executor,
                                                                      @NotNull String[] args) {
         if (args.length != 1) {
-            executor.sendTranslatable(node.andThen(map -> map.get("not-enough-args")));
+            executor.sendMessage(node.andThen(map -> map.get("not-enough-args")));
             return null;
         }
 
         PersistentInvites.ReceiverMap invites = InviteHandler.getInvites(executor);
         if (invites == null) {
-            executor.sendTranslatable(node.andThen(map -> map.get("not-invited")),
+            executor.sendMessage(node.andThen(map -> map.get("not-invited")),
                     new Placeholder("faction", args[0]));
             return null;
         }
 
         if (!invites.containsKey(args[0])) {
-            executor.sendTranslatable(node.andThen(map -> map.get("not-invited")),
+            executor.sendMessage(node.andThen(map -> map.get("not-invited")),
                     new Placeholder("faction", args[0]));
             return null;
         }
@@ -107,7 +107,7 @@ public class AcceptInviteCommand extends Command<AcceptInviteCommand.AcceptPacke
         try {
             faction = FactionHandler.getFaction(args[0]);
         } catch (FactionNotInStorage e) {
-            executor.sendTranslatable(node.andThen(map -> map.get("cant-find-faction")),
+            executor.sendMessage(node.andThen(map -> map.get("cant-find-faction")),
                     new Placeholder("faction", args[0]));
             return null;
         }

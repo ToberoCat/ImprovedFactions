@@ -34,13 +34,13 @@ public record SpigotActionHandler(@NotNull MainIF plugin) implements ActionHandl
                     try {
                         faction.renameFaction(MessageHandler.api().format(text));
                     } catch (FactionIsFrozenException e) {
-                        player.sendTranslatable(translatable -> translatable
+                        player.sendMessage(translatable -> translatable
                                 .getMessages()
                                 .getFaction()
                                 .getPlayer()
                                 .get("faction-is-frozen"));
                     } catch (FactionCantBeRenamedToThisLiteralException e) {
-                        player.sendTranslatable(translatable -> translatable
+                        player.sendMessage(translatable -> translatable
                                 .getMessages()
                                 .getFaction()
                                 .getPlayer()
@@ -88,7 +88,7 @@ public record SpigotActionHandler(@NotNull MainIF plugin) implements ActionHandl
                     try {
                         faction.setMotd(MessageHandler.api().format(text));
                     } catch (FactionIsFrozenException e) {
-                        player.sendTranslatable(translatable -> translatable
+                        player.sendMessage(translatable -> translatable
                                 .getMessages()
                                 .getFaction()
                                 .getPlayer()

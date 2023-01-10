@@ -11,6 +11,11 @@ import java.util.function.Function;
 
 public class MySqlMessages implements MessageHandler {
     @Override
+    public void sendMessage(@NotNull UUID player, @NotNull String message) {
+        throw new NotImplementedException();
+    }
+
+    @Override
     public void sendMessage(@NotNull UUID player,
                             @NotNull Function<Translatable, String> query,
                             Placeholder... placeholders) {

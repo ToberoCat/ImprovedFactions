@@ -92,7 +92,7 @@ public class CommandSettings {
             faction = FactionHandler.getFaction(registry);
         } catch (FactionNotInStorage e) {
             player.getDataContainer().remove(PersistentHandler.FACTION_KEY);
-            player.sendTranslatable(translatable -> translatable
+            player.sendMessage(translatable -> translatable
                     .getMessages()
                     .getCommand()
                     .get("command-settings")

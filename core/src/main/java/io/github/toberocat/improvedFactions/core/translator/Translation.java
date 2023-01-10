@@ -50,7 +50,8 @@ public record Translation(@NotNull Locale locale) {
         LOCALE_TO_FILE_MAP.clear();
     }
 
-    private static @Nullable Translatable readFile(@NotNull String locale) {
+    private static @Nullable Translatable readFile(final @NotNull String _locale) {
+        String locale = _locale.toLowerCase();
         String file = LOCALE_TO_FILE_MAP.get(locale);
         if (file == null) return null;
 
@@ -65,7 +66,8 @@ public record Translation(@NotNull Locale locale) {
     }
 
     public @Nullable String getMessage(@NotNull Function<Translatable, String> query) {
-        Translatable translatable = TRANSLATABLE_MAP.computeIfAbsent(locale.getCountry(), Translation::readFile);
+        Translatable translatable = TRANSLATABLE_MAP.computeIfAbsent(locale.getCountry(),
+                Translation::readFile);
         if (translatable == null) {
             Logger.api().logWarning("Couldn't find " + locale + " as lang file");
             return null;

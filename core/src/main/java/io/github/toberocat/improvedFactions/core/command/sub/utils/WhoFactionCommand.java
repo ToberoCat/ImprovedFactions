@@ -56,7 +56,7 @@ public class WhoFactionCommand
                 .sorted(Comparator.comparingInt(this::get))
                 .toArray(String[]::new)));
         for (String message : messages) {
-            packet.player.sendTranslatable(node.andThen(map -> map.get(message)),
+            packet.player.sendMessage(node.andThen(map -> map.get(message)),
                     new Placeholder("faction-name", packet.faction.getDisplay()),
                     new Placeholder("faction-motd", packet.faction.getMotd()),
                     new Placeholder("faction-registry", packet.faction.getRegistry()),
@@ -94,9 +94,9 @@ public class WhoFactionCommand
                 return new WhoPacket(executor, executor.getFaction());
             return new WhoPacket(executor, FactionHandler.getFaction(args[0]));
         } catch (FactionNotInStorage e) {
-            executor.sendTranslatable(node.andThen(map -> map.get("faction-not-in-storage")));
+            executor.sendMessage(node.andThen(map -> map.get("faction-not-in-storage")));
         } catch (PlayerHasNoFactionException e) {
-            executor.sendTranslatable(node.andThen(map -> map.get("sender-has-no-faction")));
+            executor.sendMessage(node.andThen(map -> map.get("sender-has-no-faction")));
         }
 
         return null;

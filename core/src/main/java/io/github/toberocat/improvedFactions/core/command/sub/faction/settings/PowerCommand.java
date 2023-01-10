@@ -47,7 +47,7 @@ public class PowerCommand extends Command<Command.PlayerPacket, PowerCommand.Pow
 
     @Override
     public void run(@NotNull PlayerPacket packet) {
-        packet.player().sendTranslatable(node.andThen(map -> map.get("get-power")));
+        packet.player().sendMessage(node.andThen(map -> map.get("get-power")));
     }
 
     @Override

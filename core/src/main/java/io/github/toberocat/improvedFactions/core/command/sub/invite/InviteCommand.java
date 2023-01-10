@@ -71,19 +71,19 @@ public class InviteCommand extends Command<InviteCommand.InvitePacket, InviteCom
                     packet.sender,
                     packet.faction,
                     packet.rank);
-            packet.sender.sendTranslatable(node.andThen(map -> map.get("invited-sender")));
+            packet.sender.sendMessage(node.andThen(map -> map.get("invited-sender")));
             packet.receiver.sendMessage(node.andThen(map -> map.get("you-have-been-invited")),
                     new Placeholder("sender", packet.sender().getName()),
                     new Placeholder("faction", packet.faction.getRegistry()),
                     new Placeholder("rank", packet.rank.getRegistry()));
         } catch (PlayerHasBeenInvitedException e) {
-            packet.sender.sendTranslatable(node.andThen(map -> map.get("sender-already-been-invited")));
+            packet.sender.sendMessage(node.andThen(map -> map.get("sender-already-been-invited")));
         } catch (CantInviteYourselfException e) {
-            packet.sender.sendTranslatable(node.andThen(map -> map.get("cant-invite-yourself")));
+            packet.sender.sendMessage(node.andThen(map -> map.get("cant-invite-yourself")));
         } catch (PlayerAlreadyMemberException e) {
-            packet.sender.sendTranslatable(node.andThen(map -> map.get("already-member")));
+            packet.sender.sendMessage(node.andThen(map -> map.get("already-member")));
         } catch (PlayerIsAlreadyInFactionException e) {
-            packet.sender.sendTranslatable(node.andThen(map -> map.get("already-in-faction")));
+            packet.sender.sendMessage(node.andThen(map -> map.get("already-in-faction")));
         }
     }
 
@@ -112,13 +112,13 @@ public class InviteCommand extends Command<InviteCommand.InvitePacket, InviteCom
     public @Nullable InviteCommand.InvitePacket createFromArgs(@NotNull FactionPlayer<?> executor,
                                                                @NotNull String[] args) {
         if (args.length <= 0) {
-            executor.sendTranslatable(node.andThen(map -> map.get("not-enough-args")));
+            executor.sendMessage(node.andThen(map -> map.get("not-enough-args")));
             return null;
         }
 
         OfflineFactionPlayer<?> player = ImprovedFactions.api().getOfflinePlayer(args[0]);
         if (player == null) {
-            executor.sendTranslatable(node.andThen(map -> map.get("sender-not-found")));
+            executor.sendMessage(node.andThen(map -> map.get("sender-not-found")));
             return null;
         }
 
@@ -127,7 +127,7 @@ public class InviteCommand extends Command<InviteCommand.InvitePacket, InviteCom
             Rank rank = Rank.fromString(args[1]);
             if (rank.getRegistry().equals(GuestRank.REGISTRY) ||
                     !(rank instanceof FactionRank fRank)) {
-                executor.sendTranslatable(node.andThen(map -> map.get("rank-not-found")));
+                executor.sendMessage(node.andThen(map -> map.get("rank-not-found")));
                 return null;
             }
             factionRank = fRank;
@@ -137,9 +137,9 @@ public class InviteCommand extends Command<InviteCommand.InvitePacket, InviteCom
             Faction<?> faction = executor.getFaction();
             return new InvitePacket(executor, player, faction, factionRank);
         } catch (PlayerHasNoFactionException e) {
-            executor.sendTranslatable(node.andThen(map -> map.get("sender-has-no-faction")));
+            executor.sendMessage(node.andThen(map -> map.get("sender-has-no-faction")));
         } catch (FactionNotInStorage e) {
-            executor.sendTranslatable(node.andThen(map -> map.get("faction-not-in-storage")));
+            executor.sendMessage(node.andThen(map -> map.get("faction-not-in-storage")));
         }
 
         return null;

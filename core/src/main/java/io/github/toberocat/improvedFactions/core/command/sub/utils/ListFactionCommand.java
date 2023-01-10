@@ -51,13 +51,13 @@ public class ListFactionCommand extends
         List<String> factions = FactionHandler.getAllFactions().toList();
         Set<String> loaded = FactionHandler.getLoadedFactions().keySet();
         if (factions.size() == 0) {
-            packet.player().sendTranslatable(node.andThen(map -> map.get("no-entries")));
+            packet.player().sendMessage(node.andThen(map -> map.get("no-entries")));
         } else {
             factions.forEach(f ->
-                    packet.player().sendTranslatable(node.andThen(map -> map.get(
+                    packet.player().sendMessage(node.andThen(map -> map.get(
                                     loaded.contains(f) ? "entry-loaded" : "entry-unloaded")),
                             new Placeholder("faction", f)));
-            packet.player().sendTranslatable(node.andThen(map -> map.get("lower-text")),
+            packet.player().sendMessage(node.andThen(map -> map.get("lower-text")),
                     new Placeholder("factions", String.valueOf(factions.size())),
                     new Placeholder("loaded",
                             String.valueOf(loaded.size())));

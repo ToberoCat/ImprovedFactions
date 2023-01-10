@@ -74,15 +74,15 @@ public class KickFactionCommand extends
     public void run(@NotNull KickPacket packet) {
         try {
             packet.executor.getFaction().kickPlayer(packet.kicked);
-            packet.executor.sendTranslatable(node.andThen(map -> map.get("kicked-sender")));
+            packet.executor.sendMessage(node.andThen(map -> map.get("kicked-sender")));
         } catch (FactionIsFrozenException e) {
-            packet.executor.sendTranslatable(node.andThen(map -> map.get("faction-is-frozen")));
+            packet.executor.sendMessage(node.andThen(map -> map.get("faction-is-frozen")));
         } catch (PlayerHasNoFactionException e) {
-            packet.executor.sendTranslatable(node.andThen(map -> map.get("sender-has-no-faction")));
+            packet.executor.sendMessage(node.andThen(map -> map.get("sender-has-no-faction")));
         } catch (FactionNotInStorage e) {
-            packet.executor.sendTranslatable(node.andThen(map -> map.get("faction-not-in-storage")));
+            packet.executor.sendMessage(node.andThen(map -> map.get("faction-not-in-storage")));
         } catch (PlayerNotAMember e) {
-            packet.executor.sendTranslatable(node.andThen(map -> map.get("kicked-not-in-faction")));
+            packet.executor.sendMessage(node.andThen(map -> map.get("kicked-not-in-faction")));
         }
     }
 
@@ -102,13 +102,13 @@ public class KickFactionCommand extends
     public @Nullable KickFactionCommand.KickPacket createFromArgs(@NotNull FactionPlayer<?> executor,
                                                                   @NotNull String[] args) {
         if (args.length <= 1) {
-            executor.sendTranslatable(node.andThen(map -> map.get("not-enough-args")));
+            executor.sendMessage(node.andThen(map -> map.get("not-enough-args")));
             return null;
         }
 
         OfflineFactionPlayer<?> player = ImprovedFactions.api().getOfflinePlayer(args[1]);
         if (player == null) {
-            executor.sendTranslatable(node.andThen(map -> map.get("sender-not-found")));
+            executor.sendMessage(node.andThen(map -> map.get("sender-not-found")));
             return null;
         }
 

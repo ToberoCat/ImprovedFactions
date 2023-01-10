@@ -29,7 +29,7 @@ public abstract class ConfirmCommand<P extends Command.CommandPacket, C extends 
     @Override
     public final @Nullable P createFromArgs(@NotNull FactionPlayer<?> executor, @NotNull String[] args) {
         if (args.length < 1) {
-            executor.sendTranslatable(notConfirmedTranslatable());
+            executor.sendMessage(notConfirmedTranslatable());
             return null;
         }
 

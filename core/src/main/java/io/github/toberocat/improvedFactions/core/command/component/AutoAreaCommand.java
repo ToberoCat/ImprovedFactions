@@ -48,11 +48,11 @@ public abstract class AutoAreaCommand extends
         if (packet.auto) {
             if (CHUNK_MOVES.containsKey(player.getUniqueId())) {
                 CHUNK_MOVES.remove(player.getUniqueId());
-                player.sendTranslatable(autoDisabled());
+                player.sendMessage(autoDisabled());
             } else {
                 CHUNK_MOVES.computeIfAbsent(player.getUniqueId(), id -> user ->
                         single(user, user.getLocation(), false));
-                player.sendTranslatable(autoActivated());
+                player.sendMessage(autoActivated());
             }
         } else {
             new AsyncTask<>(() -> {
@@ -76,7 +76,7 @@ public abstract class AutoAreaCommand extends
 
                     return new AsyncClaimPacket(success, fail);
                 }
-            }).start().then(claim -> player.sendTranslatable(sendTotal(),
+            }).start().then(claim -> player.sendMessage(sendTotal(),
                     new Placeholder("success", String.valueOf(claim.success)),
                     new Placeholder("total", String.valueOf(claim.success + claim.fail))
             ));
@@ -98,7 +98,7 @@ public abstract class AutoAreaCommand extends
         try {
             return new AutoAreaPacket(executor, Integer.parseInt(radius), false);
         } catch (NumberFormatException e) {
-            executor.sendTranslatable(radiusNoNumber());
+            executor.sendMessage(radiusNoNumber());
             return null;
         }
     }

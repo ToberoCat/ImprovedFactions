@@ -60,13 +60,13 @@ public class JoinFactionCommand extends Command<JoinFactionCommand.JoinPacket, J
         FactionPlayer<?> player = packet.player;
         try {
             packet.faction.joinPlayer(player, packet.rank);
-            player.sendTranslatable(node.andThen(map -> map.get("success")));
+            player.sendMessage(node.andThen(map -> map.get("success")));
         } catch (FactionIsFrozenException e) {
-            player.sendTranslatable(node.andThen(map -> map.get("faction-frozen")));
+            player.sendMessage(node.andThen(map -> map.get("faction-frozen")));
         } catch (PlayerIsAlreadyInFactionException e) {
-            player.sendTranslatable(node.andThen(map -> map.get("already-in-faction")));
+            player.sendMessage(node.andThen(map -> map.get("already-in-faction")));
         } catch (PlayerIsBannedException e) {
-            player.sendTranslatable(node.andThen(map -> map.get("sender-banned")));
+            player.sendMessage(node.andThen(map -> map.get("sender-banned")));
         }
     }
 
@@ -78,7 +78,7 @@ public class JoinFactionCommand extends Command<JoinFactionCommand.JoinPacket, J
             packet.faction.joinPlayer(player, packet.rank);
 
             logger.logInfo("Player joined faction");
-            player.sendTranslatable(node.andThen(map -> map.get("success")));
+            player.sendMessage(node.andThen(map -> map.get("success")));
         } catch (FactionIsFrozenException e) {
             logger.logInfo("Faction is frozen");
         } catch (PlayerIsAlreadyInFactionException e) {
@@ -92,7 +92,7 @@ public class JoinFactionCommand extends Command<JoinFactionCommand.JoinPacket, J
     public @Nullable JoinFactionCommand.JoinPacket createFromArgs(@NotNull FactionPlayer<?> executor,
                                                                   @NotNull String[] args) {
         if (args.length != 1) {
-            executor.sendTranslatable(node.andThen(map -> map.get("not-enough-args")));
+            executor.sendMessage(node.andThen(map -> map.get("not-enough-args")));
             return null;
         }
         String registry = args[0];
@@ -101,12 +101,12 @@ public class JoinFactionCommand extends Command<JoinFactionCommand.JoinPacket, J
         try {
             faction = FactionHandler.getFaction(registry);
         } catch (FactionNotInStorage e) {
-            executor.sendTranslatable(node.andThen(map -> map.get("faction-not-found")));
+            executor.sendMessage(node.andThen(map -> map.get("faction-not-found")));
             return null;
         }
 
         if (faction.getType() != OpenType.PUBLIC) {
-            executor.sendTranslatable(node.andThen(map -> map.get("faction-not-joinable")));
+            executor.sendMessage(node.andThen(map -> map.get("faction-not-joinable")));
             return null;
         }
 

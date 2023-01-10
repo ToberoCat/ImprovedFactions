@@ -55,11 +55,11 @@ public class SingleZoneCommand extends AutoAreaCommand {
         try {
             ClaimHandler.protectChunk(zone.registry(),
                     world.getChunkAt(location.chunkX(), location.chunkZ()));
-            if (!area) player.sendTranslatable(node.andThen(map -> map.get("claim-chunk")));
+            if (!area) player.sendMessage(node.andThen(map -> map.get("claim-chunk")));
             return true;
         } catch (ChunkAlreadyClaimedException e) {
             if (area) return false;
-            player.sendTranslatable(node.andThen(map -> map.get("chunk-already-claimed")));
+            player.sendMessage(node.andThen(map -> map.get("chunk-already-claimed")));
         }
         return false;
     }

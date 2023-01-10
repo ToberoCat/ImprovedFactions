@@ -58,7 +58,7 @@ public class SpigotCommandHandler {
     private boolean runCommand(Command<Command.CommandPacket, ?> cmd, FactionPlayer<?> player, String[] args) {
         CommandSettings.SettingResult query = cmd.settings().canExecute(player);
         if (!query.result()) {
-            if (query.errorMessage() != null) player.sendTranslatable(query.errorMessage());
+            if (query.errorMessage() != null) player.sendMessage(query.errorMessage());
             return false;
         }
 

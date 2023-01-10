@@ -597,7 +597,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
         getMembers()
                 .map(api::getOfflinePlayer)
                 .filter(Objects::nonNull)
-                .forEach(x -> x.sendTranslatable(query, parseables));
+                .forEach(x -> x.sendMessage(query, parseables));
     }
 
     /* Claim management */

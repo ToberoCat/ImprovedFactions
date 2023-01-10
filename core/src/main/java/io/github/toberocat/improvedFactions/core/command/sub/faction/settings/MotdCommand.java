@@ -56,34 +56,34 @@ public class MotdCommand extends Command<MotdCommand.MotdPacket, MotdCommand.Mot
         try {
             faction = packet.player.getFaction();
         } catch (PlayerHasNoFactionException e) {
-            packet.player.sendTranslatable(node.andThen(map -> "sender-has-no-faction"));
+            packet.player.sendMessage(node.andThen(map -> "sender-has-no-faction"));
             return;
         } catch (FactionNotInStorage e) {
-            packet.player.sendTranslatable(node.andThen(map -> "faction-not-in-storage"));
+            packet.player.sendMessage(node.andThen(map -> "faction-not-in-storage"));
             return;
         }
 
         if (packet.motd == null)
-            packet.player.sendTranslatable(node.andThen(map -> map.get("send-motd")));
+            packet.player.sendMessage(node.andThen(map -> map.get("send-motd")));
         else {
             try {
                 if (!faction.hasPermission(FactionPermission.SET_MOTD, packet.player)) packet
                         .player
-                        .sendTranslatable(node
+                        .sendMessage(node
                                 .andThen(map -> map.get("missing-set-motd-permissions")));
                 else {
                     faction.setMotd(packet.motd);
-                    packet.player.sendTranslatable(node
+                    packet.player.sendMessage(node
                             .andThen(map -> map.get("set-motd")));
                 }
             } catch (FactionIsFrozenException e) {
-                packet.player.sendTranslatable(node
+                packet.player.sendMessage(node
                         .andThen(map -> "faction-is-frozen"));
             } catch (FactionNotInStorage factionNotInStorage) {
-                packet.player.sendTranslatable(node
+                packet.player.sendMessage(node
                         .andThen(map -> map.get("faction-not-in-storage")));
             } catch (PlayerHasNoFactionException e) {
-                packet.player.sendTranslatable(node
+                packet.player.sendMessage(node
                         .andThen(map -> map.get("sender-has-no-faction")));
             }
         }

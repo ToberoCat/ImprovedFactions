@@ -56,15 +56,15 @@ public class RenameCommand
         try {
             Faction<?> faction = packet.player.getFaction();
             faction.renameFaction(packet.newName);
-            packet.player.sendTranslatable(node.andThen(map -> "renamed"));
+            packet.player.sendMessage(node.andThen(map -> "renamed"));
         } catch (PlayerHasNoFactionException e) {
-            packet.player.sendTranslatable(node.andThen(map -> "sender-has-no-faction"));
+            packet.player.sendMessage(node.andThen(map -> "sender-has-no-faction"));
         } catch (FactionNotInStorage e) {
-            packet.player.sendTranslatable(node.andThen(map -> "faction-not-in-storage"));
+            packet.player.sendMessage(node.andThen(map -> "faction-not-in-storage"));
         } catch (FactionCantBeRenamedToThisLiteralException e) {
-            packet.player.sendTranslatable(node.andThen(map -> "invalid-faction-name"));
+            packet.player.sendMessage(node.andThen(map -> "invalid-faction-name"));
         } catch (FactionIsFrozenException e) {
-            packet.player.sendTranslatable(node.andThen(map -> "faction-is-frozen"));
+            packet.player.sendMessage(node.andThen(map -> "faction-is-frozen"));
         }
     }
 
@@ -87,7 +87,7 @@ public class RenameCommand
     public @Nullable RenameCommand.RenamePacket createFromArgs(@NotNull FactionPlayer<?> executor,
                                                                @NotNull String[] args) {
         if (args.length <= 1) {
-            executor.sendTranslatable(node.andThen(map -> map.get("not-enough-args")));
+            executor.sendMessage(node.andThen(map -> map.get("not-enough-args")));
             return null;
         }
         return new RenamePacket(executor, args[0]);
