@@ -15,6 +15,4 @@ public interface GuiProvider {
     @NotNull Flag[] getFlags();
     @NotNull ItemState getState(@NotNull FactionPlayer<?> viewer,
                                 @NotNull Map<String, ItemState> states);
-    @NotNull ItemStack createFromState(@NotNull FactionPlayer<?> viewer,
-                                       @NotNull ItemState state);
 }

@@ -34,8 +34,7 @@
                 <img src="../images/icon.png" class="logo-image" alt="Improved Factions Logo">
             </a>
             <button id="export-gui-button" class="button">Export Gui</button>
-            <input id="share-gui-button" class="button" type="image" name="Share gui" src="res/share.png"
-                   alt="Share your gui">
+            <p id="version-button">v1.0.0</p>
             <input type="checkbox" id="darkmode-toggle" value=false>
             <label id="darkmode-toggle-label" for="darkmode-toggle"></label>
         </div>
@@ -61,8 +60,8 @@
         </div>
         <div id="item-window" class="shadow">
             <div id="tab-header">
-                <button class="tablinks" onclick="openTab('item-tab')">Items</button>
-                <button class="tablinks" onclick="openTab('head-tab')">Heads</button>
+                <button class="button tab-links" onclick="openTab('item-tab')">Items</button>
+                <button class="button tab-links" onclick="openTab('head-tab')">Heads</button>
             </div>
             <div id="tab-container">
                 <div id="item-tab">
@@ -96,6 +95,10 @@
                                 <option value="miscellaneous">Miscellaneous</option>
                                 <option value="monsters">Monsters</option>
                                 <option value="plants">Plants</option>
+                            </select>
+                            <label for="head-category-tagged" class="properties-label">Tagged</label>
+                            <select class="properties-input" id="head-category-tagged">
+
                             </select>
                         </div>
                     </div>

@@ -30,16 +30,10 @@ public class SettingGui extends AbstractGuiProvider {
     public @NotNull ItemState getState(@NotNull FactionPlayer<?> viewer,
                                        @NotNull Map<String, ItemState> states) {
         try {
-            return states.get(viewer.getRank().getRegistry().toLowerCase() + "Rank");
+            String id = viewer.getRank().getRegistry().toLowerCase() + "Rank";
+            return states.get(states.containsKey(id) ? id : "defaultState");
         } catch (FactionNotInStorage | PlayerHasNoFactionException e) {
             return states.get("defaultState");
         }
-    }
-
-    @Override
-    public @NotNull ItemStack createFromState(@NotNull FactionPlayer<?> viewer,
-                                              @NotNull ItemState state) {
-        String material = state.getId();
-        return null;
     }
 }

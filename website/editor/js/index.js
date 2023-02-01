@@ -22,11 +22,10 @@ function createListeners() {
                 });
         });
 
-    document.getElementById("share-gui-button")
+    document.getElementById("version-button")
         .addEventListener("click", () => {
-            navigator.clipboard.writeText(window.location.href.split('?')[0] + "?gui="
-                + btoa(gui.exportGui()))
-                .then(r => Toast.show("Copied link into clipboard", "success"))
+            navigator.clipboard.writeText(document.getElementById("version-button").innerText)
+                .then(r => Toast.show("Copied version into clipboard", "success"))
                 .catch(e => {
                     console.error(e);
                     Toast.show("Error occurred while coping to clipboard", "error")

@@ -9,6 +9,12 @@
     font-family: 'Open Sans', sans-serif;
 }
 
+.tab-links {
+    margin-top: 5px;
+    margin-left: 5px;
+    padding: 4px 21px 4px 20px;
+}
+
 .button:hover {
     color: #FFFFFF;
     background: #000000;
@@ -20,10 +26,11 @@
     margin-right: 10px;
 }
 
-#share-gui-button {
+#version-button {
     float: right;
-    margin-top: 10px;
-    margin-right: 10px;
-    width: 30px;
-    height: 30px;
+    text-align: center;
+    margin: 20px 15px 0 5px;
+    font-size: 16px;
+    line-height: 1.6;
+    font-family: 'Open Sans', sans-serif;
 }
