@@ -49,7 +49,7 @@ class Gui {
     }
 
     parseQueryGui() {
-        return new Promise((resolve, reject) => {
+        return new Promise(resolve => {
             const params = new Proxy(new URLSearchParams(window.location.search), {
                 get: (searchParams, prop) => searchParams.get(prop),
             });
@@ -169,11 +169,20 @@ class Gui {
                     const id = parts[0];
                     const isHead = parts[1] === "true";
                     const customData = parts[2];
-
                     const item = document.getElementById(id);
-                    background.src = item.src;
+
                     this.content.items[i][j][this.showState].id = isHead ? "player_head" : item.id;
                     this.content.items[i][j][this.showState].customData = customData;
+
+                    const reference = this.getReferenceItem(this.content.items[i][j][this.showState],
+                            headItem => {
+                        background.src = "data:image/png;base64," + headItem.icon;
+                    });
+                    if (reference && reference.src)
+                        background.src = reference.src;
+                    else if (reference)
+                        background.src = reference;
+
                     document.getElementById("item-state-" + this.showState).src = item.src;
                 });
 
@@ -196,14 +205,14 @@ class Gui {
         }
     }
 
-    getReferenceItem(state, loadCb) {
+    getReferenceItem(state, loadCallback) {
         if (state.id !== "player_head")
             return document.getElementById(state.id);
         const texture = state.customData;
         if (texture == null)
             return document.getElementById(state.id);
         headIndex.getHeadId(texture)
-            .then(x => loadCb(x))
+            .then(x => loadCallback(x))
             .catch(() => Toast.show("Couldn't fetch head " + state.id, "error"));
         return headNotLoadedImage;
     }
@@ -217,7 +226,14 @@ class Gui {
             if (state === this.showState) stateItem.removeAttribute("disabled");
             else stateItem.setAttribute("disabled", "disabled");
             const stateTranslationId = document.getElementById(`item-translation-id-${state}`);
-            stateItem.src = document.getElementById(stateJson.id).src;
+            const reference = this.getReferenceItem(stateJson, headItem => {
+                stateItem.src = "data:image/png;base64," + headItem.icon;
+            });
+            if (reference && reference.src)
+                stateItem.src = reference.src;
+            else if (reference)
+                stateItem.src = reference;
+
             stateTranslationId.value = stateJson.translationId;
 
             for (let flag of this.content.flags) {

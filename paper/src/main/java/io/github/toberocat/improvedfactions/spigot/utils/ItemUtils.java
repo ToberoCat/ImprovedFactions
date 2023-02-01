@@ -139,4 +139,10 @@ public class ItemUtils {
         }
         return item;
     }
+
+    public static @NotNull ItemStack createHead(@NotNull String textureId,
+                                                int amount,
+                                                @NotNull String title,
+                                                String[] lore) {
+    }
 }

@@ -43,18 +43,25 @@ public class SpigotGuiView extends AbstractGui { // Todo: Fix gui view
                         .replaceAll(" ", "_")
                         .toUpperCase()
                 );
-                ItemStack stack = ItemUtils.createItem(material, 1, player
-                                .getMessage(translatable -> translatable
-                                        .getGuis()
-                                        .get(guiContent.getGuiId())
-                                        .get(state.getTranslationId())
-                                        .title()),
-                        player.getMessageBatch(translatable -> translatable
-                                .getGuis()
-                                .get(guiContent.getGuiId())
-                                .get(state.getTranslationId())
-                                .description()
-                                .toArray(String[]::new)));
+                String title = player.getMessage(translatable -> translatable
+                        .getGuis()
+                        .get(guiContent.getGuiId())
+                        .get(state.getTranslationId())
+                        .title());
+
+                String[] lore = player.getMessageBatch(translatable -> translatable
+                        .getGuis()
+                        .get(guiContent.getGuiId())
+                        .get(state.getTranslationId())
+                        .description()
+                        .toArray(String[]::new));
+
+                ItemStack stack;
+                if (material != Material.PLAYER_HEAD)
+                    stack = ItemUtils.createItem(material, 1, title, lore);
+                else {
+                    stack = ItemUtils.createHead(state.getCustomData(), 1, title, lore);
+                }
                 addSlot(stack, 0, i * 9 + j, u -> {
 
                 });
