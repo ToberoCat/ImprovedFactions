@@ -1,10 +1,13 @@
 package io.github.toberocat.improvedfactions.spigot.gui;
 
+import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.handler.message.MessageHandler;
+import io.github.toberocat.improvedfactions.spigot.MainIF;
 import io.github.toberocat.improvedfactions.spigot.gui.page.Page;
 import io.github.toberocat.improvedfactions.spigot.gui.settings.GuiSettings;
 import io.github.toberocat.improvedfactions.spigot.gui.slot.Slot;
 import io.github.toberocat.improvedfactions.spigot.listener.GuiListener;
+import io.github.toberocat.improvedfactions.spigot.utils.ComponentUtility;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -18,6 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -47,7 +51,12 @@ public abstract class AbstractGui {
 
     /* Static utility function */
     public static Inventory createInventory(Player player, int size, String title) {
-        return Bukkit.createInventory(player, size, MessageHandler.api().format(title).strip());
+        return Bukkit.createInventory(player, size, ComponentUtility.create(MessageHandler.api()
+                .format(
+                        Objects.requireNonNull(ImprovedFactions.api().getPlayer(player.getUniqueId())),
+                        title
+                )
+                .strip()));
     }
 
     /* Abstract methods */

@@ -1,5 +1,7 @@
 package io.github.toberocat.improvedfactions.spigot.utils;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
+import com.destroystokyo.paper.profile.ProfileProperty;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import io.github.toberocat.improvedFactions.core.handler.message.MessageHandler;
@@ -7,6 +9,8 @@ import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.layout.item.XmlItem;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
+import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -25,6 +29,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
+
+import static io.github.toberocat.improvedfactions.spigot.utils.ComponentUtility.format;
 
 public class ItemUtils {
 
@@ -130,35 +136,27 @@ public class ItemUtils {
     public static ItemStack createItem(Material material, int amount, String name, String... lore) {
         ItemStack item = new ItemStack(material, amount);
         ItemMeta meta = item.getItemMeta();
+        if (meta == null)
+            return item;
 
-        if (meta != null) {
-            meta.setDisplayName(MessageHandler.api().format(name));
+        meta.displayName(format(name));
+        meta.lore(Arrays.stream(lore).map(ComponentUtility::format).toList());
+        item.setItemMeta(meta);
 
-            meta.setLore(Objects.requireNonNull(setLore(item, lore).getItemMeta()).getLore());
-
-            item.setItemMeta(meta);
-        }
         return item;
     }
 
     public static @NotNull ItemStack createHead(@NotNull String textureId,
-                                                int amount,
                                                 @NotNull String title,
+                                                int amount,
                                                 String[] lore) {
-        System.out.println("G");
         ItemStack head = createItem(Material.PLAYER_HEAD, amount, title, lore);
-        SkullMeta headMeta = (SkullMeta) head.getItemMeta();
-        GameProfile profile = new GameProfile(UUID.randomUUID(), "");
+        if (!(head.getItemMeta() instanceof SkullMeta headMeta))
+            return head;
 
-        profile.getProperties().put("textures", new Property("texture",
-                "https://textures.minecraft.net/texture/" + textureId));
-        try {
-            Field profileField = headMeta.getClass().getDeclaredField("profile");
-            profileField.setAccessible(true);
-            profileField.set(headMeta, profile);
-        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-            e.printStackTrace();
-        }
+        PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID(), "");
+        profile.setProperty(new ProfileProperty("textures", textureId));
+        headMeta.setPlayerProfile(profile);
 
         head.setItemMeta(headMeta);
         return head;

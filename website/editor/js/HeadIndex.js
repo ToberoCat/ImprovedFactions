@@ -58,7 +58,7 @@ class HeadIndex {
                 `<input type="image" src="data:image/png;base64,${head.icon}" 
                            name="${head.name}" alt="${head.name}" title="${head.name}" id="${headId}">`
             );
-            makeDraggableItem(el, true, () => headId, () => head.texId);
+            makeDraggableItem(el, true, () => headId, () => head.value);
             this.container.appendChild(el);
         }
     }

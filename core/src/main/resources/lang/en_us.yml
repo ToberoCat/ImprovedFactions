@@ -41,14 +41,11 @@ messages:
       missing-spigot-permission: '<red>You do not have the required SERVER permission'
     settings:
       requires-faction: '<red>You need to be in a faction to use this'
-      missing-faction-permission: '<red>You do not have the required FACTION permission\n\
-        \                '
+      missing-faction-permission: '<red>You do not have the required FACTION permission'
       missing-spigot-permission: '<red>You do not have the required SERVER permission'
     edit:
-      gui-couldnt-be-found: '{text:The given guiId couldnt be found in the gui registry}\n\
-        \                '
-      not-enough-arguments: '{text:This command needs a valid gui id that should be\
-        \ edited}\n                '
+      gui-couldnt-be-found: '{text:The given guiId couldnt be found in the gui registry}'
+      not-enough-arguments: '{text:This command needs a valid gui id that should beedited}\n'
     list:
       no-entries: '<red>There are no factions saved'
       entry-loaded: '<yellow>{faction} - <green>Active'
@@ -300,4 +297,4 @@ guis:
       description:
         - ''
         - '<gray>This is your factions icon'
-        - '<gray>click <gold><bold>here<gray> to change it'
+        - '<gray>click <gold><bold>here</bold><gray> to change it'

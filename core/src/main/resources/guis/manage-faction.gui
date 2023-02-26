@@ -2,7 +2,18 @@
   "guiId": "manage-faction",
   "rows": 6,
   "states": [
-    "defaultState"
+    "defaultState",
+    "ownerRank",
+    "adminRank",
+    "moderatorRank",
+    "elderRank",
+    "memberRank",
+    "allyownerRank",
+    "allyadminRank",
+    "allymoderatorRank",
+    "allyelderRank",
+    "allymemberRank",
+    "guestRank"
   ],
   "flags": [
     {
