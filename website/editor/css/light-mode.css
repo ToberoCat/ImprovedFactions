@@ -3,6 +3,10 @@ body {
     color: #000000;
 }
 
+.blur {
+    background: white;
+}
+
 input[type=text] {
     background: #FFFFFF;
     color: #000000;

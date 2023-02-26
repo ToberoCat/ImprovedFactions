@@ -22,30 +22,24 @@ class Gui {
         })
     }
 
-    generateGui() {
-        return this.parseQueryGui()
-            .then(content => {
-                this.content = content;
-            })
-            .catch(err => {
-                const currentUrl = window.location.href.split(/(?<=editor)\//gm)[0];
-                location.href = `${currentUrl}/select-file.html`;
-            })
-            .finally(() => {
-                if (!this.content)
-                    this.content = {
-                        guiId: "gui-0",
-                        rows: 6,
-                        states: ["defaultState"],
-                        flags: [{"name": "Sample Flag", "id": 0}],
-                        items: []
-                    };
-                document.getElementById("gui-id").innerText = capitalizeBySpace(this.content.guiId.replaceAll("-", " "));
-                this.rowsElement.value = this.content.rows;
-                const stateSelector = document.getElementById("display-states");
-                for (let state of this.content.states) stateSelector.appendChild(htmlToElement(
-                    `<option value="${state}">${capitalizeFirstLetter(state)}</option>`));
-            });
+    generateGui(gui) {
+        this.content = gui;
+        if (!this.content)
+            this.content = {
+                guiId: "gui-0",
+                rows: 6,
+                states: ["defaultState"],
+                flags: [{"name": "Sample Flag", "id": 0}],
+                items: []
+            };
+        document.getElementById("gui-id").innerText = capitalizeBySpace(this.content.guiId.replaceAll("-", " "));
+        this.rowsElement.value = this.content.rows;
+        const stateSelector = document.getElementById("display-states");
+        for (let state of this.content.states) stateSelector.appendChild(htmlToElement(
+            `<option value="${state}">${capitalizeFirstLetter(state)}</option>`));
+
+        this.renderGui();
+        this.renderStateProperties();
     }
 
     parseQueryGui() {
@@ -175,9 +169,9 @@ class Gui {
                     this.content.items[i][j][this.showState].customData = customData;
 
                     const reference = this.getReferenceItem(this.content.items[i][j][this.showState],
-                            headItem => {
-                        background.src = "data:image/png;base64," + headItem.icon;
-                    });
+                        headItem => {
+                            background.src = "data:image/png;base64," + headItem.icon;
+                        });
                     if (reference && reference.src)
                         background.src = reference.src;
                     else if (reference)

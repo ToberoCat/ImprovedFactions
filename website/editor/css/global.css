@@ -27,6 +27,11 @@ select {
     box-shadow: 0 0 20px 1px #cccccc;
 }
 
+.blur {
+    filter: blur(5px);
+    pointer-events: none;
+}
+
 .unselectable {
     -webkit-touch-callout: none;
     -webkit-user-select: none;

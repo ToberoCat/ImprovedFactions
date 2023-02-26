@@ -24,18 +24,24 @@ function uploadFile(file) {
 }
 
 function handleFileLoad(event) {
-    const currentUrl = window.location.href.split(/(?<=editor)\//gm)[0];
-    toBase64(event.target.result)
-        .then(gui => location.href = `${currentUrl}/index.html?gui=${gui}`)
+    parse(event.target.result)
+        .then(x => {
+            return new Promise(() => {
+                document.getElementById("file-section").style.visibility = "hidden";
+                document.getElementById("editor").classList.remove("blur");
+                document.getElementById("editor").classList.remove("unselectable");
+                gui.generateGui(x);
+            });
+        })
+        .then(() => Toast.show("Uploaded gui", "success"))
         .catch(err => {
             console.error(err);
             Toast.show("Uploaded file contained invalid gui", "error")
         });
 }
 
-function toBase64(json) {
-    return new Promise(resolve =>
-        resolve(btoa(JSON.stringify(JSON.parse(json)))));
+function parse(json) {
+    return new Promise(resolve => resolve(JSON.parse(json)));
 }
 
 function cancelDefault(e) {

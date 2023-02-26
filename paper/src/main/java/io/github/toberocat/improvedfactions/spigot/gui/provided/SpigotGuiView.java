@@ -18,6 +18,7 @@ import io.github.toberocat.improvedfactions.spigot.gui.page.Page;
 import io.github.toberocat.improvedfactions.spigot.gui.settings.GuiSettings;
 import io.github.toberocat.improvedfactions.spigot.player.SpigotFactionPlayer;
 import io.github.toberocat.improvedfactions.spigot.utils.ItemUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -40,11 +41,16 @@ public class SpigotGuiView extends AbstractGui { // Todo: Fix gui view
         this.guiContent = guiContent;
         this.guiProvider = GuiManager.getGuis().get(guiContent.getGuiId());
 
-        constructGui();
+        try {
+            constructGui();
+        } catch (InvalidJsonGuiRuntimeException e) {
+            e.printStackTrace();
+            Bukkit.getLogger().severe("Your gui is missing something. " + e.getMessage());
+        }
         render();
     }
 
-    private void constructGui() {
+    private void constructGui() throws InvalidJsonGuiRuntimeException {
         Map<String, ItemState>[][] items = guiContent.getItems();
         for (int i = 0; i < guiContent.getRows(); i++) {
             for (int j = 0; j < items[i].length; j++) {
@@ -56,7 +62,7 @@ public class SpigotGuiView extends AbstractGui { // Todo: Fix gui view
         }
     }
 
-    private @NotNull ItemStack createStack(@NotNull ItemState state) {
+    private @NotNull ItemStack createStack(@NotNull ItemState state) throws InvalidJsonGuiRuntimeException {
         Material material = getMaterial(state).orElseThrow(() ->
                 new InvalidJsonGuiRuntimeException("Material not found for " + state));
         String name = getName(state).orElseThrow(() ->

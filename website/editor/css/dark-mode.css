@@ -3,6 +3,10 @@ body {
     color: #FFFFFF;
 }
 
+.blur {
+    background: black;
+}
+
 input[type=text] {
     background: linear-gradient(#181818, #121212);
     color: #FFFFFF;

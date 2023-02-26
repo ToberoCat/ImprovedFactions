@@ -1,12 +1,10 @@
 function createUI() {
     return new Promise(async resolve => {
-        await gui.generateGui();
         await itemWindow.loadItems();
         await headIndex.loadEverything();
 
         createListeners();
-        gui.renderGui();
-        gui.renderStateProperties();
+        gui.generateGui(undefined);
         resolve();
     });
 }

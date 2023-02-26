@@ -1,6 +1,9 @@
 package io.github.toberocat.improvedFactions.core.gui.manager;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.github.toberocat.improvedFactions.core.gui.content.Flag;
+import io.github.toberocat.improvedFactions.core.gui.content.GuiContent;
+import io.github.toberocat.improvedFactions.core.json.Json;
 import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,6 +38,15 @@ public abstract class AbstractGuiProvider implements GuiProvider {
     @Override
     public @NotNull Flag[] getFlags() {
         return flags;
+    }
+
+    @Override
+    public @NotNull String generateEmptyGui() {
+        try {
+            return Json.parse(new GuiContent(guiId, 6, getFlags(), getStates()));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static class GuiSettings {

@@ -11,8 +11,13 @@ import java.util.function.Function;
 
 public interface GuiProvider {
     @NotNull String getGuiId();
+
     @NotNull String[] getStates();
+
     @NotNull Flag[] getFlags();
+
     @NotNull ItemState getState(@NotNull FactionPlayer<?> viewer,
                                 @NotNull Map<String, ItemState> states);
+
+    @NotNull String generateEmptyGui();
 }
