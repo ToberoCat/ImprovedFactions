@@ -10,7 +10,7 @@ public class SpigotGuiImplementationManager implements BrowserGuiImplementation 
     @Override
     public void openGui(@NotNull FactionPlayer<?> player,
                         @NotNull String guiId) {
-        new SpigotGuiView((Player) player.getRaw(), GuiManager.getGui(guiId));
+        new SpigotGuiView(player, GuiManager.getGui(guiId));
     }
 
 }

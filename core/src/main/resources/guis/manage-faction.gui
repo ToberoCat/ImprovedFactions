@@ -19,342 +19,354 @@
     [
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "player_head",
+          "translationId": "view-permissions",
+          "customData": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDBlMWM3MDY0YWY3ZGVlNjg2NzdlZmFhOTVmNmU2ZTAxNDMwYjAwNmRkOTE2MzhlYTJhNjE4NDkyNTQ0ODhlYyJ9fX0=",
+          "flags": []
+        },
+        "ownerRank": {
+          "id": "player_head",
+          "translationId": "manage-permissions",
+          "customData": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDBlMWM3MDY0YWY3ZGVlNjg2NzdlZmFhOTVmNmU2ZTAxNDMwYjAwNmRkOTE2MzhlYTJhNjE4NDkyNTQ0ODhlYyJ9fX0=",
+          "flags": []
+        },
+        "defaultState": {
+          "id": "player_head",
+          "translationId": "view-permissions",
+          "customData": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDBlMWM3MDY0YWY3ZGVlNjg2NzdlZmFhOTVmNmU2ZTAxNDMwYjAwNmRkOTE2MzhlYTJhNjE4NDkyNTQ0ODhlYyJ9fX0=",
+          "flags": []
+        },
+        "moderatorRank": {
+          "id": "player_head",
+          "translationId": "manage-permissions",
+          "customData": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDBlMWM3MDY0YWY3ZGVlNjg2NzdlZmFhOTVmNmU2ZTAxNDMwYjAwNmRkOTE2MzhlYTJhNjE4NDkyNTQ0ODhlYyJ9fX0=",
+          "flags": []
+        },
+        "adminRank": {
+          "id": "player_head",
+          "translationId": "manage-permissions",
+          "customData": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDBlMWM3MDY0YWY3ZGVlNjg2NzdlZmFhOTVmNmU2ZTAxNDMwYjAwNmRkOTE2MzhlYTJhNjE4NDkyNTQ0ODhlYyJ9fX0=",
+          "flags": []
+        },
+        "memberRank": {
+          "id": "player_head",
+          "translationId": "view-permissions",
+          "customData": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDBlMWM3MDY0YWY3ZGVlNjg2NzdlZmFhOTVmNmU2ZTAxNDMwYjAwNmRkOTE2MzhlYTJhNjE4NDkyNTQ0ODhlYyJ9fX0=",
+          "flags": []
+        }
+      },
+      {
+        "elderRank": {
+          "id": "white_banner",
+          "translationId": "faction-icon",
+          "customData": "null",
+          "flags": [
+            0
+          ]
+        },
+        "ownerRank": {
+          "id": "white_banner",
+          "translationId": "faction-icon",
+          "customData": "null",
+          "flags": [
+            0
+          ]
+        },
+        "defaultState": {
+          "id": "white_banner",
+          "translationId": "faction-icon",
+          "customData": "null",
+          "flags": [
+            0
+          ]
+        },
+        "moderatorRank": {
+          "id": "white_banner",
+          "translationId": "faction-icon",
+          "customData": "null",
+          "flags": [
+            0
+          ]
+        },
+        "adminRank": {
+          "id": "white_banner",
+          "translationId": "faction-icon",
+          "customData": "null",
+          "flags": [
+            0
+          ]
+        },
+        "memberRank": {
+          "id": "white_banner",
+          "translationId": "faction-icon",
+          "customData": "null",
+          "flags": [
+            0
+          ]
+        }
+      },
+      {
+        "elderRank": {
+          "id": "player_head",
+          "translationId": "empty",
+          "customData": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTc2YmVkOGJmOTJlNDYxZTJiMjA4ZGYwYzllYTYxOGNiYTdlZWZmOTMxY2I1Zjg0ZjEzNTdmNzFhNzgwNGFiZSJ9fX0=",
+          "flags": []
+        },
+        "ownerRank": {
+          "id": "player_head",
+          "translationId": "empty",
+          "customData": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTc2YmVkOGJmOTJlNDYxZTJiMjA4ZGYwYzllYTYxOGNiYTdlZWZmOTMxY2I1Zjg0ZjEzNTdmNzFhNzgwNGFiZSJ9fX0=",
+          "flags": []
+        },
+        "defaultState": {
+          "id": "player_head",
+          "translationId": "empty",
+          "customData": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTc2YmVkOGJmOTJlNDYxZTJiMjA4ZGYwYzllYTYxOGNiYTdlZWZmOTMxY2I1Zjg0ZjEzNTdmNzFhNzgwNGFiZSJ9fX0=",
+          "flags": []
+        },
+        "moderatorRank": {
+          "id": "player_head",
+          "translationId": "empty",
+          "customData": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTc2YmVkOGJmOTJlNDYxZTJiMjA4ZGYwYzllYTYxOGNiYTdlZWZmOTMxY2I1Zjg0ZjEzNTdmNzFhNzgwNGFiZSJ9fX0=",
+          "flags": []
+        },
+        "adminRank": {
+          "id": "player_head",
+          "translationId": "empty",
+          "customData": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTc2YmVkOGJmOTJlNDYxZTJiMjA4ZGYwYzllYTYxOGNiYTdlZWZmOTMxY2I1Zjg0ZjEzNTdmNzFhNzgwNGFiZSJ9fX0=",
+          "flags": []
+        },
+        "memberRank": {
+          "id": "player_head",
+          "translationId": "empty",
+          "customData": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTc2YmVkOGJmOTJlNDYxZTJiMjA4ZGYwYzllYTYxOGNiYTdlZWZmOTMxY2I1Zjg0ZjEzNTdmNzFhNzgwNGFiZSJ9fX0=",
+          "flags": []
+        }
+      },
+      {
+        "elderRank": {
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
-          "flags": []
-        }
-      },
-      {
-        "elderRank": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
-          "flags": []
-        },
-        "ownerRank": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
-          "flags": []
-        },
-        "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
-          "flags": []
-        },
-        "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
-          "flags": []
-        },
-        "adminRank": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
-          "flags": []
-        },
-        "memberRank": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
-          "flags": []
-        }
-      },
-      {
-        "elderRank": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
-          "flags": []
-        },
-        "ownerRank": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
-          "flags": []
-        },
-        "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
-          "flags": []
-        },
-        "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
-          "flags": []
-        },
-        "adminRank": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
-          "flags": []
-        },
-        "memberRank": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
-          "flags": []
-        }
-      },
-      {
-        "elderRank": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
-          "flags": []
-        },
-        "ownerRank": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
-          "flags": []
-        },
-        "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
-          "flags": []
-        },
-        "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
-          "flags": []
-        },
-        "adminRank": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
-          "flags": []
-        },
-        "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
@@ -363,342 +375,342 @@
     [
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
@@ -707,342 +719,342 @@
     [
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
@@ -1051,342 +1063,342 @@
     [
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "barrier",
+          "translationId": "no-rename",
+          "customData": "null",
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "oak_sign",
+          "translationId": "rename",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "barrier",
+          "translationId": "no-rename",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "barrier",
+          "translationId": "no-rename",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "oak_sign",
+          "translationId": "rename",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "barrier",
+          "translationId": "no-rename",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
@@ -1395,342 +1407,342 @@
     [
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
@@ -1739,342 +1751,342 @@
     [
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }
       },
       {
         "elderRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "ownerRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "defaultState": {
-          "id": "air",
-          "translationId": "none",
-          "customData": null,
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
+          "customData": "null",
           "flags": []
         },
         "moderatorRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "adminRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         },
         "memberRank": {
-          "id": "air",
-          "translationId": "none",
+          "id": "light_gray stained glass pane",
+          "translationId": "empty",
           "customData": null,
           "flags": []
         }

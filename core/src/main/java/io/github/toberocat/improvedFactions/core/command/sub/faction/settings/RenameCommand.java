@@ -86,7 +86,7 @@ public class RenameCommand
     @Override
     public @Nullable RenameCommand.RenamePacket createFromArgs(@NotNull FactionPlayer<?> executor,
                                                                @NotNull String[] args) {
-        if (args.length <= 1) {
+        if (args.length < 1) {
             executor.sendMessage(node.andThen(map -> map.get("not-enough-args")));
             return null;
         }
@@ -112,12 +112,12 @@ public class RenameCommand
     }
 
 
-    protected static record RenamePacket(@NotNull FactionPlayer<?> player, @NotNull String newName)
+    protected record RenamePacket(@NotNull FactionPlayer<?> player, @NotNull String newName)
             implements Command.CommandPacket {
 
     }
 
-    protected static record RenameConsolePacket(@NotNull Faction<?> faction, @NotNull String newName)
+    protected record RenameConsolePacket(@NotNull Faction<?> faction, @NotNull String newName)
             implements Command.ConsoleCommandPacket {
 
     }

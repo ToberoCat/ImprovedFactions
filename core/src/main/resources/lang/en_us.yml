@@ -289,6 +289,11 @@ zones:
   __glbwilderness__: '<dark_green>Wilderness'
 guis:
   manage-faction:
+    base-gui:
+      title: "<yellow>%faction_getDisplayName%"
+      description:
+        - ""
+        - "<gray>Manage your faction"
     empty:
       title: ''
       description: [ ]
@@ -298,3 +303,30 @@ guis:
         - ''
         - '<gray>This is your factions icon'
         - '<gray>click <gold><bold>here</bold><gray> to change it'
+    view-permissions:
+      title: "<yellow>View your permissions"
+      description:
+        - ""
+        - "<gray>When clicking it will show"
+        - "<gray>you all permissions you have"
+    manage-permissions:
+      title: "<yellow>Manage permissions"
+      description:
+        - ""
+        - "<gray>Edit the permissions of"
+        - "<gray>for this faction."
+        - ""
+        - "<gray>You can only edit permissions"
+        - "<gray>that fall <gold><bold>below</bold></gold> your rank"
+    rename:
+      title: "<yellow>Rename this faction"
+      description:
+        - ""
+        - "<gray>Clicking this allows"
+        - "<gray>you to rename your faction"
+    no-rename:
+      title: "<red>Renaming locked"
+      description:
+        - ""
+        - "<gray>You <red>can't</red> rename"
+        - "<gray>this faction"

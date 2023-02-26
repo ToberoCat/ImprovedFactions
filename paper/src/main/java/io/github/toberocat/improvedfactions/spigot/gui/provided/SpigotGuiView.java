@@ -1,9 +1,3 @@
-/**
- * Created: 01/10/2022
- *
- * @author Tobias Madlberger (Tobias)
- */
-
 package io.github.toberocat.improvedfactions.spigot.gui.provided;
 
 import io.github.toberocat.improvedFactions.core.gui.content.GuiContent;
@@ -26,18 +20,27 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
-
+/**
+ * Created: 01/10/2022
+ *
+ * @author Tobias Madlberger (Tobias)
+ */
 public class SpigotGuiView extends AbstractGui { // Todo: Fix gui view
     private final FactionPlayer<?> player;
     private final GuiContent guiContent;
     private final GuiProvider guiProvider;
 
-    public SpigotGuiView(@NotNull Player spigotPlayer, @NotNull GuiContent guiContent) {
-        super(spigotPlayer, createInventory(spigotPlayer,
+    public SpigotGuiView(@NotNull FactionPlayer<?> player, @NotNull GuiContent guiContent) {
+        super((Player) player.getRaw(), createInventory((Player) player.getRaw(),
                 guiContent.getRows() * 9,
-                guiContent.getGuiId()));
-        this.player = new SpigotFactionPlayer(spigotPlayer);
+                Objects.requireNonNullElse(player.getMessage(translation -> translation
+                        .getGuis()
+                        .get(guiContent.getGuiId())
+                        .get("base-gui")
+                        .title()), "Tobero❤").strip()));
+        this.player = player;
         this.guiContent = guiContent;
         this.guiProvider = GuiManager.getGuis().get(guiContent.getGuiId());
 
@@ -92,7 +95,8 @@ public class SpigotGuiView extends AbstractGui { // Todo: Fix gui view
                             .get(state.getTranslationId());
                     if (item == null)
                         throw new InvalidJsonGuiRuntimeException("Couldn't find gui item translation in language " +
-                                "file for player " + player.getName());
+                                "file for player " + player.getName() + ". Missing translation ID: "
+                                + state.getTranslationId());
                     return item.title();
                 }));
     }

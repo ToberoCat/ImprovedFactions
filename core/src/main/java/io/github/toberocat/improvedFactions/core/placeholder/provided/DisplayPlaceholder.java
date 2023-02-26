@@ -11,6 +11,6 @@ public class DisplayPlaceholder implements FactionPlaceholder {
 
     @Override
     public @NotNull String label() {
-        return "display";
+        return "getDisplayName";
     }
 }
