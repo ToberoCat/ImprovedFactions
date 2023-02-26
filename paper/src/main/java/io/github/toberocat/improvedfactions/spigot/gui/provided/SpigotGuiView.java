@@ -64,7 +64,7 @@ public class SpigotGuiView extends AbstractGui { // Todo: Fix gui view
         String[] lore = getLore(state).orElseThrow(() ->
                 new InvalidJsonGuiRuntimeException("Lore not found for " + state));
         return material == Material.PLAYER_HEAD
-                ? ItemUtils.createHead(state.getCustomData(), 1, name, lore)
+                ? ItemUtils.createHead(state.getCustomData(), name, 1, lore)
                 : ItemUtils.createItem(material, 1, name, lore);
     }
 

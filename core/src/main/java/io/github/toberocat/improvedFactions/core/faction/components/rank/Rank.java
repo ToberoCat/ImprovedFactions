@@ -7,15 +7,13 @@ import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
 public abstract class Rank {
 
-    public static final LinkedHashMap<String, Rank> ranks = new LinkedHashMap<>();
+    public static final Map<String, Rank> ranks = new LinkedHashMap<>();
     protected final String registry;
     protected final Function<Translatable, String> title;
     private final boolean isAdmin;
@@ -44,6 +42,7 @@ public abstract class Rank {
         new AllyMemberRank();
 
         new GuestRank();
+        System.out.println(Arrays.toString(ranks.keySet().stream().map(x -> x.toLowerCase() + "Rank").toArray()));
     }
 
     public static Stream<Rank> getPriorityRanks(Rank rank) {
