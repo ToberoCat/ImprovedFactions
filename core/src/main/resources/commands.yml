@@ -1,5 +1,3 @@
-commands:
-  claim-command:
-    max-radius: 5
-  unclaim-command:
-    max-radius: 5
+create:
+  cooldown: 10
+  cooldown-unit: "SECONDS" # Options: NANOSECONDS, MICROSECONDS, MILLISECONDS, SECONDS, MINUTES, HOURS, DAYS

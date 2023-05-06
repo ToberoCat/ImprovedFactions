@@ -20,7 +20,6 @@ import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.setting.Settings;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
-import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,6 +27,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -38,24 +38,27 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
     int neutralId = 1;
     int enemyId = 2;
 
-    Pattern REGISTRY_PATTERN = Pattern.compile("[\\\\/:*?\"<>|§]");
+    String REGISTRY_REGEX_PATTERN = ImprovedFactions.api().getConfig()
+            .getString("faction.registry-regex", "[^a-zA-Z0-9-_]");
+    Pattern REGISTRY_PATTERN = Pattern.compile(REGISTRY_REGEX_PATTERN);
 
     /* Config values */
-    long activeThreshold = ConfigHandler.api().getInt("faction.active-member-threshold", 60);
+    long activeThreshold = ImprovedFactions.api().getConfig().getInt("faction.active-member-threshold", 60);
 
     /* Default values */
 
-    String DEFAULT_MOTD = ConfigHandler.api().getString("faction.default.motd",
+    String DEFAULT_MOTD = ImprovedFactions.api().getConfig().getString("faction.default.motd",
             "Newly created faction");
-    String DEFAULT_TAG = ConfigHandler.api().getString("faction.default.tag", "IFF");
+    String DEFAULT_TAG = ImprovedFactions.api().getConfig().getString("faction.default.tag", "IFF");
 
-    boolean DEFAULT_FROZEN = ConfigHandler.api().getBool("faction.default.frozen");
-    boolean DEFAULT_PERMANENT = ConfigHandler.api().getBool("faction.default.permanent");
+    boolean DEFAULT_FROZEN = ImprovedFactions.api().getConfig().getBool("faction.default.frozen");
+    boolean DEFAULT_PERMANENT = ImprovedFactions.api().getConfig().getBool("faction.default.permanent");
 
-    long DEFAULT_START_BALANCE = ConfigHandler.api().getLong("faction.default.start-balance");
+    long DEFAULT_START_BALANCE = ImprovedFactions.api().getConfig().getLong("faction.default.start-balance");
 
-    OpenType DEFAULT_OPEN_TYPE = OpenType.valueOf(ConfigHandler.api()
-            .getString("faction.default.open-type", "INVITE_ONLY"));
+    OpenType DEFAULT_OPEN_TYPE = ImprovedFactions.api().getConfig()
+            .getEnum("faction.default.open-type", OpenType.class).orElse(OpenType.INVITE_ONLY);
+    int MAX_FACTION_DISPLAY_LENGTH = ImprovedFactions.api().getConfig().getInt("faction.max-display-length", 10);
 
     /* Static voids */
 
@@ -77,7 +80,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
 
     static @NotNull String validateDisplay(@NotNull String display) {
         return display.length() <= 10 ? display : display
-                .substring(0, ConfigHandler.api().getInt("faction.max-display-length", 10))
+                .substring(0, MAX_FACTION_DISPLAY_LENGTH)
                 .replaceAll(REGISTRY_PATTERN.pattern(), "x");
     }
 
@@ -92,8 +95,8 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      * @param name The name of the faction
      * @return If the name is valid
      */
-    static boolean validNaming(@NotNull String name) {
-        return !REGISTRY_PATTERN.matcher(name).find() && !ClaimHandler.getZones().contains(name);
+    static boolean invalidNaming(@NotNull String name) {
+        return REGISTRY_PATTERN.matcher(name).find() || ClaimHandler.getZones().contains(name);
     }
 
     /* Faction infos */
@@ -251,7 +254,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      * @param player The sender to get the rank of.
      * @return The rank of the sender.
      */
-    @NotNull Rank getPlayerRank(@NotNull OfflineFactionPlayer<?> player);
+    @NotNull Rank getPlayerRank(@NotNull OfflineFactionPlayer player);
 
     /**
      * Gets the rank of the specified sender
@@ -267,7 +270,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      * @param player The sender to check.
      * @return If the sender is in the faction
      */
-    boolean isMember(@NotNull OfflineFactionPlayer<?> player);
+    boolean isMember(@NotNull OfflineFactionPlayer player);
 
 
     /**
@@ -284,7 +287,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      * @param player The sender you want to change the rank of.
      * @param rank   The rank you want to change the sender to.
      */
-    void changeRank(@NotNull OfflineFactionPlayer<?> player, @NotNull FactionRank rank)
+    void changeRank(@NotNull OfflineFactionPlayer player, @NotNull FactionRank rank)
             throws FactionIsFrozenException;
 
     /* Faction management */
@@ -294,7 +297,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      *
      * @param player The sender who will be the new owner of the faction.
      */
-    void transferOwnership(@NotNull FactionPlayer<?> player) throws FactionIsFrozenException;
+    void transferOwnership(@NotNull FactionPlayer player) throws FactionIsFrozenException;
 
     /**
      * Deletes the faction
@@ -318,17 +321,17 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
     @NotNull Stream<UUID> getMembers();
 
     @NotNull
-    default Stream<OfflineFactionPlayer<?>> getPlayers() {
+    default Stream<OfflineFactionPlayer> getPlayers() {
         return getMembers()
                 .map(x -> ImprovedFactions.api().getOfflinePlayer(x));
     }
 
-    default Stream<OfflineFactionPlayer<?>> getActiveMembers() {
-        return getPlayers().filter(x -> Math.floor((System.currentTimeMillis() -
-                x.getLastPlayed()) / 0.000000011574) <= activeThreshold);
+    default Stream<OfflineFactionPlayer> getActiveMembers() {
+        return getPlayers().filter(x -> TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() -
+                x.getLastPlayed()) <= activeThreshold);
     }
 
-    default Stream<OfflineFactionPlayer<?>> getOnlineMembers() {
+    default Stream<OfflineFactionPlayer> getOnlineMembers() {
         return getPlayers().filter(OfflineFactionPlayer::isOnline);
     }
 
@@ -339,7 +342,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      * @param player The sender to join the game.
      * @return If it was able to join
      */
-    boolean joinPlayer(@NotNull FactionPlayer<?> player)
+    boolean joinPlayer(@NotNull FactionPlayer player)
             throws FactionIsFrozenException, PlayerIsAlreadyInFactionException,
             PlayerIsBannedException;
 
@@ -350,7 +353,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      * @param rank   The rank that the sender will be joining as.
      * @return If the sender was able to join
      */
-    boolean joinPlayer(@NotNull FactionPlayer<?> player, @NotNull FactionRank rank)
+    boolean joinPlayer(@NotNull FactionPlayer player, @NotNull FactionRank rank)
             throws FactionIsFrozenException, PlayerIsAlreadyInFactionException,
             PlayerIsBannedException;
 
@@ -360,7 +363,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      * @param player The sender to leave the faction.
      * @return If the sender was able to leave
      */
-    boolean leavePlayer(@NotNull FactionPlayer<?> player)
+    boolean leavePlayer(@NotNull FactionPlayer player)
             throws FactionIsFrozenException, PlayerIsOwnerException,
             PlayerHasNoFactionException;
 
@@ -370,7 +373,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      * @param player The sender to kick.
      * @return If the sender was able to kicked
      */
-    boolean kickPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException,
+    boolean kickPlayer(@NotNull OfflineFactionPlayer player) throws FactionIsFrozenException,
             PlayerNotAMember;
 
     /**
@@ -379,7 +382,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      * @param player The sender to ban.
      * @return If the sender was able to get banned
      */
-    boolean banPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException, PlayerNotAMember;
+    boolean banPlayer(@NotNull OfflineFactionPlayer player) throws FactionIsFrozenException, PlayerNotAMember;
 
     /**
      * Pardon a sender from the ban list.
@@ -387,7 +390,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      * @param player The sender to pardon.
      * @return If the sender was able to be pardoned
      */
-    boolean pardonPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException;
+    boolean pardonPlayer(@NotNull OfflineFactionPlayer player) throws FactionIsFrozenException;
 
     /**
      * Returns true if the sender is banned, false otherwise.
@@ -395,7 +398,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      * @param player The sender to check
      * @return If banned or not
      */
-    boolean isBanned(@NotNull OfflineFactionPlayer<?> player);
+    boolean isBanned(@NotNull OfflineFactionPlayer player);
 
 
     /* Power management */
@@ -433,23 +436,6 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      * @return A BigDecimal representing the active max power
      */
     @NotNull BigDecimal getActiveMaxPower();
-
-    /**
-     * Returns the power of the sender with the given UUID.
-     * *
-     *
-     * @param player The sender's UUID
-     * @return The sender power
-     */
-    double playerPower(@NotNull UUID player);
-
-    /**
-     * Returns the maximum power of the given sender.
-     *
-     * @param player The sender's UUID
-     * @return The maximum power of the sender.
-     */
-    double maxPlayerPower(@NotNull UUID player);
 
     /* Relations */
 
@@ -521,7 +507,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      * @param player The sender to check.
      * @return If allied or not
      */
-    boolean isAllied(@NotNull OfflineFactionPlayer<?> player);
+    boolean isAllied(@NotNull OfflineFactionPlayer player);
 
     /**
      * Adds an enemy to the faction.
@@ -545,7 +531,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      * @param player The sender to check.
      * @return If the sender's faction is an enemy
      */
-    boolean isEnemy(@NotNull OfflineFactionPlayer<?> player);
+    boolean isEnemy(@NotNull OfflineFactionPlayer player);
 
     /**
      * Returns a stream of all the allies of this faction.
@@ -577,7 +563,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      * @param msg The message to broadcast to all members.
      */
     default void broadcastMessage(@NotNull String msg) {
-        ImprovedFactions<?> api = ImprovedFactions.api();
+        ImprovedFactions api = ImprovedFactions.api();
         getMembers()
                 .map(api::getOfflinePlayer)
                 .filter(Objects::nonNull)
@@ -593,7 +579,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
     default void broadcastTranslatable(@NotNull Function<Translatable,
             @NotNull String> query,
             Placeholder... parseables) {
-        ImprovedFactions<?> api = ImprovedFactions.api();
+        ImprovedFactions api = ImprovedFactions.api();
         getMembers()
                 .map(api::getOfflinePlayer)
                 .filter(Objects::nonNull)

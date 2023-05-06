@@ -2,7 +2,6 @@ package io.github.toberocat.improvedFactions.core.translator;
 
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -26,14 +25,13 @@ public record Translation(@NotNull Locale locale) {
 
     /* Static manager methods */
     public static void createLocaleMap() throws IOException {
-        for (File file : ACCESS.listFiles())
-            YmlManager.read(Translatable.class, file)
-                    .getMeta()
-                    .getLanguages()
-                    .forEach(x -> LOCALE_TO_FILE_MAP.put(x, file.getName()));
+        for (File file : ACCESS.listFiles()) {
+            for (String supported : YmlManager.read(Translatable.class, file).supportedLanguages())
+                LOCALE_TO_FILE_MAP.put(supported, file.getName());
+        }
     }
 
-    public static void playerLeave(@NotNull FactionPlayer<?> player) {
+    public static void playerLeave(@NotNull FactionPlayer player) {
         String local = player.getLocal();
         LANGUAGE_LOCALE_USAGE.remove(player.getUniqueId());
 
@@ -65,7 +63,7 @@ public record Translation(@NotNull Locale locale) {
         }
     }
 
-    public @Nullable String getMessage(@NotNull Function<Translatable, String> query) {
+    public @Nullable String getMessage(@NotNull String query) {
         Translatable translatable = TRANSLATABLE_MAP.computeIfAbsent(locale.getCountry(),
                 Translation::readFile);
         if (translatable == null) {
@@ -73,13 +71,6 @@ public record Translation(@NotNull Locale locale) {
             return null;
         }
 
-        return query.apply(translatable);
-    }
-
-    public @Nullable String[] getMessages(@NotNull Function<Translatable, String[]> query) {
-        Translatable translatable = TRANSLATABLE_MAP.computeIfAbsent(locale.getCountry(), Translation::readFile);
-        if (translatable == null) return null;
-
-        return query.apply(translatable);
+        return translatable.translations().get(query);
     }
 }

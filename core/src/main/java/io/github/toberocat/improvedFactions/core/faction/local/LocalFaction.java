@@ -153,7 +153,7 @@ public class LocalFaction implements Faction<LocalFaction> {
 
         if (FactionHandler.getAllFactions().anyMatch(x -> x.equals(registry)))
             throw new FactionAlreadyExistsException(this);
-        if (!Faction.validNaming(registry))
+        if (Faction.invalidNaming(registry))
             throw new IllegalFactionNamingException(this, registry);
 
         this.display = display;
@@ -209,7 +209,7 @@ public class LocalFaction implements Faction<LocalFaction> {
     public void renameFaction(@NotNull String display)
             throws FactionIsFrozenException, FactionCantBeRenamedToThisLiteralException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
-        if (!Faction.validNaming(display)) throw new FactionCantBeRenamedToThisLiteralException();
+        if (Faction.invalidNaming(display)) throw new FactionCantBeRenamedToThisLiteralException();
         this.display = Faction.validateDisplay(display);
     }
 

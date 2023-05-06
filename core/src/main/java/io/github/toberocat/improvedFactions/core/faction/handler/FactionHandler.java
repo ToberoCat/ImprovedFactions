@@ -6,7 +6,7 @@ import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.database.mysql.MySqlFactionHandler;
 import io.github.toberocat.improvedFactions.core.faction.local.LocalFactionHandler;
-import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
+import io.github.toberocat.improvedFactions.core.handler.ConfigFile;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -23,7 +23,7 @@ public abstract class FactionHandler {
     private static final @NotNull FactionHandlerInterface<?> handler = createInterface();
 
     private static @NotNull FactionHandlerInterface<?> createInterface() {
-        if (ConfigHandler.api().getBool("storage.use-mysql", false)) return new MySqlFactionHandler();
+        if (ConfigFile.api().getBool("storage.use-mysql", false)) return new MySqlFactionHandler();
         else return new LocalFactionHandler();
     }
 

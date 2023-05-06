@@ -6,14 +6,15 @@ import org.jetbrains.annotations.NotNull;
 
 public class PlayerIsBannedException extends FactionException {
 
-    private final OfflineFactionPlayer<?> player;
+    private final OfflineFactionPlayer player;
 
-    public PlayerIsBannedException(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> player) {
-        super(faction, String.format("Player %s is banned in faction %s", player.getName(), faction.getRegistry()));
+    public PlayerIsBannedException(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer player) {
+        super(faction, "exceptions.player-is-banned", new BuildableMap<String, String>()
+                .set("faction"));
         this.player = player;
     }
 
-    public OfflineFactionPlayer<?> getPlayer() {
+    public OfflineFactionPlayer getPlayer() {
         return player;
     }
 

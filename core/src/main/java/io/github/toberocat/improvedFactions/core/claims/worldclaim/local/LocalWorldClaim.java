@@ -2,7 +2,7 @@ package io.github.toberocat.improvedFactions.core.claims.worldclaim.local;
 
 import io.github.toberocat.improvedFactions.core.claims.component.Claim;
 import io.github.toberocat.improvedFactions.core.claims.worldclaim.WorldClaim;
-import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
+import io.github.toberocat.improvedFactions.core.handler.ConfigFile;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 
 public class LocalWorldClaim implements WorldClaim {
 
-    private static final long CLEAR_INTERVAL = ConfigHandler.api()
+    private static final long CLEAR_INTERVAL = ConfigFile.api()
             .getLong("performance.ram.claim-garbage-collector", 6000L);
 
     private final FileAccess access;

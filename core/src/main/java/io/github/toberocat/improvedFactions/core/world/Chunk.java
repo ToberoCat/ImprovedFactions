@@ -2,12 +2,12 @@ package io.github.toberocat.improvedFactions.core.world;
 
 import org.jetbrains.annotations.NotNull;
 
-public interface Chunk<R> {
-    @NotNull World<?> getWorld();
+public interface Chunk {
+    @NotNull World getWorld();
 
     int getX();
 
     int getZ();
 
-    @NotNull R getRaw();
+    @NotNull Object getRaw();
 }

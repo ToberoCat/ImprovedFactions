@@ -6,7 +6,7 @@ import io.github.toberocat.improvedFactions.core.claims.worldclaim.handler.World
 import io.github.toberocat.improvedFactions.core.claims.zone.Zone;
 import io.github.toberocat.improvedFactions.core.event.EventExecutor;
 import io.github.toberocat.improvedFactions.core.exceptions.chunk.ChunkAlreadyClaimedException;
-import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
+import io.github.toberocat.improvedFactions.core.handler.ConfigFile;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.world.Chunk;
 import io.github.toberocat.improvedFactions.core.world.World;
@@ -55,7 +55,7 @@ public class ClaimHandler {
 
     public static void reload() {
         zones.clear();
-        ConfigHandler api = ConfigHandler.api();
+        ConfigFile api = ConfigFile.api();
         api.getSubSections("zones").stream()
                 .map(zone -> {
                     String root = "zones." + zone;

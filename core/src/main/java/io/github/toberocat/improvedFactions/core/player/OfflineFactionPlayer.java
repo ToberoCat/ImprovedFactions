@@ -5,15 +5,13 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoF
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.persistent.component.PersistentWrapper;
-import io.github.toberocat.improvedFactions.core.translator.Placeholder;
-import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
 import java.util.UUID;
-import java.util.function.Function;
 
-public interface OfflineFactionPlayer<P> {
+public interface OfflineFactionPlayer {
     /* Faction */
     default @NotNull Rank getRank() throws FactionNotInStorage, PlayerHasNoFactionException {
         return getFaction().getPlayerRank(this);
@@ -27,26 +25,10 @@ public interface OfflineFactionPlayer<P> {
     boolean inFaction();
 
     /* Messages */
-
-    /**
-     * @deprecated Use {@link OfflineFactionPlayer#sendMessage(Function, Placeholder...)} instead
-     */
-    @Deprecated
-    void sendMessage(@NotNull String message);
-
-    /**
-     * @deprecated Use {@link OfflineFactionPlayer#sendMessage(Function, Placeholder...)} instead
-     */
-    @Deprecated
-    void sendTranslatable(@NotNull Function<Translatable, String> query,
-                          Placeholder... placeholders);
-
-
-    void sendMessage(@NotNull Function<Translatable, String> fancyMessage,
-                     Placeholder... placeholders);
+    void sendMessage(@NotNull String query, @NotNull Map<String, String> placeholders);
 
     /* Player */
-    @Nullable FactionPlayer<?> getPlayer();
+    @Nullable FactionPlayer getPlayer();
 
     @NotNull UUID getUniqueId();
 
@@ -60,5 +42,5 @@ public interface OfflineFactionPlayer<P> {
     @NotNull PersistentWrapper getDataContainer();
 
     /* Raw instance */
-    @NotNull P getRaw();
+    @NotNull Object getRaw();
 }

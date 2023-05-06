@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedfactions.spigot.listener;
 
-import io.github.toberocat.improvedFactions.core.command.component.AutoAreaCommand;
+import io.github.toberocat.improvedFactions.core.oldcommand.component.AutoAreaCommand;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.listener.MoveListener;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;

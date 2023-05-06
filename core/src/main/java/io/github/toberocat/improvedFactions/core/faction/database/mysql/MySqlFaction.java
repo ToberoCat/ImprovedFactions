@@ -27,7 +27,7 @@ import io.github.toberocat.improvedFactions.core.faction.components.report.Facti
 import io.github.toberocat.improvedFactions.core.faction.components.report.Report;
 import io.github.toberocat.improvedFactions.core.faction.database.mysql.module.MySqlModule;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
-import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
+import io.github.toberocat.improvedFactions.core.handler.ConfigFile;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.item.ItemStack;
 import io.github.toberocat.improvedFactions.core.permission.Permission;
@@ -75,9 +75,9 @@ public class MySqlFaction implements Faction<MySqlFaction> {
         registry = Faction.displayToRegistry(display);
 
         if (FactionHandler.getLoadedFactions().containsKey(registry)) throw new FactionAlreadyExistsException(this);
-        if (!Faction.validNaming(registry)) throw new IllegalFactionNamingException(this, registry);
+        if (Faction.invalidNaming(registry)) throw new IllegalFactionNamingException(this, registry);
 
-        ConfigHandler config = ConfigHandler.api();
+        ConfigFile config = ConfigFile.api();
 
         database.executeUpdate(MySqlDatabase.CREATE_LAYOUT_QUERY,
                 DatabaseVar.of("registry", registry),

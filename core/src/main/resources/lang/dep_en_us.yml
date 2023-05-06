@@ -1,0 +1,332 @@
+---
+version: '1.0'
+meta:
+  contributors:
+    - !<developer>
+      contributor: 'Tobero'
+    - !<translator>
+      contributor: 'Josh-65'
+  supported-languages:
+    - 'us'
+messages:
+  faction:
+    player:
+      unbanned: 'You got unbanned from <yellow>{faction}'
+      invalid-faction-name: '<red>You can not use that name'
+      faction-is-frozen: '<red>This faction has been frozen and can not be modified ingame'
+    broadcast:
+      player-join: '<white>Player <yellow>{player} <white>joined your faction as <yellow>{rank}'
+      player-left: '<red>Player {player} left your faction'
+      player-kick: '<gold>Player {player} got kicked out of your faction'
+      player-ban: '<red>Player {player} got banned from your faction'
+      player-pardon: '<yellow>Player {player} got unbanned. They are now able to join your\
+        \ faction again\n                '
+      invite-sent: '<yellow>{sender}<white> invited <yellow>{receiver}<white> to join your faction'
+      invite-cancelled: '<yellow>{sender}<white> cancelled the invite for <yellow>{received}<white> to join\
+        \ your faction\n                '
+      invite-accepted: '<yellow>{received}<white> accepted their invite to join this faction'
+  command:
+    motd:
+      faction-not-in-storage: '<red>Faction not found in storage medium'
+      set-motd: '<green>Faction motd set'
+      send-motd: 'PLACEHOLDER %faction_motd%'
+      requires-faction: '<red>You need to be in a faction to use this'
+      player-has-no-faction: '<red>You are not in a faction'
+      missing-set-motd-permissions: '<red>You do not have the required FACTION permission.\n\
+        \                '
+      missing-faction-permission: '<red>You do not have the required FACTION permission\n\
+        \                '
+      faction-is-frozen: '<red>This faction has been frozen and can not be modifyed ingame'
+      not-enough-args: '<red>Not enough arguments.'
+      missing-spigot-permission: '<red>You do not have the required SERVER permission'
+    settings:
+      requires-faction: '<red>You need to be in a faction to use this'
+      missing-faction-permission: '<red>You do not have the required FACTION permission'
+      missing-spigot-permission: '<red>You do not have the required SERVER permission'
+    edit:
+      gui-couldnt-be-found: '{text:The given guiId couldnt be found in the gui registry}'
+      not-enough-arguments: '{text:This command needs a valid gui id that should beedited}\n'
+    list:
+      no-entries: '<red>There are no factions saved'
+      entry-loaded: '<yellow>{faction} - <green>Active'
+      entry-unloaded: '<yellow>{faction} - <red>Inactive'
+      lower-text: 'There is a total of <green>{factions}<white> factions on the server. <red>{loaded}\
+        <white> are active right now'
+      description: 'Lists all factions that exists on the server'
+      missing-spigot-permission: '<red>You do not have the required SERVER permission'
+    delete:
+      faction-not-in-storage: '<red>Faction not found in storage medium'
+      deleted-faction: '<red>The faction has been deleted'
+      wrong-rank: '<red>You do not have the required rank to do this'
+      requires-faction: '<red>You need to be in a faction to use this'
+      player-has-no-faction: '<red>You are not in a faction'
+      description: 'Deletes a faction with a given name'
+      not-confirmed: '<red>This is permanent. Use <yellow>/f delete confirm <red>to delete'
+      faction-is-frozen: '<red>This faction has been frozen and can not be modifyed ingame'
+      missing-spigot-permission: '<red>You do not have the required SERVER permission'
+    translate:
+      set-name: 'You changed the items name'
+      not-enough-args: '<red>Not enough arguments. You have to specify a name for this\
+        \ item'
+    unclaim:
+      faction-not-in-storage: '<red>Faction not found in storage medium'
+      unclaim-chunk: '<green>Chunk unclaimed'
+      radius-no-number: '<red>provide a number of chunks to unclaim'
+      requires-faction: '<red>You need to be in a faction to use this'
+      player-has-no-faction: '<red>That player is not in a faction'
+      auto-disabled: 'Faction auto unclaim off'
+      auto-activated: 'Faction auto unclaim on, All chunks entered that are owned\
+        \ by your faction will be\n                    unclaimed\n                '
+      chunk-not-yours: '<red>You can not unclaim other factions chunks.'
+      missing-faction-permission: '<red>You do not have the required FACTION permission\n\
+        \                '
+      total-area: 'You have claimed <yellow>{success}/{total}<white> chunks'
+      missing-spigot-permission: '<red>You do not have the required SERVER permission'
+    kick:
+      faction-not-in-storage: '<red>Faction not found in storage medium'
+      player-not-found: '<red>Player not found'
+      kicked-not-in-faction: '<red>That player is not in the faction'
+      player-has-no-faction: '<red>You are not in a faction'
+      kicked-player: 'You kicked the player'
+      not-enough-args: '<red>Not enough arguments. Add members name to kick'
+      faction-is-frozen: '<red>This faction has been frozen and can not be modifyed ingame'
+      missing-spigot-permission: '<red>You do not have the required SERVER permission'
+    zone:
+      radius-no-number: 'provide a number of chunks to claim'
+      auto-disabled: 'Zone auto claim off'
+      claim-chunk: '<green>Chunk claimed'
+      auto-activated: 'Zone auto claim on, All unowned chunks entered will be claimed'
+      missing-faction-permission: '<red>You do not have the required FACTION permission\n\
+        \                '
+      chunk-already-claimed: 'This chunk has already been claimed'
+      total-area: 'You have claimed <yellow>{success}/{total}<white> chunks'
+      missing-spigot-permission: '<red>You do not have the required SERVER permission'
+    rename:
+      faction-not-in-storage: '<red>Faction not found in storage medium'
+      requires-faction: '<red>You need to be in a faction to use this'
+      player-has-no-faction: '<red>You are not in a faction'
+      missing-faction-permission: '<red>You do not have the required FACTION permission\n\
+        \                '
+      faction-is-frozen: '<red>This faction has been frozen and can not be modifyed ingame'
+      not-enough-args: '<red>Not enough arguments. Add the new faction name'
+      renamed: 'Faction renamed to {faction-name}'
+      invalid-faction-name: '<red>You can not use that name'
+      missing-spigot-permission: '<red>You do not have the required SERVER permission'
+    command-settings:
+      resetted-faction-registry: '<red>Could not find your saved faction. Resetted the\
+        \ container\n                '
+      no-command-found: '<red>That command does not exists'
+    leave:
+      faction-not-found: '<red>Faction not found'
+      player-left: '<gold>{player} left your faction'
+      player-is-owner: 'You are the owner. Use <yellow>/f delete <white>to delete and leave faction'
+      requires-faction: '<red>You need to be in a faction to do this'
+      player-has-no-faction: '<red>You are not in a faction'
+      faction-is-frozen: '<red>This faction has been frozen and can not be modifyed ingame'
+      not-enough-args: '<red>Not enough arguments. Add a faction name'
+      missing-spigot-permission: '<red>You do not have the required SERVER permission'
+    create:
+      faction-not-in-storage: '<red>Faction not found in storage medium'
+      created-faction: '<green>{faction} has been created'
+      player-already-in-faction: '<red>That player is already in a faction'
+      illegal-naming: '<red>That name cant be used'
+      player-has-no-faction: '<red>That player is not in a faction'
+      not-enough-permissions: '<red>You do not have permission for that command'
+      faction-already-exists: '<red>{faction} already exists'
+      description: 'Creates a faction with a given name'
+      not-enough-arguments: '<red>Enter a faction name'
+      requires-no-faction: '<red>You need to leave your current faction to use this'
+      missing-spigot-permission: '<red>You do not have the required SERVER permission'
+    claim:
+      faction-not-in-storage: '<red>Faction not in storage'
+      radius-no-number: 'provide a number of chunks to claim'
+      requires-faction: 'You need to be in a faction to use this'
+      player-has-no-faction: '<red>You are not in a faction'
+      auto-disabled: 'Faction auto unclaim off'
+      claim-chunk: '<green>Chunk claimed'
+      auto-activated: 'Faction auto claim on, All chunks entered that are not owned\
+        \ by your faction will be\n                    claimed\n                '
+      missing-faction-permission: '<red>You do not have the required FACTION permission\n\
+        \                '
+      chunk-already-claimed: '<red>This chunk has already been claimed'
+      total-area: 'You have claimed <yellow>{success}/{total}<white> chunks'
+      missing-spigot-permission: '<red>You do not have the required SERVER permission'
+    join:
+      faction-not-joinable: '<red>You can not join this faction'
+      faction-not-found: '<red>Faction not found'
+      success: '<gold>{player} has joined your faction'
+      already-in-faction: '<red>You are already in a faction'
+      faction-is-frozen: '<red>This faction has been frozen and can not be modifyed ingame'
+      not-enough-args: '<red>Not enough arguments. Add a faction name'
+      player-banned: '<red>You have been banned from this faction'
+      requires-no-faction: '<red>You need to leave your current faction to do this'
+      missing-spigot-permission: '<red>You do not have the required SERVER permission'
+    invite:
+      faction-not-in-storage: '<red>Faction not found in storage medium'
+      requires-faction: '<red>You need to be in a faction to do this'
+      you-have-been-invited: '<yellow>{player}</yellow><white> invited you to join </white>\
+        \<yellow>{faction}</yellow><white> as a </white><yellow>{rank}</yellow>. \
+        \Click <yellow><click:run_command:"/f inviteaccept {faction-registry}">\
+        \here</click></yellow> to accept'
+      player-already-been-invited: '<gold>Player already invited'
+      not-enough-args: '<red>Not enough arguments. Add a player name and optionally the\
+        \ rank'
+      rank-not-found: '<red>Rank not found'
+      already-member: '<red>Player is already in this faction'
+      invited-player: 'Invited sent to {player}'
+      player-not-found: '<red>Player not found'
+      player-has-no-faction: '<red>You are not in a faction'
+      already-in-faction: '<red>You are already in a faction'
+      cant-invite-yourself: '<red>You can not invite yourself'
+      missing-spigot-permission: '<red>You do not have the required SERVER permission'
+    power:
+      get-power: 'Your faction has <aqua>%faction_power% / %faction_maxpower% <white>power'
+      requires-faction: '<red>You need to be in a faction to use this'
+      missing-faction-permission: '<red>You do not have the required FACTION permission\n\
+        \                '
+      missing-spigot-permission: '<red>You do not have the required SERVER permission'
+    acceptinvite:
+      cant-find-faction: '<red>{faction} not found'
+      not-invited: '<red>You have not been invited to {faction}'
+      inviter-not-found: '<red>Can not find that faction'
+      already-in-faction: '<red>You are already in a faction. Use <gold>/f leave <white>to join\
+        \ this one\n                '
+      accepted: '<yellow>Invite accepted'
+      invalid-rank: '<red>invalid rank'
+      faction-is-frozen: '<red>This faction has been frozen and can not be modifyed ingame'
+      not-enough-args: '<red>Not enough arguments. Add the faction name'
+      player-banned: '<red>You are banned in this faction'
+      requires-no-faction: '<red>You are already in a faction. Use <gold>/f leave <white>to join\
+        \ this one\n                '
+      missing-spigot-permission: '<red>You do not have the required SERVER permission'
+    who:
+      who-entry-2: ''
+      faction-not-in-storage: '<red>Faction not found in storage medium'
+      who-entry-3: 'Motd: <yellow>{faction-motd}'
+      who-entry-4: 'Registry: <yellow>{faction-registry}'
+      who-entry-5: 'Power: <yellow>{faction-power}/{faction-maxpower}'
+      player-has-no-faction: '<red>That player is not in a faction'
+      who-entry-0: '<gray>----( <yellow>{faction-name} <gray>)----'
+      who-entry-1: '<yellow>{faction-description}'
+      missing-spigot-permission: '<red>You do not have the required SERVER permission'
+  hoverables:
+    faction: '<hover:show_text:"<gold>Display Name: </gold>%faction_{faction}_display%\n<gold>Registry: \
+      \</gold>%faction_{faction}_registry%\n<gold>Owner: </gold>%faction_{faction}_owner\n<gold>\
+      \Power: </gold><aqua>%faction_{faction}_currentpower%/%faction_{faction}_maxpower%\
+      \</aqua>\n<gold>Chunks: </gold>%faction_{faction}_chunks%">{faction}</hover>'
+    player: '<hover:show_text:"<gold>UserName: </gold>{player}\n<gold>Faction: \
+    \</gold>%faction_{player}%">{player}</hover>'
+  misc:
+    gui-editor:
+      send-browser-link: '{text:Click} {text:<blue><u>this link; url:{link}} {text:to open\
+        \ the gui editor in your\n                    browser}\n                '
+prefix: '<dark_gray>[<yellow>IF<dark_gray>] <white>'
+ranks:
+  guest:
+    faction:
+      title: '<yellow>Guest'
+      description:
+        - 'A guest is everyone that has no'
+        - 'relation to your faction'
+    ally:
+      title: '<yellow>Ally Guest'
+      description:
+        - 'A guest is everyone that has no'
+        - 'relation to your faction'
+  owner:
+    faction:
+      title: '<yellow>Owner'
+      description:
+        - 'The creator the faction'
+        - 'they have all permissions'
+    ally:
+      title: '<aqua>Ally Owner'
+      description:
+        - 'The creator of an allied faction'
+  admin:
+    faction:
+      title: '<yellow>Admin'
+      description:
+        - 'A admin is much like a owner'
+        - 'but cant delete the faction or make other players admins'
+    ally:
+      title: '<aqua>Ally admin'
+      description:
+        - 'A admin of one of your allied factions'
+        - 'They are trustworthy people'
+  moderator:
+    faction:
+      title: '<yellow>Moderator'
+      description:
+        - 'A manager of this faction'
+        - 'They have some management control'
+    ally:
+      title: '<aqua>Ally Moderator'
+      description:
+        - 'A member of an allied faction with a moderator rank'
+  elder:
+    faction:
+      title: '<yellow>Elder'
+      description:
+        - 'These players have been in the faction for a long time'
+    ally:
+      title: '<aqua>Ally Elder'
+      description:
+        - 'A member of an allied faction with an elder rank'
+  member:
+    faction:
+      title: '<yellow>Member'
+      description:
+        - 'A member of this faction'
+    ally:
+      title: '<aqua>Ally Member'
+      description:
+        - 'A member of an allied faction'
+zones:
+  safezone: '<aqua>Safezone'
+  warzone: '<dark_red>Warzone'
+  unclaimable: '<white>Unclaimable'
+  __glbwilderness__: '<dark_green>Wilderness'
+guis:
+  manage-faction:
+    base-gui:
+      title: "<yellow>%faction_getDisplayName%"
+      description:
+        - ""
+        - "<gray>Manage your faction"
+    empty:
+      title: ''
+      description: [ ]
+    faction-icon:
+      title: '<yellow>Faction Icon'
+      description:
+        - ''
+        - '<gray>This is your factions icon'
+        - '<gray>click <gold><bold>here</bold><gray> to change it'
+    view-permissions:
+      title: "<yellow>View your permissions"
+      description:
+        - ""
+        - "<gray>When clicking it will show"
+        - "<gray>you all permissions you have"
+    manage-permissions:
+      title: "<yellow>Manage permissions"
+      description:
+        - ""
+        - "<gray>Edit the permissions of"
+        - "<gray>for this faction."
+        - ""
+        - "<gray>You can only edit permissions"
+        - "<gray>that fall <gold><bold>below</bold></gold> your rank"
+    rename:
+      title: "<yellow>Rename this faction"
+      description:
+        - ""
+        - "<gray>Clicking this allows"
+        - "<gray>you to rename your faction"
+    no-rename:
+      title: "<red>Renaming locked"
+      description:
+        - ""
+        - "<gray>You <red>can't</red> rename"
+        - "<gray>this faction"

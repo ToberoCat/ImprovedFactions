@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedfactions.spigot.handler.message;
 
-import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
+import io.github.toberocat.improvedFactions.core.handler.ConfigFile;
 import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
@@ -18,7 +18,7 @@ public interface MessageHandler {
 
     private static @NotNull MessageHandler createApi() {
         // Support proper plugins having mails
-        if (ConfigHandler.api().getBool("storage.use-mysql", false))
+        if (ConfigFile.api().getBool("storage.use-mysql", false))
             return new MySqlMessages();
         return new LocalMessageHandler(JavaPlugin.getPlugin(MainIF.class));
     }

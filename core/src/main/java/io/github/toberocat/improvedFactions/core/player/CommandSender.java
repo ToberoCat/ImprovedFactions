@@ -7,5 +7,7 @@ public interface CommandSender {
 
     boolean hasPermission(@NotNull String permission);
 
-    void sendMessage(@NotNull String message);
+    void sendMessage(@NotNull String query, @NotNull String locale);
+
+    String getName();
 }

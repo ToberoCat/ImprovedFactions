@@ -2,7 +2,7 @@ package io.github.toberocat.improvedFactions.core.database;
 
 import io.github.toberocat.improvedFactions.core.database.mysql.MySqlDatabase;
 import io.github.toberocat.improvedFactions.core.exceptions.database.CantRequestDatabaseRuntimeException;
-import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
+import io.github.toberocat.improvedFactions.core.handler.ConfigFile;
 import org.jetbrains.annotations.NotNull;
 
 public final class DatabaseHandle {
@@ -10,7 +10,7 @@ public final class DatabaseHandle {
     private static MySqlDatabase mySqlDatabase;
 
     public static @NotNull MySqlDatabase requestMySql() {
-        ConfigHandler config = ConfigHandler.api();
+        ConfigFile config = ConfigFile.api();
         if (!config.getBool("storage.use-mysql", false))
             throw new CantRequestDatabaseRuntimeException("MySQL");
 

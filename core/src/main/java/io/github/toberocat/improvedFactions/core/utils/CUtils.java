@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedFactions.core.utils;
 
-import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
+import io.github.toberocat.improvedFactions.core.handler.ConfigFile;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.world.World;
@@ -27,8 +27,8 @@ public final class CUtils {
     }
 
     public static boolean isWorldAllowed(@NotNull World<?> world) {
-        if (ConfigHandler.api().getList("world.enabled-worlds").contains(world.getWorldName())) return true;
-        return !ConfigHandler.api().getList("world.disabled-worlds").contains(world.getWorldName());
+        if (ConfigFile.api().getList("world.enabled-worlds").contains(world.getWorldName())) return true;
+        return !ConfigFile.api().getList("world.disabled-worlds").contains(world.getWorldName());
     }
 
     public static byte[] convertToByteArray(int... pIntArray)
