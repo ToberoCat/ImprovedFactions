@@ -25,7 +25,7 @@ public class FactionRenameAction extends Action {
     }
 
     @Override
-    public void run(@NotNull FactionPlayer<?> player) {
+    public void run(@NotNull FactionPlayer player) {
         ActionHandler.api().renameFaction(player);
     }
 }

@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class MySqlWorldClaimHandler extends WorldClaimHandler {
     @Override
-    public @NotNull WorldClaim createWorldClaim(@NotNull World<?> world) {
+    public @NotNull WorldClaim createWorldClaim(@NotNull World world) {
         return new MySqlWorldClaim(world.getWorldName());
     }
 }

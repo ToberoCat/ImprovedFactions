@@ -5,8 +5,8 @@ import io.github.toberocat.improvedFactions.core.faction.components.rank.members
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import org.jetbrains.annotations.NotNull;
 
-public record ReceivedInvites(@NotNull OfflineFactionPlayer<?> received,
-                              @NotNull OfflineFactionPlayer<?> sender,
+public record ReceivedInvites(@NotNull OfflineFactionPlayer received,
+                              @NotNull OfflineFactionPlayer sender,
                               @NotNull Faction<?> faction,
                               @NotNull FactionRank rank) {
 }

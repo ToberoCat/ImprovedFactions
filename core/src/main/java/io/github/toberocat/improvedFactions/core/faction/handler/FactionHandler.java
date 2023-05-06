@@ -23,12 +23,13 @@ public abstract class FactionHandler {
     private static final @NotNull FactionHandlerInterface<?> handler = createInterface();
 
     private static @NotNull FactionHandlerInterface<?> createInterface() {
-        if (ConfigFile.api().getBool("storage.use-mysql", false)) return new MySqlFactionHandler();
+        if (ImprovedFactions.api().getConfig().getBool("storage.use-mysql", false))
+            return new MySqlFactionHandler();
         else return new LocalFactionHandler();
     }
 
     public static @NotNull Faction<?> createFaction(@NotNull String display,
-                                                    @NotNull FactionPlayer<?> owner)
+                                                    @NotNull FactionPlayer owner)
             throws IllegalFactionNamingException, FactionAlreadyExistsException,
             FactionIsFrozenException, PlayerIsAlreadyInFactionException, PlayerIsBannedException {
         return handler.create(display, owner);

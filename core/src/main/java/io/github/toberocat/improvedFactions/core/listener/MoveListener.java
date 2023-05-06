@@ -11,11 +11,13 @@ import io.github.toberocat.improvedFactions.core.world.Chunk;
 import io.github.toberocat.improvedFactions.core.world.World;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+
 public class MoveListener {
 
-    public void move(@NotNull FactionPlayer<?> player, @NotNull Chunk<?> from, @NotNull Chunk<?> to) {
-        World<?> fromWorld = from.getWorld();
-        World<?> toWorld = to.getWorld();
+    public void move(@NotNull FactionPlayer player, @NotNull Chunk from, @NotNull Chunk to) {
+        World fromWorld = from.getWorld();
+        World toWorld = to.getWorld();
         if (!fromWorld.getWorldName().equals(toWorld.getWorldName())) return;
 
         int fromX = from.getX();
@@ -47,9 +49,7 @@ public class MoveListener {
                 translationId = toRegistry.replaceAll(":", "");
             }
 
-            player.sendTitle(translatable -> translatable
-                    .getZones()
-                    .get(translationId));
+            player.sendTitle("zones." + translationId, "", new HashMap<>());
 
         }
 

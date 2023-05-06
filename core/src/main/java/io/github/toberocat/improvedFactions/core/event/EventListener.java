@@ -25,43 +25,44 @@ public interface EventListener {
         HANDLER_LIST.add(handler);
     }
 
-    void protectChunk(@NotNull Chunk<?> chunk, @NotNull String registry);
+    void protectChunk(@NotNull Chunk chunk, @NotNull String registry);
 
-    void removeProtection(@NotNull Chunk<?> chunk, @Nullable String oldRegistry);
+    void removeProtection(@NotNull Chunk chunk, @Nullable String oldRegistry);
 
     void factionMemberRankUpdate(@NotNull Faction<?> faction,
-                                 @NotNull OfflineFactionPlayer<?> player,
+                                 @NotNull OfflineFactionPlayer player,
                                  @NotNull FactionRank oldRank,
                                  @NotNull FactionRank newRank);
 
-    void transferOwnership(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> oldOwner,
-                           @NotNull FactionPlayer<?> newOwner);
+    void transferOwnership(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer oldOwner,
+                           @NotNull FactionPlayer newOwner);
 
-    void joinMember(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> player, @NotNull FactionRank joinedAs);
+    void joinMember(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer player,
+                    @NotNull FactionRank joinedAs);
 
-    void leaveMember(@NotNull Faction<?> faction, @NotNull FactionPlayer<?> player);
+    void leaveMember(@NotNull Faction<?> faction, @NotNull FactionPlayer player);
 
-    void kickMember(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> player);
+    void kickMember(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer player);
 
-    void banMember(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> player);
+    void banMember(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer player);
 
-    void pardonPlayer(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> player);
+    void pardonPlayer(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer player);
 
     void allyFaction(@NotNull Faction<?> first, @NotNull Faction<?> second);
 
-    void createFaction(@NotNull Faction<?> faction, FactionPlayer<?> owner);
+    void createFaction(@NotNull Faction<?> faction, FactionPlayer owner);
 
-    void invitePlayer(@NotNull OfflineFactionPlayer<?> receiver,
-                      @NotNull FactionPlayer<?> sender,
+    void invitePlayer(@NotNull OfflineFactionPlayer receiver,
+                      @NotNull FactionPlayer sender,
                       @NotNull Faction<?> faction,
                       @NotNull FactionRank rank);
 
-    void cancelInvite(@NotNull OfflineFactionPlayer<?> receiver,
+    void cancelInvite(@NotNull OfflineFactionPlayer receiver,
                 @NotNull UUID sender,
                 @NotNull Faction<?> faction,
                 @NotNull String rank);
 
-    void acceptInvite(@NotNull OfflineFactionPlayer<?> receiver,
+    void acceptInvite(@NotNull OfflineFactionPlayer receiver,
                       @NotNull UUID sender,
                       @NotNull Faction<?> faction,
                       @NotNull FactionRank rank);

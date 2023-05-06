@@ -32,6 +32,7 @@ import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.setting.Setting;
+import io.github.toberocat.improvedFactions.core.translator.PlaceholderBuilder;
 import io.github.toberocat.improvedFactions.core.utils.DateUtils;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
 import org.jetbrains.annotations.NotNull;
@@ -545,13 +546,10 @@ public class LocalFaction implements Faction<LocalFaction> {
         members.add(player.getUniqueId());
 
         setRank(player, rank);
-        broadcastTranslatable(translatable -> translatable
-                .getMessages()
-                .getFaction()
-                .getBroadcast()
-                .get("sender-join"),
-                new Placeholder("sender", player.getName()),
-                new Placeholder("rank", player.getMessage(rank.getTitle())));
+        broadcastTranslatable("messages.sender-join", new PlaceholderBuilder()
+                .placeholder("sender", player)
+                .placeholder("rank", rank)
+                .getPlaceholders());
         return true;
     }
 
@@ -654,7 +652,8 @@ public class LocalFaction implements Faction<LocalFaction> {
     @Override
     public @NotNull BigDecimal getTotalPower() {
         return getMembers().reduce(BigDecimal.ZERO,
-                (bigDecimal, uuid) -> bigDecimal.add(BigDecimal.valueOf(playerPower(uuid))),
+                (bigDecimal, uuid) -> bigDecimal.add(BigDecimal.valueOf(Objects.requireNonNull(ImprovedFactions.api()
+                        .getOfflinePlayer(uuid)).getPower())),
                 BigDecimal::add);
     }
 
@@ -671,7 +670,7 @@ public class LocalFaction implements Faction<LocalFaction> {
                 .reduce(BigDecimal.ZERO,
                         (bigDecimal, player) ->
                                 bigDecimal.add(BigDecimal
-                                        .valueOf(playerPower(player.getUniqueId()))),
+                                        .valueOf(player.getPower())),
                         BigDecimal::add);
     }
 
@@ -684,7 +683,8 @@ public class LocalFaction implements Faction<LocalFaction> {
     @Override
     public @NotNull BigDecimal getTotalMaxPower() {
         return getMembers().reduce(BigDecimal.ZERO,
-                (bigDecimal, uuid) -> bigDecimal.add(BigDecimal.valueOf(maxPlayerPower(uuid))),
+                (bigDecimal, uuid) -> bigDecimal.add(BigDecimal.valueOf(Objects.requireNonNull(ImprovedFactions.api()
+                        .getOfflinePlayer(uuid)).getMaxPower())),
                 BigDecimal::add
         );
     }
@@ -701,7 +701,7 @@ public class LocalFaction implements Faction<LocalFaction> {
         return getActiveMembers()
                 .reduce(BigDecimal.ZERO,
                         (bigDecimal, x) ->
-                                bigDecimal.add(BigDecimal.valueOf(maxPlayerPower(x.getUniqueId()))),
+                                bigDecimal.add(BigDecimal.valueOf(x.getMaxPower())),
                         BigDecimal::add
                 );
     }

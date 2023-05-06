@@ -13,7 +13,7 @@ public class SoundAction extends Action {
     }
 
     @Override
-    public void run(@NotNull FactionPlayer<?> player, @NotNull String[] args) {
+    public void run(@NotNull FactionPlayer player, @NotNull String[] args) {
         if (args.length == 0) {
             return;
         }

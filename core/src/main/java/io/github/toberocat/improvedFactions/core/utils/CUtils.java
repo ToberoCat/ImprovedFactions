@@ -26,9 +26,10 @@ public final class CUtils {
         }
     }
 
-    public static boolean isWorldAllowed(@NotNull World<?> world) {
-        if (ConfigFile.api().getList("world.enabled-worlds").contains(world.getWorldName())) return true;
-        return !ConfigFile.api().getList("world.disabled-worlds").contains(world.getWorldName());
+    public static boolean isWorldAllowed(@NotNull World world) {
+        if (ImprovedFactions.api().getConfig().getList("world.enabled-worlds").contains(world.getWorldName()))
+            return true;
+        return !ImprovedFactions.api().getConfig().getList("world.disabled-worlds").contains(world.getWorldName());
     }
 
     public static byte[] convertToByteArray(int... pIntArray)

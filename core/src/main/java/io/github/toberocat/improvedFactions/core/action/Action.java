@@ -49,15 +49,15 @@ public abstract class Action {
 
     /* Player */
 
-    public void run(@NotNull FactionPlayer<?> player) {
+    public void run(@NotNull FactionPlayer player) {
         // override
     }
 
-    public void run(@NotNull FactionPlayer<?> player, @NotNull String[] args) {
+    public void run(@NotNull FactionPlayer player, @NotNull String[] args) {
         // override
     }
 
-    public void run(@NotNull FactionPlayer<?> player, @NotNull String provided) {
+    public void run(@NotNull FactionPlayer player, @NotNull String provided) {
         // override
     }
 }

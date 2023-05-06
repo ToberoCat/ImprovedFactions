@@ -11,4 +11,5 @@ language:
     player: "<gold>Name:</gold> <aqua>{player-display}</aqua>\n<gold>Faction:</gold> <aqua>{player-getFactionRegistry}</aqua>"
     offline-player: "<gold>Name:</gold> <aqua>{player-display}</aqua>\n<gold>Faction:</gold> <aqua>{player-getFactionRegistry}</aqua>"
     chunk: ""
+    rank: ""
   translations:

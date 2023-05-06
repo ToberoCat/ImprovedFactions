@@ -19,7 +19,7 @@ public final class RankUtils {
      * that can be modified by this sender, based on their rank priority
      */
     public static @NotNull Stream<UUID> getManageablePlayers(@NotNull Faction<?> faction,
-                                                             @NotNull FactionPlayer<?> player) {
+                                                             @NotNull FactionPlayer player) {
         int priority = Rank.getPriority(faction.getPlayerRank(player));
         return faction.getMembers().filter(x -> Rank.getPriority(faction.getPlayerRank(x)) < priority);
     }

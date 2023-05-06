@@ -49,7 +49,7 @@ public class LocalData implements PersistentData {
     }
 
     @Override
-    public void quit(@NotNull FactionPlayer<?> player) {
+    public void quit(@NotNull FactionPlayer player) {
         Values values = entries.get(player.getUniqueId());
         if (values == null) return;
 

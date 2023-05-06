@@ -18,13 +18,13 @@ import io.github.toberocat.improvedFactions.core.permission.Permissions;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.setting.Settings;
-import io.github.toberocat.improvedFactions.core.translator.Placeholder;
-import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
+import io.github.toberocat.improvedFactions.core.translator.Translatable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -576,14 +576,13 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      *
      * @param query The key of the translatable message.
      */
-    default void broadcastTranslatable(@NotNull Function<Translatable,
-            @NotNull String> query,
-            Placeholder... parseables) {
+    default void broadcastTranslatable(@NotNull String query,
+                                       @NotNull Map<String, Function<Translatable, String>> placeholders) {
         ImprovedFactions api = ImprovedFactions.api();
         getMembers()
                 .map(api::getOfflinePlayer)
                 .filter(Objects::nonNull)
-                .forEach(x -> x.sendMessage(query, parseables));
+                .forEach(x -> x.sendMessage(query, placeholders));
     }
 
     /* Claim management */

@@ -18,11 +18,11 @@ public interface ActionHandler {
         return implementation;
     }
 
-    void renameFaction(@NotNull FactionPlayer<?> player);
+    void renameFaction(@NotNull FactionPlayer player);
 
-    void changeFactionIcon(@NotNull FactionPlayer<?> player);
+    void changeFactionIcon(@NotNull FactionPlayer player);
 
-    void changeMotd(FactionPlayer<?> player);
+    void changeMotd(FactionPlayer player);
 
-    void changeDescription(FactionPlayer<?> player);
+    void changeDescription(FactionPlayer player);
 }

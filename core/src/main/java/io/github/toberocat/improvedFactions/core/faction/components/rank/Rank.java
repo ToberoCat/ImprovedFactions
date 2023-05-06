@@ -4,23 +4,24 @@ import io.github.toberocat.improvedFactions.core.faction.components.rank.allies.
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.*;
 import io.github.toberocat.improvedFactions.core.item.ItemStack;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Stream;
 
 public abstract class Rank {
 
-    public static final Map<String, Rank> ranks = new LinkedHashMap<>();
-    protected final String registry;
-    protected final Function<Translatable, String> title;
+    public static final @NotNull Map<String, Rank> ranks = new LinkedHashMap<>();
+    protected final @NotNull String registry;
+    protected final @NotNull String title;
     private final boolean isAdmin;
     private final int priority;
 
 
-    public Rank(Function<Translatable, String> title, String registryName, int permissionPriority, boolean isAdmin) {
+    public Rank(@NotNull String title,
+                @NotNull String registryName,
+                int permissionPriority,
+                boolean isAdmin) {
         this.title = title;
         registry = registryName;
         this.isAdmin = isAdmin;
@@ -79,11 +80,11 @@ public abstract class Rank {
         return registry;
     }
 
-    public abstract @NotNull String[] description(FactionPlayer<?> player);
+    public abstract @NotNull String[] description(FactionPlayer player);
 
-    public abstract @NotNull String title(FactionPlayer<?> player);
+    public abstract @NotNull String title(FactionPlayer player);
 
-    public abstract ItemStack getItem(FactionPlayer<?> player);
+    public abstract ItemStack getItem(FactionPlayer player);
 
     /**
      * @return raw priority. negative numbers can get returned,
@@ -92,10 +93,6 @@ public abstract class Rank {
      */
     public int getRawPriority() {
         return priority;
-    }
-
-    public Function<Translatable, String> getTitle() {
-        return title;
     }
 
     @Override

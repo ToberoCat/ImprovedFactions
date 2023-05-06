@@ -13,7 +13,7 @@ public class TitleAction extends Action {
     }
 
     @Override
-    public void run(@NotNull FactionPlayer<?> player, @NotNull String[] args) {
+    public void run(@NotNull FactionPlayer player, @NotNull String[] args) {
         int length = args.length;
         if (args.length < 1) return;
 

@@ -17,5 +17,5 @@ public interface MessageHandler {
 
     @NotNull String format(@NotNull String text);
 
-    @NotNull String format(@NotNull OfflineFactionPlayer<?> player, @NotNull String text);
+    @NotNull String format(@NotNull OfflineFactionPlayer player, @NotNull String text);
 }

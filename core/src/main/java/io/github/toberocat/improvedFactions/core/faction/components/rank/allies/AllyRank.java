@@ -8,6 +8,7 @@ import io.github.toberocat.improvedFactions.core.utils.CUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Objects;
 
 public abstract class AllyRank extends Rank {
@@ -19,7 +20,7 @@ public abstract class AllyRank extends Rank {
     private final URL icon;
 
     public AllyRank(@NotNull String key, @NotNull String registry, @NotNull String base64Icon) {
-        super(translatable -> translatable.getRanks().get(key).getAlly().getTitle(),
+        super("ranks.ally." + key + ".title",
                 registry, -1, false);
         this.key = key;
         icon = CUtils.createUrl("https://textures.minecraft.net/texture/" + base64Icon);
@@ -32,20 +33,19 @@ public abstract class AllyRank extends Rank {
     }
 
     @Override
-    public String[] description(FactionPlayer<?> player) {
-        return player.getMessageBatch(translatable -> translatable.getRanks().get(key)
-                .getAlly().getDescription().toArray(String[]::new));
+    public String[] description(FactionPlayer player) {
+        return player.getMessages("ranks.ally." + key + ".description", new HashMap<>());
     }
 
     @Override
-    public @NotNull String title(FactionPlayer<?> player) {
-        return Objects.requireNonNullElse(player.getMessage(title), "");
+    public @NotNull String title(FactionPlayer player) {
+        return Objects.requireNonNullElse(player.getMessage(title, new HashMap<>()), "");
     }
 
     @Override
-    public ItemStack getItem(FactionPlayer<?> player) {
+    public ItemStack getItem(FactionPlayer player) {
         return ItemHandler.api().createSkull(icon,
-                player.getMessage(title),
+                title(player),
                 description(player));
     }
 }

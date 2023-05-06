@@ -46,4 +46,8 @@ public interface OfflineFactionPlayer {
 
     /* Raw instance */
     @NotNull Object getRaw();
+
+    long getPower();
+
+    long getMaxPower();
 }

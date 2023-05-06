@@ -55,7 +55,7 @@ public class ClaimHandler {
 
     public static void reload() {
         zones.clear();
-        ConfigFile api = ConfigFile.api();
+        ConfigFile api = ImprovedFactions.api().getConfig();
         api.getSubSections("zones").stream()
                 .map(zone -> {
                     String root = "zones." + zone;
@@ -81,7 +81,7 @@ public class ClaimHandler {
                 .filter(x -> x.getRegistry().equals(registry));
     }
 
-    public static void protectChunk(@NotNull String registry, @NotNull Chunk<?> chunk)
+    public static void protectChunk(@NotNull String registry, @NotNull Chunk chunk)
             throws ChunkAlreadyClaimedException {
         WorldClaim worldClaim = getWorldClaim(chunk.getWorld());
         String claimed = worldClaim.getRegistry(chunk.getX(), chunk.getZ());
@@ -92,7 +92,7 @@ public class ClaimHandler {
         EventExecutor.getExecutor().protectChunk(chunk, registry);
     }
 
-    public static void removeProtection(@NotNull Chunk<?> chunk) {
+    public static void removeProtection(@NotNull Chunk chunk) {
         WorldClaim worldClaim = getWorldClaim(chunk.getWorld());
 
         String previousRegistry = worldClaim.getRegistry(chunk.getX(), chunk.getZ());
@@ -105,7 +105,7 @@ public class ClaimHandler {
         claims.forEach(consumer);
     }
 
-    public static @NotNull WorldClaim getWorldClaim(@NotNull World<?> world) {
+    public static @NotNull WorldClaim getWorldClaim(@NotNull World world) {
         return claims
                 .computeIfAbsent(world.getWorldName(), k ->
                         WorldClaimHandler.api().createWorldClaim(world));

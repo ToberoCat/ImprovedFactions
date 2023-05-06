@@ -11,8 +11,8 @@ import io.github.toberocat.improvedFactions.core.world.World;
 import org.jetbrains.annotations.NotNull;
 
 public class BlockListener {
-    public boolean breakBlock(@NotNull FactionPlayer<?> player,
-                              @NotNull World<?> world,
+    public boolean breakBlock(@NotNull FactionPlayer player,
+                              @NotNull World world,
                               int chunkX, int chunkZ)
             throws FactionNotInStorage {
         String registry = ClaimHandler.getWorldClaim(world).getRegistry(chunkX, chunkZ);
@@ -26,8 +26,8 @@ public class BlockListener {
         return !faction.hasPermission(FactionPermission.BREAK_PERMISSION, faction.getPlayerRank(player));
     }
 
-    public boolean placeBlock(@NotNull FactionPlayer<?> player,
-                              @NotNull World<?> world,
+    public boolean placeBlock(@NotNull FactionPlayer player,
+                              @NotNull World world,
                               int chunkX, int chunkZ)
             throws FactionNotInStorage {
         String registry = ClaimHandler.getWorldClaim(world).getRegistry(chunkX, chunkZ);
