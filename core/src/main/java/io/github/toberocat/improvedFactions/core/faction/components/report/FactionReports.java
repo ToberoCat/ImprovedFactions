@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.stream.Stream;
 
 public interface FactionReports {
-    void addReport(@NotNull OfflineFactionPlayer<?> reporter, @NotNull String reason);
+    void addReport(@NotNull OfflineFactionPlayer reporter, @NotNull String reason);
 
     @NotNull Stream<Report> getReports();
 }

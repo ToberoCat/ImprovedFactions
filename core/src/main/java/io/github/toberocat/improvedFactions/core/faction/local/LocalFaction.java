@@ -32,7 +32,6 @@ import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.setting.Setting;
-import io.github.toberocat.improvedFactions.core.translator.Placeholder;
 import io.github.toberocat.improvedFactions.core.utils.DateUtils;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
 import org.jetbrains.annotations.NotNull;
@@ -144,7 +143,7 @@ public class LocalFaction implements Faction<LocalFaction> {
         }
     }
 
-    public LocalFaction(@NotNull String display, @NotNull FactionPlayer<?> owner)
+    public LocalFaction(@NotNull String display, @NotNull FactionPlayer owner)
             throws FactionIsFrozenException,
             PlayerIsAlreadyInFactionException,
             PlayerIsBannedException, FactionAlreadyExistsException, IllegalFactionNamingException {
@@ -209,7 +208,8 @@ public class LocalFaction implements Faction<LocalFaction> {
     public void renameFaction(@NotNull String display)
             throws FactionIsFrozenException, FactionCantBeRenamedToThisLiteralException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
-        if (Faction.invalidNaming(display)) throw new FactionCantBeRenamedToThisLiteralException();
+        if (Faction.invalidNaming(display))
+            throw new FactionCantBeRenamedToThisLiteralException(this, display);
         this.display = Faction.validateDisplay(display);
     }
 
@@ -414,7 +414,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return The rank of the sender.
      */
     @Override
-    public @NotNull Rank getPlayerRank(@NotNull OfflineFactionPlayer<?> player) {
+    public @NotNull Rank getPlayerRank(@NotNull OfflineFactionPlayer player) {
         if (isMember(player)) return getRank(player.getUniqueId());
         if (isAllied(player)) return getRank(player.getUniqueId()).getEquivalent();
         return Rank.fromString(GuestRank.REGISTRY);
@@ -433,7 +433,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return If the sender is in the faction
      */
     @Override
-    public boolean isMember(@NotNull OfflineFactionPlayer<?> player) {
+    public boolean isMember(@NotNull OfflineFactionPlayer player) {
         return members.contains(player.getUniqueId());
     }
 
@@ -449,7 +449,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @param rank   The rank you want to change the sender to.
      */
     @Override
-    public void changeRank(@NotNull OfflineFactionPlayer<?> player, @NotNull FactionRank rank)
+    public void changeRank(@NotNull OfflineFactionPlayer player, @NotNull FactionRank rank)
             throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
         setRank(player, rank);
@@ -461,9 +461,9 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @param player The sender who will be the new owner of the faction.
      */
     @Override
-    public void transferOwnership(@NotNull FactionPlayer<?> player) throws FactionIsFrozenException {
+    public void transferOwnership(@NotNull FactionPlayer player) throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
-        OfflineFactionPlayer<?> currentOwner = ImprovedFactions.api().getOfflinePlayer(owner);
+        OfflineFactionPlayer currentOwner = ImprovedFactions.api().getOfflinePlayer(owner);
         if (currentOwner == null) return;
 
         setRank(player, (FactionRank) Rank.fromString(FactionOwnerRank.REGISTRY));
@@ -480,7 +480,7 @@ public class LocalFaction implements Faction<LocalFaction> {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
         getMembers().forEach(uuid -> {
-            OfflineFactionPlayer<?> player = ImprovedFactions.api().getOfflinePlayer(uuid);
+            OfflineFactionPlayer player = ImprovedFactions.api().getOfflinePlayer(uuid);
             if (player == null) return;
 
             player.getDataContainer().remove(PersistentHandler.FACTION_KEY);
@@ -520,7 +520,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return If it was able to join
      */
     @Override
-    public boolean joinPlayer(@NotNull FactionPlayer<?> player) throws FactionIsFrozenException,
+    public boolean joinPlayer(@NotNull FactionPlayer player) throws FactionIsFrozenException,
             PlayerIsAlreadyInFactionException, PlayerIsBannedException {
         return joinPlayer(player, (FactionRank) Rank.fromString(FactionMemberRank.REGISTRY));
     }
@@ -533,7 +533,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return If the sender was able to join
      */
     @Override
-    public boolean joinPlayer(@NotNull FactionPlayer<?> player, @NotNull FactionRank rank)
+    public boolean joinPlayer(@NotNull FactionPlayer player, @NotNull FactionRank rank)
             throws FactionIsFrozenException, PlayerIsAlreadyInFactionException, PlayerIsBannedException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
@@ -562,7 +562,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return If the sender was able to leave
      */
     @Override
-    public boolean leavePlayer(@NotNull FactionPlayer<?> player)
+    public boolean leavePlayer(@NotNull FactionPlayer player)
             throws FactionIsFrozenException, PlayerIsOwnerException, PlayerHasNoFactionException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (!isPermanent() && getPlayerRank(player).getRegistry().equals(FactionOwnerRank.REGISTRY))
@@ -583,10 +583,10 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return If the sender was able to kicked
      */
     @Override
-    public boolean kickPlayer(@NotNull OfflineFactionPlayer<?> player)
+    public boolean kickPlayer(@NotNull OfflineFactionPlayer player)
             throws FactionIsFrozenException, PlayerNotAMember {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
-        if (!isMember(player)) throw new PlayerNotAMember();
+        if (!isMember(player)) throw new PlayerNotAMember(player, this);
 
         player.getDataContainer().remove(PersistentHandler.FACTION_KEY);
         members.remove(player.getUniqueId());
@@ -603,7 +603,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return If the sender got removed from th faction
      */
     @Override
-    public boolean banPlayer(@NotNull OfflineFactionPlayer<?> player)
+    public boolean banPlayer(@NotNull OfflineFactionPlayer player)
             throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
@@ -626,7 +626,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return If the sender was able to be pardoned
      */
     @Override
-    public boolean pardonPlayer(@NotNull OfflineFactionPlayer<?> player)
+    public boolean pardonPlayer(@NotNull OfflineFactionPlayer player)
             throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
@@ -641,7 +641,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return If banned or not
      */
     @Override
-    public boolean isBanned(@NotNull OfflineFactionPlayer<?> player) {
+    public boolean isBanned(@NotNull OfflineFactionPlayer player) {
         return banned.contains(player.getUniqueId());
     }
 
@@ -707,31 +707,6 @@ public class LocalFaction implements Faction<LocalFaction> {
     }
 
     /**
-     * Returns the power of the sender with the given UUID.
-     * *
-     *
-     * @param player The sender's UUID
-     * @return The sender power
-     */
-    @Override
-    public double playerPower(@NotNull UUID player) {
-        // ToDo: Get sender power
-        return 0;
-    }
-
-    /**
-     * Returns the maximum power of the given sender.
-     *
-     * @param player The sender's UUID
-     * @return The maximum power of the sender.
-     */
-    @Override
-    public double maxPlayerPower(@NotNull UUID player) {
-        // ToDo: Get sender max power
-        return 0;
-    }
-
-    /**
      * Invite a faction to be an ally. The owner needs to be online
      * *
      *
@@ -747,7 +722,7 @@ public class LocalFaction implements Faction<LocalFaction> {
         if (faction.getRegistry().equals(registry)) throw new CantInviteYourselfException();
         if (sentInvites.contains(faction.getRegistry())) throw new AlreadyInvitedException(faction);
 
-        FactionPlayer<?> invitedOwner = ImprovedFactions.api().getPlayer(faction.getOwner());
+        FactionPlayer invitedOwner = ImprovedFactions.api().getPlayer(faction.getOwner());
         if (invitedOwner == null) throw new FactionOwnerIsOfflineException(faction);
 
         if (!(faction instanceof LocalFaction localFaction)) return;
@@ -848,7 +823,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return If allied or not
      */
     @Override
-    public boolean isAllied(@NotNull OfflineFactionPlayer<?> player) {
+    public boolean isAllied(@NotNull OfflineFactionPlayer player) {
         String registry = player.getFactionRegistry();
         return registry != null && isAllied(registry);
     }
@@ -889,7 +864,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return If the sender's faction is an enemy
      */
     @Override
-    public boolean isEnemy(@NotNull OfflineFactionPlayer<?> player) {
+    public boolean isEnemy(@NotNull OfflineFactionPlayer player) {
         String registry = player.getFactionRegistry();
         return registry != null && enemies.contains(registry);
     }
@@ -945,7 +920,7 @@ public class LocalFaction implements Faction<LocalFaction> {
     public @NotNull FactionReports getReports() {
         return new FactionReports() {
             @Override
-            public void addReport(@NotNull OfflineFactionPlayer<?> reporter, @NotNull String reason) {
+            public void addReport(@NotNull OfflineFactionPlayer reporter, @NotNull String reason) {
                 factionReports.add(new Report(reporter.getUniqueId(), reason));
             }
 
@@ -1024,7 +999,7 @@ public class LocalFaction implements Faction<LocalFaction> {
                 .anyMatch(x -> x.equals(rank.getRegistry()));
     }
 
-    private void setRank(@NotNull OfflineFactionPlayer<?> player, FactionRank rank) {
+    private void setRank(@NotNull OfflineFactionPlayer player, FactionRank rank) {
         if (rank == null) {
             memberRanks.remove(player.getUniqueId());
             return;

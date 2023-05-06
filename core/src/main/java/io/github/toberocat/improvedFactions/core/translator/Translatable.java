@@ -10,6 +10,7 @@ public record Translatable(
         @NotNull @JsonProperty(namespace = "plugin-version") String pluginVersion,
         @NotNull String[] authors,
         @NotNull @JsonProperty(namespace = "supports") String[] supportedLanguages,
-        @NotNull Map<String, String> translations
+        @NotNull Map<String, String> translations,
+        @NotNull Map<String, String> placeholders
 ) {
 }

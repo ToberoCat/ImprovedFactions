@@ -5,11 +5,13 @@ import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoF
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.persistent.component.PersistentWrapper;
+import io.github.toberocat.improvedFactions.core.translator.Translatable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Function;
 
 public interface OfflineFactionPlayer {
     /* Faction */
@@ -25,7 +27,8 @@ public interface OfflineFactionPlayer {
     boolean inFaction();
 
     /* Messages */
-    void sendMessage(@NotNull String query, @NotNull Map<String, String> placeholders);
+    void sendMessage(@NotNull String query);
+    void sendMessage(@NotNull String query, @NotNull Map<String, Function<Translatable, String>> placeholders);
 
     /* Player */
     @Nullable FactionPlayer getPlayer();

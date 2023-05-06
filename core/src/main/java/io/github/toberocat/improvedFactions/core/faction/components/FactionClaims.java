@@ -33,7 +33,7 @@ public final class FactionClaims<F extends Faction<F>> {
     public void forceCalculate() {
         claims = new LinkedHashMap<>();
         ClaimHandler.forEach((name, c) -> {
-            World<?> world = ImprovedFactions.api().getWorld(name);
+            World world = ImprovedFactions.api().getWorld(name);
             if (world == null || CUtils.isWorldAllowed(world)) return;
 
             claims.put(name, c.getAllClaims()
@@ -54,16 +54,16 @@ public final class FactionClaims<F extends Faction<F>> {
                 .count();
     }
 
-    public void claim(@NotNull Chunk<?> chunk) throws FactionNotInStorage, ChunkAlreadyClaimedException {
+    public void claim(@NotNull Chunk chunk) throws FactionNotInStorage, ChunkAlreadyClaimedException {
         claim(chunk.getWorld().getWorldName(), chunk.getX(), chunk.getZ());
     }
 
     public void claim(@NotNull String worldName, int x, int z)
             throws FactionNotInStorage, ChunkAlreadyClaimedException {
-        World<?> world = ImprovedFactions.api().getWorld(worldName);
+        World world = ImprovedFactions.api().getWorld(worldName);
         if (world == null) return;
 
-        Chunk<?> chunk = world.getChunkAt(x, z);
+        Chunk chunk = world.getChunkAt(x, z);
         try {
             ClaimHandler.protectChunk(faction.getRegistry(), chunk);
         } catch (ChunkAlreadyClaimedException e) {
@@ -71,11 +71,11 @@ public final class FactionClaims<F extends Faction<F>> {
         }
     }
 
-    public FactionClaim<F> getClaim(@NotNull Chunk<?> chunk) throws FactionDoesntOwnChunkException {
+    public FactionClaim<F> getClaim(@NotNull Chunk chunk) throws FactionDoesntOwnChunkException {
         return FactionClaim.fromClaim(faction, chunk);
     }
 
-    private void overclaim(@NotNull Chunk<?> chunk, @NotNull Faction<?> faction, @NotNull String claim)
+    private void overclaim(@NotNull Chunk chunk, @NotNull Faction<?> faction, @NotNull String claim)
             throws ChunkAlreadyClaimedException, FactionNotInStorage {
         if (faction.getRegistry().equals(claim)) throw new ChunkAlreadyClaimedException(claim);
         if (ClaimHandler.isManageableZone(claim)) throw new ChunkAlreadyClaimedException(claim);
@@ -134,19 +134,20 @@ public final class FactionClaims<F extends Faction<F>> {
         }
 
         public static <F extends Faction<F>> FactionClaim<F> fromClaim(@NotNull F faction,
-                                                                       @NotNull Chunk<?> chunk) throws FactionDoesntOwnChunkException {
-            World<?> world = chunk.getWorld();
+                                                                       @NotNull Chunk chunk)
+                throws FactionDoesntOwnChunkException {
+            World world = chunk.getWorld();
             int x = chunk.getX();
             int z = chunk.getZ();
 
             String registry = ClaimHandler.getWorldClaim(world).getRegistry(x, z);
             if (registry == null || !faction.getRegistry().equals(registry))
-                throw new FactionDoesntOwnChunkException(registry);
+                throw new FactionDoesntOwnChunkException(faction, chunk);
             return new FactionClaim<>(faction, world.getWorldName(), x, z);
         }
 
         public void unclaim() {
-            World<?> world = ImprovedFactions.api().getWorld(world());
+            World world = ImprovedFactions.api().getWorld(world());
             if (world == null) return;
 
             ClaimHandler.removeProtection(world.getChunkAt(x, z));
