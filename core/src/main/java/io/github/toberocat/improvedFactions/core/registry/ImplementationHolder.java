@@ -27,7 +27,6 @@ public class ImplementationHolder {
     public static @Nullable MessageHandler messageHandler;
     public static @Nullable RankHolder rankHolder;
     public static @Nullable ItemHandler itemHandler;
-    public static @Nullable MessagingHandler messagingHandler;
     public static @Nullable Logger logger;
     public static @Nullable SoundHandler soundHandler;
     public static @Nullable ActionHandler actionHandler;

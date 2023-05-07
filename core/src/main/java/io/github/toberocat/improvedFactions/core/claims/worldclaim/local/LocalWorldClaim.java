@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 
 public class LocalWorldClaim implements WorldClaim {
 
-    private static final long CLEAR_INTERVAL = ConfigFile.api()
+    private static final long CLEAR_INTERVAL = ImprovedFactions.api().getConfig()
             .getLong("performance.ram.claim-garbage-collector", 6000L);
 
     private final FileAccess access;

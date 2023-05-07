@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedFactions.core.utils;
 
 import io.github.toberocat.improvedFactions.core.handler.ConfigFile;
+import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
@@ -50,7 +51,7 @@ public final class Formatting {
 
     public static @NotNull SortedSet<Map.Entry<String, BigDecimal>> numberSymbols() {
         SortedSet<Map.Entry<String, BigDecimal>> set = new TreeSet<>(Map.Entry.comparingByValue());
-        ConfigFile api = ConfigFile.api();
+        ConfigFile api = ImprovedFactions.api().getConfig();
         List<String> symbols = api.getSubSections("number-symbols");
         for (String symbol : symbols)
             set.add(Map.entry(symbol,

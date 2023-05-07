@@ -110,4 +110,8 @@ public class PlaceholderBuilder {
     public Map<String, Function<Translatable, String>> getPlaceholders() {
         return placeholders;
     }
+
+    public @NotNull PlaceholderBuilder placeholder(@NotNull String key, int value) {
+        return placeholder(key, String.valueOf(value));
+    }
 }

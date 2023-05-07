@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedFactions.core.utils.command;
 
+import io.github.toberocat.improvedFactions.core.translator.PlaceholderBuilder;
 import io.github.toberocat.improvedFactions.core.utils.command.exceptions.CommandException;
 import io.github.toberocat.improvedFactions.core.utils.command.options.Option;
 import io.github.toberocat.improvedFactions.core.utils.command.options.Options;
@@ -8,6 +9,7 @@ import io.github.toberocat.improvedFactions.core.player.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -43,7 +45,9 @@ public abstract class SubCommand extends Command {
                              @NotNull String[] args)
             throws CommandException {
         if (!sender.hasPermission(getPermission()))
-            throw new CommandException("You don't have enough permissions to run this command");
+            throw new CommandException("exceptions.not-enough-permissions", new PlaceholderBuilder()
+                    .placeholder("permission", getPermission())
+                    .getPlaceholders());
         if (args.length == 0) return handleWithOptions(sender, args);
 
 
@@ -67,12 +71,6 @@ public abstract class SubCommand extends Command {
         if (newArgs.length >= 1 && children.containsKey(newArgs[0]))
             return children.get(newArgs[0]).routeTab(sender, newArgs);
         return getTabWithOptions(sender, newArgs);
-    }
-
-    protected void sendMessage(@NotNull CommandSender sender,
-                               @NotNull String message,
-                               Object... placeholders) {
-        sender.sendMessage(prefix + String.format(MessageHandler.api().format(message), placeholders));
     }
 
     private boolean handleWithOptions(@NotNull CommandSender sender, @NotNull String[] args) throws CommandException {
