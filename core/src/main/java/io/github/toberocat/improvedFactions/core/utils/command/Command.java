@@ -1,10 +1,10 @@
 package io.github.toberocat.improvedFactions.core.utils.command;
 
+import io.github.toberocat.improvedFactions.core.player.CommandSender;
 import io.github.toberocat.improvedFactions.core.utils.command.exceptions.CommandHasParentException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +13,6 @@ import java.util.Map;
 public abstract class Command {
 
     protected final Map<String, SubCommand> children = new HashMap<>();
-    protected final List<String> tabComplete = new ArrayList<>();
     protected @Nullable Command parent;
     private final @NotNull String permission;
     protected @Nullable String prefix;
@@ -31,13 +30,14 @@ public abstract class Command {
 
         command.parent = this;
         command.prefix = prefix;
-        tabComplete.add(command.label);
         children.put(command.label, command);
     }
 
     public @NotNull Map<String, SubCommand> getChildren() {
         return children;
     }
+
+    public abstract boolean showInTab(@NotNull CommandSender sender, @NotNull String[] args);
 
     //</editor-fold>
 
@@ -56,6 +56,14 @@ public abstract class Command {
         return label;
     }
 
+    public @NotNull List<String> childrenTabList(@NotNull CommandSender sender, @NotNull String[] args) {
+        return children
+                .values()
+                .stream()
+                .filter(x -> x.showInTab(sender, args))
+                .map(x -> x.label)
+                .toList();
+    }
 
     //</editor-fold>
 }

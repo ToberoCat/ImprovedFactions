@@ -4,12 +4,11 @@ import io.github.toberocat.improvedFactions.core.translator.PlaceholderBuilder;
 import io.github.toberocat.improvedFactions.core.utils.command.exceptions.CommandException;
 import io.github.toberocat.improvedFactions.core.utils.command.options.Option;
 import io.github.toberocat.improvedFactions.core.utils.command.options.Options;
-import io.github.toberocat.improvedFactions.core.handler.message.MessageHandler;
 import io.github.toberocat.improvedFactions.core.player.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -63,7 +62,7 @@ public abstract class SubCommand extends Command {
                                            @NotNull String[] args) throws CommandException {
         if (!sender.hasPermission(getPermission()))
             return null;
-        if (args.length == 0) return getTabWithOptions(sender, args);
+        if (args.length == 0) return childrenTabList(sender, args);
 
         String[] newArgs = new String[args.length - 1];
         System.arraycopy(args, 1, newArgs, 0, newArgs.length);
@@ -83,6 +82,11 @@ public abstract class SubCommand extends Command {
         for (Option option : onCommandOptions)
             option.canExecute(sender, args);
         return getTabList(sender, args);
+    }
+
+    @Override
+    public boolean showInTab(@NotNull CommandSender sender, @NotNull String[] args) {
+        return Arrays.stream(onTabOptions).allMatch(x -> x.show(sender, args));
     }
 
     protected abstract boolean handleCommand(@NotNull CommandSender sender,
