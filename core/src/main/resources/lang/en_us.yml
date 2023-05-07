@@ -1,15 +1,15 @@
-language:
-  version: "1.0.0"
-  plugin-version: "2.0.0"
-  authors:
-    - "Tobero"
-    - "Josh-65"
-  supports:
-    - "us"
-  placeholders:
-    faction: "<gold>Display:</gold> <aqua>{faction-display}</aqua>\n<gold>Registry</gold>: <aqua>{faction-registry}</aqua>\n<gold>Members</gold>: <aqua>{faction-members}</aqua>\n<gold>Power</gold>: <aqua>{faction-power}</aqua>"
-    player: "<gold>Name:</gold> <aqua>{player-display}</aqua>\n<gold>Faction:</gold> <aqua>{player-getFactionRegistry}</aqua>"
-    offline-player: "<gold>Name:</gold> <aqua>{player-display}</aqua>\n<gold>Faction:</gold> <aqua>{player-getFactionRegistry}</aqua>"
-    chunk: ""
-    rank: ""
-  translations:
+version: "1.0.0"
+plugin-version: "2.0.0"
+authors:
+  - "Tobero"
+  - "Josh-65"
+supports:
+  - "us"
+placeholders:
+  faction: "<gold>Display:</gold> <aqua>{faction-display}</aqua>\n<gold>Registry</gold>: <aqua>{faction-registry}</aqua>\n<gold>Members</gold>: <aqua>{faction-members}</aqua>\n<gold>Power</gold>: <aqua>{faction-power}</aqua>"
+  player: "<gold>Name:</gold> <aqua>{player-display}</aqua>\n<gold>Faction:</gold> <aqua>{player-getFactionRegistry}</aqua>"
+  offline-player: "<gold>Name:</gold> <aqua>{player-display}</aqua>\n<gold>Faction:</gold> <aqua>{player-getFactionRegistry}</aqua>"
+  chunk: "Hello"
+  rank: "World"
+translations:
+  prefix: "IF"

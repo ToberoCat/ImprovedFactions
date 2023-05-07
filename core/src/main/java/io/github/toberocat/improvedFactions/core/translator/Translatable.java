@@ -6,11 +6,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 
 public record Translatable(
-        @NotNull String version,
-        @NotNull @JsonProperty(namespace = "plugin-version") String pluginVersion,
-        @NotNull String[] authors,
-        @NotNull @JsonProperty(namespace = "supports") String[] supportedLanguages,
-        @NotNull Map<String, String> translations,
-        @NotNull Map<String, String> placeholders
+        @NotNull @JsonProperty("version") String version,
+        @NotNull @JsonProperty("plugin-version") String pluginVersion,
+        @NotNull @JsonProperty("authors") String[] authors,
+        @NotNull @JsonProperty("supports") String[] supportedLanguages,
+        @NotNull @JsonProperty("translations") Map<String, String> translations,
+        @NotNull @JsonProperty("placeholders") Map<String, String> placeholders
 ) {
 }

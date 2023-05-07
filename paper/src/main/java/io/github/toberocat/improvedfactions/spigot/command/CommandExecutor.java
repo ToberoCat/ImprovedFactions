@@ -80,10 +80,16 @@ public class CommandExecutor extends Command implements TabExecutor {
     private @Nullable List<String> getTab(@NotNull io.github.toberocat.improvedFactions.core.player.CommandSender sender,
                                           @NotNull String[] args)
             throws CommandException {
-        if (args.length <= 1) return tabComplete;
+        if (args.length <= 1) return childrenTabList(sender, args);
 
         SubCommand sub = children.get(args[0]);
 
         return sub == null ? null : sub.routeTab(sender, args);
+    }
+
+    @Override
+    public boolean showInTab(io.github.toberocat.improvedFactions.core.player.@NotNull CommandSender sender,
+                             @NotNull String[] args) {
+        return true;
     }
 }
