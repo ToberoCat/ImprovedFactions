@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedfactions.spigot.handler;
 
-import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionCantBeRenamedToThisLiteralException;
+import io.github.toberocat.improvedFactions.core.exceptions.TranslatableException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionIsFrozenException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
@@ -10,16 +10,14 @@ import io.github.toberocat.improvedFactions.core.handler.ActionHandler;
 import io.github.toberocat.improvedFactions.core.handler.message.MessageHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
-import io.github.toberocat.improvedfactions.spigot.loom.BannerDesigner;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 public record SpigotActionHandler(@NotNull MainIF plugin) implements ActionHandler {
     @Override
-    public void renameFaction(@NotNull FactionPlayer<?> player) {
+    public void renameFaction(@NotNull FactionPlayer player) {
         Faction<?> faction;
         try {
             faction = player.getFaction();
@@ -33,18 +31,8 @@ public record SpigotActionHandler(@NotNull MainIF plugin) implements ActionHandl
                 .onComplete((u, text) -> {
                     try {
                         faction.renameFaction(MessageHandler.api().format(text));
-                    } catch (FactionIsFrozenException e) {
-                        player.sendMessage(translatable -> translatable
-                                .getMessages()
-                                .getFaction()
-                                .getPlayer()
-                                .get("faction-is-frozen"));
-                    } catch (FactionCantBeRenamedToThisLiteralException e) {
-                        player.sendMessage(translatable -> translatable
-                                .getMessages()
-                                .getFaction()
-                                .getPlayer()
-                                .get("invalid-faction-name"));
+                    } catch (TranslatableException e) {
+                        player.sendException(e);
                     }
                     return AnvilGUI.Response.close();
                 })
@@ -55,25 +43,12 @@ public record SpigotActionHandler(@NotNull MainIF plugin) implements ActionHandl
     }
 
     @Override
-    public void changeFactionIcon(@NotNull FactionPlayer<?> player) {
-        Faction<?> faction;
-        try {
-            faction = player.getFaction();
-            if (!faction.hasPermission(FactionPermission.RENAME_FACTION, player))
-                return;
-        } catch (PlayerHasNoFactionException | FactionNotInStorage e) {
-            return;
-        }
-
-        try {
-            new BannerDesigner(player, JavaPlugin.getPlugin(MainIF.class));
-        } catch (FactionNotInStorage | PlayerHasNoFactionException e) {
-            e.printStackTrace();
-        }
+    public void changeFactionIcon(@NotNull FactionPlayer player) {
+        // ToDo: Open banner editor
     }
 
     @Override
-    public void changeMotd(FactionPlayer<?> player) {
+    public void changeMotd(FactionPlayer player) {
         Faction<?> faction;
         try {
             faction = player.getFaction();
@@ -88,11 +63,7 @@ public record SpigotActionHandler(@NotNull MainIF plugin) implements ActionHandl
                     try {
                         faction.setMotd(MessageHandler.api().format(text));
                     } catch (FactionIsFrozenException e) {
-                        player.sendMessage(translatable -> translatable
-                                .getMessages()
-                                .getFaction()
-                                .getPlayer()
-                                .get("faction-is-frozen"));
+                        player.sendException(e);
                     }
                     return AnvilGUI.Response.close();
                 })
@@ -103,7 +74,7 @@ public record SpigotActionHandler(@NotNull MainIF plugin) implements ActionHandl
     }
 
     @Override
-    public void changeDescription(FactionPlayer<?> player) { // ToDo: Open a description gui
+    public void changeDescription(FactionPlayer player) { // ToDo: Open a description gui
         player.sendMessage("Please use a command. This gui is still under construction");
     }
 }

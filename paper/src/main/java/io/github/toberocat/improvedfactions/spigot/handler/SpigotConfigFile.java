@@ -67,6 +67,11 @@ public record SpigotConfigFile(@NotNull FileConfiguration config, @NotNull Strin
     }
 
     @Override
+    public boolean exists(@NotNull String path) {
+        return config.contains(path);
+    }
+
+    @Override
     public @NotNull ConfigFile getSection(@NotNull String path) {
         return new SpigotConfigFile(config, path + ".");
     }

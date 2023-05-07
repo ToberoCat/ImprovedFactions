@@ -1,5 +1,7 @@
 package io.github.toberocat.improvedfactions.spigot.wrapper;
 
+import io.github.toberocat.improvedFactions.core.exceptions.TranslatableException;
+import io.github.toberocat.improvedFactions.core.exceptions.TranslatableRuntimeException;
 import io.github.toberocat.improvedFactions.core.player.CommandSender;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
@@ -18,9 +20,15 @@ public class BukkitWrapper {
             }
 
             @Override
-            public void sendMessage(@NotNull String message) {
-                sender.sendMessage(message);
+            public void sendException(@NotNull TranslatableException e) {
+                sender.sendMessage(e.getTranslationKey()); // ToDo: Fix this
             }
+
+            @Override
+            public void sendException(@NotNull TranslatableRuntimeException e) {
+                sender.sendMessage(e.getTranslationKey()); // ToDo: Fix this
+            }
+
 
             @Override
             public String getName() {

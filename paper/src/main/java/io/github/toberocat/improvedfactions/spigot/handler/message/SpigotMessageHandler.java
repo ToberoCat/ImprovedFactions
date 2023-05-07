@@ -32,7 +32,7 @@ public class SpigotMessageHandler implements MessageHandler {
     }
 
     @Override
-    public @NotNull String format(@NotNull OfflineFactionPlayer<?> player, @NotNull String text) {
+    public @NotNull String format(@NotNull OfflineFactionPlayer player, @NotNull String text) {
         return processor.apply((OfflinePlayer) player.getRaw(), format(text));
     }
 }

@@ -1,15 +1,17 @@
 package io.github.toberocat.improvedFactions.core.exceptions;
 
+import io.github.toberocat.improvedFactions.core.translator.Translatable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
+import java.util.function.Function;
 
 public class TranslatableRuntimeException extends RuntimeException {
     private final @NotNull String translationKey;
-    private final @NotNull Map<String, String> placeholders;
+    private final @NotNull Map<String, Function<Translatable, String>> placeholders;
 
 
-    public TranslatableRuntimeException(@NotNull String translationKey, @NotNull Map<String, String> placeholders) {
+    public TranslatableRuntimeException(@NotNull String translationKey, @NotNull Map<String, Function<Translatable, String>> placeholders) {
         this.translationKey = translationKey;
         this.placeholders = placeholders;
     }
@@ -18,7 +20,7 @@ public class TranslatableRuntimeException extends RuntimeException {
         return translationKey;
     }
 
-    public @NotNull Map<String, String> getPlaceholders() {
+    public @NotNull Map<String, Function<Translatable, String>> getPlaceholders() {
         return placeholders;
     }
 }

@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class SpigotSoundHandler implements SoundHandler {
     @Override
-    public void playSound(@NotNull FactionPlayer<?> player, @NotNull String sound, float volume, float pitch) {
+    public void playSound(@NotNull FactionPlayer player, @NotNull String sound, float volume, float pitch) {
         Player spigot = (Player) player.getRaw();
         spigot.playSound(spigot.getLocation(), sound, volume, pitch);
     }

@@ -4,18 +4,14 @@ import io.github.toberocat.improvedFactions.core.command.RootCommand;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import io.github.toberocat.improvedfactions.spigot.command.CommandExecutor;
-import io.github.toberocat.improvedfactions.spigot.gui.provided.SpigotGuiImplementationManager;
 import io.github.toberocat.improvedfactions.spigot.handler.SpigotActionHandler;
 import io.github.toberocat.improvedfactions.spigot.handler.SpigotSoundHandler;
 import io.github.toberocat.improvedfactions.spigot.handler.message.SpigotMessageHandler;
-import io.github.toberocat.improvedfactions.spigot.handler.SpigotConfigFile;
 import io.github.toberocat.improvedfactions.spigot.item.SpigotItemHandler;
-import io.github.toberocat.improvedfactions.spigot.listener.GuiListener;
 import io.github.toberocat.improvedfactions.spigot.listener.PlayerLeaveListener;
 import io.github.toberocat.improvedfactions.spigot.listener.PlayerMoveListener;
 import io.github.toberocat.improvedfactions.spigot.listener.SpigotEventListener;
 import io.github.toberocat.improvedfactions.spigot.listener.world.SpigotBlockListener;
-import io.github.toberocat.improvedfactions.spigot.loom.BannerDesigner;
 import io.github.toberocat.improvedfactions.spigot.placeholder.FactionExpansion;
 import io.github.toberocat.improvedfactions.spigot.plugin.ImprovedImplementation;
 import org.bukkit.Bukkit;
@@ -63,7 +59,6 @@ public final class MainIF extends JavaPlugin {
             return;
         }
 
-        BannerDesigner.dispose();
         ImplementationHolder.dispose();
     }
 
@@ -71,15 +66,12 @@ public final class MainIF extends JavaPlugin {
         List.of(
                 new PlayerLeaveListener(this),
                 new SpigotBlockListener(this),
-                new PlayerMoveListener(this),
-                new GuiListener(this)
+                new PlayerMoveListener(this)
         ).forEach(SpigotEventListener::register);
     }
 
     private void registerHandlers() {
         ImplementationHolder.messageHandler = new SpigotMessageHandler();
-        ImplementationHolder.config = new SpigotConfigFile(getConfig(), "");
-        ImplementationHolder.guiImplementation = new SpigotGuiImplementationManager();
         ImplementationHolder.itemHandler = new SpigotItemHandler();
         ImplementationHolder.soundHandler = new SpigotSoundHandler();
         ImplementationHolder.actionHandler = new SpigotActionHandler(this);
@@ -90,7 +82,7 @@ public final class MainIF extends JavaPlugin {
     }
 
     private void registerCommands() {
-        CommandExecutor executor = CommandExecutor.createExecutor(getConfig(), "faction");
+        CommandExecutor executor = CommandExecutor.createExecutor("faction");
         RootCommand.addCommands(executor);
     }
 

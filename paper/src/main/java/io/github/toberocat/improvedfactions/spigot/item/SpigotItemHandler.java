@@ -26,7 +26,7 @@ public class SpigotItemHandler implements ItemHandler {
 
     @Override
     public @NotNull ItemStack createSkull(@NotNull URL textureId, @NotNull String title, String... lore) {
-        return null;
+        return new SpigotItemStack(ItemUtils.createHead(textureId.getPath(), title, 1, lore));
     }
 
     @Override

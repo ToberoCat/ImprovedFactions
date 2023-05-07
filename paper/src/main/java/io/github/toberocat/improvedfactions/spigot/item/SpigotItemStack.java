@@ -2,10 +2,7 @@ package io.github.toberocat.improvedfactions.spigot.item;
 
 import io.github.toberocat.improvedFactions.core.item.ItemStack;
 import io.github.toberocat.improvedfactions.spigot.utils.ItemUtils;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
 
 public record SpigotItemStack(org.bukkit.inventory.ItemStack itemStack) implements ItemStack {
 

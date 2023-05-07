@@ -2,14 +2,10 @@ package io.github.toberocat.improvedfactions.spigot.utils;
 
 import com.destroystokyo.paper.profile.PlayerProfile;
 import com.destroystokyo.paper.profile.ProfileProperty;
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
 import io.github.toberocat.improvedFactions.core.handler.message.MessageHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.core.translator.layout.item.XmlItem;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -27,15 +23,11 @@ import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.*;
 
 import static io.github.toberocat.improvedfactions.spigot.utils.ComponentUtility.format;
 
 public class ItemUtils {
-
-    public static final NamespacedKey ORIGINAL_NAME_KEY = new NamespacedKey(JavaPlugin.getPlugin(MainIF.class),
-            "original_naming");
 
     public static String itemToBase64(ItemStack item) throws IllegalStateException {
         try {
@@ -62,75 +54,6 @@ public class ItemUtils {
         } catch (ClassNotFoundException | NullPointerException e) {
             throw new IOException("Unable to decode class type.", e);
         }
-    }
-
-    public static void translateItem(@NotNull FactionPlayer<?> player,
-                                     @NotNull String guiId,
-                                     @NotNull ItemStack stack) {
-        ItemMeta meta = stack.getItemMeta();
-        if (meta == null) return;
-        meta.getPersistentDataContainer()
-                .set(ORIGINAL_NAME_KEY, PersistentDataType.STRING,
-                        meta.getDisplayName());
-
-        String id = meta.getDisplayName();
-        MessageHandler api = MessageHandler.api();
-        String title = player.getMessage(translatable -> {
-            XmlItem xml = translatable.getGuis()
-                    .get(guiId)
-                    .get(id);
-            if (xml != null) return xml.title();
-            Logger.api().logWarning(id + " has missing title");
-            return null;
-        });
-        meta.setDisplayName(api.format(player, Objects.requireNonNullElse(title, "")));
-        meta.setLore(Arrays.stream(player.getMessageBatch(translatable -> translatable.getGuis()
-                        .get(guiId)
-                        .get(id).description()
-                        .stream()
-                        .map(x -> api.format(player, x))
-                        .toArray(String[]::new)))
-                .toList());
-
-        stack.setItemMeta(meta);
-    }
-
-    public static void resetTranslation(@Nullable ItemStack stack) {
-        if (stack == null) return;
-
-        ItemMeta meta = stack.getItemMeta();
-        if (meta == null) return;
-
-        String old = meta.getPersistentDataContainer()
-                .get(ORIGINAL_NAME_KEY, PersistentDataType.STRING);
-        if (old == null) return;
-
-        meta.getPersistentDataContainer()
-                .remove(ORIGINAL_NAME_KEY);
-
-        meta.setDisplayName(old);
-        meta.setLore(List.of());
-        stack.setItemMeta(meta);
-    }
-
-    public static ItemStack setLore(ItemStack stack, String[] lore) {
-        ItemStack newStack = new ItemStack(stack);
-        ItemMeta meta = newStack.getItemMeta();
-        assert meta != null;
-        meta.setLore(Arrays.stream(lore).map(x -> MessageHandler.api().format(x)).toList());
-        newStack.setItemMeta(meta);
-        return newStack;
-    }
-
-    public static ItemStack createItem(Material material, String name) {
-        ItemStack item = new ItemStack(material, 1);
-        ItemMeta meta = item.getItemMeta();
-
-        assert meta != null;
-        meta.setDisplayName(MessageHandler.api().format(name));
-        item.setItemMeta(meta);
-
-        return item;
     }
 
     public static ItemStack createItem(Material material, int amount, String name, String... lore) {

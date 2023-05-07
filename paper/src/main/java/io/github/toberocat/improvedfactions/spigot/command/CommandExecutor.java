@@ -3,13 +3,11 @@ package io.github.toberocat.improvedfactions.spigot.command;
 import io.github.toberocat.improvedFactions.core.utils.command.Command;
 import io.github.toberocat.improvedFactions.core.utils.command.SubCommand;
 import io.github.toberocat.improvedFactions.core.utils.command.exceptions.CommandException;
-import io.github.toberocat.improvedFactions.core.handler.message.MessageHandler;
 import io.github.toberocat.improvedfactions.spigot.wrapper.BukkitWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,28 +16,19 @@ import java.util.List;
 
 
 public class CommandExecutor extends Command implements TabExecutor {
-    private CommandExecutor(@NotNull PluginCommand command, @NotNull String prefix) {
+    private CommandExecutor(@NotNull PluginCommand command) {
         super(command.getLabel(), command.getLabel());
-        this.prefix = prefix;
 
         command.setExecutor(this);
         command.setTabCompleter(this);
     }
 
-    public static @NotNull CommandExecutor createExecutor(
-            @NotNull FileConfiguration config,
-            @NotNull String command) {
-        return createExecutor(config.getString("prefix", "§8[§eIF§8]§7"), command);
-    }
-
-    public static @NotNull CommandExecutor createExecutor(
-            @NotNull String prefix,
-            @NotNull String command) {
+    public static @NotNull CommandExecutor createExecutor(@NotNull String command) {
         PluginCommand pluginCommand = Bukkit.getPluginCommand(command);
         if (pluginCommand == null)
             throw new RuntimeException("Plugin Command " + command + " is null");
 
-        return new CommandExecutor(pluginCommand, prefix);
+        return new CommandExecutor(pluginCommand);
     }
 
     @Override
@@ -51,10 +40,11 @@ public class CommandExecutor extends Command implements TabExecutor {
         if (sub == null)
             return false;
 
+        io.github.toberocat.improvedFactions.core.player.CommandSender commandSender = BukkitWrapper.wrap(sender);
         try {
-            return sub.routeCall(BukkitWrapper.wrap(sender), args);
+            return sub.routeCall(commandSender, args);
         } catch (CommandException e) {
-            sender.sendMessage(prefix + "§c" + MessageHandler.api().format(e.getMessageId()));
+            commandSender.sendException(e);
             return false;
         }
     }
@@ -65,10 +55,11 @@ public class CommandExecutor extends Command implements TabExecutor {
                                                 @NotNull String label,
                                                 @NotNull String[] args) {
         List<String> unsorted = null;
+        io.github.toberocat.improvedFactions.core.player.CommandSender commandSender = BukkitWrapper.wrap(sender);
         try {
-            unsorted = getTab(sender, args);
+            unsorted = getTab(commandSender, args);
         } catch (CommandException e) {
-            sender.sendMessage(prefix + "§c" + MessageHandler.api().format(e.getMessageId()));
+            commandSender.sendException(e);
         }
 
         if (unsorted == null)
@@ -86,12 +77,13 @@ public class CommandExecutor extends Command implements TabExecutor {
         return results;
     }
 
-    private @Nullable List<String> getTab(@NotNull CommandSender sender, @NotNull String[] args)
+    private @Nullable List<String> getTab(@NotNull io.github.toberocat.improvedFactions.core.player.CommandSender sender,
+                                          @NotNull String[] args)
             throws CommandException {
         if (args.length <= 1) return tabComplete;
 
         SubCommand sub = children.get(args[0]);
 
-        return sub == null ? null : sub.routeTab(BukkitWrapper.wrap(sender), args);
+        return sub == null ? null : sub.routeTab(sender, args);
     }
 }
