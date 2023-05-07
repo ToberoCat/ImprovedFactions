@@ -82,7 +82,8 @@ public class PlaceholderBuilder {
                     } catch (IllegalAccessException | InvocationTargetException e) {
                         throw new RuntimeException(e);
                     }
-                }));
+                }, (o, n) -> o));
+        System.out.println(methods);
         placeholders.put(key, translatable -> {
             String factionPlaceholder = translatable.placeholders().get("player");
             return StringUtils.replace(factionPlaceholder, methods);
