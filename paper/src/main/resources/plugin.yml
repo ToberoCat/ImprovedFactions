@@ -4,10 +4,11 @@ main: io.github.toberocat.improvedfactions.spigot.MainIF
 api-version: 1.16
 authors: [ Tobero ]
 depends:
-  - GuiEngineAPI
+  - GuiEngine
 softdepend:
   - WorldGuard
   - PlaceholderAPI
+  - GuiEngine
 
 commands:
   faction:

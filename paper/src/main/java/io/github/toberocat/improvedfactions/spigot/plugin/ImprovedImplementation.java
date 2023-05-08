@@ -39,12 +39,12 @@ public class ImprovedImplementation implements ImprovedFactions, Logger {
     private final ConsoleCommandSender sender;
 
 
-    public ImprovedImplementation(MainIF plugin) {
+    public ImprovedImplementation(@NotNull MainIF plugin) {
         this.plugin = plugin;
         scheduler = new SpigotScheduler(plugin);
         logger = plugin.getLogger();
         sender = Bukkit.getConsoleSender();
-        guiApi = new GuiApi(new GuiEngineApi("factions", new File(getDataFolder(), "guis")));
+        guiApi = new GuiApi(plugin);
     }
 
     @Override
