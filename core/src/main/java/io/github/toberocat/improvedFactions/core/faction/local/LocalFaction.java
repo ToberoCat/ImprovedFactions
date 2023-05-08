@@ -546,8 +546,8 @@ public class LocalFaction implements Faction<LocalFaction> {
         members.add(player.getUniqueId());
 
         setRank(player, rank);
-        broadcastTranslatable("messages.sender-join", new PlaceholderBuilder()
-                .placeholder("sender", player)
+        broadcastTranslatable("messages.player-join", new PlaceholderBuilder()
+                .placeholder("player", player)
                 .placeholder("rank", rank)
                 .getPlaceholders());
         return true;
