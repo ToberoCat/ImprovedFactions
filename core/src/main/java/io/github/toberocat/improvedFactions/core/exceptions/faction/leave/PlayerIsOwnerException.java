@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class PlayerIsOwnerException extends FactionException {
     public PlayerIsOwnerException(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer player) {
-        super(faction, "exceptions.player-is-owner", new PlaceholderBuilder()
+        super(faction, "exceptions.player-is-owner", () -> new PlaceholderBuilder()
                 .placeholder("faction", faction)
                 .placeholder("player", player)
                 .getPlaceholders());

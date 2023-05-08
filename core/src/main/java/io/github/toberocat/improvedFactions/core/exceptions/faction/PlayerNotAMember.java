@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class PlayerNotAMember extends TranslatableException {
     public PlayerNotAMember(@NotNull OfflineFactionPlayer player, @NotNull Faction<?> faction) {
-        super("exceptions.player-not-a-member", new PlaceholderBuilder()
+        super("exceptions.player-not-a-member", () -> new PlaceholderBuilder()
                 .placeholder("player", player)
                 .placeholder("faction", faction)
                 .getPlaceholders());

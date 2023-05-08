@@ -12,7 +12,7 @@ public interface PlayerOption extends Option {
     @Override
     default void canExecute(@NotNull CommandSender sender, @NotNull String[] args) throws CommandException {
         if (!(sender instanceof FactionPlayer player))
-            throw new CommandException("exceptions.requires-player", new HashMap<>());
+            throw new CommandException("exceptions.requires-player", HashMap::new);
         canExecutePlayer(player, args);
     }
 

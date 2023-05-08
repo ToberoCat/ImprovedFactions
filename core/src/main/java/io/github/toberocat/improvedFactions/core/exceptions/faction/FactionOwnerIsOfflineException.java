@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class FactionOwnerIsOfflineException extends FactionException {
     public FactionOwnerIsOfflineException(@NotNull Faction<?> faction) {
-        super(faction, "exceptions.faction-owner-offline", new PlaceholderBuilder()
+        super(faction, "exceptions.faction-owner-offline", () -> new PlaceholderBuilder()
                 .placeholder("faction", faction)
                 .getPlaceholders());
     }

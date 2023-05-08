@@ -19,7 +19,7 @@ public class MaxArgLengthOption implements Option {
         if (index >= args.length)
             return;
         if (args[index].length() > maxLengthOfArg)
-            throw new CommandException("exceptions.max-arg-length-exceeded", new PlaceholderBuilder()
+            throw new CommandException("exceptions.max-arg-length-exceeded", () -> new PlaceholderBuilder()
                     .placeholder("max-characters", maxLengthOfArg)
                     .placeholder("position", index)
                     .placeholder("provided", args[index].length())

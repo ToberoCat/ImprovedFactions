@@ -15,7 +15,7 @@ public class ArgLengthOption implements Option {
     @Override
     public void canExecute(@NotNull CommandSender sender, @NotNull String[] args) throws CommandException {
         if (args.length != length)
-            throw new CommandException("exceptions.not-enough-arguments", new PlaceholderBuilder()
+            throw new CommandException("exceptions.not-enough-arguments", () -> new PlaceholderBuilder()
                     .placeholder("provided", args.length)
                     .placeholder("required", length)
                     .getPlaceholders());

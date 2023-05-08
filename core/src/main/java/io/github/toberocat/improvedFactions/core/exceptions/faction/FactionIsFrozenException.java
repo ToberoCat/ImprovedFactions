@@ -9,7 +9,7 @@ public class FactionIsFrozenException extends TranslatableException {
     private final String registry;
 
     public FactionIsFrozenException(@NotNull String registry) {
-        super("exceptions.faction-is-frozen", new PlaceholderBuilder()
+        super("exceptions.faction-is-frozen", () -> new PlaceholderBuilder()
                 .placeholder("registry", registry)
                 .getPlaceholders());
         this.registry = registry;

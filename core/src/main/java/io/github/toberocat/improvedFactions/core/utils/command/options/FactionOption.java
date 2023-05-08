@@ -17,7 +17,7 @@ public class FactionOption implements PlayerOption {
     public void canExecutePlayer(@NotNull FactionPlayer sender, @NotNull String[] args) throws CommandException {
         if ((sender.getFactionRegistry() == null) == needFaction)
             throw new CommandException("exceptions." + (needFaction ? "need-faction" : "cant-be-in-faction"),
-                    new PlaceholderBuilder()
+                    () -> new PlaceholderBuilder()
                             .placeholder("player", sender)
                             .getPlaceholders());
     }

@@ -10,7 +10,7 @@ public class PlayerIsAlreadyInFactionException extends FactionException {
     private final OfflineFactionPlayer player;
 
     public PlayerIsAlreadyInFactionException(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer player) {
-        super(faction, "exceptions.player-is-already-in-faction", new PlaceholderBuilder()
+        super(faction, "exceptions.player-is-already-in-faction", () -> new PlaceholderBuilder()
                 .placeholder("faction", faction)
                 .placeholder("player", player)
                 .getPlaceholders());

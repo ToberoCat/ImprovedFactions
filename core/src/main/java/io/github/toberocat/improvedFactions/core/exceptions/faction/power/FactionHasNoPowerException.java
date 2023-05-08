@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class FactionHasNoPowerException extends FactionException {
     public FactionHasNoPowerException(@NotNull Faction<?> faction) {
-        super(faction, "exceptions.faction-has-no-power", new PlaceholderBuilder()
+        super(faction, "exceptions.faction-has-no-power", () -> new PlaceholderBuilder()
                 .placeholder("faction", faction)
                 .getPlaceholders());
     }

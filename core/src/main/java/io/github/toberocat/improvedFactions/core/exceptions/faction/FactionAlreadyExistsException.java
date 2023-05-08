@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class FactionAlreadyExistsException extends FactionException {
     public FactionAlreadyExistsException(@NotNull Faction<?> faction) {
-        super(faction, "exceptions.faction-already-exists", new PlaceholderBuilder()
+        super(faction, "exceptions.faction-already-exists", () -> new PlaceholderBuilder()
                 .placeholder("faction", faction)
                 .getPlaceholders());
     }

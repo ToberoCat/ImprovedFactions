@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class PlayerHasNoFactionException extends TranslatableException {
     public PlayerHasNoFactionException(@NotNull OfflineFactionPlayer player) {
-        super("exceptions.player-has-no-faction", new PlaceholderBuilder()
+        super("exceptions.player-has-no-faction", () -> new PlaceholderBuilder()
                 .placeholder("player", player)
                 .getPlaceholders());
     }

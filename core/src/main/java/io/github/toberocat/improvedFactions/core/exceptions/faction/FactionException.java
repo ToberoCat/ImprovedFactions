@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class FactionException extends TranslatableException {
 
@@ -15,7 +16,7 @@ public class FactionException extends TranslatableException {
 
     public FactionException(@NotNull Faction<?> faction,
                             @NotNull String translationKey,
-                            @NotNull Map<String, Function<Translatable, String>> placeholders) {
+                            @NotNull Supplier<Map<String, Function<Translatable, String>>> placeholders) {
         super(translationKey, placeholders);
         this.faction = faction;
     }

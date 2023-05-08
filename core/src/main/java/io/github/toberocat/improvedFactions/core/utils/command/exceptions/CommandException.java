@@ -5,13 +5,15 @@ import io.github.toberocat.improvedFactions.core.translator.Translatable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 
 public class CommandException extends TranslatableException {
 
     public CommandException(@NotNull String translationKey,
-                            @NotNull Map<String, Function<Translatable, String>> placeholders) {
+                            @NotNull Supplier<Map<String, Function<Translatable, String>>> placeholders) {
         super(translationKey, placeholders);
     }
 }

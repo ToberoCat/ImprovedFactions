@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class FactionHasntInvitedException extends FactionException {
     public FactionHasntInvitedException(@NotNull Faction<?> inviter, @NotNull Faction<?> invited) {
-        super(invited, "exceptions.faction-hasnt-invited", new PlaceholderBuilder()
+        super(invited, "exceptions.faction-hasnt-invited", () -> new PlaceholderBuilder()
                 .placeholder("inviter", inviter)
                 .placeholder("invited", invited)
                 .getPlaceholders());

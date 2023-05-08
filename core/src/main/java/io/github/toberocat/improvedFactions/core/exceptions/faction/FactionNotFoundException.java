@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class FactionNotFoundException extends TranslatableException {
     public FactionNotFoundException(@NotNull String registry) {
-        super("exceptions.faction-not-found", new PlaceholderBuilder()
+        super("exceptions.faction-not-found", () -> new PlaceholderBuilder()
                 .placeholder("registry", registry)
                 .getPlaceholders());
     }

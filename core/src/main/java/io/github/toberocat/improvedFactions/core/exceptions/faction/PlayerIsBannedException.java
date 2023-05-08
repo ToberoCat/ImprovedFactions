@@ -10,7 +10,7 @@ public class PlayerIsBannedException extends FactionException {
     private final OfflineFactionPlayer player;
 
     public PlayerIsBannedException(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer player) {
-        super(faction, "exceptions.player-is-banned", new PlaceholderBuilder()
+        super(faction, "exceptions.player-is-banned", () -> new PlaceholderBuilder()
                 .placeholder("faction", faction)
                 .getPlaceholders());
         this.player = player;

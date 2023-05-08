@@ -13,7 +13,7 @@ import java.util.UUID;
  */
 public class CooldownException extends CommandException {
     public CooldownException(@NotNull CooldownManager manager, @NotNull UUID target) {
-        super("exceptions.cooldown", new PlaceholderBuilder()
+        super("exceptions.cooldown", () -> new PlaceholderBuilder()
                 .placeholder("left", manager.getLeftTime(target))
                 .getPlaceholders());
     }

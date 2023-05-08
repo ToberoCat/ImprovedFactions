@@ -9,7 +9,7 @@ public class FactionDoesntOwnChunkException extends FactionException {
 
     public FactionDoesntOwnChunkException(@NotNull Faction<?> faction,
                                           @NotNull Chunk chunk) {
-        super(faction, "exceptions.faction-doesnt-own-chunk", new PlaceholderBuilder()
+        super(faction, "exceptions.faction-doesnt-own-chunk", () -> new PlaceholderBuilder()
                 .placeholder("faction", faction)
                 .placeholder("chunk", chunk)
                 .getPlaceholders());

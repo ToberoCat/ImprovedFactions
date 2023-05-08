@@ -14,7 +14,7 @@ public class FactionNotInStorage extends TranslatableException {
     private final String registry;
 
     public FactionNotInStorage(@NotNull String registry, @NotNull StorageType type) {
-        super("exceptions.faction-not-stored", new PlaceholderBuilder()
+        super("exceptions.faction-not-stored", () -> new PlaceholderBuilder()
                 .placeholder("registry", registry)
                 .placeholder("type", type.name())
                 .getPlaceholders());

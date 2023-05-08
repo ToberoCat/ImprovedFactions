@@ -12,7 +12,7 @@ public class IllegalFactionNamingException extends FactionException {
     private final @Nullable String name;
 
     public IllegalFactionNamingException(@NotNull Faction<?> faction, @Nullable String name) {
-        super(faction, "exceptions.illegal-faction-name", new PlaceholderBuilder()
+        super(faction, "exceptions.illegal-faction-name", () -> new PlaceholderBuilder()
                 .placeholder("name", Objects.requireNonNullElse(name, "name"))
                 .getPlaceholders());
         this.name = name;
