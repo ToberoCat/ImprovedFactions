@@ -35,8 +35,7 @@ public class CreateFactionCommand extends PlayerSubCommand {
                             .placeholder("faction", faction)
                     .getPlaceholders());
         } catch (TranslatableException e) {
-            player.sendMessage(e.getTranslationKey(), e.getPlaceholders());
-            return false;
+            throw new CommandException(e);
         }
         return true;
     }

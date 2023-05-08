@@ -3,6 +3,7 @@ package io.github.toberocat.improvedFactions.core.utils.command;
 import io.github.toberocat.improvedFactions.core.player.CommandSender;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.utils.command.exceptions.CommandException;
+import io.github.toberocat.improvedFactions.core.utils.command.exceptions.CommandForPlayersException;
 import io.github.toberocat.improvedFactions.core.utils.command.options.Option;
 import io.github.toberocat.improvedFactions.core.utils.command.options.Options;
 import org.jetbrains.annotations.NotNull;
@@ -29,12 +30,16 @@ public abstract class PlayerSubCommand extends SubCommand {
 
     @Override
     protected boolean handleCommand(@NotNull CommandSender sender, @NotNull String[] args) throws CommandException {
-        return false;
+        if (!(sender instanceof FactionPlayer player))
+            throw new CommandForPlayersException();
+        return handle(player, args);
     }
 
     @Override
     protected @Nullable List<String> getTabList(@NotNull CommandSender sender, @NotNull String[] args) throws CommandException {
-        return null;
+        if (!(sender instanceof FactionPlayer player))
+            throw new CommandForPlayersException();
+        return getTab(player, args);
     }
 
     protected abstract boolean handle(@NotNull FactionPlayer player, @NotNull String[] args)
