@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedFactions.core.handler;
 
 import io.github.toberocat.improvedFactions.core.exceptions.NoImplementationProvidedException;
+import io.github.toberocat.improvedFactions.core.gui.GuiApi;
 import io.github.toberocat.improvedFactions.core.handler.component.PlayerLister;
 import io.github.toberocat.improvedFactions.core.handler.component.Scheduler;
 import io.github.toberocat.improvedFactions.core.player.ConsoleCommandSender;
@@ -68,5 +69,7 @@ public interface ImprovedFactions {
      * @return The console sender for this server
      */
     @NotNull ConsoleCommandSender getConsoleSender();
+
+    @NotNull GuiApi getGuis();
 
 }
