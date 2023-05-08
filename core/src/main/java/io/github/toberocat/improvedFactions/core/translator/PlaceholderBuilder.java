@@ -22,7 +22,7 @@ public class PlaceholderBuilder {
     }
 
     public @NotNull PlaceholderBuilder placeholder(@NotNull String key, int value) {
-        return placeholder(key, String.valueOf(value));
+        return placeholder("{" + key + "}", String.valueOf(value));
     }
 
     public @NotNull PlaceholderBuilder placeholder(@NotNull String key, @NotNull Rank value) {

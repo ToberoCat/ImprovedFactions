@@ -16,10 +16,11 @@ public class Options {
 
     static {
         addFactory((config, options) -> {
-            CooldownOption cooldownManager = new CooldownOption(CooldownManager.createManager(
+            CooldownManager cooldownManager = CooldownManager.createManager(
                     config.getEnum("cooldown-unit", TimeUnit.class).orElse(TimeUnit.SECONDS),
-                    config.getInt("cooldown", 0)));
-            options.cmdOpt(cooldownManager).tabOpt(cooldownManager);
+                    config.getInt("cooldown", 0));
+            options.cmdOpt(new CooldownOption(cooldownManager))
+                    .tabOpt(new CooldownTabOption(cooldownManager, config.getBool("cooldown-hide", false)));
         });
     }
 
@@ -55,6 +56,6 @@ public class Options {
     }
 
     public @NotNull Option[] getTabOptions() {
-        return command.toArray(Option[]::new);
+        return tab.toArray(Option[]::new);
     }
 }

@@ -1,3 +1,4 @@
 create:
-  cooldown: 10
+  cooldown: 10 # The chosen unit the player will be put in cooldown
   cooldown-unit: "SECONDS" # Options: NANOSECONDS, MICROSECONDS, MILLISECONDS, SECONDS, MINUTES, HOURS, DAYS
+  cooldown-hide: false # Determine if the command should get hidden from the tab list when you're in cooldown

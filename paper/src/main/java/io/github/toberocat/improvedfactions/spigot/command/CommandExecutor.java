@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -54,6 +55,7 @@ public class CommandExecutor extends Command implements TabExecutor {
                                                 @NotNull org.bukkit.command.Command command,
                                                 @NotNull String label,
                                                 @NotNull String[] args) {
+        System.out.println("Calling");
         List<String> unsorted = null;
         io.github.toberocat.improvedFactions.core.player.CommandSender commandSender = BukkitWrapper.wrap(sender);
         try {
@@ -63,7 +65,7 @@ public class CommandExecutor extends Command implements TabExecutor {
         }
 
         if (unsorted == null)
-            return null;
+            return Collections.emptyList();
 
         List<String> results = new ArrayList<>();
         for (String arg : args) {

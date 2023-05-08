@@ -128,7 +128,9 @@ public class SpigotFactionPlayer implements FactionPlayer {
 
     @Override
     public void sendMessage(@NotNull String query, @NotNull Map<String, Function<Translatable, String>> placeholders) {
-        player.sendMessage(getPrefix() + ComponentUtility.create(getMessage(query, placeholders)));
+        player.sendMessage(getPrefix()
+                .append(Component.space())
+                .append(ComponentUtility.create(getMessage(query, placeholders))));
     }
 
     @Override
@@ -196,7 +198,7 @@ public class SpigotFactionPlayer implements FactionPlayer {
         sendMessage(e.getTranslationKey(), e.getPlaceholders());
     }
 
-    private @Nullable String getPrefix() {
-        return translation.getMessage(PREFIX_QUERY, new HashMap<>());
+    private @NotNull Component getPrefix() {
+        return ComponentUtility.create(translation.getMessage(PREFIX_QUERY, new HashMap<>()));
     }
 }

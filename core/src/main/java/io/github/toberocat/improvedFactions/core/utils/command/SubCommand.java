@@ -64,7 +64,6 @@ public abstract class SubCommand extends Command {
             return null;
         if (args.length == 0) return childrenTabList(sender, args);
 
-        System.out.println("outputtin ");
         String[] newArgs = new String[args.length - 1];
         System.arraycopy(args, 1, newArgs, 0, newArgs.length);
 
@@ -80,14 +79,14 @@ public abstract class SubCommand extends Command {
     }
 
     private @Nullable List<String> getTabWithOptions(@NotNull CommandSender sender, @NotNull String[] args) throws CommandException {
-        for (Option option : onCommandOptions)
+        System.out.println("Calling tab list");
+        for (Option option : onTabOptions)
             option.canExecute(sender, args);
         return getTabList(sender, args);
     }
 
     @Override
     public boolean showInTab(@NotNull CommandSender sender, @NotNull String[] args) {
-        System.out.println(onTabOptions.length);
         return Arrays.stream(onTabOptions).allMatch(x -> x.show(sender, args));
     }
 

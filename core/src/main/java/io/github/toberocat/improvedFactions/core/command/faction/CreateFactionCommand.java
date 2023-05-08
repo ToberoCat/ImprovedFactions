@@ -22,9 +22,9 @@ public class CreateFactionCommand extends PlayerSubCommand {
 
     public CreateFactionCommand() {
         super("create", Options.getFromConfig("create")
-                .opt(new FactionOption(true))
-                .opt(new ArgLengthOption(1))
-                .opt(new MaxArgLengthOption(0, Faction.MAX_FACTION_DISPLAY_LENGTH)));
+                .opt(new FactionOption(false))
+                .opt(new ArgLengthOption(1, 20 * 5))
+                .opt(new MaxArgLengthOption(0, Faction.MAX_FACTION_DISPLAY_LENGTH, 5 * 20)));
     }
 
     @Override

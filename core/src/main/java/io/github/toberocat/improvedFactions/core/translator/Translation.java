@@ -71,12 +71,14 @@ public record Translation(@NotNull Locale locale) {
             Logger.api().logWarning("Couldn't find " + locale + " as lang file");
             return null;
         }
-        return StringUtils.replace(translatable.translations().get(query),
-                transformPlaceholders(translatable, placeholders));
+        Map<String, String> transformPlaceholders = transformPlaceholders(translatable, placeholders);
+        System.out.println(query + "; Placeholders: " + transformPlaceholders);
+        return StringUtils.replace(translatable.translations().get(query), transformPlaceholders);
     }
 
     public String[] getMessages(@NotNull String query,
                                 @NotNull Map<String, Function<Translatable, String>> placeholders) {
+        System.out.println("BATCH " + query);
         Translatable translatable = TRANSLATABLE_MAP.computeIfAbsent(locale.getCountry(),
                 Translation::readFile);
         if (translatable == null) {

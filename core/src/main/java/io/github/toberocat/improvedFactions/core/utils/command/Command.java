@@ -57,7 +57,6 @@ public abstract class Command {
     }
 
     public @NotNull List<String> childrenTabList(@NotNull CommandSender sender, @NotNull String[] args) {
-        System.out.println("chidlren: " + children.size());
         return children
                 .values()
                 .stream()
