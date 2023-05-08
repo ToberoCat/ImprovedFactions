@@ -3,6 +3,7 @@ package io.github.toberocat.improvedFactions.core.command.faction;
 import io.github.toberocat.improvedFactions.core.exceptions.TranslatableException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
+import io.github.toberocat.improvedFactions.core.hints.Hints;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.PlaceholderBuilder;
 import io.github.toberocat.improvedFactions.core.utils.command.PlayerSubCommand;
@@ -34,6 +35,7 @@ public class CreateFactionCommand extends PlayerSubCommand {
             player.sendMessage("commands.create.created-faction", new PlaceholderBuilder()
                             .placeholder("faction", faction)
                     .getPlaceholders());
+            Hints.playHint(player, "created-faction");
         } catch (TranslatableException e) {
             throw new CommandException(e);
         }
