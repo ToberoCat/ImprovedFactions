@@ -1,6 +1,9 @@
 package io.github.toberocat.improvedFactions.core.command.faction;
 
+import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.player.CommandSender;
+import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.utils.command.PlayerSubCommand;
 import io.github.toberocat.improvedFactions.core.utils.command.SubCommand;
 import io.github.toberocat.improvedFactions.core.utils.command.exceptions.CommandException;
 import io.github.toberocat.improvedFactions.core.utils.command.options.ArgLengthOption;
@@ -11,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class SettingFactionCommand extends SubCommand {
+public class SettingFactionCommand extends PlayerSubCommand {
     public SettingFactionCommand() {
         super("settings", Options.getFromConfig("settings")
                 .opt(new ArgLengthOption(0, 20 * 5))
@@ -19,14 +22,13 @@ public class SettingFactionCommand extends SubCommand {
     }
 
     @Override
-    protected boolean handleCommand(@NotNull CommandSender sender, @NotNull String[] args)
-            throws CommandException {
-        return false;
+    protected boolean handle(@NotNull FactionPlayer player, @NotNull String[] args) throws CommandException {
+        ImprovedFactions.api().getGuis().openGui(player, "settings");
+        return true;
     }
 
     @Override
-    protected @Nullable List<String> getTabList(@NotNull CommandSender sender, @NotNull String[] args)
-            throws CommandException {
+    protected @Nullable List<String> getTab(@NotNull FactionPlayer player, @NotNull String[] args) throws CommandException {
         return null;
     }
 }
