@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedfactions.spigot.plugin;
 
+import io.github.toberocat.guiengine.api.GuiEngineApi;
 import io.github.toberocat.improvedFactions.core.exceptions.TranslatableException;
 import io.github.toberocat.improvedFactions.core.exceptions.TranslatableRuntimeException;
 import io.github.toberocat.improvedFactions.core.handler.ConfigFile;
@@ -10,6 +11,7 @@ import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
+import io.github.toberocat.improvedfactions.spigot.handler.GuiApi;
 import io.github.toberocat.improvedfactions.spigot.handler.SpigotConfigFile;
 import io.github.toberocat.improvedfactions.spigot.player.SpigotFactionPlayer;
 import io.github.toberocat.improvedfactions.spigot.player.SpigotOfflineFactionPlayer;
@@ -30,6 +32,7 @@ import java.util.stream.Stream;
 
 public class ImprovedImplementation implements ImprovedFactions, Logger {
 
+    public final GuiApi guiApi;
     private final MainIF plugin;
     private final Scheduler scheduler;
     private final java.util.logging.Logger logger;
@@ -41,6 +44,7 @@ public class ImprovedImplementation implements ImprovedFactions, Logger {
         scheduler = new SpigotScheduler(plugin);
         logger = plugin.getLogger();
         sender = Bukkit.getConsoleSender();
+        guiApi = new GuiApi(new GuiEngineApi("factions", new File(getDataFolder(), "guis")));
     }
 
     @Override
@@ -218,6 +222,11 @@ public class ImprovedImplementation implements ImprovedFactions, Logger {
                 return Bukkit.getConsoleSender().getName();
             }
         };
+    }
+
+    @Override
+    public @NotNull io.github.toberocat.improvedFactions.core.gui.GuiApi getGuis() {
+        return guiApi;
     }
 
     @Override
