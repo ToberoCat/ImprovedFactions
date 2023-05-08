@@ -18,5 +18,5 @@ public interface SoundHandler {
         return implementation;
     }
 
-    void playSound(@NotNull FactionPlayer<?> player, @NotNull String sound, float volume, float pitch);
+    void playSound(@NotNull FactionPlayer player, @NotNull String sound, float volume, float pitch);
 }

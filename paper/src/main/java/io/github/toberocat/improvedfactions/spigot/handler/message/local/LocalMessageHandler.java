@@ -1,8 +1,7 @@
 package io.github.toberocat.improvedfactions.spigot.handler.message.local;
 
-import io.github.toberocat.improvedFactions.core.translator.Placeholder;
+import io.github.toberocat.improvedFactions.core.translator.Translatable;
 import io.github.toberocat.improvedFactions.core.translator.Translation;
-import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
@@ -16,9 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Function;
 
 import static io.github.toberocat.improvedfactions.spigot.player.SpigotFactionPlayer.PREFIX_QUERY;
@@ -42,9 +39,8 @@ public class LocalMessageHandler extends SpigotEventListener implements MessageH
     private void playerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        getMessages(player.getUniqueId()).forEach(m -> {
-                player.sendMessage(MiniMessage.miniMessage().deserialize(m.message));
-        });
+        getMessages(player.getUniqueId()).forEach(m -> player.sendMessage(MiniMessage.miniMessage()
+                .deserialize(m.message)));
     }
 
     private @NotNull LocalMessages getMessages(@NotNull UUID id) {
@@ -68,21 +64,22 @@ public class LocalMessageHandler extends SpigotEventListener implements MessageH
 
     @Override
     public void sendMessage(@NotNull UUID player, @NotNull String message) {
-        addMessage(player, translation.getMessage(PREFIX_QUERY) + message);
+        addMessage(player, translation.getMessage(PREFIX_QUERY, new HashMap<>()) + message);
     }
 
     @Override
-    public void sendMessage(@NotNull UUID player, @NotNull Function<Translatable, String> query, Placeholder... placeholders) {
-        String msg = translation.getMessage(query);
+    public void sendMessage(@NotNull UUID player, @NotNull String query,
+                            @NotNull Map<String, Function<Translatable, String>> placeholders) {
+        String msg = translation.getMessage(query, placeholders);
         if (msg != null)
-            addMessage(player, translation.getMessage(PREFIX_QUERY) + msg);
+            addMessage(player, msg);
     }
 
     protected static class LocalMessages extends ArrayList<Message> {
 
     }
 
-    protected static record Message(@NotNull String message, @Nullable String run) {
+    protected record Message(@NotNull String message, @Nullable String run) {
 
     }
 }

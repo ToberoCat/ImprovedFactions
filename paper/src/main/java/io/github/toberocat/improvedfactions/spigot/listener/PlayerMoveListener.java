@@ -1,6 +1,5 @@
 package io.github.toberocat.improvedfactions.spigot.listener;
 
-import io.github.toberocat.improvedFactions.core.command.component.AutoAreaCommand;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.listener.MoveListener;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
@@ -16,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 public class PlayerMoveListener extends SpigotEventListener {
 
     private final MoveListener moveListener = new MoveListener();
-    private final ImprovedFactions<?> api = ImprovedFactions.api();
+    private final ImprovedFactions api = ImprovedFactions.api();
 
     public PlayerMoveListener(@NotNull MainIF plugin) {
         super(plugin);
@@ -26,12 +25,12 @@ public class PlayerMoveListener extends SpigotEventListener {
     private void move(PlayerMoveEvent event) {
         if (event.getFrom().equals(event.getTo())) return;
 
-        FactionPlayer<?> player = api.getPlayer(event.getPlayer().getUniqueId());
+        FactionPlayer player = api.getPlayer(event.getPlayer().getUniqueId());
         if (player == null) return;
 
         if (event.getFrom().getChunk().equals(event.getTo().getChunk())) return;
 
-        AutoAreaCommand.move(player);
+        //AutoAreaCommand.move(player); ToDo implement auto area command
 
         try {
             moveListener.move(player, chunkFromChunk(event.getFrom()), chunkFromChunk(event.getTo()));
@@ -39,13 +38,13 @@ public class PlayerMoveListener extends SpigotEventListener {
         }
     }
 
-    private @NotNull Chunk<?> chunkFromChunk(@Nullable Location location) throws Exception {
+    private @NotNull Chunk chunkFromChunk(@Nullable Location location) throws Exception {
         if (location == null) throw new Exception();
 
         org.bukkit.World spigotWorld = location.getWorld();
         if (spigotWorld == null) throw new Exception();
 
-        World<?> world = api.getWorld(spigotWorld.getName());
+        World world = api.getWorld(spigotWorld.getName());
         if (world == null) throw new Exception();
 
         return world.getChunkAt(location.getChunk().getX(), location.getChunk().getZ());

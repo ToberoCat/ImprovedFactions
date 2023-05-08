@@ -37,7 +37,7 @@ public class PlaceholderFormatter {
                 .orElse(null);
     }
 
-    public static @NotNull String parse(OfflineFactionPlayer<?> player, @NotNull String text) {
+    public static @NotNull String parse(OfflineFactionPlayer player, @NotNull String text) {
         String[] parts = text.split("%");
         for (int i = 0; i < parts.length; i += 2) {
             if (i + 1 < parts.length) {

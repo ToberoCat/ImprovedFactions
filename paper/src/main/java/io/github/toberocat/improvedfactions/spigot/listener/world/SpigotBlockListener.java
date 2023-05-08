@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 public class SpigotBlockListener extends SpigotEventListener {
 
     private final BlockListener blockListener;
-    private final ImprovedFactions<?> factions;
+    private final ImprovedFactions factions;
 
     public SpigotBlockListener(@NotNull MainIF plugin) {
         super(plugin);
@@ -26,10 +26,10 @@ public class SpigotBlockListener extends SpigotEventListener {
 
     @EventHandler
     private void breakBlock(BlockBreakEvent event) {
-        FactionPlayer<?> player = factions.getPlayer(event.getPlayer().getUniqueId());
+        FactionPlayer player = factions.getPlayer(event.getPlayer().getUniqueId());
         if (player == null) return;
 
-        World<?> world = factions.getWorld(event.getBlock().getWorld().getName());
+        World world = factions.getWorld(event.getBlock().getWorld().getName());
         if (world == null) return;
 
         Chunk chunk = event.getBlock().getChunk();
@@ -45,10 +45,10 @@ public class SpigotBlockListener extends SpigotEventListener {
 
     @EventHandler
     private void placeBlock(BlockPlaceEvent event) {
-        FactionPlayer<?> player = factions.getPlayer(event.getPlayer().getUniqueId());
+        FactionPlayer player = factions.getPlayer(event.getPlayer().getUniqueId());
         if (player == null) return;
 
-        World<?> world = factions.getWorld(event.getBlock().getWorld().getName());
+        World world = factions.getWorld(event.getBlock().getWorld().getName());
         if (world == null) return;
 
         Chunk chunk = event.getBlock().getChunk();

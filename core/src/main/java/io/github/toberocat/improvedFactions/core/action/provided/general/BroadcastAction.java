@@ -20,7 +20,7 @@ public class BroadcastAction extends Action {
     }
 
     @Override
-    public void run(@NotNull FactionPlayer<?> player, @NotNull String provided) {
+    public void run(@NotNull FactionPlayer player, @NotNull String provided) {
         ImprovedFactions.api().broadcast(MessageHandler.api().format(player, provided));
     }
 }

@@ -12,7 +12,7 @@ public class PlayerCommandAction extends Action {
     }
 
     @Override
-    public void run(@NotNull FactionPlayer<?> player, @NotNull String provided) {
+    public void run(@NotNull FactionPlayer player, @NotNull String provided) {
         player.runCommand(provided);
     }
 }

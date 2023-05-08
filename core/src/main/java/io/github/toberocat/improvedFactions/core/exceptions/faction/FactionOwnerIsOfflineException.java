@@ -1,18 +1,13 @@
 package io.github.toberocat.improvedFactions.core.exceptions.faction;
 
 import io.github.toberocat.improvedFactions.core.faction.Faction;
+import io.github.toberocat.improvedFactions.core.translator.PlaceholderBuilder;
 import org.jetbrains.annotations.NotNull;
 
-public class FactionOwnerIsOfflineException extends Exception {
-
-    private final Faction<?> faction;
-
+public class FactionOwnerIsOfflineException extends FactionException {
     public FactionOwnerIsOfflineException(@NotNull Faction<?> faction) {
-        super("Owner of " + faction.getRegistry() + " is offline");
-        this.faction = faction;
-    }
-
-    public Faction<?> getFaction() {
-        return faction;
+        super(faction, "exceptions.faction-owner-offline", () -> new PlaceholderBuilder()
+                .placeholder("faction", faction)
+                .getPlaceholders());
     }
 }

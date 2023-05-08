@@ -1,19 +1,23 @@
 package io.github.toberocat.improvedFactions.core.player;
 
+import io.github.toberocat.improvedFactions.core.exceptions.TranslatableException;
+import io.github.toberocat.improvedFactions.core.exceptions.TranslatableRuntimeException;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionIsFrozenException;
 import io.github.toberocat.improvedFactions.core.item.ItemStack;
 import io.github.toberocat.improvedFactions.core.location.Location;
-import io.github.toberocat.improvedFactions.core.translator.Placeholder;
-import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
+import io.github.toberocat.improvedFactions.core.translator.Translatable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
-public interface FactionPlayer<P> extends CommandSender, OfflineFactionPlayer<P> {
+public interface FactionPlayer extends CommandSender, OfflineFactionPlayer {
 
-    @Nullable String getMessage(@NotNull Function<Translatable, String> query, Placeholder... placeholders);
+    @Nullable String getMessage(@NotNull String query, @NotNull Map<String, Function<Translatable, String>> placeholders);
 
-    @Nullable String[] getMessageBatch(@NotNull Function<Translatable, String[]> query, Placeholder... placeholders);
+    @Nullable String[] getMessages(@NotNull String query, @NotNull Map<String, Function<Translatable, String>> placeholders);
 
     @NotNull Location getLocation();
 
@@ -21,13 +25,14 @@ public interface FactionPlayer<P> extends CommandSender, OfflineFactionPlayer<P>
 
     @NotNull ItemStack getMainItem();
 
-    void sendTitle(@NotNull String title, @NotNull String subtitle);
+    void sendTitle(@NotNull String title,
+                   @NotNull String subtitle);
 
-    void sendTitle(@NotNull Function<Translatable, String> title);
+    void sendTitle(@NotNull String titleQuery,
+                   @NotNull String subtitleQuery,
+                   @NotNull Map<String, Function<Translatable, String>> placeholders);
 
-    void sendActionBar(@NotNull String actionbar);
-
-    void sendActionBar(@NotNull Function<Translatable, String> actionbar);
+    void sendActionBar(@NotNull String actionbarQuery, @NotNull Map<String, Function<Translatable, String>> placeholders);
 
     void closeGuis();
 }

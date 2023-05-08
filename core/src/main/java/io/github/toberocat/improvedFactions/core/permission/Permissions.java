@@ -60,7 +60,7 @@ public interface Permissions {
      * @param player The sender to check the permission for.
      * @return If the sender has the specified permission
      */
-    default boolean hasPermission(@NotNull Permission permission, @NotNull OfflineFactionPlayer<?> player)
+    default boolean hasPermission(@NotNull Permission permission, @NotNull OfflineFactionPlayer player)
             throws FactionNotInStorage, PlayerHasNoFactionException {
         return hasPermission(permission, player.getRank());
     }

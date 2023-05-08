@@ -54,6 +54,9 @@
 - [ ] Finish icon editor
 - [ ] Add description command
 
+# Glitches
+- [ ] Fix issue with start balance. People can create factions, transfer money to their own accounts, delete them.
+
 # Placeholder (Implemented)
 - %faction_maxpower%
 - %faction_currentpower%

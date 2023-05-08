@@ -1,5 +1,7 @@
 package io.github.toberocat.improvedfactions.spigot.player;
 
+import io.github.toberocat.improvedFactions.core.exceptions.TranslatableException;
+import io.github.toberocat.improvedFactions.core.exceptions.TranslatableRuntimeException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
@@ -9,24 +11,27 @@ import io.github.toberocat.improvedFactions.core.location.Location;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.persistent.component.PersistentWrapper;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.core.translator.Placeholder;
+import io.github.toberocat.improvedFactions.core.translator.Translatable;
 import io.github.toberocat.improvedFactions.core.translator.Translation;
-import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
-import io.github.toberocat.improvedFactions.core.utils.StringUtils;
 import io.github.toberocat.improvedfactions.spigot.item.SpigotItemStack;
+import io.github.toberocat.improvedfactions.spigot.utils.ComponentUtility;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.kyori.adventure.title.Title;
+import net.kyori.adventure.title.TitlePart;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Function;
 
-public class SpigotFactionPlayer implements FactionPlayer<Player> {
-    public static final Function<Translatable, String> PREFIX_QUERY = Translatable::getPrefix;
+public class SpigotFactionPlayer implements FactionPlayer {
+    public static final @NotNull String PREFIX_QUERY = "prefix";
 
     private final Player player;
     private final Translation translation;
@@ -39,14 +44,15 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
     }
 
     @Override
-    public @Nullable String getMessage(@NotNull Function<Translatable, String> query, Placeholder... placeholders) {
-        return StringUtils.replaceAll(translation.getMessage(query), placeholders);
+    public @Nullable String getMessage(@NotNull String query,
+                                       @NotNull Map<String, Function<Translatable, String>> placeholders) {
+        return translation.getMessage(query, placeholders);
     }
 
     @Override
-    public @Nullable String[] getMessageBatch(@NotNull Function<Translatable, String[]> query,
-                                              Placeholder... placeholders) {
-        return StringUtils.replaceAll(translation.getMessages(query), placeholders);
+    public @Nullable String[] getMessages(@NotNull String query,
+                                          @NotNull Map<String, Function<Translatable, String>> placeholders) {
+        return translation.getMessages(query, placeholders);
     }
 
     @Override
@@ -73,23 +79,24 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
     }
 
     @Override
-    public void sendTitle(@NotNull Function<Translatable, String> query) {
-        String title = getMessage(query);
-        player.sendTitle(title, "", 10, 40, 10);
+    public void sendTitle(@NotNull String titleQuery,
+                          @NotNull String subtitleQuery,
+                          @NotNull Map<String, Function<Translatable, String>> placeholders) {
+        Component title = ComponentUtility.create(getMessage(titleQuery, placeholders));
+        Component subtitle = ComponentUtility.create(getMessage(subtitleQuery, placeholders));
+
+        player.sendTitlePart(TitlePart.TIMES, Title.Times.times(
+                Duration.ofMillis(500),
+                Duration.ofSeconds(2),
+                Duration.ofMillis(500)
+        ));
+        player.showTitle(Title.title(title, subtitle));
     }
 
     @Override
-    public void sendActionBar(@NotNull String actionbar) {
-        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(actionbar));
-    }
-
-
-    @Override
-    public void sendActionBar(@NotNull Function<Translatable, String> query) {
-        String actionbar = getMessage(query);
-        if (actionbar == null) return;
-
-        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(actionbar));
+    public void sendActionBar(@NotNull String actionbarQuery,
+                              @NotNull Map<String, Function<Translatable, String>> placeholders) {
+        player.sendActionBar(ComponentUtility.create(getMessage(actionbarQuery, placeholders)));
     }
 
     @Override
@@ -120,20 +127,14 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
     }
 
     @Override
-    public void sendTranslatable(@NotNull Function<Translatable, String> query,
-                                 Placeholder... placeholders) {
-        sendMessage(query, placeholders);
-    }
-
-    public void sendMessage(@NotNull Function<Translatable, String> query,
-                            Placeholder... placeholders) {
-        String msg = getMessage(query, placeholders);
-        if (msg == null) return;
-        player.sendMessage(MiniMessage.miniMessage().deserialize(getPrefix() + msg));
+    public void sendMessage(@NotNull String query, @NotNull Map<String, Function<Translatable, String>> placeholders) {
+        player.sendMessage(getPrefix()
+                .append(Component.space())
+                .append(ComponentUtility.create(getMessage(query, placeholders))));
     }
 
     @Override
-    public @Nullable FactionPlayer<?> getPlayer() {
+    public @Nullable FactionPlayer getPlayer() {
         return this;
     }
 
@@ -168,6 +169,16 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
     }
 
     @Override
+    public long getPower() {
+        return 0; // ToDo: Implement player power
+    }
+
+    @Override
+    public long getMaxPower() {
+        return 0; // ToDo: Implement player power
+    }
+
+    @Override
     public void runCommand(@NotNull String command) {
         player.performCommand(command);
     }
@@ -177,7 +188,17 @@ public class SpigotFactionPlayer implements FactionPlayer<Player> {
         return player.hasPermission(permission);
     }
 
-    private @Nullable String getPrefix() {
-        return translation.getMessage(PREFIX_QUERY);
+    @Override
+    public void sendException(@NotNull TranslatableException e) {
+        sendMessage(e.getTranslationKey(), e.getPlaceholders());
+    }
+
+    @Override
+    public void sendException(@NotNull TranslatableRuntimeException e) {
+        sendMessage(e.getTranslationKey(), e.getPlaceholders());
+    }
+
+    private @NotNull Component getPrefix() {
+        return ComponentUtility.create(translation.getMessage(PREFIX_QUERY, new HashMap<>()));
     }
 }

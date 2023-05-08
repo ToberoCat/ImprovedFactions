@@ -36,7 +36,7 @@ public final class PersistentInvites {
                 ? invites : null;
     }
 
-    public static @NotNull PersistentReceivedInvite removeInvite(@NotNull OfflineFactionPlayer<?> receiver,
+    public static @NotNull PersistentReceivedInvite removeInvite(@NotNull OfflineFactionPlayer receiver,
                                     @NotNull String registry)
             throws PlayerHasntBeenInvitedException, PlayerNotFoundException {
         PersistentWrapper receiverWrapper = receiver.getDataContainer();
@@ -47,7 +47,7 @@ public final class PersistentInvites {
         if (invite == null) throw new PlayerHasntBeenInvitedException();
 
         receiverWrapper.set(PersistentHandler.RECEIVED_INVITE_KEY, invites);
-        OfflineFactionPlayer<?> sender = ImprovedFactions.api().getOfflinePlayer(invite.sender);
+        OfflineFactionPlayer sender = ImprovedFactions.api().getOfflinePlayer(invite.sender);
         if (sender == null) throw new PlayerNotFoundException();
 
         PersistentWrapper senderData = sender.getDataContainer();

@@ -34,7 +34,7 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
     }
 
     @Override
-    public @NotNull LocalFaction create(@NotNull String display, @NotNull FactionPlayer<?> owner)
+    public @NotNull LocalFaction create(@NotNull String display, @NotNull FactionPlayer owner)
             throws FactionIsFrozenException,
             PlayerIsAlreadyInFactionException,
             PlayerIsBannedException, IllegalFactionNamingException, FactionAlreadyExistsException {

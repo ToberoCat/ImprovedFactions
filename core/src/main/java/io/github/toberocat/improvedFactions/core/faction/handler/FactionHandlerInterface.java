@@ -9,7 +9,9 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public interface FactionHandlerInterface<F extends Faction<F>> {
-    @NotNull F create(@NotNull String display, @NotNull FactionPlayer<?> owner) throws IllegalFactionNamingException, FactionAlreadyExistsException, FactionIsFrozenException, PlayerIsAlreadyInFactionException, PlayerIsBannedException;
+    @NotNull F create(@NotNull String display, @NotNull FactionPlayer owner) throws IllegalFactionNamingException,
+            FactionAlreadyExistsException, FactionIsFrozenException, PlayerIsAlreadyInFactionException,
+            PlayerIsBannedException;
 
     @NotNull F load(@NotNull String registry) throws FactionNotInStorage;
 

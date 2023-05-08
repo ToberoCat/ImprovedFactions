@@ -22,4 +22,9 @@ public record SpigotScheduler(MainIF plugin) implements Scheduler {
     public void cancel(int id) {
         Bukkit.getScheduler().cancelTask(id);
     }
+
+    @Override
+    public void runLater(Runnable runnable, long delay) {
+        Bukkit.getScheduler().runTaskLater(plugin, runnable, delay);
+    }
 }

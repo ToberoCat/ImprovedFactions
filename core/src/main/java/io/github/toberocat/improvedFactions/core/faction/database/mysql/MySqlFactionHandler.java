@@ -46,7 +46,7 @@ public class MySqlFactionHandler implements FactionHandlerInterface<MySqlFaction
     }
 
     @Override
-    public @NotNull MySqlFaction create(@NotNull String display, @NotNull FactionPlayer<?> owner)
+    public @NotNull MySqlFaction create(@NotNull String display, @NotNull FactionPlayer owner)
             throws IllegalFactionNamingException, FactionAlreadyExistsException {
         MySqlFaction faction = new MySqlFaction(display, owner);
         owner.getDataContainer().set(PersistentHandler.FACTION_KEY, faction.getRegistry());

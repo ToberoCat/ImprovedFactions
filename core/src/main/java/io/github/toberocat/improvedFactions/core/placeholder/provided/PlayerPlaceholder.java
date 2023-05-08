@@ -10,7 +10,7 @@ public interface PlayerPlaceholder extends UnboundPlaceholder {
 
     @NotNull String label();
 
-    @NotNull String run(@NotNull OfflineFactionPlayer<?> player, @NotNull Faction<?> faction);
+    @NotNull String run(@NotNull OfflineFactionPlayer player, @NotNull Faction<?> faction);
     @Override
     default boolean canParse(@NotNull String placeholder) {
         return placeholder.equals(label());
@@ -18,7 +18,7 @@ public interface PlayerPlaceholder extends UnboundPlaceholder {
 
     @Override
     @NotNull
-    default String apply(@NotNull OfflineFactionPlayer<?> player,
+    default String apply(@NotNull OfflineFactionPlayer player,
                          @NotNull String placeholder) {
         try {
             return run(player, player.getFaction());

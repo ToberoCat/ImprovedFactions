@@ -12,9 +12,9 @@ public class RankPlaceholder implements PlayerPlaceholder {
     }
 
     @Override
-    public @NotNull String run(@NotNull OfflineFactionPlayer<?> player,
+    public @NotNull String run(@NotNull OfflineFactionPlayer player,
                                @NotNull Faction<?> faction) {
-        FactionPlayer<?> factionPlayer = player.getPlayer();
+        FactionPlayer factionPlayer = player.getPlayer();
         if (factionPlayer != null)
             return faction.getPlayerRank(factionPlayer).title(factionPlayer);
 

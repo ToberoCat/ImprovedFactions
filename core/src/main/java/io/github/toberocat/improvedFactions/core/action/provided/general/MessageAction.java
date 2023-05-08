@@ -20,7 +20,7 @@ public class MessageAction extends Action {
     }
 
     @Override
-    public void run(@NotNull FactionPlayer<?> player, @NotNull String provided) {
+    public void run(@NotNull FactionPlayer player, @NotNull String provided) {
         player.sendMessage(MessageHandler.api().format(player, provided));
     }
 }

@@ -18,7 +18,7 @@ public class FactionMotdAction extends Action {
     }
 
     @Override
-    public void run(@NotNull FactionPlayer<?> player) {
+    public void run(@NotNull FactionPlayer player) {
         ActionHandler.api().changeMotd(player);
     }
 }

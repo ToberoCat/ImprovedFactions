@@ -5,6 +5,8 @@ import io.github.toberocat.improvedFactions.core.handler.message.MessageHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+
 public class ActionbarAction extends Action {
 
     @Override
@@ -13,7 +15,7 @@ public class ActionbarAction extends Action {
     }
 
     @Override
-    public void run(@NotNull FactionPlayer<?> player, @NotNull String provided) {
-        player.sendActionBar(MessageHandler.api().format(player, provided));
+    public void run(@NotNull FactionPlayer player, @NotNull String provided) {
+        player.sendActionBar(provided, new HashMap<>());
     }
 }

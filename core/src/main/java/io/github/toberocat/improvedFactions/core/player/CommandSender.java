@@ -1,5 +1,7 @@
 package io.github.toberocat.improvedFactions.core.player;
 
+import io.github.toberocat.improvedFactions.core.exceptions.TranslatableException;
+import io.github.toberocat.improvedFactions.core.exceptions.TranslatableRuntimeException;
 import org.jetbrains.annotations.NotNull;
 
 public interface CommandSender {
@@ -7,5 +9,9 @@ public interface CommandSender {
 
     boolean hasPermission(@NotNull String permission);
 
-    void sendMessage(@NotNull String message);
+    void sendException(@NotNull TranslatableException e);
+
+    void sendException(@NotNull TranslatableRuntimeException e);
+
+    String getName();
 }

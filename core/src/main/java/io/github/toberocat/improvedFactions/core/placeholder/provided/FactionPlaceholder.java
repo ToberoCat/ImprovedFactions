@@ -23,7 +23,7 @@ public interface FactionPlaceholder extends UnboundPlaceholder {
 
     @Override
     @NotNull
-    default String apply(@NotNull OfflineFactionPlayer<?> player,
+    default String apply(@NotNull OfflineFactionPlayer player,
                          @NotNull String placeholder) {
         try {
             return run(player.getFaction());

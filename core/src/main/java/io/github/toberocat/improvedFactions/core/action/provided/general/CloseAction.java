@@ -12,7 +12,7 @@ public class CloseAction extends Action {
     }
 
     @Override
-    public void run(@NotNull FactionPlayer<?> player, @NotNull String provided) {
+    public void run(@NotNull FactionPlayer player, @NotNull String provided) {
         player.closeGuis();
     }
 }

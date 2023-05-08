@@ -1,24 +1,20 @@
 package io.github.toberocat.improvedfactions.spigot;
 
+import io.github.toberocat.improvedFactions.core.command.RootCommand;
 import io.github.toberocat.improvedFactions.core.registry.ImplementationHolder;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
-import io.github.toberocat.improvedfactions.spigot.command.SpigotFactionCommand;
-import io.github.toberocat.improvedfactions.spigot.gui.provided.SpigotGuiImplementationManager;
+import io.github.toberocat.improvedfactions.spigot.command.CommandExecutor;
 import io.github.toberocat.improvedfactions.spigot.handler.SpigotActionHandler;
 import io.github.toberocat.improvedfactions.spigot.handler.SpigotSoundHandler;
 import io.github.toberocat.improvedfactions.spigot.handler.message.SpigotMessageHandler;
-import io.github.toberocat.improvedfactions.spigot.handler.SpigotConfigHandler;
 import io.github.toberocat.improvedfactions.spigot.item.SpigotItemHandler;
-import io.github.toberocat.improvedfactions.spigot.listener.GuiListener;
 import io.github.toberocat.improvedfactions.spigot.listener.PlayerLeaveListener;
 import io.github.toberocat.improvedfactions.spigot.listener.PlayerMoveListener;
 import io.github.toberocat.improvedfactions.spigot.listener.SpigotEventListener;
 import io.github.toberocat.improvedfactions.spigot.listener.world.SpigotBlockListener;
-import io.github.toberocat.improvedfactions.spigot.loom.BannerDesigner;
 import io.github.toberocat.improvedfactions.spigot.placeholder.FactionExpansion;
 import io.github.toberocat.improvedfactions.spigot.plugin.ImprovedImplementation;
 import org.bukkit.Bukkit;
-import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
@@ -63,7 +59,6 @@ public final class MainIF extends JavaPlugin {
             return;
         }
 
-        BannerDesigner.dispose();
         ImplementationHolder.dispose();
     }
 
@@ -71,15 +66,12 @@ public final class MainIF extends JavaPlugin {
         List.of(
                 new PlayerLeaveListener(this),
                 new SpigotBlockListener(this),
-                new PlayerMoveListener(this),
-                new GuiListener(this)
+                new PlayerMoveListener(this)
         ).forEach(SpigotEventListener::register);
     }
 
     private void registerHandlers() {
         ImplementationHolder.messageHandler = new SpigotMessageHandler();
-        ImplementationHolder.configHandler = new SpigotConfigHandler(getConfig(), "");
-        ImplementationHolder.guiImplementation = new SpigotGuiImplementationManager();
         ImplementationHolder.itemHandler = new SpigotItemHandler();
         ImplementationHolder.soundHandler = new SpigotSoundHandler();
         ImplementationHolder.actionHandler = new SpigotActionHandler(this);
@@ -90,16 +82,8 @@ public final class MainIF extends JavaPlugin {
     }
 
     private void registerCommands() {
-        SpigotFactionCommand command = new SpigotFactionCommand();
-
-        PluginCommand pluginCommand = getServer().getPluginCommand("faction");
-        if (pluginCommand == null) {
-            Logger.api().logError("Wasn't able to add command listeners");
-            return;
-        }
-
-        pluginCommand.setTabCompleter(command);
-        pluginCommand.setExecutor(command);
+        CommandExecutor executor = CommandExecutor.createExecutor("faction");
+        RootCommand.addCommands(executor);
     }
 
     private void registerPapi() {

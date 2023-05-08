@@ -1,15 +1,16 @@
 package io.github.toberocat.improvedfactions.spigot.plugin;
 
-import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
+import io.github.toberocat.improvedFactions.core.exceptions.TranslatableException;
+import io.github.toberocat.improvedFactions.core.exceptions.TranslatableRuntimeException;
+import io.github.toberocat.improvedFactions.core.handler.ConfigFile;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.handler.component.PlayerLister;
 import io.github.toberocat.improvedFactions.core.handler.component.Scheduler;
-import io.github.toberocat.improvedFactions.core.handler.message.MessageHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
-import io.github.toberocat.improvedfactions.spigot.handler.SpigotConfigHandler;
+import io.github.toberocat.improvedfactions.spigot.handler.SpigotConfigFile;
 import io.github.toberocat.improvedfactions.spigot.player.SpigotFactionPlayer;
 import io.github.toberocat.improvedfactions.spigot.player.SpigotOfflineFactionPlayer;
 import io.github.toberocat.improvedfactions.spigot.scheduler.SpigotScheduler;
@@ -17,7 +18,6 @@ import io.github.toberocat.improvedfactions.spigot.utils.YamlLoader;
 import io.github.toberocat.improvedfactions.spigot.world.SpigotWorld;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.World;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -28,7 +28,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.stream.Stream;
 
-public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
+public class ImprovedImplementation implements ImprovedFactions, Logger {
 
     private final MainIF plugin;
     private final Scheduler scheduler;
@@ -44,27 +44,27 @@ public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
     }
 
     @Override
-    public @Nullable FactionPlayer<?> getPlayer(@NotNull UUID id) {
+    public @Nullable FactionPlayer getPlayer(@NotNull UUID id) {
         Player player = Bukkit.getPlayer(id);
         if (player == null) return null;
         return new SpigotFactionPlayer(player);
     }
 
     @Override
-    public @Nullable FactionPlayer<?> getPlayer(@NotNull String name) {
+    public @Nullable FactionPlayer getPlayer(@NotNull String name) {
         Player player = Bukkit.getPlayer(name);
         if (player == null) return null;
         return new SpigotFactionPlayer(player);
     }
 
     @Override
-    public @NotNull OfflineFactionPlayer<?> getOfflinePlayer(@NotNull UUID id) {
+    public @NotNull OfflineFactionPlayer getOfflinePlayer(@NotNull UUID id) {
         OfflinePlayer player = Bukkit.getOfflinePlayer(id);
         return new SpigotOfflineFactionPlayer(player);
     }
 
     @Override
-    public @Nullable OfflineFactionPlayer<?> getOfflinePlayer(@NotNull String name) {
+    public @Nullable OfflineFactionPlayer getOfflinePlayer(@NotNull String name) {
         OfflinePlayer player = Arrays.stream(Bukkit.getOfflinePlayers())
                 .filter(x -> name.equals(x.getName()))
                 .findAny()
@@ -132,14 +132,14 @@ public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
     }
 
     @Override
-    public @Nullable io.github.toberocat.improvedFactions.core.world.World<World> getWorld(@NotNull String name) {
+    public @Nullable io.github.toberocat.improvedFactions.core.world.World getWorld(@NotNull String name) {
         org.bukkit.World world = Bukkit.getWorld(name);
         if (world == null) return null;
         return new SpigotWorld(world);
     }
 
     @Override
-    public @NotNull List<io.github.toberocat.improvedFactions.core.world.World<World>> getAllWorlds() {
+    public @NotNull List<io.github.toberocat.improvedFactions.core.world.World> getAllWorlds() {
         return Bukkit.getWorlds().stream()
                 .map(org.bukkit.World::getName)
                 .map(this::getWorld)
@@ -173,11 +173,16 @@ public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
     }
 
     @Override
-    public @NotNull ConfigHandler getConfig(@NotNull String relativePath) {
-        return new SpigotConfigHandler(new YamlLoader(new File(getDataFolder(), relativePath), plugin)
+    public @NotNull ConfigFile getConfig(@NotNull String relativePath) {
+        return new SpigotConfigFile(new YamlLoader(new File(getDataFolder(), relativePath), plugin)
                 .logger(logger)
                 .load()
                 .fileConfiguration(), "");
+    }
+
+    @Override
+    public @NotNull ConfigFile getConfig() {
+        return getConfig("config.yml");
     }
 
     /**
@@ -199,8 +204,18 @@ public class ImprovedImplementation implements ImprovedFactions<World>, Logger {
             }
 
             @Override
-            public void sendMessage(@NotNull String message) {
-                Bukkit.getConsoleSender().sendMessage(MessageHandler.api().format(message));
+            public void sendException(@NotNull TranslatableException e) {
+                Bukkit.getConsoleSender().sendMessage(e.getTranslationKey());
+            }
+
+            @Override
+            public void sendException(@NotNull TranslatableRuntimeException e) {
+                Bukkit.getConsoleSender().sendMessage(e.getTranslationKey());
+            }
+
+            @Override
+            public String getName() {
+                return Bukkit.getConsoleSender().getName();
             }
         };
     }

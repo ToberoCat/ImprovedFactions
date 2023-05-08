@@ -1,18 +1,27 @@
 package io.github.toberocat.improvedFactions.core.exceptions.faction;
 
+import io.github.toberocat.improvedFactions.core.exceptions.TranslatableException;
 import io.github.toberocat.improvedFactions.core.faction.Faction;
+import io.github.toberocat.improvedFactions.core.translator.Translatable;
 import org.jetbrains.annotations.NotNull;
 
-public class FactionException extends Exception {
+import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
-    protected final Faction<?> faction;
+public class FactionException extends TranslatableException {
 
-    public FactionException(@NotNull Faction<?> faction, @NotNull String msg) {
-        super(msg);
+    protected final @NotNull Faction<?> faction;
+
+
+    public FactionException(@NotNull Faction<?> faction,
+                            @NotNull String translationKey,
+                            @NotNull Supplier<Map<String, Function<Translatable, String>>> placeholders) {
+        super(translationKey, placeholders);
         this.faction = faction;
     }
 
-    public Faction<?> getFaction() {
+    public @NotNull Faction<?> getFaction() {
         return faction;
     }
 }

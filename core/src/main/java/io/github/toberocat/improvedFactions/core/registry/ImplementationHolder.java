@@ -3,16 +3,11 @@ package io.github.toberocat.improvedFactions.core.registry;
 import io.github.toberocat.improvedFactions.core.claims.ClaimHandler;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
-import io.github.toberocat.improvedFactions.core.gui.manager.impl.GuiImplementation;
 import io.github.toberocat.improvedFactions.core.handler.*;
 import io.github.toberocat.improvedFactions.core.handler.message.MessageHandler;
-import io.github.toberocat.improvedFactions.core.handler.message.MessagingHandler;
 import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.translator.Translation;
-import io.github.toberocat.improvedFactions.core.translator.TranslationFixer;
-import io.github.toberocat.improvedFactions.core.translator.YmlManager;
-import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.CUtils;
 import io.github.toberocat.improvedFactions.core.utils.FileUtils;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
@@ -22,7 +17,6 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.util.List;
 
@@ -30,17 +24,14 @@ import java.util.List;
  * These class contains all interfaces that require to get populated when creating a new implementation
  */
 public class ImplementationHolder {
-    public static @Nullable ConfigHandler configHandler;
     public static @Nullable MessageHandler messageHandler;
     public static @Nullable RankHolder rankHolder;
     public static @Nullable ItemHandler itemHandler;
-    public static @Nullable MessagingHandler messagingHandler;
     public static @Nullable Logger logger;
-    public static @Nullable GuiImplementation guiImplementation;
     public static @Nullable SoundHandler soundHandler;
     public static @Nullable ActionHandler actionHandler;
 
-    public static @Nullable ImprovedFactions<?> improvedFactions;
+    public static @Nullable ImprovedFactions improvedFactions;
 
     /**
      * This should get called when all core registers should get called
@@ -92,21 +83,7 @@ public class ImplementationHolder {
     }
 
     private static void copyLang(@NotNull String name) throws IOException {
-        String res = "lang/" + name;
-
-        File externalFile = new File(ImprovedFactions.api().getLangFolder().getAbsolutePath(), name);
-        if (externalFile.exists()) {
-            URL localFile = ImplementationHolder.class.getResource(res);
-            if (localFile == null) return;
-
-            Translatable local = YmlManager.read(Translatable.class, localFile);
-            Translatable external = YmlManager.read(Translatable.class, externalFile);
-
-            new TranslationFixer(local, external).fix();
-            YmlManager.write(external, externalFile);
-        }
-
-        CUtils.copyResource(res);
+        CUtils.copyResource("lang/" + name);
     }
 
     /**
@@ -124,7 +101,7 @@ public class ImplementationHolder {
         FactionHandler.dispose();
     }
 
-    public static void playerLeave(@NotNull FactionPlayer<?> player) {
+    public static void playerLeave(@NotNull FactionPlayer player) {
         Translation.playerLeave(player);
         PersistentHandler.api().quit(player);
     }

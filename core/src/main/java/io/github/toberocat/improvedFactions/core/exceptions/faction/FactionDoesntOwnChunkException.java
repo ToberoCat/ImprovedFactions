@@ -1,18 +1,17 @@
 package io.github.toberocat.improvedFactions.core.exceptions.faction;
 
-public class FactionDoesntOwnChunkException extends Exception {
-    private final String actualClaim;
+import io.github.toberocat.improvedFactions.core.faction.Faction;
+import io.github.toberocat.improvedFactions.core.translator.PlaceholderBuilder;
+import io.github.toberocat.improvedFactions.core.world.Chunk;
+import org.jetbrains.annotations.NotNull;
 
-    /**
-     * Constructs a new exception with {@code null} as its detail message.
-     * The cause is not initialized, and may subsequently be initialized by a
-     * call to {@link #initCause}.
-     */
-    public FactionDoesntOwnChunkException(String actualClaim) {
-        this.actualClaim = actualClaim;
-    }
+public class FactionDoesntOwnChunkException extends FactionException {
 
-    public String getActualClaim() {
-        return actualClaim;
+    public FactionDoesntOwnChunkException(@NotNull Faction<?> faction,
+                                          @NotNull Chunk chunk) {
+        super(faction, "exceptions.faction-doesnt-own-chunk", () -> new PlaceholderBuilder()
+                .placeholder("faction", faction)
+                .placeholder("chunk", chunk)
+                .getPlaceholders());
     }
 }

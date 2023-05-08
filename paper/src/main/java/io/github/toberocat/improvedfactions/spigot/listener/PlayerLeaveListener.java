@@ -16,7 +16,7 @@ public class PlayerLeaveListener extends SpigotEventListener {
 
     @EventHandler
     private void leave(PlayerQuitEvent event) {
-        FactionPlayer<?> player = ImprovedFactions.api().getPlayer(event.getPlayer().getUniqueId());
+        FactionPlayer player = ImprovedFactions.api().getPlayer(event.getPlayer().getUniqueId());
         if (player == null) return;
 
         ImplementationHolder.playerLeave(player);

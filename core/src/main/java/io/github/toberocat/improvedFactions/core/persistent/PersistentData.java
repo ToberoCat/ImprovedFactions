@@ -19,7 +19,7 @@ public interface PersistentData {
 
     }
 
-    default void quit(@NotNull FactionPlayer<?> player) {
+    default void quit(@NotNull FactionPlayer player) {
 
     }
 }

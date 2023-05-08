@@ -15,7 +15,7 @@ public class LocalWorldClaimHandler extends WorldClaimHandler {
     private static final LinkedHashMap<String, FileAccess> ACCESS_MAP = new LinkedHashMap<>();
 
     @Override
-    public @NotNull WorldClaim createWorldClaim(@NotNull World<?> world) {
+    public @NotNull WorldClaim createWorldClaim(@NotNull World world) {
 
         return new LocalWorldClaim(world.getWorldName(), ACCESS_MAP
                 .computeIfAbsent(world.getWorldName(), (k) -> new FileAccess(

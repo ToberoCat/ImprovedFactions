@@ -15,16 +15,18 @@ import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
-import io.github.toberocat.improvedFactions.core.translator.Placeholder;
+import io.github.toberocat.improvedFactions.core.translator.PlaceholderBuilder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.HashMap;
 
 public class InviteHandler {
 
     private static final PlayerHasBeenInvitedException HAS_BEEN_INVITED = new PlayerHasBeenInvitedException();
 
-    public static void sendInvite(@NotNull OfflineFactionPlayer<?> receiver,
-                                  @NotNull FactionPlayer<?> sender,
+    public static void sendInvite(@NotNull OfflineFactionPlayer receiver,
+                                  @NotNull FactionPlayer sender,
                                   @NotNull Faction<?> faction,
                                   @NotNull FactionRank rank)
             throws PlayerHasBeenInvitedException, CantInviteYourselfException,
@@ -42,34 +44,27 @@ public class InviteHandler {
         PersistentInvites.writeSender(sender.getDataContainer(),
                 receiver.getUniqueId());
 
-        faction.broadcastTranslatable(translatable -> translatable
-                        .getMessages()
-                        .getFaction()
-                        .getBroadcast()
-                        .get("invite-sent"),
-                new Placeholder("sender", sender.getName()),
-                new Placeholder("receiver", receiver.getName()));
+        faction.broadcastTranslatable("messages.invite-sent", new PlaceholderBuilder()
+                        .placeholder("sender", sender)
+                        .placeholder("receiver", receiver)
+                        .getPlaceholders());
 
         EventExecutor.getExecutor().invitePlayer(receiver, sender, faction, rank);
     }
 
-    public static void cancelInvite(@NotNull OfflineFactionPlayer<?> invited,
+    public static void cancelInvite(@NotNull OfflineFactionPlayer invited,
                                     @NotNull Faction<?> faction)
             throws PlayerHasntBeenInvitedException, PlayerNotFoundException {
         PersistentInvites.PersistentReceivedInvite invite = PersistentInvites.removeInvite(invited, faction.getRegistry());
 
-        faction.broadcastTranslatable(translatable -> translatable
-                .getMessages()
-                .getFaction()
-                .getBroadcast()
-                .get("invite-cancelled"));
+        faction.broadcastTranslatable("messages.invite-cancelled", new HashMap<>());
 
         EventExecutor.getExecutor().cancelInvite(invited,
                 invite.sender(),
                 faction, invite.rank());
     }
 
-    public static void acceptInvite(@NotNull FactionPlayer<?> invited,
+    public static void acceptInvite(@NotNull FactionPlayer invited,
                                     @NotNull Faction<?> faction)
             throws PlayerHasntBeenInvitedException, PlayerNotFoundException,
             JoinWithRankInvalidException, FactionIsFrozenException,
@@ -81,23 +76,20 @@ public class InviteHandler {
 
         faction.joinPlayer(invited, rank);
 
-        faction.broadcastTranslatable(translatable -> translatable
-                .getMessages()
-                .getFaction()
-                .getBroadcast()
-                .get("invite-accepted"),
-                new Placeholder("received", invited.getName()));
+        faction.broadcastTranslatable("messages.invite-accepted", new PlaceholderBuilder()
+                        .placeholder("received", invited)
+                .getPlaceholders());
 
         EventExecutor.getExecutor().acceptInvite(invited,
                 invite.sender(),
                 faction, rank);
     }
 
-    public static @Nullable PersistentInvites.ReceiverMap getInvites(@NotNull OfflineFactionPlayer<?> invited) {
+    public static @Nullable PersistentInvites.ReceiverMap getInvites(@NotNull OfflineFactionPlayer invited) {
         return PersistentInvites.getInvites(invited.getDataContainer());
     }
 
-    public static boolean hasInvite(@NotNull OfflineFactionPlayer<?> invited,
+    public static boolean hasInvite(@NotNull OfflineFactionPlayer invited,
                                     @NotNull Faction<?> faction) {
         return PersistentInvites.hasBeenInvited(invited.getDataContainer(), faction.getRegistry());
     }

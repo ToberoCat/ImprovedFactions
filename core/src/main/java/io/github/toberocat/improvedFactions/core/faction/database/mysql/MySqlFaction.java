@@ -27,7 +27,7 @@ import io.github.toberocat.improvedFactions.core.faction.components.report.Facti
 import io.github.toberocat.improvedFactions.core.faction.components.report.Report;
 import io.github.toberocat.improvedFactions.core.faction.database.mysql.module.MySqlModule;
 import io.github.toberocat.improvedFactions.core.faction.handler.FactionHandler;
-import io.github.toberocat.improvedFactions.core.handler.ConfigHandler;
+import io.github.toberocat.improvedFactions.core.handler.ConfigFile;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.item.ItemStack;
 import io.github.toberocat.improvedFactions.core.permission.Permission;
@@ -68,16 +68,16 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     /**
      * @param display This name isn't allowed to be longer than "faction.maxNameLen" in config.yml
      */
-    public MySqlFaction(@NotNull String display, @NotNull FactionPlayer<?> owner)
+    public MySqlFaction(@NotNull String display, @NotNull FactionPlayer owner)
             throws IllegalFactionNamingException, FactionAlreadyExistsException {
         this();
 
         registry = Faction.displayToRegistry(display);
 
         if (FactionHandler.getLoadedFactions().containsKey(registry)) throw new FactionAlreadyExistsException(this);
-        if (!Faction.validNaming(registry)) throw new IllegalFactionNamingException(this, registry);
+        if (Faction.invalidNaming(registry)) throw new IllegalFactionNamingException(this, registry);
 
-        ConfigHandler config = ConfigHandler.api();
+        ConfigFile config = ImprovedFactions.api().getConfig();
 
         database.executeUpdate(MySqlDatabase.CREATE_LAYOUT_QUERY,
                 DatabaseVar.of("registry", registry),
@@ -395,7 +395,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     }
 
     @Override
-    public @NotNull Rank getPlayerRank(@NotNull OfflineFactionPlayer<?> player) {
+    public @NotNull Rank getPlayerRank(@NotNull OfflineFactionPlayer player) {
         if (isMember(player)) return getDbRank(player.getUniqueId());
         if (isAllied(player)) return getDbRank(player.getUniqueId()).getEquivalent();
         return Rank.fromString(GuestRank.REGISTRY);
@@ -418,7 +418,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     }
 
     @Override
-    public boolean isMember(@NotNull OfflineFactionPlayer<?> player) {
+    public boolean isMember(@NotNull OfflineFactionPlayer player) {
         return database.rowSelect(new Select()
                         .setTable("players")
                         .setColumns("faction")
@@ -445,7 +445,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
      * @param rank   The rank you want to change the sender to.
      */
     @Override
-    public void changeRank(@NotNull OfflineFactionPlayer<?> player, @NotNull FactionRank rank)
+    public void changeRank(@NotNull OfflineFactionPlayer player, @NotNull FactionRank rank)
             throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
@@ -461,10 +461,10 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     }
 
     @Override
-    public void transferOwnership(@NotNull FactionPlayer<?> player) throws FactionIsFrozenException {
+    public void transferOwnership(@NotNull FactionPlayer player) throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
-        OfflineFactionPlayer<?> old = ImprovedFactions.api().getOfflinePlayer(getOwner());
+        OfflineFactionPlayer old = ImprovedFactions.api().getOfflinePlayer(getOwner());
         if (old == null) return;
 
         changeRank(old, (FactionRank) Rank.fromString(FactionAdminRank.REGISTRY));
@@ -507,12 +507,12 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     }
 
     @Override
-    public boolean joinPlayer(@NotNull FactionPlayer<?> player) throws FactionIsFrozenException {
+    public boolean joinPlayer(@NotNull FactionPlayer player) throws FactionIsFrozenException {
         return joinPlayer(player, (FactionRank) Rank.fromString(FactionOwnerRank.REGISTRY));
     }
 
     @Override
-    public boolean joinPlayer(@NotNull FactionPlayer<?> player, @NotNull FactionRank rank)
+    public boolean joinPlayer(@NotNull FactionPlayer player, @NotNull FactionRank rank)
             throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (isMember(player)) return false;
@@ -527,7 +527,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     }
 
     @Override
-    public boolean leavePlayer(@NotNull FactionPlayer<?> player)
+    public boolean leavePlayer(@NotNull FactionPlayer player)
             throws FactionIsFrozenException, PlayerIsOwnerException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (!isPermanent() && getPlayerRank(player).getRegistry().equals(FactionOwnerRank.REGISTRY))
@@ -538,7 +538,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     }
 
     @Override
-    public boolean kickPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException {
+    public boolean kickPlayer(@NotNull OfflineFactionPlayer player) throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
         EventExecutor.getExecutor().kickMember(this, player);
@@ -547,7 +547,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
 
 
     @Override
-    public boolean banPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException {
+    public boolean banPlayer(@NotNull OfflineFactionPlayer player) throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (setGuestRank(player)) return false;
 
@@ -557,7 +557,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
         return true;
     }
 
-    private boolean setGuestRank(@NotNull OfflineFactionPlayer<?> player) {
+    private boolean setGuestRank(@NotNull OfflineFactionPlayer player) {
         if (!isMember(player)) return true;
 
         database.executeUpdate("UPDATE players SET faction = %s WHERE uuid = %s",
@@ -576,7 +576,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     }
 
     @Override
-    public boolean pardonPlayer(@NotNull OfflineFactionPlayer<?> player) throws FactionIsFrozenException {
+    public boolean pardonPlayer(@NotNull OfflineFactionPlayer player) throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
         if (!isBanned(player)) return false;
 
@@ -588,7 +588,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     }
 
     @Override
-    public boolean isBanned(@NotNull OfflineFactionPlayer<?> player) {
+    public boolean isBanned(@NotNull OfflineFactionPlayer player) {
         return database.rowSelect(new Select()
                         .setTable("faction_bans")
                         .setColumns("banned")
@@ -625,7 +625,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
                 .reduce(BigDecimal.ZERO,
                         (bigDecimal, player) ->
                                 bigDecimal.add(BigDecimal
-                                        .valueOf(playerPower(player.getUniqueId()))),
+                                        .valueOf(player.getPower())),
                         BigDecimal::add);
     }
 
@@ -655,29 +655,8 @@ public class MySqlFaction implements Faction<MySqlFaction> {
         return getActiveMembers()
                 .reduce(BigDecimal.ZERO,
                         (bigDecimal, player) ->
-                                bigDecimal.add(BigDecimal.valueOf(
-                                        maxPlayerPower(player.getUniqueId()))),
+                                bigDecimal.add(BigDecimal.valueOf(player.getMaxPower())),
                         BigDecimal::add);
-    }
-
-    @Override
-    public double playerPower(@NotNull UUID player) {
-        return database.rowSelect(new Select()
-                        .setTable("players")
-                        .setColumns("power")
-                        .setFilter("uuid = %s", player.toString()))
-                .readRow(Double.class, "power")
-                .orElse(Double.NaN);
-    }
-
-    @Override
-    public double maxPlayerPower(@NotNull UUID player) {
-        return database.rowSelect(new Select()
-                        .setTable("players")
-                        .setColumns("maxPower")
-                        .setFilter("uuid = %s", player.toString()))
-                .readRow(Double.class, "maxPower")
-                .orElse(Double.NaN);
     }
 
     /**
@@ -693,7 +672,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
         if (faction.getRegistry().equals(registry)) throw new CantInviteYourselfException();
         if (hasInvited(faction)) throw new AlreadyInvitedException(faction);
 
-        FactionPlayer<?> invitedOwner = ImprovedFactions.api().getPlayer(faction.getOwner());
+        FactionPlayer invitedOwner = ImprovedFactions.api().getPlayer(faction.getOwner());
         if (invitedOwner == null) throw new FactionOwnerIsOfflineException(faction);
 
         database.executeUpdate("INSERT INTO ally_invites VALUES (%s, %s, NOW())",
@@ -792,7 +771,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     }
 
     @Override
-    public boolean isAllied(@NotNull OfflineFactionPlayer<?> player) {
+    public boolean isAllied(@NotNull OfflineFactionPlayer player) {
         return getAllies().anyMatch(x -> x.equals(database.rowSelect(new Select()
                         .setTable("players")
                         .setColumns("faction")
@@ -845,7 +824,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
      * @return If the sender's faction is an enemy
      */
     @Override
-    public boolean isEnemy(@NotNull OfflineFactionPlayer<?> player) {
+    public boolean isEnemy(@NotNull OfflineFactionPlayer player) {
         return false;
     }
 
@@ -894,7 +873,7 @@ public class MySqlFaction implements Faction<MySqlFaction> {
     public @NotNull FactionReports getReports() {
         return new FactionReports() {
             @Override
-            public void addReport(@NotNull OfflineFactionPlayer<?> reporter, @NotNull String reason) {
+            public void addReport(@NotNull OfflineFactionPlayer reporter, @NotNull String reason) {
                 database.tableInsert(new Insert()
                         .setTable("reports")
                         .setColumns("registry", "reporter", "reason")

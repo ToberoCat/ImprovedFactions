@@ -9,18 +9,18 @@ import io.github.toberocat.improvedFactions.core.persistent.PersistentHandler;
 import io.github.toberocat.improvedFactions.core.persistent.component.PersistentWrapper;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
-import io.github.toberocat.improvedFactions.core.translator.Placeholder;
-import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
+import io.github.toberocat.improvedFactions.core.translator.Translatable;
 import io.github.toberocat.improvedfactions.spigot.handler.message.MessageHandler;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
 
-public class SpigotOfflineFactionPlayer implements OfflineFactionPlayer<OfflinePlayer> {
+public class SpigotOfflineFactionPlayer implements OfflineFactionPlayer {
 
     private final OfflinePlayer player;
     private final PersistentWrapper data;
@@ -51,27 +51,23 @@ public class SpigotOfflineFactionPlayer implements OfflineFactionPlayer<OfflineP
 
     @Override
     public void sendMessage(@NotNull String message) {
-        FactionPlayer<?> on = getPlayer();
+        FactionPlayer on = getPlayer();
         if (on != null) on.sendMessage(message);
         else MessageHandler.api.sendMessage(player.getUniqueId(), message);
     }
 
     @Override
-    public void sendTranslatable(@NotNull Function<Translatable, String> query, Placeholder... placeholders) {
-        sendMessage(query, placeholders);
-    }
-
-    @Override
-    public void sendMessage(@NotNull Function<Translatable, String> query, Placeholder... placeholders) {
-        FactionPlayer<?> on = getPlayer();
+    public void sendMessage(@NotNull String query, @NotNull Map<String, Function<Translatable, String>> placeholders) {
+        FactionPlayer on = getPlayer();
         if (on != null)
             on.sendMessage(query, placeholders);
         else
             MessageHandler.api.sendMessage(player.getUniqueId(), query, placeholders);
     }
 
+
     @Override
-    public @Nullable FactionPlayer<?> getPlayer() {
+    public @Nullable FactionPlayer getPlayer() {
         Player u = player.getPlayer();
         if (u == null) return null;
 
@@ -107,5 +103,15 @@ public class SpigotOfflineFactionPlayer implements OfflineFactionPlayer<OfflineP
     @Override
     public @NotNull OfflinePlayer getRaw() {
         return player;
+    }
+
+    @Override
+    public long getPower() {
+        return 0;
+    }
+
+    @Override
+    public long getMaxPower() {
+        return 0;
     }
 }

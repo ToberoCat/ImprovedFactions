@@ -2,19 +2,18 @@ package io.github.toberocat.improvedFactions.core.translator;
 
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
-import io.github.toberocat.improvedFactions.core.translator.layout.Translatable;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
+import io.github.toberocat.improvedFactions.core.utils.StringUtils;
 import org.jetbrains.annotations.NotNull;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public record Translation(@NotNull Locale locale) {
 
@@ -26,14 +25,13 @@ public record Translation(@NotNull Locale locale) {
 
     /* Static manager methods */
     public static void createLocaleMap() throws IOException {
-        for (File file : ACCESS.listFiles())
-            YmlManager.read(Translatable.class, file)
-                    .getMeta()
-                    .getLanguages()
-                    .forEach(x -> LOCALE_TO_FILE_MAP.put(x, file.getName()));
+        for (File file : ACCESS.listFiles()) {
+            for (String supported : YmlManager.read(Translatable.class, file).supportedLanguages())
+                LOCALE_TO_FILE_MAP.put(supported, file.getName());
+        }
     }
 
-    public static void playerLeave(@NotNull FactionPlayer<?> player) {
+    public static void playerLeave(@NotNull FactionPlayer player) {
         String local = player.getLocal();
         LANGUAGE_LOCALE_USAGE.remove(player.getUniqueId());
 
@@ -65,7 +63,22 @@ public record Translation(@NotNull Locale locale) {
         }
     }
 
-    public @Nullable String getMessage(@NotNull Function<Translatable, String> query) {
+    public @Nullable String getMessage(@NotNull String query,
+                                       @NotNull Map<String, Function<Translatable, String>> placeholders) {
+        Translatable translatable = TRANSLATABLE_MAP.computeIfAbsent(locale.getCountry(),
+                Translation::readFile);
+        if (translatable == null) {
+            Logger.api().logWarning("Couldn't find " + locale + " as lang file");
+            return null;
+        }
+        Map<String, String> transformPlaceholders = transformPlaceholders(translatable, placeholders);
+        System.out.println(query + "; Placeholders: " + transformPlaceholders);
+        return StringUtils.replace(translatable.translations().get(query), transformPlaceholders);
+    }
+
+    public String[] getMessages(@NotNull String query,
+                                @NotNull Map<String, Function<Translatable, String>> placeholders) {
+        System.out.println("BATCH " + query);
         Translatable translatable = TRANSLATABLE_MAP.computeIfAbsent(locale.getCountry(),
                 Translation::readFile);
         if (translatable == null) {
@@ -73,13 +86,22 @@ public record Translation(@NotNull Locale locale) {
             return null;
         }
 
-        return query.apply(translatable);
+        List<String> list = new LinkedList<>();
+        int i = 0;
+        Map<String, String> transformPlaceholders = transformPlaceholders(translatable, placeholders);
+        Map<String, String> translations = translatable.translations();
+        while (translations.containsKey(query + "." + i)) {
+            list.add(StringUtils.replace(translations.get(query + "." + i), transformPlaceholders));
+            i++;
+        }
+        return list.toArray(String[]::new);
     }
 
-    public @Nullable String[] getMessages(@NotNull Function<Translatable, String[]> query) {
-        Translatable translatable = TRANSLATABLE_MAP.computeIfAbsent(locale.getCountry(), Translation::readFile);
-        if (translatable == null) return null;
-
-        return query.apply(translatable);
+    private @NotNull Map<String, String> transformPlaceholders(@NotNull Translatable translatable,
+                                                               @NotNull Map<String, Function<Translatable, String>> placeholders) {
+        return placeholders.entrySet()
+                .stream()
+                .map(x -> Map.entry(x.getKey(), x.getValue().apply(translatable)))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }

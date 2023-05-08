@@ -20,20 +20,20 @@ public class EventExecutor implements EventListener {
     }
 
     @Override
-    public void protectChunk(@NotNull Chunk<?> chunk, @NotNull String registry) {
+    public void protectChunk(@NotNull Chunk chunk, @NotNull String registry) {
         new LinkedList<>(EventListener.HANDLER_LIST) // Make save copy
                 .forEach(x -> x.protectChunk(chunk, registry));
     }
 
     @Override
-    public void removeProtection(@NotNull Chunk<?> chunk, @Nullable String oldRegistry) {
+    public void removeProtection(@NotNull Chunk chunk, @Nullable String oldRegistry) {
         new LinkedList<>(EventListener.HANDLER_LIST) // Make save copy
                 .forEach(x -> x.removeProtection(chunk, oldRegistry));
     }
 
     @Override
     public void factionMemberRankUpdate(@NotNull Faction<?> faction,
-                                        @NotNull OfflineFactionPlayer<?> player,
+                                        @NotNull OfflineFactionPlayer player,
                                         @NotNull FactionRank oldRank,
                                         @NotNull FactionRank newRank) {
         new LinkedList<>(EventListener.HANDLER_LIST) // Make save copy
@@ -41,37 +41,39 @@ public class EventExecutor implements EventListener {
     }
 
     @Override
-    public void transferOwnership(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> oldOwner, @NotNull FactionPlayer<?> newOwner) {
+    public void transferOwnership(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer oldOwner,
+                                  @NotNull FactionPlayer newOwner) {
         new LinkedList<>(EventListener.HANDLER_LIST) // Make save copy
                 .forEach(x -> x.transferOwnership(faction, oldOwner, newOwner));
     }
 
     @Override
-    public void joinMember(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> player, @NotNull FactionRank joinedAs) {
+    public void joinMember(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer player,
+                           @NotNull FactionRank joinedAs) {
         new LinkedList<>(EventListener.HANDLER_LIST) // Make save copy
                 .forEach(x -> x.joinMember(faction, player, joinedAs));
     }
 
     @Override
-    public void leaveMember(@NotNull Faction<?> faction, @NotNull FactionPlayer<?> player) {
+    public void leaveMember(@NotNull Faction<?> faction, @NotNull FactionPlayer player) {
         new LinkedList<>(EventListener.HANDLER_LIST) // Make save copy
                 .forEach(x -> x.leaveMember(faction, player));
     }
 
     @Override
-    public void kickMember(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> player) {
+    public void kickMember(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer player) {
         new LinkedList<>(EventListener.HANDLER_LIST) // Make save copy
                 .forEach(x -> x.kickMember(faction, player));
     }
 
     @Override
-    public void banMember(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> player) {
+    public void banMember(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer player) {
         new LinkedList<>(EventListener.HANDLER_LIST) // Make save copy
                 .forEach(x -> x.banMember(faction, player));
     }
 
     @Override
-    public void pardonPlayer(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer<?> player) {
+    public void pardonPlayer(@NotNull Faction<?> faction, @NotNull OfflineFactionPlayer player) {
         new LinkedList<>(EventListener.HANDLER_LIST) // Make save copy
                 .forEach(x -> x.pardonPlayer(faction, player));
     }
@@ -83,25 +85,33 @@ public class EventExecutor implements EventListener {
     }
 
     @Override
-    public void createFaction(@NotNull Faction<?> faction, FactionPlayer<?> owner) {
+    public void createFaction(@NotNull Faction<?> faction, FactionPlayer owner) {
         new LinkedList<>(EventListener.HANDLER_LIST) // Make save copy
                 .forEach(x -> x.createFaction(faction, owner));
     }
 
     @Override
-    public void invitePlayer(@NotNull OfflineFactionPlayer<?> receiver, @NotNull FactionPlayer<?> sender, @NotNull Faction<?> faction, @NotNull FactionRank rank) {
+    public void invitePlayer(@NotNull OfflineFactionPlayer receiver,
+                             @NotNull FactionPlayer sender, @NotNull Faction<?> faction,
+                             @NotNull FactionRank rank) {
         new LinkedList<>(EventListener.HANDLER_LIST) // Make save copy
                 .forEach(x -> x.invitePlayer(receiver, sender, faction, rank));
     }
 
     @Override
-    public void cancelInvite(@NotNull OfflineFactionPlayer<?> receiver, @NotNull UUID sender, @NotNull Faction<?> faction, @NotNull String rank) {
+    public void cancelInvite(@NotNull OfflineFactionPlayer receiver,
+                             @NotNull UUID sender,
+                             @NotNull Faction<?> faction,
+                             @NotNull String rank) {
         new LinkedList<>(EventListener.HANDLER_LIST) // Make save copy
                 .forEach(x -> x.cancelInvite(receiver, sender, faction, rank));
     }
 
     @Override
-    public void acceptInvite(@NotNull OfflineFactionPlayer<?> receiver, @NotNull UUID sender, @NotNull Faction<?> faction, @NotNull FactionRank rank) {
+    public void acceptInvite(@NotNull OfflineFactionPlayer receiver,
+                             @NotNull UUID sender,
+                             @NotNull Faction<?> faction,
+                             @NotNull FactionRank rank) {
         new LinkedList<>(EventListener.HANDLER_LIST) // Make save copy
                 .forEach(x -> x.acceptInvite(receiver, sender, faction, rank));
     }
