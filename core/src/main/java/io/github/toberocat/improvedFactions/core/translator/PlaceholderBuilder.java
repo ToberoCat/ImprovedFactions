@@ -52,8 +52,9 @@ public class PlaceholderBuilder {
     public @NotNull PlaceholderBuilder placeholder(@NotNull String namespace,
                                                           @NotNull String key,
                                                           @NotNull Object value) {
-        placeholders.put(key, translatable -> {
+        placeholders.put("{" + key + "}", translatable -> {
             String factionPlaceholder = translatable.placeholders().get(namespace);
+            System.out.println(extractMethods(namespace, value));
             return StringUtils.replace(factionPlaceholder, extractMethods(namespace, value));
         });
         return this;
@@ -62,7 +63,7 @@ public class PlaceholderBuilder {
     private @NotNull Map<String, String> extractMethods(@NotNull String namespace, @NotNull Object instance) {
         return Arrays.stream(instance.getClass().getMethods())
                 .filter(x -> x.getParameterCount() == 0)
-                .collect(Collectors.toMap(x -> namespace + "-" + x.getName(), m -> {
+                .collect(Collectors.toMap(x -> "{" + namespace + "-" + x.getName() + "}", m -> {
                     try {
                         return String.valueOf(m.invoke(instance));
                     } catch (IllegalAccessException e) {
