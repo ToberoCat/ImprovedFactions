@@ -7,18 +7,20 @@ supports:
   - "us"
 placeholders:
   faction: "<hover:show_text:'<aqua>-------- Info --------</aqua>\n<yellow>Display:</yellow> <gold>{faction-getDisplay}</gold>\n<yellow>Registry</yellow>: <gold>{faction-getRegistry}</gold>\n<yellow>Tag:</yellow> <gold>{faction-getTag}</gold>\n<yellow>Motd:</yellow> <gold>{faction-getMotd}</gold>\n<yellow>Frozen</yellow>: <gold>{faction-isFrozen}</gold>\n<yellow>Created at:</yellow> <gold>{faction-getCreatedAt}</gold>\n<aqua>-------- Power --------</aqua>\n<yellow>Achievable Power:</yellow> <gold>{faction-getTotalPower} / {faction-getTotalMaxPower}</gold>\n<yellow>Active Power</yellow>: <gold>{faction-getActivePower} / {faction-getActiveMaxPower}</gold>'>{faction-getDisplay}</hover>"
-  player: "<gold>Name:</gold> <aqua>{player-display}</aqua>\n<gold>Faction:</gold> <aqua>{player-getFactionRegistry}</aqua>"
+  player: "<hover:show_text:'<yellow>Name:</yellow> <gold>{player-getName}</gold>\n<yellow>Faction Rank:</yellow> <gold>{player-getRank}</gold>\n<yellow>Power:</yellow> <gold>{player-getPower} / {player-getMaxPower}</gold>\n<yellow>Faction:</yellow> <gold>{player-getFactionRegistry}</gold>'>{player-getName}</hover>"
   offline-player: "<gold>Name:</gold> <aqua>{player-display}</aqua>\n<gold>Faction:</gold> <aqua>{player-getFactionRegistry}</aqua>"
   chunk: "Hello"
-  rank: "World"
+  rank: "<hover:show_text:'<yellow>Rank:</yellow> <gold>{rank-getRegistry}</gold>\n<yellow>Admin:</yellow> <gold>{rank-isAdmin}</gold>'>{rank-getRegistry}</hover>"
 translations:
   prefix: "<dark_gray>[</dark_gray><yellow><hover:show_text:'<dark_gray>Plugin:</dark_gray> <aqua>Improved Factions</aqua>\n<dark_gray>Author:</dark_gray> <aqua>Tobero</aqua>\n<dark_gray>Version:</dark_gray> <aqua>2.0.0</aqua>'>IF</hover></yellow><dark_gray>]</dark_gray><white>"
   exceptions.cooldown: "<red>Sorry, but you have to wait <gold>{left}</gold> until you can use this command again.</red>"
   exceptions.not-enough-arguments: "<red>This command requires <gold>{required}</gold> arguments. <gold>{provided}</gold> have been provided</red>"
   exceptions.max-arg-length-exceeded: "<red>You've exceeded the maximum amount of allowed characters argument at position <gold>{position}</gold> can take. You're providing <gold>{provided}</gold> characters, while only <gold>{max-characters}</gold> are allowed.</red>"
   exceptions.max-arg-length-bounded: "<green>You're back in the character limit. Remember: Only <gold>{max-characters}</gold> characters are allowed</green>"
+  exceptions.cant-be-in-faction: "<red>This command can only be used without an faction</red> <dark_gray>[</dark_gray><gray>{player}</gray><dark_gray>]</dark_gray>"
+  exceptions.confirmation-needed: "<red>This command needs to be confirmed. Please use <gold>/<command> confirm</gold></red>"
 
   messages.player-join: "<green><gold>{player}</gold> joined your faction as <gold>{rank}</gold></green>"
   commands.create.created-faction: "<green>You successfully created your faction <gold>{faction}</gold></green>"
-
+  commands.delete.deleted: "<green>You successfully deleted your faction</green>"
   hints.created-faction: "<yellow>Tipp:</yellow> <white>Now that your the owner of your own faction, how about you go and start setting up your faction to your likings <dark_gray>[</dark_gray><gray><hover:show_text:'<yellow>Executes</yellow> <gold>/f settings</gold>'><click:suggest_command:'/faction settings'>Settings</click></hover></gray><dark_gray>]</dark_gray></white>"
