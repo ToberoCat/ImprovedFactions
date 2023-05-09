@@ -3,11 +3,13 @@ package io.github.toberocat.improvedFactions.core.command.faction;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionIsFrozenException;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
 import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
+import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionOwnerRank;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.utils.command.PlayerSubCommand;
 import io.github.toberocat.improvedFactions.core.utils.command.exceptions.CommandException;
 import io.github.toberocat.improvedFactions.core.utils.command.options.ConfirmOption;
 import io.github.toberocat.improvedFactions.core.utils.command.options.FactionOption;
+import io.github.toberocat.improvedFactions.core.utils.command.options.FactionRankOption;
 import io.github.toberocat.improvedFactions.core.utils.command.options.Options;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -18,7 +20,8 @@ public class DeleteFactionCommand extends PlayerSubCommand {
     public DeleteFactionCommand() {
         super("delete", Options.getFromConfig("delete")
                 .opt(new FactionOption(true))
-                .cmdOpt(new ConfirmOption()));
+                .cmdOpt(new ConfirmOption())
+                .opt(new FactionRankOption(FactionOwnerRank.REGISTRY)));
     }
 
     @Override

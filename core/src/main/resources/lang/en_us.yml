@@ -19,6 +19,9 @@ translations:
   exceptions.max-arg-length-bounded: "<green>You're back in the character limit. Remember: Only <gold>{max-characters}</gold> characters are allowed</green>"
   exceptions.cant-be-in-faction: "<red>This command can only be used without an faction</red> <dark_gray>[</dark_gray><gray>{player}</gray><dark_gray>]</dark_gray>"
   exceptions.confirmation-needed: "<red>This command needs to be confirmed. Please use <gold>/<command> confirm</gold></red>"
+  exceptions.permissions-missing: "<red>You don't have the required permission <gold>{permission}</gold></red>"
+  exceptions.missing-priority: "<red>Your rank priority is too low. You'd have to have at least <gold>{min-priority}</gold>, but you only have <gold>{priority}</gold></red>"
+  exceptions.wrong-rank: "<red>This command can only be run by people having the rank <gold>{needed-rank}</gold>. You're rak <gold>{player-rank}</gold></red>"
 
   messages.player-join: "<green><gold>{player}</gold> joined your faction as <gold>{rank}</gold></green>"
   commands.create.created-faction: "<green>You successfully created your faction <gold>{faction}</gold></green>"
