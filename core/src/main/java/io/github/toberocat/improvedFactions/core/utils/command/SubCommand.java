@@ -1,5 +1,7 @@
 package io.github.toberocat.improvedFactions.core.utils.command;
 
+import io.github.toberocat.improvedFactions.core.handler.ConfigFile;
+import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.translator.PlaceholderBuilder;
 import io.github.toberocat.improvedFactions.core.utils.command.exceptions.CommandException;
 import io.github.toberocat.improvedFactions.core.utils.command.options.Option;
@@ -40,6 +42,10 @@ public abstract class SubCommand extends Command {
         this.onTabOptions = onTabOptions;
     }
 
+    public static @NotNull ConfigFile getConfig(@NotNull String path) {
+        return ImprovedFactions.api().getConfig("commands.yml").getSection(path);
+    }
+
     public boolean routeCall(@NotNull CommandSender sender,
                              @NotNull String[] args)
             throws CommandException {
@@ -74,20 +80,23 @@ public abstract class SubCommand extends Command {
 
     private boolean handleWithOptions(@NotNull CommandSender sender, @NotNull String[] args) throws CommandException {
         for (Option option : onCommandOptions)
-            option.canExecute(sender, args);
+            args = option.execute(sender, args);
         return handleCommand(sender, args);
     }
 
     private @Nullable List<String> getTabWithOptions(@NotNull CommandSender sender, @NotNull String[] args) throws CommandException {
-        System.out.println("Calling tab list");
         for (Option option : onTabOptions)
-            option.canExecute(sender, args);
+            args = option.execute(sender, args);
         return getTabList(sender, args);
     }
 
     @Override
     public boolean showInTab(@NotNull CommandSender sender, @NotNull String[] args) {
         return Arrays.stream(onTabOptions).allMatch(x -> x.show(sender, args));
+    }
+
+    public @NotNull ConfigFile getConfig() {
+        return getConfig(getPermission());
     }
 
     protected abstract boolean handleCommand(@NotNull CommandSender sender,

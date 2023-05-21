@@ -2,6 +2,7 @@ package io.github.toberocat.improvedFactions.core.command;
 
 import io.github.toberocat.improvedFactions.core.command.faction.CreateFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.faction.DeleteFactionCommand;
+import io.github.toberocat.improvedFactions.core.command.faction.RenameFactionCommand;
 import io.github.toberocat.improvedFactions.core.command.faction.SettingFactionCommand;
 import io.github.toberocat.improvedFactions.core.utils.command.Command;
 import org.jetbrains.annotations.NotNull;
@@ -13,7 +14,8 @@ public class RootCommand {
         List.of(
                 new CreateFactionCommand(),
                 new SettingFactionCommand(),
-                new DeleteFactionCommand()
+                new DeleteFactionCommand(),
+                new RenameFactionCommand()
         ).forEach(command::addChild);
     }
 }

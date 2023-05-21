@@ -22,6 +22,7 @@ translations:
   exceptions.permissions-missing: "<red>You don't have the required permission <gold>{permission}</gold></red>"
   exceptions.missing-priority: "<red>Your rank priority is too low. You'd have to have at least <gold>{min-priority}</gold>, but you only have <gold>{priority}</gold></red>"
   exceptions.wrong-rank: "<red>This command can only be run by people having the rank <gold>{needed-rank}</gold>. You're rak <gold>{player-rank}</gold></red>"
+  exceptions.need-faction: "<red>You have to be in a faction to use this command</red>"
 
   messages.player-join: "<green><gold>{player}</gold> joined your faction as <gold>{rank}</gold></green>"
   commands.create.created-faction: "<green>You successfully created your faction <gold>{faction}</gold></green>"

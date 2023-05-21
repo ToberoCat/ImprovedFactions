@@ -17,8 +17,8 @@ public class FactionPermissionOption implements PlayerOption {
     }
 
     @Override
-    public void canExecutePlayer(@NotNull FactionPlayer player,
-                                 @NotNull String[] args) throws CommandException {
+    public @NotNull String[] executePlayer(@NotNull FactionPlayer player,
+                              @NotNull String[] args) throws CommandException {
         try {
             if (!checkPermission(player))
                 throw new CommandException("exceptions.permissions-missing", () -> new PlaceholderBuilder()
@@ -26,10 +26,9 @@ public class FactionPermissionOption implements PlayerOption {
                         .placeholder("permission", permission.label())
                         .getPlaceholders());
         } catch (FactionNotInStorage | PlayerHasNoFactionException e) {
-            throw new CommandException("exceptions.need-faction", () -> new PlaceholderBuilder()
-                    .placeholder("player", player)
-                    .getPlaceholders());
+            throw new CommandException(e);
         }
+        return args;
     }
 
     @Override

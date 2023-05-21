@@ -17,8 +17,8 @@ public class FactionPriorityOption implements PlayerOption {
     }
 
     @Override
-    public void canExecutePlayer(@NotNull FactionPlayer player,
-                                 @NotNull String[] args) throws CommandException {
+    public @NotNull String[] executePlayer(@NotNull FactionPlayer player,
+                              @NotNull String[] args) throws CommandException {
         try {
             Rank rank = player.getRank();
             if (!checkRank(player))
@@ -28,10 +28,9 @@ public class FactionPriorityOption implements PlayerOption {
                         .placeholder("player-priority", Rank.getPriority(rank))
                         .getPlaceholders());
         } catch (FactionNotInStorage | PlayerHasNoFactionException e) {
-            throw new CommandException("exceptions.need-faction", () -> new PlaceholderBuilder()
-                    .placeholder("player", player)
-                    .getPlaceholders());
+            throw new CommandException(e);
         }
+        return args;
     }
 
     @Override

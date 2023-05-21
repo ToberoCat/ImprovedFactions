@@ -1,11 +1,12 @@
 package io.github.toberocat.improvedFactions.core.command.faction;
 
+import io.github.toberocat.improvedFactions.core.exceptions.faction.FactionNotInStorage;
+import io.github.toberocat.improvedFactions.core.exceptions.faction.PlayerHasNoFactionException;
 import io.github.toberocat.improvedFactions.core.faction.components.FactionPermission;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
-import io.github.toberocat.improvedFactions.core.player.CommandSender;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
+import io.github.toberocat.improvedFactions.core.translator.PlaceholderBuilder;
 import io.github.toberocat.improvedFactions.core.utils.command.PlayerSubCommand;
-import io.github.toberocat.improvedFactions.core.utils.command.SubCommand;
 import io.github.toberocat.improvedFactions.core.utils.command.exceptions.CommandException;
 import io.github.toberocat.improvedFactions.core.utils.command.options.ArgLengthOption;
 import io.github.toberocat.improvedFactions.core.utils.command.options.FactionOption;
@@ -26,7 +27,7 @@ public class SettingFactionCommand extends PlayerSubCommand {
 
     @Override
     protected boolean handle(@NotNull FactionPlayer player, @NotNull String[] args) throws CommandException {
-        ImprovedFactions.api().getGuis().openGui(player, "settings");
+        ImprovedFactions.api().getGuis().openSettingsGui(player);
         return true;
     }
 

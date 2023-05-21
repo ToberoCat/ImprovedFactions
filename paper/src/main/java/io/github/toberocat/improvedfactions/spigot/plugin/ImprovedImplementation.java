@@ -1,6 +1,5 @@
 package io.github.toberocat.improvedfactions.spigot.plugin;
 
-import io.github.toberocat.guiengine.api.GuiEngineApi;
 import io.github.toberocat.improvedFactions.core.exceptions.TranslatableException;
 import io.github.toberocat.improvedFactions.core.exceptions.TranslatableRuntimeException;
 import io.github.toberocat.improvedFactions.core.handler.ConfigFile;
@@ -11,7 +10,7 @@ import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.utils.Logger;
 import io.github.toberocat.improvedfactions.spigot.MainIF;
-import io.github.toberocat.improvedfactions.spigot.handler.GuiApi;
+import io.github.toberocat.improvedfactions.spigot.gui.GuiApi;
 import io.github.toberocat.improvedfactions.spigot.handler.SpigotConfigFile;
 import io.github.toberocat.improvedfactions.spigot.player.SpigotFactionPlayer;
 import io.github.toberocat.improvedfactions.spigot.player.SpigotOfflineFactionPlayer;

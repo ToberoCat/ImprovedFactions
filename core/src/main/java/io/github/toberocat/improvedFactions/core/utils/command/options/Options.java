@@ -3,16 +3,21 @@ package io.github.toberocat.improvedFactions.core.utils.command.options;
 import io.github.toberocat.improvedFactions.core.handler.ConfigFile;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.utils.CooldownManager;
+import io.github.toberocat.improvedFactions.core.utils.command.SubCommand;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BiConsumer;
 
 public class Options {
     public static final Set<OptionFactory> CONFIG_OPTION_FACTORIES = new HashSet<>();
-    private final Set<Option> tab = new HashSet<>();
-    private final Set<Option> command = new HashSet<>();
+    private final List<Option> tab = new LinkedList<>();
+    private final List<Option> command = new LinkedList<>();
 
     static {
         addFactory((config, options) -> {
@@ -29,9 +34,16 @@ public class Options {
     }
 
     public static @NotNull Options getFromConfig(@NotNull String path) {
+        return getFromConfig(path, null);
+    }
+
+    public static @NotNull Options getFromConfig(@NotNull String path,
+                                                 @Nullable BiConsumer<Options, ConfigFile> loadExtra) {
         Options options = new Options();
-        ConfigFile configFile = ImprovedFactions.api().getConfig("commands.yml").getSection(path);
+        ConfigFile configFile = SubCommand.getConfig(path);
         CONFIG_OPTION_FACTORIES.forEach(x -> x.create(configFile, options));
+        if (loadExtra != null)
+            loadExtra.accept(options, configFile);
         return options;
     }
 

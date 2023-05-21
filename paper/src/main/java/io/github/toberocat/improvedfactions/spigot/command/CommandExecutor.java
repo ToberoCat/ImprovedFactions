@@ -55,7 +55,6 @@ public class CommandExecutor extends Command implements TabExecutor {
                                                 @NotNull org.bukkit.command.Command command,
                                                 @NotNull String label,
                                                 @NotNull String[] args) {
-        System.out.println("Calling");
         List<String> unsorted = null;
         io.github.toberocat.improvedFactions.core.player.CommandSender commandSender = BukkitWrapper.wrap(sender);
         try {

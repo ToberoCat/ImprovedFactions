@@ -19,9 +19,10 @@ public class CooldownTabOption implements PlayerOption {
     }
 
     @Override
-    public void canExecutePlayer(@NotNull FactionPlayer sender, @NotNull String[] args) throws CommandException {
+    public @NotNull String[] executePlayer(@NotNull FactionPlayer sender, @NotNull String[] args) throws CommandException {
         if (cooldownManager.hasCooldown(sender.getUniqueId()))
             throw new CooldownException(cooldownManager, sender.getUniqueId());
+        return args;
     }
 
     @Override

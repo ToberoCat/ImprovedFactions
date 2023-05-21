@@ -6,9 +6,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class ConfirmOption implements Option {
     @Override
-    public void canExecute(@NotNull CommandSender sender, @NotNull String[] args) throws CommandException {
+    public @NotNull String[] execute(@NotNull CommandSender sender, @NotNull String[] args) throws CommandException {
         int lastArg = args.length - 1;
         if (lastArg < 0 || !args[lastArg].equals("confirm"))
             throw new CommandException("exceptions.confirmation-needed");
+        return args;
     }
 }
