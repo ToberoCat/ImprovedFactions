@@ -11,6 +11,7 @@ import io.github.toberocat.improvedFactions.core.faction.components.FactionModul
 import io.github.toberocat.improvedFactions.core.faction.components.rank.Rank;
 import io.github.toberocat.improvedFactions.core.faction.components.rank.members.FactionRank;
 import io.github.toberocat.improvedFactions.core.faction.components.report.FactionReports;
+import io.github.toberocat.improvedFactions.core.faction.components.report.Report;
 import io.github.toberocat.improvedFactions.core.handler.message.MessageHandler;
 import io.github.toberocat.improvedFactions.core.handler.ImprovedFactions;
 import io.github.toberocat.improvedFactions.core.item.ItemStack;
@@ -18,6 +19,8 @@ import io.github.toberocat.improvedFactions.core.permission.Permissions;
 import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.setting.Settings;
+import io.github.toberocat.improvedFactions.core.translator.PlaceholderGetter;
+import io.github.toberocat.improvedFactions.core.translator.PlaceholderIgnore;
 import io.github.toberocat.improvedFactions.core.translator.Translatable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -30,6 +33,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public interface Faction<F extends Faction<F>> extends Permissions, Settings {
@@ -75,13 +79,13 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
     static @NotNull String displayToRegistry(@NotNull String display) {
         return validateDisplay(display)
                 .transform(x -> MessageHandler.api().stripColor(x))
-                .replaceAll(REGISTRY_PATTERN.pattern(), "");
+                .replaceAll(REGISTRY_PATTERN.pattern(), "_");
     }
 
     static @NotNull String validateDisplay(@NotNull String display) {
-        return display.length() <= 10 ? display : display
-                .substring(0, MAX_FACTION_DISPLAY_LENGTH)
-                .replaceAll(REGISTRY_PATTERN.pattern(), "x");
+        return (display.length() <= 10 ? display : display
+                .substring(0, MAX_FACTION_DISPLAY_LENGTH))
+                .replaceAll(REGISTRY_PATTERN.pattern(), "_");
     }
 
     /**
@@ -184,6 +188,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      *
      * @return The description object
      */
+    @PlaceholderIgnore
     @NotNull Description getDescription();
 
     /**
@@ -302,6 +307,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
     /**
      * Deletes the faction
      */
+    @PlaceholderIgnore
     void deleteFaction() throws FactionIsFrozenException;
 
     /* Member management */
@@ -311,6 +317,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      *
      * @return A stream of UUIDs
      */
+    @PlaceholderIgnore
     @NotNull Stream<UUID> getBanned();
 
     /**
@@ -318,19 +325,25 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      *
      * @return A stream of UUIDs
      */
+    @PlaceholderIgnore
     @NotNull Stream<UUID> getMembers();
 
     @NotNull
+    @PlaceholderIgnore
     default Stream<OfflineFactionPlayer> getPlayers() {
         return getMembers()
                 .map(x -> ImprovedFactions.api().getOfflinePlayer(x));
     }
 
+    @PlaceholderIgnore
+    @NotNull
     default Stream<OfflineFactionPlayer> getActiveMembers() {
         return getPlayers().filter(x -> TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() -
                 x.getLastPlayed()) <= activeThreshold);
     }
 
+    @NotNull
+    @PlaceholderIgnore
     default Stream<OfflineFactionPlayer> getOnlineMembers() {
         return getPlayers().filter(OfflineFactionPlayer::isOnline);
     }
@@ -476,6 +489,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      *
      * @return A stream of faction registries
      */
+    @PlaceholderIgnore
     @NotNull Stream<String> getSentInvites();
 
     /**
@@ -483,6 +497,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      *
      * @return A stream of faction registries
      */
+    @PlaceholderIgnore
     @NotNull Stream<String> getReceivedInvites();
 
     /**
@@ -538,6 +553,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      *
      * @return A stream of allied faction registries.
      */
+    @PlaceholderIgnore
     @NotNull Stream<String> getAllies();
 
     /**
@@ -545,6 +561,7 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      *
      * @return A stream of enemy faction registries
      */
+    @PlaceholderIgnore
     @NotNull Stream<String> getEnemies();
 
     /**
@@ -592,10 +609,12 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
      *
      * @return A list of claims.
      */
+    @PlaceholderIgnore
     @NotNull FactionClaims<F> getClaims();
 
     /* Reports */
 
+    @PlaceholderIgnore
     @NotNull FactionReports getReports();
 
     /* Module management */
@@ -619,5 +638,13 @@ public interface Faction<F extends Faction<F>> extends Permissions, Settings {
             throws NoSuchMethodException, InvocationTargetException,
             InstantiationException, IllegalAccessException;
 
+    @PlaceholderGetter(name = "getDescription")
+    default @NotNull String getDescription$Placeholder() {
+        return getDescription().getLines().collect(Collectors.joining("\n"));
+    }
 
+    @PlaceholderGetter(name = "getReports")
+    default @NotNull String getReports$Placeholder() {
+        return getReports().getReports().map(Report::reason).collect(Collectors.joining("\n"));
+    }
 }

@@ -15,7 +15,8 @@ public class CooldownOption implements PlayerOption {
     }
 
     @Override
-    public void canExecutePlayer(@NotNull FactionPlayer sender, @NotNull String[] args) throws CooldownException {
+    public @NotNull String[] executePlayer(@NotNull FactionPlayer sender, @NotNull String[] args) throws CooldownException {
         cooldownManager.runCooldown(sender.getUniqueId());
+        return args;
     }
 }

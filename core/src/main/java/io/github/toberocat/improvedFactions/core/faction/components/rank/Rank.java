@@ -76,7 +76,7 @@ public abstract class Rank {
         return isAdmin;
     }
 
-    public String getRegistry() {
+    public @NotNull String getRegistry() {
         return registry;
     }
 
@@ -99,4 +99,5 @@ public abstract class Rank {
     public String toString() {
         return registry;
     }
+
 }

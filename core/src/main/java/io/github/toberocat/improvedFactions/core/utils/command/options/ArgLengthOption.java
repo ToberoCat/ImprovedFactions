@@ -7,9 +7,7 @@ import io.github.toberocat.improvedFactions.core.utils.command.exceptions.Comman
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 public class ArgLengthOption implements Option {
     private final @NotNull Set<String> antiSpam;
@@ -23,7 +21,8 @@ public class ArgLengthOption implements Option {
     }
 
     @Override
-    public void canExecute(@NotNull CommandSender sender, @NotNull String[] args) throws CommandException {
+    public @NotNull String[] execute(@NotNull CommandSender sender, @NotNull String[] args)
+            throws CommandException {
         if (args.length != length && !antiSpam.contains(sender.getName())) {
             addToSent(sender);
             throw new CommandException("exceptions.not-enough-arguments", () -> new PlaceholderBuilder()
@@ -31,6 +30,7 @@ public class ArgLengthOption implements Option {
                     .placeholder("required", length)
                     .getPlaceholders());
         }
+        return args;
     }
 
     private void addToSent(@NotNull CommandSender sender) {

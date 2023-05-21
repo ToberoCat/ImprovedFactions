@@ -14,12 +14,14 @@ public class FactionOption implements PlayerOption {
     }
 
     @Override
-    public void canExecutePlayer(@NotNull FactionPlayer sender, @NotNull String[] args) throws CommandException {
-        if ((sender.getFactionRegistry() == null) == needFaction)
+    public @NotNull String[] executePlayer(@NotNull FactionPlayer sender, @NotNull String[] args) throws CommandException {
+        if ((sender.getFactionRegistry() == null) == needFaction) {
             throw new CommandException("exceptions." + (needFaction ? "need-faction" : "cant-be-in-faction"),
                     () -> new PlaceholderBuilder()
                             .placeholder("player", sender)
                             .getPlaceholders());
+        }
+        return args;
     }
 
     @Override

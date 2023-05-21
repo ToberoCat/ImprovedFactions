@@ -32,7 +32,9 @@ public final class FileAccess {
     }
 
     public <T> void write(@NotNull T object, String... relativePath) throws IOException {
+        System.out.println(getFile(relativePath).getPath());
         MAPPER.writeValue(getFile(relativePath), object);
+        System.out.println(MAPPER.writeValueAsString(object));
     }
 
     public <T> T read(@NotNull Class<T> clazz, String... relativePath) throws IOException {

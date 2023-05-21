@@ -24,9 +24,9 @@ public class MaxArgLengthOption implements Option {
     }
 
     @Override
-    public void canExecute(@NotNull CommandSender sender, @NotNull String[] args) throws CommandException {
+    public @NotNull String[] execute(@NotNull CommandSender sender, @NotNull String[] args) throws CommandException {
         if (index >= args.length)
-            return;
+            return args;
 
         int length = args[index].length();
         if (length > maxLengthOfArg && !antiSpam.contains(sender.getName())) {
@@ -44,6 +44,8 @@ public class MaxArgLengthOption implements Option {
                     .placeholder("max-characters", maxLengthOfArg)
                     .getPlaceholders());
         }
+
+        return args;
     }
 
     private void addToSent(@NotNull CommandSender sender) {

@@ -1,0 +1,14 @@
+<gui title="Navigation bar" width="9" height="1">
+    <component type="item" x="0" material="GRAY_STAINED_GLASS_PANE"/>
+    <component type="item" x="1" material="GRAY_STAINED_GLASS_PANE"/>
+    <component type="item" x="2" material="GRAY_STAINED_GLASS_PANE"/>
+    <component type="item" x="3" material="GRAY_STAINED_GLASS_PANE"/>
+
+    <component type="head" x="4" head-owner="%viewer%" name="§aUser Settings"/>
+
+    <component type="item" x="5" material="GRAY_STAINED_GLASS_PANE"/>
+    <component type="item" x="6" material="GRAY_STAINED_GLASS_PANE"/>
+    <component type="item" x="7" material="GRAY_STAINED_GLASS_PANE"/>
+    <component type="item" x="8" material="GRAY_STAINED_GLASS_PANE"/>
+</gui>
+

@@ -27,4 +27,8 @@ public class TranslatableException extends Exception {
     public @NotNull Map<String, Function<Translatable, String>> getPlaceholders() {
         return placeholders.get();
     }
+
+    public @NotNull Supplier<Map<String, Function<Translatable, String>>> getSupplier() {
+        return placeholders;
+    }
 }

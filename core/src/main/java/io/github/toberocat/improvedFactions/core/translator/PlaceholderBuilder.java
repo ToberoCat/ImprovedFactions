@@ -9,6 +9,7 @@ import io.github.toberocat.improvedFactions.core.world.Chunk;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -50,26 +51,44 @@ public class PlaceholderBuilder {
     }
 
     public @NotNull PlaceholderBuilder placeholder(@NotNull String namespace,
-                                                          @NotNull String key,
-                                                          @NotNull Object value) {
-        placeholders.put(key, translatable -> {
+                                                   @NotNull String key,
+                                                   @NotNull Object value) {
+        placeholders.put("{" + key + "}", translatable -> {
             String factionPlaceholder = translatable.placeholders().get(namespace);
             return StringUtils.replace(factionPlaceholder, extractMethods(namespace, value));
         });
         return this;
     }
 
-    private @NotNull Map<String, String> extractMethods(@NotNull String namespace, @NotNull Object instance) {
+    public static @NotNull Map<String, String> extractMethods(@NotNull String namespace, @NotNull Object instance) {
         return Arrays.stream(instance.getClass().getMethods())
-                .filter(x -> x.getParameterCount() == 0)
-                .collect(Collectors.toMap(x -> namespace + "-" + x.getName(), m -> {
-                    try {
-                        return String.valueOf(m.invoke(instance));
-                    } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e);
-                    } catch (InvocationTargetException ignored) {
-                        return "invalid";
-                    }
-                }, (o, n) -> o));
+                .filter(x -> x.getParameterCount() == 0 && !x.getReturnType().equals(void.class)
+                        && Arrays.stream(x.getAnnotations())
+                        .noneMatch(y -> y.annotationType().equals(PlaceholderIgnore.class)))
+                .collect(Collectors.toMap(x -> getPlaceholderName(namespace, x),
+                        getPlaceholderValue(instance),
+                        (o, n) -> o));
+    }
+
+    @NotNull
+    private static Function<Method, String> getPlaceholderValue(@NotNull Object instance) {
+        return x -> {
+            try {
+                return String.valueOf(x.invoke(instance));
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            } catch (InvocationTargetException ignored) {
+                return "invalid";
+            }
+        };
+    }
+
+    @NotNull
+    private static String getPlaceholderName(@NotNull String namespace, @NotNull Method x) {
+        return "{" + namespace + "-" + Arrays.stream(x.getAnnotations())
+                .filter(m -> m.annotationType().equals(PlaceholderGetter.class))
+                .findAny()
+                .map(m -> ((PlaceholderGetter) m).name())
+                .orElse(x.getName()) + "}";
     }
 }

@@ -107,8 +107,10 @@ public class SpigotFactionPlayer implements FactionPlayer {
     @Override
     public @NotNull Faction<?> getFaction() throws PlayerHasNoFactionException, FactionNotInStorage {
         String registry = getFactionRegistry();
-        if (registry == null) throw new PlayerHasNoFactionException(this);
-        return FactionHandler.getFaction(getFactionRegistry());
+        if (registry == null)
+            throw new PlayerHasNoFactionException(this);
+
+        return FactionHandler.getFaction(registry);
     }
 
     @Override

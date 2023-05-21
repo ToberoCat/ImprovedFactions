@@ -53,11 +53,16 @@
 - [ ] Allow offline players to receive translated messages too
 - [ ] Finish icon editor
 - [ ] Add description command
+- [ ] Make the rank placeholder translate automatically
+- [ ] Use annotations to provide further infos, like what to do when exception gets thrown, or annotate a method to be
+  usable too
 
 # Glitches
+
 - [ ] Fix issue with start balance. People can create factions, transfer money to their own accounts, delete them.
 
 # Placeholder (Implemented)
+
 - %faction_maxpower%
 - %faction_currentpower%
 - %faction_rank%

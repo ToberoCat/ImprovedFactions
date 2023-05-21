@@ -33,6 +33,7 @@ import io.github.toberocat.improvedFactions.core.player.FactionPlayer;
 import io.github.toberocat.improvedFactions.core.player.OfflineFactionPlayer;
 import io.github.toberocat.improvedFactions.core.setting.Setting;
 import io.github.toberocat.improvedFactions.core.translator.PlaceholderBuilder;
+import io.github.toberocat.improvedFactions.core.translator.PlaceholderIgnore;
 import io.github.toberocat.improvedFactions.core.utils.DateUtils;
 import io.github.toberocat.improvedFactions.core.utils.FileAccess;
 import org.jetbrains.annotations.NotNull;
@@ -283,6 +284,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      * @return The description object
      */
     @Override
+    @PlaceholderIgnore
     public @NotNull Description getDescription() {
         return new Description() {
             /**
@@ -477,6 +479,7 @@ public class LocalFaction implements Faction<LocalFaction> {
      * Deletes the faction
      */
     @Override
+    @PlaceholderIgnore
     public void deleteFaction() throws FactionIsFrozenException {
         if (isFrozen()) throw new FactionIsFrozenException(registry);
 
@@ -546,8 +549,8 @@ public class LocalFaction implements Faction<LocalFaction> {
         members.add(player.getUniqueId());
 
         setRank(player, rank);
-        broadcastTranslatable("messages.sender-join", new PlaceholderBuilder()
-                .placeholder("sender", player)
+        broadcastTranslatable("messages.player-join", new PlaceholderBuilder()
+                .placeholder("player", player)
                 .placeholder("rank", rank)
                 .getPlaceholders());
         return true;

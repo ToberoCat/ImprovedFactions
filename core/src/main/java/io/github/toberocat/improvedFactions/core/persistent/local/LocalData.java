@@ -24,6 +24,7 @@ public class LocalData implements PersistentData {
 
     @Override
     public @Nullable Object set(@NotNull UUID id, @NotNull String key, @NotNull Object value) {
+
         return getValues(id).getRawMap().put(key, value);
     }
 

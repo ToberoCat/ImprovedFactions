@@ -38,13 +38,17 @@ public class LocalFactionHandler implements FactionHandlerInterface<LocalFaction
             throws FactionIsFrozenException,
             PlayerIsAlreadyInFactionException,
             PlayerIsBannedException, IllegalFactionNamingException, FactionAlreadyExistsException {
+        System.out.println("New local faction");
         LocalFaction faction = new LocalFaction(display, owner);
         owner.getDataContainer().set(PersistentHandler.FACTION_KEY, faction.getRegistry());
 
+        System.out.println("Add to registry");
         factions.put(faction.getRegistry(), faction);
+        System.out.println("Emit events");
         EventExecutor.getExecutor().createFaction(faction, owner);
 
         try {
+            System.out.println("Writing");
             access.write(faction.toDataType(),
                     FileAccess.FACTION_FOLDER,
                     faction.getRegistry() + ".json");

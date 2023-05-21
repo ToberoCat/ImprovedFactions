@@ -6,7 +6,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -20,5 +19,9 @@ public class CommandException extends TranslatableException {
 
     public CommandException(@NotNull String translationKey) {
         this(translationKey, HashMap::new);
+    }
+
+    public CommandException(@NotNull TranslatableException e) {
+        this(e.getTranslationKey(), e.getSupplier());
     }
 }
