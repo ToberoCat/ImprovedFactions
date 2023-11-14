@@ -1,0 +1,24 @@
+<gui width="9" height="6" title="§e%faction% > Details">
+    <component type="faction-icon" x="4" faction-name="%faction%"/>
+
+    <component type="embedded" y="1" width="9" height="1" target-gui="separator"/>
+
+    <component type="item" y="3" x="1" name="§eRanks" hidden="{!has:faction.permission.manage-permissions}">
+        <head-texture>eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWNkOGNiNGY5OWJhOTQxNDJhYmY1NWY2MzRiZTdiNjk1YzcwZmJhMGQyYjA3NjVjYTg4YmM4ZTJlZWE0NjYzNiJ9fX0=</head-texture>
+        <on-click type="action">[player] factions rank</on-click>
+    </component>
+
+    <component type="item" y="3" x="1" name="§cRanks" material="BARRIER" hidden="{has:faction.permission.manage-permissions}">
+        <lore/>
+        <lore>§7You are not permitted</lore>
+        <lore>§7to manage and view your</lore>
+        <lore>§7faction's ranks</lore>
+    </component>
+
+    <component type="item" y="3" x="7" name="§eMembers">
+        <head-texture>eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjdjNDE5MzBmOGZmMGYyYjA0MzBlMTY5YWU1ZjM4ZTk4NGRmMTI0NDIxNTcwNWM2ZjE3Mzg2Mjg0NDU0M2U5ZCJ9fX0=</head-texture>
+        <on-click type="action">[player] factions members</on-click>
+    </component>
+
+    <component type="embedded" y="5" width="9" height="1" target-gui="separator"/>
+</gui>

@@ -1,0 +1,209 @@
+#
+# -------- { General Settings } --------
+#
+update-checker: true
+mysql:
+  host: "localhost"
+  port: 3306
+  database: "improvedfactions"
+  user: "root"
+  password: "1234"
+  verbose: false
+modules:
+  # This module is responsible for managing power, and it's associated side effects, like raids and over-claims.
+  power-raids: true
+#
+# -------- { Base Module Settings } --------
+#
+factions:
+  max-rank-name-length: 50
+  rank-name-regex: "[a-zA-Z ]*"
+  max-spaces-in-name: 5
+  # Unit is minutes
+  invites-expire-in: 5
+  name-regex: "[a-zA-Z ]*"
+
+  # Default ranks every faction will receive once created. When modifying it,
+  # note that the first rank will be set to be the default rank for members joining,
+  # while the last one will be considered as the owner rank, the rank the owner will receive on faction creation
+  default-faction-ranks:
+    Member:
+      priority: 1 # The priority this rank has
+      # Defines the faction permissions this rank has by default. Can always be changed by factions
+      default-permissions:
+        - send-invites
+        - view-power
+    Elder:
+      priority: 10
+      default-permissions:
+        - send-invites
+        - manage-claims
+        - view-power
+    Admin:
+      priority: 100
+      default-permissions:
+        - send-invites
+        - manage-claims
+        - manage-permissions
+        - kick-player
+        - manage-bans
+        - view-power
+    Owner:
+      priority: 1000
+      default-permissions:
+        - send-invites
+        - manage-claims
+        - set-icon
+        - rename-faction
+        - manage-permissions
+        - kick-player
+        - manage-bans
+        - transfer-ownership
+        - view-power
+
+  #
+  # -------- { Power Raid Module Settings } --------
+  # These settings only apply when you enabled this module.
+  #
+  # This section represents the constants mentioned in the power-raids module documentation.
+  # If you have no clue what you're doing here, a good place to start looking would be the power raid module documentation
+  power-management:
+    base-member-constant: 50 # Note that this is indeed a constant - Therefore changing this might cause balancing issues on your server
+    accumulation-rate: # Configure how often faction powers will be accumulated. Increasing it to be too frequent might cause database bottlenecks
+      unit: HOURS # The time unit this value will be interpreted as. Some more common possibilities are: SECONDS, MINUTES, HOURS and DAYS
+      value: 1
+
+    # Configure how long a player counts as active. Should be smaller than the accumulation rate
+    inactive:
+      unit: DAYS # The time unit this value will be interpreted as. Some more common possibilities are: SECONDS, MINUTES, HOURS and DAYS
+      value: 7
+    base-accumulation: 0 # Set how much power a faction gets even when no members are online
+    accumulation-multiplier: 10 # A value that will get applied at the end
+    # This is a constant responsible for rewarding when multiple people of a faction are online simultaneous.
+    # It's used in an exponential growth function, so don't make it too big
+    accumulation-active-exponent: 2
+    # This is a constant responsible for penalizing inactive people of a faction are online simultaneous.
+    # It's used in an exponential growth function, so don't make it too big
+    accumulation-inactive-multiplier: 2
+    base-claim-power-cost: 5 # The base power cost for claiming a chunk
+    claim-power-cost-growth: 1.1 # exponentially grows the power cost of claims.
+  # Whenever you change values in this section, you'll have issues with your database
+  # Choose values that go for you and never touch them again
+  unsafe:
+    guest-rank-name: "Guest"
+    max-name-length: 36
+    # Define how long the item in base64 format can get. Bigger numbers allow more complex items, while costing more space
+    max-icon-length: 5000
+
+# Changing these settings requires a server restart / reload to take effect,
+# Please note: Once a zone has been added and got used on the server, it might be difficult to remove all references
+# to it again, so only add zones you know you want to keep in the long run
+zones:
+  # Don't remove this zone ever. If you do, this will cause extremely weird
+  # behavior of the plugin, which is almost impossible to trace back
+  default:
+    announce-title: true # True will allow this zone to send titles to the player - Faction claims and no faction claims
+    allow-claiming: true # Set to true will allow factions to claim their chunks in these regions
+    # This is the language key of the title getting displayed when a claimed chunk is being left into an unclaimed one
+    no-faction-title: base.zone.wilderness
+    always-protect: false # If set to true, all chunks, even unclaimed ones, will be affected from the protection rules defined below
+
+    # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
+    protection:
+      animal-damage: true # Prevent animals from being damaged in a claim
+      villager-damage: true # Prevent villagers from being damaged in a claim
+      golem-damage: false # Prevent damage to Iron Golems in a claim
+      monster-damage: false # Prevent damage caused by monsters in a claim
+      boss-damage: false # Prevent damage caused by bosses in a claim
+      general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
+      in-faction-pvp: true # Prevent PvP between faction members in a claim
+      minecart-damage: true # Prevent minecarts being destroyed in a claim
+      block-place: true # Prevent placing blocks in a claim
+      entity-spawned-by-egg: true # Prevent spawning entities using spawn eggs in a claim
+      explosions: false # Prevent explosions to occur in a claim
+      block-break: true # Prevent breaking blocks in a claim
+      block-interaction: true # Prevent interacting with blocks in a claim
+      entity-interaction: true # Prevent interacting with entities in a claim
+      entity-break-hanging: true # Prevent breaking hanging entities (like paintings or itemframes) in a claim
+  safezone:
+    announce-title: true # True will allow this zone to send titles to the player - Faction claims and no faction claims
+    allow-claiming: false # Set to true will allow factions to claim their chunks in these regions
+    # This is the language key of the title getting displayed when a claimed chunk is being left into an unclaimed one
+    no-faction-title: base.zone.safezone
+    always-protect: true # If set to true, all chunks, even unclaimed ones, will be affected from the protection rules defined below
+
+    # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
+    protection:
+      animal-damage: true # Prevent animals from being damaged in a claim
+      villager-damage: true # Prevent villagers from being damaged in a claim
+      golem-damage: true # Prevent damage to Iron Golems in a claim
+      monster-damage: false # Prevent damage caused by monsters in a claim
+      boss-damage: false # Prevent damage caused by bosses in a claim
+      general-pvp: true # Prevent general PvP in a claims. This means any sort of pvp
+      in-faction-pvp: true # Prevent PvP between faction members in a claim
+      minecart-damage: true # Prevent minecarts being destroyed in a claim
+      block-place: true # Prevent placing blocks in a claim
+      entity-spawned-by-egg: true # Prevent spawning entities using spawn eggs in a claim
+      explosions: true # Prevent explosions to occur in a claim
+      block-break: true # Prevent breaking blocks in a claim
+      block-interaction: true # Prevent interacting with blocks in a claim
+      entity-interaction: true # Prevent interacting with entities in a claim
+      entity-break-hanging: true # Prevent breaking hanging entities (like paintings or itemframes) in a claim
+  warzone:
+    announce-title: true # True will allow this zone to send titles to the player - Faction claims and no faction claims
+    allow-claiming: false # Set to true will allow factions to claim their chunks in these regions
+    # This is the language key of the title getting displayed when a claimed chunk is being left into an unclaimed one
+    no-faction-title: base.zone.warzone
+    always-protect: true # If set to true, all chunks, even unclaimed ones, will be affected from the protection rules defined below
+
+    # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
+    protection:
+      animal-damage: false # Prevent animals from being damaged in a claim
+      villager-damage: false # Prevent villagers from being damaged in a claim
+      golem-damage: false # Prevent damage to Iron Golems in a claim
+      monster-damage: false # Prevent damage caused by monsters in a claim
+      boss-damage: false # Prevent damage caused by bosses in a claim
+      general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
+      in-faction-pvp: true # Prevent PvP between faction members in a claim
+      minecart-damage: true # Prevent minecarts being destroyed in a claim
+      block-place: true # Prevent placing blocks in a claim
+      entity-spawned-by-egg: false # Prevent spawning entities using spawn eggs in a claim
+      explosions: false # Prevent explosions to occur in a claim
+      block-break: true # Prevent breaking blocks in a claim
+      block-interaction: true # Prevent interacting with blocks in a claim
+      entity-interaction: true # Prevent interacting with entities in a claim
+      entity-break-hanging: true # Prevent breaking hanging entities (like paintings or itemframes) in a claim
+  unmanaged:
+    announce-title: false # True will allow this zone to send titles to the player - Faction claims and no faction claims
+    allow-claiming: false # Set to true will allow factions to claim their chunks in these regions
+    # This is the language key of the title getting displayed when a claimed chunk is being left into an unclaimed one
+    no-faction-title: base.zone.unmanaged
+    always-protect: false # If set to true, all chunks, even unclaimed ones, will be affected from the protection rules defined below
+
+    # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
+    protection:
+      animal-damage: false # Prevent animals from being damaged in a claim
+      villager-damage: false # Prevent villagers from being damaged in a claim
+      golem-damage: false # Prevent damage to Iron Golems in a claim
+      monster-damage: false # Prevent damage caused by monsters in a claim
+      boss-damage: false # Prevent damage caused by bosses in a claim
+      general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
+      in-faction-pvp: false # Prevent PvP between faction members in a claim
+      minecart-damage: false # Prevent minecarts being destroyed in a claim
+      block-place: false # Prevent placing blocks in a claim
+      entity-spawned-by-egg: false # Prevent spawning entities using spawn eggs in a claim
+      explosions: false # Prevent explosions to occur in a claim
+      block-break: false # Prevent breaking blocks in a claim
+      block-interaction: false # Prevent interacting with blocks in a claim
+      entity-interaction: false # Prevent interacting with entities in a claim
+      entity-break-hanging: false # Prevent breaking hanging entities (like paintings or itemframes) in a claim
+
+performance:
+  thread-pool-size: 5 # Amount of thread that should be pooled waiting for operations
+
+# List the worlds you don't people be able to claim chunks in
+# Example:
+# blacklisted-worlds:
+#   - world_nether
+#   - world_the_end
+blacklisted-worlds:

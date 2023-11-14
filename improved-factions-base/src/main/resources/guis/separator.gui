@@ -1,0 +1,13 @@
+<gui width="9" height="1" title="Separator">
+    <component type="item" x="0" y="0" material="RED_STAINED_GLASS_PANE"/>
+    <component type="item" x="1" y="0" material="ORANGE_STAINED_GLASS_PANE"/>
+    <component type="item" x="2" y="0" material="YELLOW_STAINED_GLASS_PANE"/>
+    <component type="item" x="3" y="0" material="LIME_STAINED_GLASS_PANE"/>
+    <component type="item" x="4" y="0" material="GREEN_STAINED_GLASS_PANE"/>
+    <component type="item" x="5" y="0" material="CYAN_STAINED_GLASS_PANE"/>
+    <component type="item" x="6" y="0" material="LIGHT_BLUE_STAINED_GLASS_PANE"/>
+    <component type="item" x="7" y="0" material="BLUE_STAINED_GLASS_PANE"/>
+    <component type="item" x="8" y="0" material="PURPLE_STAINED_GLASS_PANE"/>
+</gui>
+
+

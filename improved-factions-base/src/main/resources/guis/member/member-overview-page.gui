@@ -1,0 +1,23 @@
+<gui width="9" height="6" title="§eFaction Members">
+    <component type="item" name="§eBack">
+        <head-texture>
+            eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjg0ZjU5NzEzMWJiZTI1ZGMwNThhZjg4OGNiMjk4MzFmNzk1OTliYzY3Yzk1YzgwMjkyNWNlNGFmYmEzMzJmYyJ9fX0=
+        </head-texture>
+        <on-click type="action">[container:previous]</on-click>
+    </component>
+
+    <component type="item" x="8" name="§eNext">
+        <head-texture>
+            eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjcyNmQyODhhNzRlOGFjOTI0YzU4YzkzZjViMzVjYWNkNjk0NmE2Y2NmZGJkYTg1ZmU4YWNiOWUzZWVjZWJkYiJ9fX0=
+        </head-texture>
+        <on-click type="action">[container:next]</on-click>
+    </component>
+    <component type="embedded" y="1" width="9" height="1" target-gui="separator"/>
+
+    <!-- A paged component with id container needed -->
+    <component type="paged" id="container" y="2" width="9" height="3"
+               pattern="1,10,19,3,12,21,5,14,23,7,16,25" copy-air="false">
+        <fill-empty type="item" material="GRAY_STAINED_GLASS_PANE"/>
+    </component>
+    <component type="embedded" y="5" width="9" height="1" target-gui="separator"/>
+</gui>

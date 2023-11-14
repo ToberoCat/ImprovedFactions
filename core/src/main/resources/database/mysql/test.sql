@@ -1,1 +1,0 @@
-DELETE FROM persistent_data WHERE uuid = %s AND id = %s

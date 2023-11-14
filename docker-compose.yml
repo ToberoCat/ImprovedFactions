@@ -1,0 +1,11 @@
+version: '3'
+services:
+  mcserver:
+    image: marctv/minecraft-papermc-server:latest
+    container_name: mcserver
+    environment:
+      - MEMORYSIZE=1G
+    volumes:
+      - ./server:/data
+    ports:
+      - "25565:25565"
