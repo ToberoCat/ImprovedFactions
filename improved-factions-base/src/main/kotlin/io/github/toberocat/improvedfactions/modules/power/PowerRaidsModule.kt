@@ -22,7 +22,7 @@ class PowerRaidsModule : BaseModule {
     }
 
     override fun addCommands(plugin: ImprovedFactionsPlugin, executor: CommandExecutor) {
-        executor.addChild(PowerCommand(plugin))
+        executor.addChild(PowerCommand(plugin, factionModuleHandle as FactionPowerRaidModuleHandleImpl))
     }
 
     companion object {

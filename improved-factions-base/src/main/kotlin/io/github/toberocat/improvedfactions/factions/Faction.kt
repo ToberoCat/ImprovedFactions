@@ -6,17 +6,12 @@ import io.github.toberocat.improvedfactions.messages.MessageBroker
 import io.github.toberocat.improvedfactions.claims.FactionClaim
 import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
-import io.github.toberocat.improvedfactions.exceptions.CantClaimThisChunkException
-import io.github.toberocat.improvedfactions.exceptions.CantInviteYourselfException
-import io.github.toberocat.improvedfactions.exceptions.FactionDoesntHaveThisClaimException
-import io.github.toberocat.improvedfactions.exceptions.PlayerIsOwnerLeaveException
+import io.github.toberocat.improvedfactions.exceptions.*
 import io.github.toberocat.improvedfactions.factions.ban.FactionBan
 import io.github.toberocat.improvedfactions.factions.ban.FactionBans
 import io.github.toberocat.improvedfactions.invites.FactionInvite
 import io.github.toberocat.improvedfactions.invites.FactionInvites
-import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Companion.powerRaidModule
-import io.github.toberocat.improvedfactions.objectMapper
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
 import io.github.toberocat.improvedfactions.ranks.listRanks
 import io.github.toberocat.improvedfactions.translation.LocalizationKey
@@ -27,6 +22,7 @@ import io.github.toberocat.improvedfactions.user.noFactionId
 import io.github.toberocat.improvedfactions.utils.async
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.util.ItemUtils
+import io.github.toberocat.toberocore.util.MathUtils
 import kotlinx.datetime.*
 import org.bukkit.Bukkit
 import org.bukkit.Chunk
@@ -40,6 +36,7 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.util.UUID
+import kotlin.math.max
 
 /**
  * Created: 04.08.2023
@@ -50,15 +47,34 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
 
     var owner by Factions.owner
     var defaultRank by Factions.defaultRank
-    var accumulatedPower by Factions.accumulatedPower;
-    var maxPower by Factions.maxPower;
-    var name by Factions.name
+
+    internal var localName by Factions.name
+
     private var base64Icon by Factions.base64Icon
+    private var localAccumulatedPower by Factions.accumulatedPower
+    private var localMaxPower by Factions.maxPower
+
+    val maxPower
+        get() = localMaxPower
+
+    val accumulatedPower
+        get() = localAccumulatedPower
+
+    var name
+        get() = localName
+        set(value) {
+            broadcast(
+                "base.faction.renamed", mapOf(
+                    "old" to localName, "new" to value
+                )
+            )
+            localName = value
+        }
 
     var icon: ItemStack
         get() {
             val item = Base64ItemStack.decode(base64Icon) ?: ItemStack(Material.GRASS_BLOCK)
-            ItemUtils.editMeta(item) { it.setDisplayName("§e${name}") }
+            ItemUtils.editMeta(item) { it.setDisplayName("§e${localName}") }
             return item
         }
         set(value) {
@@ -75,6 +91,36 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         members().forEach { unsetUserData(it) }
 
         super.delete()
+    }
+
+    fun setMaxPower(newMaxPower: Int) {
+        val actualNewMaxPower = max(newMaxPower, 0)
+        if (actualNewMaxPower == localMaxPower)
+            return
+
+        if (accumulatedPower > actualNewMaxPower)
+            setAccumulatedPower(actualNewMaxPower, PowerAccumulationChangeReason.MAX_CHANGED)
+        broadcast("power.faction.max-power-changed",
+            mapOf(
+                "old" to localAccumulatedPower.toString(),
+                "new" to actualNewMaxPower.toString()
+            ))
+        localMaxPower = actualNewMaxPower
+    }
+
+    fun setAccumulatedPower(newAccumulatedPower: Int, reason: PowerAccumulationChangeReason) {
+        val actualNewAccumulatedPower = MathUtils.clamp(newAccumulatedPower, 0, localMaxPower)
+        if (actualNewAccumulatedPower == localAccumulatedPower)
+            return
+
+        broadcast("power.faction.accumulated-power-changed.$reason",
+            mapOf(
+                "old" to localAccumulatedPower.toString(),
+                "new" to actualNewAccumulatedPower.toString(),
+                "max" to localMaxPower.toString()
+            ))
+
+        localAccumulatedPower = actualNewAccumulatedPower
     }
 
     fun countActiveMembers(ticksIntoPast: Long): Int {

@@ -37,11 +37,6 @@ class RenameCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubComma
             val faction = player.factionUser().faction() ?: throw CommandException(
                 "base.command.rename.faction-needed", emptyMap()
             )
-            faction.broadcast(
-                "base.faction.renamed", mapOf(
-                    "old" to faction.name, "new" to args[0]
-                )
-            )
             faction.name = args[0]
         }
         player.sendLocalized("base.command.rename.renamed")

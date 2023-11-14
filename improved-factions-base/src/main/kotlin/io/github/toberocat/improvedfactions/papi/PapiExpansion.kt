@@ -20,6 +20,8 @@ class PapiExpansion : PlaceholderExpansion() {
             Bukkit.getOfflinePlayer(uuid) }?.name }
         placeholders["name"] = { it.factionUser().faction()?.name }
         placeholders["rank"] = { it.factionUser().rank().name }
+        placeholders["power"] = { it.factionUser().faction()?.accumulatedPower?.toString() }
+        placeholders["maxPower"] = { it.factionUser().faction()?.maxPower?.toString() }
     }
 
     override fun getAuthor(): String = "Tobero"

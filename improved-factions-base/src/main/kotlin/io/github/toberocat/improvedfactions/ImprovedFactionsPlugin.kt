@@ -82,10 +82,10 @@ class ImprovedFactionsPlugin : JavaPlugin() {
         registerFunctions()
         guiEngineApi.reload(PluginLogger(logger))
 
+        registerModules()
         registerListeners()
         registerCommands()
         registerPapi()
-        registerModules()
 
         updateLanguages(this)
     }

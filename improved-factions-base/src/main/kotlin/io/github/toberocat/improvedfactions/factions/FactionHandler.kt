@@ -2,7 +2,6 @@ package io.github.toberocat.improvedfactions.factions
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.messages.MessageBroker
-import io.github.toberocat.improvedfactions.objectMapper
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.ranks.FactionRank
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
@@ -24,7 +23,7 @@ object FactionHandler {
         return transaction {
             val faction = Faction.new {
                 owner = ownerId
-                name = factionName
+                localName = factionName
                 icon = ItemBuilder().title("§e$factionName").material(Material.WOODEN_SWORD)
                     .create(ImprovedFactionsPlugin.instance)
             }
@@ -34,7 +33,7 @@ object FactionHandler {
 
             faction.defaultRank = ranks.firstOrNull()?.id?.value ?: FactionRankHandler.guestRankId
             faction.join(ownerId, ranks.lastOrNull()?.id?.value ?: FactionRankHandler.guestRankId)
-            faction.accumulatedPower = faction.maxPower;
+            faction.setMaxPower(faction.maxPower)
             return@transaction faction
         }
     }
