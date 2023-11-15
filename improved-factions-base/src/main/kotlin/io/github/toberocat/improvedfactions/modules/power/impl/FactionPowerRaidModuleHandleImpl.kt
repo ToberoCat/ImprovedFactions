@@ -8,15 +8,19 @@ import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.PowerAccumulationChangeReason
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.modules.power.handles.FactionPowerRaidModuleHandle
+import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.utils.getEnum
 import io.github.toberocat.improvedfactions.utils.getUnsignedDouble
 import io.github.toberocat.toberocore.util.MathUtils
 import org.bukkit.Bukkit
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import org.bukkit.event.entity.PlayerDeathEvent
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.util.concurrent.TimeUnit
 import kotlin.math.*
 
-class FactionPowerRaidModuleHandleImpl(private val module: PowerRaidsModule) : FactionPowerRaidModuleHandle {
+class FactionPowerRaidModuleHandleImpl(private val module: PowerRaidsModule) : FactionPowerRaidModuleHandle, Listener {
     private val configPath = "factions.power-management";
     private var baseMemberConstant: Double = 50.0
     private var accumulationTickDelay: Long = 1
@@ -28,7 +32,7 @@ class FactionPowerRaidModuleHandleImpl(private val module: PowerRaidsModule) : F
     private var baseClaimPowerCost: Double = 5.0
     private var claimPowerCostGrowth: Double = 1.1
     private var claimPowerKeep: Double = 1.0
-    private var playerDeathCost: Double = 5.0
+    private var playerDeathCost: Int = 5
 
     private var accumulateTaskId = 0
     private var claimKeepCostTaskId = 1
@@ -78,6 +82,14 @@ class FactionPowerRaidModuleHandleImpl(private val module: PowerRaidsModule) : F
             .mapIndexedNotNull { index, element -> if (element * claimPowerCost >= threshold) positions[index] else null })
     }
 
+    @EventHandler
+    private fun onDeath(event: PlayerDeathEvent) {
+        transaction {
+            val faction = event.entity.factionUser().faction() ?: return@transaction
+            faction.setAccumulatedPower(faction.accumulatedPower - playerDeathCost, PowerAccumulationChangeReason.PLAYER_DEATH)
+        }
+    }
+
     override fun reloadConfig(plugin: ImprovedFactionsPlugin) {
         val config = plugin.config
         Bukkit.getScheduler().cancelTask(accumulateTaskId)
@@ -100,7 +112,7 @@ class FactionPowerRaidModuleHandleImpl(private val module: PowerRaidsModule) : F
         baseClaimPowerCost = config.getUnsignedDouble("$configPath.base-claim-power-cost", baseClaimPowerCost)
         claimPowerCostGrowth = config.getUnsignedDouble("$configPath.claim-power-cost-growth", claimPowerCostGrowth)
         claimPowerKeep = config.getUnsignedDouble("$configPath.claim-power-keep", claimPowerKeep)
-        playerDeathCost = config.getUnsignedDouble("$configPath.player-death-cost", playerDeathCost)
+        playerDeathCost = abs(config.getInt("$configPath.player-death-cost", playerDeathCost))
         accumulateTaskId = Bukkit.getScheduler()
             .runTaskTimer(plugin, ::accumulateAll, accumulationTickDelay, accumulationTickDelay).taskId
         claimKeepCostTaskId = Bukkit.getScheduler()
