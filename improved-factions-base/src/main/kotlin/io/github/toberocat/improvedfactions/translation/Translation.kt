@@ -19,7 +19,10 @@ typealias LocalizationKey = String
 fun Player.sendLocalized(key: String, placeholders: Map<String, String> = emptyMap()) =
     toAudience().sendMessage(getLocalized(key, placeholders))
 
-fun Player.getLocalized(key: String, placeholders: Map<String, String> = emptyMap()): Component {
+fun Player.getLocalized(key: String, placeholders: Map<String, String> = emptyMap()) =
+    getLocaleEnum().localize(key, placeholders)
+
+fun Player.getLocaleEnum(): Locale {
     val localeParts = locale.split("_");
     val locale = when (localeParts.size) {
         1 -> Locale(localeParts[0])
@@ -27,21 +30,11 @@ fun Player.getLocalized(key: String, placeholders: Map<String, String> = emptyMa
         3 -> Locale(localeParts[0], localeParts[1], localeParts[2])
         else -> Locale.ENGLISH
     }
-
-    return locale.localize(key, placeholders)
+    return locale
 }
 
-fun Player.getUnformattedLocalized(key: String, placeholders: Map<String, String> = emptyMap()): String {
-    val localeParts = locale.split("_");
-    val locale = when (localeParts.size) {
-        1 -> Locale(localeParts[0])
-        2 -> Locale(localeParts[0], localeParts[1])
-        3 -> Locale(localeParts[0], localeParts[1], localeParts[2])
-        else -> Locale.ENGLISH
-    }
-
-    return locale.localizeUnformatted(key, placeholders)
-}
+fun Player.getUnformattedLocalized(key: String, placeholders: Map<String, String> = emptyMap()) =
+    getLocaleEnum().localizeUnformatted(key, placeholders)
 
 fun Locale.localize(key: LocalizationKey, placeholders: Map<String, String>): Component =
     MiniMessage.miniMessage().deserialize(localizeUnformatted(key, placeholders))
@@ -62,9 +55,13 @@ fun Locale.localizeUnformatted(key: LocalizationKey, placeholders: Map<String, S
 
         for ((placeholder, value) in placeholders) {
             val placeholderPattern = Regex("\\{\\s*${Regex.escape(placeholder)}\\s*\\}")
-            val replaced = result.replace(placeholderPattern, MiniMessage.miniMessage().serialize(LegacyComponentSerializer
-                .legacyAmpersand()
-                .deserialize(value)))
+            val replaced = result.replace(
+                placeholderPattern, MiniMessage.miniMessage().serialize(
+                    LegacyComponentSerializer
+                        .legacyAmpersand()
+                        .deserialize(value)
+                )
+            )
             if (replaced == result) continue
             result = replaced
             changed = true

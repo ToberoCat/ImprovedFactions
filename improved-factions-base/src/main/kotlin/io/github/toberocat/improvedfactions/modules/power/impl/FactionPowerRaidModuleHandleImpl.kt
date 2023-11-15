@@ -10,6 +10,7 @@ import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.modules.power.handles.FactionPowerRaidModuleHandle
 import io.github.toberocat.improvedfactions.utils.getEnum
 import io.github.toberocat.improvedfactions.utils.getUnsignedDouble
+import io.github.toberocat.toberocore.util.MathUtils
 import org.bukkit.Bukkit
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.util.concurrent.TimeUnit
@@ -64,7 +65,13 @@ class FactionPowerRaidModuleHandleImpl(private val module: PowerRaidsModule) : F
         val totalDistancePercentageSum = distancePercentages.sum()
 
         val claimPowerCost = clusterPowerCost / totalDistancePercentageSum
-        val threshold = sqrt(abs((faction.accumulatedPower - claimMaintenanceCost) * clusterClaimsRatio))
+        val threshold = sqrt(
+            (faction.maxPower + MathUtils.clamp(
+                faction.accumulatedPower - claimMaintenanceCost,
+                -faction.maxPower.toDouble(),
+                faction.maxPower.toDouble()
+            )) * clusterClaimsRatio
+        )
 
         val positions = cluster.positions.toList()
         unprotectedPositions.addAll(distancePercentages
