@@ -43,11 +43,6 @@ object FactionHandler {
     }
 
     fun createListenersFor(faction: Faction) {
-        MessageBroker.listenMsg(faction.id.value) { message ->
-            val members = transaction { faction.members().mapNotNull { Bukkit.getPlayer(it.uniqueId) } }
-            sync { members.forEach { it.sendMessage(message) } }
-        }
-
         MessageBroker.listenLocalized(faction.id.value) { message ->
             val members = transaction { faction.members().mapNotNull { Bukkit.getPlayer(it.uniqueId) } }
             sync { members.forEach { it.sendLocalized(message.key, message.placeholders) } }

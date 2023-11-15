@@ -261,15 +261,13 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
     fun leave(player: UUID) {
         if (owner == player) throw PlayerIsOwnerLeaveException()
 
+        unsetUserData(player.factionUser())
         broadcast(
             "base.faction.player-left", mapOf(
                 "player" to (Bukkit.getOfflinePlayer(player).name ?: "unknown")
             )
         )
-        unsetUserData(player.factionUser())
     }
-
-    fun broadcast(message: String) = MessageBroker.send(id.value, message)
 
     fun broadcast(key: LocalizationKey, placeholders: Map<String, String>) =
         MessageBroker.send(id.value, LocalizedMessage(key, placeholders))
