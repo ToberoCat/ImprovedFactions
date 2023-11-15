@@ -5,6 +5,7 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.messages.MessageBroker
 import io.github.toberocat.improvedfactions.claims.FactionClaim
 import io.github.toberocat.improvedfactions.claims.FactionClaims
+import io.github.toberocat.improvedfactions.claims.clustering.Position
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
 import io.github.toberocat.improvedfactions.exceptions.*
 import io.github.toberocat.improvedfactions.factions.ban.FactionBan
@@ -86,6 +87,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         }
 
     override fun delete() {
+        ImprovedFactionsPlugin.instance.claimChunkClusters.removeFactionClusters(this)
         listRanks().forEach { it.delete() }
         claims().forEach { it.factionId = noFactionId }
         members().forEach { unsetUserData(it) }
@@ -100,11 +102,13 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
 
         if (accumulatedPower > actualNewMaxPower)
             setAccumulatedPower(actualNewMaxPower, PowerAccumulationChangeReason.MAX_CHANGED)
-        broadcast("power.faction.max-power-changed",
+        broadcast(
+            "power.faction.max-power-changed",
             mapOf(
                 "old" to localAccumulatedPower.toString(),
                 "new" to actualNewMaxPower.toString()
-            ))
+            )
+        )
         localMaxPower = actualNewMaxPower
     }
 
@@ -113,12 +117,14 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         if (actualNewAccumulatedPower == localAccumulatedPower)
             return
 
-        broadcast("power.faction.accumulated-power-changed.$reason",
+        broadcast(
+            "power.faction.accumulated-power-changed.$reason",
             mapOf(
                 "old" to localAccumulatedPower.toString(),
                 "new" to actualNewAccumulatedPower.toString(),
                 "max" to localMaxPower.toString()
-            ))
+            )
+        )
 
         ImprovedFactionsPlugin.instance.claimChunkClusters.markFactionClusterForUpdate(this)
         localAccumulatedPower = actualNewAccumulatedPower
@@ -204,6 +210,8 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         }
 
         factionClaim.factionId = factionId
+        ImprovedFactionsPlugin.instance.claimChunkClusters.insertPosition(Position(chunk.x, chunk.z, id.value))
+
         broadcast(
             "base.faction.chunk-claimed", mapOf(
                 "x" to chunk.x.toString(), "z" to chunk.z.toString(), "world" to chunk.world.name
@@ -222,6 +230,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         val claim = chunk.getFactionClaim()
         if (claim == null || claim.factionId != id.value) throw FactionDoesntHaveThisClaimException()
         claim.factionId = noFactionId
+        ImprovedFactionsPlugin.instance.claimChunkClusters.removePosition(Position(chunk.x, chunk.z, id.value))
     }
 
     @Throws(PlayerIsOwnerLeaveException::class)
@@ -252,8 +261,12 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
     fun leave(player: UUID) {
         if (owner == player) throw PlayerIsOwnerLeaveException()
 
+        broadcast(
+            "base.faction.player-left", mapOf(
+                "player" to (Bukkit.getOfflinePlayer(player).name ?: "unknown")
+            )
+        )
         unsetUserData(player.factionUser())
-        broadcast("base.faction.player-left", emptyMap())
     }
 
     fun broadcast(message: String) = MessageBroker.send(id.value, message)

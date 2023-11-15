@@ -33,7 +33,7 @@
         <sqlite-jdbc.version>3.43.0.0</sqlite-jdbc.version>
         <spigot-update-checker.version>3.0.3</spigot-update-checker.version>
         <kotlinx-datetime.version>0.4.0</kotlinx-datetime.version>
-        <toberocore.version>8c6baa37e4</toberocore.version>
+        <toberocore.version>be356f9253</toberocore.version>
         <guiengine.version>d11081e888</guiengine.version>
         <adventure-text-minimessage.version>4.12.0</adventure-text-minimessage.version>
         <adventure-text-serializer-gson.version>4.14.0</adventure-text-serializer-gson.version>
@@ -128,6 +128,10 @@
                                 <relocation>
                                     <pattern>com.jeff_media.updatechecker</pattern>
                                     <shadedPattern>io.github.toberocat.improvedfactions.updatechecker</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>io.github.toberocat.toberocore</pattern>
+                                    <shadedPattern>io.github.toberocat.improvedfactions.toberocore</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>

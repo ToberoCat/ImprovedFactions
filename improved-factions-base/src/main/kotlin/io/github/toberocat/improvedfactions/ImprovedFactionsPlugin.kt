@@ -201,6 +201,6 @@ class ImprovedFactionsPlugin : JavaPlugin() {
     }
 
     private fun registerListeners() {
-        server.pluginManager.registerEvents(TerritoryEnterListener(), this)
+        server.pluginManager.registerEvents(TerritoryEnterListener(claimChunkClusters), this)
     }
 }

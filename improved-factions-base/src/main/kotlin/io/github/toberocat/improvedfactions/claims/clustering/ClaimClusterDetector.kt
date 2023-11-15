@@ -31,6 +31,10 @@ class ClaimClusterDetector(private val queryProvider: ClaimQueryProvider) {
         .filter { it.factionId == faction.id.value }
         .forEach(Cluster::scheduleUpdate)
 
+    fun removeFactionClusters(faction: Faction) = clusters
+        .filter { it.value.factionId == faction.id.value }
+        .forEach { removeCluster(it.key) }
+
     fun getClusterId(position: Position) = clusterMap[position]
     fun getCluster(clusterId: Int) = clusters.getOrDefault(clusterId, null)
     fun getCluster(position: Position): Cluster? = getClusterId(position)?.let {
@@ -57,6 +61,11 @@ class ClaimClusterDetector(private val queryProvider: ClaimQueryProvider) {
 
         unreachablePositions.forEach(clusterMap::remove)
         unreachablePositions.forEach { insertPosition(it) }
+    }
+
+    fun removeCluster(clusterId: Int) {
+        clusters[clusterId]?.positions?.forEach(clusterMap::remove)
+        clusters.remove(clusterId)
     }
 
     private fun getNeighboringClusters(position: Position) =

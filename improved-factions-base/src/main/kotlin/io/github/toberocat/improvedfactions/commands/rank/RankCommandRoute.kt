@@ -48,7 +48,7 @@ class RankCommandRoute(private val plugin: ImprovedFactionsPlugin) : CommandRout
                     container.addComponent(
                         FactionRankComponentBuilder()
                             .setRank(it)
-                            .setClickFunctions(listOf(GuiFunction.anonymous { _ ->
+                            .setClickFunctions(listOf(GuiFunction.anonymousSync { _ ->
                                 Bukkit.dispatchCommand(
                                     player,
                                     "factions rank edit ${it.name}"

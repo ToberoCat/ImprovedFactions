@@ -1,6 +1,8 @@
 package io.github.toberocat.improvedfactions.listeners
 
 import io.github.toberocat.improvedfactions.claims.FactionClaim
+import io.github.toberocat.improvedfactions.claims.clustering.ClaimClusterDetector
+import io.github.toberocat.improvedfactions.claims.clustering.Position
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
 import io.github.toberocat.improvedfactions.translation.getLocalized
 import io.github.toberocat.improvedfactions.user.noFactionId
@@ -12,7 +14,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerMoveEvent
 import org.jetbrains.exposed.sql.transactions.transaction
 
-class TerritoryEnterListener : Listener {
+class TerritoryEnterListener(private val claimCluster: ClaimClusterDetector) : Listener {
     @EventHandler
     fun playerMove(event: PlayerMoveEvent) {
         val to = event.to?.chunk
@@ -25,14 +27,26 @@ class TerritoryEnterListener : Listener {
 
             val toFaction = toClaim?.faction()
             val toZone = toClaim?.zone()
-            val key = if (toFaction != null) "base.claim-faction-territory" else (toZone?.noFactionTitle
-                ?: "base.zone.wilderness")
-            val component = event.player.getLocalized(
-                key, mapOf(
-                    "faction" to (toFaction?.name ?: "Wilderness")
+            val key = when {
+                toFaction != null -> "base.claim-faction-territory"
+                else -> toZone?.noFactionTitle ?: "base.zone.wilderness"
+            }
+            event.player.toAudience().sendTitlePart(
+                TitlePart.TITLE, event.player.getLocalized(
+                    key, mapOf(
+                        "faction" to (toFaction?.name ?: "Wilderness")
+                    )
                 )
             )
-            event.player.toAudience().sendTitlePart(TitlePart.TITLE, component)
+            val cluster = toClaim?.let { claimCluster.getCluster(Position(it.chunkX, it.chunkZ, -1)) }
+            if (cluster == null || !cluster.isUnprotected(toClaim.chunkX, toClaim.chunkZ))
+                return@transaction
+
+            event.player.toAudience().sendTitlePart(
+                TitlePart.SUBTITLE, event.player.getLocalized(
+                    "base.claim-faction-territory.subtitles.unprotected"
+                )
+            )
         }
     }
 

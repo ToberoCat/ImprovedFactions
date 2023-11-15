@@ -1,7 +1,5 @@
 package io.github.toberocat.improvedfactions.claims.clustering
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Companion.powerRaidModule
 import io.github.toberocat.improvedfactions.modules.power.handles.FactionPowerRaidModuleHandle
 
@@ -20,7 +18,7 @@ class Cluster(val factionId: Int, val positions: MutableList<Position> = mutable
         lazyUpdate = true
     }
 
-    fun isProtected(x: Int, y: Int): Boolean {
+    fun isUnprotected(x: Int, y: Int): Boolean {
         if (lazyUpdate)
             updateUnprotectedChunks()
         return Position(x, y, -1) in unprotectedPositions

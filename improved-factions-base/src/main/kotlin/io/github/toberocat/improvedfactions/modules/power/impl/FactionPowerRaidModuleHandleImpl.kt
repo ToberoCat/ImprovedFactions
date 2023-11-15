@@ -32,11 +32,11 @@ class FactionPowerRaidModuleHandleImpl(private val module: PowerRaidsModule) : F
     private var claimKeepCostTaskId = 1
 
     override fun memberJoin(faction: Faction) {
-        faction.setMaxPower(faction.maxPower + ceil(calculatePowerChange(faction)).toInt())
+        faction.setMaxPower(faction.maxPower + ceil(calculatePowerChange(faction.members().count())).toInt())
     }
 
     override fun memberLeave(faction: Faction) {
-        faction.setMaxPower(faction.maxPower - floor(calculatePowerChange(faction)).toInt())
+        faction.setMaxPower(faction.maxPower - floor(calculatePowerChange(faction.members().count() + 1)).toInt())
     }
 
     override fun claimChunk(faction: Faction) {
@@ -137,6 +137,6 @@ class FactionPowerRaidModuleHandleImpl(private val module: PowerRaidsModule) : F
     fun getInactivePowerAccumulation(faction: Faction) =
         faction.countInactiveMembers(inactiveMilliseconds) * inactiveAccumulationMultiplier * accumulationMultiplier
 
-    private fun calculatePowerChange(faction: Faction) = baseMemberConstant * 1f / faction.members().count()
+    private fun calculatePowerChange(members: Long) = baseMemberConstant * (1f / members)
     private fun getClaimMaintenanceCost(claims: Long) = claims * claimPowerKeep
 }

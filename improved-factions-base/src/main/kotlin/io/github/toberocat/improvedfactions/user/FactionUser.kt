@@ -51,7 +51,8 @@ class FactionUser(id: EntityID<Int>) : IntEntity(id) {
 
         return FactionPermission.count(
             FactionPermissions.rankId eq assignedRank and
-                    (FactionPermissions.permission eq permission)
+                    (FactionPermissions.permission eq permission) and
+                    (FactionPermissions.allowed eq true)
         ) == 1L
     }
 
