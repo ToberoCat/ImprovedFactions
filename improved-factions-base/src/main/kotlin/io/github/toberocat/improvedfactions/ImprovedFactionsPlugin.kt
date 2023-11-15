@@ -9,6 +9,8 @@ import io.github.toberocat.guiengine.GuiEngineApi
 import io.github.toberocat.guiengine.function.FunctionProcessor
 import io.github.toberocat.guiengine.utils.FileUtils
 import io.github.toberocat.guiengine.utils.logger.PluginLogger
+import io.github.toberocat.improvedfactions.claims.clustering.ClaimClusterDetector
+import io.github.toberocat.improvedfactions.claims.clustering.DatabaseClaimQueryProvider
 import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.commands.FactionCommandExecutor
 import io.github.toberocat.improvedfactions.components.icon.FactionIconComponent
@@ -51,6 +53,7 @@ class ImprovedFactionsPlugin : JavaPlugin() {
     private lateinit var database: Database
     lateinit var guiEngineApi: GuiEngineApi
     lateinit var adventure: BukkitAudiences
+    lateinit var claimChunkClusters: ClaimClusterDetector
 
     companion object {
         lateinit var instance: ImprovedFactionsPlugin
@@ -68,6 +71,7 @@ class ImprovedFactionsPlugin : JavaPlugin() {
     override fun onEnable() {
         instance = this
         adventure = BukkitAudiences.create(this)
+        claimChunkClusters = ClaimClusterDetector(DatabaseClaimQueryProvider())
 
         BStatsCollector(this)
         checkForUpdate()
@@ -88,6 +92,8 @@ class ImprovedFactionsPlugin : JavaPlugin() {
         registerPapi()
 
         updateLanguages(this)
+
+        claimChunkClusters.detectClusters()
     }
 
     override fun onDisable() {
@@ -165,7 +171,6 @@ class ImprovedFactionsPlugin : JavaPlugin() {
 
         modules.values.forEach { it.reloadConfig(this) }
     }
-
 
     private fun registerCommands() {
         FactionCommandExecutor(this)

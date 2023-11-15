@@ -109,7 +109,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
     }
 
     fun setAccumulatedPower(newAccumulatedPower: Int, reason: PowerAccumulationChangeReason) {
-        val actualNewAccumulatedPower = MathUtils.clamp(newAccumulatedPower, 0, localMaxPower)
+        val actualNewAccumulatedPower = MathUtils.clamp(newAccumulatedPower, -localMaxPower, localMaxPower)
         if (actualNewAccumulatedPower == localAccumulatedPower)
             return
 
@@ -120,6 +120,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
                 "max" to localMaxPower.toString()
             ))
 
+        ImprovedFactionsPlugin.instance.claimChunkClusters.markFactionClusterForUpdate(this)
         localAccumulatedPower = actualNewAccumulatedPower
     }
 

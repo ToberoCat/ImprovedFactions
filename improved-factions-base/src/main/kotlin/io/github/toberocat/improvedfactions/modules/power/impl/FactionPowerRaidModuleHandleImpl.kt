@@ -1,6 +1,8 @@
 package io.github.toberocat.improvedfactions.modules.power.impl
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.claims.clustering.Cluster
+import io.github.toberocat.improvedfactions.claims.clustering.Position
 import io.github.toberocat.improvedfactions.exceptions.NotEnoughPowerException
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.PowerAccumulationChangeReason
@@ -26,7 +28,8 @@ class FactionPowerRaidModuleHandleImpl(private val module: PowerRaidsModule) : F
     private var claimPowerCostGrowth: Double = 1.1
     private var claimPowerKeep: Double = 1.0
 
-    private var taskId = 0
+    private var accumulateTaskId = 0
+    private var claimKeepCostTaskId = 1
 
     override fun memberJoin(faction: Faction) {
         faction.setMaxPower(faction.maxPower + ceil(calculatePowerChange(faction)).toInt())
@@ -43,10 +46,32 @@ class FactionPowerRaidModuleHandleImpl(private val module: PowerRaidsModule) : F
         faction.setAccumulatedPower(faction.accumulatedPower - cost, PowerAccumulationChangeReason.CHUNK_CLAIMED)
     }
 
+    override fun calculateUnprotectedChunks(cluster: Cluster, unprotectedPositions: MutableSet<Position>) {
+        val faction = Faction.findById(cluster.factionId)
+            ?: throw IllegalArgumentException("Faction is missing")
+
+        val totalClaims = faction.claims().count()
+        val claimMaintenanceCost = getClaimMaintenanceCost(totalClaims)
+
+        val clusterClaimsRatio = cluster.positions.size.toDouble() / totalClaims
+        val clusterPowerCost = claimMaintenanceCost * clusterClaimsRatio
+
+        val positionSrqDistances = cluster.positions.map { it.distanceSquaredTo(cluster.centerX, cluster.centerY) }
+
+        val biggestDistance = positionSrqDistances.maxOrNull() ?: return
+        val distancePercentages = positionSrqDistances.map { it / biggestDistance }
+        val totalDistancePercentageSum = distancePercentages.sum()
+
+        val claimPowerCost = clusterPowerCost / totalDistancePercentageSum
+        val threshold = abs((faction.accumulatedPower - claimMaintenanceCost) * clusterClaimsRatio)
+
+        unprotectedPositions.addAll(distancePercentages
+            .mapIndexedNotNull { index, element -> if (element * claimPowerCost >= threshold) cluster.positions[index] else null })
+    }
 
     override fun reloadConfig(plugin: ImprovedFactionsPlugin) {
         val config = plugin.config
-        Bukkit.getScheduler().cancelTask(taskId)
+        Bukkit.getScheduler().cancelTask(accumulateTaskId)
         baseMemberConstant = config.getUnsignedDouble("$configPath.base-member-constant", baseMemberConstant)
         accumulationTickDelay = (config.getEnum<TimeUnit>("$configPath.accumulation-rate.unit")
             ?: TimeUnit.HOURS).toSeconds(abs(config.getLong("$configPath.accumulation-rate.value", 1))) * 20
@@ -64,8 +89,24 @@ class FactionPowerRaidModuleHandleImpl(private val module: PowerRaidsModule) : F
         baseClaimPowerCost = config.getUnsignedDouble("$configPath.base-claim-power-cost", baseClaimPowerCost)
         claimPowerCostGrowth = config.getUnsignedDouble("$configPath.claim-power-cost-growth", claimPowerCostGrowth)
         claimPowerKeep = config.getUnsignedDouble("$configPath.claim-power-keep", claimPowerKeep)
-        taskId = Bukkit.getScheduler()
+        accumulateTaskId = Bukkit.getScheduler()
             .runTaskTimer(plugin, ::accumulateAll, accumulationTickDelay, accumulationTickDelay).taskId
+        claimKeepCostTaskId = Bukkit.getScheduler()
+            .runTaskTimer(
+                plugin,
+                ::claimKeepCostsCollector,
+                accumulationTickDelay + accumulationTickDelay / 2,
+                accumulationTickDelay
+            ).taskId
+    }
+
+    private fun claimKeepCostsCollector() = transaction {
+        Faction.all().forEach {
+            it.setAccumulatedPower(
+                it.accumulatedPower - getClaimMaintenanceCost(it).toInt(),
+                PowerAccumulationChangeReason.CHUNK_KEEP_COST
+            )
+        }
     }
 
     private fun accumulateAll() = transaction {
@@ -84,21 +125,18 @@ class FactionPowerRaidModuleHandleImpl(private val module: PowerRaidsModule) : F
         baseAccumulation + max(activeAccumulation - negativAccumulation, 0.0)
 
     private fun getPowerAccumulated(faction: Faction) =
-        getPowerAccumulated(getActivePowerAccumulation(faction), getNegativPowerAccumulation(faction))
+        getPowerAccumulated(getActivePowerAccumulation(faction), getInactivePowerAccumulation(faction))
 
     fun getActivePowerAccumulation(faction: Faction) =
         (1 + faction.countActiveMembers(accumulationTickDelay) / faction.members().count().toDouble()).pow(
             activeAccumulationExponent
         ) * accumulationMultiplier
 
-    fun getNegativPowerAccumulation(inactivePowerAccumulation: Double, claimKeepCost: Double) =
-        inactivePowerAccumulation + claimKeepCost
-    fun getNegativPowerAccumulation(faction: Faction) =
-        getNegativPowerAccumulation(getInactivePowerAccumulation(faction), getClaimMaintenanceCost(faction))
 
-    fun getClaimMaintenanceCost(faction: Faction) = faction.claims().count() * claimPowerKeep;
+    fun getClaimMaintenanceCost(faction: Faction) = getClaimMaintenanceCost(faction.claims().count())
     fun getInactivePowerAccumulation(faction: Faction) =
         faction.countInactiveMembers(inactiveMilliseconds) * inactiveAccumulationMultiplier * accumulationMultiplier
 
     private fun calculatePowerChange(faction: Faction) = baseMemberConstant * 1f / faction.members().count()
+    private fun getClaimMaintenanceCost(claims: Long) = claims * claimPowerKeep
 }

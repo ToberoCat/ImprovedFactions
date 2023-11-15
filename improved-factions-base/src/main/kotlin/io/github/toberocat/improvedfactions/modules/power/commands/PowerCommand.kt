@@ -39,15 +39,13 @@ class PowerCommand(private val plugin: ImprovedFactionsPlugin,
             val activeAccumulation = powerHandle.getActivePowerAccumulation(faction)
             val inactiveAccumulation = powerHandle.getInactivePowerAccumulation(faction)
             val claimKeep = powerHandle.getClaimMaintenanceCost(faction)
-            val negativAccumulation = powerHandle.getNegativPowerAccumulation(inactiveAccumulation, claimKeep)
             plugin.guiEngineApi.openGui(player, "power/overview", mapOf(
                 "power" to faction.accumulatedPower.toString(),
                 "maxPower" to faction.maxPower.toString(),
-                "currently-accumulated" to stringify(powerHandle.getPowerAccumulated(activeAccumulation, negativAccumulation)),
+                "currently-accumulated" to stringify(powerHandle.getPowerAccumulated(activeAccumulation, inactiveAccumulation)),
                 "active-accumulation" to stringify(activeAccumulation),
                 "inactive-accumulation" to stringify(inactiveAccumulation),
                 "claim-keep" to stringify(claimKeep),
-                "negativ-accumulation" to stringify(negativAccumulation),
                 "next-claim-cost" to powerHandle.getNextClaimCost(faction).toString()
             ))
         }

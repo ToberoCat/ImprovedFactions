@@ -7,9 +7,7 @@
         <lore/>
         <lore>§7Details</lore>
         <lore>§7Active Accumulation: §b%active-accumulation%</lore>
-        <lore>§7Negativ Accumulation: §c%negativ-accumulation%</lore>
-        <lore>§7   Inactive Player Cost: §c%inactive-accumulation%</lore>
-        <lore>§7   Claim Maintenance Cost: §c%claim-keep%</lore>
+        <lore>§7Inactive Player Cost: §c%inactive-accumulation%</lore>
     </component>
 
     <component type="item" y="1" x="4" name="§bPower" material="HEART_OF_THE_SEA">
@@ -20,7 +18,7 @@
     <component type="item" y="1" x="6" name="§bClaim Details" material="SLIME_BALL">
         <lore/>
         <lore>§7Next claim cost: §b%next-claim-cost%</lore>
-        <lore>§7Claim Maintenance Cost: §b%claim-keep%</lore>
+        <lore>§7Claim Maintenance Cost: §c%claim-keep%</lore>
     </component>
 
     <component type="embedded" y="2" width="9" height="1" target-gui="separator"/>
