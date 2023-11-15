@@ -86,7 +86,7 @@ class ClaimClusterDetector(private val queryProvider: ClaimQueryProvider) {
     private fun mergeClusters(clusterIds: List<Int>) {
         val newClusterPositions = clusterIds.flatMap { clusters[it]?.positions ?: emptyList() }
         clusterIds.forEach { clusters.remove(it) }
-        clusters[clusterIds[0]] = Cluster(newClusterPositions[0].factionId, newClusterPositions.toMutableList())
+        clusters[clusterIds[0]] = Cluster(newClusterPositions[0].factionId, newClusterPositions.toMutableSet())
         newClusterPositions.forEach { assignToCluster(it, clusterIds[0]) }
     }
 }

@@ -3,10 +3,10 @@ package io.github.toberocat.improvedfactions.claims.clustering
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Companion.powerRaidModule
 import io.github.toberocat.improvedfactions.modules.power.handles.FactionPowerRaidModuleHandle
 
-class Cluster(val factionId: Int, val positions: MutableList<Position> = mutableListOf()) {
+class Cluster(val factionId: Int, val positions: MutableSet<Position> = mutableSetOf()) {
     private val powerModuleHandle: FactionPowerRaidModuleHandle = powerRaidModule().factionModuleHandle
     private val unprotectedPositions: MutableSet<Position> = mutableSetOf()
-    private var lazyUpdate = false
+    private var lazyUpdate = true
     var centerX = 0.0
     var centerY = 0.0
 

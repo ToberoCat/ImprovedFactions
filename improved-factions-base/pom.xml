@@ -36,7 +36,7 @@
         <toberocore.version>be356f9253</toberocore.version>
         <guiengine.version>d11081e888</guiengine.version>
         <adventure-text-minimessage.version>4.12.0</adventure-text-minimessage.version>
-        <adventure-text-serializer-gson.version>4.14.0</adventure-text-serializer-gson.version>
+        <adventure-text-serializer-legacy.version>4.14.0</adventure-text-serializer-legacy.version>
         <kyori-adventure-platform-bukkit.version>4.3.1</kyori-adventure-platform-bukkit.version>
         <base64-itemstack.version>1.0.0</base64-itemstack.version>
         <bstats-bukkit.version>3.0.2</bstats-bukkit.version>
@@ -247,8 +247,8 @@
         </dependency>
         <dependency>
             <groupId>net.kyori</groupId>
-            <artifactId>adventure-text-serializer-gson</artifactId>
-            <version>${adventure-text-serializer-gson.version}</version>
+            <artifactId>adventure-text-serializer-legacy</artifactId>
+            <version>${adventure-text-serializer-legacy.version}</version>
         </dependency>
         <dependency>
             <groupId>net.kyori</groupId>

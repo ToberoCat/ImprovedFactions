@@ -4,6 +4,8 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.utils.toAudience
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
+import net.kyori.adventure.text.serializer.ComponentSerializer
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.entity.Player
 import java.util.*
 
@@ -50,7 +52,6 @@ fun Locale.localizeUnformatted(key: LocalizationKey, placeholders: Map<String, S
         ImprovedFactionsPlugin.instance.logger.warning("Missing $key in the language file for $this")
         return key
     }
-
     val localizedString = bundle.getString(key)
     val mutablePlaceholders = placeholders.toMutableMap()
     if (bundle.containsKey("base.prefix")) mutablePlaceholders["prefix"] = bundle.getString("base.prefix")
@@ -61,7 +62,9 @@ fun Locale.localizeUnformatted(key: LocalizationKey, placeholders: Map<String, S
 
         for ((placeholder, value) in placeholders) {
             val placeholderPattern = Regex("\\{\\s*${Regex.escape(placeholder)}\\s*\\}")
-            val replaced = result.replace(placeholderPattern, value)
+            val replaced = result.replace(placeholderPattern, MiniMessage.miniMessage().serialize(LegacyComponentSerializer
+                .legacyAmpersand()
+                .deserialize(value)))
             if (replaced == result) continue
             result = replaced
             changed = true

@@ -33,7 +33,6 @@ object FactionHandler {
 
             faction.defaultRank = ranks.firstOrNull()?.id?.value ?: FactionRankHandler.guestRankId
             faction.join(ownerId, ranks.lastOrNull()?.id?.value ?: FactionRankHandler.guestRankId)
-            faction.setMaxPower(faction.maxPower)
             return@transaction faction
         }
     }

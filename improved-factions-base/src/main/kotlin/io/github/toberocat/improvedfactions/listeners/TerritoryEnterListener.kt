@@ -38,7 +38,7 @@ class TerritoryEnterListener(private val claimCluster: ClaimClusterDetector) : L
                     )
                 )
             )
-            val cluster = toClaim?.let { claimCluster.getCluster(Position(it.chunkX, it.chunkZ, -1)) }
+            val cluster = toClaim?.let { claimCluster.getCluster(Position(it.chunkX, it.chunkZ, toFaction?.id?.value ?: noFactionId)) }
             if (cluster == null || !cluster.isUnprotected(toClaim.chunkX, toClaim.chunkZ))
                 return@transaction
 

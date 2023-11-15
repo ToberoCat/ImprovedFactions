@@ -93,6 +93,7 @@ factions:
     # This is the amount of power each claim costs a faction. Note that this will be withdrawn even when the faction is offline,
     # making it possible for them getting vulnerable while being offline
     claim-power-keep: 1
+    player-death-cost: 5 # How much power the faction loses when a player dies
   # Whenever you change values in this section, you'll have issues with your database
   # Choose values that go for you and never touch them again
   unsafe:

@@ -82,7 +82,7 @@ class ClaimDetectorTest {
         assertEquals(0, detector.getClusterId(Position(1, 0, 1)))
         assertNull(detector.getClusterId(Position(0, 0, 1)))
         assertEquals(1, detector.getCluster(Position(1, 0, 1))?.positions?.size)
-        assertEquals(Position(1, 0, 1), detector.getCluster(Position(1, 0, 1))?.positions?.get(0))
+        assertEquals(Position(1, 0, 1), detector.getCluster(Position(1, 0, 1))?.positions?.first())
     }
 
     @Test

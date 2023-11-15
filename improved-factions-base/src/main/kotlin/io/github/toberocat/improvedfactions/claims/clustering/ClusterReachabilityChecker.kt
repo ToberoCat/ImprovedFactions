@@ -1,12 +1,12 @@
 package io.github.toberocat.improvedfactions.claims.clustering
 
-class ClusterReachabilityChecker(private val positions: List<Position>) {
+class ClusterReachabilityChecker(private val positions: Set<Position>) {
     private val visited = mutableSetOf<Position>()
 
     fun getUnreachablePositions(): Set<Position> {
         if (positions.isEmpty())
             return emptySet()
-        val start = positions[0]
+        val start = positions.first()
         if (positions.any { start.factionId != it.factionId })
             throw IllegalArgumentException("Only claims of the same type are allowed")
 

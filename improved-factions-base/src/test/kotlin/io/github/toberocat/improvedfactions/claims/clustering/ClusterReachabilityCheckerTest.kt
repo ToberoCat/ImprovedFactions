@@ -8,7 +8,7 @@ import kotlin.test.Test
 class ClusterReachabilityCheckerTest {
     @Test
     fun `test get unreachable positions`() {
-        val positions = listOf(
+        val positions = setOf(
             Position(0, 0, 1),
             Position(0, 1, 1),
             Position(1, 0, 1),
@@ -25,7 +25,7 @@ class ClusterReachabilityCheckerTest {
 
     @Test
     fun `test get unreachable positions empty list`() {
-        val positions = emptyList<Position>()
+        val positions = emptySet<Position>()
 
         val checker = ClusterReachabilityChecker(positions)
 
@@ -36,7 +36,7 @@ class ClusterReachabilityCheckerTest {
 
     @Test
     fun `test get unreachable positions single element`() {
-        val positions = listOf(Position(0, 0, 1))
+        val positions = setOf(Position(0, 0, 1))
 
         val checker = ClusterReachabilityChecker(positions)
 
@@ -48,7 +48,7 @@ class ClusterReachabilityCheckerTest {
 
     @Test
     fun `test get unreachable positions all unreachable`() {
-        val positions = listOf(
+        val positions = setOf(
             Position(0, 0, 1),
             Position(1, 1, 1),
             Position(2, 2, 1)
@@ -68,7 +68,7 @@ class ClusterReachabilityCheckerTest {
 
     @Test
     fun `test get different claim types`() {
-        val positions = listOf(
+        val positions = setOf(
             Position(0, 0, 1),
             Position(0, 1, 1),
             Position(1, 0, 1),
@@ -90,7 +90,7 @@ class ClusterReachabilityCheckerTest {
             (0 until gridSize).map { y ->
                 Position(x, y, 1)
             }
-        }
+        }.toSet()
 
         val checker = ClusterReachabilityChecker(positions)
 

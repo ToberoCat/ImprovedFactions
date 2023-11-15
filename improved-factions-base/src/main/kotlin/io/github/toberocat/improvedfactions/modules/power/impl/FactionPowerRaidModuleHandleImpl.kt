@@ -27,6 +27,7 @@ class FactionPowerRaidModuleHandleImpl(private val module: PowerRaidsModule) : F
     private var baseClaimPowerCost: Double = 5.0
     private var claimPowerCostGrowth: Double = 1.1
     private var claimPowerKeep: Double = 1.0
+    private var playerDeathCost: Double = 5.0
 
     private var accumulateTaskId = 0
     private var claimKeepCostTaskId = 1
@@ -63,15 +64,18 @@ class FactionPowerRaidModuleHandleImpl(private val module: PowerRaidsModule) : F
         val totalDistancePercentageSum = distancePercentages.sum()
 
         val claimPowerCost = clusterPowerCost / totalDistancePercentageSum
-        val threshold = abs((faction.accumulatedPower - claimMaintenanceCost) * clusterClaimsRatio)
+        val threshold = sqrt(abs((faction.accumulatedPower - claimMaintenanceCost) * clusterClaimsRatio))
 
+        val positions = cluster.positions.toList()
         unprotectedPositions.addAll(distancePercentages
-            .mapIndexedNotNull { index, element -> if (element * claimPowerCost >= threshold) cluster.positions[index] else null })
+            .mapIndexedNotNull { index, element -> if (element * claimPowerCost >= threshold) positions[index] else null })
     }
 
     override fun reloadConfig(plugin: ImprovedFactionsPlugin) {
         val config = plugin.config
         Bukkit.getScheduler().cancelTask(accumulateTaskId)
+        Bukkit.getScheduler().cancelTask(claimKeepCostTaskId)
+
         baseMemberConstant = config.getUnsignedDouble("$configPath.base-member-constant", baseMemberConstant)
         accumulationTickDelay = (config.getEnum<TimeUnit>("$configPath.accumulation-rate.unit")
             ?: TimeUnit.HOURS).toSeconds(abs(config.getLong("$configPath.accumulation-rate.value", 1))) * 20
@@ -89,6 +93,7 @@ class FactionPowerRaidModuleHandleImpl(private val module: PowerRaidsModule) : F
         baseClaimPowerCost = config.getUnsignedDouble("$configPath.base-claim-power-cost", baseClaimPowerCost)
         claimPowerCostGrowth = config.getUnsignedDouble("$configPath.claim-power-cost-growth", claimPowerCostGrowth)
         claimPowerKeep = config.getUnsignedDouble("$configPath.claim-power-keep", claimPowerKeep)
+        playerDeathCost = config.getUnsignedDouble("$configPath.player-death-cost", playerDeathCost)
         accumulateTaskId = Bukkit.getScheduler()
             .runTaskTimer(plugin, ::accumulateAll, accumulationTickDelay, accumulationTickDelay).taskId
         claimKeepCostTaskId = Bukkit.getScheduler()
