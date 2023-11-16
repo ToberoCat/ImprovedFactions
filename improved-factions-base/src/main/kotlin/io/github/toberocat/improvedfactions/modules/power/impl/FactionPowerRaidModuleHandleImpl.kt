@@ -7,6 +7,7 @@ import io.github.toberocat.improvedfactions.exceptions.NotEnoughPowerException
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.PowerAccumulationChangeReason
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
+import io.github.toberocat.improvedfactions.modules.power.config.PowerManagementConfig
 import io.github.toberocat.improvedfactions.modules.power.handles.FactionPowerRaidModuleHandle
 import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.utils.getEnum
@@ -20,22 +21,10 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import java.util.concurrent.TimeUnit
 import kotlin.math.*
 
-class FactionPowerRaidModuleHandleImpl(private val module: PowerRaidsModule) : FactionPowerRaidModuleHandle, Listener {
-    private val configPath = "factions.power-management";
-    private var baseMemberConstant: Double = 50.0
-    private var accumulationTickDelay: Long = 1
-    private var inactiveMilliseconds: Long = 1
-    private var baseAccumulation: Int = 0
-    private var activeAccumulationExponent: Double = 2.0
-    private var inactiveAccumulationMultiplier: Double = 2.0
-    private var accumulationMultiplier: Double = 10.0
-    private var baseClaimPowerCost: Double = 5.0
-    private var claimPowerCostGrowth: Double = 1.1
-    private var claimPowerKeep: Double = 1.0
-    private var playerDeathCost: Int = 5
+class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig) : FactionPowerRaidModuleHandle, Listener {
 
-    private var accumulateTaskId = 0
-    private var claimKeepCostTaskId = 1
+    private var accumulateTaskId: Int = 0
+    private var claimKeepCostTaskId: Int = 1
 
     override fun memberJoin(faction: Faction) {
         faction.setMaxPower(faction.maxPower + ceil(calculatePowerChange(faction.members().count())).toInt())
@@ -86,41 +75,22 @@ class FactionPowerRaidModuleHandleImpl(private val module: PowerRaidsModule) : F
     private fun onDeath(event: PlayerDeathEvent) {
         transaction {
             val faction = event.entity.factionUser().faction() ?: return@transaction
-            faction.setAccumulatedPower(faction.accumulatedPower - playerDeathCost, PowerAccumulationChangeReason.PLAYER_DEATH)
+            faction.setAccumulatedPower(faction.accumulatedPower - config.playerDeathCost, PowerAccumulationChangeReason.PLAYER_DEATH)
         }
     }
 
     override fun reloadConfig(plugin: ImprovedFactionsPlugin) {
-        val config = plugin.config
         Bukkit.getScheduler().cancelTask(accumulateTaskId)
         Bukkit.getScheduler().cancelTask(claimKeepCostTaskId)
 
-        baseMemberConstant = config.getUnsignedDouble("$configPath.base-member-constant", baseMemberConstant)
-        accumulationTickDelay = (config.getEnum<TimeUnit>("$configPath.accumulation-rate.unit")
-            ?: TimeUnit.HOURS).toSeconds(abs(config.getLong("$configPath.accumulation-rate.value", 1))) * 20
-        baseAccumulation = config.getInt("$configPath.base-accumulation", baseAccumulation)
-        activeAccumulationExponent =
-            config.getUnsignedDouble("$configPath.accumulation-active-exponent", activeAccumulationExponent)
-        inactiveAccumulationMultiplier =
-            config.getUnsignedDouble("$configPath.accumulation-inactive-multiplier", inactiveAccumulationMultiplier)
-        accumulationMultiplier = config.getUnsignedDouble("$configPath.accumulation-multiplier", accumulationMultiplier)
-        inactiveMilliseconds = (config.getEnum<TimeUnit>("$configPath.inactive.unit") ?: TimeUnit.DAYS).toSeconds(
-            abs(
-                config.getLong("$configPath.inactive.value", 1)
-            )
-        )
-        baseClaimPowerCost = config.getUnsignedDouble("$configPath.base-claim-power-cost", baseClaimPowerCost)
-        claimPowerCostGrowth = config.getUnsignedDouble("$configPath.claim-power-cost-growth", claimPowerCostGrowth)
-        claimPowerKeep = config.getUnsignedDouble("$configPath.claim-power-keep", claimPowerKeep)
-        playerDeathCost = abs(config.getInt("$configPath.player-death-cost", playerDeathCost))
         accumulateTaskId = Bukkit.getScheduler()
-            .runTaskTimer(plugin, ::accumulateAll, accumulationTickDelay, accumulationTickDelay).taskId
+            .runTaskTimer(plugin, ::accumulateAll, config.accumulationTickDelay, config.accumulationTickDelay).taskId
         claimKeepCostTaskId = Bukkit.getScheduler()
             .runTaskTimer(
                 plugin,
                 ::claimKeepCostsCollector,
-                accumulationTickDelay + accumulationTickDelay / 2,
-                accumulationTickDelay
+                config.accumulationTickDelay + config.accumulationTickDelay / 2,
+                config.accumulationTickDelay
             ).taskId
     }
 
@@ -143,24 +113,24 @@ class FactionPowerRaidModuleHandleImpl(private val module: PowerRaidsModule) : F
     }
 
     fun getNextClaimCost(faction: Faction) =
-        floor(baseClaimPowerCost * claimPowerCostGrowth.pow(faction.claims().count().toInt())).toInt()
+        floor(config.baseClaimPowerCost * config.claimPowerCostGrowth.pow(faction.claims().count().toInt())).toInt()
 
     fun getPowerAccumulated(activeAccumulation: Double, negativAccumulation: Double) =
-        baseAccumulation + max(activeAccumulation - negativAccumulation, 0.0)
+        config.baseAccumulation + max(activeAccumulation - negativAccumulation, 0.0)
 
     private fun getPowerAccumulated(faction: Faction) =
         getPowerAccumulated(getActivePowerAccumulation(faction), getInactivePowerAccumulation(faction))
 
     fun getActivePowerAccumulation(faction: Faction) =
-        (1 + faction.countActiveMembers(accumulationTickDelay) / faction.members().count().toDouble()).pow(
-            activeAccumulationExponent
-        ) * accumulationMultiplier
+        (1 + faction.countActiveMembers(config.accumulationTickDelay) / faction.members().count().toDouble()).pow(
+            config.activeAccumulationExponent
+        ) * config.accumulationMultiplier
 
 
     fun getClaimMaintenanceCost(faction: Faction) = getClaimMaintenanceCost(faction.claims().count())
     fun getInactivePowerAccumulation(faction: Faction) =
-        faction.countInactiveMembers(inactiveMilliseconds) * inactiveAccumulationMultiplier * accumulationMultiplier
+        faction.countInactiveMembers(config.inactiveMilliseconds) * config.inactiveAccumulationMultiplier * config.accumulationMultiplier
 
-    private fun calculatePowerChange(members: Long) = baseMemberConstant * (1f / members)
-    private fun getClaimMaintenanceCost(claims: Long) = claims * claimPowerKeep
+    private fun calculatePowerChange(members: Long) = config.baseMemberConstant * (1f / members)
+    private fun getClaimMaintenanceCost(claims: Long) = claims * config.claimPowerKeep
 }

@@ -94,6 +94,11 @@ factions:
     # making it possible for them getting vulnerable while being offline
     claim-power-keep: 1
     player-death-cost: 5 # How much power the faction loses when a player dies
+    siege: # Sieges are needed for over-claiming to be possible
+      breach-progress: 1.0 # This is the progress an intruder adds to the overall siege's progress when joining it
+      resistance-progress: .5 # This is the amount of progress a defender is blocking by joining the defense of a siege
+      recovery-speed: 1.0 # Define how fast the claim recovers its integrity
+
   # Whenever you change values in this section, you'll have issues with your database
   # Choose values that go for you and never touch them again
   unsafe:

@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedfactions.claims.clustering
 
+import io.github.toberocat.improvedfactions.claims.clustering.Position
 import org.junit.jupiter.api.Assertions.*
 import kotlin.test.Test
 

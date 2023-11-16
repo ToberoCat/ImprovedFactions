@@ -1,5 +1,7 @@
 package io.github.toberocat.improvedfactions.claims.clustering
 
+import io.github.toberocat.improvedfactions.claims.clustering.ClusterReachabilityChecker
+import io.github.toberocat.improvedfactions.claims.clustering.Position
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.assertThrows
 import java.lang.IllegalArgumentException

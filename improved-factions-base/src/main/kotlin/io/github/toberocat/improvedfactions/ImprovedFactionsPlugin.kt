@@ -25,7 +25,8 @@ import io.github.toberocat.improvedfactions.components.rankselector.FactionRankS
 import io.github.toberocat.improvedfactions.factions.Factions
 import io.github.toberocat.improvedfactions.functions.FactionPermissionFunction
 import io.github.toberocat.improvedfactions.invites.FactionInvites
-import io.github.toberocat.improvedfactions.listeners.TerritoryEnterListener
+import io.github.toberocat.improvedfactions.listeners.move.MoveListener
+import io.github.toberocat.improvedfactions.listeners.move.TerritoryTitle
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.papi.PapiExpansion
@@ -201,6 +202,6 @@ class ImprovedFactionsPlugin : JavaPlugin() {
     }
 
     private fun registerListeners() {
-        server.pluginManager.registerEvents(TerritoryEnterListener(claimChunkClusters), this)
+        server.pluginManager.registerEvents(MoveListener(claimChunkClusters), this)
     }
 }

@@ -3,6 +3,7 @@ package io.github.toberocat.improvedfactions.modules.power
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.power.commands.PowerCommand
+import io.github.toberocat.improvedfactions.modules.power.config.PowerManagementConfig
 import io.github.toberocat.improvedfactions.modules.power.handles.DummyFactionPowerRaidModuleHandle
 import io.github.toberocat.improvedfactions.modules.power.handles.FactionPowerRaidModuleHandle
 import io.github.toberocat.improvedfactions.modules.power.impl.FactionPowerRaidModuleHandleImpl
@@ -12,12 +13,14 @@ class PowerRaidsModule : BaseModule {
     override val moduleName = MODULE_NAME;
 
     var factionModuleHandle: FactionPowerRaidModuleHandle = DummyFactionPowerRaidModuleHandle()
+    val config = PowerManagementConfig()
 
     override fun onEnable() {
-        factionModuleHandle = FactionPowerRaidModuleHandleImpl(this)
+        factionModuleHandle = FactionPowerRaidModuleHandleImpl(config)
     }
 
     override fun reloadConfig(plugin: ImprovedFactionsPlugin) {
+        config.reload(plugin.config)
         factionModuleHandle.reloadConfig(plugin)
     }
 
