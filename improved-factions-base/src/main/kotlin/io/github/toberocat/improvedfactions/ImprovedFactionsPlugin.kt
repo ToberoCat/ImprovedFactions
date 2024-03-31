@@ -1,7 +1,5 @@
 package io.github.toberocat.improvedfactions
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.jeff_media.updatechecker.UpdateCheckSource
 import com.jeff_media.updatechecker.UpdateChecker
 import com.jeff_media.updatechecker.UserAgentBuilder
@@ -26,7 +24,6 @@ import io.github.toberocat.improvedfactions.factions.Factions
 import io.github.toberocat.improvedfactions.functions.FactionPermissionFunction
 import io.github.toberocat.improvedfactions.invites.FactionInvites
 import io.github.toberocat.improvedfactions.listeners.move.MoveListener
-import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.papi.PapiExpansion
@@ -37,7 +34,9 @@ import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import io.github.toberocat.improvedfactions.utils.BStatsCollector
 import io.github.toberocat.improvedfactions.utils.threadPool
 import io.github.toberocat.toberocore.command.CommandExecutor
+import me.clip.placeholderapi.PlaceholderAPI
 import net.kyori.adventure.platform.bukkit.BukkitAudiences
+import org.bukkit.OfflinePlayer
 import org.bukkit.plugin.java.JavaPlugin
 import org.jetbrains.exposed.sql.Database
 
@@ -54,6 +53,7 @@ class ImprovedFactionsPlugin : JavaPlugin() {
     lateinit var guiEngineApi: GuiEngineApi
     lateinit var adventure: BukkitAudiences
     lateinit var claimChunkClusters: ClaimClusterDetector
+    lateinit var papiTransformer: (player: OfflinePlayer, input: String) -> String
 
     companion object {
         lateinit var instance: ImprovedFactionsPlugin
@@ -137,10 +137,12 @@ class ImprovedFactionsPlugin : JavaPlugin() {
     private fun registerPapi() {
         if (server.pluginManager.isPluginEnabled("PlaceholderAPI")) {
             PapiExpansion().register()
+            papiTransformer = { player, input -> PlaceholderAPI.setPlaceholders(player, input) }
             logger.info("Loaded improved factions papi extension")
             return
         }
 
+        papiTransformer = { _, input -> input }
         logger.info("Papi not found. Skipping Papi registration")
     }
 

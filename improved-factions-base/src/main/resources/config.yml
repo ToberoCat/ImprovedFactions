@@ -108,16 +108,18 @@ factions:
   # This section represents the constants mentioned in the dynmap module documentation.
   # If you have no clue what you're doing here, a good place to start looking would be the dynmap module documentation
   dynmap:
-    # Specify the info windows for dynmap. This is a map of faction names to html strings. All papi placeholders can be used here.
+    # Specify the info windows for dynmap. This is a map of faction names to html strings.
+    # Only very basic ot-of-the-box placeholder support provided. For more placeholders, install the placeholder api plugin, with it, all papi placeholders can be used here.
     # The target player will be the faction owner, so make sure to only use placeholders that allow for offline players
     # The key value can be a faction name, zone names or __default__. If a faction has a custom info window, it will be used instead of the default one (Has to be allowed)
+    # Placeholders that work without papi: %faction_name%
     info-windows:
-      # This is the default window a player will see when clicking on a faction's area on the dynmap. It allows html, css as well as js. This can be overridden by the faction itself if allowed.
-      __default__: "<div class=\"infowindow\">Faction Owner: <span style=\"font-weight:bold;\">%faction_owner%</span></div>"
+      # This is the default window a player will see when clicking on a faction's area on the dynmap. It allows html, css as well as js. This can be overridden by the values below
+      __default__: "<div class=\"infowindow\">Faction Owner: <span style=\"font-weight:bold;\">%faction_name%</span></div>"
       safezone: "<div class=\"infowindow\"><span style=\"font-weight:bold;color: aqua;\">Safezone</span></div>"
       warzone: "<div class=\"infowindow\"><span style=\"font-weight:bold;color: red;\">Warzone</span></div>"
       unmanaged: "<div class=\"infowindow\"><span style=\"font-weight:bold;color: yellow;\">Unmanaged</span></div>"
-    allow-faction-info-window-customization: false # If set to true, factions can customize their info window. This can be a security risk, as it allows html, css and js
+    show-zones: true # This will show the zones on the dynmap. If set to false, the zones will be hidden, useful for servers where zones may already get rendered by a different plugin
     marker-set:
       id: "factions" # The id of the marker set on the dynmap. When changed, the old marker has to be removed manually
       display-name: "Factions" # The display name of the marker set

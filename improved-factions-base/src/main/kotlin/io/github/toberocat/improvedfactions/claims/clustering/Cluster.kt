@@ -33,7 +33,7 @@ class Cluster(val factionId: Int,
     fun removeAll(position: Set<Position>) {
         positions.removeAll(position)
         calculateCenter()
-        DynmapModule.dynmapModule().dynmapModuleHandle.clusterChange(this)
+        DynmapModule.dynmapModule().dynmapModuleHandle.factionClusterChange(this)
     }
 
     fun addAll(positions: Set<Position>) {
@@ -42,7 +42,7 @@ class Cluster(val factionId: Int,
 
         this.positions.addAll(positions)
         calculateCenter()
-        DynmapModule.dynmapModule().dynmapModuleHandle.clusterChange(this)
+        DynmapModule.dynmapModule().dynmapModuleHandle.factionClusterChange(this)
     }
 
     private fun calculateCenter() {

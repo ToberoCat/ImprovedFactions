@@ -27,7 +27,7 @@ class DynmapModule : BaseModule {
         DynmapCommonAPIListener.register(
             object : DynmapCommonAPIListener() {
                 override fun apiEnabled(api: DynmapCommonAPI) {
-                    dynmapModuleHandle = FactionDynmapModuleHandleImpl(config, api, plugin.claimChunkClusters)
+                    dynmapModuleHandle = FactionDynmapModuleHandleImpl(config, plugin, api)
                 }
             }
         )

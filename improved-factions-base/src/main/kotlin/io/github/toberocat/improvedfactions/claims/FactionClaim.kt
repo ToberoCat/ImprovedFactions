@@ -1,7 +1,9 @@
 package io.github.toberocat.improvedfactions.claims
 
+import io.github.toberocat.improvedfactions.claims.clustering.Position
 import io.github.toberocat.improvedfactions.claims.overclaim.ClaimSiegeManager
 import io.github.toberocat.improvedfactions.factions.Faction
+import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.user.noFactionId
 import io.github.toberocat.improvedfactions.zone.Zone
 import io.github.toberocat.improvedfactions.zone.ZoneHandler
@@ -22,7 +24,6 @@ class FactionClaim(id: EntityID<Int>) : IntEntity(id) {
     var chunkZ by FactionClaims.chunkZ
     var factionId by FactionClaims.factionId
     var zoneType by FactionClaims.zoneType
-
 
     fun faction(): Faction? = Faction.findById(factionId)
 

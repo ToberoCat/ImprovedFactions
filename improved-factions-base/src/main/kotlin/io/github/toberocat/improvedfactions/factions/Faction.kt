@@ -12,6 +12,7 @@ import io.github.toberocat.improvedfactions.factions.ban.FactionBan
 import io.github.toberocat.improvedfactions.factions.ban.FactionBans
 import io.github.toberocat.improvedfactions.invites.FactionInvite
 import io.github.toberocat.improvedfactions.invites.FactionInvites
+import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Companion.powerRaidModule
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
 import io.github.toberocat.improvedfactions.ranks.listRanks
@@ -230,6 +231,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         val claim = chunk.getFactionClaim()
         if (claim == null || claim.factionId != id.value) throw FactionDoesntHaveThisClaimException()
         claim.factionId = noFactionId
+        DynmapModule.dynmapModule().dynmapModuleHandle.factionClaimRemove(Position(claim.chunkX, claim.chunkZ, claim.world, id.value))
         ImprovedFactionsPlugin.instance.claimChunkClusters.removePosition(Position(chunk.x, chunk.z, chunk.world.name, id.value))
     }
 
