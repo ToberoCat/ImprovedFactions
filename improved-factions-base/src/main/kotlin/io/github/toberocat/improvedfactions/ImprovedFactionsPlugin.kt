@@ -130,8 +130,9 @@ class ImprovedFactionsPlugin : JavaPlugin() {
     }
 
     private fun registerModules() = modules.filter { it.value.shouldEnable(this) }
-        .forEach { (_, module) ->
+        .forEach { (name, module) ->
             module.onEnable()
+            logger.info("Loaded module $name")
             module.reloadConfig(this)
         }
 
