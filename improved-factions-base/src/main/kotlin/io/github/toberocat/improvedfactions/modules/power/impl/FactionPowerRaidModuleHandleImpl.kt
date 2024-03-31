@@ -48,10 +48,10 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
         val totalClaims = faction.claims().count()
         val claimMaintenanceCost = getClaimMaintenanceCost(totalClaims)
 
-        val clusterClaimsRatio = cluster.positions.size.toDouble() / totalClaims
+        val clusterClaimsRatio = cluster.getReadOnlyPositions().size.toDouble() / totalClaims
         val clusterPowerCost = claimMaintenanceCost * clusterClaimsRatio
 
-        val positionSrqDistances = cluster.positions.map { it.distanceSquaredTo(cluster.centerX, cluster.centerY) }
+        val positionSrqDistances = cluster.getReadOnlyPositions().map { it.distanceSquaredTo(cluster.centerX, cluster.centerY) }
 
         val biggestDistance = positionSrqDistances.maxOrNull() ?: return
         val distancePercentages = positionSrqDistances.map { it / biggestDistance }
@@ -66,7 +66,7 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
             )) * clusterClaimsRatio
         )
 
-        val positions = cluster.positions.toList()
+        val positions = cluster.getReadOnlyPositions().toList()
         unprotectedPositions.addAll(distancePercentages
             .mapIndexedNotNull { index, element -> if (element * claimPowerCost >= threshold) positions[index] else null })
     }
