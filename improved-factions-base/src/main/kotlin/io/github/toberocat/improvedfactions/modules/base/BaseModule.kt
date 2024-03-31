@@ -5,7 +5,7 @@ import io.github.toberocat.toberocore.command.CommandExecutor
 
 interface BaseModule {
     val moduleName: String
-    fun onEnable()
+    fun onEnable(plugin: ImprovedFactionsPlugin)
     fun reloadConfig(plugin: ImprovedFactionsPlugin)
     fun addCommands(plugin: ImprovedFactionsPlugin, executor: CommandExecutor)
 

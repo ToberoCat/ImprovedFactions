@@ -29,7 +29,7 @@ class ClaimSiegeManager(private val claim: FactionClaim) {
         private val siegeManagers = mutableMapOf<Position, ClaimSiegeManager>()
 
         fun getManager(claim: FactionClaim): ClaimSiegeManager {
-            return siegeManagers.computeIfAbsent(Position(claim.chunkX, claim.chunkZ, -1)) {
+            return siegeManagers.computeIfAbsent(Position(claim.chunkX, claim.chunkZ, claim.world, -1)) {
             println("New manager")
                 ClaimSiegeManager(
                     claim
@@ -37,7 +37,7 @@ class ClaimSiegeManager(private val claim: FactionClaim) {
             }
         }
 
-        fun remove(claim: FactionClaim) = siegeManagers.remove(Position(claim.chunkX, claim.chunkZ, -1))
+        fun remove(claim: FactionClaim) = siegeManagers.remove(Position(claim.chunkX, claim.chunkZ, claim.world, -1))
     }
 
     fun enterClaimCombat(player: Player) {

@@ -26,7 +26,6 @@ import io.github.toberocat.improvedfactions.factions.Factions
 import io.github.toberocat.improvedfactions.functions.FactionPermissionFunction
 import io.github.toberocat.improvedfactions.invites.FactionInvites
 import io.github.toberocat.improvedfactions.listeners.move.MoveListener
-import io.github.toberocat.improvedfactions.listeners.move.TerritoryTitle
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
@@ -47,7 +46,6 @@ import org.jetbrains.exposed.sql.Database
  * Created: 04.08.2023
  * @author Tobias Madlberger (Tobias)
  */
-val objectMapper = ObjectMapper().registerKotlinModule()
 const val SPIGOT_RESOURCE_ID = 95617
 
 class ImprovedFactionsPlugin : JavaPlugin() {
@@ -60,7 +58,7 @@ class ImprovedFactionsPlugin : JavaPlugin() {
     companion object {
         lateinit var instance: ImprovedFactionsPlugin
             private set
-        val modules = mutableMapOf<String, BaseModule>(
+        val modules = mutableMapOf(
             PowerRaidsModule.powerRaidsPair(),
             DynmapModule.dynmapPair()
         )
@@ -131,7 +129,7 @@ class ImprovedFactionsPlugin : JavaPlugin() {
 
     private fun registerModules() = modules.filter { it.value.shouldEnable(this) }
         .forEach { (name, module) ->
-            module.onEnable()
+            module.onEnable(this)
             logger.info("Loaded module $name")
             module.reloadConfig(this)
         }

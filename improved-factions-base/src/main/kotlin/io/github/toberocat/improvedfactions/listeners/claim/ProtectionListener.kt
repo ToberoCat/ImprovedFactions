@@ -35,7 +35,7 @@ abstract class ProtectionListener(protected val zoneType: String) : Listener {
         if (claimedFaction == playerFaction)
             return@transaction
 
-        if (claimClusters.getCluster(Position(chunk.x, chunk.z, claimedFaction))?.isUnprotected(chunk.x, chunk.z) == true)
+        if (claimClusters.getCluster(Position(chunk.x, chunk.z, claim.world, claimedFaction))?.isUnprotected(chunk.x, chunk.z, chunk.world.name) == true)
             return@transaction
 
         event.isCancelled = true

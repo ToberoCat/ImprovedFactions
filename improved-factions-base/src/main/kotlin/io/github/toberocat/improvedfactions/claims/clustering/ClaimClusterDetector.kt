@@ -19,9 +19,9 @@ class ClaimClusterDetector(private val queryProvider: ClaimQueryProvider) {
         val neighborClusters = getNeighboringClusters(position)
         when {
             neighborClusters.isEmpty() -> createNewCluster(position)
-            neighborClusters.size == 1 -> assignToCluster(position, neighborClusters[0])
+            neighborClusters.size == 1 -> assignToCluster(setOf(position), neighborClusters[0])
             else -> {
-                assignToCluster(position, neighborClusters[0])
+                assignToCluster(setOf(position), neighborClusters[0])
                 mergeClusters(neighborClusters)
             }
         }
@@ -36,10 +36,10 @@ class ClaimClusterDetector(private val queryProvider: ClaimQueryProvider) {
         .forEach { removeCluster(it.key) }
 
     fun getClusterId(position: Position) = clusterMap[position]
-    fun getCluster(clusterId: Int) = clusters.getOrDefault(clusterId, null)
+    private fun getCluster(clusterId: Int) = clusters.getOrDefault(clusterId, null)
     fun getCluster(position: Position): Cluster? = getClusterId(position)?.let {
         val cluster = getCluster(it)
-        return if (cluster?.positions?.firstOrNull()?.factionId != position.factionId) null else cluster
+        return if (cluster?.getReadOnlyPositions()?.firstOrNull()?.factionId != position.factionId) null else cluster
     }
 
     fun removePosition(position: Position) {
@@ -47,11 +47,11 @@ class ClaimClusterDetector(private val queryProvider: ClaimQueryProvider) {
             return
 
         val clusterIndex = clusterMap[position]
-        val cluster = clusters[clusterIndex]?.also { it.remove(position) }
+        val cluster = clusters[clusterIndex]?.also { it.removeAll(setOf(position)) }
             ?: throw IllegalArgumentException()
         clusterMap.remove(position)
 
-        val unreachablePositions = ClusterReachabilityChecker(cluster.positions).getUnreachablePositions()
+        val unreachablePositions = ClusterReachabilityChecker(cluster.getReadOnlyPositions()).getUnreachablePositions()
         if (unreachablePositions.isEmpty())
             return
 
@@ -64,7 +64,7 @@ class ClaimClusterDetector(private val queryProvider: ClaimQueryProvider) {
     }
 
     fun removeCluster(clusterId: Int) {
-        clusters[clusterId]?.positions?.forEach(clusterMap::remove)
+        clusters[clusterId]?.getReadOnlyPositions()?.forEach(clusterMap::remove)
         clusters.remove(clusterId)
     }
 
@@ -74,19 +74,19 @@ class ClaimClusterDetector(private val queryProvider: ClaimQueryProvider) {
 
     private fun createNewCluster(position: Position) {
         val clusterId = clusters.size
-        clusters.getOrPut(clusterId) { Cluster(position.factionId) }.add(position)
+        clusters.getOrPut(clusterId) { Cluster(position.factionId) }.addAll(setOf(position))
         clusterMap[position] = clusterId
     }
 
-    private fun assignToCluster(position: Position, clusterId: Int) {
-        clusters[clusterId]?.add(position)
-        clusterMap[position] = clusterId
+    private fun assignToCluster(positions: Set<Position>, clusterId: Int) {
+        clusters[clusterId]?.addAll(positions)
+        positions.forEach { clusterMap[it] = clusterId }
     }
 
     private fun mergeClusters(clusterIds: List<Int>) {
-        val newClusterPositions = clusterIds.flatMap { clusters[it]?.positions ?: emptyList() }
+        val newClusterPositions = clusterIds.flatMap { clusters[it]?.getReadOnlyPositions() ?: emptyList() }
         clusterIds.forEach { clusters.remove(it) }
         clusters[clusterIds[0]] = Cluster(newClusterPositions[0].factionId, newClusterPositions.toMutableSet())
-        newClusterPositions.forEach { assignToCluster(it, clusterIds[0]) }
+        assignToCluster(newClusterPositions.toSet(), clusterIds[0])
     }
 }

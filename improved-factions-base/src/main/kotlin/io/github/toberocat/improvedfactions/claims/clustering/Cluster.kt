@@ -1,9 +1,11 @@
 package io.github.toberocat.improvedfactions.claims.clustering
 
+import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Companion.powerRaidModule
 import io.github.toberocat.improvedfactions.modules.power.handles.FactionPowerRaidModuleHandle
 
-class Cluster(val factionId: Int, val positions: MutableSet<Position> = mutableSetOf()) {
+class Cluster(val factionId: Int,
+              private val positions: MutableSet<Position> = mutableSetOf()) {
     private val powerModuleHandle: FactionPowerRaidModuleHandle = powerRaidModule().factionModuleHandle
     private val unprotectedPositions: MutableSet<Position> = mutableSetOf()
     private var lazyUpdate = true
@@ -14,33 +16,33 @@ class Cluster(val factionId: Int, val positions: MutableSet<Position> = mutableS
         calculateCenter()
     }
 
+    fun getReadOnlyPositions(): Set<Position> = positions.toSet()
+
     fun scheduleUpdate() {
         lazyUpdate = true
     }
 
-    fun isUnprotected(x: Int, y: Int): Boolean {
+    fun isUnprotected(x: Int, y: Int, world: String): Boolean {
         if (lazyUpdate)
             updateUnprotectedChunks()
-        return Position(x, y, -1) in unprotectedPositions
+        return Position(x, y, world, -1) in unprotectedPositions
     }
 
     fun isEmpty() = positions.isEmpty()
-    fun remove(position: Position) {
-        positions.remove(position)
+
+    fun removeAll(position: Set<Position>) {
+        positions.removeAll(position)
         calculateCenter()
+        DynmapModule.dynmapModule().dynmapModuleHandle.clusterChange(this)
     }
 
-    fun removeAll(unreachablePositions: Set<Position>) {
-        positions.removeAll(unreachablePositions)
-        calculateCenter()
-    }
-
-    fun add(position: Position) {
-        if (position.factionId != factionId)
+    fun addAll(positions: Set<Position>) {
+        if (positions.any { it.factionId != factionId })
             throw IllegalArgumentException()
 
-        positions.add(position)
+        this.positions.addAll(positions)
         calculateCenter()
+        DynmapModule.dynmapModule().dynmapModuleHandle.clusterChange(this)
     }
 
     private fun calculateCenter() {

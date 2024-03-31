@@ -15,7 +15,7 @@ class PowerRaidsModule : BaseModule {
     var factionModuleHandle: FactionPowerRaidModuleHandle = DummyFactionPowerRaidModuleHandle()
     val config = PowerManagementConfig()
 
-    override fun onEnable() {
+    override fun onEnable(plugin: ImprovedFactionsPlugin) {
         factionModuleHandle = FactionPowerRaidModuleHandleImpl(config)
     }
 

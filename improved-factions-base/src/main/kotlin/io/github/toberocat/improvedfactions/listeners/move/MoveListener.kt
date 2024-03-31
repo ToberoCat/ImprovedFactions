@@ -48,10 +48,11 @@ class MoveListener(private val claimCluster: ClaimClusterDetector) : Listener {
             Position(
                 toClaim.chunkX,
                 toClaim.chunkZ,
+                toClaim.world,
                 toFaction?.id?.value ?: noFactionId
             )
         )
-        return cluster != null && cluster.isUnprotected(toClaim.chunkX, toClaim.chunkZ)
+        return cluster != null && cluster.isUnprotected(toClaim.chunkX, toClaim.chunkZ, toClaim.world)
     }
 
 }

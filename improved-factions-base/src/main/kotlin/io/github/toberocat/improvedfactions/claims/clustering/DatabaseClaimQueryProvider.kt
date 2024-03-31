@@ -16,12 +16,12 @@ class DatabaseClaimQueryProvider : ClaimQueryProvider {
                     (FactionClaims.chunkX inList listOf(position.x + 1, position.x - 1)) and
                     (FactionClaims.chunkZ inList listOf(position.y + 1, position.y - 1)) and
                     (FactionClaims.chunkX neq position.x or (FactionClaims.chunkZ neq position.y))
-        }.map { Position(it.chunkX, it.chunkZ, it.factionId) }
+        }.map { Position(it.chunkX, it.chunkZ, it.world, it.factionId) }
             .toList()
     }
 
     override fun all() = transaction {
         FactionClaim.find { FactionClaims.factionId neq noFactionId }
-            .map { Position(it.chunkX, it.chunkZ, it.factionId) }
+            .map { Position(it.chunkX, it.chunkZ, it.world, it.factionId) }
     }
 }

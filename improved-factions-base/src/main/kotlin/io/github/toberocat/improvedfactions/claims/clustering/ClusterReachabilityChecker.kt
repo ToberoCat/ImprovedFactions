@@ -23,9 +23,9 @@ class ClusterReachabilityChecker(private val positions: Set<Position>) {
     }
 
     private fun getNeighbors(position: Position) = listOf(
-        Position(position.x - 1, position.y, position.factionId),
-        Position(position.x + 1, position.y, position.factionId),
-        Position(position.x, position.y + 1, position.factionId),
-        Position(position.x, position.y - 1, position.factionId)
+        Position(position.x - 1, position.y, position.world, position.factionId),
+        Position(position.x + 1, position.y, position.world, position.factionId),
+        Position(position.x, position.y + 1, position.world, position.factionId),
+        Position(position.x, position.y - 1, position.world, position.factionId)
     ).filter { it in positions }
 }

@@ -4,6 +4,9 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.FactionClaim
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapModuleConfig
+import io.github.toberocat.improvedfactions.modules.dynmap.handles.DummyFactionDynmapModuleHandles
+import io.github.toberocat.improvedfactions.modules.dynmap.handles.FactionDynmapModuleHandle
+import io.github.toberocat.improvedfactions.modules.dynmap.impl.FactionDynmapModuleHandleImpl
 import io.github.toberocat.toberocore.command.CommandExecutor
 import org.bukkit.Bukkit
 import org.dynmap.DynmapCommonAPI
@@ -15,40 +18,20 @@ class DynmapModule : BaseModule {
 
     override val moduleName = MODULE_NAME
 
-    private var api: DynmapCommonAPI? = null
-    private var set: MarkerSet? = null
 
-    private val resAreas: Map<String, AreaMarker> = HashMap()
+    var dynmapModuleHandle: FactionDynmapModuleHandle = DummyFactionDynmapModuleHandles()
 
     val config = DynmapModuleConfig()
 
-    override fun onEnable() {
+    override fun onEnable(plugin: ImprovedFactionsPlugin) {
         DynmapCommonAPIListener.register(
             object : DynmapCommonAPIListener() {
                 override fun apiEnabled(api: DynmapCommonAPI) {
-                    this@DynmapModule.api = api
-                    createFactionMarker(api)
+                    dynmapModuleHandle = FactionDynmapModuleHandleImpl(config, api, plugin.claimChunkClusters)
                 }
             }
         )
     }
-
-    private fun createFactionMarker(api: DynmapCommonAPI) {
-        val markerApi = api.markerAPI ?: return
-
-        set = (markerApi.getMarkerSet(config.markerSetId) ?: markerApi.createMarkerSet(
-            config.markerSetId,
-            config.markerSetDisplayName,
-            null,
-            false
-        )).also {
-            it.markerSetLabel = config.markerSetDisplayName
-            it.layerPriority = config.markerSetPriority
-            it.hideByDefault = config.markerSetHiddenByDefault
-        }
-    }
-
-    private fun handleClaim(faction: FactionClaim, newmap: Map<String, AreaMarker>) {}
 
     override fun reloadConfig(plugin: ImprovedFactionsPlugin) {
         config.reload(plugin.config)
