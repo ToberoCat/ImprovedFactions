@@ -7,7 +7,7 @@ services:
       TYPE: PAPER
       MEMORYSIZE: 1G
       EULA: TRUE
-      VERSION: 1.20.2
+      VERSION: 1.20.4
       JVM_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
       DEBUG_EXEC: true
     volumes:
@@ -15,3 +15,4 @@ services:
     ports:
       - "25565:25565"
       - "5005:5005"
+      - "8123:8123"
