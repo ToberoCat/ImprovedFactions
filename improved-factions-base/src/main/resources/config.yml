@@ -15,6 +15,8 @@ mysql:
 modules:
   # This module is responsible for managing power, and it's associated side effects, like raids and over-claims.
   power-raids: true
+  # This module will try to render the factions on a map, using the dynmap plugin
+  dynmap: true
 #
 # -------- { Base Module Settings } --------
 #
@@ -98,6 +100,29 @@ factions:
       breach-progress: 1.0 # This is the progress an intruder adds to the overall siege's progress when joining it
       resistance-progress: .5 # This is the amount of progress a defender is blocking by joining the defense of a siege
       recovery-speed: 1.0 # Define how fast the claim recovers its integrity
+
+  #
+  # -------- { Dynmap Module Settings } --------
+  # These settings only apply when you enabled this module.
+  #
+  # This section represents the constants mentioned in the dynmap module documentation.
+  # If you have no clue what you're doing here, a good place to start looking would be the dynmap module documentation
+  dynmap:
+    # Specify the info windows for dynmap. This is a map of faction names to html strings. All papi placeholders can be used here.
+    # The target player will be the faction owner, so make sure to only use placeholders that allow for offline players
+    # The key value can be a faction name, zone names or __default__. If a faction has a custom info window, it will be used instead of the default one (Has to be allowed)
+    info-windows:
+      # This is the default window a player will see when clicking on a faction's area on the dynmap. It allows html, css as well as js. This can be overridden by the faction itself if allowed.
+      __default__: "<div class=\"infowindow\">Faction Owner: <span style=\"font-weight:bold;\">%faction_owner%</span></div>"
+      safezone: "<div class=\"infowindow\"><span style=\"font-weight:bold;color: aqua;\">Safezone</span></div>"
+      warzone: "<div class=\"infowindow\"><span style=\"font-weight:bold;color: red;\">Warzone</span></div>"
+      unmanaged: "<div class=\"infowindow\"><span style=\"font-weight:bold;color: yellow;\">Unmanaged</span></div>"
+    allow-faction-info-window-customization: false # If set to true, factions can customize their info window. This can be a security risk, as it allows html, css and js
+    marker-set:
+      id: "factions" # The id of the marker set on the dynmap. When changed, the old marker has to be removed manually
+      display-name: "Factions" # The display name of the marker set
+      layer-priority: 10 # The priority of the layer. Higher values will be displayed on top of lower values
+      hidden-by-default: false # If set to true, the layer will be hidden by default
 
   # Whenever you change values in this section, you'll have issues with your database
   # Choose values that go for you and never touch them again

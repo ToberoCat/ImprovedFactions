@@ -22,7 +22,7 @@ data class PowerManagementConfig(
     var siegeResistanceProgress: Double = .5,
     var siegeClaimRecoverySpeed: Double = 1.0
 ) {
-    private val configPath = "factions.power-management";
+    private val configPath = "factions.power-management"
     fun reload(config: FileConfiguration) {
         baseMemberConstant = config.getUnsignedDouble("$configPath.base-member-constant", baseMemberConstant)
         accumulationTickDelay = (config.getEnum<TimeUnit>("$configPath.accumulation-rate.unit")

@@ -28,6 +28,7 @@ import io.github.toberocat.improvedfactions.invites.FactionInvites
 import io.github.toberocat.improvedfactions.listeners.move.MoveListener
 import io.github.toberocat.improvedfactions.listeners.move.TerritoryTitle
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.papi.PapiExpansion
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
@@ -60,7 +61,8 @@ class ImprovedFactionsPlugin : JavaPlugin() {
         lateinit var instance: ImprovedFactionsPlugin
             private set
         val modules = mutableMapOf<String, BaseModule>(
-            PowerRaidsModule.powerRaidsPair()
+            PowerRaidsModule.powerRaidsPair(),
+            DynmapModule.dynmapPair()
         )
     }
 

@@ -41,6 +41,7 @@
         <base64-itemstack.version>1.0.0</base64-itemstack.version>
         <bstats-bukkit.version>3.0.2</bstats-bukkit.version>
         <placeholderapi.version>2.11.3</placeholderapi.version>
+        <dynmap-api.version>3.5</dynmap-api.version>
     </properties>
 
     <repositories>
@@ -63,6 +64,10 @@
         <repository>
             <id>jeff-media-public</id>
             <url>https://hub.jeff-media.com/nexus/repository/jeff-media-public/</url>
+        </repository>
+        <repository>
+            <id>MikeRepo</id>
+            <url>https://repo.mikeprimm.com/</url>
         </repository>
     </repositories>
 
@@ -289,6 +294,12 @@
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
             <version>${placeholderapi.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>us.dynmap</groupId>
+            <artifactId>dynmap-api</artifactId>
+            <version>${dynmap-api.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
