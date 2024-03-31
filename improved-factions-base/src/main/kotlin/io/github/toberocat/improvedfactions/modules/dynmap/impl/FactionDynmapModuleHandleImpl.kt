@@ -7,6 +7,7 @@ import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapModuleConfig
 import io.github.toberocat.improvedfactions.modules.dynmap.handles.FactionDynmapModuleHandle
 import io.github.toberocat.improvedfactions.utils.toOfflinePlayer
+import io.github.toberocat.improvedfactions.zone.Zone
 import org.dynmap.DynmapCommonAPI
 import org.dynmap.markers.MarkerSet
 
@@ -37,25 +38,45 @@ class FactionDynmapModuleHandleImpl(
 
     override fun factionClusterChange(cluster: Cluster) {
         cluster.getReadOnlyPositions().forEach {
-            val worldX = it.x * 16.0
-            val worldZ = it.y * 16.0
             val faction = FactionHandler.getFaction(cluster.factionId) ?: return@forEach
-            var label = config.infoWindows[faction.name] ?: config.infoWindows["__default__"] ?: "Faction: ${faction.name}"
-            label = plugin.papiTransformer(faction.owner.toOfflinePlayer(), label)
-            label = label.replace("%faction_name%", faction.name)
-            set.createAreaMarker(
-                it.uniquId(),
-                label,
-                true,
-                it.world,
-                doubleArrayOf(worldX, worldX + 16),
-                doubleArrayOf(worldZ, worldZ + 16),
-                false
-            )
+            addAreaMarker(faction.name, it) { label ->
+                plugin.papiTransformer(faction.owner.toOfflinePlayer(), label)
+                    .replace("%faction_name%", faction.name)
+            }
         }
     }
 
     override fun factionClaimRemove(position: Position) {
         set.findAreaMarker(position.uniquId())?.deleteMarker()
+    }
+
+    override fun zoneClaimAdd(zone: Zone, position: Position) {
+        if (!config.showZones)
+            return
+
+        addAreaMarker(zone.type, position) { it }
+    }
+
+    override fun zoneClaimRemove(position: Position) {
+        set.findAreaMarker(position.uniquId())?.deleteMarker()
+    }
+
+    private fun addAreaMarker(name: String, position: Position, transformer: (input: String) -> String) {
+        val worldX = position.x * 16.0
+        val worldZ = position.y * 16.0
+        val label = transformer(config.infoWindows[name] ?: config.infoWindows["__default__"] ?: name)
+        val marker = set.createAreaMarker(
+            position.uniquId(),
+            label,
+            true,
+            position.world,
+            doubleArrayOf(worldX, worldX + 16),
+            doubleArrayOf(worldZ, worldZ + 16),
+            false
+        )
+        (config.claimColors[name] ?: config.claimColors["__default__"])?.let { colorConfig ->
+            marker.setFillStyle(colorConfig.opacity, colorConfig.color)
+            marker.setLineStyle(0, 0.0, 0)
+        }
     }
 }

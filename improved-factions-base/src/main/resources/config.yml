@@ -115,10 +115,23 @@ factions:
     # Placeholders that work without papi: %faction_name%
     info-windows:
       # This is the default window a player will see when clicking on a faction's area on the dynmap. It allows html, css as well as js. This can be overridden by the values below
-      __default__: "<div class=\"infowindow\">Faction Owner: <span style=\"font-weight:bold;\">%faction_name%</span></div>"
-      safezone: "<div class=\"infowindow\"><span style=\"font-weight:bold;color: aqua;\">Safezone</span></div>"
-      warzone: "<div class=\"infowindow\"><span style=\"font-weight:bold;color: red;\">Warzone</span></div>"
-      unmanaged: "<div class=\"infowindow\"><span style=\"font-weight:bold;color: yellow;\">Unmanaged</span></div>"
+      __default__: "<p style=\"font-weight:700;text-align:center\">%faction_name%</p><hr><div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:10px\"><span>Owner: </span><span style=\"font-weight:700\">%faction_owner%</span></div><div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:10px\"><span>Max Power: </span><span style=\"font-weight:700\">%faction_maxPower%</span></div>"
+      safezone: "<div class=\"infowindow\"><span style=\"font-weight:bold\">Safezone</span></div>"
+      warzone: "<div class=\"infowindow\"><span style=\"font-weight:bold\">Warzone</span></div>"
+      unmanaged: "<div class=\"infowindow\"><span style=\"font-weight:bold\">Unmanaged</span></div>"
+    claim-colors:
+      __default__:
+        color: "FF0000" # The color of the claim on the dynmap. This is the color in hex. This can be overridden by the values below
+        opacity: 0.3 # The opacity of the claim on the dynmap. 0 - 1 This can be overridden by the values below
+      safezone:
+        color: "00FFFF"
+        opacity: 0.3
+      warzone:
+        color: "8B0000"
+        opacity: 0.3
+      unmanaged:
+        color: "FFFF00"
+        opacity: 0.3
     show-zones: true # This will show the zones on the dynmap. If set to false, the zones will be hidden, useful for servers where zones may already get rendered by a different plugin
     marker-set:
       id: "factions" # The id of the marker set on the dynmap. When changed, the old marker has to be removed manually

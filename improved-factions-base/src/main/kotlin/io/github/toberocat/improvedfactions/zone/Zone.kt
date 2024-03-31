@@ -2,6 +2,7 @@ package io.github.toberocat.improvedfactions.zone
 
 import io.github.toberocat.improvedfactions.claims.FactionClaim
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
+import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.user.noFactionId
 import org.bukkit.Chunk
 
@@ -19,6 +20,7 @@ data class Zone(val type: String,
         }
 
         claim.zoneType = type
+        DynmapModule.dynmapModule().dynmapModuleHandle.zoneClaimAdd(this, claim.toPosition())
         return claim
     }
 }

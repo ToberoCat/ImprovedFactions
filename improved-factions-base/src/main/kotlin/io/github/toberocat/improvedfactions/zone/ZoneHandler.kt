@@ -4,6 +4,7 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
 import io.github.toberocat.improvedfactions.listeners.claim.ClaimProtectionListener
+import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import org.bukkit.Chunk
 import org.bukkit.configuration.ConfigurationSection
 
@@ -41,6 +42,9 @@ object ZoneHandler {
     fun getZones(): Set<String> = knownZones.keys
 
     fun unclaim(chunk: Chunk) {
-        chunk.getFactionClaim()?.let { it.zoneType = FACTION_ZONE_TYPE }
+        chunk.getFactionClaim()?.let {
+            it.zoneType = FACTION_ZONE_TYPE
+            DynmapModule.dynmapModule().dynmapModuleHandle.zoneClaimRemove(it.toPosition())
+        }
     }
 }

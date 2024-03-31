@@ -39,5 +39,6 @@ class FactionClaim(id: EntityID<Int>) : IntEntity(id) {
     }
 
     fun chunk() = Bukkit.getWorld(world)?.getChunkAt(chunkX, chunkZ)
+    fun toPosition() = Position(chunkX, chunkZ, world, factionId)
 
 }
