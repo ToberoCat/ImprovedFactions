@@ -2,6 +2,11 @@
 <project version="4">
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
+      <option name="id" value="MikeRepo" />
+      <option name="name" value="MikeRepo" />
+      <option name="url" value="https://repo.mikeprimm.com/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="mavenCentral" />
       <option name="name" value="mavenCentral" />
       <option name="url" value="https://repo1.maven.org/maven2/" />
@@ -40,6 +45,11 @@
       <option name="id" value="jboss.community" />
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="dynmap" />
+      <option name="name" value="dynmap" />
+      <option name="url" value="https://repo.mikeprimm.com/" />
     </remote-repository>
   </component>
 </project>
