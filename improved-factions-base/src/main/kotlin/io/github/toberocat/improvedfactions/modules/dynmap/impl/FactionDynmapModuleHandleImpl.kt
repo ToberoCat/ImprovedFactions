@@ -7,7 +7,6 @@ import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapModuleConfig
 import io.github.toberocat.improvedfactions.modules.dynmap.handles.FactionDynmapModuleHandle
 import io.github.toberocat.improvedfactions.utils.toOfflinePlayer
-import io.github.toberocat.improvedfactions.zone.Zone
 import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import org.dynmap.DynmapCommonAPI
 import org.dynmap.markers.MarkerSet
@@ -78,7 +77,7 @@ class FactionDynmapModuleHandleImpl(
         )
         (config.claimColors[name] ?: config.claimColors["__default__"])?.let { colorConfig ->
             marker.setFillStyle(colorConfig.opacity, colorConfig.color)
-            marker.setLineStyle(1, colorConfig.opacity + 0.2, colorConfig.color)
+            marker.setLineStyle(3, colorConfig.opacity + 0.2, colorConfig.color)
         }
     }
 }
