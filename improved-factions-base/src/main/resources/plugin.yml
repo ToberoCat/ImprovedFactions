@@ -75,3 +75,5 @@ permissions:
     default: op
   factions.reload:
     default: op
+  factions.power.set:
+    default: op

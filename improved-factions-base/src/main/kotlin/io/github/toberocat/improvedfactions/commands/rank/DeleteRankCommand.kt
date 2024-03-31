@@ -6,6 +6,7 @@ import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.FactionUser
 import io.github.toberocat.improvedfactions.user.FactionUsers
 import io.github.toberocat.improvedfactions.user.factionUser
+import io.github.toberocat.improvedfactions.utils.arguments.FallbackRankArgument
 import io.github.toberocat.improvedfactions.utils.arguments.entity.RankArgument
 import io.github.toberocat.improvedfactions.utils.command.CommandCategory
 import io.github.toberocat.improvedfactions.utils.command.CommandMeta
@@ -45,14 +46,4 @@ class DeleteRankCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubC
         player.sendLocalized("base.command.rank.delete.deleted")
         return true
     }
-}
-
-class FallbackRankArgument : RankArgument() {
-    override fun defaultValue(player: Player): FactionRank? = transaction {
-        player.factionUser().faction()?.defaultRank?.let { FactionRank.findById(it) }
-    }
-
-    override fun descriptionKey(): String = "base.command.args.fallback-rank"
-
-    override fun usage(): String = "[fallback]"
 }

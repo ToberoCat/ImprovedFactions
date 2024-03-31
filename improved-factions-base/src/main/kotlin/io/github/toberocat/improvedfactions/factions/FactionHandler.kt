@@ -37,6 +37,18 @@ object FactionHandler {
         }
     }
 
+    fun getFactions(): SizedIterable<Faction> {
+        return transaction { return@transaction Faction.all() }
+    }
+
+    fun getFaction(id: Int): Faction? {
+        return transaction { return@transaction Faction.findById(id) }
+    }
+
+    fun getFaction(name: String): Faction? {
+        return transaction { return@transaction Faction.find { Factions.name eq name }.firstOrNull() }
+    }
+
     fun searchFactions(name: String): SizedIterable<Faction> {
         return transaction { return@transaction Faction.find { Factions.name like name } }
     }

@@ -3,6 +3,7 @@ package io.github.toberocat.improvedfactions.translation
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import java.io.File
 import java.io.FileInputStream
+import java.io.InputStreamReader
 import java.util.Properties
 
 fun updateLanguages(plugin: ImprovedFactionsPlugin) {
@@ -33,7 +34,7 @@ class PropertiesUpdater(private val resourceFilename: String, private val provid
     private fun loadPropertiesFromResource(filename: String): Properties {
         val properties = Properties()
         val resourceStream = javaClass.classLoader.getResourceAsStream(filename)
-        properties.load(resourceStream)
+        properties.load(resourceStream?.let { InputStreamReader(it, Charsets.UTF_8) })
         return properties
     }
 
@@ -41,7 +42,7 @@ class PropertiesUpdater(private val resourceFilename: String, private val provid
         val properties = Properties()
         val file = File(filename)
         if (file.exists()) {
-            FileInputStream(file).use { properties.load(it) }
+            FileInputStream(file).use { properties.load(InputStreamReader(it, Charsets.UTF_8)) }
         }
         return properties
     }

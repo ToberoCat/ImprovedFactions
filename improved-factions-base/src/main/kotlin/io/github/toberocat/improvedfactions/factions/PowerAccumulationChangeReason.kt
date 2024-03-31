@@ -5,6 +5,7 @@ enum class PowerAccumulationChangeReason {
     CHUNK_CLAIMED,
     CHUNK_KEEP_COST,
     MAX_CHANGED,
+    OTHER,
     PLAYER_DEATH;
 
     override fun toString() = name.lowercase().replace("_", "-")

@@ -18,11 +18,18 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import kotlin.math.round
 
 @CommandMeta(
-    description = "base.command.info.description",
+    description = "base.command.power.description",
     category = CommandCategory.POWER_CATEGORY
 )
-class PowerCommand(private val plugin: ImprovedFactionsPlugin,
-                   private val powerHandle: FactionPowerRaidModuleHandleImpl) : PlayerSubCommand("power") {
+class PowerCommand(
+    private val plugin: ImprovedFactionsPlugin,
+    private val powerHandle: FactionPowerRaidModuleHandleImpl
+) : PlayerSubCommand("power") {
+
+    init {
+          addChild(PowerSetCommand(plugin))
+    }
+
     override fun options() = Options.getFromConfig(plugin, label) { options, _ ->
         options
             .cmdOpt(InFactionOption(true))
@@ -39,15 +46,22 @@ class PowerCommand(private val plugin: ImprovedFactionsPlugin,
             val activeAccumulation = powerHandle.getActivePowerAccumulation(faction)
             val inactiveAccumulation = powerHandle.getInactivePowerAccumulation(faction)
             val claimKeep = powerHandle.getClaimMaintenanceCost(faction)
-            plugin.guiEngineApi.openGui(player, "power/overview", mapOf(
-                "power" to faction.accumulatedPower.toString(),
-                "maxPower" to faction.maxPower.toString(),
-                "currently-accumulated" to stringify(powerHandle.getPowerAccumulated(activeAccumulation, inactiveAccumulation)),
-                "active-accumulation" to stringify(activeAccumulation),
-                "inactive-accumulation" to stringify(inactiveAccumulation),
-                "claim-keep" to stringify(claimKeep),
-                "next-claim-cost" to powerHandle.getNextClaimCost(faction).toString()
-            ))
+            plugin.guiEngineApi.openGui(
+                player, "power/overview", mapOf(
+                    "power" to faction.accumulatedPower.toString(),
+                    "maxPower" to faction.maxPower.toString(),
+                    "currently-accumulated" to stringify(
+                        powerHandle.getPowerAccumulated(
+                            activeAccumulation,
+                            inactiveAccumulation
+                        )
+                    ),
+                    "active-accumulation" to stringify(activeAccumulation),
+                    "inactive-accumulation" to stringify(inactiveAccumulation),
+                    "claim-keep" to stringify(claimKeep),
+                    "next-claim-cost" to powerHandle.getNextClaimCost(faction).toString()
+                )
+            )
         }
         return true
     }

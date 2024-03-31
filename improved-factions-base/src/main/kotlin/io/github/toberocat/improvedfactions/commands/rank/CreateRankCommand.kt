@@ -6,6 +6,7 @@ import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.utils.arguments.IntegerArgument
+import io.github.toberocat.improvedfactions.utils.arguments.PriorityArgument
 import io.github.toberocat.improvedfactions.utils.arguments.RankNameInputArgument
 import io.github.toberocat.improvedfactions.utils.command.CommandMeta
 import io.github.toberocat.improvedfactions.utils.options.InFactionOption
@@ -22,7 +23,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 class CreateRankCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("create") {
 
     init {
-        io.github.toberocat.improvedfactions.action.CommandActionMapper("factions.rank.create", this).register()
+        CommandActionMapper("factions.rank.create", this).register()
     }
 
     override fun options(): Options =
@@ -48,5 +49,3 @@ class CreateRankCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubC
         return true
     }
 }
-
-class PriorityArgument : IntegerArgument("<priority>", "base.command.args.priority")
