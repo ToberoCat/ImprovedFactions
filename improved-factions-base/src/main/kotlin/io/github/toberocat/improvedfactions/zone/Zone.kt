@@ -20,7 +20,7 @@ data class Zone(val type: String,
         }
 
         claim.zoneType = type
-        DynmapModule.dynmapModule().dynmapModuleHandle.zoneClaimAdd(this, claim.toPosition())
+        DynmapModule.dynmapModule().dynmapModuleHandle.zoneClaimAdd(type, claim.toPosition())
         return claim
     }
 }

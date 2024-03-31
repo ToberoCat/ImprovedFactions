@@ -70,6 +70,7 @@ class ImprovedFactionsPlugin : JavaPlugin() {
     }
 
     override fun onEnable() {
+        saveDefaultConfig()
         instance = this
         adventure = BukkitAudiences.create(this)
         claimChunkClusters = ClaimClusterDetector(DatabaseClaimQueryProvider())
@@ -148,7 +149,6 @@ class ImprovedFactionsPlugin : JavaPlugin() {
 
 
     fun loadConfig() {
-        saveDefaultConfig()
         Factions.maxNameLength = config.getInt("factions.unsafe.max-name-length", 36)
         Factions.maxIconLength = config.getInt("factions.unsafe.max-icon-length", 5000)
         Factions.maxSpacesInName = config.getInt("factions.max-spaces-in-name", 5)

@@ -8,11 +8,7 @@ class DummyFactionDynmapModuleHandles : FactionDynmapModuleHandle {
     override fun factionClusterChange(cluster: Cluster) = Unit
 
     override fun factionClaimRemove(position: Position) = Unit
-    override fun zoneClaimAdd(zone: Zone, position: Position) {
-        TODO("Not yet implemented")
-    }
+    override fun zoneClaimAdd(type: String, position: Position) = Unit
 
-    override fun zoneClaimRemove(position: Position) {
-        TODO("Not yet implemented")
-    }
+    override fun zoneClaimRemove(position: Position) = Unit
 }

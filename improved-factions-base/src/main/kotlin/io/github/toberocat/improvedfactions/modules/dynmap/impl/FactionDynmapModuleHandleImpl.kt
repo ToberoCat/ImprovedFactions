@@ -8,6 +8,7 @@ import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapModuleCo
 import io.github.toberocat.improvedfactions.modules.dynmap.handles.FactionDynmapModuleHandle
 import io.github.toberocat.improvedfactions.utils.toOfflinePlayer
 import io.github.toberocat.improvedfactions.zone.Zone
+import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import org.dynmap.DynmapCommonAPI
 import org.dynmap.markers.MarkerSet
 
@@ -34,6 +35,7 @@ class FactionDynmapModuleHandleImpl(
 
     init {
         set.markers.forEach { it.deleteMarker() }
+        ZoneHandler.getZoneClaims().forEach { zoneClaimAdd(it.zoneType, it.toPosition()) }
     }
 
     override fun factionClusterChange(cluster: Cluster) {
@@ -50,11 +52,11 @@ class FactionDynmapModuleHandleImpl(
         set.findAreaMarker(position.uniquId())?.deleteMarker()
     }
 
-    override fun zoneClaimAdd(zone: Zone, position: Position) {
+    override fun zoneClaimAdd(type: String, position: Position) {
         if (!config.showZones)
             return
 
-        addAreaMarker(zone.type, position) { it }
+        addAreaMarker(type, position) { it }
     }
 
     override fun zoneClaimRemove(position: Position) {
@@ -76,7 +78,7 @@ class FactionDynmapModuleHandleImpl(
         )
         (config.claimColors[name] ?: config.claimColors["__default__"])?.let { colorConfig ->
             marker.setFillStyle(colorConfig.opacity, colorConfig.color)
-            marker.setLineStyle(0, 0.0, 0)
+            marker.setLineStyle(1, colorConfig.opacity + 0.2, colorConfig.color)
         }
     }
 }
