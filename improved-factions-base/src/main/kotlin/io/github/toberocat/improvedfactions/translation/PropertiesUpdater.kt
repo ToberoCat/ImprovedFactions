@@ -67,6 +67,8 @@ class PropertiesUpdater(private val resourceFilename: String, private val provid
 
     private fun savePropertiesToFile(filename: String, properties: Properties) {
         val file = File(filename)
-        file.writer().use { properties.store(it, "Auto-generated missing properties") }
+        file.writer(Charsets.UTF_8).use {
+            properties.store(it, "Auto-generated missing properties")
+        }
     }
 }
