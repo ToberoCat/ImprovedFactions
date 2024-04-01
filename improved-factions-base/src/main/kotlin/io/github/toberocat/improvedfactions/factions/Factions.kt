@@ -20,7 +20,7 @@ object Factions : IntIdTable("factions") {
     val name = varchar("name", maxNameLength)
     val owner = uuid("owner")
     val accumulatedPower = integer("accumulated_power").default(0)
-    val maxPower = integer("max_power").default(0)
+    val maxPower = integer("max_power").default(50)
     val defaultRank = integer("default_rank").default(FactionRankHandler.guestRankId)
     val base64Icon = varchar("icon_base64", maxIconLength)
         .default(Base64ItemStack.encode(ItemStack(Material.WOODEN_SWORD)))
