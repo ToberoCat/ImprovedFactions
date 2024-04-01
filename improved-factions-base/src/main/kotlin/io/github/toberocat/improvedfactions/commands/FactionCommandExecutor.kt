@@ -17,6 +17,7 @@ import io.github.toberocat.improvedfactions.commands.member.*
 import io.github.toberocat.improvedfactions.commands.rank.RankCommandRoute
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.toberocore.command.CommandExecutor
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 
 /**
@@ -62,5 +63,9 @@ class FactionCommandExecutor(plugin: ImprovedFactionsPlugin) {
         plugin.addModuleCommands(executor)
 
         executor.addChild(HelpCommand(plugin, executor))
+
+        executor.setNothing { sender, _ ->
+            Bukkit.dispatchCommand(sender, "factions help")
+        }
     }
 }

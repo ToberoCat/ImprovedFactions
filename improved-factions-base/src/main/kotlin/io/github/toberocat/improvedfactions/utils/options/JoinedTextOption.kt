@@ -11,7 +11,6 @@ class JoinedTextOption(private val index: Int, private val maxLiteralLength: Int
             return rawArgs
 
         val args = rawArgs.copyOfRange(index, rawArgs.size)
-        println(args.joinToString(" "))
         val maxJoinLength = if (maxLiteralLength > 0) min(
             args.size,
             maxLiteralLength
@@ -22,9 +21,7 @@ class JoinedTextOption(private val index: Int, private val maxLiteralLength: Int
             builder.append(args[i]).append(' ')
         }
 
-        println(builder.toString().trim { it <= ' ' })
         val array= arrayOf(*rawArgs.take(index).toTypedArray(), builder.toString().trim { it <= ' ' })
-        println(array.joinToString(" "))
         return array
     }
 }
