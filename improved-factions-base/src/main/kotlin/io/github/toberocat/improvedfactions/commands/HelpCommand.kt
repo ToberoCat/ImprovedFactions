@@ -25,16 +25,12 @@ class HelpCommand(
     private val plugin: ImprovedFactionsPlugin, private val executor: CommandExecutor
 ) : PlayerSubCommand("help") {
 
-    private val categoryIndex: MutableMap<String, MutableList<String>>
-    private val commandMetaIndex: MutableMap<String, SubCommand>
-    private val commands: List<String>
+    private val categoryIndex: MutableMap<String, MutableList<String>> = HashMap()
+    private val commandMetaIndex: MutableMap<String, SubCommand> = HashMap()
+    private val commands: MutableMap<String, MutableList<SubCommand>> = HashMap()
 
     init {
-        categoryIndex = HashMap()
-        commandMetaIndex = HashMap()
         indexCommand(executor)
-
-        commands = commandMetaIndex.keys.toList()
     }
 
     private fun indexCommand(command: Command): Unit = command.children.forEach { (label, subCommand) ->
@@ -51,6 +47,7 @@ class HelpCommand(
         categoryIndex[meta.category] = labels
 
         commandMetaIndex[subCommand.permission] = subCommand
+        commands.computeIfAbsent(subCommand.label) { mutableListOf() }.add(subCommand)
         indexCommand(subCommand)
     }
 
@@ -70,11 +67,13 @@ class HelpCommand(
         when {
             command.startsWith("category:") ->
                 printCategoryDetails(player, command.replace("category:", ""))
-            else -> printCommandDetails(
-                player, executor.getChild(command) ?: throw CommandException(
-                    "base.command.help.command-not-found", emptyMap()
-                )
-            )
+
+            else -> (commands[command] ?: throw CommandException(
+                "base.command.help.command-not-found",
+                emptyMap()
+            )).forEach {
+                printCommandDetails(player, it)
+            }
         }
         return true
     }
@@ -95,12 +94,12 @@ class HelpCommand(
         async {
             val meta = subCommand.getMeta() ?: return@async
             val baseCommand = subCommand.permission.replace(".", " ")
-            val args = subCommand.args.joinToString (" ") {
+            val args = subCommand.args.joinToString(" ") {
                 "<hover:show_text:'${player.getUnformattedLocalized(it.descriptionKey())}'>" +
                         "<${if (it.usage().startsWith("<")) "aqua" else "gold"}>${it.usage()}</hover>"
             }
 
-            val rawArgs = subCommand.args.joinToString (" ") { it.usage() }
+            val rawArgs = subCommand.args.joinToString(" ") { it.usage() }
 
             val usage = "/$baseCommand $args".trim()
             val cmd = "/$baseCommand $rawArgs".trim()
