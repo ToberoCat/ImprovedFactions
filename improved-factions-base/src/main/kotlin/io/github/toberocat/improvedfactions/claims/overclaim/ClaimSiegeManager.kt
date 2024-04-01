@@ -30,7 +30,6 @@ class ClaimSiegeManager(private val claim: FactionClaim) {
 
         fun getManager(claim: FactionClaim): ClaimSiegeManager {
             return siegeManagers.computeIfAbsent(Position(claim.chunkX, claim.chunkZ, claim.world, -1)) {
-            println("New manager")
                 ClaimSiegeManager(
                     claim
                 )

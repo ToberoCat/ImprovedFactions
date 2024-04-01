@@ -17,16 +17,18 @@ modules:
   power-raids: true
   # This module will try to render the factions on a map, using the dynmap plugin
   dynmap: true
+  # This module will add the /f wilderness and /wilderness command, allowing players to teleport to the wilderness (A place where no factions has yet claimed)
+  wilderness: true
 #
 # -------- { Base Module Settings } --------
 #
 factions:
   max-rank-name-length: 50
-  rank-name-regex: "[a-zA-Z ]*"
+  rank-name-regex: "[a-zA-Z]*" # The regex a rank name has to match. Spaces are supported, but strongly discouraged
   max-spaces-in-name: 5
   # Unit is minutes
   invites-expire-in: 5
-  name-regex: "[a-zA-Z ]*"
+  name-regex: "[a-zA-Z]*" # The regex a faction name has to match. Spaces are supported, but strongly discouraged
 
   # Default ranks every faction will receive once created. When modifying it,
   # note that the first rank will be set to be the default rank for members joining,
@@ -138,6 +140,41 @@ factions:
       display-name: "Factions" # The display name of the marker set
       layer-priority: 10 # The priority of the layer. Higher values will be displayed on top of lower values
       hidden-by-default: false # If set to true, the layer will be hidden by default
+
+  #
+  # -------- { Wilderness Module Settings } --------
+  # These settings only apply when you enabled this module.
+  #
+  # This section represents the constants mentioned in the wilderness module documentation.
+  # If you have no clue what you're doing here, a good place to start looking would be the wilderness module documentation
+  wilderness:
+    cooldown-unit: SECONDS # The time unit this value will be interpreted as. Some more common possibilities are: SECONDS, MINUTES, HOURS and DAYS
+    cooldown-value: 30 # The time the player has to wait before being able to use the command again
+    included-zones: # The zones that should be considered as wilderness. This is a list of zone names
+      - unmanaged
+    gain-resistance: true # If set to true, the player will gain resistance for 10 seconds when teleporting to the wilderness
+    prevent-spawn-over-liquids: true # If set to true, the player won't be teleported over bodies of water
+    stand-still-unit: SECONDS # The time unit this value will be interpreted as. Some more common possibilities are: SECONDS, MINUTES, HOURS and DAYS
+    stand-still-value: 5 # The time the player has to stand still before being teleported
+    blacklisted-biomes:
+      - OCEAN
+    wilderness-limit: -1 # The amount of times a player can use this command to teleport to wilderness. -1 means no limit
+    claim-distance-check: 20 # The distance the choosen location will be at least away from a faction claim
+    retry-limit: 10 # The amount of times the plugin will try to find a suitable location before giving up
+    blacklisted-worlds: # This is a list of worlds where the wilderness command should not work. It automatically includes the blacklisted worlds from the base module
+      - world_nether
+      - world_the_end
+    # Uncomment to choose the regions where the wilderness command should try to teleport the player to.
+    # If no regions are defined, the player will be teleported to a random location within proximity in the same world
+    # regions:
+    # default-region:
+    # min-x: -1000
+    # max-x: 1000
+    # min-z: -1000
+    # max-z: 1000
+    # world: "world"
+
+    teleport-proximity: 100 # The proximity the player will be teleported to when no regions are defined
 
   # Whenever you change values in this section, you'll have issues with your database
   # Choose values that go for you and never touch them again

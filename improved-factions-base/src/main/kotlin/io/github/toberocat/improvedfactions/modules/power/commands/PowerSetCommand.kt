@@ -14,6 +14,7 @@ import io.github.toberocat.improvedfactions.utils.command.CommandCategory
 import io.github.toberocat.improvedfactions.utils.command.CommandMeta
 import io.github.toberocat.improvedfactions.utils.options.FactionPermissionOption
 import io.github.toberocat.improvedfactions.utils.options.InFactionOption
+import io.github.toberocat.improvedfactions.utils.options.addFactionNameOption
 import io.github.toberocat.toberocore.command.SubCommand
 import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.exceptions.CommandException
@@ -29,11 +30,13 @@ import org.jetbrains.exposed.sql.transactions.transaction
 class PowerSetCommand(
     private val plugin: ImprovedFactionsPlugin
 ) : SubCommand("set") {
-    override fun options() = Options.getFromConfig(plugin, label)
+    override fun options() = Options.getFromConfig(plugin, label) { options, _ ->
+        options.addFactionNameOption(2)
+    }
     override fun arguments() = arrayOf<Argument<*>>(
         EnumArgument(PowerType::class.java, "base.command.args.power-type"),
+        PowerArgument(),
         FactionArgument(),
-        PowerArgument()
     )
 
     override fun handleCommand(sender: CommandSender, args: Array<String>): Boolean {
@@ -43,15 +46,15 @@ class PowerSetCommand(
         if (sender is Player) {
             val arguments = parseArgs(sender, args)
             powerType = arguments.get<PowerType>(0) ?: return false
-            faction = arguments.get<Faction>(1) ?: return false
-            power = arguments.get<Int>(2) ?: return false
+            power = arguments.get<Int>(1) ?: return false
+            faction = arguments.get<Faction>(2) ?: return false
         } else {
             if (args.size < 3) {
                 throw CommandException("base.exceptions.arg-doesnt-match", emptyMap())
             }
             powerType = PowerType.valueOf(args[0].uppercase())
-            faction = FactionHandler.getFaction(args[1]) ?: throw CommandException("base.exceptions.arg-doesnt-match", emptyMap())
-            power = args[2].toIntOrNull() ?: throw CommandException("base.exceptions.arg-doesnt-match", emptyMap())
+            power = args[1].toIntOrNull() ?: throw CommandException("base.exceptions.arg-doesnt-match", emptyMap())
+            faction = FactionHandler.getFaction(args.drop(2).joinToString(separator = " ")) ?: throw CommandException("base.exceptions.arg-doesnt-match", emptyMap())
         }
 
         transaction {
