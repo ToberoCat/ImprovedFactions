@@ -28,6 +28,7 @@ class PowerCommand(
 
     init {
           addChild(PowerSetCommand(plugin))
+        addChild(PowerAddCommand(plugin))
     }
 
     override fun options() = Options.getFromConfig(plugin, label) { options, _ ->

@@ -28,9 +28,9 @@ import org.jetbrains.exposed.sql.transactions.transaction
     description = "base.command.power.set.description",
     category = CommandCategory.ADMIN_CATEGORY
 )
-class PowerSetCommand(
+class PowerAddCommand(
     private val plugin: ImprovedFactionsPlugin
-) : SubCommand("set") {
+) : SubCommand("add") {
     override fun options() = Options.getFromConfig(plugin, label) { options, _ ->
         options.addFactionNameOption(2)
     }
@@ -60,8 +60,8 @@ class PowerSetCommand(
 
         transaction {
             when (powerType) {
-                PowerType.ACCUMULATED -> faction.setAccumulatedPower(power, PowerAccumulationChangeReason.OTHER)
-                PowerType.MAXIMUM -> faction.setMaxPower(power)
+                PowerType.ACCUMULATED -> faction.setAccumulatedPower(faction.accumulatedPower + power, PowerAccumulationChangeReason.OTHER)
+                PowerType.MAXIMUM -> faction.setMaxPower(faction.maxPower + power)
             }
         }
 
