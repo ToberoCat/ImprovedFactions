@@ -3,7 +3,9 @@ package io.github.toberocat.improvedfactions.commands.invite
 import io.github.toberocat.guiengine.components.container.tab.PagedContainer
 import io.github.toberocat.guiengine.components.provided.item.SimpleItemComponent
 import io.github.toberocat.guiengine.components.provided.paged.PagedComponent
+import io.github.toberocat.guiengine.event.GuiEvents
 import io.github.toberocat.guiengine.event.spigot.GuiCloseEvent
+import io.github.toberocat.guiengine.event.spigot.GuiEngineEvent
 import io.github.toberocat.guiengine.function.GuiFunction
 import io.github.toberocat.guiengine.render.RenderPriority
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
@@ -52,7 +54,7 @@ class ListInvitesCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSub
             context.render()
         }, 0, 20L).taskId
 
-        context.listen(GuiCloseEvent::class.java) { Bukkit.getScheduler().cancelTask(taskId) }
+        context.listen(GuiCloseEvent::class.java) {  Bukkit.getScheduler().cancelTask(taskId) }
         return true
     }
 

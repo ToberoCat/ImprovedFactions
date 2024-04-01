@@ -34,7 +34,7 @@
         <spigot-update-checker.version>3.0.3</spigot-update-checker.version>
         <kotlinx-datetime.version>0.4.0</kotlinx-datetime.version>
         <toberocore.version>be356f9253</toberocore.version>
-        <guiengine.version>d11081e888</guiengine.version>
+        <guiengine.version>6c00296e4c</guiengine.version>
         <adventure-text-minimessage.version>4.16.0</adventure-text-minimessage.version>
         <adventure-text-serializer-legacy.version>4.16.0</adventure-text-serializer-legacy.version>
         <kyori-adventure-platform-bukkit.version>4.3.2</kyori-adventure-platform-bukkit.version>
