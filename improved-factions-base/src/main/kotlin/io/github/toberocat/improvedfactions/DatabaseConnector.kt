@@ -26,7 +26,7 @@ import java.util.logging.Logger
  * Created: 04.08.2023
  * @author Tobias Madlberger (Tobias)
  */
-class DatabaseConnector(private val plugin: JavaPlugin) {
+class DatabaseConnector(private val plugin: ImprovedFactionsPlugin) {
     private val config: FileConfiguration = plugin.config
     private val logger: Logger = plugin.logger
 
@@ -49,6 +49,8 @@ class DatabaseConnector(private val plugin: JavaPlugin) {
 
             SchemaUtils.createMissingTablesAndColumns(FactionInvites)
             FactionInvites.scheduleInviteExpirations()
+
+            ImprovedFactionsPlugin.getActiveModules().forEach { (_, module) -> module.onLoadDatabase(plugin) }
         }
         return database
     }

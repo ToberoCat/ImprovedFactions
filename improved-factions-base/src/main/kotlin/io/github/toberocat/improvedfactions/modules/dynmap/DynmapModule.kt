@@ -37,8 +37,6 @@ class DynmapModule : BaseModule {
         config.reload(plugin.config)
     }
 
-    override fun addCommands(plugin: ImprovedFactionsPlugin, executor: CommandExecutor) {}
-
     override fun shouldEnable(plugin: ImprovedFactionsPlugin): Boolean {
         val shouldEnable = super.shouldEnable(plugin)
         if (!shouldEnable) {

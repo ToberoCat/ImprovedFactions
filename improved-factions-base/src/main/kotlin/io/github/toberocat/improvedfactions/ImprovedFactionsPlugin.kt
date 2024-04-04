@@ -25,6 +25,8 @@ import io.github.toberocat.improvedfactions.functions.FactionPermissionFunction
 import io.github.toberocat.improvedfactions.invites.FactionInvites
 import io.github.toberocat.improvedfactions.listeners.move.MoveListener
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
+import io.github.toberocat.improvedfactions.modules.home.HomeModule
+import io.github.toberocat.improvedfactions.modules.home.impl.HomeModuleHandleImpl
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.modules.wilderness.WildernessModule
 import io.github.toberocat.improvedfactions.papi.PapiExpansion
@@ -63,8 +65,11 @@ class ImprovedFactionsPlugin : JavaPlugin() {
         val modules = mutableMapOf(
             PowerRaidsModule.powerRaidsPair(),
             DynmapModule.dynmapPair(),
-            WildernessModule.wildernessPair()
+            WildernessModule.wildernessPair(),
+            HomeModule.homePair()
         )
+
+        fun getActiveModules() = modules.filter { it.value.shouldEnable(instance) }
     }
 
     fun addModuleCommands(executor: CommandExecutor) {
@@ -132,7 +137,7 @@ class ImprovedFactionsPlugin : JavaPlugin() {
         FileUtils.copyAll(this, "languages")
     }
 
-    private fun registerModules() = modules.filter { it.value.shouldEnable(this) }
+    private fun registerModules() = getActiveModules()
         .forEach { (name, module) ->
             module.onEnable(this)
             logger.info("Loaded module $name")

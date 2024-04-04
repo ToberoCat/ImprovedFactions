@@ -8,11 +8,7 @@ import io.github.toberocat.toberocore.command.CommandExecutor
 
 class WildernessModule : BaseModule {
     override val moduleName = MODULE_NAME
-
-    val wildernessConfig = WildernessModuleConfig()
-    override fun onEnable(plugin: ImprovedFactionsPlugin) {
-
-    }
+    private val wildernessConfig = WildernessModuleConfig()
 
     override fun reloadConfig(plugin: ImprovedFactionsPlugin) {
         wildernessConfig.reload(plugin.config)
@@ -21,7 +17,6 @@ class WildernessModule : BaseModule {
     override fun addCommands(plugin: ImprovedFactionsPlugin, executor: CommandExecutor) {
         executor.addChild(WildernessCommand(plugin, wildernessConfig))
     }
-
 
     companion object {
         const val MODULE_NAME = "wilderness"

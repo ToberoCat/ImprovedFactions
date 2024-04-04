@@ -13,6 +13,8 @@ object Permissions {
     val KICK_PLAYER = "kick-player".registerAsPermission(Material.WOODEN_SWORD)
     val MANAGE_BANS = "manage-bans".registerAsPermission(Material.NETHERITE_AXE)
     val TRANSFER_OWNERSHIP = "transfer-ownership".registerAsPermission(Material.BARRIER)
+    val SET_HOME = "set-home".registerAsPermission(Material.RED_BED)
+    val HOME = "teleport-home".registerAsPermission(Material.WHITE_BED)
 
     fun String.registerAsPermission(material: Material): String {
         knownPermissions[this] = PermissionHolder(material)

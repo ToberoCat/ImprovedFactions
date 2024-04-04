@@ -19,6 +19,8 @@ modules:
   dynmap: true
   # This module will add the /f wilderness and /wilderness command, allowing players to teleport to the wilderness (A place where no factions has yet claimed)
   wilderness: true
+  # This module will add various home related commands for setting and teleporting to a faction's home
+  home: true
 #
 # -------- { Base Module Settings } --------
 #
