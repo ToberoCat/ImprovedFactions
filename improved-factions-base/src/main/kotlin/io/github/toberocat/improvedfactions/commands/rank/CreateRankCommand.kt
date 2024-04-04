@@ -8,6 +8,7 @@ import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.utils.arguments.IntegerArgument
 import io.github.toberocat.improvedfactions.utils.arguments.PriorityArgument
 import io.github.toberocat.improvedfactions.utils.arguments.RankNameInputArgument
+import io.github.toberocat.improvedfactions.utils.command.CommandCategory
 import io.github.toberocat.improvedfactions.utils.command.CommandMeta
 import io.github.toberocat.improvedfactions.utils.options.InFactionOption
 import io.github.toberocat.toberocore.command.PlayerSubCommand
@@ -18,6 +19,7 @@ import org.bukkit.entity.Player
 import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
+    category = CommandCategory.PERMISSION_CATEGORY,
     description = "base.command.rank.create.description"
 )
 class CreateRankCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("create") {

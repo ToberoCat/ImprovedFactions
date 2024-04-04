@@ -2,6 +2,7 @@ package io.github.toberocat.improvedfactions.modules.wilderness
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.modules.wilderness.commands.WildernessCommand
 import io.github.toberocat.improvedfactions.modules.wilderness.config.WildernessModuleConfig
 import io.github.toberocat.toberocore.command.CommandExecutor
 
@@ -18,6 +19,7 @@ class WildernessModule : BaseModule {
     }
 
     override fun addCommands(plugin: ImprovedFactionsPlugin, executor: CommandExecutor) {
+        executor.addChild(WildernessCommand(plugin, wildernessConfig))
     }
 
 
@@ -26,6 +28,6 @@ class WildernessModule : BaseModule {
         fun wildernessModule() =
             (ImprovedFactionsPlugin.modules[MODULE_NAME] as? WildernessModule) ?: throw IllegalStateException()
 
-        fun dynmapPair() = MODULE_NAME to WildernessModule()
+        fun wildernessPair() = MODULE_NAME to WildernessModule()
     }
 }

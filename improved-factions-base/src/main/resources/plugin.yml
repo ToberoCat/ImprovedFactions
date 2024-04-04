@@ -77,3 +77,7 @@ permissions:
     default: op
   factions.power.set:
     default: op
+  factions.bypass.usage-limits.*:
+    default: op
+  factions.bypass.usage-limits.wilderness:
+    default: op

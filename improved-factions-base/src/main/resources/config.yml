@@ -80,7 +80,7 @@ factions:
       unit: HOURS # The time unit this value will be interpreted as. Some more common possibilities are: SECONDS, MINUTES, HOURS and DAYS
       value: 1
 
-    # Configure how long a player counts as active. Should be smaller than the accumulation rate
+    # Configure how long a player counts as active.
     inactive:
       unit: DAYS # The time unit this value will be interpreted as. Some more common possibilities are: SECONDS, MINUTES, HOURS and DAYS
       value: 7
@@ -152,14 +152,17 @@ factions:
     cooldown-value: 30 # The time the player has to wait before being able to use the command again
     included-zones: # The zones that should be considered as wilderness. This is a list of zone names
       - unmanaged
+      - default
     gain-resistance: true # If set to true, the player will gain resistance for 10 seconds when teleporting to the wilderness
+    resistance-duration: 10 # The duration the player will gain resistance for if gain-resistance is set to true. This is the time in seconds
+    resistance-amplifier: 5 # The amplifier of the resistance effect
     prevent-spawn-over-liquids: true # If set to true, the player won't be teleported over bodies of water
     stand-still-unit: SECONDS # The time unit this value will be interpreted as. Some more common possibilities are: SECONDS, MINUTES, HOURS and DAYS
     stand-still-value: 5 # The time the player has to stand still before being teleported
     blacklisted-biomes:
       - OCEAN
-    wilderness-limit: -1 # The amount of times a player can use this command to teleport to wilderness. -1 means no limit
-    claim-distance-check: 20 # The distance the choosen location will be at least away from a faction claim
+    usage-limit: -1 # The amount of times a player can use this command to teleport to wilderness. -1 means no limit
+    claim-distance-check: 5 # The distance of the player to the nearest claimed chunk. This is the distance in chunks
     retry-limit: 10 # The amount of times the plugin will try to find a suitable location before giving up
     blacklisted-worlds: # This is a list of worlds where the wilderness command should not work. It automatically includes the blacklisted worlds from the base module
       - world_nether
@@ -167,15 +170,16 @@ factions:
     # Uncomment to choose the regions where the wilderness command should try to teleport the player to.
     # If no regions are defined, the player will be teleported to a random location within proximity in the same world
     # regions:
-    # default-region:
-    # min-x: -1000
-    # max-x: 1000
-    # min-z: -1000
-    # max-z: 1000
-    # world: "world"
+    #   default-region:
+    #     min-x: -1000
+    #     max-x: 1000
+    #     min-z: -1000
+    #     max-z: 1000
+    #     world: "world"
 
-    teleport-proximity: 100 # The proximity the player will be teleported to when no regions are defined
-
+    # The proximity the player will be teleported to when no regions are defined.
+    # If set to -1 and regions are not defined, the whole area within the world border will be considered
+    teleport-proximity: 100
   # Whenever you change values in this section, you'll have issues with your database
   # Choose values that go for you and never touch them again
   unsafe:
@@ -289,6 +293,11 @@ zones:
 
 performance:
   thread-pool-size: 5 # Amount of thread that should be pooled waiting for operations
+
+  # This section is responsible for the particles that will be displayed only for decorative purposes, having little to no impact on the gameplay
+  decorative-particles:
+    hidden: false # If set to true, the particles will be hidden
+    tick-speed: 1 # The speed the particles will be updated. The higher the value, the better the resolution of the particle animations will be. 1 Is the fastes.
 
 # List the worlds you don't people be able to claim chunks in
 # Example:

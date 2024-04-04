@@ -26,12 +26,14 @@ import io.github.toberocat.improvedfactions.invites.FactionInvites
 import io.github.toberocat.improvedfactions.listeners.move.MoveListener
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
+import io.github.toberocat.improvedfactions.modules.wilderness.WildernessModule
 import io.github.toberocat.improvedfactions.papi.PapiExpansion
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
 import io.github.toberocat.improvedfactions.ranks.FactionRanks
 import io.github.toberocat.improvedfactions.translation.updateLanguages
 import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import io.github.toberocat.improvedfactions.utils.BStatsCollector
+import io.github.toberocat.improvedfactions.utils.particles.ParticleAnimation
 import io.github.toberocat.improvedfactions.utils.threadPool
 import io.github.toberocat.toberocore.command.CommandExecutor
 import me.clip.placeholderapi.PlaceholderAPI
@@ -60,7 +62,8 @@ class ImprovedFactionsPlugin : JavaPlugin() {
             private set
         val modules = mutableMapOf(
             PowerRaidsModule.powerRaidsPair(),
-            DynmapModule.dynmapPair()
+            DynmapModule.dynmapPair(),
+            WildernessModule.wildernessPair()
         )
     }
 
@@ -106,6 +109,7 @@ class ImprovedFactionsPlugin : JavaPlugin() {
     private fun checkForUpdate() {
         if (!config.getBoolean("update-checker")) return
 
+        logger.info("Checking for updates...")
         UpdateChecker(this, UpdateCheckSource.SPIGOT, SPIGOT_RESOURCE_ID.toString())
             .setDownloadLink(SPIGOT_RESOURCE_ID)
             .setDonationLink("https://www.paypal.com/donate/?hosted_button_id=BGB6QWR886Q6Y")
@@ -160,6 +164,8 @@ class ImprovedFactionsPlugin : JavaPlugin() {
             config.getString("factions.unsafe.guest-rank-name") ?: FactionRankHandler.guestRankName
         FactionRanks.rankNameRegex = Regex(config.getString("factions.rank-name-regex") ?: "[a-zA-Z ]*")
 
+        ParticleAnimation.hideDecorativeParticles = config.getBoolean("performance.decorative-particles.hidden", false)
+        ParticleAnimation.tickSpeed = config.getLong("performance.decorative-particles.tick-speed", 1)
         config.getConfigurationSection("zones")?.getKeys(false)?.let {
             it.forEach { zone ->
                 val section = config.getConfigurationSection("zones.$zone")

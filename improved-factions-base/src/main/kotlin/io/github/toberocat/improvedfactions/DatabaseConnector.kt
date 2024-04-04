@@ -8,6 +8,7 @@ import io.github.toberocat.improvedfactions.permissions.FactionPermissions
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
 import io.github.toberocat.improvedfactions.ranks.FactionRanks
 import io.github.toberocat.improvedfactions.user.FactionUsers
+import io.github.toberocat.improvedfactions.utils.options.limit.PlayerUsageLimits
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.plugin.java.JavaPlugin
 import org.jetbrains.exposed.sql.Database
@@ -38,6 +39,7 @@ class DatabaseConnector(private val plugin: JavaPlugin) {
             SchemaUtils.createMissingTablesAndColumns(FactionClaims)
             SchemaUtils.createMissingTablesAndColumns(FactionPermissions)
             SchemaUtils.createMissingTablesAndColumns(FactionBans)
+            SchemaUtils.createMissingTablesAndColumns(PlayerUsageLimits)
 
             SchemaUtils.createMissingTablesAndColumns(Factions)
             Factions.handleQueues()
