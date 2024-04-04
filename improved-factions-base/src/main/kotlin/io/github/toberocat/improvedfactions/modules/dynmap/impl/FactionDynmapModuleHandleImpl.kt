@@ -66,15 +66,16 @@ class FactionDynmapModuleHandleImpl(
         val worldX = position.x * 16.0
         val worldZ = position.y * 16.0
         val label = transformer(config.infoWindows[name] ?: config.infoWindows["__default__"] ?: name)
-        val marker = set.createAreaMarker(
-            position.uniquId(),
+        val markerId = position.uniquId()
+        val marker = set.findAreaMarker(markerId) ?: set.createAreaMarker(
+            markerId,
             label,
             true,
             position.world,
             doubleArrayOf(worldX, worldX + 16),
             doubleArrayOf(worldZ, worldZ + 16),
             false
-        )
+        ) ?: return
         (config.claimColors[name] ?: config.claimColors["__default__"])?.let { colorConfig ->
             marker.setFillStyle(colorConfig.opacity, colorConfig.color)
             marker.setLineStyle(3, colorConfig.opacity + 0.2, colorConfig.color)
