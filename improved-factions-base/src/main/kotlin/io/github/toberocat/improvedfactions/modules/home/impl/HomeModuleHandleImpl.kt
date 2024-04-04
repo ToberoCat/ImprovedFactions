@@ -37,7 +37,7 @@ class HomeModuleHandleImpl : HomeModuleHandle {
             "home.messages.teleporting-title",
             "home.messages.teleporting-subtitle",
             { player.teleport(location) }
-        )
+        ).startTeleport()
 
         return true
     }
