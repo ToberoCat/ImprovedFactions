@@ -15,7 +15,8 @@ data class DynmapModuleConfig(
     var markerSetDisplayName: String = "Factions",
     var markerSetPriority: Int = 10,
     var markerSetHiddenByDefault: Boolean = false,
-    var showZones: Boolean = false
+    var showZones: Boolean = false,
+    var showHomes: Boolean = true,
 ) {
     private val configPath = "factions.dynmap"
 
@@ -26,6 +27,7 @@ data class DynmapModuleConfig(
         markerSetPriority = config.getInt("$configPath.marker-set.layer-priority", markerSetPriority)
         markerSetHiddenByDefault = config.getBoolean("$configPath.marker-set.hidden-by-default", markerSetHiddenByDefault)
         showZones = config.getBoolean("$configPath.show-zones", showZones)
+        showHomes = config.getBoolean("$configPath.show-homes", showHomes)
         config.getConfigurationSection("$configPath.info-windows")?.let { section ->
             infoWindows = section.getKeys(false).associateWith { section.getString(it)!! }
         }

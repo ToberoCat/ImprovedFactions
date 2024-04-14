@@ -3,12 +3,15 @@ package io.github.toberocat.improvedfactions.modules.dynmap.impl
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.clustering.Cluster
 import io.github.toberocat.improvedfactions.claims.clustering.Position
+import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapModuleConfig
 import io.github.toberocat.improvedfactions.modules.dynmap.handles.FactionDynmapModuleHandle
 import io.github.toberocat.improvedfactions.utils.toOfflinePlayer
 import io.github.toberocat.improvedfactions.zone.ZoneHandler
+import org.bukkit.Location
 import org.dynmap.DynmapCommonAPI
+import org.dynmap.markers.MarkerIcon
 import org.dynmap.markers.MarkerSet
 
 class FactionDynmapModuleHandleImpl(
@@ -17,6 +20,12 @@ class FactionDynmapModuleHandleImpl(
     api: DynmapCommonAPI
 ) : FactionDynmapModuleHandle {
     private val set = createFactionMarker(api)
+    private val homeIcon = api.markerAPI.getMarkerIcon("faction_home_icon") ?: api.markerAPI.createMarkerIcon(
+        "faction_home_icon",
+        "Faction Home",
+        plugin.getResource("icons/home-icon.png")
+    )
+
     private fun createFactionMarker(api: DynmapCommonAPI): MarkerSet {
         val markerApi = api.markerAPI
 
@@ -35,6 +44,22 @@ class FactionDynmapModuleHandleImpl(
     init {
         set.markers.forEach { it.deleteMarker() }
         ZoneHandler.getZoneClaims().forEach { zoneClaimAdd(it.zoneType, it.toPosition()) }
+    }
+
+    override fun factionHomeChange(faction: Faction, homeLocation: Location) {
+        val markerId = "home_${faction.id.value}"
+        set.findMarker(markerId)?.deleteMarker()
+        set.createMarker(
+            markerId,
+            "${faction.name}'s Home",
+            false,
+            homeLocation.world!!.name,
+            homeLocation.x,
+            homeLocation.y,
+            homeLocation.z,
+            homeIcon,
+            true
+        )
     }
 
     override fun factionClusterChange(cluster: Cluster) {

@@ -1,7 +1,9 @@
 package io.github.toberocat.improvedfactions.modules.home.impl
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.claims.getFactionClaim
 import io.github.toberocat.improvedfactions.factions.Faction
+import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.modules.home.HomeModule.getHome
 import io.github.toberocat.improvedfactions.modules.home.data.FactionHome
 import io.github.toberocat.improvedfactions.modules.home.handles.HomeModuleHandle
@@ -12,14 +14,17 @@ import org.bukkit.entity.Player
 
 class HomeModuleHandleImpl : HomeModuleHandle {
     override fun setHome(faction: Faction, location: Location): Boolean {
-        // ToDo: Validate home location
+        if (location.getFactionClaim()?.factionId?.equals(faction.id.value) != true) {
+            return false
+        }
+
         val worldName = location.world?.name ?: return false
         val factionHome = getOrCreateHome(faction.id.value)
         factionHome.x = location.x
         factionHome.y = location.y
         factionHome.z = location.z
         factionHome.world = worldName
-
+        DynmapModule.dynmapModule().dynmapModuleHandle.factionHomeChange(faction, location)
         return true
     }
 
