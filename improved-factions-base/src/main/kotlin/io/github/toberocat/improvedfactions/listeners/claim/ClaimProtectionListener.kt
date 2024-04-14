@@ -25,11 +25,15 @@ class ClaimProtectionListener(private val plugin: ImprovedFactionsPlugin,
         register(GeneralPvPListener(zoneType))
         register(InFactionPvPListener(zoneType))
 
-        register(ClaimEntityDamageListener("animal", Animals::class, zoneType))
-        register(ClaimEntityDamageListener("villager", AbstractVillager::class, zoneType))
-        register(ClaimEntityDamageListener("golem", Golem::class, zoneType))
-        register(ClaimEntityDamageListener("monster", Monster::class, zoneType))
-        register(ClaimEntityDamageListener("boss", Boss::class, zoneType))
+        register(ClaimPlayerDamageEntityListener("animal", Animals::class, zoneType))
+        register(ClaimPlayerDamageEntityListener("villager", AbstractVillager::class, zoneType))
+        register(ClaimPlayerDamageEntityListener("golem", Golem::class, zoneType))
+        register(ClaimPlayerDamageEntityListener("monster", Monster::class, zoneType))
+        register(ClaimPlayerDamageEntityListener("boss", Boss::class, zoneType))
+
+        register(ClaimEntityDamagePlayerListener("golem", Golem::class, zoneType))
+        register(ClaimEntityDamagePlayerListener("monster", Monster::class, zoneType))
+        register(ClaimEntityDamagePlayerListener("boss", Boss::class, zoneType))
     }
 
     private fun register(listener: ProtectionListener) {

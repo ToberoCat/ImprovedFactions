@@ -6,10 +6,10 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import kotlin.reflect.KClass
 
-class ClaimEntityDamageListener<T : Entity>(private val name: String, private val clazz: KClass<T>, zoneType: String) :
+class ClaimPlayerDamageEntityListener<T : Entity>(private val name: String, private val clazz: KClass<T>, zoneType: String) :
     ProtectionListener(zoneType) {
 
-    override fun namespace(): String = "$name-damage"
+    override fun namespace(): String = "player-damage-$name"
 
     @EventHandler
     fun entityDamage(event: EntityDamageByEntityEvent) {

@@ -211,11 +211,15 @@ zones:
 
     # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
     protection:
-      animal-damage: true # Prevent animals from being damaged in a claim
-      villager-damage: true # Prevent villagers from being damaged in a claim
-      golem-damage: false # Prevent damage to Iron Golems in a claim
-      monster-damage: false # Prevent damage caused by monsters in a claim
-      boss-damage: false # Prevent damage caused by bosses in a claim
+      player-damage-animal: true # Prevent animals from being damaged in a claim by a player
+      player-damage-villager: true # Prevent villagers from being damaged in a claim by a player
+      player-damage-golem: false # Prevent damage to Iron Golems in a claim by a player
+      golem-damage-player: false # Prevent damage to players by Iron Golems in a claim
+      player-damage-monster: false # Prevent damage to monsters in a claim by a player
+      monster-damage-player: false # Prevent damage to players by monsters in a claim
+      player-damage-boss: false # Prevent damage to bosses in a claim by a player
+      boss-damage-player: false # Prevent damage to players by bosses in a claim
+
       general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
       in-faction-pvp: true # Prevent PvP between faction members in a claim
       minecart-damage: true # Prevent minecarts being destroyed in a claim
@@ -235,11 +239,14 @@ zones:
 
     # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
     protection:
-      animal-damage: true # Prevent animals from being damaged in a claim
-      villager-damage: true # Prevent villagers from being damaged in a claim
-      golem-damage: true # Prevent damage to Iron Golems in a claim
-      monster-damage: false # Prevent damage caused by monsters in a claim
-      boss-damage: false # Prevent damage caused by bosses in a claim
+      player-damage-animal: true # Prevent animals from being damaged in a claim by a player
+      player-damage-villager: true # Prevent villagers from being damaged in a claim by a player
+      player-damage-golem: true # Prevent damage to Iron Golems in a claim by a player
+      golem-damage-player: true # Prevent damage to players by Iron Golems in a claim
+      player-damage-monster: true # Prevent damage to monsters in a claim by a player
+      monster-damage-player: true # Prevent damage to players by monsters in a claim
+      player-damage-boss: true # Prevent damage to bosses in a claim by a player
+      boss-damage-player: true # Prevent damage to players by bosses in a claim
       general-pvp: true # Prevent general PvP in a claims. This means any sort of pvp
       in-faction-pvp: true # Prevent PvP between faction members in a claim
       minecart-damage: true # Prevent minecarts being destroyed in a claim
@@ -259,11 +266,14 @@ zones:
 
     # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
     protection:
-      animal-damage: false # Prevent animals from being damaged in a claim
-      villager-damage: false # Prevent villagers from being damaged in a claim
-      golem-damage: false # Prevent damage to Iron Golems in a claim
-      monster-damage: false # Prevent damage caused by monsters in a claim
-      boss-damage: false # Prevent damage caused by bosses in a claim
+      player-damage-animal: false # Prevent animals from being damaged in a claim by a player
+      player-damage-villager: false # Prevent villagers from being damaged in a claim by a player
+      player-damage-golem: false # Prevent damage to Iron Golems in a claim by a player
+      golem-damage-player: false # Prevent damage to players by Iron Golems in a claim
+      player-damage-monster: false # Prevent damage to monsters in a claim by a player
+      monster-damage-player: false # Prevent damage to players by monsters in a claim
+      player-damage-boss: false # Prevent damage to bosses in a claim by a player
+      boss-damage-player: false # Prevent damage to players by bosses in a claim
       general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
       in-faction-pvp: true # Prevent PvP between faction members in a claim
       minecart-damage: true # Prevent minecarts being destroyed in a claim
@@ -283,11 +293,14 @@ zones:
 
     # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
     protection:
-      animal-damage: false # Prevent animals from being damaged in a claim
-      villager-damage: false # Prevent villagers from being damaged in a claim
-      golem-damage: false # Prevent damage to Iron Golems in a claim
-      monster-damage: false # Prevent damage caused by monsters in a claim
-      boss-damage: false # Prevent damage caused by bosses in a claim
+      player-damage-animal: false # Prevent animals from being damaged in a claim by a player
+      player-damage-villager: false # Prevent villagers from being damaged in a claim by a player
+      player-damage-golem: false # Prevent damage to Iron Golems in a claim by a player
+      golem-damage-player: false # Prevent damage to players by Iron Golems in a claim
+      player-damage-monster: false # Prevent damage to monsters in a claim by a player
+      monster-damage-player: false # Prevent damage to players by monsters in a claim
+      player-damage-boss: false # Prevent damage to bosses in a claim by a player
+      boss-damage-player: false # Prevent damage to players by bosses in a claim
       general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
       in-faction-pvp: false # Prevent PvP between faction members in a claim
       minecart-damage: false # Prevent minecarts being destroyed in a claim
