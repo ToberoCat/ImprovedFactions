@@ -42,14 +42,14 @@ factions:
       default-permissions:
         - send-invites
         - view-power
-        - home
+        - teleport-home
     Elder:
       priority: 10
       default-permissions:
         - send-invites
         - manage-claims
         - view-power
-        - home
+        - teleport-home
     Admin:
       priority: 100
       default-permissions:
@@ -59,8 +59,8 @@ factions:
         - kick-player
         - manage-bans
         - view-power
-        - home
-        - sethome
+        - teleport-home
+        - set-home
     Owner:
       priority: 1000
       default-permissions:
@@ -73,8 +73,8 @@ factions:
         - manage-bans
         - transfer-ownership
         - view-power
-        - home
-        - sethome
+        - teleport-home
+        - set-home
 
   #
   # -------- { Power Raid Module Settings } --------
