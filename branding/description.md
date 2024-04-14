@@ -95,6 +95,29 @@ The home module is an optional module that allows players to set and teleport to
 
 The power & raid module is an optional module that adds an advanced power system to factions. This module allows factions to gain or lose power based on various factors, such as player deaths, kills, and territory control. Factions with low power are vulnerable to raids, making it important for players to manage their power carefully. The power & raid module can be enabled or disabled in the config file.
 
+
+#### Power Dynamics
+
+Factions gain power through online members, used for claiming more chunks. Each claimed chunk consumes power over time. Faction power is influenced by member actions:
+
+- **Member Addition:** Power increases based on a configurable base value, favoring smaller factions.
+
+- **Online Member Accumulation:** Members contribute their full power potential, with a bonus for simultaneous faction activity.
+
+- **Claiming Chunks:** Each claimed chunk consumes power, with costs increasing based on the faction's total chunk count.
+
+- **Ally Power Sharing:** Factions share a fraction of accumulated power with allies.
+
+#### Overclaiming & Raiding
+
+- **Unprotected Claims:** Claims become raidable when a faction can't afford the base claim power cost.
+
+- **Overclaiming Process:** Requires an enemy faction member to stay in the claimed chunk for a set time.
+
+- **Allied Assistance:** Allies can offer help by sending power.
+
+Refer to the attached screenshot for a visual reference, and see `power-raids.md` for detailed implementation information.
+
 ![Power System](https://github.com/ToberoCat/ImprovedFactions_new/blob/main/branding/media/power_raid.png?raw=true)
 
 ## Compatible Plugins
