@@ -59,7 +59,12 @@ fun Locale.localizeUnformatted(key: LocalizationKey, placeholders: Map<String, S
                 placeholderPattern, MiniMessage.miniMessage().serialize(
                     LegacyComponentSerializer
                         .legacyAmpersand()
-                        .deserialize(value)
+                        .deserialize(
+                            value.replace(
+                                LegacyComponentSerializer.SECTION_CHAR.toString(),
+                                LegacyComponentSerializer.AMPERSAND_CHAR.toString()
+                            )
+                        )
                 )
             )
             if (replaced == result) continue
