@@ -17,5 +17,6 @@ object CommandCategory {
 annotation class CommandMeta(
     val description: LocalizationKey,
     val category: LocalizationKey = CommandCategory.GENERAL_CATEGORY,
+    val module: String = "core"
 )
 

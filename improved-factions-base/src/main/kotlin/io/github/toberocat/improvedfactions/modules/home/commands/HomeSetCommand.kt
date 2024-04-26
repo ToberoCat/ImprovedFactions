@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.modules.home.commands
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.modules.home.HomeModule
 import io.github.toberocat.improvedfactions.modules.home.HomeModule.setHome
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.translation.sendLocalized
@@ -18,6 +19,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 @CommandMeta(
     category = CommandCategory.MANAGE_CATEGORY,
     description = "home.commands.sethome.description",
+    module = HomeModule.MODULE_NAME
 )
 class HomeSetCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("sethome") {
     override fun options(): Options = Options.getFromConfig(plugin, label) { options, _ ->

@@ -17,6 +17,7 @@ data class CommandIndexEntry(
     val commandUsage: String,
     val args: Map<String, String>,
     val englishDescription: String,
+    val module: String
 )
 typealias CategoryIndex = MutableMap<String, MutableList<CommandIndexEntry>>
 
@@ -55,7 +56,8 @@ class GenerateWikiSourcesCommand(
                     it.descriptionKey(),
                     emptyMap()
                 )
-            }
+            },
+            module = meta.module
         ))
 
         categoryIndex[category] = commandIndex
@@ -65,8 +67,12 @@ class GenerateWikiSourcesCommand(
     private fun generateWikiSources() {
         indexCommand(executor)
         categoryIndex.forEach { (category, commands) ->
-            val categoryFileName = category.replace(" ", "_")
-            val categoryFile = plugin.dataFolder.resolve("wiki/commands/$categoryFileName-commands.md")
+            val categoryFileName = category.replace(" ", "-").lowercase()
+            val categoryFile = plugin.dataFolder.resolve("wiki/commands/$categoryFileName.md")
+            if (categoryFile.exists()) {
+                categoryFile.delete()
+            }
+
             categoryFile.parentFile.mkdirs()
             categoryFile.writeText("# $category\n\n")
 
@@ -76,8 +82,12 @@ class GenerateWikiSourcesCommand(
                     ## ${command.qualifiedName}
                     
                     Permission: ${command.permission}
+                    
                     Usage: `${command.commandUsage}`
+                    
                     Description: ${command.englishDescription}
+                    
+                    Module: ${command.module}
                     
                     | Argument | Description | Required |
                     | --- | --- | --- |
@@ -86,18 +96,23 @@ class GenerateWikiSourcesCommand(
 
                 command.args.forEach { (arg, description) ->
                     categoryFile.appendText(
-                        "| ${
+                        "\n| ${
                             arg.replace(
                                 "[^A-Za-z]".toRegex(),
                                 ""
                             )
-                        } | $description | ${arg.startsWith("<")} |\n"
+                        } | $description | ${arg.startsWith("<")} |"
                     )
                 }
+                categoryFile.appendText("\n\n")
             }
         }
 
         val indexFile = plugin.dataFolder.resolve("wiki/commands/index.md")
+        if (indexFile.exists()) {
+            indexFile.delete()
+        }
+
         indexFile.parentFile.mkdirs()
         indexFile.writeText(
             """
@@ -105,27 +120,34 @@ class GenerateWikiSourcesCommand(
             
             ## Categories:
             
+            More details when you click on a category.
             
         """.trimIndent()
         )
         categoryIndex.forEach { (category, _) ->
-            val categoryFileName = category.replace(" ", "_")
-            indexFile.appendText("- [${category}category]($categoryFileName-commands.md)\n")
+            val categoryFileName = category.replace(" ", "-").lowercase()
+            indexFile.appendText("- [${category}]($categoryFileName.md)\n")
         }
 
-        indexFile.appendText("""
+        indexFile.appendText(
+            """
             ## Commands:
             
-            | Command | Description |
-            | --- | --- |
+            More details when you click on a command.
             
-        """.trimIndent())
+            | Command | Description | Module |
+            | --- | --- | --- |
+            
+        """.trimIndent()
+        )
 
         categoryIndex.forEach { (category, commands) ->
-            val categoryFileName = category.replace(" ", "_")
+            val categoryFileName = category.replace(" ", "-").lowercase()
             commands.forEach { command ->
                 indexFile.appendText(
-                    "| [${command.qualifiedName}]($categoryFileName-command.md#${command.qualifiedName}) | ${command.englishDescription} |\n"
+                    "| [${command.qualifiedName}]($categoryFileName.md#${
+                        command.qualifiedName.replace(" ", "-").lowercase()
+                    }) | ${command.englishDescription} | ${command.module} |\n"
                 )
             }
         }

@@ -18,7 +18,8 @@ import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object HomeModule : BaseModule {
-    override val moduleName = "home"
+    const val MODULE_NAME = "home"
+    override val moduleName = MODULE_NAME
 
     var homeModuleHandle: HomeModuleHandle = DummyHomeModuleHandle()
 
@@ -58,5 +59,4 @@ object HomeModule : BaseModule {
     }
 
     fun homePair() = moduleName to this
-
 }
