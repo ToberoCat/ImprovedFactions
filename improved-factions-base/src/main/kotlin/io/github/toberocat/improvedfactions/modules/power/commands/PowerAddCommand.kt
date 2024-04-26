@@ -4,6 +4,7 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.factions.PowerAccumulationChangeReason
+import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.modules.power.PowerType
 import io.github.toberocat.improvedfactions.modules.power.impl.FactionPowerRaidModuleHandleImpl
 import io.github.toberocat.improvedfactions.permissions.Permissions
@@ -26,7 +27,8 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
     description = "base.command.power.set.description",
-    category = CommandCategory.ADMIN_CATEGORY
+    category = CommandCategory.ADMIN_CATEGORY,
+    module = PowerRaidsModule.MODULE_NAME
 )
 class PowerAddCommand(
     private val plugin: ImprovedFactionsPlugin

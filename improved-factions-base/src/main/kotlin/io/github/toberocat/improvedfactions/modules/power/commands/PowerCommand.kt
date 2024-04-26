@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.modules.power.commands
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.modules.power.impl.FactionPowerRaidModuleHandleImpl
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.translation.sendLocalized
@@ -19,7 +20,8 @@ import kotlin.math.round
 
 @CommandMeta(
     description = "base.command.power.description",
-    category = CommandCategory.POWER_CATEGORY
+    category = CommandCategory.POWER_CATEGORY,
+    module = PowerRaidsModule.MODULE_NAME
 )
 class PowerCommand(
     private val plugin: ImprovedFactionsPlugin,

@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.modules.home.commands
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.modules.home.HomeModule
 import io.github.toberocat.improvedfactions.modules.home.HomeModule.teleportToFactionHome
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.translation.sendLocalized
@@ -16,6 +17,7 @@ import org.bukkit.entity.Player
 @CommandMeta(
     category = CommandCategory.GENERAL_CATEGORY,
     description = "home.commands.teleport-home.description",
+    module = HomeModule.MODULE_NAME
 )
 class TeleportHomeCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("home") {
     override fun options(): Options = Options.getFromConfig(plugin, label) { options, _ ->

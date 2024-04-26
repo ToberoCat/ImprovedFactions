@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.modules.wilderness.commands
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.modules.wilderness.WildernessModule
 import io.github.toberocat.improvedfactions.modules.wilderness.config.WildernessModuleConfig
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.utils.PlayerTeleporter
@@ -22,7 +23,8 @@ import org.bukkit.potion.PotionEffectType
 
 @CommandMeta(
     category = CommandCategory.GENERAL_CATEGORY,
-    description = "wilderness.command.wilderness.description"
+    description = "wilderness.command.wilderness.description",
+    module = WildernessModule.MODULE_NAME
 
 )
 class WildernessCommand(
