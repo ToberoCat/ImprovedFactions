@@ -63,6 +63,7 @@ class FactionCommandExecutor(plugin: ImprovedFactionsPlugin) {
         plugin.addModuleCommands(executor)
 
         executor.addChild(HelpCommand(plugin, executor))
+        executor.addChild(GenerateWikiSourcesCommand(plugin, executor))
 
         executor.setNothing { sender, _ ->
             Bukkit.dispatchCommand(sender, "factions help")
