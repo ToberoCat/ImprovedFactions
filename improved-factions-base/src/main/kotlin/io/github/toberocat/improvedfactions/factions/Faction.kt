@@ -200,10 +200,10 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         return invite
     }
 
-    fun claim(chunk: Chunk): FactionClaim {
+    fun claim(chunk: Chunk, announce: Boolean = true): FactionClaim {
         val claim = chunk.getFactionClaim()
-        if (claim != null && !claim.canClaim()) throw CantClaimThisChunkException()
-        powerRaidModule().factionModuleHandle.claimChunk(this)
+        if (claim != null && !claim.canClaim()) throw CantClaimThisChunkException(chunk)
+        powerRaidModule().factionModuleHandle.claimChunk(chunk, this)
 
         val factionId = id.value
         val factionClaim = claim ?: FactionClaim.new {
@@ -216,11 +216,13 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         factionClaim.factionId = factionId
         ImprovedFactionsPlugin.instance.claimChunkClusters.insertPosition(Position(chunk.x, chunk.z, chunk.world.name, id.value))
 
-        broadcast(
-            "base.faction.chunk-claimed", mapOf(
-                "x" to chunk.x.toString(), "z" to chunk.z.toString(), "world" to chunk.world.name
+        if (announce) {
+            broadcast(
+                "base.faction.chunk-claimed", mapOf(
+                    "x" to chunk.x.toString(), "z" to chunk.z.toString(), "world" to chunk.world.name
+                )
             )
-        )
+        }
         return factionClaim
     }
 
