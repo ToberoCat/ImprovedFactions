@@ -251,7 +251,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         FactionBan.count(FactionBans.user eq user.id and (FactionBans.faction eq id)) != 0L
 
     fun unclaimSquare(chunk: Chunk, squareRadius: Int) =
-        squareClaimAction(chunk, squareRadius) { unclaim(it) }
+        squareClaimAction(chunk, squareRadius) { unclaim(it, announce = false) }
 
     @Throws(FactionDoesntHaveThisClaimException::class)
     fun unclaim(chunk: Chunk, announce: Boolean = true) {
@@ -339,6 +339,10 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
                     action(chunk)
                     successfulClaims++
                 } catch (e: CantClaimThisChunkException) {
+                    if (squareRadius == 0)
+                        throw e
+                    e.message?.let { broadcast(it, e.placeholders) }
+                } catch (e: FactionDoesntHaveThisClaimException) {
                     if (squareRadius == 0)
                         throw e
                     e.message?.let { broadcast(it, e.placeholders) }

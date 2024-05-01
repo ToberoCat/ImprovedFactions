@@ -32,7 +32,7 @@ factions:
   invites-expire-in: 5
   name-regex: "[a-zA-Z]*" # The regex a faction name has to match. Spaces are supported, but strongly discouraged
 
-  max-claim-radius: 10 # The maximum square radius a faction can claim at once
+  max-claim-radius: 5 # The maximum square radius a faction can claim at once. Keep it low for performance reasons
 
   # Default ranks every faction will receive once created. When modifying it,
   # note that the first rank will be set to be the default rank for members joining,
