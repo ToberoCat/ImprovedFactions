@@ -4,6 +4,7 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.clustering.Cluster
 import io.github.toberocat.improvedfactions.claims.clustering.Position
 import io.github.toberocat.improvedfactions.exceptions.NotEnoughPowerException
+import io.github.toberocat.improvedfactions.exceptions.NotEnoughPowerForClaimException
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.PowerAccumulationChangeReason
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
@@ -14,6 +15,7 @@ import io.github.toberocat.improvedfactions.utils.getEnum
 import io.github.toberocat.improvedfactions.utils.getUnsignedDouble
 import io.github.toberocat.toberocore.util.MathUtils
 import org.bukkit.Bukkit
+import org.bukkit.Chunk
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.PlayerDeathEvent
@@ -34,10 +36,10 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
         faction.setMaxPower(faction.maxPower - floor(calculatePowerChange(faction.members().count() + 1)).toInt())
     }
 
-    override fun claimChunk(faction: Faction) {
+    override fun claimChunk(chunk: Chunk, faction: Faction) {
         val cost = getNextClaimCost(faction)
         if (cost > faction.accumulatedPower)
-            throw NotEnoughPowerException()
+            throw NotEnoughPowerForClaimException(chunk)
         faction.setAccumulatedPower(faction.accumulatedPower - cost, PowerAccumulationChangeReason.CHUNK_CLAIMED)
     }
 

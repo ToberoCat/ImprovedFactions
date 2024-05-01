@@ -1,10 +1,14 @@
 package io.github.toberocat.improvedfactions.commands.claim
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.claims.ClaimStatistics
+import io.github.toberocat.improvedfactions.exceptions.CantClaimThisChunkException
+import io.github.toberocat.improvedfactions.exceptions.FactionDoesntHaveThisClaimException
 import io.github.toberocat.improvedfactions.exceptions.NotInFactionException
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
+import io.github.toberocat.improvedfactions.utils.arguments.ClaimRadiusArgument
 import io.github.toberocat.improvedfactions.utils.command.CommandCategory
 import io.github.toberocat.improvedfactions.utils.command.CommandMeta
 import io.github.toberocat.improvedfactions.utils.options.FactionPermissionOption
@@ -25,14 +29,37 @@ class UnclaimCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubComm
             .cmdOpt(FactionPermissionOption(Permissions.MANAGE_CLAIMS))
     }
 
-    override fun arguments(): Array<Argument<*>> = emptyArray()
+    override fun arguments() = arrayOf(
+        ClaimRadiusArgument()
+    )
 
-    override fun handle(player: Player, args: Array<out String>): Boolean {
+    override fun handle(player: Player, args: Array<String>): Boolean {
+        val squareRadius = parseArgs(player, args).get<Int>(0) ?: 0
+
+        var statistics = ClaimStatistics(0, 0)
         transaction {
             val faction = player.factionUser().faction() ?: throw NotInFactionException()
-            faction.unclaim(player.location.chunk)
+            statistics = faction.unclaimSquare(player.location.chunk, squareRadius) { e ->
+                if (squareRadius == 0) {
+                    throw e
+                }
+
+                if (e is FactionDoesntHaveThisClaimException) {
+                    e.message?.let { player.sendLocalized(it, e.placeholders) }
+                }
+            }
         }
-        player.sendLocalized("base.command.unclaim.unclaimed")
+
+        if (squareRadius > 0) {
+            player.sendLocalized("base.command.unclaim.unclaimed-radius", mapOf(
+                "radius" to squareRadius.toString(),
+                "successful-claims" to statistics.successfulClaims.toString(),
+                "total-claims" to statistics.totalClaims.toString()
+
+            ))
+        } else {
+            player.sendLocalized("base.command.unclaim.unclaimed")
+        }
         return true
     }
 }

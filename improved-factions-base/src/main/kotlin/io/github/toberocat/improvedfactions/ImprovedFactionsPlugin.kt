@@ -26,7 +26,6 @@ import io.github.toberocat.improvedfactions.invites.FactionInvites
 import io.github.toberocat.improvedfactions.listeners.move.MoveListener
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.modules.home.HomeModule
-import io.github.toberocat.improvedfactions.modules.home.impl.HomeModuleHandleImpl
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.modules.wilderness.WildernessModule
 import io.github.toberocat.improvedfactions.papi.PapiExpansion
@@ -35,6 +34,7 @@ import io.github.toberocat.improvedfactions.ranks.FactionRanks
 import io.github.toberocat.improvedfactions.translation.updateLanguages
 import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import io.github.toberocat.improvedfactions.utils.BStatsCollector
+import io.github.toberocat.improvedfactions.utils.arguments.ClaimRadiusArgument
 import io.github.toberocat.improvedfactions.utils.particles.ParticleAnimation
 import io.github.toberocat.improvedfactions.utils.threadPool
 import io.github.toberocat.toberocore.command.CommandExecutor
@@ -171,6 +171,9 @@ class ImprovedFactionsPlugin : JavaPlugin() {
 
         ParticleAnimation.hideDecorativeParticles = config.getBoolean("performance.decorative-particles.hidden", false)
         ParticleAnimation.tickSpeed = config.getLong("performance.decorative-particles.tick-speed", 1)
+
+        ClaimRadiusArgument.MAX_RADIUS = config.getInt("factions.max-claim-radius", 10)
+
         config.getConfigurationSection("zones")?.getKeys(false)?.let {
             it.forEach { zone ->
                 val section = config.getConfigurationSection("zones.$zone")

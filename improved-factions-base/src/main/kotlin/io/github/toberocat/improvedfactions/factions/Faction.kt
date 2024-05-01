@@ -2,11 +2,9 @@ package io.github.toberocat.improvedfactions.factions
 
 import dev.s7a.base64.Base64ItemStack
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.claims.*
 import io.github.toberocat.improvedfactions.messages.MessageBroker
-import io.github.toberocat.improvedfactions.claims.FactionClaim
-import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.claims.clustering.Position
-import io.github.toberocat.improvedfactions.claims.getFactionClaim
 import io.github.toberocat.improvedfactions.exceptions.*
 import io.github.toberocat.improvedfactions.factions.ban.FactionBan
 import io.github.toberocat.improvedfactions.factions.ban.FactionBans
@@ -17,6 +15,7 @@ import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Compa
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
 import io.github.toberocat.improvedfactions.ranks.listRanks
 import io.github.toberocat.improvedfactions.translation.LocalizationKey
+import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.FactionUser
 import io.github.toberocat.improvedfactions.user.FactionUsers
 import io.github.toberocat.improvedfactions.user.factionUser
@@ -92,7 +91,14 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         listRanks().forEach { it.delete() }
         claims().forEach {
             it.factionId = noFactionId
-            DynmapModule.dynmapModule().dynmapModuleHandle.factionClaimRemove(Position(it.chunkX, it.chunkZ, it.world, id.value))
+            DynmapModule.dynmapModule().dynmapModuleHandle.factionClaimRemove(
+                Position(
+                    it.chunkX,
+                    it.chunkZ,
+                    it.world,
+                    id.value
+                )
+            )
         }
         members().forEach { unsetUserData(it) }
 
@@ -200,10 +206,13 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         return invite
     }
 
-    fun claim(chunk: Chunk): FactionClaim {
+    fun claimSquare(centerChunk: Chunk, squareRadius: Int, handleError: (e: CommandException) -> Unit): ClaimStatistics =
+        squareClaimAction(centerChunk, squareRadius, { claim(it, announce = false) }, handleError)
+
+    fun claim(chunk: Chunk, announce: Boolean = true): FactionClaim {
         val claim = chunk.getFactionClaim()
-        if (claim != null && !claim.canClaim()) throw CantClaimThisChunkException()
-        powerRaidModule().factionModuleHandle.claimChunk(this)
+        if (claim != null && !claim.canClaim()) throw CantClaimThisChunkException(chunk)
+        powerRaidModule().factionModuleHandle.claimChunk(chunk, this)
 
         val factionId = id.value
         val factionClaim = claim ?: FactionClaim.new {
@@ -214,13 +223,22 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         }
 
         factionClaim.factionId = factionId
-        ImprovedFactionsPlugin.instance.claimChunkClusters.insertPosition(Position(chunk.x, chunk.z, chunk.world.name, id.value))
-
-        broadcast(
-            "base.faction.chunk-claimed", mapOf(
-                "x" to chunk.x.toString(), "z" to chunk.z.toString(), "world" to chunk.world.name
+        ImprovedFactionsPlugin.instance.claimChunkClusters.insertPosition(
+            Position(
+                chunk.x,
+                chunk.z,
+                chunk.world.name,
+                id.value
             )
         )
+
+        if (announce) {
+            broadcast(
+                "base.faction.chunk-claimed", mapOf(
+                    "x" to chunk.x.toString(), "z" to chunk.z.toString(), "world" to chunk.world.name
+                )
+            )
+        }
         return factionClaim
     }
 
@@ -229,13 +247,30 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
     fun isBanned(user: FactionUser): Boolean =
         FactionBan.count(FactionBans.user eq user.id and (FactionBans.faction eq id)) != 0L
 
+    fun unclaimSquare(chunk: Chunk, squareRadius: Int, handleError: (e: CommandException) -> Unit) =
+        squareClaimAction(chunk, squareRadius, { unclaim(it, announce = false) }, handleError)
+
     @Throws(FactionDoesntHaveThisClaimException::class)
-    fun unclaim(chunk: Chunk) {
+    fun unclaim(chunk: Chunk, announce: Boolean = true) {
         val claim = chunk.getFactionClaim()
         if (claim == null || claim.factionId != id.value) throw FactionDoesntHaveThisClaimException()
         claim.factionId = noFactionId
         DynmapModule.dynmapModule().dynmapModuleHandle.factionClaimRemove(claim.toPosition())
-        ImprovedFactionsPlugin.instance.claimChunkClusters.removePosition(Position(chunk.x, chunk.z, chunk.world.name, id.value))
+        ImprovedFactionsPlugin.instance.claimChunkClusters.removePosition(
+            Position(
+                chunk.x,
+                chunk.z,
+                chunk.world.name,
+                id.value
+            )
+        )
+        if (announce) {
+            broadcast(
+                "base.faction.chunk-unclaimed", mapOf(
+                    "x" to chunk.x.toString(), "z" to chunk.z.toString(), "world" to chunk.world.name
+                )
+            )
+        }
     }
 
     @Throws(PlayerIsOwnerLeaveException::class)
