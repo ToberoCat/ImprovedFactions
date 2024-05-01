@@ -24,9 +24,11 @@ object ZoneHandler {
         val announceTitle = section.getBoolean("announce-title", true)
         val allowClaiming = section.getBoolean("allow-claiming", true)
         val alwaysProtect = section.getBoolean("always-protect", false)
+        val mapColor = Integer.parseInt(section.getString("map-color") ?: "AAAAAA", 16)
         val noFactionTitle = section.getString("no-faction-title") ?: "base.zone.wilderness"
         ClaimProtectionListener(plugin, type, section)
-        knownZones[type] = Zone(type, noFactionTitle, announceTitle, alwaysProtect, allowClaiming)
+
+        knownZones[type] = Zone(type, noFactionTitle, announceTitle, alwaysProtect, mapColor, allowClaiming)
     }
 
     fun defaultZoneCheck(plugin: ImprovedFactionsPlugin) {
