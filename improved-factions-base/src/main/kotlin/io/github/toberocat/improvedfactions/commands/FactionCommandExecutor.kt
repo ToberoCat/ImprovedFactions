@@ -15,10 +15,14 @@ import io.github.toberocat.improvedfactions.commands.manage.IconCommand
 import io.github.toberocat.improvedfactions.commands.manage.RenameCommand
 import io.github.toberocat.improvedfactions.commands.member.*
 import io.github.toberocat.improvedfactions.commands.rank.RankCommandRoute
+import io.github.toberocat.improvedfactions.translation.localize
+import io.github.toberocat.improvedfactions.translation.localizeUnformatted
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.toberocore.command.CommandExecutor
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
+import java.util.*
+import kotlin.reflect.jvm.internal.impl.descriptors.Visibilities.Local
 
 /**
  * Created: 04.08.2023
@@ -29,7 +33,7 @@ class FactionCommandExecutor(plugin: ImprovedFactionsPlugin) {
         val executor = CommandExecutor.createExecutor("factions")
         executor.setSendException { sender, exception ->
             if (sender !is Player)
-                sender.sendMessage(exception.message)
+                sender.sendMessage(Locale.ENGLISH.localizeUnformatted(exception.message ?: "base.exceptions.unknown", exception.placeholders))
             else
                 exception.message?.let { sender.sendLocalized(it, exception.placeholders) }
         }
