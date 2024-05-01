@@ -1,7 +1,9 @@
 package io.github.toberocat.improvedfactions.commands.admin.zone
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.claims.squareClaimAction
 import io.github.toberocat.improvedfactions.translation.sendLocalized
+import io.github.toberocat.improvedfactions.utils.arguments.ClaimRadiusArgument
 import io.github.toberocat.improvedfactions.utils.arguments.ZoneArgument
 import io.github.toberocat.improvedfactions.utils.command.CommandCategory
 import io.github.toberocat.improvedfactions.utils.command.CommandMeta
@@ -23,12 +25,21 @@ class ZoneClaimCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCo
     }
 
     override fun arguments(): Array<Argument<*>> = arrayOf(
-        ZoneArgument()
+        ZoneArgument(),
+        ClaimRadiusArgument()
     )
 
     override fun handle(player: Player, args: Array<out String>): Boolean {
-        val zone = parseArgs(player, args).get<Zone>(0) ?: return false
-        transaction { zone.claim(player.location.chunk) }
+        val parsedArgs = parseArgs(player, args)
+        val zone = parsedArgs.get<Zone>(0) ?: return false
+        val squareRadius = parsedArgs.get<Int>(1) ?: 0
+        transaction {
+            squareClaimAction(
+                player.location.chunk,
+                squareRadius,
+                { zone.claim(it) },
+                { player.sendLocalized(it.message ?: "base.command.zone.claim.error") })
+        }
         player.sendLocalized("base.command.zone.claimed")
         return true
     }

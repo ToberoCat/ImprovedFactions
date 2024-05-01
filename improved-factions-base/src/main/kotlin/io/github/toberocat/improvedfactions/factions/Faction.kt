@@ -2,12 +2,9 @@ package io.github.toberocat.improvedfactions.factions
 
 import dev.s7a.base64.Base64ItemStack
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.claims.ClaimStatistics
+import io.github.toberocat.improvedfactions.claims.*
 import io.github.toberocat.improvedfactions.messages.MessageBroker
-import io.github.toberocat.improvedfactions.claims.FactionClaim
-import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.claims.clustering.Position
-import io.github.toberocat.improvedfactions.claims.getFactionClaim
 import io.github.toberocat.improvedfactions.exceptions.*
 import io.github.toberocat.improvedfactions.factions.ban.FactionBan
 import io.github.toberocat.improvedfactions.factions.ban.FactionBans
@@ -209,8 +206,8 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         return invite
     }
 
-    fun claimSquare(centerChunk: Chunk, squareRadius: Int): ClaimStatistics =
-        squareClaimAction(centerChunk, squareRadius) { claim(it, announce = false) }
+    fun claimSquare(centerChunk: Chunk, squareRadius: Int, handleError: (e: CommandException) -> Unit): ClaimStatistics =
+        squareClaimAction(centerChunk, squareRadius, { claim(it, announce = false) }, handleError)
 
     fun claim(chunk: Chunk, announce: Boolean = true): FactionClaim {
         val claim = chunk.getFactionClaim()
@@ -250,8 +247,8 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
     fun isBanned(user: FactionUser): Boolean =
         FactionBan.count(FactionBans.user eq user.id and (FactionBans.faction eq id)) != 0L
 
-    fun unclaimSquare(chunk: Chunk, squareRadius: Int) =
-        squareClaimAction(chunk, squareRadius) { unclaim(it, announce = false) }
+    fun unclaimSquare(chunk: Chunk, squareRadius: Int, handleError: (e: CommandException) -> Unit) =
+        squareClaimAction(chunk, squareRadius, { unclaim(it, announce = false) }, handleError)
 
     @Throws(FactionDoesntHaveThisClaimException::class)
     fun unclaim(chunk: Chunk, announce: Boolean = true) {
@@ -319,36 +316,5 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         user.factionId = noFactionId
         user.assignedRank = FactionRankHandler.guestRankId
         powerRaidModule().factionModuleHandle.memberLeave(this)
-    }
-
-    private fun squareClaimAction(
-        centerChunk: Chunk,
-        squareRadius: Int,
-        action: (chunk: Chunk) -> Unit
-    ): ClaimStatistics {
-        var successfulClaims = 0
-        var totalClaims = 0
-        val world = centerChunk.world
-        val centerX = centerChunk.x
-        val centerZ = centerChunk.z
-        for (x in -squareRadius..squareRadius) {
-            for (z in -squareRadius..squareRadius) {
-                val chunk = world.getChunkAt(centerX + x, centerZ + z)
-                try {
-                    totalClaims++
-                    action(chunk)
-                    successfulClaims++
-                } catch (e: CantClaimThisChunkException) {
-                    if (squareRadius == 0)
-                        throw e
-                    e.message?.let { broadcast(it, e.placeholders) }
-                } catch (e: FactionDoesntHaveThisClaimException) {
-                    if (squareRadius == 0)
-                        throw e
-                    e.message?.let { broadcast(it, e.placeholders) }
-                }
-            }
-        }
-        return ClaimStatistics(totalClaims, successfulClaims)
     }
 }

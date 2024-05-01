@@ -2,6 +2,8 @@ package io.github.toberocat.improvedfactions.commands.claim
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.ClaimStatistics
+import io.github.toberocat.improvedfactions.exceptions.CantClaimThisChunkException
+import io.github.toberocat.improvedfactions.exceptions.FactionDoesntHaveThisClaimException
 import io.github.toberocat.improvedfactions.exceptions.NotInFactionException
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.translation.sendLocalized
@@ -37,7 +39,15 @@ class UnclaimCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubComm
         var statistics = ClaimStatistics(0, 0)
         transaction {
             val faction = player.factionUser().faction() ?: throw NotInFactionException()
-            statistics = faction.unclaimSquare(player.location.chunk, squareRadius)
+            statistics = faction.unclaimSquare(player.location.chunk, squareRadius) { e ->
+                if (squareRadius == 0) {
+                    throw e
+                }
+
+                if (e is FactionDoesntHaveThisClaimException) {
+                    e.message?.let { player.sendLocalized(it, e.placeholders) }
+                }
+            }
         }
 
         if (squareRadius > 0) {

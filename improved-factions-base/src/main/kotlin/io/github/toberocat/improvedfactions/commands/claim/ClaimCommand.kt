@@ -27,7 +27,7 @@ class ClaimCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubComman
             .cmdOpt(FactionPermissionOption(Permissions.MANAGE_CLAIMS))
     }
 
-    override fun arguments()= arrayOf(
+    override fun arguments() = arrayOf(
         ClaimRadiusArgument()
     )
 
@@ -37,16 +37,26 @@ class ClaimCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubComman
         var statistics = ClaimStatistics(0, 0)
         transaction {
             val faction = player.factionUser().faction() ?: throw NotInFactionException()
-            statistics = faction.claimSquare(player.location.chunk, squareRadius)
+            statistics = faction.claimSquare(player.location.chunk, squareRadius) { e ->
+                if (squareRadius == 0) {
+                    throw e
+                }
+
+                if (e is CantClaimThisChunkException) {
+                    e.message?.let { player.sendLocalized(it, e.placeholders) }
+                }
+            }
         }
 
         if (squareRadius > 0) {
-            player.sendLocalized("base.command.claim.claimed-radius", mapOf(
-                "radius" to squareRadius.toString(),
-                "successful-claims" to statistics.successfulClaims.toString(),
-                "total-claims" to statistics.totalClaims.toString()
+            player.sendLocalized(
+                "base.command.claim.claimed-radius", mapOf(
+                    "radius" to squareRadius.toString(),
+                    "successful-claims" to statistics.successfulClaims.toString(),
+                    "total-claims" to statistics.totalClaims.toString()
 
-            ))
+                )
+            )
         } else {
             player.sendLocalized("base.command.claim.claimed")
         }
