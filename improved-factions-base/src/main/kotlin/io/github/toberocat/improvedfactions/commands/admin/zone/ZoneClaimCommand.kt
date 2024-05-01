@@ -33,14 +33,26 @@ class ZoneClaimCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCo
         val parsedArgs = parseArgs(player, args)
         val zone = parsedArgs.get<Zone>(0) ?: return false
         val squareRadius = parsedArgs.get<Int>(1) ?: 0
-        transaction {
+        val statistics = transaction {
             squareClaimAction(
                 player.location.chunk,
                 squareRadius,
                 { zone.claim(it) },
                 { player.sendLocalized(it.message ?: "base.command.zone.claim.error") })
         }
-        player.sendLocalized("base.command.zone.claimed")
+
+        if (squareRadius > 0) {
+            player.sendLocalized(
+                "base.command.zone.claimed-radius", mapOf(
+                    "radius" to squareRadius.toString(),
+                    "successful-claims" to statistics.successfulClaims.toString(),
+                    "total-claims" to statistics.totalClaims.toString()
+
+                )
+            )
+        } else {
+            player.sendLocalized("base.command.zone.claimed")
+        }
         return true
     }
 }

@@ -26,7 +26,7 @@ class ZoneUnclaimCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSub
 
     override fun handle(player: Player, args: Array<out String>): Boolean {
         val squareRadius = parseArgs(player, args).get<Int>(0) ?: 0
-        transaction {
+        val statistics = transaction {
             squareClaimAction(
                 player.location.chunk,
                 squareRadius,
@@ -34,7 +34,18 @@ class ZoneUnclaimCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSub
                 { player.sendLocalized(it.message ?: "base.command.zone.claim.error") })
         }
 
-        player.sendLocalized("base.command.zone.unclaimed")
+        if (squareRadius > 0) {
+            player.sendLocalized(
+                "base.command.zone.unclaimed-radius", mapOf(
+                    "radius" to squareRadius.toString(),
+                    "successful-claims" to statistics.successfulClaims.toString(),
+                    "total-claims" to statistics.totalClaims.toString()
+
+                )
+            )
+        } else {
+            player.sendLocalized("base.command.zone.unclaimed")
+        }
         return true
     }
 }
