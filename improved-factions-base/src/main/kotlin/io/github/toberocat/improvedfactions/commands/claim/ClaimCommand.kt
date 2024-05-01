@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.commands.claim
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.claims.ClaimStatistics
 import io.github.toberocat.improvedfactions.exceptions.CantClaimThisChunkException
 import io.github.toberocat.improvedfactions.exceptions.NotInFactionException
 import io.github.toberocat.improvedfactions.permissions.Permissions
@@ -33,30 +34,17 @@ class ClaimCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubComman
     override fun handle(player: Player, args: Array<String>): Boolean {
         val squareRadius = parseArgs(player, args).get<Int>(0) ?: 0
 
-        var successfulClaims = 0
-        var totalClaims = 0
+        var statistics = ClaimStatistics(0, 0)
         transaction {
             val faction = player.factionUser().faction() ?: throw NotInFactionException()
-            for (x in -squareRadius..squareRadius) {
-                for (z in -squareRadius..squareRadius) {
-                    val chunk = player.location.chunk.world.getChunkAt(player.location.chunk.x + x, player.location.chunk.z + z)
-                    try {
-                        totalClaims++
-                        faction.claim(chunk, announce = false)
-                        successfulClaims++
-                    } catch (e: CantClaimThisChunkException) {
-                        if (squareRadius == 0)
-                            throw e
-                        e.message?.let { player.sendLocalized(it, e.placeholders) }
-                    }
-                }
-            }
+            statistics = faction.claimSquare(player.location.chunk, squareRadius)
         }
+
         if (squareRadius > 0) {
             player.sendLocalized("base.command.claim.claimed-radius", mapOf(
                 "radius" to squareRadius.toString(),
-                "successful-claims" to successfulClaims.toString(),
-                "total-claims" to totalClaims.toString()
+                "successful-claims" to statistics.successfulClaims.toString(),
+                "total-claims" to statistics.totalClaims.toString()
 
             ))
         } else {
