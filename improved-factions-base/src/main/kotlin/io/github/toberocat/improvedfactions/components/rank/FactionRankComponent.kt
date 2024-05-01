@@ -10,6 +10,7 @@ import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
 
+@OptIn(ExperimentalStdlibApi::class)
 fun createItem(rank: FactionRank): ItemStack {
     val material = Material.entries[rank.id.value % Material.entries.size]
 

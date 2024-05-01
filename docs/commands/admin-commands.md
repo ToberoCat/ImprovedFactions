@@ -30,7 +30,7 @@ Module: core
 
 Permission: factions.zone.unclaim
 
-Usage: `/factions zone unclaim `
+Usage: `/factions zone unclaim [radius]`
 
 Description: Unmark a claim from any zone associations
 
@@ -38,12 +38,13 @@ Module: core
 
 | Argument | Description | Required |
 | --- | --- | --- |
+| radius | Provide a radius for a square | false |
 
 ## factions zone claim
 
 Permission: factions.zone.claim
 
-Usage: `/factions zone claim <zone>`
+Usage: `/factions zone claim <zone> [radius]`
 
 Description: Mark a claim as property of this zone
 
@@ -52,6 +53,7 @@ Module: core
 | Argument | Description | Required |
 | --- | --- | --- |
 | zone | Provide a zone | true |
+| radius | Provide a radius for a square | false |
 
 ## factions power add
 

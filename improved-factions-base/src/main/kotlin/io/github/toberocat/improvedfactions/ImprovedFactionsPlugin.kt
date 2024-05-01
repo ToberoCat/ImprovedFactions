@@ -11,6 +11,7 @@ import io.github.toberocat.improvedfactions.claims.clustering.ClaimClusterDetect
 import io.github.toberocat.improvedfactions.claims.clustering.DatabaseClaimQueryProvider
 import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.commands.FactionCommandExecutor
+import io.github.toberocat.improvedfactions.commands.claim.FactionMap
 import io.github.toberocat.improvedfactions.components.icon.FactionIconComponent
 import io.github.toberocat.improvedfactions.components.icon.FactionIconComponentBuilder
 import io.github.toberocat.improvedfactions.components.permission.FactionPermissionComponent
@@ -173,6 +174,8 @@ class ImprovedFactionsPlugin : JavaPlugin() {
         ParticleAnimation.tickSpeed = config.getLong("performance.decorative-particles.tick-speed", 1)
 
         ClaimRadiusArgument.MAX_RADIUS = config.getInt("factions.max-claim-radius", 10)
+        FactionMap.MAP_WIDTH = config.getInt("factions.map-width", FactionMap.MAP_WIDTH)
+        FactionMap.MAP_HEIGHT = config.getInt("factions.map-height", FactionMap.MAP_HEIGHT)
 
         config.getConfigurationSection("zones")?.getKeys(false)?.let {
             it.forEach { zone ->
@@ -219,6 +222,6 @@ class ImprovedFactionsPlugin : JavaPlugin() {
     }
 
     private fun registerListeners() {
-        server.pluginManager.registerEvents(MoveListener(claimChunkClusters), this)
+        server.pluginManager.registerEvents(MoveListener(), this)
     }
 }

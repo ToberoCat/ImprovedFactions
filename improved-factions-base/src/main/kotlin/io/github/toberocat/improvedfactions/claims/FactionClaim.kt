@@ -1,14 +1,13 @@
 package io.github.toberocat.improvedfactions.claims
 
+import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.clustering.Position
 import io.github.toberocat.improvedfactions.claims.overclaim.ClaimSiegeManager
 import io.github.toberocat.improvedfactions.factions.Faction
-import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.user.noFactionId
 import io.github.toberocat.improvedfactions.zone.Zone
 import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import org.bukkit.Bukkit
-import org.bukkit.Chunk
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
@@ -41,4 +40,14 @@ class FactionClaim(id: EntityID<Int>) : IntEntity(id) {
     fun chunk() = Bukkit.getWorld(world)?.getChunkAt(chunkX, chunkZ)
     fun toPosition() = Position(chunkX, chunkZ, world, factionId)
 
+    fun getCluster() = ImprovedFactionsPlugin.instance.claimChunkClusters.getCluster(
+        Position(
+            chunkX,
+            chunkZ,
+            world,
+            factionId
+        )
+    )
+
+    fun isRaidable() = getCluster()?.isUnprotected(chunkX, chunkZ, world)
 }

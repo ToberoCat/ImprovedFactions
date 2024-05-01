@@ -1,23 +1,20 @@
 package io.github.toberocat.improvedfactions.claims
 
-import io.github.toberocat.improvedfactions.exceptions.CantClaimThisChunkException
-import io.github.toberocat.improvedfactions.exceptions.FactionDoesntHaveThisClaimException
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import org.bukkit.Chunk
 import org.bukkit.Location
 import org.bukkit.block.Block
 import org.jetbrains.exposed.sql.and
 
-fun Block.getFactionClaim(): FactionClaim? = chunk.getFactionClaim()
-fun Location.getFactionClaim(): FactionClaim? = chunk.getFactionClaim()
+fun Block.getFactionClaim(): FactionClaim? = location.getFactionClaim()
+fun Location.getFactionClaim(): FactionClaim? = world?.name?.let { getFactionClaim((x / 16.0).toInt(), (z / 16.0).toInt(), it) }
+fun Chunk.getFactionClaim() = getFactionClaim(x, z, world.name)
 
-fun Chunk.getFactionClaim(): FactionClaim? =
-    FactionClaim.find {
-        FactionClaims.chunkX eq x and
-                (FactionClaims.chunkZ eq z) and
-                (FactionClaims.world eq world.name)
-    }
-        .firstOrNull()
+fun getFactionClaim(x: Int, z: Int, worldName: String) = FactionClaim.find {
+    FactionClaims.chunkX eq x and
+            (FactionClaims.chunkZ eq z) and
+            (FactionClaims.world eq worldName)
+}.firstOrNull()
 
 fun squareClaimAction(
     centerChunk: Chunk,

@@ -4,6 +4,7 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.commands.admin.ReloadCommand
 import io.github.toberocat.improvedfactions.commands.admin.ZoneCommandRoute
 import io.github.toberocat.improvedfactions.commands.claim.ClaimCommand
+import io.github.toberocat.improvedfactions.commands.claim.FactionMap
 import io.github.toberocat.improvedfactions.commands.claim.UnclaimCommand
 import io.github.toberocat.improvedfactions.commands.invite.InviteAcceptCommand
 import io.github.toberocat.improvedfactions.commands.invite.InviteCommand
@@ -63,6 +64,7 @@ class FactionCommandExecutor(plugin: ImprovedFactionsPlugin) {
 
         executor.addChild(ReloadCommand(plugin))
         executor.addChild(ZoneCommandRoute(plugin))
+        executor.addChild(FactionMap(plugin))
 
         plugin.addModuleCommands(executor)
 

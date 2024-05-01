@@ -33,7 +33,8 @@ factions:
   name-regex: "[a-zA-Z]*" # The regex a faction name has to match. Spaces are supported, but strongly discouraged
 
   max-claim-radius: 5 # The maximum square radius a faction can claim at once. Keep it low for performance reasons
-
+  map-width: 20 # The size of the map in chunks that will be displayed when using the /f map command
+  map-height: 10 # The size of the map in chunks that will be displayed when using the /f map command
   # Default ranks every faction will receive once created. When modifying it,
   # note that the first rank will be set to be the default rank for members joining,
   # while the last one will be considered as the owner rank, the rank the owner will receive on faction creation
@@ -211,6 +212,7 @@ zones:
     # This is the language key of the title getting displayed when a claimed chunk is being left into an unclaimed one
     no-faction-title: base.zone.wilderness
     always-protect: false # If set to true, all chunks, even unclaimed ones, will be affected from the protection rules defined below
+    map-color: "AAAAAA" # The color the tile will have on the faction map
 
     # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
     protection:
@@ -239,7 +241,7 @@ zones:
     # This is the language key of the title getting displayed when a claimed chunk is being left into an unclaimed one
     no-faction-title: base.zone.safezone
     always-protect: true # If set to true, all chunks, even unclaimed ones, will be affected from the protection rules defined below
-
+    map-color: "00FFFF" # The color the tile will have on the faction map
     # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
     protection:
       player-damage-animal: true # Prevent animals from being damaged in a claim by a player
@@ -266,6 +268,7 @@ zones:
     # This is the language key of the title getting displayed when a claimed chunk is being left into an unclaimed one
     no-faction-title: base.zone.warzone
     always-protect: true # If set to true, all chunks, even unclaimed ones, will be affected from the protection rules defined below
+    map-color: "8B0000" # The color the tile will have on the faction map
 
     # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
     protection:
@@ -293,7 +296,7 @@ zones:
     # This is the language key of the title getting displayed when a claimed chunk is being left into an unclaimed one
     no-faction-title: base.zone.unmanaged
     always-protect: false # If set to true, all chunks, even unclaimed ones, will be affected from the protection rules defined below
-
+    map-color: "AAAAAA" # The color the tile will have on the faction map
     # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
     protection:
       player-damage-animal: false # Prevent animals from being damaged in a claim by a player

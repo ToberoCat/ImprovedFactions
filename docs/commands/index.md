@@ -35,6 +35,7 @@ More details when you click on a command.
 | [factions kick](member-commands.md#factions-kick) | Kick a player from your faction | core |
 | [factions unclaim](claim-commands.md#factions-unclaim) | Unclaim a chunk for your faction | core |
 | [factions claim](claim-commands.md#factions-claim) | Claim a chunk for your faction | core |
+| [factions map](claim-commands.md#factions-map) | Display a map of the claimed chunks around you | core |
 | [factions reload](admin-commands.md#factions-reload) | Reload the faction configs | core |
 | [factions zone](admin-commands.md#factions-zone) | Access the admin zone commands | core |
 | [factions zone unclaim](admin-commands.md#factions-zone-unclaim) | Unmark a claim from any zone associations | core |

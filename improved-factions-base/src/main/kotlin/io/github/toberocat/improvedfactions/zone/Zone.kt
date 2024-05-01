@@ -10,6 +10,7 @@ data class Zone(val type: String,
                 val noFactionTitle: String,
                 val announceTitle: Boolean,
                 val protectAlways: Boolean,
+                val mapColor: Int,
                 val allowClaiming: Boolean) {
     fun claim(chunk: Chunk): FactionClaim {
         val claim = chunk.getFactionClaim() ?: FactionClaim.new {

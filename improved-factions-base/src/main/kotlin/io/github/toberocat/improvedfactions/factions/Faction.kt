@@ -15,7 +15,6 @@ import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Compa
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
 import io.github.toberocat.improvedfactions.ranks.listRanks
 import io.github.toberocat.improvedfactions.translation.LocalizationKey
-import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.FactionUser
 import io.github.toberocat.improvedfactions.user.FactionUsers
 import io.github.toberocat.improvedfactions.user.factionUser
@@ -104,6 +103,12 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
 
         super.delete()
     }
+
+    fun generateColor() = Integer.parseInt(
+        Integer.toHexString("${id.value}-${Bukkit.getServer().name}".hashCode())
+            .padStart(6, '0')
+            .substring(0, 6), 16
+    )
 
     fun setMaxPower(newMaxPower: Int) {
         val actualNewMaxPower = max(newMaxPower, 0)
@@ -206,7 +211,11 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         return invite
     }
 
-    fun claimSquare(centerChunk: Chunk, squareRadius: Int, handleError: (e: CommandException) -> Unit): ClaimStatistics =
+    fun claimSquare(
+        centerChunk: Chunk,
+        squareRadius: Int,
+        handleError: (e: CommandException) -> Unit
+    ): ClaimStatistics =
         squareClaimAction(centerChunk, squareRadius, { claim(it, announce = false) }, handleError)
 
     fun claim(chunk: Chunk, announce: Boolean = true): FactionClaim {
