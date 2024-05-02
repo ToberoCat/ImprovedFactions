@@ -30,12 +30,8 @@ class InviteAcceptCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSu
     )
 
     override fun handle(player: Player, args: Array<out String>): Boolean {
-        val id = parseArgs(player, args).get<Int>(0) ?: return false
+        val invite = parseArgs(player, args).get<FactionInvite>(0) ?: return false
         transaction {
-            val invite = FactionInvite.findById(id) ?: throw CommandException(
-                "base.command.inviteaccept.invalid-invite", emptyMap()
-            )
-
             val faction = Faction.findById(invite.factionId)
                 ?: throw CommandException("base.command.inviteaccept.faction-deleted", emptyMap())
             invite.delete()
