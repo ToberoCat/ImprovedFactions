@@ -10,7 +10,7 @@ import kotlin.math.abs
 inline fun <reified T : Enum<T>> ConfigurationSection.getEnum(path: String): T? = getString(path).getEnum<T>()
 
 inline fun <reified T : Enum<T>> String?.getEnum(): T? {
-    return enumValueOf<T>(this ?: return null)
+    return enumValueOf<T>(this?.uppercase() ?: return null)
 }
 
 fun ConfigurationSection.getUnsignedDouble(path: String, default: Double) = abs(getDouble(path, default))
