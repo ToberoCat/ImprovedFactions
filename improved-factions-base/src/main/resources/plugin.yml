@@ -67,6 +67,12 @@ permissions:
     default: true
   factions.power:
     default: true
+  factions.wilderness:
+    default: true
+  factions.home:
+    default: true
+  factions.sethome:
+    default: true
   factions.zone:
     default: op
   factions.zone.claim:
