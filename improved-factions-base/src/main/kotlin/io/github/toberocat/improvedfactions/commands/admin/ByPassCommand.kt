@@ -2,6 +2,7 @@ package io.github.toberocat.improvedfactions.commands.admin
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.managers.ByPassManager
+import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.utils.arguments.OptionalPlayerArgument
 import io.github.toberocat.improvedfactions.utils.command.CommandCategory
 import io.github.toberocat.improvedfactions.utils.command.CommandMeta
@@ -29,11 +30,11 @@ class ByPassCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubComma
         when (ByPassManager.isBypassing(targetId)) {
             true -> {
                 ByPassManager.removeBypass(targetId)
-                executor.sendMessage("base.commands.bypass.remove-bypass")
+                executor.sendLocalized("base.commands.bypass.remove-bypass")
             }
             false -> {
                 ByPassManager.addBypass(targetId)
-                executor.sendMessage("base.commands.bypass.add-bypass")
+                executor.sendLocalized("base.commands.bypass.add-bypass")
             }
         }
         return true
