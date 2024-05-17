@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.commands
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.commands.admin.ByPassCommand
 import io.github.toberocat.improvedfactions.commands.admin.ReloadCommand
 import io.github.toberocat.improvedfactions.commands.admin.ZoneCommandRoute
 import io.github.toberocat.improvedfactions.commands.claim.ClaimCommand
@@ -56,6 +57,7 @@ class FactionCommandExecutor(plugin: ImprovedFactionsPlugin) {
 
         executor.addChild(ClaimCommand(plugin))
         executor.addChild(UnclaimCommand(plugin))
+        executor.addChild(FactionMap(plugin))
 
         executor.addChild(InviteCommand(plugin))
         executor.addChild(ListInvitesCommand(plugin))
@@ -64,7 +66,7 @@ class FactionCommandExecutor(plugin: ImprovedFactionsPlugin) {
 
         executor.addChild(ReloadCommand(plugin))
         executor.addChild(ZoneCommandRoute(plugin))
-        executor.addChild(FactionMap(plugin))
+        executor.addChild(ByPassCommand(plugin))
 
         plugin.addModuleCommands(executor)
 

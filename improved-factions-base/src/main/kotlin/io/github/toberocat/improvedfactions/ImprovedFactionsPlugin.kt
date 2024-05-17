@@ -149,7 +149,7 @@ class ImprovedFactionsPlugin : JavaPlugin() {
 
     private fun registerPapi() {
         if (server.pluginManager.isPluginEnabled("PlaceholderAPI")) {
-            PapiExpansion().register()
+            PapiExpansion(improvedFactionsConfig).register()
             papiTransformer = { player, input -> PlaceholderAPI.setPlaceholders(player, input) }
             logger.info("Loaded improved factions papi extension")
             return
