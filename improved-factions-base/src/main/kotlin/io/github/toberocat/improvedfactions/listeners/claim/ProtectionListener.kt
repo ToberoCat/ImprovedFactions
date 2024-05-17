@@ -15,7 +15,8 @@ import org.bukkit.event.Cancellable
 import org.bukkit.event.Listener
 import org.jetbrains.exposed.sql.transactions.transaction
 
-abstract class ProtectionListener(protected val zoneType: String) : Listener {
+abstract class ProtectionListener(protected val zoneType: String,
+                                  private val sendMessage: Boolean = true) : Listener {
     private val claimClusters = ImprovedFactionsPlugin.instance.claimChunkClusters
     abstract fun namespace(): String
 
@@ -30,7 +31,8 @@ abstract class ProtectionListener(protected val zoneType: String) : Listener {
 
     private fun protectChunk(event: Cancellable, chunk: Chunk?, player: Player) = transaction {
         val claim = chunk?.getFactionClaim()
-        if (claim?.zoneType != zoneType || (claim.zone()?.protectAlways == false && claim.factionId == noFactionId))
+        val claimZone = claim?.zone()
+        if (claim?.zoneType != zoneType || (claimZone?.protectAlways == false && claim.factionId == noFactionId))
             return@transaction
 
         val claimedFaction = claim.factionId
@@ -44,6 +46,13 @@ abstract class ProtectionListener(protected val zoneType: String) : Listener {
             return@transaction
 
         event.isCancelled = true
-        player.sendLocalized("base.claim.protected")
+        if (!sendMessage) {
+            return@transaction
+        }
+
+        when (claimZone?.protectAlways) {
+            true -> player.sendLocalized("base.zone.protected")
+            else -> player.sendLocalized("base.claim.protected")
+        }
     }
 }
