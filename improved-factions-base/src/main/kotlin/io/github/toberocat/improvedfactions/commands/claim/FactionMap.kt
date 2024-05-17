@@ -53,21 +53,22 @@ class FactionMap(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand(
             for (x in -MAP_HEIGHT..MAP_HEIGHT) {
                 val mapBuffer = Component.text()
                 for (z in -MAP_WIDTH..MAP_WIDTH) {
-                    val claim = player.location.clone().add(x.toDouble() * 16, 0.0, z.toDouble() * 16).getFactionClaim()
-
+                    val claim = player.location.clone()
+                        .add(x.toDouble() * 16, 0.0, z.toDouble() * 16)
+                        .getFactionClaim()
 
                     var component = Component.text("-")
                         .color(NamedTextColor.GRAY)
-                    if (claim == null || claim.canClaim()) {
-                        claim?.zone()?.let {
+                    when {
+                        claim == null || !claim.isClaimed() -> claim?.zone()?.let {
                             if (it.type != "default") {
                                 component = component.content("/")
                             }
                             component = component.color(TextColor.color(it.mapColor))
                                 .hoverEvent(HoverEvent.showText(player.getLocalized(it.noFactionTitle)))
                         }
-                    } else if (claim.factionId != noFactionId) {
-                        claim.faction()?.let {
+
+                        claim.isClaimed() -> claim.faction()?.let {
                             val color = TextColor.color(it.generateColor())
                             component = component.color(color)
                                 .content("#")
