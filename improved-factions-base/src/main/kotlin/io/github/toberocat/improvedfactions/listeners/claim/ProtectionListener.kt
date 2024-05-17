@@ -3,6 +3,7 @@ package io.github.toberocat.improvedfactions.listeners.claim
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.clustering.Position
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
+import io.github.toberocat.improvedfactions.managers.ByPassManager
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.user.noFactionId
@@ -22,8 +23,10 @@ abstract class ProtectionListener(protected val zoneType: String) : Listener {
         protectChunk(event, entity?.location?.chunk, player)
 
 
-    protected fun protectChunk(event: Cancellable, block: Block?, player: Player) =
+    protected fun protectChunk(event: Cancellable, block: Block?, player: Player) {
+        if (ByPassManager.isBypassing(player.uniqueId)) return
         protectChunk(event, block?.chunk, player)
+    }
 
     private fun protectChunk(event: Cancellable, chunk: Chunk?, player: Player) = transaction {
         val claim = chunk?.getFactionClaim()
@@ -35,7 +38,9 @@ abstract class ProtectionListener(protected val zoneType: String) : Listener {
         if (claimedFaction == playerFaction)
             return@transaction
 
-        if (claimClusters.getCluster(Position(chunk.x, chunk.z, claim.world, claimedFaction))?.isUnprotected(chunk.x, chunk.z, chunk.world.name) == true)
+        if (claimClusters.getCluster(Position(chunk.x, chunk.z, claim.world, claimedFaction))
+                ?.isUnprotected(chunk.x, chunk.z, chunk.world.name) == true
+        )
             return@transaction
 
         event.isCancelled = true
