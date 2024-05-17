@@ -1,9 +1,9 @@
 package io.github.toberocat.improvedfactions.commands.claim
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.claims.getFactionClaim
+import io.github.toberocat.improvedfactions.claims.FactionClaim
+import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.translation.getLocalized
-import io.github.toberocat.improvedfactions.user.noFactionId
 import io.github.toberocat.improvedfactions.utils.command.CommandCategory
 import io.github.toberocat.improvedfactions.utils.command.CommandMeta
 import io.github.toberocat.improvedfactions.utils.toAudience
@@ -15,6 +15,7 @@ import net.kyori.adventure.text.event.HoverEvent
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
 import org.bukkit.entity.Player
+import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
@@ -22,7 +23,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
     description = "base.command.faction-map.description"
 )
 class FactionMap(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("map") {
-    override fun options() = Options.getFromConfig(plugin, "map") { options, _ -> options }
+    override fun options() = Options.getFromConfig(plugin, "map")
 
     override fun arguments(): Array<Argument<*>> = emptyArray()
 
@@ -49,25 +50,25 @@ class FactionMap(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand(
                 .append(Component.newline())
         )
 
+        val claims = getAffectedClaims(player)
         transaction {
             for (x in -MAP_HEIGHT..MAP_HEIGHT) {
                 val mapBuffer = Component.text()
                 for (z in -MAP_WIDTH..MAP_WIDTH) {
-                    val claim = player.location.clone().add(x.toDouble() * 16, 0.0, z.toDouble() * 16).getFactionClaim()
-
+                    val claim = claims[getCombined(player.location.chunk.x + x, player.location.chunk.z + z)]
 
                     var component = Component.text("-")
                         .color(NamedTextColor.GRAY)
-                    if (claim == null || claim.canClaim()) {
-                        claim?.zone()?.let {
+                    when {
+                        claim == null || !claim.isClaimed() -> claim?.zone()?.let {
                             if (it.type != "default") {
                                 component = component.content("/")
                             }
                             component = component.color(TextColor.color(it.mapColor))
                                 .hoverEvent(HoverEvent.showText(player.getLocalized(it.noFactionTitle)))
                         }
-                    } else if (claim.factionId != noFactionId) {
-                        claim.faction()?.let {
+
+                        claim.isClaimed() -> claim.faction()?.let {
                             val color = TextColor.color(it.generateColor())
                             component = component.color(color)
                                 .content("#")
@@ -101,6 +102,19 @@ class FactionMap(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand(
 
         return true
     }
+
+    private fun getAffectedClaims(player: Player): Map<Long, FactionClaim> {
+        val lowerZ = player.location.chunk.z - MAP_WIDTH
+        val upperZ = player.location.chunk.z + MAP_WIDTH
+        val lowerX = player.location.chunk.x - MAP_HEIGHT
+        val upperX = player.location.chunk.x + MAP_HEIGHT
+        return transaction {
+            FactionClaim.find { FactionClaims.chunkZ greaterEq lowerZ and (FactionClaims.chunkZ lessEq upperZ) and (FactionClaims.chunkX greaterEq lowerX) and (FactionClaims.chunkX lessEq upperX) }
+                .associateBy { getCombined(it.chunkX, it.chunkZ) }
+        }
+    }
+
+    private fun getCombined(x: Int, z: Int) = (x.toLong() shl 32) or (z.toLong() and 0xFFFFFFFFL)
 
     companion object {
         var MAP_WIDTH = 20

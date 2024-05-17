@@ -5,9 +5,13 @@ import org.bukkit.Chunk
 import org.bukkit.Location
 import org.bukkit.block.Block
 import org.jetbrains.exposed.sql.and
+import kotlin.math.ceil
+import kotlin.math.floor
 
 fun Block.getFactionClaim(): FactionClaim? = location.getFactionClaim()
-fun Location.getFactionClaim(): FactionClaim? = world?.name?.let { getFactionClaim((x / 16.0).toInt(), (z / 16.0).toInt(), it) }
+fun Location.getFactionClaim(): FactionClaim? = world?.name?.let {
+    getFactionClaim((x / 16.0).largerValueRound(), (z / 16.0).largerValueRound(), it)
+}
 fun Chunk.getFactionClaim() = getFactionClaim(x, z, world.name)
 
 fun getFactionClaim(x: Int, z: Int, worldName: String) = FactionClaim.find {
@@ -41,3 +45,5 @@ fun squareClaimAction(
     }
     return ClaimStatistics(totalClaims, successfulClaims)
 }
+
+private fun Double.largerValueRound() = (if (this < 0) floor(this) else ceil(this)).toInt()
