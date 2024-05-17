@@ -1,10 +1,14 @@
 package io.github.toberocat.improvedfactions.claims.clustering
 
 import io.github.toberocat.improvedfactions.factions.Faction
+import java.util.UUID
 
-class ClaimClusterDetector(private val queryProvider: ClaimQueryProvider) {
-    val clusterMap = mutableMapOf<Position, Int>()
-    val clusters = mutableMapOf<Int, Cluster>()
+class ClaimClusterDetector(
+    private val queryProvider: ClaimQueryProvider,
+    private val generateClusterId: () -> UUID = UUID::randomUUID
+) {
+    val clusterMap = mutableMapOf<Position, UUID>()
+    val clusters = mutableMapOf<UUID, Cluster>()
 
     fun detectClusters() {
         clusterMap.clear()
@@ -36,7 +40,8 @@ class ClaimClusterDetector(private val queryProvider: ClaimQueryProvider) {
         .forEach { removeCluster(it.key) }
 
     fun getClusterId(position: Position) = clusterMap[position]
-    private fun getCluster(clusterId: Int) = clusters.getOrDefault(clusterId, null)
+
+    private fun getCluster(clusterId: UUID) = clusters.getOrDefault(clusterId, null)
     fun getCluster(position: Position): Cluster? = getClusterId(position)?.let {
         val cluster = getCluster(it)
         return if (cluster?.getReadOnlyPositions()?.firstOrNull()?.factionId != position.factionId) null else cluster
@@ -63,7 +68,7 @@ class ClaimClusterDetector(private val queryProvider: ClaimQueryProvider) {
         unreachablePositions.forEach { insertPosition(it) }
     }
 
-    fun removeCluster(clusterId: Int) {
+    fun removeCluster(clusterId: UUID) {
         clusters[clusterId]?.getReadOnlyPositions()?.forEach(clusterMap::remove)
         clusters.remove(clusterId)
     }
@@ -73,17 +78,17 @@ class ClaimClusterDetector(private val queryProvider: ClaimQueryProvider) {
             .mapNotNull { clusterMap.getOrDefault(it, null) }
 
     private fun createNewCluster(position: Position) {
-        val clusterId = clusters.size
+        val clusterId = generateClusterId()
         clusters.getOrPut(clusterId) { Cluster(position.factionId) }.addAll(setOf(position))
         clusterMap[position] = clusterId
     }
 
-    private fun assignToCluster(positions: Set<Position>, clusterId: Int) {
+    private fun assignToCluster(positions: Set<Position>, clusterId: UUID) {
         clusters[clusterId]?.addAll(positions)
         positions.forEach { clusterMap[it] = clusterId }
     }
 
-    private fun mergeClusters(clusterIds: List<Int>) {
+    private fun mergeClusters(clusterIds: List<UUID>) {
         val newClusterPositions = clusterIds.flatMap { clusters[it]?.getReadOnlyPositions() ?: emptyList() }
         clusterIds.forEach { clusters.remove(it) }
         clusters[clusterIds[0]] = Cluster(newClusterPositions[0].factionId, newClusterPositions.toMutableSet())
