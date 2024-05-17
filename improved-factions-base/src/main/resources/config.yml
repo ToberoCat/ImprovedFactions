@@ -335,7 +335,15 @@ performance:
 # blacklisted-worlds:
 #   - world_nether
 #   - world_the_end
-blacklisted-worlds: []
+blacklisted-worlds: [ ]
+
+# The default values removed for a papi placeholder if no value has been provided. For example, when a player doesn't have a faction, the faction name will be replaced with this value
+default-placeholders:
+  name: "" # The default value for %faction_name%
+  owner: "" # The default value for %faction_owner%
+  rank: "Loner" # The default value for %faction_rank%
+  power: "0" # The default value for %faction_power%
+  maxPower: "0" # The default value for %faction_maxPower%
 
 # This options decides if what kind of notification the players will receive when a certain event happens (Teleport, Territory change, etc)
 event-display-location: "TITLE" # Options are: TITLE, CHAT, ACTIONBAR

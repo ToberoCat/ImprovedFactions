@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedfactions.papi
 
+import io.github.toberocat.improvedfactions.config.ImprovedFactionsConfig
 import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.utils.toOfflinePlayer
 import me.clip.placeholderapi.expansion.PlaceholderExpansion
@@ -14,7 +15,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
  * @author Tobias Madlberger (Tobias)
  */
 
-class PapiExpansion : PlaceholderExpansion() {
+class PapiExpansion(private val pluginConfig: ImprovedFactionsConfig) : PlaceholderExpansion() {
     private val placeholders = HashMap<String, (player: OfflinePlayer) -> String?>()
 
     init {
@@ -33,6 +34,8 @@ class PapiExpansion : PlaceholderExpansion() {
 
     override fun persist(): Boolean = true
 
-    override fun onRequest(player: OfflinePlayer?, params: String) =
-        player?.let { transaction { placeholders[params]?.invoke(it)} }
+    override fun onRequest(player: OfflinePlayer?, params: String): String? {
+        return player?.let { transaction { placeholders[params]?.invoke(it) } }
+            ?: pluginConfig.defaultPlaceholders[params]
+    }
 }
