@@ -1,0 +1,26 @@
+Channel: Put an image on a gui
+Channel Type: GuildPublicThread
+Topic: None
+
+.erdavvo: 
+can i put an image like this
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1218503873287819286/1218503873401061468/image.png?ex=664880aa&is=66472f2a&hm=8b94c05f0d7bb6ad08599c9993d4a4bd5e34d25e0e13987b384b8b834b41af89&
+
+.erdavvo: 
+i want create whit this plugin a gui like this
+.erdavvo: 
+is possible?
+josh65: 
+No
+grapewithagun: 
+it is but you need to create a server-side texture pack that edits the font so it displays the texture, which can be done but isn't easy
+jokbon: 
+not with this plugin but yeah its posible while still using if
+jokbon: 
+with gui engine u can create gui
+jokbon: 
+with resourcepacks and other stuff u can paint it
+tobero: 
+GUI engine supports it, you have to enforce a custom texture pack and tell GUI engine to open a GUI using this yextur

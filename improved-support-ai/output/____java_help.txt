@@ -1,0 +1,1123 @@
+Channel: ╰＞☕ㅐjava-help
+Channel Type: GuildTextChat
+Topic: If you need help with the plugin, please go to support. This channel is for developers needing help with the plugins api (Coding)
+
+retro.440: 
+Good morning, the factions plugin is not hooking into my server, i have tried restarting multiple times to no avail. any help would be appreciated
+tobero: 
+Have you installed protocolLib?
+tobero: 
+4.7.0 would be the best
+retro.440: 
+i have not is that a requirment?
+tobero: 
+Yes. It is
+retro.440: 
+sorry, the link i found to it just gave me the discord and the download
+tobero: 
+Link should be on spigot mc called protocolLib
+retro.440: 
+I got it i will let you know how it works
+tobero: 
+
+Attachments:
+[Screenshot_20220113-215136_Chrome.jpg]
+https://cdn.discordapp.com/attachments/928404163384188999/931289672397754508/Screenshot_20220113-215136_Chrome.jpg?ex=66486c58&is=66471ad8&hm=ceff4714971b2f6f0d4bd092606f5517c2dbbc326e5401e67ec024c022ce99f4&
+
+tobero: 
+The is the link if you need it
+retro.440: 
+it works, is there a way to claim my spawn region as a non claimable area
+tobero: 
+Yes. /f admin safezone
+tobero: 
+Currently only available at one chunk at a time, but I'm working on a mass claim extension
+retro.440: 
+thank you
+retro.440: 
+and to be clear the f help doesnt work
+retro.440: 
+thats all around not just my installation case
+tobero: 
+Yes. It is currently a placeholder command. It will be working in a newer version I'm working on
+retro.440: 
+thank you for your help
+retro.440: 
+i love the plugin
+retro.440: 
+safezone allows pvp?
+tobero: 
+Yes
+tobero: 
+This needs to be changed with world guard or something different
+retro.440: 
+ok one last question how do i allow staff to break stuff in safezone
+tobero: 
+It is only preventing claiming and breaking / placing.
+tobero: 
+They need to use /f admin sJoij safezone
+tobero: 
+Currently not good way. Will be in the next updated fixed to
+retro.440: 
+ok so the safezone command works and a faction entity itselm
+retro.440: 
+As long as i can
+tobero: 
+Yes. I implemented it poorly, because in the newest version it will be there as a intended feature with good support structure
+retro.440: 
+i am getting the error for fsafezone that my factions claim power is 0
+tobero: 
+Use /f admin gPower safezone 999999. As you said, it's just a faction with no members
+retro.440: 
+thanks couldnt find the give power command
+retro.440: 
+can i set f power per luckperms rank?
+tobero: 
+You mean permissions to execute the command? Should be f.command.admin.gPower and f.command.admin
+retro.440: 
+no, so if i set a parent rank to an individual i would like the indivudual to have a higher faction power than the run of the mill player
+retro.440: 
+is that possible?
+tobero: 
+No, because currently the power system is.... Kinda strange. I didn't understood the system and just coded a claim prevention. Now I know better and implemented it the right way, but can't upload this version, because 1.18 is bugging too much (protocolLib)
+tobero: 
+Sorry
+retro.440: 
+ok but it will be a thing in the future?
+tobero: 
+Yes. It will be because it's somehow essential for factions
+retro.440: 
+thank you
+retro.440: 
+are you currently accepting donations?
+tobero: 
+No, but if you want to support me, it would be nice if you leave a review on spigotmc. Just say what you experienced so others can see if this plugin would be good or not for their server
+retro.440: 
+ok bet
+n0virus: 
+when i try to claim a chunk it says "Factions: Loan was not permitted" but in the commands.yml i set it up so it doesnt cost anything
+n0virus: 
+nevermind i got it to work
+tobero: 
+Alright
+n0virus: 
+My console is being spammed by this message
+
+```[07:51:12 ERROR]: Could not pass event CreatureSpawnEvent to ImprovedFactions vBETA-4.0.1
+java.lang.NullPointerException: null```
+tobero: 
+Are you using Setting and flag extension?
+tobero: 
+If yes, can you send me the detailed error Log?
+n0virus: 
+as soon as i claim a chunk as a safe zone this gets spammed in chat and then the previous message above ^
+Attachments:
+[message.txt]
+```[08:51:00 ERROR]: Could not pass event CreatureSpawnEvent to ImprovedFactions vBETA-4.0.1
+java.lang.NullPointerException: Cannot invoke "io.github.toberocat.improvedfactions.gui.Flag.getCurrentBool()" because the return value of "java.util.Map.get(Object)" is null
+        at extension.settingsandflags.listeneea.MobSpawningListener.Spawn(MobSpawningListener.java:19) ~[?:?]
+        at com.destroystokyo.paper.event.executor.asm.generated.GeneratedEventExecutor112.execute(Unknown Source) ~[?:?]
+        at org.bukkit.plugin.EventExecutor.lambda$create$1(EventExecutor.java:69) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+        at co.aikar.timings.TimedEventExecutor.execute(TimedEventExecutor.java:80) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:git-Paper-148]
+        at org.bukkit.plugin.RegisteredListener.callEvent(RegisteredListener.java:70) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+        at org.bukkit.plugin.SimplePluginManager.callEvent(SimplePluginManager.java:628) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+        at org.bukkit.craftbukkit.v1_18_R1.event.CraftEventFactory.callCreatureSpawnEvent(CraftEventFactory.java:729) ~[paper-1.18.1.jar:git-Paper-148]
+        at org.bukkit.craftbukkit.v1_18_R1.event.CraftEventFactory.doEntityAddEventCalling(CraftEventFactory.java:634) ~[paper-1.18.1.jar:git-Paper-148]
+        at net.minecraft.server.level.ServerLevel.addEntity(ServerLevel.java:1407) ~[?:?]
+        at net.minecraft.server.level.ServerLevel.addFreshEntity(ServerLevel.java:1319) ~[?:?]
+        at net.minecraft.world.level.ServerLevelAccessor.lambda$addFreshEntityWithPassengers$0(ServerLevelAccessor.java:16) ~[?:?]
+        at java.util.stream.Streams$StreamBuilderImpl.forEachRemaining(Streams.java:411) ~[?:?]
+        at java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762) ~[?:?]
+        at net.minecraft.world.level.ServerLevelAccessor.addFreshEntityWithPassengers(ServerLevelAccessor.java:16) ~[?:?]
+        at net.minecraft.world.level.NaturalSpawner.spawnCategoryForPosition(NaturalSpawner.java:319) ~[?:?]
+        at net.minecraft.world.level.NaturalSpawner.spawnCategoryForChunk(NaturalSpawner.java:236) ~[?:?]
+        at net.minecraft.world.level.NaturalSpawner.spawnForChunk(NaturalSpawner.java:194) ~[?:?]
+        at net.minecraft.server.level.ServerChunkCache.tickChunks(ServerChunkCache.java:1041) ~[?:?]
+        at net.minecraft.server.level.ServerChunkCache.tick(ServerChunkCache.java:923) ~[?:?]
+        at net.minecraft.server.level.ServerLevel.tick(ServerLevel.java:625) ~[?:?]
+        at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:1607) ~[paper-1.18.1.jar:git-Paper-148]
+        at net.minecraft.server.dedicated.DedicatedServer.tickChildren(DedicatedServer.java:480) ~[paper-1.18.1.jar:git-Paper-148]
+        at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1470) ~[paper-1.18.1.jar:git-Paper-148]
+        at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1264) ~[paper-1.18.1.jar:git-Paper-148]
+        at net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:317) ~[paper-1.18.1.jar:git-Paper-148]
+        at java.lang.Thread.run(Thread.java:833) ~[?:?]```
+
+tobero: 
+What extension do you have installed
+n0virus: 
+- SettingsAndFlags
+- Dynmap
+- ChatMessage
+tobero: 
+1.17 or 1.18?
+n0virus: 
+1.18.1
+tobero: 
+Alright. I will tell you when I know more about the problem
+n0virus: 
+alright :)
+tobero: 
+Fixed the extensions. Use `/f extension upgrade` to update or `/f extension download SettingsAndFlags`
+tobero: 
+Sorry that it took so long
+n0virus: 
+it doesnt spam it anymore :)
+n0virus: 
+thx! :D
+tobero: 
+No problem
+mrvolts: 
+[Mon, 24. Jan 2022 15:33:09 UTC ERROR] Could not pass event OnChunkEnterEvent to ImprovedFactions vBETA-5.0.1
+mrvolts: 
+I keep getting this error message on install of factions
+mrvolts: 
+any suggestions? Thanks
+mrvolts: 
+
+Attachments:
+[message.txt]
+[15:39:10] [Server thread/ERROR]: Could not pass event OnChunkEnterEvent to ImprovedFactions vBETA-5.0.1
+org.bukkit.event.EventException: null
+	at org.bukkit.plugin.java.JavaPluginLoader$1.execute(JavaPluginLoader.java:310) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.plugin.RegisteredListener.callEvent(RegisteredListener.java:70) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.plugin.SimplePluginManager.fireEvent(SimplePluginManager.java:589) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.plugin.SimplePluginManager.callEvent(SimplePluginManager.java:576) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at io.github.toberocat.improvedfactions.listeners.OnPlayerMove.PlayerMove(OnPlayerMove.java:18) ~[?:?]
+	at jdk.internal.reflect.GeneratedMethodAccessor508.invoke(Unknown Source) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.bukkit.plugin.java.JavaPluginLoader$1.execute(JavaPluginLoader.java:306) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.plugin.RegisteredListener.callEvent(RegisteredListener.java:70) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.plugin.SimplePluginManager.fireEvent(SimplePluginManager.java:589) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.plugin.SimplePluginManager.callEvent(SimplePluginManager.java:576) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at net.minecraft.server.network.PlayerConnection.a(PlayerConnection.java:1240) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.network.protocol.game.PacketPlayInFlying.a(SourceFile:114) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.network.protocol.game.PacketPlayInFlying$PacketPlayInPosition.a(SourceFile:42) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.network.protocol.PlayerConnectionUtils.lambda$0(PlayerConnectionUtils.java:30) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.server.TickTask.run(SourceFile:18) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.util.thread.IAsyncTaskHandler.c(SourceFile:151) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.util.thread.IAsyncTaskHandlerReentrant.c(SourceFile:23) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.server.MinecraftServer.b(MinecraftServer.java:1158) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.server.MinecraftServer.c(MinecraftServer.java:1) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.util.thread.IAsyncTaskHandler.y(SourceFile:125) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.server.MinecraftServer.bf(MinecraftServer.java:1137) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.server.MinecraftServer.y(MinecraftServer.java:1130) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.util.thread.IAsyncTaskHandler.bp(SourceFile:110) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.server.MinecraftServer.x(MinecraftServer.java:1113) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.server.MinecraftServer.w(MinecraftServer.java:1038) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.server.MinecraftServer.lambda$0(MinecraftServer.java:304) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at java.lang.Thread.run(Thread.java:833) [?:?]
+Caused by: java.lang.NullPointerException: Cannot read field "chunkData" because "playerData" is null
+	at io.github.toberocat.improvedfactions.listeners.OnChunkEntered.ChunkEnter(OnChunkEntered.java:41) ~[?:?]
+	at jdk.internal.reflect.GeneratedMethodAccessor525.invoke(Unknown Source) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.bukkit.plugin.java.JavaPluginLoader$1.execute(JavaPluginLoader.java:306) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	... 28 more
+[15:39:10] [Server thread/ERROR]: Could not pass event OnChunkEnterEvent to ImprovedFactions vBETA-5.0.1
+org.bukkit.event.EventException: null
+	at org.bukkit.plugin.java.JavaPluginLoader$1.execute(JavaPluginLoader.java:310) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.plugin.RegisteredListener.callEvent(RegisteredListener.java:70) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.plugin.SimplePluginManager.fireEvent(SimplePluginManager.java:589) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.plugin.SimplePluginManager.callEvent(SimplePluginManager.java:576) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at io.github.toberocat.improvedfactions.listeners.OnPlayerMove.PlayerMove(OnPlayerMove.java:18) ~[?:?]
+	at jdk.internal.reflect.GeneratedMethodAccessor508.invoke(Unknown Source) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.bukkit.plugin.java.JavaPluginLoader$1.execute(JavaPluginLoader.java:306) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.plugin.RegisteredListener.callEvent(RegisteredListener.java:70) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.plugin.SimplePluginManager.fireEvent(SimplePluginManager.java:589) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.plugin.SimplePluginManager.callEvent(SimplePluginManager.java:576) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at net.minecraft.server.network.PlayerConnection.a(PlayerConnection.java:1240) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.network.protocol.game.PacketPlayInFlying.a(SourceFile:114) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.network.protocol.game.PacketPlayInFlying$PacketPlayInPositionLook.a(SourceFile:16) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.network.protocol.PlayerConnectionUtils.lambda$0(PlayerConnectionUtils.java:30) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.server.TickTask.run(SourceFile:18) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.util.thread.IAsyncTaskHandler.c(SourceFile:151) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.util.thread.IAsyncTaskHandlerReentrant.c(SourceFile:23) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.server.MinecraftServer.b(MinecraftServer.java:1158) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.server.MinecraftServer.c(MinecraftServer.java:1) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.util.thread.IAsyncTaskHandler.y(SourceFile:125) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.server.MinecraftServer.bf(MinecraftServer.java:1137) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.server.MinecraftServer.y(MinecraftServer.java:1130) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.util.thread.IAsyncTaskHandler.bp(SourceFile:110) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.server.MinecraftServer.x(MinecraftServer.java:1113) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.server.MinecraftServer.w(MinecraftServer.java:1038) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at net.minecraft.server.MinecraftServer.lambda$0(MinecraftServer.java:304) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+	at java.lang.Thread.run(Thread.java:833) [?:?]
+Caused by: java.lang.NullPointerException: Cannot read field "chunkData" because "playerData" is null
+	at io.github.toberocat.improvedfactions.listeners.OnChunkEntered.ChunkEnter(OnChunkEntered.java:41) ~[?:?]
+	at jdk.internal.reflect.GeneratedMethodAccessor525.invoke(Unknown Source) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.bukkit.plugin.java.JavaPluginLoader$1.execute(JavaPluginLoader.java:306) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	... 28 more
+
+mrvolts: 
+Error
+mrvolts: 
+this kept repeating over and ver
+mrvolts: 
+over*
+tobero: 
+1.18 or 1.17?
+mrvolts: 
+1.18.1
+tobero: 
+Are you getting this error every time you switch a chunk? Or are you only getting it once?
+mrvolts: 
+I got this on server reload
+mrvolts: 
+I didn't run any commands
+tobero: 
+Are you able to use the plugin normal without getting this error constantly
+mrvolts: 
+I have not tried unfortunately, I had to get rid of it as it was causing  instability
+tobero: 
+Instability? You don't need to run it on the main server. It would help me alot if I knew if the error only appears once or always
+mrvolts: 
+ok let me try again
+mrvolts: 
+on server start
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/928404163384188999/935204614444302399/unknown.png?ex=664829eb&is=6646d86b&hm=495fbb74bfa6f1cb989c42a6f001ac87fb7f23dabf962126848b635b86a1903b&
+
+mrvolts: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/928404163384188999/935204833365999616/unknown.png?ex=66482a1f&is=6646d89f&hm=7574301d9b887bbec8e3dbdef1ee1cfad9e0f39482008000b325425b813b9254&
+
+mrvolts: 
+these two errors were on server start @[Dev] Tobero
+tobero: 
+Did you put Chat message extension in /plugins/ImprovedFaction/Extension?
+mrvolts: 
+yes
+mrvolts: 
+and the dynmap one
+tobero: 
+Nom the error says that spigot tries to load them in /plugins/
+mrvolts: 
+oh I need to put it in extensions
+mrvolts: 
+ahh alright
+mrvolts: 
+sorry I read your message wrong
+tobero: 
+Yeah, else spigot tries to handle them
+mrvolts: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/928404163384188999/935207232189128814/unknown.png?ex=66482c5b&is=6646dadb&hm=c943350da7f2f2361bcaf519b77df48a304516cb6431abdbe1d472b60ccfb19e&
+
+mrvolts: 
+ok nice
+mrvolts: 
+I'll try again
+mrvolts: 
+
+Attachments:
+[message.txt]
+root@nomadsserver:/home/ubuntu/minecraft# screen ./start.sh
+        at org.bukkit.craftbukkit.v1_18_R1.command.BukkitCommandWrapper.getSuggestions(BukkitCommandWrapper.java:49) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at com.mojang.brigadier.tree.ArgumentCommandNode.listSuggestions(ArgumentCommandNode.java:71) ~[brigadier-1.0.18.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at com.mojang.brigadier.CommandDispatcher.getCompletionSuggestions(CommandDispatcher.java:598) ~[brigadier-1.0.18.jar:?]
+        at com.mojang.brigadier.CommandDispatcher.getCompletionSuggestions(CommandDispatcher.java:580) ~[brigadier-1.0.18.jar:?]
+        at net.minecraft.server.network.PlayerConnection.a(PlayerConnection.java:713) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.network.protocol.game.PacketPlayInTabComplete.a(SourceFile:29) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.network.protocol.game.PacketPlayInTabComplete.a(SourceFile:7) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.network.protocol.PlayerConnectionUtils.lambda$0(PlayerConnectionUtils.java:30) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.server.TickTask.run(SourceFile:18) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.util.thread.IAsyncTaskHandler.c(SourceFile:151) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.util.thread.IAsyncTaskHandlerReentrant.c(SourceFile:23) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.server.MinecraftServer.b(MinecraftServer.java:1158) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.server.MinecraftServer.c(MinecraftServer.java:1) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.util.thread.IAsyncTaskHandler.y(SourceFile:125) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.server.MinecraftServer.bf(MinecraftServer.java:1137) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.server.MinecraftServer.y(MinecraftServer.java:1130) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.util.thread.IAsyncTaskHandler.c(SourceFile:134) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.server.MinecraftServer.x(MinecraftServer.java:1114) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.server.MinecraftServer.w(MinecraftServer.java:1038) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.server.MinecraftServer.lambda$0(MinecraftServer.java:304) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at java.lang.Thread.run(Thread.java:833) [?:?]
+Caused by: java.lang.NullPointerException: Cannot invoke "java.util.Map.containsKey(Object)" because "io.github.toberocat.improvedfactions.language.Language.langFiles" is null
+        at io.github.toberocat.improvedfactions.language.Language.sendMessage(Language.java:69) ~[?:?]
+        at io.github.toberocat.improvedfactions.commands.subCommands.SubCommand.CallSubCommandsTab(SubCommand.java:97) ~[?:?]
+        at io.github.toberocat.improvedfactions.tab.FactionCommandTab.onTabComplete(FactionCommandTab.java:27) ~[?:?]
+        at org.bukkit.command.PluginCommand.tabComplete(PluginCommand.java:138) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+        ... 25 more
+[16:28:25] [Server thread/ERROR]: Exception when Proiectumancer attempted to tab complete faction create
+org.bukkit.command.CommandException: Unhandled exception during tab completion for command '/faction create' in plugin ImprovedFactions vBETA-5.0.1
+        at org.bukkit.command.PluginCommand.tabComplete(PluginCommand.java:150) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+        at org.bukkit.command.Command.tabComplete(Command.java:93) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+        at org.bukkit.command.SimpleCommandMap.tabComplete(SimpleCommandMap.java:231) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+        at org.bukkit.craftbukkit.v1_18_R1.CraftServer.tabCompleteCommand(CraftServer.java:1968) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at org.bukkit.craftbukkit.v1_18_R1.CraftServer.tabComplete(CraftServer.java:1940) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at org.bukkit.craftbukkit.v1_18_R1.command.BukkitCommandWrapper.getSuggestions(BukkitCommandWrapper.java:49) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at com.mojang.brigadier.tree.ArgumentCommandNode.listSuggestions(ArgumentCommandNode.java:71) ~[brigadier-1.0.18.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at com.mojang.brigadier.CommandDispatcher.getCompletionSuggestions(CommandDispatcher.java:598) ~[brigadier-1.0.18.jar:?]
+        at com.mojang.brigadier.CommandDispatcher.getCompletionSuggestions(CommandDispatcher.java:580) ~[brigadier-1.0.18.jar:?]
+        at net.minecraft.server.network.PlayerConnection.a(PlayerConnection.java:713) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.network.protocol.game.PacketPlayInTabComplete.a(SourceFile:29) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.network.protocol.game.PacketPlayInTabComplete.a(SourceFile:7) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.network.protocol.PlayerConnectionUtils.lambda$0(PlayerConnectionUtils.java:30) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.server.TickTask.run(SourceFile:18) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.util.thread.IAsyncTaskHandler.c(SourceFile:151) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.util.thread.IAsyncTaskHandlerReentrant.c(SourceFile:23) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.server.MinecraftServer.b(MinecraftServer.java:1158) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.server.MinecraftServer.c(MinecraftServer.java:1) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.util.thread.IAsyncTaskHandler.y(SourceFile:125) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.server.MinecraftServer.bf(MinecraftServer.java:1137) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.server.MinecraftServer.y(MinecraftServer.java:1130) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.util.thread.IAsyncTaskHandler.c(SourceFile:134) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.server.MinecraftServer.x(MinecraftServer.java:1114) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.server.MinecraftServer.w(MinecraftServer.java:1038) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at net.minecraft.server.MinecraftServer.lambda$0(MinecraftServer.java:304) ~[spigot-1.18.1-R0.1-SNAPSHOT.jar:3407-Spigot-f4ff00f-74a5cc8]
+        at java.lang.Thread.run(Thread.java:833) [?:?]
+Caused by: java.lang.NullPointerException: Cannot invoke "java.util.Map.containsKey(Object)" because "io.github.toberocat.improvedfactions.language.Language.langFiles" is null
+        at io.github.toberocat.improvedfactions.language.Language.sendMessage(Language.java:69) ~[?:?]
+        at io.github.toberocat.improvedfactions.commands.subCommands.SubCommand.CallSubCommandsTab(SubCommand.java:97) ~[?:?]
+        at io.github.toberocat.improvedfactions.tab.FactionCommandTab.onTabComplete(FactionCommandTab.java:27) ~[?:?]
+        at org.bukkit.command.PluginCommand.tabComplete(PluginCommand.java:138) ~[spigot-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+        ... 25 more
+
+
+mrvolts: 
+I'll send full log it still errors
+tobero: 
+Have you tried to delete the folder containing the lang files?
+mrvolts: 
+I'll try it on a dev server tmr
+mrvolts: 
+but for now it's very borked
+mrvolts: 
+or I'm setting it up wrong
+tobero: 
+Alright. There could be a problem with the language file you are using
+mrvolts: 
+I put the improved factions in plugins and the extensions in the extension folder and ran it
+tobero: 
+Yeah, but I mean there could be a problem with the system. But you added extension, which adds lang file stuff
+tobero: 
+The file could be empty or null because of the error on the startup
+mrvolts: 
+I've removed and installed it a couple of times
+tobero: 
+No, I mean the folder in ImprovedFaction
+tobero: 
+Not the plugin file it self
+mrvolts: 
+yes of course
+mrvolts: 
+It's a great plugin, however walls of errors are a bit hard to deal with
+tobero: 
+If you go to /plugins/ImprovedFaction/lang/
+tobero: 
+I mean this error
+mrvolts: 
+I'll play around tmr on a dev server and try that
+tobero: 
+You are the first getting (reporting) them
+mrvolts: 
+hmm yeah, nobody else is complaining so it does confuse me and is likely user error
+mrvolts: 
+I just need to figure out what I've done
+tobero: 
+Nah, it can also be a problem with the newest compiled Version
+tobero: 
+The best way would be to just remove the entire content of the improved factions folder (except extensions) and restart the server
+mrvolts: 
+yep I will do a fresh install tmr
+mrvolts: 
+it is removed of the main
+mrvolts: 
+but I've learnt a valuable lesson to how much I need a test server
+tobero: 
+Yes. They aren't complicated to set up. Just make a double tap on the spigot file and the server is setup. You don't need a port / up because you can connect locally using localhost or 127.0.0.1.
+mrvolts: 
+ok I couldn't wait 😆 fresh install on dev server
+mrvolts: 
+
+Attachments:
+[message.txt]
+[16:56:35] [ServerMain/INFO]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[16:56:37] [ServerMain/INFO]: Reloading ResourceManager: Default, bukkit
+[16:56:40] [Worker-Main-1/INFO]: Loaded 7 recipes
+[16:56:46] [Server thread/INFO]: Starting minecraft server version 1.18.1
+[16:56:46] [Server thread/INFO]: Loading properties
+[16:56:47] [Server thread/INFO]: This server is running Paper version git-Paper-167 (MC: 1.18.1) (Implementing API version 1.18.1-R0.1-SNAPSHOT) (Git: feb72b8)
+[16:56:47] [Server thread/INFO]: Server Ping Player Sample Count: 12
+[16:56:47] [Server thread/INFO]: Using 4 threads for Netty based IO
+[16:56:47] [Server thread/INFO]: Default game type: SURVIVAL
+[16:56:47] [Server thread/INFO]: Generating keypair
+[16:56:48] [Server thread/INFO]: Starting Minecraft server on *:25565
+[16:56:48] [Server thread/INFO]: Using epoll channel type
+[16:56:48] [Server thread/INFO]: Paper: Using libdeflate (Linux aarch64) compression from Velocity.
+[16:56:48] [Server thread/INFO]: Paper: Using OpenSSL (Linux aarch64) cipher from Velocity.
+[16:56:50] [Server thread/INFO]: [ProtocolLib] Loading ProtocolLib v4.8.0-SNAPSHOT-b539
+[16:56:51] [Server thread/WARN]: [ProtocolLib] Version (MC: 1.18.1) has not yet been tested! Proceed with caution.
+[16:56:57] [Server thread/INFO]: [NoCheatPlus] Loading NoCheatPlus v3.17-SNAPSHOT-Updated-b127
+[16:56:57] [Server thread/INFO]: [NoCheatPlus] onLoad: Early set up of static API, configuration, logging.
+[16:56:57] [Server thread/INFO]: [NoCheatPlus] Logging system initialized.
+[16:56:57] [Server thread/INFO]: [NoCheatPlus] Detected Minecraft version: 1.18.1
+[16:56:57] [Server thread/INFO]: [Factions] Loading ImprovedFactions vBETA-5.0.1
+[16:56:57] [Server thread/INFO]: Server permissions file permissions.yml is empty, ignoring it
+[16:56:58] [Server thread/INFO]: [ProtocolLib] Enabling ProtocolLib v4.8.0-SNAPSHOT-b539
+[16:56:58] [Server thread/INFO]: [ProtocolLib] Started structure compiler thread.
+[16:56:58] [Server thread/INFO]: Preparing level "world"
+[16:57:02] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld
+[16:57:04] [Server thread/INFO]: Time elapsed: 1589 ms
+[16:57:04] [Server thread/INFO]: Preparing start region for dimension minecraft:the_nether
+[16:57:05] [Server thread/INFO]: Time elapsed: 880 ms
+[16:57:05] [Server thread/INFO]: Preparing start region for dimension minecraft:the_end
+[16:57:05] [Server thread/INFO]: Time elapsed: 604 ms
+[16:57:05] [Server thread/INFO]: [NoCheatPlus] Enabling NoCheatPlus v3.17-SNAPSHOT-Updated-b127
+[16:57:06] [Server thread/INFO]: [NoCheatPlus] McAccess set to: 1.13-1.18|? / Bukkit-API
+[16:57:08] [Server thread/INFO]: [NoCheatPlus] Inventory checks: FastConsume is available, disabled InstantEat.
+[16:57:08] [Server thread/INFO]: [NoCheatPlus] Adding packet level hooks for ProtocolLib (MC 1.18.1)...
+[16:57:08] [Server thread/INFO]: [NoCheatPlus] Confirm teleport packet available (via name): TELEPORT_ACCEPT[class=PacketPlayInTeleportAccept, id=0]
+[16:57:08] [Server thread/INFO]: [NoCheatPlus] Available (and activated) packet level hooks: UseEntityAdapter | MovingFlying | OutgoingPosition | KeepAliveAdapter | SoundDistance | WrongTurnAdapter | NoSlow | Fight
+[16:57:08] [Server thread/INFO]: [NoCheatPlus] Force disable FastHeal, FastConsume, PacketFrequency and InstantBow on Minecraft 1.9 and later.
+[16:57:08] [Server thread/INFO]: [NoCheatPlus] Version 3.17-SNAPSHOT-Updated-b127 is enabled.
+[16:57:08] [Server thread/INFO]: [Factions] Enabling ImprovedFactions vBETA-5.0.1
+[16:57:08] [Server thread/INFO]: [Factions] Running BETAv5.0.1 of Improved Factions (Factions)
+[16:57:09] [Server thread/INFO]: [Factions] Found PlaceholderAPI
+[16:57:09] [Server thread/ERROR]: Error occurred while enabling ImprovedFactions vBETA-5.0.1 (Is it up to date?)
+java.lang.NoClassDefFoundError: com/fasterxml/jackson/databind/ObjectMapper
+	at io.github.toberocat.improvedfactions.extentions.list.ExtensionListLoader.RegenerateExtensionList(ExtensionListLoader.java:32) ~[ImprovedFactions-BETAv5.0.1.jar:?]
+	at io.github.toberocat.improvedfactions.ImprovedFactionsMain.onEnable(ImprovedFactionsMain.java:189) ~[ImprovedFactions-BETAv5.0.1.jar:?]
+	at org.bukkit.plugin.java.JavaPlugin.setEnabled(JavaPlugin.java:264) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.plugin.java.JavaPluginLoader.enablePlugin(JavaPluginLoader.java:370) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.plugin.SimplePluginManager.enablePlugin(SimplePluginManager.java:500) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.craftbukkit.v1_18_R1.CraftServer.enablePlugin(CraftServer.java:564) ~[paper-1.18.1.jar:git-Paper-167]
+	at org.bukkit.craftbukkit.v1_18_R1.CraftServer.enablePlugins(CraftServer.java:478) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.server.MinecraftServer.loadWorld0(MinecraftServer.java:727) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.server.MinecraftServer.loadLevel(MinecraftServer.java:503) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.server.dedicated.DedicatedServer.initServer(DedicatedServer.java:313) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1202) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:317) ~[paper-1.18.1.jar:git-Paper-167]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+Caused by: java.lang.ClassNotFoundException: com.fasterxml.jackson.databind.ObjectMapper
+	at org.bukkit.plugin.java.PluginClassLoader.loadClass0(PluginClassLoader.java:151) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.plugin.java.PluginClassLoader.loadClass(PluginClassLoader.java:103) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:520) ~[?:?]
+	... 13 more
+[16:57:09] [Server thread/INFO]: [Factions] Disabling ImprovedFactions vBETA-5.0.1
+[16:57:09] [Server thread/INFO]: Starting GS4 status listener
+[16:57:09] [Server thread/INFO]: Thread Query Listener started
+[16:57:09] [Query Listener #1/INFO]: Query running on 0.0.0.0:25565
+[16:57:09] [Server thread/INFO]: Running delayed init tasks
+[16:57:09] [Craft Scheduler Thread - 3 - NoCheatPlus/INFO]: [NoCheatPlus] Added hook: AllViolations(NCP) [1.0].
+[16:57:09] [Server thread/INFO]: [NoCheatPlus] Post-enable running...
+[16:57:09] [Craft Scheduler Thread - 3 - NoCheatPlus/INFO]: [NoCheatPlus] Added hook: ViolationFrequency(NCP) [1.0].
+[16:57:09] [Server thread/INFO]: [NoCheatPlus] Post-enable finished.
+[16:57:09] [Server thread/INFO]: Done (23.034s)! For help, type "help"
+[16:57:09] [Server thread/INFO]: Timings Reset
+[16:57:30] [User Authenticator #1/INFO]: UUID of player Mr_Volts is 686af23a-f502-41e7-bbfd-69aab51d63f1
+[16:57:32] [Server thread/INFO]: Mr_Volts joined the game
+[16:57:32] [Server thread/INFO]: Mr_Volts[/192.168.1.66:60070] logged in with entity id 35 at ([world]-1027.300000011921, 67.0, 331.07499998807907)
+[16:57:42] [Server thread/ERROR]: Exception when Mr_Volts attempted to tab complete faction 
+org.bukkit.command.CommandException: Unhandled exception during tab completion for command '/faction ' in plugin ImprovedFactions vBETA-5.0.1
+	at org.bukkit.command.PluginCommand.tabComplete(PluginCommand.java:150) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.command.Command.tabComplete(Command.java:93) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.command.SimpleCommandMap.tabComplete(SimpleCommandMap.java:244) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.craftbukkit.v1_18_R1.CraftServer.tabCompleteCommand(CraftServer.java:2201) ~[paper-1.18.1.jar:git-Paper-167]
+	at org.bukkit.craftbukkit.v1_18_R1.CraftServer.tabComplete(CraftServer.java:2173) ~[paper-1.18.1.jar:git-Paper-167]
+	at org.bukkit.craftbukkit.v1_18_R1.command.BukkitCommandWrapper.getSuggestions(BukkitCommandWrapper.java:58) ~[paper-1.18.1.jar:git-Paper-167]
+	at com.mojang.brigadier.tree.ArgumentCommandNode.listSuggestions(ArgumentCommandNode.java:71) ~[brigadier-1.0.18.jar:git-Paper-167]
+	at com.mojang.brigadier.CommandDispatcher.getCompletionSuggestions(CommandDispatcher.java:600) ~[paper-1.18.1.jar:?]
+	at com.mojang.brigadier.CommandDispatcher.getCompletionSuggestions(CommandDispatcher.java:580) ~[paper-1.18.1.jar:?]
+	at net.minecraft.server.network.ServerGamePacketListenerImpl.lambda$handleCustomCommandSuggestions$5(ServerGamePacketListenerImpl.java:838) ~[?:?]
+	at net.minecraft.server.TickTask.run(TickTask.java:18) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:149) ~[?:?]
+	at net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23) ~[?:?]
+	at net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:1413) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.server.MinecraftServer.c(MinecraftServer.java:189) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:122) ~[?:?]
+	at net.minecraft.server.MinecraftServer.pollTaskInternal(MinecraftServer.java:1391) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.server.MinecraftServer.pollTask(MinecraftServer.java:1384) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.util.thread.BlockableEventLoop.managedBlock(BlockableEventLoop.java:132) ~[?:?]
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1462) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1264) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:317) ~[paper-1.18.1.jar:git-Paper-167]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+Caused by: java.lang.IllegalStateException: zip file closed
+	at java.util.zip.ZipFile.ensureOpen(ZipFile.java:831) ~[?:?]
+	at java.util.zip.ZipFile.getEntry(ZipFile.java:330) ~[?:?]
+	at java.util.jar.JarFile.getEntry(JarFile.java:518) ~[?:?]
+	at java.util.jar.JarFile.getJarEntry(JarFile.java:473) ~[?:?]
+	at org.bukkit.plugin.java.PluginClassLoader.findClass(PluginClassLoader.java:163) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:587) ~[?:?]
+	at org.bukkit.plugin.java.PluginClassLoader.loadClass0(PluginClassLoader.java:108) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.plugin.java.PluginClassLoader.loadClass(PluginClassLoader.java:103) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:520) ~[?:?]
+	at io.github.toberocat.improvedfactions.commands.subCommands.SubCommandSettings.areConditionsTrue(SubCommandSettings.java:103) ~[ImprovedFactions-BETAv5.0.1.jar:?]
+	at io.github.toberocat.improvedfactions.commands.subCommands.SubCommand.CommandDisplayCondition(SubCommand.java:201) ~[ImprovedFactions-BETAv5.0.1.jar:?]
+	at io.github.toberocat.improvedfactions.commands.subCommands.SubCommand.CallSubCommandsTab(SubCommand.java:66) ~[ImprovedFactions-BETAv5.0.1.jar:?]
+	at io.github.toberocat.improvedfactions.tab.FactionCommandTab.onTabComplete(FactionCommandTab.java:27) ~[ImprovedFactions-BETAv5.0.1.jar:?]
+	at org.bukkit.command.PluginCommand.tabComplete(PluginCommand.java:138) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	... 22 more
+[16:57:43] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 5050ms or 101 ticks behind
+[16:57:44] [Server thread/INFO]: Mr_Volts issued server command: /faction
+[16:57:44] [Server thread/ERROR]: null
+org.bukkit.command.CommandException: Cannot execute command 'faction' in plugin ImprovedFactions vBETA-5.0.1 - plugin is disabled.
+	at org.bukkit.command.PluginCommand.execute(PluginCommand.java:37) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.command.SimpleCommandMap.dispatch(SimpleCommandMap.java:159) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.craftbukkit.v1_18_R1.CraftServer.dispatchCommand(CraftServer.java:897) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.server.network.ServerGamePacketListenerImpl.handleCommand(ServerGamePacketListenerImpl.java:2287) ~[?:?]
+	at net.minecraft.server.network.ServerGamePacketListenerImpl.handleChat(ServerGamePacketListenerImpl.java:2098) ~[?:?]
+	at net.minecraft.server.network.ServerGamePacketListenerImpl.handleChat(ServerGamePacketListenerImpl.java:2079) ~[?:?]
+	at net.minecraft.network.protocol.game.ServerboundChatPacket.handle(ServerboundChatPacket.java:46) ~[?:?]
+	at net.minecraft.network.protocol.game.ServerboundChatPacket.a(ServerboundChatPacket.java:6) ~[?:?]
+	at net.minecraft.network.protocol.PacketUtils.lambda$ensureRunningOnSameThread$1(PacketUtils.java:56) ~[?:?]
+	at net.minecraft.server.TickTask.run(TickTask.java:18) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:149) ~[?:?]
+	at net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23) ~[?:?]
+	at net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:1413) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.server.MinecraftServer.c(MinecraftServer.java:189) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:122) ~[?:?]
+	at net.minecraft.server.MinecraftServer.pollTaskInternal(MinecraftServer.java:1391) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.server.MinecraftServer.pollTask(MinecraftServer.java:1384) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.util.thread.BlockableEventLoop.managedBlock(BlockableEventLoop.java:132) ~[?:?]
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1462) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1264) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:317) ~[paper-1.18.1.jar:git-Paper-167]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+[16:57:48] [Server thread/ERROR]: Exception when Mr_Volts attempted to tab complete faction 
+org.bukkit.command.CommandException: Unhandled exception during tab completion for command '/faction ' in plugin ImprovedFactions vBETA-5.0.1
+	at org.bukkit.command.PluginCommand.tabComplete(PluginCommand.java:150) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.command.Command.tabComplete(Command.java:93) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.command.SimpleCommandMap.tabComplete(SimpleCommandMap.java:244) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.craftbukkit.v1_18_R1.CraftServer.tabCompleteCommand(CraftServer.java:2201) ~[paper-1.18.1.jar:git-Paper-167]
+	at org.bukkit.craftbukkit.v1_18_R1.CraftServer.tabComplete(CraftServer.java:2173) ~[paper-1.18.1.jar:git-Paper-167]
+	at org.bukkit.craftbukkit.v1_18_R1.command.BukkitCommandWrapper.getSuggestions(BukkitCommandWrapper.java:58) ~[paper-1.18.1.jar:git-Paper-167]
+	at com.mojang.brigadier.tree.ArgumentCommandNode.listSuggestions(ArgumentCommandNode.java:71) ~[brigadier-1.0.18.jar:git-Paper-167]
+	at com.mojang.brigadier.CommandDispatcher.getCompletionSuggestions(CommandDispatcher.java:600) ~[paper-1.18.1.jar:?]
+	at com.mojang.brigadier.CommandDispatcher.getCompletionSuggestions(CommandDispatcher.java:580) ~[paper-1.18.1.jar:?]
+	at net.minecraft.server.network.ServerGamePacketListenerImpl.lambda$handleCustomCommandSuggestions$5(ServerGamePacketListenerImpl.java:838) ~[?:?]
+	at net.minecraft.server.TickTask.run(TickTask.java:18) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:149) ~[?:?]
+	at net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23) ~[?:?]
+	at net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:1413) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.server.MinecraftServer.c(MinecraftServer.java:189) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:122) ~[?:?]
+	at net.minecraft.server.MinecraftServer.pollTaskInternal(MinecraftServer.java:1391) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.server.MinecraftServer.pollTask(MinecraftServer.java:1384) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.util.thread.BlockableEventLoop.managedBlock(BlockableEventLoop.java:132) ~[?:?]
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1462) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1264) ~[paper-1.18.1.jar:git-Paper-167]
+	at net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:317) ~[paper-1.18.1.jar:git-Paper-167]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+Caused by: java.lang.IllegalStateException: zip file closed
+	at java.util.zip.ZipFile.ensureOpen(ZipFile.java:831) ~[?:?]
+	at java.util.zip.ZipFile.getEntry(ZipFile.java:330) ~[?:?]
+	at java.util.jar.JarFile.getEntry(JarFile.java:518) ~[?:?]
+	at java.util.jar.JarFile.getJarEntry(JarFile.java:473) ~[?:?]
+	at org.bukkit.plugin.java.PluginClassLoader.findClass(PluginClassLoader.java:163) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:587) ~[?:?]
+	at org.bukkit.plugin.java.PluginClassLoader.loadClass0(PluginClassLoader.java:108) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.plugin.java.PluginClassLoader.loadClass(PluginClassLoader.java:103) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:520) ~[?:?]
+	at io.github.toberocat.improvedfactions.commands.subCommands.SubCommandSettings.areConditionsTrue(SubCommandSettings.java:103) ~[ImprovedFactions-BETAv5.0.1.jar:?]
+	at io.github.toberocat.improvedfactions.commands.subCommands.SubCommand.CommandDisplayCondition(SubCommand.java:201) ~[ImprovedFactions-BETAv5.0.1.jar:?]
+	at io.github.toberocat.improvedfactions.commands.subCommands.SubCommand.CallSubCommandsTab(SubCommand.java:66) ~[ImprovedFactions-BETAv5.0.1.jar:?]
+	at io.github.toberocat.improvedfactions.tab.FactionCommandTab.onTabComplete(FactionCommandTab.java:27) ~[ImprovedFactions-BETAv5.0.1.jar:?]
+	at org.bukkit.command.PluginCommand.tabComplete(PluginCommand.java:138) ~[paper-api-1.18.1-R0.1-SNAPSHOT.jar:?]
+	... 22 more
+
+
+mrvolts: 
+so I don't think this one is user error
+mrvolts: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/928404163384188999/935217312867434546/unknown.png?ex=664835be&is=6646e43e&hm=b19c311bcce7bb44cd8ad3b8cc05b2b57107d1cc08773eac974fd2f5b23a10bd&
+
+tobero: 
+Alright. I wl check. Thanks for the report
+mrvolts: 
+no extensions
+mrvolts: 
+haha sorry it took me a while to get there
+tobero: 
+But now it's not the language making problems. Now it is the error that got reported 10 hours ago. Sorry that I couldn't fix it yet. But I'm currently riding the train home
+mrvolts: 
+no worries
+mrvolts: 
+ok so the laungage can be sorted as you said earlier
+mrvolts: 
+then when this is fixed we can make progress
+mrvolts: 
+enjoy the train ride 😄
+tobero: 
+If you want to use the plugin, go to spigot and version history and download not the latest (2,8mb file size)
+mrvolts: 
+I'll give it a try
+mrvolts: 
+this one?
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/928404163384188999/935218257575702618/unknown.png?ex=664836a0&is=6646e520&hm=a0386121375dc11f258d90baa7c4a75afb48a2d932bc69e62399e1ad9eebfd45&
+
+mrvolts: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/928404163384188999/935218305042640916/unknown.png?ex=664836ab&is=6646e52b&hm=0e5cab03db554800eac02b8d0439215b2379540db6db0ee3b57a6bab448818f3&
+
+mrvolts: 
+they are all 5.5mb
+tobero: 
+I would use the Thursday version
+tobero: 
+92 downloads
+mrvolts: 
+perfect 🙏
+mrvolts: 
+only problem now is no extension folder was created
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/928404163384188999/935220273035239524/unknown.png?ex=66483880&is=6646e700&hm=2da434bc65277ea93ecc34edb8984028222c4a9b7e3d1cfef2a7686eb9960ce0&
+
+mrvolts: 
+would I make one myself?
+mrvolts: 
+How would I invite someone or join a faction?
+mrvolts: 
+what is stopping me from claiming all the land? Thanks
+tobero: 
+Use /f extension download extension
+tobero: 
+/f join public faction
+tobero: 
+/f invite Player (Currently a bug for mobile which will be fixed)
+tobero: 
+The power system. I fixed it in the not working 2.8 mb version. Just make your power negative for testing. Fix will be out when home (only 15 minutes left)
+mrvolts: 
+It always says permission denied unless you are op sadly
+tobero: 
+Hm. Have you tried using a permissions manager? Something like luckperms or PermissionsEx
+tobero: 
+You can do that too
+mrvolts: 
+Nah, I like to have little bulk
+tobero: 
+Think it will work too. As long as you can change the permissions (I will add the default none op permission in the next build)
+mrvolts: 
+Yeah I created one with. mkdir extensions but it couldn't find the folder sadly
+mrvolts: 
+Thanks man 🙏
+tobero: 
+Than have you tried to use `/f extension download ChatMessageExtension`?
+tobero: 
+That will create the folder and the extension
+mrvolts: 
+Perfect this plugin will be awesome with dynamp
+mrvolts: 
+Can't wait
+mrvolts: 
+Thanks for being very helpful with my errors today
+tobero: 
+No problem. You're welcome
+tobero: 
+What is the message you are getting? No power left?
+mrvolts: 
+nah it was just a general question
+mrvolts: 
+but from your answer it looks like there is a cost
+tobero: 
+Oh. Normally
+1. No Power
+2. Cannot claim in word
+3. Not connected to other claims (Connected chunks setting needs to be enabled)
+4. Property by another faction
+5. Your own property
+mrvolts: 
+ah thanks, that's informative, and you can't destroy other peoples land if they don't have 0 power?
+tobero: 
+Yes. Your chunks are protected as long as you don't have less power than claimed chunks. You lose power when a player dyed. Regenaration, power lose rate and max power can be set in the config.yml
+mrvolts: 
+dam I love this plugin, it caters towards pvp and pve
+tobero: 
+Alright, updated the plugin, so it should work with the newest changes
+jokbon: 
+ok
+mrvolts: 
+nice, I'll test it in a bit as it looks all good at the moment
+beaked: 
+question, while trying to set up the plugin (everything is installed) the commands themselves do not appear in game
+tobero: 
+What do you mean? When you type /f <command> there is no tab-complete?
+beaked: 
+nope
+beaked: 
+if i do /f nothing shows up
+tobero: 
+Are you entering /f or trying to do /f <command>? Many people thing it's not working because /f doesn't say anything
+beaked: 
+ive tried both, by /f <command> do you just mean put brackets then the command in the brackets or something else?
+tobero: 
+Something else - Normally from tab complete
+tobero: 
+Do you have op / a custom per plugin? Are you getting error logs in console?
+beaked: 
+nevermind, my buddy accidentally put protlib in the wrong folder
+beaked: 
+thank you for the help!
+tobero: 
+Alright. No probelm. Glad I could help
+jokbon: 
+XD some of questions need to be ansvered automaticaly xD
+jokbon: 
+i will check da bot after i come back from vacination
+tobero: 
+Alright. No need to stress
+yskosiris: 
+xd hello xd
+tobero: 
+What's up?
+racoon.ancestor.schnitzel: 
+hello ei printet hello wörld in peitn
+tobero: 
+Okey, bro. Now learn java and help me fix some bugs
+_jind: 
+I have two issues, when players unclaim land it takes 2 land off instead of 1 for claims. This may be linked with my second issue that it says NoLocalizationFound a lot of times before even running the command, if you could also tell me how to disable that command feature alltogether it would be helpful.
+YAGPDB.xyz: 
+
+tobero: 
+Okay, will provide a version where the issues will be resolved
+
+To disable the command thing, use /f user
+_jind: 
+When I get invited to a faction and click it, it says 'This command needs more arguments' and when I try to do it manually with /f join <name>, the faction name doesnt show up, these might be because its a special character as the faction name. Should this be a bug to be fixed or is there a way to disable special characters at all?
+josh65: 
+what plugin version are you on?
+_jind: 
+1.5
+tobero: 
+The faction is probably set to invite only / closed
+_jind: 
+Its on public
+tobero: 
+What's the faction registry?
+_jind: 
+Where do I find it
+tobero: 
+Usually it is the name of the faction file
+_jind: 
+ImprovedFactionsV1.5.jar
+josh65: 
+its in the plugin config folder > data > factions. its not the plugin name unless you named the faction that
+_jind: 
+it looks like the faction isnt there, but somehow he still is in it as owner
+josh65: 
+restart the server an it will probably show
+_jind: 
+ok he deleted it and made a new one and its fixed now, he mustve made one without a name somehow
+tobero: 
+Oh, so the faction name contained only none alphabet characters?
+_jind: 
+The symbol that it was named was omega symbol
+_jind: 
+Just Ω
+tobero: 
+Oh, that's the issue
+tobero: 
+Looks like the faction named themself into something inpossible
+tobero: 
+To fix it, the owner has to rename the file to like ohm.json and edit the registry property to match the name (only ohm, no.json)
+_jind: 
+There was no registery file for the faction though, but is there a way to block all bad characters like a character whitelist?
+josh65: 
+not in 1.5 future versions will. but basically A to Z and 0 to 9 works
+_jind: 
+I have another issue while im here
+tobero: 
+Okay
+_jind: 
+the player typed /f settings and a big exception showed up in chat and lags him
+_jind: 
+I have the exception copied to clipboard if you need it
+tobero: 
+Yeah, would be nice
+_jind: 
+
+Attachments:
+[message.txt]
+[16:30:10 WARN]: [ImprovedFactions] Task #74127 for ImprovedFactions v1.5 generated an exception
+java.lang.NoSuchMethodError: 'net.minecraft.world.entity.player.PlayerInventory net.minecraft.server.level.EntityPlayer.fB()'
+	at net.wesjd.anvilgui.version.Wrapper1_19_R1$AnvilContainer.<init>(Wrapper1_19_R1.java:88) ~[ImprovedFactionsV1.5.jar:?]
+	at net.wesjd.anvilgui.version.Wrapper1_19_R1.newContainerAnvil(Wrapper1_19_R1.java:82) ~[ImprovedFactionsV1.5.jar:?]
+	at net.wesjd.anvilgui.AnvilGUI.openInventory(AnvilGUI.java:177) ~[ImprovedFactionsV1.5.jar:?]
+	at net.wesjd.anvilgui.AnvilGUI.<init>(AnvilGUI.java:165) ~[ImprovedFactionsV1.5.jar:?]
+	at net.wesjd.anvilgui.AnvilGUI.<init>(AnvilGUI.java:30) ~[ImprovedFactionsV1.5.jar:?]
+	at net.wesjd.anvilgui.AnvilGUI$Builder.open(AnvilGUI.java:491) ~[ImprovedFactionsV1.5.jar:?]
+	at io.github.toberocat.core.utility.settings.SettingActions.renameFaction(SettingActions.java:43) ~[ImprovedFactionsV1.5.jar:?]
+	at io.github.toberocat.core.utility.settings.type.CallbackSettings.execute(CallbackSettings.java:23) ~[ImprovedFactionsV1.5.jar:?]
+	at io.github.toberocat.core.utility.settings.type.Setting$3.lambda$OnClick$0(Setting.java:173) ~[ImprovedFactionsV1.5.jar:?]
+	at org.bukkit.craftbukkit.v1_19_R1.scheduler.CraftTask.run(CraftTask.java:101) ~[paper-1.19.2.jar:git-Paper-219]
+	at org.bukkit.craftbukkit.v1_19_R1.scheduler.CraftScheduler.mainThreadHeartbeat(CraftScheduler.java:483) ~[paper-1.19.2.jar:git-Paper-219]
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:1473) ~[paper-1.19.2.jar:git-Paper-219]
+	at net.minecraft.server.dedicated.DedicatedServer.tickChildren(DedicatedServer.java:446) ~[paper-1.19.2.jar:git-Paper-219]
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1397) ~[paper-1.19.2.jar:git-Paper-219]
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1173) ~[paper-1.19.2.jar:git-Paper-219]
+	at net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:305) ~[paper-1.19.2.jar:git-Paper-219]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+
+tobero: 
+Ist the server using the file I provided in this forum post: https://discord.com/channels/819932760550014986/1023861830495506482
+_jind: 
+I cant upload anything I am using aternos
+_jind: 
+but if its published to the spigot site I think I can
+tobero: 
+Okay, then I'll update it, as nobody using it had issues
+tobero: 
+Update got posted to spigot
+_jind: 
+ok Ill update it
+_jind: 
+It is missing required plugin dynmap but aternos doesnt list dynmap
+tobero: 
+dynmap is only for the dynmap extension, so when you remove the extension (Because aternos doesn't support it), you'll be fine
+_jind: 
+I cant delete the extension though because the plugin shut down when it didnt have dynmap
+tobero: 
+yeah, you have to do it manually from the folder. It's located in plugins/ImprovedFactions/Extensions
+_jind: 
+I cant find it sorry
+_jind: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/928404163384188999/1032032574240980992/unknown.png?ex=66486b7b&is=664719fb&hm=a29577f37a758820251ec92b5278d1e900aaa3fcd79e50721d9342fda8dab115&
+
+tobero: 
+huh?
+tobero: 
+lemme check something real quick
+tobero: 
+okay, will upload the fixed file again
+_jind: 
+ok im sorry about this I dont know how plugins work as much as servers
+tobero: 
+no problem, file is uploading
+tobero: 
+okay, it's on spigot
+_jind: 
+Its not showing up on aternos for some reason
+_jind: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/928404163384188999/1032036323097325589/unknown.png?ex=66486ef9&is=66471d79&hm=7d1df429160fe87d24e7a1d737b44b326ee97d14136bf0943fcfb46efed28abf&
+
+tobero: 
+Maybe try to refresh, should be listed as 1.6.1
+tobero: 
+I mean like closing your browser tab with aternos and reopen ot
+tobero: 
+It
+_jind: 
+Ok its installed now, placeholders do not work and it does internal error everytime I use a command now, I have a lot of personalization in my folder though so I dont know what to do to keep it
+josh65: 
+what's the error from the console?
+_jind: 
+its spamming this so much
+_jind: 
+[20:19:25 ERROR]: §7[§e§lImprovedFactions§7] §czip file closed
+[20:19:25 INFO]: §7[§e§lImprovedFactions§7] Please wait while the crash gets reported to the developer. Don't restart or shutdown the server
+[20:19:25 WARN]: java.lang.IllegalStateException: zip file closed
+[20:19:25 WARN]:     at java.base/java.util.zip.ZipFile.ensureOpen(ZipFile.java:831)
+[20:19:25 WARN]:     at java.base/java.util.zip.ZipFile.getEntry(ZipFile.java:330)
+[20:19:25 WARN]:     at java.base/java.util.jar.JarFile.getEntry(JarFile.java:518)
+[20:19:25 WARN]:     at java.base/java.util.jar.JarFile.getJarEntry(JarFile.java:473)
+[20:19:25 WARN]:     at org.bukkit.plugin.java.PluginClassLoader.findClass(PluginClassLoader.java:189)
+[20:19:25 WARN]:     at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:587)
+[20:19:25 WARN]:     at org.bukkit.plugin.java.PluginClassLoader.loadClass0(PluginClassLoader.java:129)
+[20:19:25 WARN]:     at org.bukkit.plugin.java.PluginClassLoader.loadClass(PluginClassLoader.java:124)
+[20:19:25 WARN]:     at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:520)
+[20:19:25 WARN]:     at ImprovedFactionsV1.6.1.jar//io.github.toberocat.core.utility.gitreport.GitReport.<init>(GitReport.java:21)
+[20:19:25 WARN]:     at ImprovedFactionsV1.6.1.jar//io.github.toberocat.core.utility.gitreport.GitReport.reportIssue(GitReport.java:27)
+[20:19:25 WARN]:     at ImprovedFactionsV1.6.1.jar//io.github.toberocat.core.utility.Utility.lambda$except$0(Utility.java:203)
+[20:19:25 WARN]:     at ImprovedFactionsV1.6.1.jar//io.github.toberocat.core.utility.async.AsyncTask$3.run(AsyncTask.java:181)
+[20:19:25 WARN]:     at ImprovedFactionsV1.6.1.jar//io.github.toberocat.core.utility.async.AsyncTask.lambda$runThread$6(AsyncTask.java:276)
+[20:19:25 WARN]:     at java.base/java.lang.Thread.run(Thread.java:833)
+josh65: 
+it will properly be an issue with the extensions you can delete them. restart the server and redownloaded if you want them and see if that fixes it
+_jind: 
+sure
+_jind: 
+it works
+_jind: 
+The plugin keeps giving me an error whenever I add extensions and change lang, but  when I delete the entire folder it works.
+_jind: 
+
+Attachments:
+[message.txt]
+[15:55:26] [Server thread/INFO]: [ImprovedFactions] Enabling ImprovedFactions v1.5.1
+[15:55:27] [Server thread/ERROR]: Error occurred while enabling ImprovedFactions v1.5.1 (Is it up to date?)
+java.lang.NoClassDefFoundError: io/github/toberocat/core/factions/FactionModule
+	at java.lang.ClassLoader.defineClass1(Native Method) ~[?:?]
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:1012) ~[?:?]
+	at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:150) ~[?:?]
+	at java.net.URLClassLoader.defineClass(URLClassLoader.java:524) ~[?:?]
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:427) ~[?:?]
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:421) ~[?:?]
+	at java.security.AccessController.doPrivileged(AccessController.java:712) ~[?:?]
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:420) ~[?:?]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:587) ~[?:?]
+	at java.net.FactoryURLClassLoader.loadClass(URLClassLoader.java:872) ~[?:?]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:520) ~[?:?]
+	at io.github.toberocat.improvedfactions.HomeExtension.onEnable(HomeExtension.java:38) ~[?:?]
+	at io.github.toberocat.core.extensions.Extension.enable(Extension.java:53) ~[ImprovedFactionsV1.6.1.jar:?]
+	at io.github.toberocat.MainIF.enableExtension(MainIF.java:344) ~[ImprovedFactionsV1.6.1.jar:?]
+	at io.github.toberocat.MainIF.loadExtensions(MainIF.java:326) ~[ImprovedFactionsV1.6.1.jar:?]
+	at io.github.toberocat.MainIF.initializeCores(MainIF.java:610) ~[ImprovedFactionsV1.6.1.jar:?]
+	at io.github.toberocat.MainIF.lambda$onEnable$2(MainIF.java:183) ~[ImprovedFactionsV1.6.1.jar:?]
+	at io.github.toberocat.core.utility.callbacks.ExceptionCallback.run(ExceptionCallback.java:8) ~[ImprovedFactionsV1.6.1.jar:?]
+	at io.github.toberocat.core.utility.Utility.run(Utility.java:193) ~[ImprovedFactionsV1.6.1.jar:?]
+	at io.github.toberocat.MainIF.onEnable(MainIF.java:174) ~[ImprovedFactionsV1.6.1.jar:?]
+	at org.bukkit.plugin.java.JavaPlugin.setEnabled(JavaPlugin.java:264) ~[paper-api-1.19.2-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.plugin.java.JavaPluginLoader.enablePlugin(JavaPluginLoader.java:370) ~[paper-api-1.19.2-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.plugin.SimplePluginManager.enablePlugin(SimplePluginManager.java:542) ~[paper-api-1.19.2-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.craftbukkit.v1_19_R1.CraftServer.enablePlugin(CraftServer.java:565) ~[paper-1.19.2.jar:git-Paper-220]
+	at org.bukkit.craftbukkit.v1_19_R1.CraftServer.enablePlugins(CraftServer.java:479) ~[paper-1.19.2.jar:git-Paper-220]
+	at org.bukkit.craftbukkit.v1_19_R1.CraftServer.reload(CraftServer.java:1025) ~[paper-1.19.2.jar:git-Paper-220]
+	at org.bukkit.Bukkit.reload(Bukkit.java:930) ~[paper-api-1.19.2-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.command.defaults.ReloadCommand.execute(ReloadCommand.java:54) ~[paper-api-1.19.2-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.command.SimpleCommandMap.dispatch(SimpleCommandMap.java:155) ~[paper-api-1.19.2-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.craftbukkit.v1_19_R1.CraftServer.dispatchCommand(CraftServer.java:916) ~[paper-1.19.2.jar:git-Paper-220]
+	at org.bukkit.Bukkit.dispatchCommand(Bukkit.java:980) ~[paper-api-1.19.2-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.command.FormattedCommandAlias.execute(FormattedCommandAlias.java:37) ~[paper-api-1.19.2-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.command.SimpleCommandMap.dispatch(SimpleCommandMap.java:155) ~[paper-api-1.19.2-R0.1-SNAPSHOT.jar:?]
+	at org.bukkit.craftbukkit.v1_19_R1.CraftServer.dispatchCommand(CraftServer.java:916) ~[paper-1.19.2.jar:git-Paper-220]
+	at org.bukkit.craftbukkit.v1_19_R1.command.BukkitCommandWrapper.run(BukkitCommandWrapper.java:64) ~[paper-1.19.2.jar:git-Paper-220]
+	at com.mojang.brigadier.CommandDispatcher.execute(CommandDispatcher.java:264) ~[paper-1.19.2.jar:?]
+	at net.minecraft.commands.Commands.performCommand(Commands.java:305) ~[?:?]
+	at net.minecraft.commands.Commands.performCommand(Commands.java:289) ~[?:?]
+	at net.minecraft.server.network.ServerGamePacketListenerImpl.performChatCommand(ServerGamePacketListenerImpl.java:2294) ~[?:?]
+	at net.minecraft.server.network.ServerGamePacketListenerImpl.lambda$handleChatCommand$20(ServerGamePacketListenerImpl.java:2248) ~[?:?]
+	at net.minecraft.util.thread.BlockableEventLoop.lambda$submitAsync$0(BlockableEventLoop.java:59) ~[?:?]
+	at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768) ~[?:?]
+	at net.minecraft.server.TickTask.run(TickTask.java:18) ~[paper-1.19.2.jar:git-Paper-220]
+	at net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:153) ~[?:?]
+	at net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:24) ~[?:?]
+	at net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:1341) ~[paper-1.19.2.jar:git-Paper-220]
+	at net.minecraft.server.MinecraftServer.d(MinecraftServer.java:185) ~[paper-1.19.2.jar:git-Paper-220]
+	at net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:126) ~[?:?]
+	at net.minecraft.server.MinecraftServer.pollTaskInternal(MinecraftServer.java:1318) ~[paper-1.19.2.jar:git-Paper-220]
+	at net.minecraft.server.MinecraftServer.pollTask(MinecraftServer.java:1311) ~[paper-1.19.2.jar:git-Paper-220]
+	at net.minecraft.util.thread.BlockableEventLoop.runAllTasks(BlockableEventLoop.java:114) ~[?:?]
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1445) ~[paper-1.19.2.jar:git-Paper-220]
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1173) ~[paper-1.19.2.jar:git-Paper-220]
+	at net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:305) ~[paper-1.19.2.jar:git-Paper-220]
+	at java.lang.Thread.run(Thread.java:833) ~[?:?]
+Caused by: java.lang.ClassNotFoundException: io.github.toberocat.core.factions.FactionModule
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:445) ~[?:?]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:587) ~[?:?]
+	at java.net.FactoryURLClassLoader.loadClass(URLClassLoader.java:872) ~[?:?]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:520) ~[?:?]
+	... 55 more
+[15:55:27] [Server thread/INFO]: [ImprovedFactions] Disabling ImprovedFactions v1.5.1
+
+_jind: 
+This says 1.5.1 even though im on 1.6.1 as well
+_jind: 
+and at the bottom of a lot of files in the folder
+josh65: 
+what extensions do you have enabled?
+_jind: 
+ChunkParticleExtension.jar HomeExtension.jar MassClaimExtension.jar
+josh65: 
+might be the chunk partials one have you tryed deleting and restarting the server
+_jind: 
+yeah I tried deleting the whole folder and restarted and it worked but when I added them back its broken again
+josh65: 
+just delete the chunk particle extension restart the server and see if the error comes back
+_jind: 
+Ok it still is broken
+_jind: 
+was not chunk particles I guess
+josh65: 
+try the home one
+_jind: 
+it worked
+_jind: 
+thanks a lot, can I reinstall the chunk particles
+josh65: 
+you can try it but it may not work
+tobero: 
+If you want me to fix the home extension, I would need the error, else I can't do anything about it
+josh65: 
+this is the error.
+tobero: 
+Oh, sorry. Didn't see that on mobile
+peiceofgarbage: 
+Hi I just wanted to ask. Does this plugin work for 1.16.5?
+tobero: 
+It should. I've originally written it in this version, but it's been some time I last tested it in this version
+peiceofgarbage: 
+That's cool. I'm currently getting a modded server up using magma. I can't get the plugin working. Not sure if the mods/magma maybe causing problems?
+tobero: 
+Depends on the error you get. Can you send me your error? I might be able to help
+peiceofgarbage: 
+sure thing, it's a bit of a long one. Did you want me to send it herre or in a different chat?
+tobero: 
+The longer the more information I get about what's causing it. If it's a really big one, it would probably be the best to use https://pastebin.com/. Just paste in the error, select the syntax highlighting java and you should be good to go
+peiceofgarbage: 
+Sweet, not sure how to copy the text here from the site but I'll paste the weblink 
+https://pastebin.com/tK87qha2
+tobero: 
+Okay, the problem you're encountering is, that the plugin has been compiled for java 16 and later and therefore requires java 16 or later to execute.
+Your server is using java 11, which is actually suprising me, because minecraft 1.16.5 only runs with java 16 if I remember correctly.
+
+When you're able to fix the java version, the plugin should be able to start (Unless there's something else blocking it from doing so)
+peiceofgarbage: 
+Ah right awesome! I'll see if it works as the forge I'm using only likes certain versions of java, but I'll test out java 16 and see if it works. Thank you very much 😄
+tobero: 
+Alright. You're welcome
+peiceofgarbage: 
+I installed java 16 and got it working now, thank you so much!!
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/928404163384188999/1138179597465309224/image.png?ex=66484d1a&is=6646fb9a&hm=06c773b4903bdb26cb702d7e0e8ebb334c9f85c561c88ab7ce1917700c618a75&
+
+soulpheonixyt: 
+is there a way to give urself more power using commands
+soulpheonixyt: 
+?
+jokbon: 
+😂
+soulpheonixyt: 
+im tryna test the plugin
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/928404163384188999/1211402507750871173/image.png?ex=66486040&is=66470ec0&hm=efffecb2e6bc160d213571e4f9a3304902f8a6fdcbd9796bf3a7676ff98fec4a&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/928404163384188999/1211402573878136892/image.png?ex=66486050&is=66470ed0&hm=047f122acdba46d6b67b0ac7de2a3f6977564833605ee1fd6c62376f3c2bc832&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/928404163384188999/1211402615624310886/image.png?ex=6648605a&is=66470eda&hm=006ca86dc7bccf998ddd98b66f574a410cd4668a20997d1eaecce11852aba846&
+
+jokbon: 
+@Wetballsagg  ^
+soulpheonixyt: 
+k
+jokbon: 
+i dont think it got lmao
+soulpheonixyt: 
+ok

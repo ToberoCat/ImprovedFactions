@@ -1,0 +1,44 @@
+Channel: Overpower explanation
+Channel Type: GuildPublicThread
+Topic: None
+
+tobero: 
+
+.kyrenic: 
+If a faction has less power than they have claimed chunks, they are liable for overclaiming* by another faction. Having less power than claimed chunks can be achieved by the following:
+
+- Faction members die, which lessens their power.
+- Faction members leaves faction, which takes away their power from the faction entirely
+- The power settings in the config are changed.
+
+*: Overclaiming is the action of doing ``/f claim one`` while on an enemy factions chunk. The prerequisites are that the enemy faction is liable for overclaiming and that the claiming faction has enough power to claim at least one more chunk
+tobero: 
+Okey, the protection for the land should be given the first claim (Overpowered faction) or  second (claiming faction). Is it aslo possible toget the land back?
+.kyrenic: 
+Second, as they are taking the land from the first faction.
+
+They can get the land back by killing enough members of the other faction and overclaiming them in return
+tobero: 
+Alright. So I don't need to save the old faction, right? I'm just claiming the land "normal"
+.kyrenic: 
+Yep
+.kyrenic: 
+Hmm although a "history" of what faction owned the chunk would be an interesting feature, but quite useless and just fluff really
+tobero: 
+I can add this as an extension. I don't think It sould be added in the main plugin, because it needs much space (At least if you are playing on an old / active faciton server)
+.kyrenic: 
+The history thing? Yeah I would add it as an extension, but I think it has low priority compared to other features
+tobero: 
+I didn't thought it would be done in the next time
+.kyrenic: 
+But overclaiming should definitely be part of the base factions plugin
+tobero: 
+I would add a config boolean to enable and disable, if someone thinks, it's not needed for his / her faction server
+.kyrenic: 
+Yep, sounds reasonable was just about to suggest that
+tobero: 
+Alright, I'm going to sleep now. Bye
+.kyrenic: 
+Goodnight
+tobero: 
+Goodnight

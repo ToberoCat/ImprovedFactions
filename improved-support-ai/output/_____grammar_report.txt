@@ -1,0 +1,214 @@
+Channel: ╰―＞📁ㅐgrammar-report
+Channel Type: GuildTextChat
+Topic: You have found some gamma errors in the plugin messages? Please report them here
+
+henry_alden: 
+For english:
+"Wildness" (default/gaia /unclaimed faction) should read "Wilderness"
+platypuspotato: 
+my friends on a server i’m in really like this typo for some reason
+platypuspotato: 
+i asked if i should look for a way to change it and they said “no, wildness > wilderness”
+tobero: 
+It's no typo. I'm just "stupid" and didn't know how to write wilderness. But you can undo the change because you can set the title now your own
+tobero: 
+But I will remove It from the auto default config
+henry_alden: 
+English is weird
+henry_alden: 
+I promise my german is much worse than your English
+tobero: 
+That's probably because its much more difficult
+henry_alden: 
+When you "/f sethome" the output says 'suing' it should say 'using'
+henry_alden: 
+"/f info" description says "get a list of all your members + there ranks" --> Should read "+ their ranks"
+tobero: 
+Alright. Thanks for reporting
+jokbon: 
+/f info jokbon
+
+jokbon infos. Current power: 15 / 15
+shud be
+jokbon info. Current power: 15 / 15
+katiedeforest: 
+"Failed"
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/929964891543048192/941103621624447046/unknown.png?ex=664887cc&is=6647364c&hm=08b9c3c3492b7588c2e154320ca3d8bb646b43ababdb73d6af33fcecf0262b9a&
+
+katiedeforest: 
+You're missing an R in "grammar" for your discord channel as well. Gramma is short for grandma. So grammar would be the correct term here. 😊
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/929964891543048192/941104583244144650/unknown.png?ex=664888b1&is=66473731&hm=d4036bd58ca04577cf92f1954d7715ee863833dcc8efc0372bdcfe63ea52f586&
+
+tobero: 
+It looks like I'm useless... I can't even get the name for the grammar reports right 😅
+katiedeforest: 
+Haha, if you're not a native English speaker it's totally fair to make a few mistakes here and there. Nobody is gonna judge, we are all here to help 😊
+katiedeforest: 
+You help us, after all.
+tobero: 
+You are right. But I'm still kinda upset for having this error for like, one month and I didn't notice it
+katiedeforest: 
+We learn from our mistakes :shrug:
+katiedeforest: 
+I'm not a native English speaker either, but I'm bilingual. So languages has always been my strong suit. Especially because my partner is American.
+tobero: 
+I hate languages. I'm too stupid to speak German without making any mistakes in one sentence
+katiedeforest: 
+Ficken 😹
+katiedeforest: 
+Something like that
+tobero: 
+What do you mean...Ficken... we use Fuck too for this. Ficken means having a sexual intercourse with another person 😄
+katiedeforest: 
+Fuck 😹
+katiedeforest: 
+I don't speak German lol
+katiedeforest: 
+Only basic stuff
+katiedeforest: 
+Der fick
+katiedeforest: 
+😹
+katiedeforest: 
+Dieses scheissauto
+katiedeforest: 
+I can't make a double S symbol lol
+katiedeforest: 
+B
+tobero: 
+Yes. That would be right, if you talk about a specific time when you had sex with someone.
+katiedeforest: 
+Goddammit, I ain't talking about sex 😹
+tobero: 
+I think you write shit like this in german...
+katiedeforest: 
+Huh?
+tobero: 
+Ah.. I'm just stupid. You write it with ß
+katiedeforest: 
+Yeah, I know. I can't make it
+katiedeforest: 
+But thank you for the copy
+katiedeforest: 
+Omg I can't copy paste it either xD
+tobero: 
+Why?
+katiedeforest: 
+It converts it to a double s
+katiedeforest: 
+And just writes SS
+katiedeforest: 
+The struggles of a Nordic keyboard lol
+katiedeforest: 
+Æøå
+tobero: 
+Use this as replacement
+Attachments:
+[QdKKeUx5ogXwAAAABJRU5ErkJggg.png]
+https://cdn.discordapp.com/attachments/929964891543048192/941108605422301264/QdKKeUx5ogXwAAAABJRU5ErkJggg.png?ex=66488c70&is=66473af0&hm=022d69b4092b30adbcdc43f8ff67633750c7ebe30ac2a525b9fccf591cf6f4d4&
+
+katiedeforest: 
+That's a fat one
+tobero: 
+Just the image
+katiedeforest: 
+Is the "&" supposed to be there?
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/929964891543048192/941110113052274788/unknown.png?ex=66488dd7&is=66473c57&hm=148695cf6c02adbe690ab826b466cc22684e8352f957eeaf0ffd77989fb65e82&
+
+tobero: 
+No. I probably put there two instead of one
+jokbon: 
+XDDD but u not stupid to frickin write plugin and yes grama killed me, i wish u put some dumb version of factions with that gramar as language pack xD
+tobero: 
+I maybe I add them back as a lang file
+stevejwd: 
+This should be "Wilderness" 🙂
+Attachments:
+[factions_wilderness_typo.png]
+https://cdn.discordapp.com/attachments/929964891543048192/946805709587222538/factions_wilderness_typo.png?ex=66482e47&is=6646dcc7&hm=68d1074c450e819d1ccb65740878e0af1ba5ac18ec217c42137187f282f84759&
+
+tobero: 
+Yeah. That got already answerd here. It is something iconic for this plugin. But if you don't like it, just go to config.yml and set general.wildnessText to something else ('&2Wilderness' to get the corret message)
+stevejwd: 
+Oh okay, no problem. Thanks 🙂
+katiedeforest: 
+"Not give" Should be changed to "Don't give" 😊
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/929964891543048192/960547379478675456/unknown.png?ex=66481335&is=6646c1b5&hm=2d96918ea186397fbf18ae982b6aa954c3346513ba1c4783482056f2de3f8a66&
+
+katiedeforest: 
+Or "Do not give"
+tobero: 
+Ah, yes. A classic fail of the English demon inside me
+jokbon: 
+Iam plesed to are like that thx 
+(I fixed own mistakes with a bot lul)
+katiedeforest: 
+"I fixed my own" 😹
+jokbon: 
+yes need to put My Ego higher thx
+katiedeforest: 
+Hehe
+katiedeforest: 
+When using /f admin disband and mark a faction with members in it. 
+This "ember/member" typo, comes up.
+Just a minor detail I wanted to make you aware of 😊
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/929964891543048192/965281861213515886/unknown.png?ex=66482909&is=6646d789&hm=37cb1b960adfe1ec91db6608f9475c91b7ac1ec37742e6141d0f77de6c25a8e6&
+
+tobero: 
+Thank you
+katiedeforest: 
+No problem!
+katiedeforest: 
+And I'm assuming the "&" isn't supposed to be there either when setting safezone pos2.
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/929964891543048192/965282601126494228/unknown.png?ex=664829ba&is=6646d83a&hm=d45ff56831b71d5e966786c7dd1db9f44cd588077e04d5ad69a147ac69c7704e&
+
+tobero: 
+Yep. Looks like a "bug" too
+josh65: 
+is the "r" suppose to say sent
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/929964891543048192/972936886962237480/unknown.png?ex=664852d6&is=66470156&hm=9b09541e06fe2b2f5c9bce254ebe26cd7c9bcbed2e4aaa59234e0d029c5828c6&
+
+tobero: 
+Nope. It's probably missing a color code character. Will try to avoid it in the upcoming versions
+josh65: 
+proberly should add sent before it the r too as "you have player an invite" doesnt make sense
+tobero: 
+Yes. That'd makes sense
+jokbon: 
+feautres https://www.spigotmc.org/resources/improved-factions.95617/
+tobero: 
+where?
+jokbon: 
+ctrl + f
+jokbon: 
+and write feautres
+tobero: 
+yep, found it already
+tobero: 
+skipped it by mistake
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/929964891543048192/1174718728391376957/image.png?ex=66481352&is=6646c1d2&hm=c6dc0ed70f68398d70a5693dd9067d783322cf71957165c6ec419a400eeab2d5&
+
+tobero: 
+In what way is this a Grammer issue? Can't spot the error
+jokbon: 
+Passive
+tobero: 
+oh

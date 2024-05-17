@@ -1,0 +1,29 @@
+Channel: ╰＞📃ㅐinfo
+Channel Type: GuildTextChat
+Topic: None
+
+tobero: 
+```Beta versions will no longer be supported```
+I'm planning on removing beta version extension registry, as well as the working update checker.
+With these files removed, the beta won't load anymore.
+
+**Important for Server owners:**
+If you are still using an beta version, this is the perfect moment to upgrade to v1, as this version is more performant, has more features, better guis, etc.
+The old data will get loaded and reused, so there shouldn't get anything lost.
+
+You have time until `1st August` to upgrade, else the plugin won't load anymore.
+
+**Important for users:**
+With this change, all servers using an beta version are forced to  upgrade. All servers where their admins/moderators/owners/players aren't active anymore, are likely to **not** get an update, meaning that you can't play on them anymore on 1st August
+
+To make sure your server isn't affected by this change use /f version and check there isn't a beta in the output.
+If it tells you there isn't such a command, you're already on v1 or later
+Carl-bot: 
+Select the role you want to receive
+jokbon: 
+:icon: Main: ⊙ [Website](https://toberocat.github.io/) ⊙[Donations](https://www.paypal.com/donate/?hosted_button_id=BGB6QWR886Q6Y) 
+🔅 Factions: ⊙[Spigot](https://www.spigotmc.org/resources/improved-factions.95617/) ⊙[Modrinth](https://modrinth.com/plugin/improved-factions)  ⊙[Website](https://toberocat.github.io/improved-factions/index.html)  ⊙[GUI](https://toberocat.github.io/ImprovedFactions_new/website/editor/)  ⊙[IF Github](https://github.com/ToberoCat/ImprovedFactions_new)  ⊙[IF Expansions Github](https://github.com/ToberoCat/ImprovedFaction) 
+🔅 Aliases: ⊙[Spigot](https://www.spigotmc.org/resources/custom-command-aliases.105037/)  ⊙[Github](https://github.com/ToberoCat/CustomCommandAliases) 
+🔅 Vault-bank: ⊙[Spigot](https://www.spigotmc.org/resources/vaultbanker.99343/)  ⊙~~Github~~
+🔅 Gui-engine: ⊙[Spigot](https://www.spigotmc.org/resources/guiengine-%E2%9C%A8-craft-unlimited-guis-effortlessly-%E2%9C%A8-1-16-1-20-1-api.109983/)  ⊙[Github](https://github.com/ToberoCat/GuiEngine/issues ) ⊙[Wiki](https://github.com/ToberoCat/GuiEngine/wiki)
+⚠️ Bug reports in github

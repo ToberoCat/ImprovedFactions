@@ -1,0 +1,17 @@
+Channel: WERY how to update Improved factions guide
+Channel Type: GuildPublicThread
+Topic: None
+
+jokbon: 
+Guide to updating factions
+Attachments:
+[Update.jpg]
+https://cdn.discordapp.com/attachments/1174396828184236132/1174396828461043793/Update.jpg?ex=66483907&is=6646e787&hm=a3821887ee81c8312bf61a32323ca62260dfa4ebe24fbdff52277c44e0f68a25&
+
+jokbon: 
+Delete langauge files before updating! Or update them manualy.
+You can see which language files getting added. 
+```[ImprovedFactions] Missing base.exceptions.arg-is-no-player in the language file for en_US
+[ImprovedFactions] Missing base.exceptions.arg-is-no-player in the language file for en_US```
+tobero: 
+I also suggest to delete the guis folder, as guis get updated frequently

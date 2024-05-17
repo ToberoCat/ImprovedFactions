@@ -1,0 +1,40 @@
+Channel: repeating chunk message
+Channel Type: GuildPublicThread
+Topic: None
+
+kitsugure: 
+hello how do I stop this message from repeating? it does this whenever I claim/unclaim a chunk
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1130363562024501288/1130363562544607242/image.png?ex=6648361a&is=6646e49a&hm=29e4d121c837870326d11587cb1ac4e48ea2012ab7c4c20a7f4cdc6125d1f9fd&
+
+jokbon: 
+its part of if memes
+jokbon: 
+but we have a better one
+jokbon: 
+https://cdn.discordapp.com/attachments/1085206644507553792/1105723368122097724/unknown.png
+jokbon: 
+in your case some translation is missing
+jokbon: 
+either outdated language file or another if bug
+jokbon: 
+try regenerating language file
+jokbon: 
+New version will not contain any of this localization since it forces dev to finish up everything.
+kitsugure: 
+alright thanks for the answer
+kitsugure: 
+also, how can I unclaim a chunk? my friend currently cant break stuff because i claimed a part of a chunk that's close to his house
+kitsugure: 
+this is what shows when i try to unclaim
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1130363562024501288/1130461129446002698/image.png?ex=664890f8&is=66473f78&hm=e587ea7d581fad24f4809f9c35771665ed81272ba36835e6f90b9c1a43823d7c&
+
+josh65: 
+It's properly coming from command descriptions. You can turn it off by running the `/f user` command. Unclaim chunks by using `/f unclaim`
+jokbon: 
+u cant unblaim chunks
+jokbon: 
+works as intended

@@ -1,32 +1,20 @@
 package io.github.toberocat.improvedfactions.listeners.move
 
 import io.github.toberocat.improvedfactions.claims.FactionClaim
-import io.github.toberocat.improvedfactions.claims.clustering.ClaimClusterDetector
-import io.github.toberocat.improvedfactions.claims.clustering.Position
-import io.github.toberocat.improvedfactions.claims.getFactionClaim
+import io.github.toberocat.improvedfactions.config.ImprovedFactionsConfig
 import io.github.toberocat.improvedfactions.factions.Faction
-import io.github.toberocat.improvedfactions.translation.TranslatedBossBars.getBossBar
-import io.github.toberocat.improvedfactions.translation.TranslatedBossBarsType
-import io.github.toberocat.improvedfactions.translation.getLocalized
 import io.github.toberocat.improvedfactions.user.noFactionId
-import io.github.toberocat.improvedfactions.utils.toAudience
 import io.github.toberocat.improvedfactions.zone.ZoneHandler
-import net.kyori.adventure.audience.Audience
-import net.kyori.adventure.bossbar.BossBar
-import net.kyori.adventure.text.Component
-import net.kyori.adventure.title.TitlePart
 import org.bukkit.entity.Player
-import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.player.PlayerMoveEvent
-import org.jetbrains.exposed.sql.transactions.transaction
 
-class TerritoryTitle : Listener {
+class TerritoryTitle(private val pluginConfig: ImprovedFactionsConfig) : Listener {
+
+
     fun claimChanged(
         toClaim: FactionClaim?,
         fromClaim: FactionClaim?,
         toFaction: Faction?,
-        audience: Audience,
         isRaidable: Boolean,
         player: Player
     ) {
@@ -37,21 +25,15 @@ class TerritoryTitle : Listener {
             toFaction != null -> "base.claim-faction-territory"
             else -> toZone?.noFactionTitle ?: "base.zone.wilderness"
         }
-        audience.sendTitlePart(
-            TitlePart.TITLE, player.getLocalized(
-                key, mapOf(
-                    "faction" to (toFaction?.name ?: "Wilderness")
-                )
-            )
-        )
-        if (!isRaidable) {
-            audience.sendTitlePart(TitlePart.SUBTITLE, Component.empty())
-            return
-        }
-        audience.sendTitlePart(
-            TitlePart.SUBTITLE, player.getLocalized(
-                "base.claim-faction-territory.subtitles.unprotected"
-            )
+
+        pluginConfig.territoryDisplayLocation.display(
+            player,
+            key,
+            when {
+                isRaidable -> "base.claim-faction-territory.subtitles.protected"
+                else -> null
+            },
+            mapOf("faction" to (toFaction?.name ?: "Wilderness"))
         )
     }
 

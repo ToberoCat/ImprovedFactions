@@ -1,0 +1,41 @@
+Channel: How does the power system work?
+Channel Type: GuildPublicThread
+Topic: None
+
+worstedsphere: 
+What does power do? How do faction members get more?
+jokbon: 
+playtime @Worstedsphere
+worstedsphere: 
+Great! Does going to war with another faction and winning add power? Vise versa with losing wars?
+jokbon: 
+@Worstedsphereplaytime
+jokbon: 
+@Worstedsphere death removes power
+worstedsphere: 
+Thank you! Quick question. Is there a way to configure the plugin so that wars can add or subtract power from a faction?
+jokbon: 
+NO
+jokbon: 
+in any way this can be suggestion
+jokbon: 
+PLUS
+jokbon: 
+player would want to raid u anyway for precious items
+jokbon: 
+so system works™️
+tobero: 
+it hasn't been implemented in the v2.0.0 versions. If you need it now, you'd havet o use v1.x.x
+
+If you're interested in how it will work in the future, here's the ticket for it: https://github.com/users/ToberoCat/projects/3?pane=issue&itemId=35382367 (Suggestions are welcome)
+jokbon: 
+AAAA faction map pls XD
+tobero: 
+Yeah, should also be on the list
+jokbon: 
+https://tenor.com/view/please-cute-kitten-beg-plea-gif-7147570
+worstedsphere: 
+Thank you guys for answering my questions! 👍 
+Love the plugin! 🙂
+jokbon: 
+🤣 👍🏼

@@ -1,0 +1,10 @@
+Channel: This stable dev build now includes
+Channel Type: GuildPublicThread
+Topic: None
+
+josh65: 
+
+josh65: 
+Created a thread for discussion and so it doesn't fill the main channel. I think Entity damage and Entity spawning should be an server config option as to block someone finding an exploit to spawn mobs they can't just flood someone's base and effectively destroy it without going to war or being in the overclaimed chunks
+josh65: 
+TNT Damage and Sand/gravel cannons I could also see as a war only thing.

@@ -1,0 +1,12 @@
+Channel: How access this GUI
+Channel Type: GuildPublicThread
+Topic: None
+
+aweek_: 
+How can access to this GUI ?
+Attachments:
+[Capture_decran_2024-05-07_133944.png]
+https://cdn.discordapp.com/attachments/1237368339110563910/1237368339278331935/Capture_decran_2024-05-07_133944.png?ex=6647ead1&is=66469951&hm=27aa1c34e3b3fa8d57ba131b05b6123a0b3a001ad6b5d80f55f41c8a823b4e37&
+
+tobero: 
+Use /f ranks

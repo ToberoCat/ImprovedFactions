@@ -1,0 +1,9 @@
+Channel: Fancy Messages
+Channel Type: GuildPublicThread
+Topic: None
+
+tobero: 
+https://docs.adventure.kyori.net/minimessage/format.html
+tobero: 
+**Webeditor for messages:**
+https://webui.adventure.kyori.net/

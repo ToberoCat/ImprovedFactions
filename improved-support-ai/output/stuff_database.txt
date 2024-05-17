@@ -1,0 +1,13 @@
+Channel: stuff-database
+Channel Type: GuildTextChat
+Topic: None
+
+jokbon: 
+**BOT COMMANDS**
+-claiming
+-power
+-world
+-turotial
+-claiming
+-permision
+-extension

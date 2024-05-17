@@ -1,0 +1,62 @@
+Channel: I have no commands for plugin, that normal?
+Channel Type: GuildPublicThread
+Topic: None
+
+roby360: 
+I have no commands for plugin, that normal?
+jokbon: 
+wym
+jokbon: 
+elaborate
+roby360: 
+Ok I found my prob
+roby360: 
+I'm dumb
+roby360: 
+bc when plugin try load he show that
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1233446172509601935/1233447217248079993/image.png?ex=6648277c&is=6646d5fc&hm=795c42810656c4a4b143573342907e725add541fd76ebb9c826e067fb322180b&
+
+roby360: 
+and I havn't see before
+roby360: 
+but now I know why plugin don't work sorry
+tobero: 
+All good. Hope it does work now
+roby360: 
+>I think let me test
+roby360: 
+heu?
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1233446172509601935/1233448154771361822/image.png?ex=6648285c&is=6646d6dc&hm=2dab74229f553c75fae2f71a69fe7d0283b8de5f097a3418e435af99b608133c&
+
+roby360: 
+" Unsupported API version 1.18"
+tobero: 
+Weird... The plugin's min api version is 1.18
+roby360: 
+but on the page is writed "1.16"
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1233446172509601935/1233448580295954545/image.png?ex=664828c1&is=6646d741&hm=036bad0d2b0862ca941c510b43ab8698d448df553f4c4ed114f02ed30ab3fc1b&
+
+jokbon: 
+old versions yes
+jokbon: 
+but old are sh
+roby360: 
+ah
+roby360: 
+so plugin is only for 1.18 or higher?
+tobero: 
+correctly
+roby360: 
+ah sh... sorry for disagrement and good byt
+roby360: 
+bye*
+tobero: 
+All good. You're welcome. Have a nice day
+roby360: 
+u too

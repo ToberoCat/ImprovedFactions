@@ -1,0 +1,153 @@
+Channel: the jar didnt create the folder
+Channel Type: GuildPublicThread
+Topic: None
+
+chutytfm: 
+and the commands are not working 
+paper 1.20.1
+i installed guienguine which didnt have a folder too
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1172202234164031488/1172202234356965436/image.png?ex=66482627&is=6646d4a7&hm=b981b47829925e4d98246a097a34e07a0aadc2934bf3f01ffd2176d844988206&
+
+josh65: 
+Please check the console for errors when loading the plugins
+josh65: 
+Also what commands did you try?
+chutytfm: 
+all the /f
+chutytfm: 
+only those worked
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1172202234164031488/1172202776005189632/image.png?ex=664826a8&is=6646d528&hm=f0defa837dcaa6528a77bae602d9527cc897a5af8e0885c8a250e20157757d32&
+
+chutytfm: 
+/faction create
+chutytfm: 
+and
+chutytfm: 
+delete
+josh65: 
+You need to have a faction to use most commands. Did you make one before running the others?
+chutytfm: 
+i used create
+josh65: 
+I know, were you in a faction before running the other ones?
+chutytfm: 
+i only did that
+chutytfm: 
+create and delete
+chutytfm: 
+and i created a new one
+chutytfm: 
+so
+chutytfm: 
+if i created it im the boss?
+chutytfm: 
+im in?
+chutytfm: 
+how can i join
+josh65: 
+If you make a faction you are the owner and already joined to it
+chutytfm: 
+for example the one  i created is named ESPANA
+chutytfm: 
+how can i invite
+josh65: 
+`/f invite <player name>`
+chutytfm: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1172202234164031488/1172203683660976259/image.png?ex=66482780&is=6646d600&hm=f5d274e78fa1b7c12888dd6c6a5165ea7c058fc0cf245da78541d27a9274677d&
+
+chutytfm: 
+not working
+josh65: 
+Sorry, forgot you need to add a rank after the player name like member or admin
+chutytfm: 
+how
+josh65: 
+Type it in like `/f invite <player name> <rank name>`
+chutytfm: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1172202234164031488/1172204312332607528/image.png?ex=66482816&is=6646d696&hm=0c68c82611b8548878239ab678687aaa6a2042f0dbcdd6155f0f655c6fa2f3ac&
+
+chutytfm: 
+rank in the faction?
+josh65: 
+Do you have a rank called Soldado in the improved factions config?
+chutytfm: 
+nop
+chutytfm: 
+but
+chutytfm: 
+cant i create it using chat commands?
+chutytfm: 
+console
+josh65: 
+The default ranks are Admin, elder, member
+josh65: 
+No you have to edit the config
+chutytfm: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1172202234164031488/1172204718169268324/image.png?ex=66482877&is=6646d6f7&hm=f0dd9634f562981aa03c58361f74c74dde7999814047b7e475eb5655785a84b8&
+
+chutytfm: 
+not working
+josh65: 
+What shows in the auto complete for ranks if you dont put a name there?
+chutytfm: 
+nothing
+chutytfm: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1172202234164031488/1172205149733793902/image.png?ex=664828de&is=6646d75e&hm=5a130aaacea5d7d1789176223ea51db014ca2b8fd1a8fc6ff3163398ea950fc5&
+
+chutytfm: 
+i dont have folder
+chutytfm: 
+just this
+chutytfm: 
+whats the prob
+josh65: 
+Are you using a hosting provider?
+chutytfm: 
+no
+chutytfm: 
+its my own oracle server
+chutytfm: 
+im using crafty
+chutytfm: 
+as panel
+josh65: 
+Try look for the folder by directly accessing the files and not using the panel
+chutytfm: 
+the panel is not the problem
+josh65: 
+I don't know what the issue as the folder should be there since the plugins is loaded. Try refreshing the site and make sure you don't see a folder called 'ImprovedFactions'
+tobero: 
+@Chuty TFM I suggest you to use the gui. Just type `/f info`, in there you'll be able to do all of it, without having to know everything from the top of your head
+chutytfm: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1172202234164031488/1172279151969972254/image.png?ex=66486dc9&is=66471c49&hm=b4bf6e210bfa679ddbe2e9d0981ee37eae8082738cab1b3e85b56c81b0718182&
+
+chutytfm: 
+[09:12:27 ERROR]: [ImprovedFactions] faction-detail-page.gui has a invalid component. The given faction name didn't return a faction
+[09:12:27 ERROR]: [ImprovedFactions] rank/rank-detail.gui has a invalid component. Rank hasn't been found in the database
+[09:12:27 ERROR]: [ImprovedFactions] member/member-detail-page.gui has a invalid component. Specified player %member% has never played on the server before
+[09:12:27 INFO]: [GuiEngine]  It takes  123.875ms  310.017ms  on average to render a gui from  ImprovedFactions
+tobero: 
+Nothing to worry about, these warnings can be safely ignored, as they just tell you that the validation system of GUI engine simulated a non existent player
+chutytfm: 
+not working
+chutytfm: 
+i cnt inv

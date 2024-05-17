@@ -1,0 +1,6 @@
+Channel: Papi support explanation
+Channel Type: GuildPublicThread
+Topic: None
+
+tobero: 
+When I have added the support, you could do %factions_faction_name% or something else to get the faction name ingame

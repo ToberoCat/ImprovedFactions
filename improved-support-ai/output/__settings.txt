@@ -1,0 +1,8 @@
+Channel: 🔳│settings
+Channel Type: GuildTextChat
+Topic: None
+
+jokbon: 
+Here will be settings to turn on or off bot responses to your messages
+jokbon: 
+Aditionaly roles

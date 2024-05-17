@@ -1,0 +1,12 @@
+Channel: Disbanding a faction is the owner deleting a faction, I believe this is already in?
+Channel Type: GuildPublicThread
+Topic: None
+
+.kyrenic: 
+
+.kyrenic: 
+Oh damn that was the title :P
+tobero: 
+Its not implemented yet, but the structure for the command is already there (Else you wouldn't be able to delete a faction)
+tobero: 
+No Problem

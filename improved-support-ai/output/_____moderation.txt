@@ -1,0 +1,294 @@
+Channel: ╰―＞🔌ㅐmoderation
+Channel Type: GuildTextChat
+Topic: Just everything that should only get read by supports
+
+tobero: 
+Nice new message. Like it. Does it get sent every time a new thread gets created in the thread?
+jokbon: 
+yes
+jokbon: 
+i noticed your bot is offline
+jokbon: 
+so i created message
+jokbon: 
+also everything same and you can edit content in same place
+tobero: 
+I just created him to send the message you can find in #deleted-channel
+jokbon: 
+lmao
+jokbon: 
+bruh
+jokbon: 
+then u can delete your bot probaly
+tobero: 
+Yep. He is, but discord wont kick him
+tobero: 
+And I was to lazy for that, to be true
+jokbon: 
+you can kick him
+jokbon: 
+like
+jokbon: 
+admin kick
+jokbon: 
+unles u made him on top of you
+tobero: 
+Yep, should be removed now
+jokbon: 
+
+Attachments:
+[Screenshot_20220613_222409.png]
+https://cdn.discordapp.com/attachments/984472372818092083/985988009017085972/Screenshot_20220613_222409.png?ex=664857a4&is=66470624&hm=654ee7124ceeceecf2ef1d468f0fefd98ebf2e6e14d6239a5e92893ff00b083d&
+
+jokbon: 
+bruh i shud have put my server advert in that bot somehwere hhh
+tobero: 
+You don't even have to hide it, just put it in #╰＞📼ㅐserver-ips
+jokbon: 
+😂 🤡 ☠️
+tobero: 
+So, yeah, if you want to share your server, you can do it
+jokbon: 
+i gues i dont apply for advert yet because i dint made automatic keyword detection right (i think)
+jokbon: 
+i made noob auto ansvers
+tobero: 
+Okey
+jokbon: 
+okay i modernized auto anvering if u get some anoying question you can add it to auto ansvers
+tobero: 
+Alright. thank you
+jokbon: 
+i made template for ansvers in embed now
+jokbon: 
+day ago i made embed
+today morning modernised autoansvers
+today working at design of embeds for autoansvers
+tobero: 
+Okey. Thanks for the work you're putting into the server
+jokbon: 
+they always end up ugly lmao
+tobero: 
+Maybe get inspiration from other bot answers
+jokbon: 
+Ill do this
+jokbon: 
+Title bold
+Topic bold
+comment black background
+topic end 2 spaces except for last topic
+jokbon: 
+https://discord.com/channels/819932760550014986/881593704614350921/985997926948024373
+jokbon: 
+☠️
+jokbon: 
+survuyer susport goes well yknau xD
+jokbon: 
+@[Dev] Tobero  tbh ur logo kinda anoying bc colors blend in, when it was scaled i could better see. maybe beter was to revert the change or change colors by pusing those inside of logo.
+jokbon: 
+
+Attachments:
+[Screenshot_20220614_232321.png]
+https://cdn.discordapp.com/attachments/984472372818092083/986365277992288336/Screenshot_20220614_232321.png?ex=66486580&is=66471400&hm=332305e7e90844c809daaa5df4432944b650b42555dbe2ca3c438dfc297fd112&
+
+jokbon: 
+on my screen its so small
+jokbon: 
+iam i blind
+jokbon: 
+also i need to recreate my own logo
+jokbon: 
+i dont like it
+jokbon: 
+its good maybe
+jokbon: 
+but
+jokbon: 
+and maybe make new one for neoee
+jokbon: 
+
+Attachments:
+[SPOILER_unknown.png]
+https://cdn.discordapp.com/attachments/984472372818092083/986382413938696252/SPOILER_unknown.png?ex=66487575&is=664723f5&hm=df3317e56284e364d833399ed8370849b0a565d31ed8a673b19574b14f419527&
+
+tobero: 
+Yeah, will change it back
+jokbon: 
+lol ur faction plugin no worse than apache
+jokbon: 
+apache broken af
+jokbon: 
+runt into 4 diferent isusues
+jokbon: 
+😢
+jokbon: 
+what you think is broken with claiming?
+tobero: 
+I haven't encountered one, what where the problems? Maybe I can check if I haven been using them and that's the problem with claiming
+tobero: 
+That's the question
+jokbon: 
+hmm
+jokbon: 
+I would expect it to work like this but I have no clue, and it seems like chunks from other factions can't be claimed because of a bug
+At least I couldn't do it
+jokbon: 
+i think there could be 3 diferent isusues
+jokbon: 
+you shud have asked user
+tobero: 
+they can't tell me where int the code my problem is, they can only say that something is wrong with it
+jokbon: 
+1. information mismatch
+2. owerclaiming at diferent time
+3. maybe there is block while it waits for something so it doesnt claim?
+jokbon: 
+i think i will add error handler to auto ansver
+tobero: 
+Alright. Would be very kind
+jokbon: 
+its easyer to implement cause values persist
+jokbon: 
+like wery easy update
+jokbon: 
+just posting this for myself ## error detection https://discord.com/channels/819932760550014986/881593704614350921/964184549280075896
+work in progress
+jokbon: 
+if u see bad solution in #deleted-channel  you can sugest improvement
+jokbon: 
+ok bye
+tobero: 
+Alrightm thanks
+tobero: 
+I have claimed my one month free discord nitro and spent my boost for this server, because I have no other servers that I could boost. Just of someone wonders. I didn't buy them, just claimed by free discord nitro
+jokbon: 
+XD i wouldnt fall for free nitro scams
+jokbon: 
+later they will charge you if u dont cancel
+tobero: 
+I have cancelled instantly
+tobero: 
+So, it's no scam.
+I did it with epic games free nitro for one month too
+tobero: 
+And I wasn't charged anything. I just cancelled directly after activation
+thegoodeone: 
+
+jobus_: 
+
+jobus_: 
+
+jokbon: 
+😂
+kirby_lover.: 
+
+jokbon: 
+KIRBY ANOYINMG GUY
+piggymooshie0: 
+
+wmsugar1: 
+
+wmsugar1: 
+
+ashy.uwu: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+tobero: 
+He didn't like being insulted
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+soulpheonixyt: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+
+jokbon: 
+

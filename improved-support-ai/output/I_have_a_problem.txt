@@ -1,0 +1,42 @@
+Channel: I have a problem
+Channel Type: GuildPublicThread
+Topic: None
+
+luised21: 
+Hello, I tried to install the plugin on my server from 1.17.1 but the server does not detect it, no plugin folder was created and it does not appear in the list of plugins on the server
+josh65: 
+Can you send the `latest.log` file.
+luised21: 
+Yes
+luised21: 
+I'm sorry to send it, I don't have much experience configuring servers and it has many errors
+josh65: 
+That's alright, you also need to install https://github.com/ToberoCat/GuiEngine/releases/download/1.4.1/GuiEngine-1.4.1.jar
+luised21: 
+Thank you so much
+luised21: 
+@Josh65
+luised21: 
+I installed guiengine and it gave me this error
+luised21: 
+[00:49:08] [Server thread/ERROR]: Could not load 'plugins/ImprovedFactionsBase-2.0.1-stable (1).jar' in folder 'plugins'
+org.bukkit.plugin.InvalidPluginException: Unsupported API version 1.18
+    at org.bukkit.craftbukkit.v1_17_R1.util.CraftMagicNumbers.checkSupported(CraftMagicNumbers.java:358) ~[patched_1.17.1.jar:git-Paper-408]
+    at org.bukkit.plugin.java.JavaPluginLoader.loadPlugin(JavaPluginLoader.java:149) ~[patched_1.17.1.jar:git-Paper-408]
+    at org.bukkit.plugin.SimplePluginManager.loadPlugin(SimplePluginManager.java:414) ~[patched_1.17.1.jar:git-Paper-408]
+    at org.bukkit.plugin.SimplePluginManager.loadPlugins(SimplePluginManager.java:322) ~[patched_1.17.1.jar:git-Paper-408]
+    at org.bukkit.craftbukkit.v1_17_R1.CraftServer.loadPlugins(CraftServer.java:419) ~[patched_1.17.1.jar:git-Paper-408]
+    at net.minecraft.server.dedicated.DedicatedServer.initServer(DedicatedServer.java:287) ~[patched_1.17.1.jar:git-Paper-408]
+    at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1220) ~[patched_1.17.1.jar:git-Paper-408]
+    at net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:319) ~[patched_1.17.1.jar:git-Paper-408]
+    at java.lang.Thread.run(Thread.java:833) ~[?:?]
+josh65: 
+Not fully sure but I believe Minecraft 1.18 or above is needed to run. @[Dev] Tobero can confirm when their online
+luised21: 
+Oh, how strange, and in spigot it said that the plugin was from 1.17
+josh65: 
+The spigot page hasnt been updated for v2 best to ignore what it says
+josh65: 
+Since you are using via backwards you might as well use 1.20.1 build 196
+luised21: 
+xd

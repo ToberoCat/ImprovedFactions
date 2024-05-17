@@ -1,0 +1,699 @@
+Channel: ╰＞📷ㅐpictures
+Channel Type: GuildTextChat
+Topic: None
+
+attractivemommy: 
+
+Attachments:
+[IMG_1089.jpg]
+https://cdn.discordapp.com/attachments/991392317531488337/1012618005475233792/IMG_1089.jpg?ex=66485282&is=66470102&hm=ae43cc94198012a273456423d22528a0311982bf44b3eec917642fb9a8156eed&
+
+tobero: 
+That hurts to see....
+attractivemommy: 
+Lol
+jokbon: 
+thats nothing
+jokbon: 
+my powergrid depends on this (its well balanced cuz in other way it would melt)
+jokbon: 
+
+Attachments:
+[PHOTO_20220826_113023.jpg]
+https://cdn.discordapp.com/attachments/991392317531488337/1012640471153115206/PHOTO_20220826_113023.jpg?ex=6648676e&is=664715ee&hm=4191d783584fa979f477f8c96d3e7218cd490a0d9b277b883eff3cc6346e3387&
+
+jokbon: 
+reason iam not ansvering part of questions, iam working on finishing home thing
+so anything more than 16 amp would make this thing melt ™️
+tobero: 
+This didn't lag as much as you'd expect it to lag
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1014643144693911562/unknown.png?ex=66487050&is=66471ed0&hm=ac67968f2ac0febfa956351814dd1366e9abb5d6accfa4083eaeff942dd3fd9c&
+
+josh65: 
+how long did it take to finish?
+tobero: 
+30 seconds
+tobero: 
+At least the server was frozen for this time, but that's been solved too
+jokbon: 
+kek
+tobero: 
+Okay, I need a little help with choosing the plugin's theme.
+What color combination do you like the most (The white & yellow one or the gray & yellow one)?
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1020379561881518101/unknown.png?ex=664836c5&is=6646e545&hm=3b7f9212407c461eccb6e56f750ac9c8bb42bee0519ac4eacd7d34fc9733db6a&
+[unknown.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1020379562187685990/unknown.png?ex=664836c5&is=6646e545&hm=fd20920598d1c5edb3c14baae6ac193a70aa49370159ff863084d52a33c73c80&
+
+josh65: 
+White and yellow. Its easier to read
+tobero: 
+Mobile & Desktop version of the gui editor
+Attachments:
+[Screenshot_20221203-174430_Chrome.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1048641347512455249/Screenshot_20221203-174430_Chrome.png?ex=6648329c&is=6646e11c&hm=c2f5f6dd9824493642869c50f0db265d22de3c9d54cfe704e39dd88c70aedbfd&
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1048641347827015761/image.png?ex=6648329c&is=6646e11c&hm=575293423406d0eec3a569592aa62cb6ef5dfe86d6bcc2a5a42fa1f8076a8604&
+
+tobero: 
+This is going to be how editor v1 will look on the desktop. It now supports everything I need to allow 100% gui customization
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1048722879115690174/image.png?ex=66487e8a&is=66472d0a&hm=a1079d2cf1ac20d7da3be18e905fc32d84e27fa2497facbb5606c4575c5b8704&
+
+tobero: 
+Opening the Gui Webeditor be like:
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1048989779271876688/image.png?ex=6648259c&is=6646d41c&hm=a83f5e8089cea01c90dc5464ffc2b6de635d8207dea1717b080652013f668feb&
+
+josh65: 
+Can you even click the buttons?
+tobero: 
+Yes, you can
+josh65: 
+well at least it usable
+tobero: 
+Yeah, will have to compress the transmitted files into a smaller json. Maybe then it won't look like this
+josh65: 
+Might of been better to just to have people put the file into the server then allow uploading that file on the site rather then in game commands/links
+tobero: 
+Yeah, will make it an options, as it only requires me around 5 lines of code to import / export it as a file.
+
+Then I don't force people to use it through this gui. But some might still use it, as it takes care of the upload (Some people would have to grab the file from an ftp server)
+jokbon: 
+keep it like this
+tobero: 
+Okay, due to issues with command blocks, you can now open the website using the /f admin gui editor <gui>, but you now have to download the file (The returned gui exceeded the 32k command block limit).
+When you don't provide a valid gui you will automatically get redirected to the choose a gui form
+tobero: 
+The gui editor will support custom player heads
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1051574384529260624/image.png?ex=66485236&is=664700b6&hm=b4f062c397572ab9272cd4c2cf1dc31f20627525d4d9f901481e378e6166f5c2&
+
+tobero: 
+I think this faction gui is the best example to showcase how important the gui editor will be. The faction settings gui is ugly - But I only created it to showcase the gui editor.
+
+The editor is now able to use the heads you can find on https://minecraft-heads.com/custom-heads.
+
+But not only that - Each has it's own state (For a button it would be a on/off state). To use items / features provided by the underlying gui parser (The thing that makes the useless gui file you get from the web into a minecraft gui) there are now flags. Flags can be used for items, like the faction icon, as they'll change depending on the factions icon.
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1051929284895330375/image.png?ex=66484b3d&is=6646f9bd&hm=a053387e8ca13c99b1e586f526e6a3b02c61bd3ca05593f13ce87df38d6f0556&
+
+jokbon: 
+oh
+jokbon: 
+nice
+jokbon: 
+https://cdn.discordapp.com/attachments/831805233230643240/1062681089245728858/Screenshot_20230111_123500.png
+jobus_: 
+as you can see its on the website
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1095879683997958266/image.png?ex=664800fd&is=6646af7d&hm=0096ae5db1afe8d899cff607dcdbe3d19a97376090425533a50fd05e08a2f8b4&
+
+jobus_: 
+but its not in the actual config
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1095879806794612746/image.png?ex=6648011a&is=6646af9a&hm=04b927a413f5748bf7860bcfa90ed9e29ab08821e2e82f7402f60f0745420329&
+
+jobus_: 
+i tried adding it, that does not work, only reason i downloaded this one, cause i thought you could disable 😭
+tobero: 
+Yeah, that's the old config. For this feature, you should download a old version, with the name beta in it.
+tobero: 
+The new ones don't support mich of customisation yet
+jobus_: 
+sad, would be cool for new versions if you got time, but thanks for letting me know
+jobus_: 
+will be using an old version then, thank you
+tobero: 
+No problem. The new version will contain these features, I promise
+jobus_: 
+thanks bruh
+tobero: 
+You're welcome
+jokbon: 
+https://cdn.discordapp.com/attachments/927914546839040061/935305893808050186/SPOILER_untizhwwhtled.PNG
+jokbon: 
+https://cdn.discordapp.com/attachments/927914546839040061/935306324709867540/unSHWQEHtitled.PNG
+jokbon: 
+😂 i neeed this
+jokbon: 
+or i die of depresion
+jokbon: 
+xD
+tobero: 
+To my defense, I didn't write it. I included it because someone was kind enough to write an introduction for his faction server, which he gave me so I can add it into the plugin
+jokbon: 
+https://cdn.discordapp.com/attachments/991392317531488337/1048989779271876688/image.png
+tobero: 
+Yeah, I should've left this in the plugin
+jokbon: 
+noooo leave this on discord
+jokbon: 
+or make it enable on april fools day
+jokbon: 
+also i want to make funy translation of dutch
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1097547087530430534/image.png?ex=66482321&is=6646d1a1&hm=855409b87d2b7e8e608a04433d40c026d8bb99c7831141621f0369f114e784db&
+
+jokbon: 
+why improved factions still beat big companies?
+jokbon: 
+why
+jokbon: 
+https://cdn.discordapp.com/attachments/615105639567589376/1099796365468512386/ebinsoft.webm
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1099801717949874226/image.png?ex=66486dea&is=66471c6a&hm=94355c4676fa9d5094964dd0e3c5554debfae0ace998f3010d9cc1ce3f39a20a&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1099802026940043375/image.png?ex=66486e34&is=66471cb4&hm=97b9496ce90edde2d7538aa1ea197edca03617bd1e26dea9ac0f9ef198ea7b83&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1099802260789268690/image.png?ex=66486e6c&is=66471cec&hm=a5e4a6fe9c97afac23dd6ce9f0f3f5e898dbaeb4a7a0e872bc92486f282c0ca6&
+
+jokbon: 
+😂
+jokbon: 
+@[Dev] Tobero
+jokbon: 
+look what i did to theyr search barr
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1099802856128782407/image.png?ex=66486efa&is=66471d7a&hm=45b8f59d5afbdf21c636401edd0da666ecee3a067e64b350aec775709de6bfe3&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1099803255279722507/image.png?ex=66486f59&is=66471dd9&hm=59bc33126b335508b69598dfbfff52dc720b5aee208a849dc1e95776c26fff0f&
+
+jokbon: 
+whoops
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1099803431528570961/image.png?ex=66486f83&is=66471e03&hm=581c0285f6396006155675d79213d6a8104ccf976594aeed83f2306f1af6b701&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1099811529307738223/image.png?ex=6648770e&is=6647258e&hm=d0003517f5b26364eeded16e702afcda2cfa59ff96baaac971857787751dfb45&
+
+jokbon: 
+@CR1MZONR41D3R ^
+girr47: 
+i have to say this one is impressive
+jokbon: 
+@CR1MZONR41D3Rban for extremism/separatism to you
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1100772712907030570/image.png?ex=664801ba&is=6646b03a&hm=6d9a7775eb019fccd53bc1338ef1f46dd551015244ab522f1db1ac395d5e9669&
+
+jokbon: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1123046383788765194/unknown.png?ex=6647f573&is=6646a3f3&hm=b5c2fac9dd79ed07700739df33dc14c3b1d45c4ea32099b0fb363dcd5bc8a4d8&
+
+jokbon: 
+omg
+jokbon: 
+@[Dev] Tobero  beat me by writing worse reviev than this xd
+jokbon: 
+ness is best 1.16.5 anticheat tbh
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1124704766694527086/image.png?ex=66480f30&is=6646bdb0&hm=a17875603e1eb7d0603ebdf1cb499a13c6e90affdb4145bab4095c05992674bc&
+
+jokbon: 
+**PLEASE RESTART EXPLORER TO SEE DISK NAMES ^**
+jokbon: 
+and ye iam lazy to activate
+jokbon: 
+fuck that shit brain fucking microsoft forcing me to instal it 9999 times cuz it breaks bit by bit
+jokbon: 
+**AFTER RESTARTING EXPLORER:**
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1124705234812420126/image.png?ex=66480f9f&is=6646be1f&hm=d52e8b330bc59cd5c1e7783f28b59723d4eff0a9583cf39fe51e28162ac60d57&
+
+jokbon: 
+😂  magic
+jokbon: 
+all is fix microsoft is of nice
+jokbon: 
+maybe i need to reboot my system to show disk labels on next poo poo release
+jokbon: 
+.
+jokbon: 
+There is another fun: at some sopecific window locations, microsoft does not recognize where butomns are at
+and when u click with mouse on butomn u click in wrong location far on the right
+jokbon: 
+https://tenor.com/view/clap-clapping-applause-applaud-cheerleader-gif-12591824
+jokbon: 
+MORE FUN!
+jokbon: 
+OPEN WITH VSCODE IMPOSIBLE!
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1124707137042530404/image.png?ex=66481165&is=6646bfe5&hm=6e2d630ebdacf550df130ec0f51a45b5e1714a39f0301324bd330600c9338e6b&
+
+jokbon: 
+YOU NEED TO RENAME THIS TO TEXT DOCUMENT
+jokbon: 
+XDDDDDDDDDDD
+jokbon: 
+or you need to click show more options for this
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1124708410026377246/image.png?ex=66481295&is=6646c115&hm=e35be4c7c60cb704d922c31cc3ff2e73dfc4dffa0f15f41b2f1e5b63ad7735c3&
+
+jokbon: 
+XD
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1132407523530518598/image.png?ex=66486570&is=664713f0&hm=baa859575073b1f05618cee628b053fd3ccebf441dee5883a7d258c2222ead54&
+
+jokbon: 
+
+Attachments:
+[5454tled.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1136183496721846364/5454tled.png?ex=66484a56&is=6646f8d6&hm=4860cdbe8f43c17d6c24a7cd171465d4025ae70acee9bc0fb8d80c30922d61b4&
+
+jokbon: 
+lmao this spawn is too good
+jokbon: 
+https://media.discordapp.net/attachments/803196804651941959/1031520784881029190/bbd.gif
+jokbon: 
+tobero invented volume slider
+niklas_: 
+This is so...
+Up and down is much better
+jokbon: 
+
+Attachments:
+[surtxled.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1151116661445902437/surtxled.png?ex=6648906e&is=66473eee&hm=b880d1ddf012147b62657ec06782de87ab2346429ba7e225daff11ff2018751e&
+
+jokbon: 
+
+Attachments:
+[Screenshot_20220815_011638.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1151176596070346843/Screenshot_20220815_011638.png?ex=66481f80&is=6646ce00&hm=e831abbca851eb6b7f8d01725dc07e96301448a3755c0ecbacab021115ec07b5&
+
+jokbon: 
+
+Attachments:
+[DHShdsled.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1154336117915652167/DHShdsled.png?ex=66486949&is=664717c9&hm=7a8430bf252aba4a0ca53b6fb66836ff2ef2173c7d190eab54dc3a78d0062994&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1164624737088057514/image.png?ex=6648448f&is=6646f30f&hm=50f420bbed0100725ef4234f5f44e87ab97e4d28ad09ef0631ca693e754b8792&
+
+jokbon: 
+@[Dev] Tobero 😂  what u think about this beuty
+tobero: 
+looks fine to me
+jokbon: 
+
+Attachments:
+[IMG_20231102_184245_924.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1169945340007424000/IMG_20231102_184245_924.png?ex=66488201&is=66473081&hm=dbde24abada083cb4924e447abd743e70402c5388b3800da27c0be4a803b011b&
+
+jokbon: 
+gamely
+jokbon: 
+https://cdn.discordapp.com/attachments/831805233230643240/1172315671045079040/image.png?ex=655fdf0c&is=654d6a0c&hm=da9e3f19e3fcfa7a0391fe7965b674a9578f624c58a0cca651d77371d0bd05fd&
+jokbon: 
+This hapened from programing!
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1172323119604703322/image.png?ex=6647edfc&is=66469c7c&hm=4de84372f551c104f6dd7b7fae3251fdb39f04f9aad7d188170419ca3124d25e&
+
+jokbon: 
+
+Attachments:
+[How-to-professionally-ask-for-an-update-cover.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1174408435715035186/How-to-professionally-ask-for-an-update-cover.png?ex=664843d6&is=6646f256&hm=b9c54157b8ed58212731b972a686954d5659b2b56908fb23d25ada59cb3156ac&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1174718798222336051/image.png?ex=66481362&is=6646c1e2&hm=8cdabfaa93a9a37562cac4966096a50cda486ab975c9322199de36bc7c1c901c&
+
+.play.vlorenzo: 
+oh thats great
+jokbon: 
+google updated website cuz cant win ower firefox
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1176903802838851654/image.png?ex=66481d54&is=6646cbd4&hm=176a983316d07b8b4df939257e8db94bba73e0286f7e663cf8b796468e0e1048&
+
+jokbon: 
+
+Attachments:
+[SPOILER_image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1178410721160220682/SPOILER_image.png?ex=664852c1&is=66470141&hm=2c80764025a4bdaba4d87d07b255474246fa3310c8c42ca78ba07782a7b21276&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1178466212968153150/image.png?ex=66488670&is=664734f0&hm=3c87536a5745d77304b8076320e25849227a62b19aabcc5b95572d659f77805c&
+
+jokbon: 
+https://packaged-media.redd.it/qqikf3eszugb1/pb/m2-res_854p.mp4?m=DASHPlaylist.mpd&v=1&e=1702148400&s=59772e0c5156ec099a19a8987d719b69237983b6#t=0
+jokbon: 
+
+Attachments:
+[jhgfuhiled.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1183048469007568956/jhgfuhiled.png?ex=66480e7e&is=6646bcfe&hm=c2fa101baa43ebb5bd98f3dea5f89e912298a1f936c46c2089bdea7fcf92a228&
+
+jokbon: 
+@[Dev] Tobero😂  ^
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1183095499058839682/image.png?ex=66483a4b&is=6646e8cb&hm=522df464dd70fe291a5df247a23c41d0c524984f1e91376f3123cfefa50e13a1&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1183107750738268231/image.png?ex=664845b4&is=6646f434&hm=23bd40a26dbfedcef98d7b579a1d5e306fc959d4560c678368016b4b85cc07cd&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1183151045577281767/image.png?ex=66486e07&is=66471c87&hm=d42c4ce922f40fa6af38885295b8dd9deba6d76273fe535b467b318cb76f1242&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1183793305788624996/image.png?ex=6648212d&is=6646cfad&hm=18b21a5202770fce4b73cf6f5e78f955f953ca85e1f5a6974383e7cb96c279da&
+
+jokbon: 
+put celphone number
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1184096277848395868/image.png?ex=6647e9d8&is=66469858&hm=160aa8b1aa2242dcc5fac97af5df854b2c69f60d6f9ba2c5be148a8eeb3fbda0&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1184193181181554730/image.png?ex=66484417&is=6646f297&hm=3adfacf878e2cce74b77d116b8beb3de94e5b07d26f5e7c4920a16253de3e961&
+
+jokbon: 
+whats ip? xD
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1184268259441262692/image.png?ex=66488a03&is=66473883&hm=98ddafd501be7fa723ee699c615f320c526555a6be0f320b928788e36686d706&
+
+jokbon: 
+Motivational help!
+jokbon: 
+😂
+jokbon: 
+https://cdn.discordapp.com/attachments/603605903899361323/1184715524609937458/lv_0_20231214113553.mp4?ex=658cfb50&is=657a8650&hm=c13d8cf4a76ad61fa35d82a254fc6ca108e1097f92e5892846a06f2859392bd9&
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1194318123151675452/image.png?ex=66482fad&is=6646de2d&hm=661621c15ed7bc2c8e468b01abe9ceb6347acdf7ae53577c63e7cc4644a3664f&
+
+jokbon: 
+xxxddd
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1194318223827546163/image.png?ex=66482fc5&is=6646de45&hm=8fce84d6eab8f6253518bf09474ba774677e56867e987b5e79c2f8eeb140ef24&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1210435211150622770/image.png?ex=66482723&is=6646d5a3&hm=fb2eebac507ed7d767e1ce715e8bb15614afcd8db0ead4e6a7f059e346101399&
+
+jokbon: 
+localization error >:3
+YAGPDB.xyz: 
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1210435997565976676/image.png?ex=664827de&is=6646d65e&hm=58cc2bfb5ed0732cd96b19dbfeec2992d2a948003ac67e518dd292a405c448c7&
+
+jokbon: 
+
+Attachments:
+[Screenshot_2024-03-03-17-18-02-137_com.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1214548804217602058/Screenshot_2024-03-03-17-18-02-137_com.png?ex=6647f4f8&is=6646a378&hm=8873d083ac1d41c13e50f2299f264a33dd9ec1ef73cde3cb499667ef1ca0da15&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1216646010567393310/image.png?ex=664855e5&is=66470465&hm=07858b55c5f01af4a16dcd0234af098688d22310348d215d2a80685ae9a58286&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1216646213877633054/image.png?ex=66485615&is=66470495&hm=e4497c8e8b242b26686a8ee038820a5541dd6eb6533f998a2a2d8ac3000afde1&
+
+jokbon: 
+😹
+jokbon: 
+https://cdn.discordapp.com/attachments/991126943967756319/1219623524201791519/image.png?ex=660bf9eb&is=65f984eb&hm=c49f5c2c8b3bba72c6974ac7aabfae7d4aaf1eed6aa7bbe902310921725d2447&
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1219954862129676358/image.png?ex=66488200&is=66473080&hm=ce172697da339ae61d2686475be76b68f65a33d7747a45885c8a3ed25f611a55&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1222115579029356595/image.png?ex=66487553&is=664723d3&hm=3a77d12ed809043797761d9cf6b2a3a39a63a61c00b8dbfc1effdf3484b1041c&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1222116073474756618/image.png?ex=664875c9&is=66472449&hm=a534de8958bf6d0a096933ac72ac4f887d3a9d9154fd1974d40d00fc4509957f&
+
+jokbon: 
+?????????
+jokbon: 
+
+jokbon: 
+🐩 💩
+jokbon: 
+???????????????????
+jokbon: 
+Math.ceil()
+jokbon: 
+XD
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1222672052083753143/image.png?ex=66488155&is=66472fd5&hm=694b3110451a3ac3f62d834314451c33d98e54141f34ec7427b7449e86f3c612&
+
+jokbon: 
+i realised combatlog must be uninstaled
+jokbon: 
+it doesnt make a single sense at this point. why would i waste my life on  updating it everytime?
+jokbon: 
++ this aditional garbage
+jokbon: 
+every time i open console it reminds me how awfull it is
+jokbon: 
+for my combat log to work please instal compatibilities for godamn mariage and player particles and economy 😹
+jokbon: 
+you might say it will work without it
+jokbon: 
+haha
+jokbon: 
+when extensions need update it will spam u with files
+jokbon: 
+old one will prevent server from starting
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1222676255556636712/image.png?ex=6648853f&is=664733bf&hm=fdc861b8615477866543b44a801eda2b483e61fae847431a90c644c095222860&
+
+jokbon: 
+gl on guesing where all this load from
+jokbon: 
+files ofcourse
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1223998709419872316/image.png?ex=66480ee1&is=6646bd61&hm=3cb6b202476ebef38948141997bb9b1daffa68cfe329df693fb9128b6c06ffbc&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1223998744949821491/image.png?ex=66480ee9&is=6646bd69&hm=fcdd4ff79a419320d4611ac1cd59cdd1e98a19af0ff293d41c56689398ed69d8&
+
+jokbon: 
+Changes:
+```diff
++ bug
+```
+jokbon: 
+https://youtu.be/TdJCbHcaHho?t=368
+jokbon: 
+(this chanel oficialy meme chanel)
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1224323870320885820/image.png?ex=6647ec35&is=66469ab5&hm=73d25b255c1e914978b6be0f1bfd0c046a708dda9752f3eec516d6dec9ca23e6&
+
+jokbon: 
+https://youtu.be/BsRapBAc3Z4?t=332
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1224379094943137895/image.png?ex=66481fa4&is=6646ce24&hm=a587901b83150097788ef12bb2ec7d001f69f38b8cf88dd7027713d40f148a07&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1226265099048845332/image.png?ex=6648649e&is=6647131e&hm=524ae99b66e837bf8477044d7df698864a1002c88f915a9ece237a56defa61eb&
+
+jokbon: 
+"amd privacy viev" google it
+XD
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1231508200566689823/image.png?ex=664859e3&is=66470863&hm=d14517a7f7a77dff8b0d103e8bc1e12f30332c910401f18c3f63e55bc5f8e280&
+
+jokbon: 
+https://mamot.fr/@pluralistic/112309228351595405
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1232167134583328788/image.png?ex=66481c91&is=6646cb11&hm=12c93db10bb581f07648435c0901d2c43e552fed3d39961f1367e2e04d153942&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1232167228124958720/image.png?ex=66481ca7&is=6646cb27&hm=c1ecb42ecf5ef954986cea680784d6f5dd955cbdc573d4f590c713978ca6040f&
+
+jokbon: 
+🤣  i couldnt hold this 24 year old kid pissed me off
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1232784935199440916/image.png?ex=664861b0&is=66471030&hm=e6a177f0c334d5b2b7374e7c34be684d88381aa1b39cff9d9d7a830c5f5ae4c2&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1233520607057023158/image.png?ex=66486bd6&is=66471a56&hm=f5b6992e411168b8bc6f1838b21827dc14a695ab11256af1cfaedad3da67287c&
+
+jokbon: 
+🤣
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1234768237242351656/image.png?ex=66485888&is=66470708&hm=7ff5b7b4ae844e62ebef4f03e1e929c035929441acd5902188b536ff2907b24e&
+
+jokbon: 
+(not a factions bug)
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1234768280170922035/image.png?ex=66485892&is=66470712&hm=c0b23e1cd3310daf534ef13e1601ca8487849e353fa664763c3a49791e6e3a41&
+
+tobero: 
+I like this chart. I'm very consfused about the fact that there are sill two servers out there running v1.2
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1235296948949614724/image.png?ex=66484aaf&is=6646f92f&hm=d07a4e911b16e52e58e42a0ab52ea16c46869727403dea0926b5607230b3055b&
+
+jokbon: 
+its about fucks given to comunity, i have friend tard of that kind
+jokbon: 
+https://youtu.be/MgqUpXDN1P4
+jokbon: 
+my friends master picture
+jokbon: 
+🐟
+jokbon: 
+https://www.youtube.com/watch?v=hBhqynJ2itw&list=PLttSbuuoyDWoMIALhBetLZ1oRZmLIRBv1&index=1
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/991392317531488337/1240952832816054382/image.png?ex=66486ee3&is=66471d63&hm=15136e458612f681ca1b2930ba4c842726ff13c8575a4720f4ebe772c7621f97&
+

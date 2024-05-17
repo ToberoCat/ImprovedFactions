@@ -1,0 +1,356 @@
+Channel: ╰―＞🔌ㅐtest
+Channel Type: GuildTextChat
+Topic: None
+
+jokbon: 
+-turotial
+jokbon: 
+-tutorial
+jokbon: 
+-tutorial
+jokbon: 
+-tutorial
+jokbon: 
+-tutorial
+YAGPDB.xyz: 
+
+tobero: 
+Lemme try adding the kick thing
+jokbon: 
+@[Dev] Tobero make regex with all commands
+jokbon: 
+and make single ansver with whole documentation
+tobero: 
+You mean a auto reply for each command.
+Alright. But that will take some time
+jokbon: 
+because maximum costumn commands is 100 and when we run out were fked
+jokbon: 
+if regex have limit then split commands in 4 pieces to groups or something
+jokbon: 
+lets say you can group extension commands (but remember detection must be reverse also cause peple swap word orders often or speak with gramatic mistakes)
+jokbon: 
+so if person wants to get extension he might ask:
+
+downloads extension
+downloads extensions
+download extension
+download extensions
+extensions download
+extensions downloads
+extension download
+extension downloads
+jokbon: 
+@[Dev] Tobero thats just for one 🤣
+tobero: 
+Doesn't yagpdb have a feature for string similarity?
+jokbon: 
+```downloads.*extension|downloads.*extensions|download.*extension|download.*extension|sextensions.*download|extensions.*downloads|extension.*download|extension.*downloads```
+jokbon: 
+dont think so
+jokbon: 
+i tryed using contains but it works wery dumb
+.
+jokbon: 
+it cant contain regex
+jokbon: 
+if u check contains it must contain whole sentence u wrote in it
+jokbon: 
+you can shorter the word
+tobero: 
+That wouldn't make a problem for extension download, as example, just put download in the contains.
+How often is download on this servrer used without extensions
+jokbon: 
+downl.*extens|downl.*extens
+jokbon: 
+that could work too
+jokbon: 
+but u cant make it too short or it will mess up with other words users say
+jokbon: 
+if user writes `how to get faction land extended`
+jokbon: 
+and you use `get exten` for extensions
+jokbon: 
+it will start sh*ting false positives
+jokbon: 
+@[Dev] Tobero
+jokbon: 
+so its safer to use whole words
+tobero: 
+okey. Thank you
+jokbon: 
+its just better to setup with alot of dumb effort or else it messes up everything like cobweb
+u will end up geting 12 ansvers for one question
+jokbon: 
+i doubt you are trying to set up those ansvers about commands see its too hard lol
+tobero: 
+Hope you know regex is one if the things I have to deal with when writing the plugin, right?
+
+I haven't had time, because the plugin currently has bugs that needs to be fixed first
+jokbon: 
+hmm iama try
+jokbon: 
+Papi:
+
+    %faction_name% - Get the faction name of the player
+    %faction_registry% - Get the regsitry
+    %faction_members% - Get the member count (Total)
+    %faction_members_online% - Get the online member count
+    %faction_power% - Get the current power level of the faction
+    %faction_maxpower% - Get the max power the faction can currently have
+    %faction_balance% - Get the balance of the faction bank (! Needs vault & a bank supporting plugin)
+    %faction_claims% - Get the total amount of claims
+jokbon: 
+.-------------------- claim
+jokbon: 
+/f claim - This will execute
+/f claim one
+/f claim auto - Claims every chunk you walk on
+/f claim one - This will claim the current chunk you are standing in
+/f claimPower - Displays how many chunks can be claimed until you run out of power
+YAGPDB.xyz: 
+
+jokbon: 
+oh i need to update this too
+jokbon: 
+/f create - Creates your faction. Name it whatever you like. But don't use spaces
+/f delete - Deletes faction
+/f description <Text... blah blah text> - Set descrption (currently unused)
+/f invite <Player> - Sends a invite to the player if he is online. The player will then receive a clickable message that allows them to join the faction
+/f inviteaccept <Faction> - Accept a invite if you can't click messages (android/IOS)
+/f join <Faction> - Join a public faction. Every faction is by default set to private to prevent unexpected intruders
+/f kick <Player> - Kicks a player from your faction
+/f leave - Leave your current faction, unless you are the owner
+/f listbanned - Displays all banned players from the faction
+tobero: 
+standby
+tobero: 
+standby
+tobero: 
+-standby
+jokbon: 
+i didnt add standby because its a bug
+jokbon: 
+it shudnt happen at all
+tobero: 
+But I tried, to tell about how to report a bug properly
+jokbon: 
+oh
+tobero: 
+Yeah, but it does too often
+tobero: 
+standby
+tobero: 
+-standby
+jokbon: 
+look
+jokbon: 
+-standby
+jokbon: 
+standby
+tobero: 
+I think I'm too stupid. The regex standby should work
+jokbon: 
+i willl check what u done
+jokbon: 
+and correct
+jokbon: 
+just dont remove
+tobero: 
+It isn't correct, else it would work, I guess
+jokbon: 
+my 2 factor shit starts like 3 hours
+jokbon: 
+standby
+jokbon: 
+?????????
+jokbon: 
+standby
+jokbon: 
+-.-
+jokbon: 
+stupid regex drives me mad
+tobero: 
+how to standby
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+lol
+jokbon: 
+u just realised that regex is stupid?
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+v
+jokbon: 
+XD
+jokbon: 
+wow
+tobero: 
+I think Yagpdb isn't updating realtime, because the regex matches
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+nope
+jokbon: 
+its regex stupidity
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+standby
+tobero: 
+But it matches everything right, so that should work
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986222161305931796/989630103602466876/unknown.png?ex=6648689b&is=6647171b&hm=8bb708f299b8c9bf12658737ba5387473b33da07412d81c1c08bdbd8911cb56a&
+
+jokbon: 
+yes but website you use got special settings aplied to it
+jokbon: 
+x)
+tobero: 
+Really?
+tobero: 
+Let me test real quick
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+standby
+tobero: 
+NodeJs matches it too
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986222161305931796/989630916135624734/unknown.png?ex=6648695c&is=664717dc&hm=80ddc42e392cc6a387b71d703c573a40c445b2c6513986b921a674fc7a45528d&
+
+jokbon: 
+standby
+jokbon: 
+it got /g flag
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+ooooh
+jokbon: 
+wait
+jokbon: 
+i found why
+tobero: 
+Does that matter? I just thought it's just a way to indicate ja that's it's a regex
+tobero: 
+What's the problem
+jokbon: 
+standby
+jokbon: 
+standby
+jokbon: 
+standby
+YAGPDB.xyz: 
+Please send Tobero the crash-console log with the error in it. Tell him also how to reproduce it, if it was a user problem
+jokbon: 
+SDGdsg standby fsdfs
+YAGPDB.xyz: 
+Please send Tobero the crash-console log with the error in it. Tell him also how to reproduce it, if it was a user problem
+jokbon: 
+when you added to the group you didnt notice that group "autoansvers" only lets sending to auto ansvers
+jokbon: 
+
+Attachments:
+[Screenshot_20220623_234938.png]
+https://cdn.discordapp.com/attachments/986222161305931796/989633379177734174/Screenshot_20220623_234938.png?ex=66486ba8&is=66471a28&hm=fc6d61d154815be637e5e91447c2511e7227205560be2ebe901eff87844d6882&
+
+jokbon: 
+from now on autoansvers group will work only in these 2 chanels
+jokbon: 
+if u want it global add new command group called global autoansvers
+jokbon: 
+then allow it to every channel
+tobero: 
+Okey. Thanks
+tobero: 
+Will take a look at designing the embed for that tomorrow
+jokbon: 
+bruh just do
+jokbon: 
+```{{ $time :=  currentTime }}
+{{ $MessageDiscription := (joinStr "" 
+    "**Plugin put itself in safemode because of bug.**\n"
+    "**Properly report the problem:**\n"
+    "Please send Tobero the crash log (inside console or from your servers logs folder).\n"
+    "**Important note:**\n"
+    "Don't cut the logs, because in that way its harder for developer to fix it.\n"
+)}}
+
+{{$embed := cembed 
+    "title" "**ImprovedFactions**" 
+    "description" $MessageDiscription
+    "footer" 
+    (sdict 
+        "text" "ImprovedFactions"
+    )
+    "timestamp" $time
+}}
+{{ sendMessage nil $embed }}```
+YAGPDB.xyz: 
+
+jokbon: 
+standby
+YAGPDB.xyz: 
+
+jokbon: 
+standby
+YAGPDB.xyz: 
+
+jokbon: 
+standby
+YAGPDB.xyz: 
+
+jokbon: 
+standby
+YAGPDB.xyz: 
+
+jokbon: 
+standby
+YAGPDB.xyz: 
+

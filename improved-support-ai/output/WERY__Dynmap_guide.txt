@@ -1,0 +1,24 @@
+Channel: WERY! Dynmap guide
+Channel Type: GuildPublicThread
+Topic: None
+
+jokbon: 
+I got lost... help!
+Attachments:
+[90264037-c90c5500-de50-11ea-9313-7f3031ea56e5.png]
+https://cdn.discordapp.com/attachments/1118993642976198786/1118993643294949478/90264037-c90c5500-de50-11ea-9313-7f3031ea56e5.png?ex=6648604a&is=66470eca&hm=99bab780c078c6b08bcf50e74fdaabb789c20132a15fa78613ed7cb5d67e1de7&
+
+jokbon: 
+**SET AND PORT FORWARD DYNAMP PORT** 
+if in config set desired:` webserver-port: 1939`
+Specify in router settings same port you specified `1939`
+**SET RESOLUTION SO WORLD LOADS FASTER / SLOWER**
+deftemplatesuffix `vlowres`
+**SET QUALITY OF FILES TO SAVE SPACE**
+if you want ofc
+**ACCESS THE MAP**
+`your_domain_or_ip_adress:1939`
+jokbon: 
+Changed the channel name: WERY! Dynmap guide XD
+jokbon: 
+Changed the channel name: WERY! Dynmap guide

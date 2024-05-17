@@ -1,0 +1,57 @@
+Channel: Can't declare war
+Channel Type: GuildPublicThread
+Topic: None
+
+ziql: 
+Hello, I'm using improved factions on my server and I decided to test our plugins with my friend so we both made factions and tried to declare war but we got a error: There went something wrong if this happens more then two times please report it to an admin error: NoLocalizationFound
+YAGPDB.xyz: 
+
+josh65: 
+Please check for errors in the console. Localization should not block it.
+ashy.uwu: 
+I keep getting the same error
+ashy.uwu: 
+And there is no error in console
+josh65: 
+Localization message just mean there isn't a translation it wont cause any functionality issues.
+ashy.uwu: 
+oh okay!
+ziql: 
+but I can't claim my anemys land
+josh65: 
+The war command doesn't let you do that. They don't do much other then show it on the who is command right now. It might change for v2 but there no timeline for it.
+tobero: 
+You can use /f user to hide these messages
+ziql: 
+what happens if a faction has low power?
+ziql: 
+do they lose territory?
+tobero: 
+Chunks at the edges will be raidable
+ziql: 
+and those chunks on the edges will be claimable?
+tobero: 
+Exactly. Another faction can go their, break stuff and overclaim them.
+When a faction loses a chunk, it gives them back some power. This should counters the problem that might come from overclaiming - The new chunk gets to be an edge, making it overclaimable, and so on.
+tobero: 
+Basically, chunks further away from the center will be overclaimable faster. The center is determined by averaging out all chunk positions in a cluster
+ziql: 
+ok nice thanks for the help
+ziql: 
+!solved
+tobero: 
+Our bot isn't able to do that... It's stupid, I know, but I haven't had time to set it up yet
+ziql: 
+ok
+ziql: 
+why has the plugin put itself in standby mode?
+YAGPDB.xyz: 
+
+tobero: 
+The plugin crash. To prevent people from griefing claims, standby mode enabled, disallowing any block modifications. 
+You should try reach for the cause of the problem.. Searching the console is a great way to start looking for errors.
+
+
+If you found one and need help, don't hesitate to post them - I'll try to help
+ziql: 
+Here's the error I got while trying to create a faction: ERROR]: §7[§e§lImprovedFactions§7] §cclass java.lang.Integer cannot be cast to class java.lang.Double (java.lang.Integer and java.lang.Double are in module java.base of loader 'bootstrap')

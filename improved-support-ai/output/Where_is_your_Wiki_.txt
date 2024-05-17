@@ -1,0 +1,27 @@
+Channel: Where is your Wiki?
+Channel Type: GuildPublicThread
+Topic: None
+
+cordlessdewalt: 
+The WIki link on your site goes to  github folder with no wiki in it?
+I love the sound of Improved Factions but I want to learn more about it? Commands? Permissions Nodes? Anything?
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1232788204445372437/1232788204625854474/image.png?ex=664864bc&is=6647133c&hm=4b19bbc1b545576559325bc32a822f9956b6d99b976a96bd25ed04326fc04bea&
+
+tobero: 
+Yeah, the wiki right now isn't available without having run the plugin once. 
+The best you can find right now are the module docs. For commands, their usage and permissions, you have to use /f help in-game. 
+A little bit stupid of me, I'll work on a solution to generate these infos automatically into an readme file so you can view them without having to run the plugin
+cordlessdewalt: 
+that would be awesome, if I do install the plugin on a test server to check it out, where does the Wiki show up?
+tobero: 
+You can find the semi-wiki page by typing /f help. This will print a overview of the different command categories. Clicking on them will then further expad them and show the commands within this category
+cordlessdewalt: 
+awesome, I'll try it out, thank you!!
+cordlessdewalt: 
+Will you update it in your website when the Wiki information is live?
+tobero: 
+Yeah, I'll update the websites once the wiki has been generated. This might take some time, as this feature hasn't been implemented yet
+tobero: 
+Added a commands wiki: https://github.com/ToberoCat/ImprovedFactions_new/blob/main/docs/commands/index.md

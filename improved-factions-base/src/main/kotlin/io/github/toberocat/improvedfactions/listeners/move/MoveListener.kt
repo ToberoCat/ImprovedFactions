@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedfactions.listeners.move
 
+import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
 import io.github.toberocat.improvedfactions.utils.toAudience
 import org.bukkit.event.EventHandler
@@ -7,8 +8,8 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerMoveEvent
 import org.jetbrains.exposed.sql.transactions.transaction
 
-class MoveListener : Listener {
-    private val territoryListener = TerritoryTitle()
+class MoveListener(plugin: ImprovedFactionsPlugin) : Listener {
+    private val territoryListener = TerritoryTitle(plugin.improvedFactionsConfig)
     private val raidableBossBar = RaidableBossBar()
     @EventHandler
     fun playerMove(event: PlayerMoveEvent) {
@@ -29,7 +30,7 @@ class MoveListener : Listener {
                 toClaim?.siegeManager?.enterClaimCombat(event.player)
 
             raidableBossBar.claimChanged(isRaidable, event.player, audience)
-            territoryListener.claimChanged(toClaim, fromClaim, toFaction, audience, isRaidable, event.player)
+            territoryListener.claimChanged(toClaim, fromClaim, toFaction, isRaidable, event.player)
         }
     }
 

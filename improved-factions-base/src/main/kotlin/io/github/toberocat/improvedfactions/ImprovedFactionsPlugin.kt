@@ -21,6 +21,7 @@ import io.github.toberocat.improvedfactions.components.rank.FactionRankComponent
 import io.github.toberocat.improvedfactions.components.rank.FactionRankComponentBuilder
 import io.github.toberocat.improvedfactions.components.rankselector.FactionRankSelectorComponent
 import io.github.toberocat.improvedfactions.components.rankselector.FactionRankSelectorComponentBuilder
+import io.github.toberocat.improvedfactions.config.ImprovedFactionsConfig
 import io.github.toberocat.improvedfactions.factions.Factions
 import io.github.toberocat.improvedfactions.functions.FactionPermissionFunction
 import io.github.toberocat.improvedfactions.invites.FactionInvites
@@ -57,6 +58,7 @@ class ImprovedFactionsPlugin : JavaPlugin() {
     private lateinit var database: Database
     lateinit var guiEngineApi: GuiEngineApi
     lateinit var adventure: BukkitAudiences
+    lateinit var improvedFactionsConfig: ImprovedFactionsConfig
     lateinit var claimChunkClusters: ClaimClusterDetector
     lateinit var papiTransformer: (player: OfflinePlayer, input: String) -> String
 
@@ -159,6 +161,7 @@ class ImprovedFactionsPlugin : JavaPlugin() {
 
 
     fun loadConfig() {
+        improvedFactionsConfig = ImprovedFactionsConfig(config)
         Factions.maxNameLength = config.getInt("factions.unsafe.max-name-length", 36)
         Factions.maxIconLength = config.getInt("factions.unsafe.max-icon-length", 5000)
         Factions.maxSpacesInName = config.getInt("factions.max-spaces-in-name", 5)
@@ -222,6 +225,6 @@ class ImprovedFactionsPlugin : JavaPlugin() {
     }
 
     private fun registerListeners() {
-        server.pluginManager.registerEvents(MoveListener(), this)
+        server.pluginManager.registerEvents(MoveListener(this), this)
     }
 }

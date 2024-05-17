@@ -1,0 +1,13 @@
+Channel: Connect to MySQL
+Channel Type: GuildPublicThread
+Topic: None
+
+stevejwd: 
+Is it actually possible to connect to a MySQL database? I can't find any information about connecting to a database.
+tobero: 
+Short answer: **Not yet. You'll have to wait for v2.0.0**
+
+MySQL is a feature that'll be coming to the new version.
+In the current one there is a way to connect, but the problem with the current implementation is that it won't store all data needed in MySQL.
+stevejwd: 
+Ah, okay. No problem

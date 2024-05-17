@@ -1,0 +1,10 @@
+Channel: admin command explanation
+Channel Type: GuildPublicThread
+Topic: None
+
+tobero: 
+
+tobero: 
+Enter /f admin (as op) and build in every territory and claim chunks for factions
+tobero: 
+The /f admin is a command to access many settings for admins, like disband, build permission, break permission, join private, claimChunk for other faction, access homes, jail and more

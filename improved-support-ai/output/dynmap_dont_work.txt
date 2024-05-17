@@ -1,0 +1,12 @@
+Channel: dynmap dont work
+Channel Type: GuildPublicThread
+Topic: None
+
+gi0vii: 
+when i start the server it tell me that
+
+º7[ºeºlImprovedFactionsº7] ºcDidn't find Dynmap. Dynmap extension requires [Dynmap]
+josh65: 
+It's a known issue, the extension doesn't work currently anyway as it just shows factions as the whole map.
+gi0vii: 
+ok thank you

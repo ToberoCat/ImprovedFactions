@@ -1,0 +1,1524 @@
+Channel: ╰＞☕ㅐgeneral
+Channel Type: GuildTextChat
+Topic: None
+
+tobero: 
+```List on what will require much testing when a dev build gets released```
+- Saving data to mysql
+- Loading data from mysql
+- Auto sync between proxy using mysql
+- The action system (actions.yml)
+- Loading factions from file
+- Saving factions to file
+- Deleting factions while a member is offline an check if every command works
+
+**Currently I can't give a dev build, because I have fatal errors to fix that prevent me from compiling it to a useable jar file**
+tobero: 
+Okay, the spigot version launched the first time on my test server - It doesn't add any in game commands, etc yet, but that's work in progress
+tobero: 
+Wow, the plugin now has a size of ~ 9MB and that without any features being added
+tobero: 
+If someone wants to help me, I have settled onto a new language system. Its no longer a json, now they are xml files.
+
+I have started to add translatable messages. Because of focusing on writing the code, I can't make all messages. That's why I'm asking if someone is able to translate the files / correct my grammar, typo, etc.
+
+https://github.com/ToberoCat/ImprovedFactions_new/blob/main/core/src/main/resources/lang/en_us.xml
+This is the file, all `PLACEHOLDERS` are just a quick way for me to add it into the file, but they still have to get their content.
+If you'd like to help, make a fork, update the values you want to change / add and make a pull request
+jokbon: 
+kk will check after have time
+tobero: 
+Yeah, no stress, Josh already took some of his valuable time and helped
+tobero: 
+I don't know if I should post it yet, but the first useable dev build is now finished.
+It currently adds the entire underlying code structure, but only adds the create / delete faction command
+jokbon: 
+XD do claiming and then post, dont add anything more lol
+jokbon: 
+that one just without any aditional files
+tobero: 
+Yeah, will add it
+jokbon: 
+like get rid of rest code just claim and f create
+jokbon: 
+as a test build for claiming stability
+jokbon: 
+later one by one map etc
+jokbon: 
+best if separate
+tobero: 
+Yeah, the biggest things that require testing is the cross compatibility between mysql and local, like when switching between they data should get used even when stored in other medium
+tobero: 
+Things that will require much testing will be things like velocity / multipaper
+jokbon: 
+i think you can just do only mysql
+tobero: 
+No, because not all server hosts provide a mysql db
+jokbon: 
+people can host themselves or free hosts
+tobero: 
+btw, this will have it's one year anniversary on 24. August
+tobero: 
+Yeah, still it isn't much effort for me adding a local option
+jokbon: 
+Easy to add hard to make it work
+jokbon: 
+Other factions have like 3 developers and yours is most advanced but also most buggy
+jokbon: 
+Maybe even more developers, cause forking
+tobero: 
+Yeah, I'm working on creating the perfect version of this plugin
+jokbon: 
+So i expect like 10ppl behind vs 1
+jokbon: 
+😂 😂
+tobero: 
+Yeah, maybe this one is more advanced because it's pretty simple and tries to add features people want that are actually using it. I don't know how others come up with features
+jokbon: 
+Oh u will be suprised, they have alot, but theyr plugin base is stupid basic
+tobero: 
+Yeah, I mean like they add features no body needs. At least when I was playing on a faction server (Long ago) I was overwhelmed by the amount of too complicated features
+tobero: 
+There where no guis, which made it easier to manage or something
+jokbon: 
+https://www.spigotmc.org/resources/improved-factions.95617/
+jokbon: 
+Pinned a message.
+tobero: 
+Okay, next dev build will be finished in one to two days. It will include all dev report issues and claiming
+josh65: 
+does it inclue the mass claiming feature
+tobero: 
+Yep
+tobero: 
+The claim now as a area
+tobero: 
+Like radius 2 will claim all 25 chunks around you in a radius of 2
+tobero: 
+But the world edit like isn't included
+josh65: 
+Is there a reason why the max radius for claim and unclaim commands are in a different folder in separate files. Would make more sense as a few lines in the config file
+tobero: 
+Yeah, they are as these files will contain alias, command cost, etc. I just thought it looks nices when you don't have to deal with nested config sections and instead have different files for it
+josh65: 
+So i just realised mass editing commands properties will be kind of annoying with more of them since the user has to open every file and then manually put the value in rather then replace all, properly only an issue if you were to make all the commands the same cost. Finding aliases may also be annoying if the user is debuging conflicts.
+josh65: 
+@[Dev] Tobero do you have an estimated time for a dev 3 release?
+jokbon: 
+1 week + math 🤣 
+https://komodomath.com/uploads/site/2013/05/scary_math.jpg
+tobero: 
+I would have to test the chunk protection, but when that's done, I can release the invite dev build. Next one will probably introduce guis
+jokbon: 
+tobero how beta permisions work?
+jokbon: 
+do they have defaults or i need to costumize from 0
+tobero: 
+How do you mean that?
+tobero: 
+They are nodes in the plugin.yml
+tobero: 
+Where you have to define if they are op or not op
+josh65: 
+is the a reason for the black description items in the translation file. Its on all the item translations.
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/1000001537503936643/1033320440753565746/unknown.png?ex=66487da7&is=66472c27&hm=d0d5c265900c5bcaeab60c49e0d1253324023e4897a74ffb4897f6a615058892&
+
+josh65: 
+also what should i use for dynamic infomation e.g. current faction name. Some are using {} and other use %%
+josh65: 
+@[Dev] Tobero
+tobero: 
+%% for papi placeholders
+{} for placeholders that only exist within a command
+tobero: 
+It's  blank line. I just styled it
+josh65: 
+alright
+jokbon: 
+https://cdn.discordapp.com/attachments/803196804651941959/1040599276239208570/unknown.png
+josh65: 
+Is there going to be a tutorial/syntax list for the fancy message.
+tobero: 
+Yep. I'll post it into #╰＞❔ㅐquestions as a post so I can refer to it
+josh65: 
+so it doesn't load for me
+```
+[19:52:33 ERROR]: Error occurred while enabling ImprovedFactions v2.0.0-dev.5 (Is it up to date?)
+java.lang.NullPointerException: Cannot invoke "io.github.toberocat.improvedFactions.core.command.component.Command.getCommands()" because the return value of "java.util.Map.get(Object)" is null
+        at io.github.toberocat.improvedfactions.spigot.command.component.SpigotCommandHandler.<init>(SpigotCommandHandler.java:25) ~[ImprovedFactions.Spigot-2.0.0-dev.5.jar:?]
+        at io.github.toberocat.improvedfactions.spigot.command.SpigotFactionCommand.<init>(SpigotFactionCommand.java:21) ~[ImprovedFactions.Spigot-2.0.0-dev.5.jar:?]
+        at io.github.toberocat.improvedfactions.spigot.MainIF.registerCommands(MainIF.java:93) ~[ImprovedFactions.Spigot-2.0.0-dev.5.jar:?]
+        at io.github.toberocat.improvedfactions.spigot.MainIF.onEnable(MainIF.java:46) ~[ImprovedFactions.Spigot-2.0.0-dev.5.jar:?]
+        at org.bukkit.plugin.java.JavaPlugin.setEnabled(JavaPlugin.java:264) ~[paper-api-1.18.2-R0.1-SNAPSHOT.jar:?]
+        at org.bukkit.plugin.java.JavaPluginLoader.enablePlugin(JavaPluginLoader.java:370) ~[paper-api-1.18.2-R0.1-SNAPSHOT.jar:?]
+        at org.bukkit.plugin.SimplePluginManager.enablePlugin(SimplePluginManager.java:541) ~[paper-api-1.18.2-R0.1-SNAPSHOT.jar:?]
+        at org.bukkit.craftbukkit.v1_18_R2.CraftServer.enablePlugin(CraftServer.java:560) ~[paper-1.18.2.jar:git-Paper-387]
+        at org.bukkit.craftbukkit.v1_18_R2.CraftServer.enablePlugins(CraftServer.java:474) ~[paper-1.18.2.jar:git-Paper-387]
+        at net.minecraft.server.MinecraftServer.loadWorld0(MinecraftServer.java:665) ~[paper-1.18.2.jar:git-Paper-387]
+        at net.minecraft.server.MinecraftServer.loadLevel(MinecraftServer.java:432) ~[paper-1.18.2.jar:git-Paper-387]
+        at net.minecraft.server.dedicated.DedicatedServer.initServer(DedicatedServer.java:316) ~[paper-1.18.2.jar:git-Paper-387]
+        at```
+josh65: 
+```
+
+net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1164) ~[paper-1.18.2.jar:git-Paper-387]
+        at net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:316) ~[paper-1.18.2.jar:git-Paper-387]
+        at java.lang.Thread.run(Thread.java:833) ~[?:?]
+```
+josh65: 
+think it the same issue i had trying to build it myself
+tobero: 
+Have you tried removing the entire ImprovedFactions folder?
+josh65: 
+il try now
+josh65: 
+nope still the same
+tobero: 
+What server version are you using?
+josh65: 
+Paper 1.18.2 build 387
+tobero: 
+Okay, can you send me your entire latest log?
+tobero: 
+Have you tried building it yourself or is it the file I uploaded to github?
+josh65: 
+It the file from github
+tobero: 
+Oh, it was an issue with an worldguard command. I'll remove it temporarily, but will add it back later (File is uploading right now)
+josh65: 
+what's the world guard command?
+tobero: 
+It scans all regions (with an filter of course) and marks them with the zone you want
+tobero: 
+Just to speedup chunk protection
+tobero: 
+https://github.com/ToberoCat/ImprovedFactions_new/releases/tag/v2.0.0-dev.5.1
+
+Here is the file
+josh65: 
+that fixed it thanks
+tobero: 
+No problem
+tobero: 
+Here's the guide for the fancy messages
+
+https://discord.com/channels/819932760550014986/1049423763059515544
+josh65: 
+Are the new GUI for settings suppose to work? For me clicking an item doesn't do anything
+tobero: 
+No, they aren't. Right now they should only get displayed (Which to be true was the hardest part)
+josh65: 
+Alright
+josh65: 
+Is there a max power value to be used in the lang files. None of them work from what i can see on there.
+tobero: 
+Right now there isn't but I'm working on a system that allows you to access any field of a faction using java reflect (That's the cause of the weird name for eg. faction_getDisplayName. It's actually Faction#getDisplayName).
+
+If you want to see every (soon) available usable placeholder, here is the faction interface:
+https://github.com/ToberoCat/ImprovedFactions_new/blob/main/core/src/main/java/io/github/toberocat/improvedFactions/core/faction/Faction.java
+
+Starting from line 108. All methods starting with `get` will return something
+tobero: 
+Just so you know, I'm planning on releasing v2.0.0 the next two - three weeks, so I'll finally finish
+jokbon: 
+my country became more green by placing 1000000bilion strees in one year!!!!!
+if there is tree from past year they take it out and put new one to grow!
+tobero: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1000001537503936643/1131722544014176306/image.png?ex=66488a80&is=66473900&hm=e39fd46e7f716a2e4facabb9af3b65368ba82c7b05aa818ed9950eddc1fb89a9&
+
+jokbon: 
+only you can make weirdest skins and pixelart, (i was laughing to your players head for months), anyways looks good xD
+tobero: 
+My skin is Richard Watterson. The father of Gumball.
+jokbon: 
+xdxd
+josh65: 
+Is this a plugin issue? running factions v2 stable and GUI engine 1.2.2
+`[GuiEngine] faction-detail-page.gui has a invalid component. Type faction-icon isn't recognized as a component`
+jokbon: 
+dose gui engine supports mini message?
+jokbon: 
+🤴
+jokbon: 
+since old formats lacking i think we need to try to get rid of old
+jokbon: 
+or just keep boths since some placeholders require it
+jokbon: 
+What pises me the most is
+jokbon: 
+
+Attachments:
+[239750485-1068c694-3e39-4301-acca-45bf40c90ff5.png]
+https://cdn.discordapp.com/attachments/1000001537503936643/1137641175004745828/239750485-1068c694-3e39-4301-acca-45bf40c90ff5.png?ex=664851e8&is=66470068&hm=9af57bce30104033fd3b01806a96d3a81d80055eac337c25b244b4da7f216d4d&
+
+jokbon: 
+width 9 height 4
+jokbon: 
+but x = 8; z=3
+jokbon: 
+:iconpride:
+jokbon: 
+and like so everywhere XD
+tobero: 
+That's a key feature that you no longer work with slots, as I hat them the most - I don't really remember what goes where, so specifing x and y is much easier (at least for me)
+
+Width is not relevant for rendering simple GUIs, but once you start using embedded ones, it makes sense to exist
+jokbon: 
+nono
+jokbon: 
+i mean the fact size is specified 1-9 while slot 0-8
+jokbon: 
+size starts from 1 while slot from 0
+jokbon: 
+xd
+tobero: 
+This is convention. A width of 0 makes no sense, while offset on the x axis of 0 makes sense, as it will be at the origin.
+
+That's basically how programmers handle rects in coordinate space - At the end it will be converted into a lower x, lower y, upper x and upper y, so width is just something describing the differnce between these positions
+jokbon: 
+ye these things hilarious
+jokbon: 
+aray starts from 1
+jokbon: 
+xd
+jokbon: 
+(lol)
+tobero: 
+A funny little side note: The current stable dev branch is just a rewrite of the rewrite in kotlin with a few frameworks I've designed and used in my last two years - And all that in three days.
+
+
+So in theory, v2.0.0 will be a rewrite of the cancelled rewrite
+jokbon: 
+oh god https://discord.com/channels/819932760550014986/998990362028806266/1138198608810877028
+jokbon: 
+what the fuck is this
+tobero: 
+You mean the config or the message I sent?
+jokbon: 
+i mean plugin is mess
+jokbon: 
+😂
+jokbon: 
+from what i read
+jokbon: 
+zones oweride faction claims?
+tobero: 
+They don't as they're now a fully fledged feature with no quick workaround to get it working
+jokbon: 
+https://tenor.com/view/explosion-explote-fake-hand-elevator-door-bang-gif-13646447
+jokbon: 
+so thats no way its stable
+jokbon: 
+its like alpha
+jokbon: 
+xD
+tobero: 
+Trust me - it's less buggy than anything I've created yet
+jokbon: 
+💀
+tobero: 
+I can tell that, because I've never had a single issue of the plugin crashing while testing - Even when I edited almost the entire SQLite file while running it - Not a single issue with that
+tobero: 
+I'm even pretty sure you can do the things I've mentioned in the config you should not do and the plugin would still be running
+jokbon: 
+weird
+jokbon: 
+cuz its hard to get it buggy
+jokbon: 
+can i have safezone
+jokbon: 
+and faction title not poping up in there
+jokbon: 
+Can zone protect players (safezone)
+jokbon: 
+Can "unclaimable land" prevent claims
+jokbon: 
+i gues no
+jokbon: 
+Isnt thats easyer to remove zones completely
+jokbon: 
+and put world guard to make that unclaimable/safezone/warzone land
+tobero: 
+All things you mentioned do work. And you can create your own zone, where worldguard handles everything
+tobero: 
+Not even normal claims can, because I forgot to add that
+tobero: 
+No, because worldguard will be a dependency I don't want to force people into using just to get basic stuff from factions
+jokbon: 
+world guard claims
+jokbon: 
+cant be owerclaimed by factions?
+jokbon: 
+@[Dev] Tobero? does that work?
+jokbon: 
+and just put permisions
+jokbon: 
+factions.wgclaim.excempt.[claim name]
+jokbon: 
+ugh ?
+jokbon: 
+xd
+tobero: 
+Yes. You'll have create a zone removing all managed properties, and you have created dummy zone for worldguard.
+jokbon: 
+so ur plugin 100% usable then
+jokbon: 
+lol
+tobero: 
+Won't work. Worldguard works an with blocks and I use chunks. This will cause weird behavior
+tobero: 
+Yes, what's missing?
+jokbon: 
+Yes. You'll have create a zone removing all managed properties, and you have created dummy zone for worldguard
+config example? xd
+jokbon: 
+pls
+jokbon: 
+faction permisions: 
+ALIE
+NEUTRAL
+ENEMY
+tobero: 
+Can add it. But you just have to set all things below protection to false when using unclaimed as template and it should work
+josh65: 
+Is the power system still a thing how does overclaimed/raids work now?
+jokbon: 
+omg stop confusing me
+tobero: 
+Permission - Yep, will come in later builds
+Relations - I'm unsure about them
+
+Power - Will come with a later build
+jokbon: 
+lol
+jokbon: 
+relations: its just switching to alie, neutral and enemy
+tobero: 
+I'm still not sure about how I want power to work, that's why I'll keep it for later
+tobero: 
+It's not the allies, more about the war relation
+jokbon: 
+.........
+jokbon: 
+okay i wish i started coding my own factions plugin
+jokbon: 
+lol
+jokbon: 
+since everything gets confusing
+jokbon: 
+also i wish i had table that wouldnt break
+jokbon: 
+when i smash my head to table
+jokbon: 
+poor tobero has no time for plugin 😦
+tobero: 
+I promise, zones aren't as confusing as you might think they are. They just define if claiming is allowed, if titles should be announced, what the title should be displayed if no faction owns it and they also define what things get protected.
+tobero: 
+Started a thread.
+tobero: 
+https://github.com/users/ToberoCat/projects/3/views/1
+
+I'll try to use this board to inform everyone about things I'm doing / will be doing, etc
+tobero: 
+Sorry, for no upates today, I've been busy writing code for my customers
+tobero: 
+I've upload the latest dev file on spigot, as won't have much time to make any changes this weekend. To keep my motivation for adding more features, I've released it to the public, which hopefully shows me that people care about my plugin
+jokbon: 
+u dont believe how much ppl care for it
+tobero: 
+I'm pretty sure the number is close to zero
+jokbon: 
+i just sweared
+jokbon: 
+lol
+tobero: 
+And the moderation bot didn't like that....
+jokbon: 
+nope it was discord thing
+tobero: 
+Yeah, this thing: https://discord.com/channels/819932760550014986/984472372818092083/1139991193296568471
+jokbon: 
+yes yes yes fk tobero anoying guy dont realise how much i need this plugin
+tobero: 
+You are just a single person - As I said, close to zero
+jokbon: 
+no
+jokbon: 
+thing is
+jokbon: 
+ur plugin is key to bigger support
+jokbon: 
+its like key to support other plugins
+jokbon: 
+yes there are plugins that are compatible with rest of mods
+jokbon: 
+but they are only for survival
+jokbon: 
+with unraidable stuff
+jokbon: 
+saberfactions dont support sheet
+jokbon: 
+with your plugin i could do costum maps
+jokbon: 
+costumn arenas
+jokbon: 
+saber is just like vanila minecraft
+jokbon: 
+but its worse
+jokbon: 
+its like vanila but incompatible with mods
+tobero: 
+Hm. So, the plugin isn't actually just usable for faction, but also for other stuff?
+jokbon: 
+yes
+jokbon: 
+more compatible project korra
+jokbon: 
+it doesnt have shiiiiiitty 2 zone claim witch restrict everything
+jokbon: 
+u dont realise how much people need this
+jokbon: 
+saber factions: no project korra in warzone
+jokbon: 
+it just stuborn shiiiit that make u walk thousand blocks
+tobero: 
+Yeah, but nobody will find it under the name of faction. Shouldn't I just create a fork of it, removing the faction stuff and releasing it as a completely different resource?
+jokbon: 
+in the end u get bored of walking when u just want to pvp
+jokbon: 
+they will
+jokbon: 
+people alredy finding it
+tobero: 
+That's a issue with the world setup. Owners have to make a small world
+jokbon: 
+just people got bored of ur bugs
+tobero: 
+That's true.
+jokbon: 
+only reason it currently unpopular
+jokbon: 
+when it gets fixed it will skyrocket in usage
+tobero: 
+Still, wouldn't it then make sense to kinda rename the plugin? If you think the plugin will be used for non faction stuff, why include that anyways?
+jokbon: 
+saber factions is stuborn shiiiit that does updates by people votes
+people of 7year old (lets face truth most people in discord underage)
+jokbon: 
+vote the most useless features
+tobero: 
+You don't have to repeat the messages, I can see them in the mod tab
+jokbon: 
+making dev to work on useles stuff
+jokbon: 
+look at theyr discord
+jokbon: 
+suggestion tab
+jokbon: 
+they work on dumb features
+jokbon: 
+it only makes saber factions heavyer
+jokbon: 
+not more smart or more easy for owners
+jokbon: 
+its just a clutter of features that alredy exit in other plugins
+tobero: 
+Okay, so just so I get it right - People are still interested in factions or do they just like the features the plugin likes, giving a shi t about factions?
+jokbon: 
+dumest thought i seen a while
+tobero: 
+Why? It sounds like people will be using the plugin for non faction stuff
+jokbon: 
+hmm
+jokbon: 
+they name it "claim engine"
+jokbon: 
+xd
+tobero: 
+Nah... ImprovedFactions will probably stay, as I'm too lazy to remove the faction stuff again. Dumb thought, you're right
+jokbon: 
+to be honest i currently need good faction and good creative plot plugin
+jokbon: 
+that plotsquared keeps on corrupting world
+tobero: 
+Oh, why? Isn't plot squared the best plugin nobody hates for any reason /s (I hate this shit f plugin. A customer made me do stuff with it. At the end decompiled this shiiiit, modified their code to get mine working)
+tobero: 
+Yes, finally. My customer didn't want to accept my suffering
+jokbon: 
+lmao
+jokbon: 
+xD
+tobero: 
+I wasn't able to reload and had to stop & start the server every time I made changes. The restarting probably took more time than coding the plugin
+jokbon: 
+lmao dude
+jokbon: 
+see we all share same pains
+jokbon: 
+its easyer to make own plugin from scratch
+than edit theyr ugly shiiiiit
+tobero: 
+It's just that my customer couldn't afford me to code a plot plugin, therefore he went with plotsquared
+jokbon: 
+how much u charged him
+tobero: 
+For the plugin interfacing with plotsquared 560€ (+ MySql support), The Plotsquared plugin would have cost him 840€ (With MySql support again)
+jokbon: 
+holy f
+jokbon: 
+thats huge
+tobero: 
+Yeah, but you know... That would have been at least 30 hours of coding when I count bug fixes and revisions
+jokbon: 
+thats monthly vage ngl
+tobero: 
+In Euros (€)?
+jokbon: 
+yes
+tobero: 
+Holy cow. That's.... less than I expected
+jokbon: 
+iam geting 667/month
+jokbon: 
+euros
+tobero: 
+For how many hours a week? 20/hrs?
+jokbon: 
+no
+jokbon: 
+65
+tobero: 
+A single week?
+jokbon: 
+wait
+jokbon: 
+i need to count cuz my sheldule fked rn
+jokbon: 
+in kinda work aditional hrs
+jokbon: 
+okay current vage is (if worked normaly)
+863.52
+jokbon: 
+and currently iam geting 667 -  1400eur
+jokbon: 
+863.52 is 40hrs a week
+tobero: 
+Hm. What do you work as? Isn't that like 6€/h? Wasn't the minium wage 12€/h or something?
+jokbon: 
+5.14/h
+jokbon: 
+minimal vage
+tobero: 
+Okay, then it looks like we have a higher minimum wage in austria
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1000001537503936643/1140001905385406504/image.png?ex=664856c2&is=66470542&hm=7debe8855c684347108aaaa5c6347d859a1a9e4d759634908ac94512961bef24&
+
+tobero: 
+And that's for interns
+jokbon: 
+u know what kills me
+its nothing like austria is stronger economy
+jokbon: 
+its just stupid diference of diferent economical aproach
+jokbon: 
+.
+jokbon: 
+btw i will suprise you
+jokbon: 
+in ukraine pension is 30 euros a month
+tobero: 
+Hmmm....... that's not much
+jokbon: 
+righ now it increased to 49,27 Eur
+tobero: 
+Still not all to much
+jokbon: 
+thats like food for 2 days here
+jokbon: 
+if going spendy
+tobero: 
+Nahh... If you're really careful about your spendings you might survive of 20€ / day (In Austria at least). So Maybe 2,5 day
+jokbon: 
+stpid minecraft using all cpu
+tobero: 
+You don't know how bad it is writing code in an code editor consuming 4GB of ram + Running a minecraft server + 2 Minecraft instances
+tobero: 
+On 16GB of RAM
+jokbon: 
+what the fuvk
+jokbon: 
+proxy was dunkin donuts
+jokbon: 
+32% usage
+jokbon: 
+i can help with that
+tobero: 
+Pinned a message.
+jokbon: 
+blockbench
+jokbon: 
++ photoshop
+jokbon: 
+https://discord.com/channels/819932760550014986/1000001537503936643/1131787861310570526
+jokbon: 
+= logo
+jokbon: 
+i still dont care for factions no time xd
+jokbon: 
+xD
+jokbon: 
+lmfao
+tobero: 
+Okay
+jokbon: 
+🤓
+jokbon: 
+xD
+jokbon: 
+1: fix ur beta build
+2: more __debuging__ shud be useful with __config__
+3: colors shud be __minimesage__ and not old shiit
+4: bukkit only can do sync, and not async on main thread
+tobero: 
+Yeah, don't worry, guiengine already utilities threads for interpretation
+tobero: 
+But number 3 sounds good. I'll probably support both
+tobero: 
+I'm not sure about number 2, what debugging methods do you want added?
+jokbon: 
+"item" x="0" y="3"
+jokbon: 
+they are being incorretly presented by debuger
+jokbon: 
+or misleadingly
+jokbon: 
+width="9" height="6 too
+jokbon: 
+It shoud say: 
+Out of bounds gui size. line [] column
+Out of bounds gui item location. line [] column
+jokbon: 
+@[Dev] Tobero when i was debuging it presented wrong line
+jokbon: 
+and wrong column
+tobero: 
+I'm still confused what you mean with debugging. GuiEngine doesn't have an actual debugger
+jokbon: 
+i know
+jokbon: 
+it shows line 2 when mistake is in line 1 for out of bounds
+jokbon: 
+super confusing
+jokbon: 
+i spent so much time looking whats wrong
+tobero: 
+Oh, didn't know the version you're using already supported that.
+I'll see why it's showing that wrongly
+jokbon: 
+nono
+jokbon: 
+can i call
+tobero: 
+It's a bad time right now for calling. I'll tell you when I'm able to call again
+jokbon: 
+you fixed my little pony version ? xD
+tobero: 
+Yep
+tobero: 
+https://discord.com/channels/819932760550014986/998990362028806266/1147170768069869608
+
+here it is
+jokbon: 
+Lmao
+jokbon: 
+i thought u totaly ignored that
+jokbon: 
+after geting mad
+jokbon: 
+XD
+tobero: 
+What do you mean?
+jokbon: 
+u kinda have crush on me on some way since u kicked yagpd  and shringked support right haha
+jokbon: 
+XD
+jokbon: 
+be honest lmao
+https://discord.com/channels/819932760550014986/998990362028806266/1146914745753010186
+tobero: 
+I haven't kicked yagpd. It's still here. @YAGPDB.xyz
+jokbon: 
+dw ill never betray you
+jokbon: 
+xD
+jokbon: 
+i sound toxic most of times thats yes i agree XD
+jokbon: 
+i wonder why everyone use kotlin
+tobero: 
+That's simple: Java sucks. When writing java you write to much boilerplate code.
+Kotlin has so many features a modern language supports (Like C#) but java is just stuck in time.
+jokbon: 
+XD
+jokbon: 
+what about web gl
+jokbon: 
+XD
+jokbon: 
+(note: this is a joke)
+jokbon: 
+boost lag, reduce fps WEB GL THE FASTEST WEB PROGRAMING LANGUAGE EVER!
+jokbon: 
+LOL
+jokbon: 
+i closed web gl app
+jokbon: 
+sound still plays
+jokbon: 
+>>
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1000001537503936643/1147213845866233866/image.png?ex=66483567&is=6646e3e7&hm=62ec661af17c9efc6bf6f404302c1c9237ceb12eb051c1238e620972631e944c&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1000001537503936643/1147213993178566778/image.png?ex=6648358a&is=6646e40a&hm=a608aa5cf5a50960338258a2b370a0740877e19a96306edbc3bdc54537489961&
+
+jokbon: 
+😂 😎
+jokbon: 
+OKAY
+jokbon: 
+FIX LORE
+jokbon: 
+AND
+jokbon: 
+MAKE RANDOM COMMANDS
+jokbon: 
+like random action
+tobero: 
+What do you mean with random? That doesn't make much sense to me
+jokbon: 
+okay
+jokbon: 
+lets say i specify multiple spawns
+jokbon: 
+and it runs random command
+jokbon: 
+so player gets at random place
+jokbon: 
+one of examples
+tobero: 
+Okay, sounds doable
+tobero: 
+https://github.com/ToberoCat/GuiEngine/wiki/GuiFunctions#random-function Is this implementation okay?
+jokbon: 
+um not exactly eh
+jokbon: 
+or maybe i dont understand
+jokbon: 
+wait
+jokbon: 
+let me turn on brain
+jokbon: 
+yes its good implementation
+jokbon: 
+@[Dev] Tobero i know another suggestion
+jokbon: 
+its kinda goes to like expansion
+jokbon: 
+wait
+jokbon: 
+nevermind i can alredy do it
+jokbon: 
+XD
+tobero: 
+What's already doable?
+jokbon: 
+voting roulete
+jokbon: 
+we have perms for guis right?
+jokbon: 
+xD
+tobero: 
+Yeah, you can check for permissions with computable functions, if that's what you mean
+jokbon: 
+not sure but it think vote roulete alredy is posible
+jokbon: 
+XD
+jokbon: 
+LMAO
+jokbon: 
+w gui engine
+tobero: 
+To be true... I don't really know what you mean with a voting roulete
+jokbon: 
+vote rewards
+jokbon: 
+chest
+tobero: 
+Oh, yeah. YOu should be able to do this
+jokbon: 
+with vote keys
+jokbon: 
+LOL
+jokbon: 
+cant wait someone to abuse votekeys
+jokbon: 
+by renaming item
+jokbon: 
+lol
+jokbon: 
+or is it
+tobero: 
+Hm... I'm pretty sure gui engine has no possibility to bind a gui to a block and then check for a specific item, but ignoring this.... you should be able to do it
+jokbon: 
+lol idk
+jokbon: 
+i think its still posible via external plugin
+tobero: 
+Yeah, that's for sure
+jokbon: 
+bind permision comand to item
+jokbon: 
+gives player perm on click
+jokbon: 
+can open  chest
+jokbon: 
+on open remove his item
+jokbon: 
+xD
+jokbon: 
+yes something like this
+jokbon: 
+so its posible
+jokbon: 
+idk
+tobero: 
+Okay, so 
+1. Do you mean the items provided by guiengine?
+2. A command (again)
+3. Command (again)
+4. Command
+
+Yeah, seems doable
+jokbon: 
+iam breaking both plugins and minecraft itself at this point
+jokbon: 
+if microsoft comits sepuku on brain damage blame me
+jokbon: 
+hello
+jokbon: 
+XD
+tobero: 
+The new config parameters in the config for the power module (Still missing values)
+```yml
+  #
+  # -------- { Power Raid Module Settings } --------
+  # These settings only apply when you enabled this module.
+  #
+  # This section represents the constants mentioned in the power-raids module documentation.
+  # If you have no clue what you're doing here, a good place to start looking would be the power raid module documentation
+  power-management:
+    base-member-constant: 50 # Note that this is indeed a constant - Therefore changing this might cause balancing issues on your server
+    accumulation-rate: # Configure how often faction powers will be accumulated. Increasing it to be too frequent might cause database bottlenecks
+      unit: HOURS # The time unit this value will be interpreted as. Some more common possibilities are: SECONDS, MINUTES, HOURS and DAYS
+      value: 1
+    base-accumulation: 0 # Set how much power a faction gets even when no members are online
+    accumulation-multiplier: 10 # A value that will get applied at the end
+    # This is a constant responsible for rewarding when multiple people of a faction are online simultaneous.
+    # It's used in an exponential growth function, so don't make it too big
+    accumulation-active-exponent: 2
+    # This is a constant responsible for penalizing inactive people of a faction are online simultaneous.
+    # It's used in an exponential growth function, so don't make it too big
+    accumulation-inactive-multiplier: 2
+```
+tobero: 
+I've uploaded the source code of v2.0.3 on github. Still have to merge it into the main branch.
+https://github.com/ToberoCat/ImprovedFactions_new/tree/dev
+tobero: 
+The power menu for factions. Tried to put everything that's important when it comes to power accumulation into this menu, hopefully allowing them to optimize their factions power usages
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1000001537503936643/1174096615905181859/image.png?ex=664872ee&is=6647216e&hm=4f9bf24e73fb371d01b78184ff563490b4614e0a6d8b82bacca63feb60dda0bd&
+[image.png]
+https://cdn.discordapp.com/attachments/1000001537503936643/1174096616177803404/image.png?ex=664872ee&is=6647216e&hm=12d0789483757bec1dcfd374de2053cdf9f7458cde1686211a0a035d453db059&
+[image.png]
+https://cdn.discordapp.com/attachments/1000001537503936643/1174096616542720000/image.png?ex=664872ef&is=6647216f&hm=74c01c48dc9b501382affd15d8eea684a2dabe844788946ad7d9d27aefbd0e48&
+
+josh65: 
+does `accumulation-inactive-multiplier` take power depending on how many player are offline?
+tobero: 
+Not excatly, but yes. Inactive players are players that haven't been on the server for like 7 days (Configurable), forcing factions to stay active.
+tobero: 
+Basically, these config options are pretty complex, because I want to support all possible play styles with them- And they kinda achieve it, as you can easily reward & penalise different playstyles and have direct influence on how your players will be playing the game.
+A example would be for example by just changing the claim related settings (the maintenance cost and cost growth) you can easily control the sizes of factions - More costly claims will result in lesser chunks getting claimed, making them more valuable to own. On the other hand, you could also easily make players claim the whole world with them.
+Same goes for the ideal faction member sizes. They can be shifted with the inactive / active trade-off values.
+
+So yeah, if someone is really going to try change them, the doc I use currently to not get lost will be needed
+jokbon: 
+okay
+jokbon: 
+speaking of mysql
+jokbon: 
+first question
+jokbon: 
+why there is no option to choose from simple storage and mysql
+jokbon: 
+😡 💀
+jokbon: 
+okay now rest of stuff
+tobero: 
+There is
+tobero: 
+it uses sqlite as soonas the mysql server isn't available
+jokbon: 
+oh k
+jokbon: 
+okay then there could be comment
+tobero: 
+And this fallback sqlite file is making issues
+tobero: 
+I'll add it
+jokbon: 
+"uses sqlite when no mysql avivable"
+jokbon: 
+ot soemtethiong
+jokbon: 
+.
+jokbon: 
+Okay first boot was ww mysql
+jokbon: 
+.
+jokbon: 
+Next boot: no improved faction table, but login is correct
+jokbon: 
+https://mcpaste.io/782b7ca31f0d905e
+jokbon: 
+blah blah many error
+jokbon: 
+.
+Next boot: improved faction table, login is correct
+tobero: 
+I don't get what you mean with no schema.Have you set it to no name, or did you delete it while the plugin was running?
+jokbon: 
+i didnt create improved factions table
+tobero: 
+isn't it creating that automatically?
+jokbon: 
+its not and it probaly shudnt create automaticaly
+jokbon: 
+wait abit
+jokbon: 
+k
+tobero: 
+hm, I'm sure that my database manager creates the schemas and tables automatically...
+jokbon: 
+no it doesnt
+jokbon: 
+now i will create table
+tobero: 
+okay, thanks for testing, will try it
+tobero: 
+try to fix it
+jokbon: 
+Okay now i created table
+it doesnt have previous error
+jokbon: 
+```[16:08:11 ERROR]: [ImprovedFactions] rank\rank-detail.gui has a invalid component. Rank hasn't been found in the database
+[16:08:11 ERROR]: [ImprovedFactions] member\member-detail-page.gui has a invalid component. Specified player %member% has never played on the server before
+[16:08:11 ERROR]: [ImprovedFactions] faction-detail-page.gui has a invalid component. The given faction name didn't return a faction```
+jokbon: 
+@[Dev] Tobero
+tobero: 
+yep, this can be ignored
+tobero: 
+these warnings are just from gui engine gui validation
+jokbon: 
+so ur factions database perfectly working
+jokbon: 
+**user just need to create table**
+tobero: 
+yeah, sqlite is the thing having issues
+jokbon: 
+*mysql skill isusue
+jokbon: 
+.
+jokbon: 
+Okay now testing maria db?
+jokbon: 
+xD
+jokbon: 
+iama check version rq
+jokbon: 
+.
+jokbon: 
+So without table same error
+jokbon: 
+after creating ImprovedFactions
+jokbon: 
+seems to be working
+tobero: 
+Here are the new icon / banners for improved factions. I'll write a new spigot page because I plan to upload improved factions on modrinth and I can't post the spigot page in it's current state - It's basically a list of things that **were** included
+Attachments:
+[ICON.png]
+https://cdn.discordapp.com/attachments/1000001537503936643/1174813916283547669/ICON.png?ex=66486bf8&is=66471a78&hm=ed140b73c2385044545872cf517e26cf1dcb5d98603749e7f07b060ba40ded99&
+[icon_ig.png]
+https://cdn.discordapp.com/attachments/1000001537503936643/1174813916702982184/icon_ig.png?ex=66486bf8&is=66471a78&hm=32d1b67400148202105e499eb5446ce6fc8a2cb9c42dae35c69c62e0c28198bf&
+[full-scale-banner.png]
+https://cdn.discordapp.com/attachments/1000001537503936643/1174813917004976189/full-scale-banner.png?ex=66486bf8&is=66471a78&hm=07798046bb78c19e997aed59ebd722eaff8cb8de1bfac4240469c9e4a293384c&
+
+jokbon: 
+improyed faction
+josh65: 
+What is the default max power for a faction? Mines showing 0 which I'm sure is wrong.
+tobero: 
+Have you just created the faction? Usually it will create a faction with 0 max power, then the owner joins, increasing the max by the configured growth rate. Maybe there's something wrong or a error at this stage
+josh65: 
+It's an existing faction so I was already joined as the owner
+tobero: 
+Oh, so you've upgraded a old faction?
+tobero: 
+"old"
+josh65: 
+Updated IF and kept the datebase yeah. I found i can change it in the data base just want to know what the default value should be.
+tobero: 
+Okay, so it depends on your configuration file, but if you kept everything defaulted, it should be 50 when only one member is present
+josh65: 
+Alright I haven't change the config from default thanks.
+tobero: 
+But that's actually a great point - I totally missed the upgrading part. Previously existing factions won't get the max power they hsould've received
+josh65: 
+Is there a way I can set the maintain cost to be daily rather then hourly without effecting the power accumulation for online players.
+tobero: 
+No, not right now, but it's a very easy feature to add, if you thing it might be better to seperate them
+josh65: 
+Properly yeah. The current issue I'm having is I'm losing all my power over night while im sleeping so chunks become raidable. Seems a bit unfair.
+tobero: 
+Hm, yeah. I can see the issue there. But do you think making the maintenance cost a seperate timer fix this issue? Isn't it like a major flaw?
+josh65: 
+Not sure, I though it would work if the cost was increased by default and done once a day. Then you can know and plan power management around players sleeping before it get taken (based on a server config time).
+
+Maybe there could be a 12 hour delay for maintance cost if there's only an owner in a faction and there offline.
+tobero: 
+After dynmap, I'll release the wilderness module as well as the home module. They both are currently have finished.
+
+Here's the wilderness config, anything I didn't cover?
+```yml
+  wilderness:
+    cooldown-unit: SECONDS # The time unit this value will be interpreted as. Some more common possibilities are: SECONDS, MINUTES, HOURS and DAYS
+    cooldown-value: 30 # The time the player has to wait before being able to use the command again
+    included-zones: # The zones that should be considered as wilderness. This is a list of zone names
+      - unmanaged
+    gain-resistance: true # If set to true, the player will gain resistance for 10 seconds when teleporting to the wilderness
+    prevent-spawn-over-liquids: true # If set to true, the player won't be teleported over bodies of water
+    stand-still-unit: SECONDS
+    stand-still-value: 5 # The time the player has to stand still before being teleported
+    blacklisted-biomes:
+      - OCEAN
+    wilderness-limit: -1 # The amount of times a player can use this command to teleport to wilderness. -1 means no limit
+    claim-distance-check: 20 # The distance the choosen location will be at least away from a faction claim
+    retry-limit: 10 # The amount of times the plugin will try to find a suitable location before giving up
+    blacklisted-worlds: # This is a list of worlds where the wilderness command should not work. It automatically includes the blacklisted worlds from the base module
+      - world_nether
+      - world_the_end
+    # Uncomment to choose the regions where the wilderness command should try to teleport the player to. 
+    # If no regions are defined, the player will be teleported to a random location within proximity in the same world
+    # regions: 
+    # default-region:
+    # min-x: -1000
+    # max-x: 1000
+    # min-z: -1000
+    # max-z: 1000
+    # world: "world"
+    
+    teleport-proximity: 100 # The proximity the player will be teleported to when no regions are defined
+```
+josh65: 
+What it suppose to do, just teleport players to each other?
+josh65: 
+Also with the new power set command factions with spaces in the name brakes it. Space should be removed from the regex by default with a warning about it.
+tobero: 
+It will teleport a player to a random location, that the program thinks is suitable for a new faction, as it's not too close to a different one. Such commands are usually used for servers to spread their players around the world
+tobero: 
+Oh, that's a good point. But even though by disabling the spaces by default, I still have to change the command to allow for them
+josh65: 
+I've notice that faction info isn't loading either. Even though I copied the config from the #╰＞💾ㅐdev-files pastebin.
+Attachments:
+[av6xm48AuUNaSS7o.png]
+https://cdn.discordapp.com/attachments/1000001537503936643/1224138520780734484/av6xm48AuUNaSS7o.png?ex=6647e856&is=664696d6&hm=78c33b123c6c9fea5fa3c35ec9ef2ac57ac9e54b1e1e6d07bc69a71826206cd7&
+
+tobero: 
+This is a issue I've encountered while testing, usually reloading the plugin fixes it. It's a very weird thing that the config isn't loaded correctly.
+You would also have to make sure that the dynmap config is located under factions.dynmap
+josh65: 
+So I put under the factions section indented like the others options and it give more info on the map but crashes the plugin
+Attachments:
+[j5MYSfpaI6HzyFqS.txt]
+[15:48:31 ERROR]: Error occurred while enabling ImprovedFactions v2.0.3-stable (Is it up to date?)
+java.lang.NullPointerException: Cannot invoke "org.dynmap.markers.AreaMarker.setFillStyle(double, int)" because "marker" is null
+        at io.github.toberocat.improvedfactions.modules.dynmap.impl.FactionDynmapModuleHandleImpl.addAreaMarker(FactionDynmapModuleHandleImpl.kt:79) ~[ImprovedFactionsBase-2.0.3-stable.jar:?]
+        at io.github.toberocat.improvedfactions.modules.dynmap.impl.FactionDynmapModuleHandleImpl.factionClusterChange(FactionDynmapModuleHandleImpl.kt:43) ~[ImprovedFactionsBase-2.0.3-stable.jar:?]
+        at io.github.toberocat.improvedfactions.claims.clustering.Cluster.addAll(Cluster.kt:45) ~[ImprovedFactionsBase-2.0.3-stable.jar:?]
+        at io.github.toberocat.improvedfactions.claims.clustering.ClaimClusterDetector.assignToCluster(ClaimClusterDetector.kt:82) ~[ImprovedFactionsBase-2.0.3-stable.jar:?]
+        at io.github.toberocat.improvedfactions.claims.clustering.ClaimClusterDetector.insertPosition(ClaimClusterDetector.kt:22) ~[ImprovedFactionsBase-2.0.3-stable.jar:?]
+        at io.github.toberocat.improvedfactions.claims.clustering.ClaimClusterDetector.detectClusters(ClaimClusterDetector.kt:12) ~[ImprovedFactionsBase-2.0.3-stable.jar:?]
+        at io.github.toberocat.improvedfactions.ImprovedFactionsPlugin.onEnable(ImprovedFactionsPlugin.kt:98) ~[ImprovedFactionsBase-2.0.3-stable.jar:?]
+        at org.bukkit.plugin.java.JavaPlugin.setEnabled(JavaPlugin.java:281) ~[paper-api-1.20.1-R0.1-SNAPSHOT.jar:?]
+        at io.papermc.paper.plugin.manager.PaperPluginInstanceManager.enablePlugin(PaperPluginInstanceManager.java:189) ~[paper-1.20.1.jar:git-Paper-196]
+        at io.papermc.paper.plugin.manager.PaperPluginManagerImpl.enablePlugin(PaperPluginManagerImpl.java:104) ~[paper-1.20.1.jar:git-Paper-196]
+        at org.bukkit.plugin.SimplePluginManager.enablePlugin(SimplePluginManager.java:507) ~[paper-api-1.20.1-R0.1-SNAPSHOT.jar:?]
+        at org.bukkit.craftbukkit.v1_20_R1.CraftServer.enablePlugin(CraftServer.java:642) ~[paper-1.20.1.jar:git-Paper-196]
+        at org.bukkit.craftbukkit.v1_20_R1.CraftServer.enablePlugins(CraftServer.java:553) ~[paper-1.20.1.jar:git-Paper-196]
+        at net.minecraft.server.MinecraftServer.loadWorld0(MinecraftServer.java:635) ~[paper-1.20.1.jar:git-Paper-196]
+        at net.minecraft.server.MinecraftServer.loadLevel(MinecraftServer.java:434) ~[paper-1.20.1.jar:git-Paper-196]
+        at net.minecraft.server.dedicated.DedicatedServer.initServer(DedicatedServer.java:308) ~[paper-1.20.1.jar:git-Paper-196]
+        at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1100) ~[paper-1.20.1.jar:git-Paper-196]
+        at net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:317) ~[paper-1.20.1.jar:git-Paper-196]
+        at java.lang.Thread.run(Unknown Source) ~[?:?]
+
+jokbon: 
+oh its same  bug as previously
+tobero: 
+This is pretty weird. The marker that doesn't exist gets created two lines above.
+I'll have to check that
+tobero: 
+Have you done any specific configuration for dynmap? Are there any errors above?
+jokbon: 
+i believe this is old bug. the only configuration was resolution probaly
+jokbon: 
+error says that its trying to fill color for non existing marker
+jokbon: 
+or something like that
+tobero: 
+I know, but this marker has been created in the same function two lines above
+jokbon: 
+can u show code part?
+jokbon: 
+im not a java coder but hope i can spot bug
+tobero: 
+Yeah, I can, I'm not home right now, so you'll have to hold on a few minutes.
+
+If you want, it's on GitHub in the src/kotlin/io/github/toberocat/modules/dynmap/impl
+tobero: 
+https://github.com/ToberoCat/ImprovedFactions_new/blob/main/improved-factions-base%2Fsrc%2Fmain%2Fkotlin%2Fio%2Fgithub%2Ftoberocat%2Fimprovedfactions%2Fmodules%2Fdynmap%2Fimpl%2FFactionDynmapModuleHandleImpl.kt#L65
+
+This is the method that's failing
+jokbon: 
+@[Dev] Tobero try marker = markSet.createAreaMarker
+jokbon: 
+and try public
+jokbon: 
+idk
+jokbon: 
+i might be wrong XD
+jokbon: 
+public is needed cause else it only visible within file right?
+jokbon: 
+one of those should work i think
+tobero: 
+But this method is only needed within the file
+tobero: 
+The failure is on dynmaps side, not mine. Dynmap for some reason returns no marker for this, so my guess would be that the market already exists for some reason, even though I remove all markers before
+jokbon: 
+it doesnt exist if its null
+tobero: 
+The method doesn't return anything, because it's unable to create the marker - Therefore, the only reason for it to fail would be the same marker already exists
+jokbon: 
+i mean others areable to post same markers
+tobero: 
+But not with the same id. The id would have to be different
+jokbon: 
+did u try to set marker with diferent id each time
+jokbon: 
+u can actualy try to do that
+tobero: 
+The id is unique based on the x, y and world, so yeah. But still, if the same claim would get rendered twice for some reason, this would cause it to fail
+tobero: 
+The id has to be directly associated with the position, for later removal
+jokbon: 
+can if be used as survival plugin atm? (unraidable)
+tobero: 
+Depends on what you need for survival. Raiding can be disabled, if you mean that
+jokbon: 
+i think if u set marker color that alredy exist would throw something else
+tobero: 
+I don't think so, it's a null pointer telling me there's something missing- in this case the return value of the create function
+jokbon: 
+https://www.tabnine.com/code/java/methods/org.dynmap.markers.MarkerSet/createAreaMarker
+jokbon: 
+there are other implementations but in java i think
+josh65: 
+Theres no other errors in the log, haven't change anything specific with markers in Dynmap.
+josh65: 
+Here the config file might be somthing I did wrong.
+Attachments:
+[51hNa839jPt5jjTA.yml]
+mysql:
+  host: "localhost"
+  port: 3306
+  database: "improvedfactions"
+  user: "root"
+  password: "1234"
+  verbose: false
+
+rabbitmq:
+  host: "localhost"
+  port: 5672
+  user: "guest"
+  password: "guest"
+  virtual-host: "/"
+
+factions:
+  max-rank-name-length: 16
+  rank-name-regex: "[a-zA-Z0-9]*"
+  max-spaces-in-name: 5
+  # Unit is minutes
+  invites-expire-in: 5
+  name-regex: "[a-zA-Z0-9]*"
+
+  # Default ranks every faction will receive once created. When modifying it,
+  # note that the first rank will be set to be the default rank for members joining,
+  # while the last one will be considered as the owner rank, the rank the owner will receive on faction creation
+  default-faction-ranks:
+    Member:
+      priority: 1 # The priority this rank has
+      # Defines the faction permissions this rank has by default. Can always be changed by factions
+      default-permissions:
+        - send-invites
+    Elder:
+      priority: 10
+      default-permissions:
+        - send-invites
+        - manage-claims
+    Admin:
+      priority: 100
+      default-permissions:
+        - send-invites
+        - manage-claims
+        - manage-permissions
+        - kick-player
+        - manage-bans
+    Owner:
+      priority: 1000
+      default-permissions:
+        - send-invites
+        - manage-claims
+        - set-icon
+        - rename-faction
+        - manage-permissions
+        - kick-player
+        - manage-bans
+  # Whenever you change values in this section, you'll have issues with your database
+  # Choose values that go for you and never touch them again
+  unsafe:
+    guest-rank-name: "Guest"
+    max-name-length: 16
+    # Define how long the item in base64 format can get. Bigger numbers allow more complex items, while costing more space
+    max-icon-length: 5000
+
+  # -------- { Dynmap Module Settings } --------
+  # These settings only apply when you enabled this module.
+  #
+  # This section represents the constants mentioned in the dynmap module documentation.
+  # If you have no clue what you're doing here, a good place to start looking would be the dynmap module documentation
+  dynmap:
+    # Specify the info windows for dynmap. This is a map of faction names to html strings.
+    # Only very basic ot-of-the-box placeholder support provided. For more placeholders, install the placeholder api plugin, with it, all papi placeholders can be used here.
+    # The target player will be the faction owner, so make sure to only use placeholders that allow for offline players
+    # The key value can be a faction name, zone names or __default__. If a faction has a custom info window, it will be used instead of the default one (Has to be allowed)
+    # Placeholders that work without papi: %faction_name%
+    info-windows:
+      # This is the default window a player will see when clicking on a faction's area on the dynmap. It allows html, css as well as js. This can be overridden by the values below
+      __default__: "<p style=\"font-weight:700;text-align:center\">%faction_name%</p><hr><div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:10px\"><span>Owner: </span><span style=\"font-weight:700\">%faction_owner%</span></div><div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:10px\"><span>Max Power: </span><span style=\"font-weight:700\">%faction_maxPower%</span></div>"
+      safezone: "<div class=\"infowindow\"><span style=\"font-weight:bold\">Safezone</span></div>"
+      unmanaged: "<div class=\"infowindow\"><span style=\"font-weight:bold\">Unmanaged</span></div>"
+    claim-colors:
+      __default__:
+        color: "FF0000" # The color of the claim on the dynmap. This is the color in hex. This can be overridden by the values below
+        opacity: 0.3 # The opacity of the claim on the dynmap. 0 - 1 This can be overridden by the values below
+      safezone:
+        color: "00FFFF"
+        opacity: 0.3
+      unmanaged:
+        color: "000000"
+        opacity: 0.1
+    show-zones: true # This will show the zones on the dynmap. If set to false, the zones will be hidden, useful for servers where zones may already get rendered by a different plugin
+    marker-set:
+      id: "factions" # The id of the marker set on the dynmap. When changed, the old marker has to be removed manually
+      display-name: "Factions" # The display name of the marker set
+      layer-priority: 10 # The priority of the layer. Higher values will be displayed on top of lower values
+      hidden-by-default: false # If set to true, the layer will be hidden by default
+
+
+# Changing these settings requires a server restart / reload to take effect,
+# Please note: Once a zone has been added and got used on the server, it might be difficult to remove all references
+# to it again, so only add zones you know you want to keep in the long run
+zones:
+  # Don't remove this zone ever. If you do, this will cause extremely weird
+  # behavior of the plugin, which is almost impossible to trace back
+  default:
+    announce-title: true # True will allow this zone to send titles to the player - Faction claims and no faction claims
+    allow-claiming: true # Set to true will allow factions to claim their chunks in these regions
+    # This is the language key of the title getting displayed when a claimed chunk is being left into an unclaimed one
+    no-faction-title: base.zone.wilderness
+    always-protect: false # If set to true, all chunks, even unclaimed ones, will be affected from the protection rules defined below
+
+    # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
+    protection:
+      animal-damage: true # Prevent animals from being damaged in a claim
+      villager-damage: true # Prevent villagers from being damaged in a claim
+      golem-damage: false # Prevent damage to Iron Golems in a claim
+      monster-damage: false # Prevent damage caused by monsters in a claim
+      boss-damage: false # Prevent damage caused by bosses in a claim
+      general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
+      in-faction-pvp: true # Prevent PvP between faction members in a claim
+      minecart-damage: true # Prevent minecarts being destroyed in a claim
+      block-place: true # Prevent placing blocks in a claim
+      entity-spawned-by-egg: true # Prevent spawning entities using spawn eggs in a claim
+      explosions: false # Prevent explosions to occur in a claim
+      block-break: true # Prevent breaking blocks in a claim
+      block-interaction: true # Prevent interacting with blocks in a claim
+      entity-interaction: true # Prevent interacting with entities in a claim
+      entity-break-hanging: true # Prevent breaking hanging entities (like paintings or itemframes) in a claim
+  safezone:
+    announce-title: true # True will allow this zone to send titles to the player - Faction claims and no faction claims
+    allow-claiming: false # Set to true will allow factions to claim their chunks in these regions
+    # This is the language key of the title getting displayed when a claimed chunk is being left into an unclaimed one
+    no-faction-title: base.zone.safezone
+    always-protect: true # If set to true, all chunks, even unclaimed ones, will be affected from the protection rules defined below
+
+    # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
+    protection:
+      animal-damage: false # Prevent animals from being damaged in a claim
+      villager-damage: false # Prevent villagers from being damaged in a claim
+      golem-damage: false # Prevent damage to Iron Golems in a claim
+      monster-damage: false # Prevent damage caused by monsters in a claim
+      boss-damage: false # Prevent damage caused by bosses in a claim
+      general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
+      in-faction-pvp: false # Prevent PvP between faction members in a claim
+      minecart-damage: false # Prevent minecarts being destroyed in a claim
+      block-place: false # Prevent placing blocks in a claim
+      entity-spawned-by-egg: false # Prevent spawning entities using spawn eggs in a claim
+      explosions: false # Prevent explosions to occur in a claim
+      block-break: false # Prevent breaking blocks in a claim
+      block-interaction: false # Prevent interacting with blocks in a claim
+      entity-interaction: false # Prevent interacting with entities in a claim
+      entity-break-hanging: false # Prevent breaking hanging entities (like paintings or itemframes) in a claim
+  unmanaged:
+    announce-title: false # True will allow this zone to send titles to the player - Faction claims and no faction claims
+    allow-claiming: false # Set to true will allow factions to claim their chunks in these regions
+    # This is the language key of the title getting displayed when a claimed chunk is being left into an unclaimed one
+    no-faction-title: base.zone.wilderness
+    always-protect: false # If set to true, all chunks, even unclaimed ones, will be affected from the protection rules defined below
+
+    # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
+    protection:
+      animal-damage: false # Prevent animals from being damaged in a claim
+      villager-damage: false # Prevent villagers from being damaged in a claim
+      golem-damage: false # Prevent damage to Iron Golems in a claim
+      monster-damage: false # Prevent damage caused by monsters in a claim
+      boss-damage: false # Prevent damage caused by bosses in a claim
+      general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
+      in-faction-pvp: false # Prevent PvP between faction members in a claim
+      minecart-damage: false # Prevent minecarts being destroyed in a claim
+      block-place: false # Prevent placing blocks in a claim
+      entity-spawned-by-egg: false # Prevent spawning entities using spawn eggs in a claim
+      explosions: false # Prevent explosions to occur in a claim
+      block-break: false # Prevent breaking blocks in a claim
+      block-interaction: false # Prevent interacting with blocks in a claim
+      entity-interaction: false # Prevent interacting with entities in a claim
+      entity-break-hanging: false # Prevent breaking hanging entities (like paintings or itemframes) in a claim
+
+performance:
+  thread-pool-size: 5 # Amount of thread that should be pooled waiting for operations
+
+# List the worlds you don't people be able to claim chunks in
+# Example:
+# blacklisted-worlds:
+#   - world_nether
+#   - world_the_end
+blacklisted-worlds:
+  - wArcade
+  - wCreative
+  - wHub
+  - wHubChristmas
+  - wHubHalloween
+  - wMines
+
+# -------- { Power Raid Module Settings } --------
+# These settings only apply when you enabled this module.
+#
+# This section represents the constants mentioned in the power-raids module documentation.
+# If you have no clue what you're doing here, a good place to start looking would be the power raid module documentation
+power-management:
+  base-member-constant: 50 # Note that this is indeed a constant - Therefore changing this might cause balancing issues on your server
+  accumulation-rate: # Configure how often faction powers will be accumulated. Increasing it to be too frequent might cause database bottlenecks
+    unit: HOURS # The time unit this value will be interpreted as. Some more common possibilities are: SECONDS, MINUTES, HOURS and DAYS
+    value: 1
+
+  # Configure how long a player counts as active. Should be smaller than the accumulation rate
+  inactive:
+    unit: DAYS # The time unit this value will be interpreted as. Some more common possibilities are: SECONDS, MINUTES, HOURS and DAYS
+    value: 7
+  base-accumulation: 0 # Set how much power a faction gets even when no members are online
+  accumulation-multiplier: 10 # A value that will get applied at the end
+  # This is a constant responsible for rewarding when multiple people of a faction are online simultaneous.
+  # It's used in an exponential growth function, so don't make it too big
+  accumulation-active-exponent: 2
+  # This is a constant responsible for penalizing inactive people of a faction are online simultaneous.
+  # It's used in an exponential growth function, so don't make it too big
+  accumulation-inactive-multiplier: 2
+  base-claim-power-cost: 5 # The base power cost for claiming a chunk
+  claim-power-cost-growth: 1.1 # exponentially grows the power cost of claims.
+  # This is the amount of power each claim costs a faction. Note that this will be withdrawn even when the faction is offline,
+  # making it possible for them getting vulnerable while being offline
+  claim-power-keep: 1
+  player-death-cost: 5 # How much power the faction loses when a player dies
+  siege: # Sieges are needed for over-claiming to be possible
+    breach-progress: 1.0 # This is the progress an intruder adds to the overall siege's progress when joining it
+    resistance-progress: .5 # This is the amount of progress a defender is blocking by joining the defense of a siege
+    recovery-speed: 1.0 # Define how fast the claim recovers its integrity
+
+jokbon: 
+@Josh65  can u try compiling without position.world, my compiler got bugged
+jokbon: 
+lets see if thats the isusue
+jokbon: 
+(it doesn't find java even tho its instaled and defined in sys variables)
+josh65: 
+Compile the plugin? I'm using the #╰＞💾ㅐdev-files downloads
+jokbon: 
+i think some values are missing and thus api dont fire the creation
+jokbon: 
+i didnt found where it gets position .world
+tobero: 
+I'll take a look at once home again, this shouldn't be a hard to fix problem
+josh65: 
+Dynmap working again. I really like the teleport effect too.
+tobero: 
+Amazing. I'll be releasing it once I've redesigned the spigot /modrith page
+jokbon: 
+https://tenor.com/view/tokyo-mew-mew-mew-ichigo-ichigo-momomiya-ichigo-mew-mew-gif-27708831
+jokbon: 
+XD
+jokbon: 
+realised Random from gui engine got flaw
+jokbon: 
+it doesnt have chance
+tobero: 
+Home Module now has been fully integrated. Currently rewriting the plugin page. Once that's done, I'll release these three new modules
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1000001537503936643/1229107532187041976/image.png?ex=66482fd7&is=6646de57&hm=ca24d2af09ef0f1d265d9a75180819069156e47f4b6cc222b53f77f1e661fabe&
+

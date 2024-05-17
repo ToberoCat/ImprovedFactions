@@ -1,0 +1,449 @@
+Channel: ╰＞📢ㅐupdates
+Channel Type: GuildNews
+Topic: None
+
+tobero: 
+```BETAv2.0.0 is out - Check it out: https://www.spigotmc.org/resources/improved-factions.95617/```
+In this version I added faction settings and faction ranks.
+In the settings you can change if your faction is shown in /f join.
+The ranks are for managin what people can do
+`Commands: `
+- /f settings (Opens a settings gui)
+- /f rank set <UserName> <Rank> (Set the rank for a user)
+- /f rank permissions (Opens a permissions gui)
+`Bug fixes: `
+- Armorstand equip & deequip are now protected
+- Itemframe & Painting break is now protected
+tobero: 
+```BETAv2.0.1 is out - Check it out: https://www.spigotmc.org/resources/improved-factions.95617/```
+
+I just added two ocmmands
+tobero: 
+`Commands: `
+- /f map
+- /f kick <User>
+tobero: 
+```Website update```
+I know, this is no real plugin update, but I have added a website, where you can download the latest snapshots for te plugin.
+Snapshots are being added everytime I successfully change / add some features. 
+
+E.g.: The latest snapshot has updated the `/f map` and the `/f settings`
+
+If you are interested: https://toberocat.github.io/improved-factions/
+tobero: 
+```To-Do list```
+
+I have added a channel (#╰―＞🔌ㅐto-doˈs) where I post what features are planned.
+tobero: 
+```Betav2.1.0 is out```
+
+I have now added the /f ban command, descriptions and motds.
+Now added deletinng without unclaiming all chunks.
+Changed the `/f map`. Hover over the squares for the description 
+**You need ProtocolLib to run the newest version (https://www.spigotmc.org/resources/protocollib.1997/)**
+
+`Commands:`
+- /f ban <User>
+- /f unban <User>
+tobero: 
+```BETAv2.1.1 is out - Check it out: https://www.spigotmc.org/resources/improved-factions.95617/```
+
+In this version I have changed the way factions are saved. If you want to use the new Extension, you need to upgrade to this version. I also fixed the GUI text wrapping
+
+`Extension`
+   SettingsAndFlags - This extension adds some new settings and flags. To install use `/f extension download SettingsAndFlags`. If its not appearing in the tab completor, try first `/f extension refresh`
+tobero: 
+```BETAv2.1.2 is out - Check it out: https://www.spigotmc.org/resources/improved-factions.95617/```
+
+In this version I have added some new extension commands. ChatMessageExtension is now upated for the new versions
+
+`Commands:`
+- /f extension upgrade
+- /f extension remove
+- /f extension list
+tobero: 
+```BETAv2.1.3 is out - Check it out: https://www.spigotmc.org/resources/improved-factions.95617/```
+I'm sorry for the update spam, but I released a new extension.
+Its the `HomeExtension`. With this extension you can set a faction home and teleport to it.
+`Faction flags: `
+- Sethome
+- Home
+
+`Commands: `
+- /f sethome
+- /f home
+tobero: 
+```BETAv2.1.4-Snap is out - Check it out: https://toberocat.github.io/improved-factions/index.html```
+In this version I added command aliases and a `/f listbanned` command.
+If you want to download this version, **you need to go to the IF (__I__mproved __F__actions) website (https://toberocat.github.io/improved-factions/index.html) and download the latest Snapshot (BETAv2.1.4)**
+You may ask, why I'm not uploading to spigot. This is because of the many known bugs and the small changes
+tobero: 
+```BETAv2.1.4 is out - Check it out: https://www.spigotmc.org/resources/improved-factions.95617/```
+
+Added the connectedChukns settings in `config.yml`.
+Added `commands.yml` for setting up command aliases (Look at the `commands.yml` at spigot to see an example)
+Fixed at Factionmates cannot damage each other with arrows
+
+'Commands:'
+- /f listbanned
+tobero: 
+Just a quick update. I added a option in the `config.yml`. If you change `general.allowChunkProtection` to false you can disable the chunk protection entirely. Default is set to **true**
+tobero: 
+```BETAv3.0.0 is out - Check it out https://www.spigotmc.org/resources/improved-factions.95617/update?update=426442```
+
+I'm sorry for the long time without updates, but now there is one again.
+IF now supports economy, has hex-Color support, a basic langauge file system and history system.
+
+It now has a dynmap extension, faction rules, faction chat (ChatMessageExtension) and the ability to switch territory overlay (TITLE, ACTIONBAR)
+tobero: 
+```BETAv3.0.0 - Just released the permission bug fixes https://www.spigotmc.org/resources/improved-factions.95617/```
+
+I hopefully fixed the permission problem
+tobero: 
+```BETAv4.0.0 - Snap is out - Check it out: https://toberocat.github.io/improved-factions/index.html```
+
+This is the current working version of BETAv4.0.0. 
+If you are wondering why it isn't the full release, that's because the extensions aren't upgraded to this version yet and not all poorly performing are currently threaded.
+All the current threaded tasks still don't improve the performance, because the code executing it isn't running async. This will be fixed soon (Today & Tomorror) I will be working on it.
+
+But for everyone who wants to use this version / want help me find bugs or improvements (Like the language system) is now able to do so.
+
+If you want to view the updated files use this link **https://toberocat.github.io/source/BETAv4.0.0/changelog.html**
+tobero: 
+```BETAv4.0.0 - is out - Check it out: https://www.spigotmc.org/resources/improved-factions.95617/```
+
+
+I finally managed, to if the extension problem.
+
+Nothing much changed to the snapshot, expect the extensions are now working again
+
+Sadly, my only option to share the plugin with you is using a external download. When you now press on the dowload button on spigot, it looks like the normal download, but it's now running through my github page.
+
+You can visit it. There are some the snapshot versions, if anyone is interested (Link to it is on spigot.mc)
+tobero: 
+```Alright, I uploaded a new extension for veriosn BETAv4.0.0.```
+
+It's the fly command extension. It adds the /f fly command
+
+You don't need to install the plugin from the download page. Just stop and start the server and then run `/f extension download FlycommandExtension`
+tobero: 
+```Improved Factions Updated to 1.18```
+
+I'm sorry about the time I needed to update to 1.18. But I was busy in school. But I finally managed to update to 1.18.
+
+As you may notice, I didn't change to v1.0. Because in this version, I just fixed the known bug and updated to 1.18. 
+I cannot release the version 1.0 because many new things are not compatible with 1.18 yet and seem to bug on the newer version.
+
+When these errors won't appear anymore, I will add the first release of improved factions on spigot
+tobero: 
+```MassiveCore Faction to ImprovedFaction converter extension is now online for newest BETAv4.0.0```
+Yeay, the first conveter for this plugin.
+**For everyone who wants to load the load data:**
+1. Download the latest ImprovedFaction version (BETAv4.0.0 - 28.12.2021 or later)
+2. Aftre downloading, put in in your `/plugins/` folder of your server
+3. If you have used the plugin before, backup your old data from /plugins/ImprovedFactions/. Just renmae it from `ImprovedFactions` to `ImprovedFactions - Backup`
+4. Now there should no folder with the name `ImprovedFactions` in /plugins/. If there is one, go back to step 3.
+5. Start your server and join.
+6. After server has started, enter `/f extension download MCoreConverter`. If a error occurred, try again. If it still happends after three tries, report it on spigot / discord
+7. After successfull installtion, make a backup of your old mstore folder (It is in /mstore, same layer as /plugins). Just make a copy and rename it to `mstore - Backup`.
+8. Now you need to remove the RAM limitation of your server. YOu don't need to do it, but if you do, it does take less time. The converting needs alot of RAM and proccess power. Close everything that isn't the server to make sure you have the most avaible power.
+9. Now you can start reload your server. You will notice, that the server gets stuck on Loading MCoreConverter. It is **not** stuck and don't stop it while doing so. It could damage your data. Its just loading all your data. This can take much time, depending on your old data size.
+tobero: 
+10. You will notice (depending on how your data is saved) that some claimed chunks cann't be loaded. This could be caused by many things. Maybe the chunk got already claimed before. But don't worry. It should not be a problem, unless yoou see that it can't load any chunk (Many many error messages with less time between being printed), If this happends to you, let the proccess finish, remove the /plugins/ImprovedFactions folder and try again. If it still aint working, report it on spigot / discord
+11. When the server loaded successfully, you should stop it, go to /plugins/ImprovedFactions/Extension/ and remove MCoreExtenion.jar. After you have done that, you can add your RAm limiation back and start it.
+12. The server should now be starting up quicker & shoudn't use that much RAm again.
+
+If any problems occurred, please report them, so I can fix them. If you fixed them yourself, tell me about it and I will try to fix it, so others don't have the problem too. 
+**See the spigot explanation: https://www.spigotmc.org/resources/improved-factions.95617/field?field=documentation**
+tobero: 
+```Unoffical update to IF```
+
+I have added a /fdel and /delp command for deleting factions in the console.
+
+/fdel is for faction by registry (Name)
+/fdelp is for deleting by playername
+
+If you want to use it, send me a dm asking for it.
+tobero: 
+```I added the source code for all current developed versions - Check it out: https://github.com/ToberoCat/ImprovedFaction```
+
+Finally I added the sourcecode for this plugin. You are now able to see the code I wrote.
+
+One reason I have done this, is to allow others to make there own extensions. That's why there is also the code for the extensions.
+I will add a wiki page soon, so I can explain how some stuff works
+tobero: 
+For everyone who wants the feature to change the display text for the wildness,
+download the newest IF version and change general.wildnessText to what every you like.
+
+I also fixed `/f admin gpower` command. YOu can now use it to give a faction power (Use negative values to reduce it). Useage: `/f admin gpower <faction> amount`
+tobero: 
+```Server update - Support is now in threads```
+
+I changed the way you get support. In #deleted-channel  are the instructions on how to create a new "ticket". 
+
+I was thinking about it, what would happen if many people want to get support at the same time. I didn't want to a use moderation bot (Mee6 as example). So that why I thought, the new threads can be useful. 
+
+**Long story short: If you need help / have a question create a new threads in #deleted-channel **
+tobero: 
+```Someone wanted a change to /f map command```
+
+I'm sorry, but I can't remember the name, but you now see if your chunk is enemy, wild(er)ness or friendly.
+Player is now not white, now a star with the color of the claim. Just download newest version to use it
+tobero: 
+```Improved Factions Betav5.0.0 is out - With new features```
+Biggest diffrence: Power & relations and overclaiming
+
+
+Power:
+I think, it is now very similar to other faction plugins, you regenerate power over time and lose some when dying
+If you have less power than claimed chunks, other factions can start claiming from the outside (Not form the middle)
+
+Relations:
+Allies can now not hit each others anymore and with the HomeExtension installed, have own homes (`/f homeally` and `/f sethomeally`)
+Use /f ally / allyaccept / allycancel or /f war / neutral
+tobero: 
+```Improved factions Betav5.0.1 is out - Check it out```
+In In this update, I added the vault support to use faction balancy system
+
+Use Vault & FactionEconomy extension. Note that vault needs economy plugin supporting banks (EssentailsX won't work).
+There is (I didn't find one) no economy plugin using vault and adding banks for 1.17+. Because of this, I wrote my one plugin using vault. 
+Check it out (https://www.spigotmc.org/resources/vaultbanker.99343/)
+tobero: 
+```Updated ChatMessage extension```
+
+Now use /f chat to toggle between three diffrent chat types: Public (Normal minecraft), Faction(Only your faction mebers can see this) and Ally (Your faction members can see this AND your faction allies). Both have faction rank permissions (Read & send).
+tobero: 
+```Ìmproved factions - New ranks and permission fixes```
+I fixed almost every permission problem.
+I added the ally rank and guest rank.
+They can get custom permissions in the permissions gui. 
+Fixed the bug where the GUI doesn't update on the second page
+tobero: 
+```Improved Factions - Papi, bug fixes & new command```
+**I added new placeholders:**
+- %faction_name% - Get the faction name of the player
+- %faction_registry% - Get the regsitry
+- %faction_members% - Get the member count (Total)
+- %faction_members_online% - Get the online member count
+- %faction_power% - Get the current power level of the faction
+- %faction_maxpower% - Get the max power the faction can currently have
+- %faction_balance% - Get the balance of the faction bank (! Needs vault & a bank supporting plugin)
+- %faction_claims% - Get the total amount of claims
+
+**New command(s):**
+- /f admin fonline <faction> - Get the currently online people of a faction
+- /f admin viewreports <faction> - Get all reports for this faction
+- /f admin clearreports - Remove all reports
+-/f admin removereports <faction> - Remove all reports for this faction
+-/f report <faction> <reason> - Report a faction. Use minecraft color formatting to format the message (Maybe for a mean name)
+-/f admin forcejoin <player> <faction> - Force a player to join a faction (Players)
+-/fjoin <player> <faction> - Force a player to join a faction (Console)
+
+**Bug fixes:**
+- Chunk claims disappearing (At least fixed the case showing up to me)
+- Fixed `reports.json` reader 
+
+All other bugs listed in #╰―＞🔌ㅐto-doˈs are already being worked on, but I didn't build the potential fixes, because I haven't tested them yet. The same with the config setting `faction.permenant` and command `/f admin permenant <faction>`
+tobero: 
+```I have decided, to rewrite the chunk-claim system, due to many bugs dedicated to it```
+So hear me out: The biggest problem is, that the every claimed chunk __needs__ a faction paired with it.
+If no faction got found, the chunk claim will get rested and I want to be honest: I actually hate it.
+
+Its really hard to add more zones with this system. 
+I will change this, because its total crap. 
+
+Hope everyone understands why I will change it. This can take some time, but if its working correctly, world protection and proper zones will be working
+tobero: 
+```ImrpovedFactions BETAv5.04```
+
+GUI fixes
+
+added new options to settings
+added warning system
+auto map optional
+tobero: 
+```Improved Factions Betav5.0.4```
+
+Fixed hex colors for 1.18
+Fixed renaming without server restarting to take over formatting<
+Fixed entity interaction bug
+tobero: 
+**Important**
+
+Don't click any links without checking if that's a real one. Discord has problems with links leading to websites, where they grab your IP, or steal your discord account.
+
+So a simple rule: If the link looks odd and doesn't look like its relevant to this server, just don't click it.
+
+My team (jokbon) and I will do our best to delete these links
+tobero: 
+````Fixed disabled worlds & commands```
+
+I fixed the disabled worlds. You can't access the commands in a disabled world when you are not op. With op you are still able to use every command.
+
+Added message when using /f
+Removed negative power (its still possible, but that's totally up to you)
+tobero: 
+```New extension - Factionchest```
+
+Use /f chest and deposit items in there. Only one person at a time can use it (Dupe protection)
+tobero: 
+```Github Bugfix update```
+
+Fixed path doesn't exist crashes and didn't find extension.yml within extension objects.
+
+New file will get updated as soon as spigot has fixed their database. 
+Problems got solved due to the auto-reports to github
+tobero: 
+```Improved factions v1 pre release 3 is now available```
+
+This version brings a bug fix, that changes faction loading behaviour.
+
+It now adds a bossbar to power loss and gain
+
+**Extensions: **
+
+First extension is out for this version: It's the HomeExtension (Not Dynmap)
+I deceided to go with HomeExtension first, as I wanted to integrate the faction home on dynmap
+tobero: 
+```Migration has been added to the alpha version```
+
+Migration has been added to the game. Just put the alpha file into the plugin folder instead of the beta file and it will try to migrate the files automatically.
+
+If that doesn't work, try to run /f admin migrate
+tobero: 
+```Dynmap extension is out now```
+And with the extension comes a new update, where I fixed chunk permission and protection bugs.
+
+**Dynmap extension:**
+This extension supports coloured chunks. The colour changes with the universal colour setting for facitons. Safezone has a cyan color, warzone a dark red one and unclaimable a light gray one.
+
+You can change the chunk opacity in the config.yml
+tobero: 
+If somebody requires the the working mass claim extension, this one is updated for v1.3.3.
+It only has faction mass claim support. Zones aren't available yet.
+When they have been added, extension will be downloadable through the gui
+Attachments:
+[MassClaimExtension.jar]
+https://cdn.discordapp.com/attachments/881483245865291826/985990845608132618/MassClaimExtension.jar?ex=66485a48&is=664708c8&hm=04759fd8c5f740c2f95670b0231bedc243c61b485a54a805f32dd6bce21f81b1&
+
+tobero: 
+```Extensions now load in linux```
+
+Linux had a problem with loading extensions. For now it always crashed creating the file url.
+
+But this bug is now fixed. You can now use extension in linux
+tobero: 
+```Donations```
+
+Not a real plugin update, but because I noticed that some people asked me (On the server and private dms) about an way to donate money.
+
+I have now created a paypal account where you can donate.
+Please don't think I want to force anyone to donate. You can still use this plugin without donation, it's still free and no one will get preferred, just because they donated. 
+
+Just didn't want to tell everyone whom asked me about it privately, I'm too lazy for that.
+
+If someone is interested, here is the link
+https://www.paypal.com/donate/?hosted_button_id=BGB6QWR886Q6Y
+tobero: 
+```v1 pre release 5```
+Changelogs:
+- Unclaimable zone added as command
+- Zones do now have auto option
+- Deleting faction now required confirmation
+- Leaving faction now required confirmation
+- Fixed faction colors
+- Zone display doesn't reappear everytime changing the chunk
+- Added tip of the day
+- Added papi %faction_tag%, %faction_motd% and %faction_rank%
+
+**New extensions**
+ChunkParticleExtension - It has okay server performance, just don't use it on servers with less gb ram
+tobero: 
+```Security update```
+
+So, I just googled com.github.ToberCat, because I thought jitpack will list there, but what I found, is very interesting.
+
+It's a fake spigotmc.org website, called spigotnc.org (The fake site: https: //spigotnc.org/resources/improved-factions.619/) and they have uploaded (A outdated version of) this plugin.
+So, please make sure when goolging improvedFactions you don't download it from this site, as it's with an very high probability a virus
+tobero: 
+```Help wanted . Searching a java dev who is willed to help with this project```
+
+Is here someone who knows a little bit of java and wants to help me with improved factions?
+I currently have many things to do. You don't need to be an expert at java but you should be able to read code, understand it and make useful changes to it.
+If somebody would be interested, I would require some help at making all commands, guis, etc translatable.
+
+The plugin can't get tested because of many reasons, this one being one of them, because I now fully removed to ability for the plugin to send text that isn't translatable and because I'm currently having many things to do with the refactoring of the faction classes, this would help me a lot.
+
+If someone is interested, please send me a DM
+
+@everyone
+tobero: 
+```Beta versions now come to an end```
+
+All beta versions have now come to an end - The old extensions got removed and the version registry deleted. 
+This stops all beta versions from launching  and making them useless.
+
+**Why did I do this?**
+Because Beta versions are old, inefficient and the source code of them confuses people willed to look at what's going on behind the scenes
+
+**But I'm still using a Beta version on my server**
+This is no problem, just install the latest version of this plugin, restart the server and watch the console while your beta files are getting transferred to the new, more efficient data format. This may take some time, but when done make sure you follow the instructions the console tells you. If you're getting told to delete the files, do it, else beta data will get loaded over & over again, making the plugin useless
+tobero: 
+```This plugin is now officially one year old```
+
+This plugin has been first uploaded on 24th august 2021
+jokbon: 
+https://www.spigotmc.org/resources/simple-aliases.105037/ New resource! Simple aliases.
+tobero: 
+```New plugin```
+I'm back... this not with an update for this plugin, but with an new one. 
+
+**GuiEngine**
+
+I've finally released a *not too bugged* version of GuiEngine.
+So, what's GuiEngine? GuiEngine allows you to create highly complex guis from simple config files with decent performance. 
+
+It'll be used for with the new improved faction builds to allow 100% gui customisation without limiting the complexity and modern look.
+
+Link to the **free** (There's a premium one soon too) plugin: https://www.spigotmc.org/resources/guiengine.109983/
+Beginner Guide (Creating attached gui): https://github.com/ToberoCat/GuiEngine/wiki/User-Beginner-Guide
+
+
+I'll soon host the gui online editor. The editor will be a feature for all buyers of the premium GuiEngine plugin. Donators before the premium version release will receive the premium version.
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/881483245865291826/1109869750386962522/image.png?ex=66482480&is=6646d300&hm=b13b7d2536517043cda0b2158413e8167a6b2a116b9f3784c9aa3d4f75379eea&
+
+tobero: 
+```GuiEngine```
+
+GuiEngine has finally received the love it deserves. I've finished writing the beginner guide, developer docs as well as the spigot page.
+
+Check it out, new versions of Improved Factions will be using it to display guis (And you don't want to miss out on this amazing feature): https://www.spigotmc.org/resources/guiengine-%E2%9C%A8-craft-unlimited-guis-effortlessly-%E2%9C%A8-1-16-1-20-1-api.109983/
+tobero: 
+```Improved factions v2.0.0-stable-preview```
+
+> Presenting a sneak peek of the upcoming improved factions update! This release brings together the beloved customization options from the beta builds and integrates the performance found in the v1.5.x-v1.6.x series. Say goodbye to the hassle of failures, as this version drastically minimizes them to an almost negligible level.
+> 
+> Noteworthy features include the integration of MySQL for efficient storage, ensuring your data is well-managed. Plus, fine-tuned configuration files, making it nearly effortless to get started right away.
+> 
+> To run, download the plugin as well as it's dependency, GuiEngine: https://www.spigotmc.org/resources/...d-guis-effortlessly-✨-1-16-1-20-1-api.109983/
+
+It's by far missing features, but already covers most basic features. It's not recommended to upgrade your servers yet if you need some of the more advanced features
+tobero: 
+@everyone 
+```Improvedfactions v2.0.0-stable```
+
+Version 2.0.0-stable of ImprovedFactions has been officially released, bringing with it a bunch of features and a high level of customization. Among its key highlights is the support of MySQL, allowing for seamless database integration. This version also introduces a collection of user-friendly graphical user interfaces (GUIs).
+
+Download it here: https://www.spigotmc.org/resources/improved-factions.95617/
+The required dependency: https://www.spigotmc.org/resources/guiengine-%E2%9C%A8-craft-unlimited-guis-effortlessly-%E2%9C%A8-1-16-1-20-1-api.109983/
+tobero: 
+@everyone 
+New version of improved factions released.
+
+It now includes dynmap support, fixed papi placeholders, added homes and wilderness.
+
+THe whole spigot and modrinth page have been redesigned to no longer be about the outdated stuff. 
+
+Check it out: https://modrinth.com/plugin/improved-factions

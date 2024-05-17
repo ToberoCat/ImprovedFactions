@@ -1,0 +1,10 @@
+Channel: Dynmap extension error
+Channel Type: GuildPublicThread
+Topic: None
+
+deerpy: 
+Whenever i have a big faction with lots of chunks, the map becomes pure white and it shows everywhere is the faction
+josh65: 
+It's a known issue and will be fixed for v2. Theres no timeline for this.
+deerpy: 
+ok thanks

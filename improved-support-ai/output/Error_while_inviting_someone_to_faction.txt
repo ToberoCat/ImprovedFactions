@@ -1,0 +1,343 @@
+Channel: Error while inviting someone to faction
+Channel Type: GuildPublicThread
+Topic: None
+
+dubious1679: 
+[18:45:06 ERROR]: null
+org.bukkit.command.CommandException: Unhandled exception executing command 'factions' in plugin ImprovedFactions v2.1.0-stable
+        at org.bukkit.command.PluginCommand.execute(PluginCommand.java:48) ~[forge-1.20.1-47.2.23-universal.jar%23295!/:?]
+        at org.bukkit.command.SimpleCommandMap.dispatch(SimpleCommandMap.java:147) ~[forge-1.20.1-47.2.23-universal.jar%23295!/:?]
+        at org.bukkit.craftbukkit.v1_20_R1.CraftServer.dispatchCommand(CraftServer.java:885) ~[forge-1.20.1-47.2.23-universal.jar%23295!/:997de31d-ddc9a2dad-d2eba2c8-47.1.79]
+        at org.bukkit.craftbukkit.v1_20_R1.command.BukkitCommandWrapper.run(BukkitCommandWrapper.java:51) ~[forge-1.20.1-47.2.23-universal.jar%23295!/:?]
+
+I get this error in my server and i don't know why, please help!
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1232766751704481858/1232766751868194977/image.png?ex=664850c1&is=6646ff41&hm=d2d0621d02b11e148c1360dad07fa4d937311af2c7852f3c0b3adefc896d5c51&
+[image.png]
+https://cdn.discordapp.com/attachments/1232766751704481858/1232766752102944892/image.png?ex=664850c1&is=6646ff41&hm=da9b41738b1dda0138bbd1e6acc5cf3aad0a89e98fc2d36c191c8a46eb9bd792&
+
+tobero: 
+Would you be able to send me the full exception?
+tobero: 
+@Matias
+dubious1679: 
+Sure, i'm on it
+dubious1679: 
+
+Attachments:
+[message.txt]
+[18:56:38 INFO]: Garchadisimo issued server command: /factions invite quericastetas Member
+[18:56:38 ERROR]: null
+org.bukkit.command.CommandException: Unhandled exception executing command 'factions' in plugin ImprovedFactions v2.1.0-stable
+        at org.bukkit.command.PluginCommand.execute(PluginCommand.java:48) ~[forge-1.20.1-47.2.23-universal.jar%23295!/:?]
+        at org.bukkit.command.SimpleCommandMap.dispatch(SimpleCommandMap.java:147) ~[forge-1.20.1-47.2.23-universal.jar%23295!/:?]
+        at org.bukkit.craftbukkit.v1_20_R1.CraftServer.dispatchCommand(CraftServer.java:885) ~[forge-1.20.1-47.2.23-universal.jar%23295!/:997de31d-ddc9a2dad-d2eba2c8-47.1.79]
+        at org.bukkit.craftbukkit.v1_20_R1.command.BukkitCommandWrapper.run(BukkitCommandWrapper.java:51) ~[forge-1.20.1-47.2.23-universal.jar%23295!/:?]
+        at com.mojang.brigadier.CommandDispatcher.execute(CommandDispatcher.java:264) ~[brigadier-1.20.1.jar%23146!/:?]
+        at net.minecraft.commands.Commands.m_242674_(Commands.java:318) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.network.ServerGamePacketListenerImpl.m_246958_(ServerGamePacketListenerImpl.java:1871) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.network.ServerGamePacketListenerImpl.lambda$handleChatCommand$14(ServerGamePacketListenerImpl.java:1835) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.util.thread.BlockableEventLoop.m_18693_(BlockableEventLoop.java:58) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at java.util.concurrent.CompletableFuture$AsyncSupply.run(Unknown Source) ~[?:?]
+        at net.minecraft.server.TickTask.run(TickTask.java:18) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.util.thread.BlockableEventLoop.m_6367_(BlockableEventLoop.java:151) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.util.thread.ReentrantBlockableEventLoop.m_6367_(ReentrantBlockableEventLoop.java:23) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.MinecraftServer.m_6367_(MinecraftServer.java:1027) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.MinecraftServer.m_6367_(MinecraftServer.java:173) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.util.thread.BlockableEventLoop.m_7245_(BlockableEventLoop.java:124) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.MinecraftServer.m_129961_(MinecraftServer.java:1010) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.MinecraftServer.m_7245_(MinecraftServer.java:1004) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.util.thread.BlockableEventLoop.m_18699_(BlockableEventLoop.java:112) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.MinecraftServer.m_130012_(MinecraftServer.java:989) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.MinecraftServer.m_130011_(MinecraftServer.java:906) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.MinecraftServer.m_206580_(MinecraftServer.java:281) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at java.lang.Thread.run(Unknown Source) [?:?]
+Caused by: net.kyori.adventure.text.minimessage.internal.parser.ParsingExceptionImpl: Legacy formatting codes have been detected in a MiniMessage string - this is unsupported behaviour. Please refer to the Adventure documentation (https://docs.advntr.dev) for more information.
+        <hover:show_text:'<dark_gray>Author:</dark_gray> <aqua>Tobero</aqua>'><dark_gray>[</dark_gray><yellow>IF</yellow><dark_gray>]</dark_gray></hover> <green>You invited <yellow>§4quericastetas§r</yellow>. <yellow>§4quericastetas§r</yellow> has <yellow>5 minutes</yellow> to accept</green>
+                                                                                                                                                                                     ^^
+        at net.kyori.adventure.text.minimessage.internal.parser.TokenParser.parseString(TokenParser.java:170) ~[adventure-text-minimessage-4.14.0.jar%23180!/:?]
+        at net.kyori.adventure.text.minimessage.internal.parser.TokenParser.resolvePreProcessTags(TokenParser.java:112) ~[adventure-text-minimessage-4.14.0.jar%23180!/:?]
+        at net.kyori.adventure.text.minimessage.MiniMessageParser.parseToTree(MiniMessageParser.java:195) ~[adventure-text-minimessage-4.14.0.jar%23180!/:?]
+        at net.kyori.adventure.text.minimessage.MiniMessageParser.parseFormat(MiniMessageParser.java:209) ~[adventure-text-minimessage-4.14.0.jar%23180!/:?]
+        at net.kyori.adventure.text.minimessage.MiniMessageImpl.deserialize(MiniMessageImpl.java:79) ~[adventure-text-minimessage-4.14.0.jar%23180!/:?]
+        at net.kyori.adventure.text.minimessage.MiniMessageImpl.deserialize(MiniMessageImpl.java:45) ~[adventure-text-minimessage-4.14.0.jar%23180!/:?]
+        at io.github.toberocat.improvedfactions.translation.TranslationKt.localize(Translation.kt:40) ~[?:?]
+        at io.github.toberocat.improvedfactions.translation.TranslationKt.getLocalized(Translation.kt:23) ~[?:?]
+        at io.github.toberocat.improvedfactions.translation.TranslationKt.sendLocalized(Translation.kt:20) ~[?:?]
+        at io.github.toberocat.improvedfactions.commands.invite.InviteCommand.handle(InviteCommand.kt:53) ~[?:?]
+        at io.github.toberocat.improvedfactions.toberocore.command.PlayerSubCommand.handleCommand(PlayerSubCommand.java:29) ~[?:?]
+        at io.github.toberocat.improvedfactions.toberocore.command.SubCommand.handleWithOptions(SubCommand.java:95) ~[?:?]
+        at io.github.toberocat.improvedfactions.toberocore.command.SubCommand.routeCall(SubCommand.java:75) ~[?:?]
+        at io.github.toberocat.improvedfactions.toberocore.command.CommandExecutor.onCommand(CommandExecutor.java:52) ~[?:?]
+        at org.bukkit.command.PluginCommand.execute(PluginCommand.java:46) ~[forge-1.20.1-47.2.23-universal.jar%23295!/:?]
+        ... 22 more
+[18:56:38 WARN]: [ImprovedFactions] Task #86 for ImprovedFactions v2.1.0-stable generated an exception
+net.kyori.adventure.text.minimessage.internal.parser.ParsingExceptionImpl: Legacy formatting codes have been detected in a MiniMessage string - this is unsupported behaviour. Please refer to the Adventure documentation (https://docs.advntr.dev) for more information.
+        <hover:show_text:'<dark_gray>Author:</dark_gray> <aqua>Tobero</aqua>'><dark_gray>[</dark_gray><yellow>IF</yellow><dark_gray>]</dark_gray></hover> <green><yellow>§4quericastetas§r</yellow> has been invited to join your faction by <yellow>§4Garchadisimo§r</yellow>. <yellow>§4quericastetas§r</yellow> has <yellow>5 minutes</yellow> to accept</green>
+                                                                                                                                                                         ^^
+        at net.kyori.adventure.text.minimessage.internal.parser.TokenParser.parseString(TokenParser.java:170) ~[adventure-text-minimessage-4.14.0.jar%23180!/:?]
+        at net.kyori.adventure.text.minimessage.internal.parser.TokenParser.resolvePreProcessTags(TokenParser.java:112) ~[adventure-text-minimessage-4.14.0.jar%23180!/:?]
+        at net.kyori.adventure.text.minimessage.MiniMessageParser.parseToTree(MiniMessageParser.java:195) ~[adventure-text-minimessage-4.14.0.jar%23180!/:?]
+        at net.kyori.adventure.text.minimessage.MiniMessageParser.parseFormat(MiniMessageParser.java:209) ~[adventure-text-minimessage-4.14.0.jar%23180!/:?]
+        at net.kyori.adventure.text.minimessage.MiniMessageImpl.deserialize(MiniMessageImpl.java:79) ~[adventure-text-minimessage-4.14.0.jar%23180!/:?]
+        at net.kyori.adventure.text.minimessage.MiniMessageImpl.deserialize(MiniMessageImpl.java:45) ~[adventure-text-minimessage-4.14.0.jar%23180!/:?]
+        at io.github.toberocat.improvedfactions.translation.TranslationKt.localize(Translation.kt:40) ~[?:?]
+        at io.github.toberocat.improvedfactions.translation.TranslationKt.getLocalized(Translation.kt:23) ~[?:?]
+        at io.github.toberocat.improvedfactions.translation.TranslationKt.sendLocalized(Translation.kt:20) ~[?:?]
+        at io.github.toberocat.improvedfactions.factions.FactionHandler$createListenersFor$1$1.invoke(FactionHandler.kt:60) ~[?:?]
+        at io.github.toberocat.improvedfactions.factions.FactionHandler$createListenersFor$1$1.invoke(FactionHandler.kt:60) ~[?:?]
+        at io.github.toberocat.improvedfactions.utils.ThreadingKt.sync$lambda$1(Threading.kt:18) ~[?:?]
+        at org.bukkit.craftbukkit.v1_20_R1.scheduler.CraftTask.run(CraftTask.java:78) ~[forge-1.20.1-47.2.23-universal.jar%23295!/:?]
+        at org.bukkit.craftbukkit.v1_20_R1.scheduler.CraftScheduler.mainThreadHeartbeat(CraftScheduler.java:416) ~[forge-1.20.1-47.2.23-universal.jar%23295!/:?]
+        at net.minecraft.server.MinecraftServer.m_5703_(MinecraftServer.java:1133) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.dedicated.DedicatedServer.m_5703_(DedicatedServer.java:346) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.MinecraftServer.m_5705_(MinecraftServer.java:1072) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.MinecraftServer.m_130011_(MinecraftServer.java:902) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.MinecraftServer.m_206580_(MinecraftServer.java:281) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at java.lang.Thread.run(Unknown Source) [?:?]
+
+dubious1679: 
+Thats all that appears in my console
+tobero: 
+Ohhh
+tobero: 
+This is an failure from my side. To summarize the issue: You are using colors for your player's names, right? This isn't supported right now.
+
+I'll try to fix it real quick
+dubious1679: 
+oh that would be great! I don't know about colors tho cuz i just joined this server (its from a friend)
+dubious1679: 
+it could be the mod that adds a head to your name in chat
+tobero: 
+This shouldn't be the issue. Even if it was, this is a pretty severe bug I have to fix
+dubious1679: 
+i'll try without that mod
+tobero: 
+I think it will still occure
+dubious1679: 
+Oh
+tobero: 
+Could you try if this version now fixes this issue?
+Attachments:
+[ImprovedFactionsBase-2.1.0-stable.jar]
+https://cdn.discordapp.com/attachments/1232766751704481858/1232769863336988863/ImprovedFactionsBase-2.1.0-stable.jar?ex=664853a7&is=66470227&hm=c50f5ad41356ffa1351b2e9774cf5dd5db7a5c052f68d5865e23d05f94318cb4&
+
+dubious1679: 
+Sure
+dubious1679: 
+It worked!
+dubious1679: 
+Thank you very much
+tobero: 
+Amazing. You're welcome
+dubious1679: 
+how does he accept my invitation to faction tho?
+dubious1679: 
+when he clicks, it opens a GUI and its empty except for "back" and "next", if he clicks back it shows a sword but it doesnt do anything
+tobero: 
+If the gui is bugging around, there's still the command alternative. He can use /f inviteaccept <player>
+
+But the gui should work. Typing /f invites should open a menu where all invites are listed. Is this menu the empty one?
+If it isn't, clicking on an invitation would put you into a different menu, where you can see the faction that invited you, the player and the rank you would receive when joining.
+
+What gui fails exactly?
+dubious1679: 
+in f invites he doesnt have anything
+dubious1679: 
+that command says theres no entity
+dubious1679: 
+heres a video
+dubious1679: 
+
+Attachments:
+[2024-04-24_16-17-15.mkv]
+https://cdn.discordapp.com/attachments/1232766751704481858/1232773786357731338/2024-04-24_16-17-15.mkv?ex=6648574e&is=664705ce&hm=2963acd8b4287859c2e6761ebc7126bf20ca6880e04505abd47e9fa1b0888ae0&
+
+tobero: 
+Has he been invited to a faction?
+dubious1679: 
+yeah
+tobero: 
+Okay, this looks like gui engine is failing badly at getting the events. I think there will be an exception on the console
+tobero: 
+But does the alternative command work?
+dubious1679: 
+nop
+dubious1679: 
+im sending the console
+dubious1679: 
+
+Attachments:
+[message_1.txt]
+[19:11:45 INFO]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[19:11:45 ERROR]: [ImprovedFactions] faction-detail-page.gui has a invalid component. The given faction name didn't return a faction
+[19:11:45 ERROR]: [ImprovedFactions] rank/rank-detail.gui has a invalid component. Rank hasn't been found in the database
+[19:11:45 WARN]: Too many physics frames in the physics frame queue. Is the game stage broken?
+[19:11:45 ERROR]: [ImprovedFactions] member/member-detail-page.gui has a invalid component. Specified player %member% has never played on the server before
+[19:11:45 INFO]: [GuiEngine] It takes 43.111ms ± 108.570ms on average to render a gui from ImprovedFactions
+[19:11:45 INFO]: [ImprovedFactions] [dynmap] Dynmap module is enabled but Dynmap is not installed. Disabling Dynmap module.
+[19:11:45 INFO]: [ImprovedFactions] Loaded module power-raids
+[19:11:45 INFO]: [ImprovedFactions] Loaded module wilderness
+[19:11:45 INFO]: [ImprovedFactions] Loaded module home
+[19:11:45 INFO]: [ImprovedFactions] [dynmap] Dynmap module is enabled but Dynmap is not installed. Disabling Dynmap module.
+[19:11:45 INFO]: [ImprovedFactions] Papi not found. Skipping Papi registration
+[19:11:45 INFO]: [WorldGuard] Enabling WorldGuard v7.0.9+5934e49
+[19:11:45 INFO]: [WorldGuard] (world) TNT ignition is PERMITTED.
+[19:11:45 INFO]: [WorldGuard] (world) Lighters are PERMITTED.
+[19:11:45 INFO]: [WorldGuard] (world) Lava fire is PERMITTED.
+[19:11:45 INFO]: [WorldGuard] (world) Fire spread is UNRESTRICTED.
+[19:11:45 INFO]: [WorldGuard] Loaded configuration for world 'world'
+[19:11:45 INFO]: [WorldGuard] (DIM-1) TNT ignition is PERMITTED.
+[19:11:45 INFO]: [WorldGuard] (DIM-1) Lighters are PERMITTED.
+[19:11:45 INFO]: [WorldGuard] (DIM-1) Lava fire is PERMITTED.
+[19:11:45 INFO]: [WorldGuard] (DIM-1) Fire spread is UNRESTRICTED.
+[19:11:45 INFO]: [WorldGuard] Loaded configuration for world 'DIM-1'
+[19:11:45 INFO]: [WorldGuard] (DIM1) TNT ignition is PERMITTED.
+[19:11:45 INFO]: [WorldGuard] (DIM1) Lighters are PERMITTED.
+[19:11:45 INFO]: [WorldGuard] (DIM1) Lava fire is PERMITTED.
+[19:11:45 INFO]: [WorldGuard] (DIM1) Fire spread is UNRESTRICTED.
+[19:11:45 INFO]: [WorldGuard] Loaded configuration for world 'DIM1'
+[19:11:45 INFO]: [WorldGuard] Loading region data...
+[19:11:46 INFO]: [Mohist] Enabling Mohist v1.20.1
+[19:11:46 INFO]: Server permissions file permissions.yml is empty, ignoring it
+[19:11:46 INFO]: Done (27.995s)! For help, type "help"
+vexyhost@pterodactyl~ Server marked as running...
+[19:11:46 INFO]: Successfully initialized permission handler forge:default_handler
+[19:11:46 INFO]: Forwarding forge permission[forge:default_handler] to bukkit[mohist:permission]
+[19:11:46 INFO]: Encoded Weapon Attribute registry size (with package overhead): 115570 bytes (in 12 string chunks with the size of 10000)
+[19:11:46 INFO]: Registered 17 jsons with items!
+[19:11:46 INFO]: Disconnecting Player (server is still starting): literal{Server is still starting! Please wait before reconnecting.}
+[19:11:46 INFO]: UDP server is started on /[0:0:0:0:0:0:0:0]:25651
+[19:11:46 INFO]: Fetching version information...
+[19:11:46 WARN]: Too many physics frames in the physics frame queue. Is the game stage broken?
+[19:11:54 INFO]: quericastetas joined the game
+[19:11:54 INFO]: quericastetas[/181.228.59.242:64506] logged in with entity id 208 at ([world]108.87472743249253, 73.20404814704345, 201.3251881758056)
+[19:12:33 INFO]: com.mojang.authlib.GameProfile@787106fd[id=1b72c550-4fde-3ab6-bde0-2217a385af2c,name=Garchadisimo,properties={},legacy=false] (/181.16.123.193:22846) lost connection: Disconnected
+[19:12:41 INFO]: Garchadisimo joined the game
+[19:12:41 INFO]: Garchadisimo[/181.16.123.193:16471] logged in with entity id 463 at ([world]-156.81528691002853, 78.0, 104.08919170674038)
+[19:12:55 INFO]: Garchadisimo issued server command: /factions create Pitudos
+[19:13:05 INFO]: Garchadisimo issued server command: /factions invite quericastetas Member
+[19:13:19 INFO]: quericastetas issued server command: /f invites
+[19:13:52 INFO]: quericastetas issued server command: /faction inviteaccept
+[19:13:58 INFO]: quericastetas issued server command: /f invites
+[19:14:26 INFO]: Garchadisimo issued server command: /factions members
+[19:14:47 INFO]: Garchadisimo issued server command: /gamemode creative
+[19:15:05 INFO]: quericastetas issued server command: /faction inviteaccept
+[19:15:27 INFO]: quericastetas issued server command: /factions inviteaccept
+[19:15:43 INFO]: quericastetas issued server command: /f invites
+[19:16:29 INFO]: quericastetas issued server command: /f invites
+[19:17:21 INFO]: quericastetas issued server command: /f invites
+[19:17:32 INFO]: quericastetas issued server command: /f invites
+[19:19:28 INFO]: quericastetas issued server command: /f inviteaccept
+[19:19:46 INFO]: quericastetas issued server command: /f inviteaccept garchadisimo
+[19:20:10 INFO]: quericastetas issued server command: /f invites
+[19:20:32 INFO]: Garchadisimo issued server command: /factions invite quericastetas
+[19:20:43 INFO]: Garchadisimo issued server command: /factions invite quericastetas Member
+[19:20:45 INFO]: quericastetas issued server command: /f invites
+[19:20:52 INFO]: Garchadisimo issued server command: /f invites
+[19:20:53 INFO]: quericastetas issued server command: /f invites
+[19:21:25 INFO]: quericastetas issued server command: /f inviteaccept 2
+[19:21:25 ERROR]: null
+org.bukkit.command.CommandException: Unhandled exception executing command 'f' in plugin ImprovedFactions v2.1.0-stable
+        at org.bukkit.command.PluginCommand.execute(PluginCommand.java:48) ~[forge-1.20.1-47.2.23-universal.jar%23295!/:?]
+        at org.bukkit.command.SimpleCommandMap.dispatch(SimpleCommandMap.java:147) ~[forge-1.20.1-47.2.23-universal.jar%23295!/:?]
+        at org.bukkit.craftbukkit.v1_20_R1.CraftServer.dispatchCommand(CraftServer.java:885) ~[forge-1.20.1-47.2.23-universal.jar%23295!/:997de31d-ddc9a2dad-d2eba2c8-47.1.79]
+        at org.bukkit.craftbukkit.v1_20_R1.command.BukkitCommandWrapper.run(BukkitCommandWrapper.java:51) ~[forge-1.20.1-47.2.23-universal.jar%23295!/:?]
+        at com.mojang.brigadier.CommandDispatcher.execute(CommandDispatcher.java:264) ~[brigadier-1.20.1.jar%23146!/:?]
+        at net.minecraft.commands.Commands.m_242674_(Commands.java:318) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.network.ServerGamePacketListenerImpl.m_246958_(ServerGamePacketListenerImpl.java:1871) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.network.ServerGamePacketListenerImpl.lambda$handleChatCommand$14(ServerGamePacketListenerImpl.java:1835) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.util.thread.BlockableEventLoop.m_18693_(BlockableEventLoop.java:58) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at java.util.concurrent.CompletableFuture$AsyncSupply.run(Unknown Source) ~[?:?]
+        at net.minecraft.server.TickTask.run(TickTask.java:18) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.util.thread.BlockableEventLoop.m_6367_(BlockableEventLoop.java:151) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.util.thread.ReentrantBlockableEventLoop.m_6367_(ReentrantBlockableEventLoop.java:23) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.MinecraftServer.m_6367_(MinecraftServer.java:1027) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.MinecraftServer.m_6367_(MinecraftServer.java:173) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.util.thread.BlockableEventLoop.m_7245_(BlockableEventLoop.java:124) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.MinecraftServer.m_129961_(MinecraftServer.java:1010) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.MinecraftServer.m_7245_(MinecraftServer.java:1004) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.util.thread.BlockableEventLoop.m_18701_(BlockableEventLoop.java:134) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.MinecraftServer.m_130012_(MinecraftServer.java:990) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.MinecraftServer.m_130011_(MinecraftServer.java:906) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at net.minecraft.server.MinecraftServer.m_206580_(MinecraftServer.java:281) ~[server-1.20.1-20230612.114412-srg.jar%23290!/:?]
+        at java.lang.Thread.run(Unknown Source) [?:?]
+Caused by: java.lang.ClassCastException: class io.github.toberocat.improvedfactions.invites.FactionInvite cannot be cast to class java.lang.Integer (io.github.toberocat.improvedfactions.invites.FactionInvite is in unnamed module of loader org.bukkit.plugin.java.PluginClassLoader @19d22f8a; java.lang.Integer is in module java.base of loader 'bootstrap')
+        at io.github.toberocat.improvedfactions.commands.invite.InviteAcceptCommand.handle(InviteAcceptCommand.kt:33) ~[?:?]
+        at io.github.toberocat.improvedfactions.toberocore.command.PlayerSubCommand.handleCommand(PlayerSubCommand.java:29) ~[?:?]
+        at io.github.toberocat.improvedfactions.toberocore.command.SubCommand.handleWithOptions(SubCommand.java:95) ~[?:?]
+        at io.github.toberocat.improvedfactions.toberocore.command.SubCommand.routeCall(SubCommand.java:75) ~[?:?]
+        at io.github.toberocat.improvedfactions.toberocore.command.CommandExecutor.onCommand(CommandExecutor.java:52) ~[?:?]
+        at org.bukkit.command.PluginCommand.execute(PluginCommand.java:46) ~[forge-1.20.1-47.2.23-universal.jar%23295!/:?]
+        ... 22 more
+[19:21:37 INFO]: quericastetas issued server command: /f inviteaccept Garchadisimo
+[19:21:51 INFO]: quericastetas issued server command: /f inviteaccept quericastetas
+[19:21:59 INFO]: quericastetas issued server command: /f inviteaccept quericastetas Garchadisimo
+[19:22:30 INFO]: quericastetas issued server command: /time set day
+[19:23:15 INFO]: Garchadisimo issued server command: /f invite quericastetas
+[19:23:19 INFO]: Garchadisimo issued server command: /f create
+[19:23:30 INFO]: Garchadisimo issued server command: /f invite quericastetas
+[19:23:40 INFO]: Garchadisimo issued server command: /f invite quericastetas Member
+[19:23:50 INFO]: quericastetas issued server command: /f invites
+[19:23:58 INFO]: quericastetas issued server command: /f invites
+
+
+tobero: 
+Okay, very weird error. What's your server setup?
+dubious1679: 
+Mohist
+tobero: 
+Okay, I#ll try and see if this might be the reason for the guis to bug out
+tobero: 
+As guiengine currently only officially supports spigot versions of the server
+dubious1679: 
+Great! let me know if theres anything i can do
+princess_aquos: 
+I am currently experiencing the same issue with version 2.1.1 even with a spigot server. Not sure exactly what to do about this? Should we try 2.1.0 instead?
+Attachments:
+[message.txt]
+11.05 21:09:01 [Server] Server thread/INFO PrincessAquos issued server command: /faction inviteaccept 2
+11.05 21:09:01 [Server] Server thread/ERROR null
+11.05 21:09:01 [Server] INFO org.bukkit.command.CommandException: Unhandled exception executing command 'faction' in plugin ImprovedFactions v2.1.1-stable
+11.05 21:09:01 [Server] INFO at org.bukkit.command.PluginCommand.execute(PluginCommand.java:47) ~[spigot-api-1.20.4-R0.1-SNAPSHOT.jar:?]
+11.05 21:09:01 [Server] INFO at org.bukkit.command.SimpleCommandMap.dispatch(SimpleCommandMap.java:149) ~[spigot-api-1.20.4-R0.1-SNAPSHOT.jar:?]
+11.05 21:09:01 [Server] INFO at org.bukkit.craftbukkit.v1_20_R3.CraftServer.dispatchCommand(CraftServer.java:877) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at org.bukkit.craftbukkit.v1_20_R3.command.BukkitCommandWrapper.run(BukkitCommandWrapper.java:50) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at com.mojang.brigadier.context.ContextChain.runExecutable(ContextChain.java:73) ~[brigadier-1.2.9.jar:?]
+11.05 21:09:01 [Server] INFO at net.minecraft.commands.execution.tasks.ExecuteCommand.a(SourceFile:29) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.commands.execution.tasks.ExecuteCommand.execute(SourceFile:13) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.commands.execution.UnboundEntryAction.a(SourceFile:8) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.commands.execution.CommandQueueEntry.a(SourceFile:8) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.commands.execution.ExecutionContext.a(SourceFile:107) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.commands.CommandDispatcher.a(CommandDispatcher.java:413) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.commands.CommandDispatcher.performCommand(CommandDispatcher.java:335) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.commands.CommandDispatcher.a(CommandDispatcher.java:322) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.server.network.PlayerConnection.a(PlayerConnection.java:1853) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.server.network.PlayerConnection.lambda$15(PlayerConnection.java:1815) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.util.thread.IAsyncTaskHandler.b(SourceFile:67) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768) ~[?:?]
+11.05 21:09:01 [Server] INFO at net.minecraft.server.TickTask.run(SourceFile:18) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.util.thread.IAsyncTaskHandler.d(SourceFile:156) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.util.thread.IAsyncTaskHandlerReentrant.d(SourceFile:23) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.server.MinecraftServer.b(MinecraftServer.java:1197) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.server.MinecraftServer.d(MinecraftServer.java:1) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.util.thread.IAsyncTaskHandler.x(SourceFile:130) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.server.MinecraftServer.bl(MinecraftServer.java:1176) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.server.MinecraftServer.x(MinecraftServer.java:1169) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.util.thread.IAsyncTaskHandler.c(SourceFile:139) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.server.MinecraftServer.w_(MinecraftServer.java:1153) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.server.MinecraftServer.w(MinecraftServer.java:1060) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at net.minecraft.server.MinecraftServer.lambda$0(MinecraftServer.java:304) ~[spigot-1.20.4-R0.1-SNAPSHOT.jar:3969-Spigot-ce0f71e-e11fbb9]
+11.05 21:09:01 [Server] INFO at java.lang.Thread.run(Thread.java:833) ~[?:?]
+11.05 21:09:01 [Server] INFO Caused by: java.lang.ClassCastException: class io.github.toberocat.improvedfactions.invites.FactionInvite cannot be cast to class java.lang.Integer (io.github.toberocat.improvedfactions.invites.FactionInvite is in unnamed module of loader org.bukkit.plugin.java.PluginClassLoader @740e096d; java.lang.Integer is in module java.base of loader 'bootstrap')
+11.05 21:09:01 [Server] INFO at io.github.toberocat.improvedfactions.commands.invite.InviteAcceptCommand.handle(InviteAcceptCommand.kt:33) ~[?:?]
+11.05 21:09:01 [Server] INFO at io.github.toberocat.improvedfactions.toberocore.command.PlayerSubCommand.handleCommand(PlayerSubCommand.java:29) ~[?:?]
+11.05 21:09:01 [Server] INFO at io.github.toberocat.improvedfactions.toberocore.command.SubCommand.handleWithOptions(SubCommand.java:95) ~[?:?]
+11.05 21:09:01 [Server] INFO at io.github.toberocat.improvedfactions.toberocore.command.SubCommand.routeCall(SubCommand.java:75) ~[?:?]
+11.05 21:09:01 [Server] INFO at io.github.toberocat.improvedfactions.toberocore.command.CommandExecutor.onCommand(CommandExecutor.java:52) ~[?:?]
+11.05 21:09:01 [Server] INFO at org.bukkit.command.PluginCommand.execute(PluginCommand.java:45) ~[spigot-api-1.20.4-R0.1-SNAPSHOT.jar:?]
+11.05 21:09:01 [Server] INFO ... 29 more
+
+josh65: 
+Thats a different error. Try using `/f` rather then faction.

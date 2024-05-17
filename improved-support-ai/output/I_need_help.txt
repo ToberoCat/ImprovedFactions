@@ -1,0 +1,35 @@
+Channel: I need help
+Channel Type: GuildPublicThread
+Topic: None
+
+mcsalmon: 
+https://note1s.com/notes/1ZWAMY
+tobero: 
+Looks like the plugin had issues starting. 
+Have you seen any other error messages in the console?
+
+If not, when does it occur? Does it get spammed?
+mcsalmon: 
+no i just get the above error message when entering plugin command
+mcsalmon: 
+HMMM
+mcsalmon: 
+The java.lang.NullPointerException error usually occurs when you are trying to manipulate an object that is not initialized or is not fully passed into the method.
+
+In this case, the error occurs at the line io.github.toberocat.core.listeners.PlayerMoveListener.OnMove(PlayerMoveListener.java:39), when the ClaimManager's getFactionRegistry() method accessing an object is not initialized.
+
+To fix this, you need to check if the ClaimManager objects have been initialized. If it hasn't been started you need to create a new object and assign it to the Manager request variable in MainIF. You also need to check that the Chunk object has been initialized before accessing its FactionRegistry.
+
+After modifying, you need to check again to make sure the error has been corrected
+mcsalmon: 
+I just used gpt chat and it gave me the answer like this
+tobero: 
+Thanks. The manager doesn't get initialized due to an issue while initializing a different componet of the plugin.
+
+The exception gets thrown when a player moves, so I don't think it's really an issue with the command (Unless the command caused this behaviour). That's why I'm asking.
+
+If you want, you can also send me your log file, so I can take a look at it and search for indications of this issue (You can of course censor data you don't want me to see).
+mcsalmon: 
+I found the cause of my lang file error some lines
+tobero: 
+Okay, so it's all good for you now?

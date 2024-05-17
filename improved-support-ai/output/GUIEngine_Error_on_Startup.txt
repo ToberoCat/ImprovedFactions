@@ -1,0 +1,24 @@
+Channel: GUIEngine Error on Startup
+Channel Type: GuildPublicThread
+Topic: None
+
+k1d4n: 
+Latest GUIEngine and ImprovedFactions version on a new Paper 20.2 server. I do have luckperms installed.
+
+[21:58:44 ERROR]: [ImprovedFactions] The gui couldn't get rendered to an virtual player. Please take a look at it
+
+[21:58:44 ERROR]: Error occurred while enabling ImprovedFactions v2.0.1-stable (Is it up to date?)
+io.github.toberocat.guiengine.exception.GuiIORuntimeException: java.lang.NullPointerException: Profile name must not be null
+at io.github.toberocat.guiengine.GuiEngineApi.validateGui(GuiEngineApi.kt:294) ~[GuiEngine-1.4.1 (2).jar:?]
+at io.github.toberocat.guiengine.GuiEngineApi.reload(GuiEngineApi.kt:124) ~[GuiEngine-1.4.1 (2).jar:?]
+at io.github.toberocat.improvedfactions.ImprovedFactionsPlugin.onEnable(ImprovedFactionsPlugin.kt:71) ~[ImprovedFactionsBase-2.0.1-stable.jar:?]
+
+Caused by: java.lang.NullPointerException: Profile name must not be null
+at java.util.Objects.requireNonNull(Objects.java:235) ~[?:?]
+at com.mojang.authlib.GameProfile.<init>(GameProfile.java:31) ~[authlib-5.0.47.jar:?]
+at io.github.toberocat.toberocore.util.ItemUtils.createHead(ItemUtils.java:104) ~[GuiEngine-1.4.1 (2).jar:?]
+at io.github.toberocat.guiengine.components.provided.item.SimpleItemComponentBuilder.getItemStack(SimpleItemComponentBuilder.kt:91) ~[GuiEngine-1.4.1 (2).jar:?]
+at io.github.toberocat.guiengine.components.provided.item.SimpleItemComponentBuilder.createComponent(SimpleItemComponentBuilder.kt:100) ~[GuiEngine-1.4.1 (2).jar:?]
+tobero: 
+Hm, seems odd, I'll try to fix it today.
+Will send a new version of guiengine in this channel, looks like 1.20.2 is making issues

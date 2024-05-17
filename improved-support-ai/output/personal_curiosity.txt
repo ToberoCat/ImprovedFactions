@@ -1,0 +1,22 @@
+Channel: personal curiosity
+Channel Type: GuildPublicThread
+Topic: None
+
+.play.vlorenzo: 
+Hi, I found out about your plugin, it happened to me that with another plugin the peaceful factions don't accept pvp but being destroyed yes, I think it's a bug.. your plugin allows you to have collaboration between fighters and non-combatants, I mean I accept that territories can be destroyed, but if a person wants to be left alone without having their base or pvp destroyed, is it possible to do so?
+jokbon: 
+yes by disabling power loss on death
+jokbon: 
+https://tenor.com/view/scottish-fold-attack-cat-pawsonify-cute-cat-gif-17979079
+tobero: 
+Absolutely! So, with this plugin, you're in control of your server's vibe. You can totally dial up or down the whole "war" thing— it's in your hands.
+
+Image this: a faction just wants peace and quiet, right? No worries. You can tweak the settings to make sure they're off the PvP radar. By default, the plugin is all about combat, but you can be easily adjust this to your server's needs.
+
+If you're worried about bases getting wrecked, you get to decide if factions go full-on battle mode or if they're in chill mode. All of this is controlled by the config. 
+
+For factions in general: No war relation, no raid fears. Simple rule: no enemies, no base break-ins.
+
+This plugin is supposted to be like a customizable playground for your server. You want to block certain playstyles? Go for it. You're the director, and this plugin lets you create the script.
+
+Long story short, yes, you can totally set it up so factions can enjoy their alone time. It's not just an on/off switch; there's a whole config allowing you to configure the plugin to your server's needs. So, if you're dreaming up some specific scenarios, this plugin's got your back with all the customization you need.

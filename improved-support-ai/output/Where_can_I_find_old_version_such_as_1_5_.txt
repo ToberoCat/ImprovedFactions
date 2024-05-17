@@ -1,0 +1,12 @@
+Channel: Where can I find old version such as 1.5?
+Channel Type: GuildPublicThread
+Topic: None
+
+kingajk30: 
+This is probably a dumb question but where can I find old  versions? I've checked #╰＞📢ㅐupdates  but it doesn't show anything before v2.
+josh65: 
+Try https://discord.com/channels/819932760550014986/881593704614350921/1122531011947925504
+tobero: 
+Versions before V2 haven't been put on modrinth
+tobero: 
+You'll have to check spigotmc for thrm
