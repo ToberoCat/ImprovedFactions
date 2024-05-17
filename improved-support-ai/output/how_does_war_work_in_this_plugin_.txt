@@ -1,0 +1,10 @@
+Channel: how does war work in this plugin?
+Channel Type: GuildPublicThread
+Topic: None
+
+dqybreaks: 
+kind of confused
+josh65: 
+There isnt a war option right now in v2
+tobero: 
+You need to use v1.6 to have war

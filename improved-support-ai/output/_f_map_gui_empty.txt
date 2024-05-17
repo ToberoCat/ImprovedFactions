@@ -1,0 +1,357 @@
+Channel: /f map gui empty
+Channel Type: GuildPublicThread
+Topic: None
+
+nitsuga10: 
+I have downloaded the ImprovedFactionsV1.6.2.jar on an Aternos server as a plugin.
+nitsuga10: 
+and it says There went something wrong. If this happens more than two times, please report it to an admin. Error: NoLocalizationFound
+YAGPDB.xyz: 
+
+tobero: 
+The localization isn't the issue, as this points out that the message is missing there.
+I would need the error you get, because it's most likely a issue with the new Minecraft version
+nitsuga10: 
+im on the version 1.17.1
+tobero: 
+Hm, are there any errors in the console?
+tobero: 
+Have you considered updating to the latest version of this plugin?
+nitsuga10: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1183894096197202081/1184192854948577351/image.png?ex=664843c9&is=6646f249&hm=abb1cf84688cfc83ca0a0edb862f229ff107a2aafb4f817e73447c097df5f92a&
+
+tobero: 
+Yeah, that's just a missing translation - Not pretty, but should still be functional
+nitsuga10: 
+nope
+nitsuga10: 
+and how i can make the map apper on the gui?
+nitsuga10: 
+btw i cant download the GUIEngine on Aternos
+tobero: 
+It should already be showing the claimed chunks
+nitsuga10: 
+yes but i need the GUIEngine on Aternos
+tobero: 
+Oh, yeah, doesn't it support modrinth?
+nitsuga10: 
+the software i use is Spigot/Bukkit
+nitsuga10: 
+can i make u a question that has nothing to do with the issue indeed?
+nitsuga10: 
+your name is tobias right?
+nitsuga10: 
+where are u from?
+tobero: 
+Yeah that shouldn't matter. Modrinth is just the site where you can download it. All new plugin updates go onto it currently, as it's more convenient for me, as I can upload files larger than 5mb
+tobero: 
+Right
+tobero: 
+I'm from austria
+nitsuga10: 
+ohh nice
+nitsuga10: 
+i tought u where from a spanish-speaking country
+tobero: 
+oh, how does it come?
+tobero: 
+because of my nickname?
+nitsuga10: 
+but i cant put plugins from outside the Aternos avilable plugins
+nitsuga10: 
+because of your name
+nitsuga10: 
+Tobias is also a name in spanish
+tobero: 
+I know, but  was just wondering if they suppor modrinth as a plugin mirror
+tobero: 
+Oh, nice.. Didn't know that
+nitsuga10: 
+whats a plugin mirror?
+tobero: 
+Just some website where devs post their plugins.
+nitsuga10: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1183894096197202081/1184194175198056448/image.png?ex=66484504&is=6646f384&hm=afef3603da144950ca600a29f7a931cf916c5aaf2b185ed160101f7cd4b97fa0&
+
+nitsuga10: 
+i have other questions
+nitsuga10: 
+can i use dynmap on aternos?
+tobero: 
+Aternos can only download plugins from direct spigot links, which only support files smaller than 5mb - But the plugin got bigger in size, currently to 27mb just for improved factions
+nitsuga10: 
+cause dynmap plugin isnt available on aternos
+tobero: 
+I don't think so, as you'd need portforwarding
+nitsuga10: 
+yes i suppose it
+nitsuga10: 
+and which is the command to see chunck border particles?
+tobero: 
+If you want it, there are other free minecraft server hosts available people use as an alternative to aternos, because they allow file uploads directly
+nitsuga10: 
+nice, which one do u suggest?
+tobero: 
+If the extension has been installed, they should show automatically. If they don't you can toggle them in /f user if I remember correctly
+tobero: 
+I'm not sure, but I think they were called minehut or minefort
+nitsuga10: 
+k ty
+nitsuga10: 
+ok
+nitsuga10: 
+but there is no way solving the map issue on an aternos server?
+tobero: 
+The map gui? I suppose that it is broken, so the other option you have is to remove the map gui extension and go with the chat version of the map
+nitsuga10: 
+both of them are free hostings
+tobero: 
+Oh, really? Didn't know that
+tobero: 
+Thought that I just didn't remember correctly, as they sound similar
+nitsuga10: 
+i thought the same
+nitsuga10: 
+but there is no way to repair it?
+nitsuga10: 
+or without the guiengine it doesnt work?
+tobero: 
+The extension, I guess that is probably one. It's a pretty old extension (1 year or so), so it doesn't need GuiEngine yet. 
+But as I've made a whole plugin rewrite in v2.0.0, I won't fix the old extension. The only thing that will happen is a whole new map for the new rewrite
+nitsuga10: 
+ohhh nice
+nitsuga10: 
+yeah i forgot im using the old version to avoid downloading the guiengine cause is not avilable on aternos
+nitsuga10: 
+its the v1.6.2
+tobero: 
+yeah, makes sense
+nitsuga10: 
+do u know any other map plugin avilable on aternos?
+tobero: 
+You mean something like dynmap? I don't think that this is even possible, as all those plugins host their own website, needing a free port
+nitsuga10: 
+nono
+nitsuga10: 
+i know dynmap is not possible for aternos
+nitsuga10: 
+no map plugins like journey map
+nitsuga10: 
+cause when i was choosing a faction plugin i was between yours, medieval factions and saber factions
+nitsuga10: 
+and medieval factions onlay offers dynmap which i cant add
+nitsuga10: 
+and saber factions i dont know
+nitsuga10: 
+thats why i choose your plugin
+nitsuga10: 
+cause i need the map
+nitsuga10: 
+beside of the faction
+tobero: 
+Yeah, you can try using the chat version of it, this will most likely work
+nitsuga10: 
+i know
+nitsuga10: 
+it works
+nitsuga10: 
+but the idea is to have a visual map for every player
+nitsuga10: 
+anyway
+nitsuga10: 
+if u want to join
+nitsuga10: 
+https://discord.gg/74RD47zP
+tobero: 
+I can't join right now, as I'm having a meeting in a few minutes with my team
+nitsuga10: 
+my MC server is going to be hosted on that server
+nitsuga10: 
+dont worry
+nitsuga10: 
+the server isnt open yet
+nitsuga10: 
+until i solve the map issue
+tobero: 
+oh, okay
+nitsuga10: 
+there u can read all the info about what is the server theme, rules, countries and everything
+nitsuga10: 
+ty
+nitsuga10: 
+have a nice day
+tobero: 
+Thanks, you too
+nitsuga10: 
+hi
+nitsuga10: 
+tobero
+nitsuga10: 
+i habe another question
+nitsuga10: 
+which is the command to see every faction created?
+nitsuga10: 
+and how can i give ranks?
+tobero: 
+Depends on the version of the plugin, but /f rank might be a starting point
+nitsuga10: 
+there is a /f faction list command?
+nitsuga10: 
+and can i be the owner of many factions, cause i cant create another one now that i have already created one
+nitsuga10: 
+the version is 1.6.2
+tobero: 
+No, as you can only be part of one faction, you can only be the owner of one
+nitsuga10: 
+but it says that, that command doesnt exists
+tobero: 
+There should be /f list
+tobero: 
+/f rank?
+nitsuga10: 
+so i cant create more to then give the ownership of the faction to another user, they must create the faction?
+nitsuga10: 
+yup
+tobero: 
+I'm not sure how the commands looked in v1.6.2, maybe it was /f set or something. I'd suggest scrolling through the tab complete list
+nitsuga10: 
+i did
+nitsuga10: 
+but there is not any similar command
+tobero: 
+Correct, only way would be if you're an admin user having permission to create factions for users, but again - You never are the owner of two factions
+nitsuga10: 
+which i could say it is this one
+tobero: 
+Ah, I think you have to open the member GUI for that
+nitsuga10: 
+im the owner of the server but anyway i cant
+tobero: 
+Like /f members
+nitsuga10: 
+k
+nitsuga10: 
+let me see
+nitsuga10: 
+now yes
+nitsuga10: 
+ty
+nitsuga10: 
+there is a full command list for v1 of the plugin?
+tobero: 
+Yeah, because it's a different command than create. As I've said, only one faction per user is possible and can't be outdone in any way
+nitsuga10: 
+im using the commands on this list
+tobero: 
+Not anymore, I removed it from spigot as it's been outdated for long now
+nitsuga10: 
+https://www.spigotmc.org/resources/improved-factions.95617/
+nitsuga10: 
+do u remember the command?
+tobero: 
+Yeah, that's one the outdated
+tobero: 
+I think it was /fcreate or something
+nitsuga10: 
+some commands still working
+nitsuga10: 
+let me check real quick
+nitsuga10: 
+and to see every existing faction on the server there is a command?
+tobero: 
+Usually /help
+nitsuga10: 
+u mean /help o /f help?
+tobero: 
+/f help is a feature of the newer version if I'm correct, so just /help
+nitsuga10: 
+yeah
+nitsuga10: 
+from /help i get on /help ImprovedFactions
+nitsuga10: 
+and from that it only send one command which is /faction
+nitsuga10: 
+k doesnt matter
+nitsuga10: 
+ty anyway
+nitsuga10: 
+have a nice day
+nitsuga10: 
+remember to tell me if u want to join
+nitsuga10: 
+this is the theme of the server
+nitsuga10: 
+# THEME
+🗺️ THERE ARE 4 COUNTRIES YOU CAN JOIN PRUSSIA, BRITAIN, FRANCE AND AUSTRIA. EVERY COUNTRY ALREADY HAS AN ELECTED LEADER. YOU MUST JOIN A COUNTRY TO PLAY THE SERVER, TO JOIN A COUNTRY DM THE COUNTRY LEADER FROM THE COUNTRY YOU WANT TO JOIN.
+🕊️ THERE CAN BE WAR AND PEACE BETWEEN COUNTRIES, BUT THAT WILL DEPEND ON THE DECISIONS THAT THE LEADERS OF EACH COUNTRY MAKE DURING THEIR GOVERNMENT.
+🎮 IT'S LIKE A GAME OF WORLDBOX BETWEEN FRIENDS IN MINECRAFT. JOIN, PLAY AND HAVE FUN.
+tobero: 
+I'll make it an issue on GitHub to make sure the factions can be created without any members, so these things are possible
+nitsuga10: 
+what do u mean?
+tobero: 
+It's just like a thing that reminds me of things I have to add in the next version of the plugin, like bug fixes or features
+tobero: 
+And I'll add the feature to v2.1.0 for empty factions no members, allowing for such behaviour your server is aiming for, as there might be other servers needing it too
+nitsuga10: 
+ohhh
+nitsuga10: 
+i understand now
+nitsuga10: 
+ty
+nitsuga10: 
+hey
+nitsuga10: 
+do u know worldguard plugin?
+tobero: 
+yep. I've heard of it
+nitsuga10: 
+do u know any command of that plugin?
+tobero: 
+not really
+nitsuga10: 
+k doesnt matter
+nitsuga10: 
+ty
+tobero: 
+you're welcome
+nitsuga10: 
+Tobero, it is possible to make subclaims inside a faction claim?
+tobero: 
+No, only one claim per chunk
+nitsuga10: 
+k
+nitsuga10: 
+ty
+nitsuga10: 
+but i mean sub divide the claim
+tobero: 
+Yeah, not possible
+nitsuga10: 
+cant invite someone to a faction
+nitsuga10: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1183894096197202081/1187508105383268423/image.png?ex=664875db&is=6647245b&hm=79feb5a67f722a85b49087e7b5702a884fc2571ab800316fa68c31cf6ab0dc79&
+
+nitsuga10: 
+this is his screen
+tobero: 
+This is a permission issue on your server
+tobero: 
+You have to use luck perms and allow it
+nitsuga10: 
+Ohh
+nitsuga10: 
+Ok
+nitsuga10: 
+Ty
+nitsuga10: 
+My bad

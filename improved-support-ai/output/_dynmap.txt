@@ -1,0 +1,14 @@
+Channel: ✖dynmap
+Channel Type: GuildTextChat
+Topic: None
+
+jokbon: 
+**SET AND PORT FORWARD DYNAMP PORT** 
+if in config set desired:` webserver-port: 1939`
+Specify in router settings same port you specified `1939`
+**SET RESOLUTION SO WORLD LOADS FASTER / SLOWER**
+deftemplatesuffix `vlowres`
+**SET QUALITY OF FILES TO SAVE SPACE**
+if you want ofc
+**ACCESS THE MAP**
+`your_domain_or_ip_adress:1939`

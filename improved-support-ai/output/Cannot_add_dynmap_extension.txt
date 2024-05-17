@@ -1,0 +1,35 @@
+Channel: Cannot add dynmap extension
+Channel Type: GuildPublicThread
+Topic: None
+
+bigwillywill000: 
+When i try use /f extension it says command not found
+josh65: 
+If your on V2 there is no extensions. For v1 it `/f extensions download`
+bigwillywill000: 
+ohh okay thank you
+bigwillywill000: 
+how do i get v1 then
+bigwillywill000: 
+and is v1 compatible with  1.20.2
+jokbon: 
+@BigWillyWill its buggy as hell and stinks
+jokbon: 
+and i doubt v1 even compatible
+bigwillywill000: 
+ah
+bigwillywill000: 
+okay
+bigwillywill000: 
+thank you
+bigwillywill000: 
+how long till you think extensions will be added
+jokbon: 
+alot of time
+jokbon: 
+unless some new player will kick toberos ass to be on (lol clasic system but pretty random consequences)
+from time to time i notice new player makes tobero code alot
+jokbon: 
+@BigWillyWill 🤣
+bigwillywill000: 
+lmaooo okay

@@ -1,0 +1,229 @@
+Channel: 🔵Feature: Power, Raiding & Overclaiming
+Channel Type: GuildPublicThread
+Topic: None
+
+tobero: 
+@Beta Testers I'm about to implement these features in the new version of improved factions, but I'm still unsure about how things should be implemented, to be the most straight forward to users, especially when it comes to power.
+
+Power is directly coupled with raiding and overclaiming, which makes it so important to get right. In my optional, I always messed up with the power system in all previous versions, why I wanted to ask you about your ideas about it. Please leave them in this thread.
+
+
+My current idea for the implementation would be to have a faction max level of power, which can be reached. This maximum increases with the amount of members you get. Each active member produces x power per x time unit. When a player dies, the faction loses x power. Claiming costs power too, but it only consumes the available power, which will regenerate, meaning factions can claim infinite chunks if they have enough time, but there comes the other thing into play: Each chunk has a base consumption of power, reducing the amount of power a faction gets in x time unit. 
+As soon as a faction can't cover their chunk power consumption, protection at the outer chunks gets removed, making it vulnerable to raids. If a faction has no power at all, it'll be vulnerable to overclaiming.
+
+
+That's just what I thought might work. Any other suggestions / refinements to my idea?
+josh65: 
+I think there should be a server configurable max total claims. So it can't be infinite making it more fair for new players.
+jokbon: 
+Death removes 2 power
+1 hour adds 1 power
+--------------------------------------------------------------------------------------------
+you can raid if: (power - claims = positive power) = your power > enemy power
+claims raidable if (power < claims)
+--------------------------------------------------------------------------------------------
+if `(power < claims)` = true and `your positive power > enemy positive power` = true
+then raidable
+josh65: 
+The amount of power gained and remove for an action should really be server configurable not locked values.
+josh65: 
+Maybe could also only give power when there players of that faction online or speed it up. That way they have to actually play to make progress but not lose any.
+jokbon: 
+2 ppl online = double power gain?
+jokbon: 
+instead of 1 person
+jokbon: 
+nah
+jokbon: 
+i dont like this
+tobero: 
+What about people using alt accounts?
+jokbon: 
+theyr toaster burns x2
+jokbon: 
+xdd
+josh65: 
+How about one of the faction members have to be online to start gaining power and if no one is on then they just say were they are.
+jokbon: 
+if more than 25% of members were not online for 2 days, then each of they decrease factions total power by 10 each day
+jokbon: 
+nvm
+josh65: 
+That just seems more complicate.
+jokbon: 
+nonono
+jokbon: 
+it fixes alts
+jokbon: 
+each alt - 10 of power
+jokbon: 
+instead of removing bonus they provide
+jokbon: 
+if alt sits at 7 power
+then when inactive it will do -3 of power in the end
+josh65: 
+What if only 1 of 5 actual member were on. Then it would loss them power when they might not be able have every one on at the same time
+tobero: 
+Oh, power should be per player and not per faction?
+jokbon: 
+power is per player
+jokbon: 
+but afk alt penality is per faction
+jokbon: 
+if faction got alies
+jokbon: 
+it counts 1+ aliance counts as 1 member
+tobero: 
+Factions will have allies as I said, but I'm not sure about the war relation, as it was just unnecessary in most cases
+tobero: 
+Okay, so inactive allied faction => 1 Inactive member?
+jokbon: 
+yes basicaly it will force guy to log in with 2 acounts every 2 days
+jokbon: 
+which is kinda anoying
+jokbon: 
+it permits alts but punishes on alt abuse
+jokbon: 
+maybe too complicated
+josh65: 
+It would also do it to all player which can also be annoying if they can't log in every 2 days
+jokbon: 
+easy solve problem
+tobero: 
+Don't worry about complexity yet
+jokbon: 
+disable aliance
+josh65: 
+Wouldn't you have to be kick/leave and join the faction every time then, also can't do it if your the only member.
+jokbon: 
+Without aliance
+XOOO = PASS
+XOO = PASS
+XO = NO PASS
+X = NO PASS
+
+With aliance
+XXOOO = NO PASS
+XXOO = NO PASS
+XXO = NO PASS
+XX =NO PASS
+tobero: 
+Am I the only one not getting it?
+josh65: 
+Im not either, I think just having power controlled as a faction and not per player would make it easier to understand and then just only let them gain power if at least 1 member is online
+jokbon: 
+it will restrict small factions from having aliances
+jokbon: 
+cause people make small factions with aliance and alt that to crap
+jokbon: 
+if u fear something just push percentage to 34%
+tobero: 
+Which percentage?
+josh65: 
+It might be better for the server to try limit the alt in general anyway. Some people probably would have alts depending on where they are like friends house and there own so there could be an issue of being stuck at the same power level or losing it constantly for 1 of the 2 member not being one for a long time.
+jokbon: 
+this
+tobero: 
+Btw, I think I might be able to detect if someone is alting. I can just check if two separate players connect from the same IP
+tobero: 
+Why lose power? How about just using a boost? Each online member boost sthe production by 25% percent (As discussed earlier)
+josh65: 
+Issue with that is if they have family play a faction as they would all have the same IP
+jokbon: 
+or 41%
+jokbon: 
+ye 41% better
+jokbon: 
+as i said need to do calculations
+jokbon: 
+since i didnt calc stuff yet
+tobero: 
+That's true.
+jokbon: 
+41%:
+Without aliance
+XOOO = PASS
+XOO = PASS
+XO = NO PASS penality given
+X = NO PASS penality given
+
+With aliance
+XXOOO = PASS
+XXOO = NO PASS penality given
+XXO = NO PASS penality given
+XX =NO PASS penality given
+jokbon: 
+note that this is penality of offline player, online players will not notice anything
+josh65: 
+How would a faction lose power then?
+jokbon: 
+it will just make days harder of factions with 1 or 2 or 3members
+tobero: 
+Player deaths maybe and chunk claiming. Each claimed chunk consumes a inital claim power (% or something else from config) and then each time power gets added, chunks consume again (This time just base power, 2 or something).
+This would make factions overall receive power until they hit their max power cap, defined by the amount of players they have.
+
+At least that's how I would've done it
+tobero: 
+Ah right. They still exist. What would help them then?
+jokbon: 
+it will limit amont of alts players can have
+jokbon: 
+there wont be afk alied bases with 1 or 2 or 3 members across the map
+jokbon: 
+it will need 4 to do that
+josh65: 
+Oh i was talking about it being and issue based on the reply i linked. My idea was to just have the faction not gain any power when there isn't anyone on. Saw that was in the initial plan anyway.
+jokbon: 
+wont afect anything
+tobero: 
+It will
+tobero: 
+I agree with the idea that factions might only accumulate power when members are online
+josh65: 
+I think you should do your initial plan then everyone can see how it works in game and then go from there. Should also add a max total claims.
+tobero: 
+Max total claim will be implemented
+jokbon: 
+thats true but
+jokbon: 
+i thought speach was about alts
+jokbon: 
+xd
+tobero: 
+Yeah, it kinda was at some point
+tobero: 
+Okay, after this small discussion, I would implement the power like this (All inlined values will probably be configurable):
+- Each **faction** (Not player, for simplicity reasons) has power. It ranges from 0 to 10.
+- Each member a faction gains brings a change to it's power. The increase of power will be calculated on a base value. like 50. Then, this base value will get multiplied by a factor of 1 over the current member amount.
+**Example Log:**
+FactionMax Power: 10; 1 Member
+New Member: 10 + 50 * 1 / 1 (last member count) = 60
+New Member: 60 + 50 * 1 / 2 = 85
+New Member: 85 + 50 * 1 / 3 = 102 (When adding, ceil)
+Left Member: 102- 50 * 1 / 3 (member count - 1) = 85 (When subtracting, floor)
+
+**Why?**
+This tries to help smaller factions. When for example the third member joined, it gained the faction 17 max power, while when the 20th member would have joined, it would have gained the faction only 3 max power. This drop-off can be configured.
+
+- Each online member accumulates the their full power potential. Additionally, to motivate factions to play at the same time, there will be a boost at the power accumulation based on the amount of people that have taken part in the accumulation. All members counted as inactive (Last seen 7 days or so) will have a negative effect on this accumulation. 
+This is forgiving for players that just can't login daily, but will still punish alts / inactive players.
+
+- Claiming a chunk costs a faction power. The more chunks a faction owns, the more expensive the chunks get, controlled by a constant in the config. This should help factions value their chunks if the max chunks is set to a very high number.
+
+- When a faction accumulates power, their allies will receive a small fraction of it. This will help control the amount of allies being formed. Too many allies and you won't have any power left for yourself. Not the right allies / not enough and you'll have major disadvantages in combat.
+
+**Overclaiming & Raiding**
+tobero: 
+- Claims will get unprotected when a faction can't afford the base claim power cost. This means when they have more claims then they have power. The chunk will be raidable by **everyone**. Once a chunk is no  longer protected, factions that are in war with this faction can start the overclaiming process.
+
+- Overclaiming will work by having someone of a faction you're in war with stay in your chunk for x time units. This makes sure that the enemy faction has to "capture" the claim before overclaiming it. This also prevents them from overclaiming in such a short time, that the other faction had no chance to defend their property.
+
+- Allies can offer help by sending power. This is just a idea I had right now, but maybe that gives allies another purpose to exist
+
+
+
+
+So, what you think about it? I tried to implement most of the ideas I read in this channel and combine them in something that makes sense for me. Please leave some feedback, as I'm not sure about most things.
+I'm also not sure how players will get introduced into the system
+josh65: 
+Sounds good to me

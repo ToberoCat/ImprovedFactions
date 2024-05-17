@@ -1,0 +1,10 @@
+Channel: connected chunks
+Channel Type: GuildPublicThread
+Topic: None
+
+tobero: 
+
+tobero: 
+Will be a option in the configs. Allows to only claim chunks connected to the first claim
+tobero: 
+So, there are no random chunk claims

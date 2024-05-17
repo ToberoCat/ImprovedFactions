@@ -1,0 +1,721 @@
+Channel: ╰＞⭐ㅐrequests
+Channel Type: GuildTextChat
+Topic: You have good ideas that will improve the plugin? Post them in this channel and they will be added maybe
+
+cr4nkybobbyhd: 
+Hi so i have stumbled upon this plugin while searching for a factions plugin that isnt completely bloated with unnecessary stuff, it looks pretty good so far.
+So i wanted to suggest maybe a dynmap addon or any other implementation so people can see their Faction on the map.
+tobero: 
+I was having in mind to do something like faction chunk boundaries showed with particles. But I could also try adding a dynamo addon
+.kyrenic: 
+Could you make the standard open type of a faction not public?
+.kyrenic: 
+So people would have to be invited
+tobero: 
+I think I have already added this.
+.kyrenic: 
+Pleas remove explaining the command in chat, it really spams the chat and isn't all that usefull
+tobero: 
+There is already a config setting
+tobero: 
+Go to config.yml and set general.commandDescription to false
+.kyrenic: 
+Hmm cool, might want to set it to false on install
+tobero: 
+I can do this when a /f help command works
+tobero: 
+But currently I'm too lazy to make the command
+.kyrenic: 
+Could you add outsiders to the rank permissions?
+tobero: 
+I'm sorry, but I don't know what a `outsider` is. Can you please explain it? Sorry for my stupidity.
+.kyrenic: 
+Someone not part of the faction
+.kyrenic: 
+Like maybe I want people who aren't part of my faction open doors to look around my faction territory
+tobero: 
+Oh. I can add this. That should be easily done
+.kyrenic: 
+Oh and another thing, a command to remove an extention, would that be available? Or is that too hard because it's already loaded in and all that jazz?
+.kyrenic: 
+Hmm and maybe a command to update an extention, unless that's what refresh does
+tobero: 
+I would need to rewritte the class loader. I can do it oneday, but First I want to make the plugin sort of "finished" (Server ready)
+tobero: 
+Refresh reads the file from the internet. I could add the command update
+.kyrenic: 
+Alright cool stuff, you're really receptive to ideas and active in replying, that's awesome :D
+.kyrenic: 
+Oh and maybe a command that lists currently installed extentions
+tobero: 
+I think I should have added it with the entir extension system. I will add it.
+.kyrenic: 
+A command like ``/f unclaim all`` would be very handy
+.kyrenic: 
+A faction warp system.
+
+This would allow someone with the permission to set warps to set warps for members with the permission to use warps to teleport to. I'd suggest adding this as a seperate extention or as an addition to the home extention. These warps are per faction, each faction has its own list of warps.
+
+It would have the following commands:
+- ``/f setwarp (name)``
+- ``/f delwarp (name)``
+- ``/f listwarps``
+.kyrenic: 
+(Would I start the thread on the overpower mechanic or do you do it?)
+tobero: 
+I had something similar in thoguhts, just with warp blocks. Something like this. You just craft them, place the blck and then you can warp at those stations. (A random image from google, just as reference)
+Attachments:
+[Untitled.png]
+https://cdn.discordapp.com/attachments/881593883815968898/886355711091671060/Untitled.png?ex=66486e55&is=66471cd5&hm=f2565c46b63039343e68d2c069d932869d05ef162c78c2a339cb6d4311accdff&
+
+.kyrenic: 
+Hmmm maybe you could have players add a custom schematic for warp blocks?
+.kyrenic: 
+Sort of like the plugin Brewery has for their barrel system
+.kyrenic: 
+I can show it on my private server if you'd like?
+tobero: 
+Ok, send me the ip
+tobero: 
+Can you see the thread?
+.kyrenic: 
+Yep
+tobero: 
+Okey
+.kyrenic: 
+PM me your username btw, it's whitelisted
+.kyrenic: 
+The commands /f setspawn and /f spawn would be good aliases for /f sethome and /f home
+.kyrenic: 
+Another command that would be handy is a command that lists who have been banned, I don’t think there is currently a way to do that
+.kyrenic: 
+Maybe /f listbans
+b0b_3756: 
+wars and war list 
+
+/war {faction name} and the other faction will agree or not.
+
+warlist
+
+list of wars that is going to happen or going on or that has happened in the past 
+
+idk how the war could end but it could be amount of players killer in the faction or something  but yeh it would be cool.
+tobero: 
+I think, that's a cool feature for the relation ships
+b0b_3756: 
+Jails /f jail (faction member) (time) (reason)
+
+a faction owner must make a prison in the range of blocks when the owner puts a member of the faction in the prison they can not destroy any of the blocks that are in the area same goes with other faction members that are not in the prison, a reason why this could be good if you do laws and if someone breaks it in the game they go to jail for certain time.
+tobero: 
+Alright. I can put it on my extension list
+b0b_3756: 
+arena chunks or areas that can also be apart of a faction in an arena area faction members can fight there and keep inventory will be enabled  for the arena area  or enemies and members.
+b0b_3756: 
+laws 
+
+/laws create 
+
+basically rules
+
+members can do /laws list to see laws of the faction.
+.kyrenic: 
+Oh one other question, can you add an option to choose from one of these options when entering or leaving faction territory?
+Attachments:
+[mRH4WXe.png]
+https://cdn.discordapp.com/attachments/881593883815968898/895218834208854026/mRH4WXe.png?ex=66486002&is=66470e82&hm=5d7ee73ff7959f9dd6716a7b92b78552b792bbf087b944505bb22c3b4f983646&
+
+.kyrenic: 
+I'd personally really like the actionbar
+.kyrenic: 
+(Just an image I grabbed off the web, I don't play stupid minigames :P)
+tobero: 
+Of course I can add this
+b0b_3756: 
+Whatcha think bout the arena and law list thing?
+tobero: 
+Rules are already coming with the next version and the arenas, is keepinventory only for faction members?
+b0b_3756: 
+anyone who fights in the arena but really its your choice, what ever slides best with you.
+tobero: 
+I think I will add a option, do disable arena keepInventory for all faction enemies
+b0b_3756: 
+aight sounds good
+tobero: 
+I tried to figure the item tooltip out, but I wasn't able to do this without replacing  the players selected item for one tick with the item, that's having the  text on it. If I find a way  I will add it, but currently, it only works with `TITLE`, `SUBTITLE` and `ACTIONBAR`
+.kyrenic: 
+Oh that's fine
+b0b_3756: 
+Umm i made faction chunks but when i walk out and into it can you do like wilderness when i walk out and my faction name when i walk back in
+b0b_3756: 
+Along with that when you do claim chunk or claim chunk auto can we get a respone saying chunk claimed to make sure#
+b0b_3756: 
+And for auto claim after we done we put it again and we get a reply saying its stopped
+tobero: 
+I know, that's bug, but I wasn't able to fix in yesterday. Normally all this is implemented.
+b0b_3756: 
+Oh okay
+b0b_3756: 
+When you fix it will i be able to fix it right away by restart or have to download it again the latest version
+tobero: 
+I'm sorry. Gonna be fixed tomorrow.
+b0b_3756: 
+That will be fine.
+tobero: 
+You need to download it.l Everytime a new update gets released
+tobero: 
+Sorry
+b0b_3756: 
+Alrighty
+b0b_3756: 
+@[Dev] Tobero  is the update done?
+tobero: 
+Yes, but I'm currently fixing performance issues. I'm going to notify you, when it's done
+b0b_3756: 
+Oh ok im supposing the other bug where it doesnt tell you that you have claimed a chunk isnt done either cause it still aint workin for me and also yeh
+
+how does the flags thing work and the dynmap how do i link i dont know where to get the extensions.
+b0b_3756: 
+On your own website it dont work
+b0b_3756: 
+Well your plugin on spigot it aint work.
+tobero: 
+Bugs are fixed. But I haven't uploaded to spigot. The dynmap extension is getting usable and downloadable for you when the next update is coming. In the next update, I fixed the bugs with the ext display. I will tell you when I upload it **Today**
+b0b_3756: 
+Alrighty then g
+b0b_3756: 
+Make an unclaim all chunk
+b0b_3756: 
+Nvm
+b0b_3756: 
+Dont
+b0b_3756: 
+Cause i remembered your finna fix it so they all go after deleting
+tobero: 
+When a faction is deleted, the server needs to save ( Auto save) and then the chunks are fully removed from the database. After that happened all the other extension get notified and so they update. But I can add this. Shouldn't be much work
+b0b_3756: 
+Ig so
+b0b_3756: 
+It could be helpful in a way
+tobero: 
+If you want to save manually, use /f save and it should save the faction data
+adunari: 
+For the needs of my server I will translate your plugin into Polish. When I'm finished, I can send you the file to put it on SpigotMC if you want, of course. regards
+pipearaneda: 
+hii i know that the status for PlaceholderAPI support is 3, but I consider that placeholder of the faction name is very important, it is the one that is usually used in the chat and scoreboard, please would you consider adding that one in the near future?
+tobero: 
+Yes, I will add this as soon as I'm home
+pipearaneda: 
+thankss
+tobero: 
+Alright. Added papi support
+tobero: 
+Use %faction_name% to get the displayname of the faction the player is in
+pipearaneda: 
+wooow thanks!
+jokbon: 
+Safezone and warzone with togleable pvp (so u can make pvp arenas with things like world guard)
+tobero: 
+Yes. This feature is going to be released when I fixed all bugs with v1.0 in 1.18
+Deleted User: 
+add more admin commands such as a command which give ownership or a command that make you officier
+tobero: 
+This is currently implement in some "hidden" way. The command /f Admin sJoin will join and give you all rights. Means that you can give someone other ranks in a bad implemened way.
+tobero: 
+I will put it on my to-do list
+Deleted User: 
+ok thanks yeah figured it gave me admin perms there
+Deleted User: 
+Not sure if this is suggested yet but:
+
+Make an `/f admin safewand` command or something in that direction. So that Admins can make a region for a safe zone. Such like, after they made a selection that they can do `/f admin safezonecreate` or again, something in that direction. 
+
+Or maybe that you can do `/f admin safezone <radius>` that you can set a radius for safezone. Maybe something like spawn protection but with safezone.
+
+I hope I was being clear about my suggestion lol
+tobero: 
+I think you mean the `/f massSafezone command` avaiable in the MassClaim Extension. Use /f massSafezone pos1 / pos2 to set the positions. And use /f massSafezone claim / unclaim
+tobero: 
+If you meant this
+Deleted User: 
+I tried that but that is not working for me, wait ill go to #╰＞❔ㅐcommunity
+jokbon: 
+toggle /f map suggestion
+tobero: 
+Yes. I got this suggestion one time before. I will add it
+tobero: 
+If you want to change the name of thesafezone, set it in the config file and disband SafeZone. And claim a chunk to reload the zone
+tobero: 
+Or use sJoin to join safezone
+jokbon: 
+ok
+tobero: 
+And use settings to rename it
+jokbon: 
+thanks fixed all my problems
+dont worry this system works for me xd
+ah sugestion will be ability to add multiple system factions
+tobero: 
+Its just a normal faction. In the optimised version this will change. If you want to change it then, you need to go to the .lang file and change it there.In that version it's just a name, currently it's a entire faction
+jokbon: 
+ah sugestion will be ability to add multiple system factions
+jokbon: 
+and flag for crystals
+tobero: 
+What do you mean with "Multiple system factions"?
+jokbon: 
+Config option to define "system factions" like safezone (ones which cant be owerclaimed)
+jokbon: 
+```
+CONFIG EXAMPLE:
+System factions:
+ - Spawn
+ - Warzone
+ - Crystalpvp
+ - BoringTown```
+tobero: 
+Oh. I'll add it after making the current bug fixes
+.kyrenic: 
+Another cool thing would be if the server owner could set the starting permissions every faction has at faction creation, or is this already in?
+tobero: 
+Already implemented. In f
+Config.yml
+tobero: 
+There are factions.flags
+tobero: 
+True and false statements
+tobero: 
+Wait not that are only settings. I will add it too
+jokbon: 
+**STATS**
+```Faction Bank balance count
+Faction members count
+Faction members online count
+Most killed by faction
+Kills? <--use other plugin? 
+Owerclaim count
+Claims count ```
+jokbon: 
+```/f admin forcejoin <playername> <faction> ```
+tobero: 
+Only `%faction_toppower_1%` didn't get implemented yet
+tobero: 
+Got implemented in this update
+jokbon: 
+**DYNMAP**
+```
+Add option to disable vieving factions [private]
+Add option to disable vieving factions [public]
+Add option to disable vieving factions [system] (cant be owerclaimed)```
+texos: 
+/admin rank (faction) (user) (rank)
+
+It were nice if I could change ranks in a faction without being in a faction.
+~ 🌸
+katiedeforest: 
+I have a few features I have been wondering if it's possible to add.
+
+- Add so you're able to click on a square on the chunk generated map and teleport to the coordinates so you don't have to walk to the other corner. 
+- Add mob spawn and monster spawn true and false under /f settings. 
+- Add so admins can force settings in a faction. For example /f admin settings (faction).
+- Add so admins can change another players rank in a faction. For example /f admin rank (user) (rank)... if you're standing in the faction, but if not, then also type the faction name.
+- Add so a command will be executed when leaving or entering the faction, worldguard has this.
+- Add so you're able to change the items featured in the settings GUI. 
+- Add a setting picking what rank is able to interact with each individual thing, such as chests, doors, beds, etc. For example making it so you can click on a chest under /f settings. 
+- Add an option to change the name of the ranks, because I would personally like for them to be something that is related to my servers theme.
+tobero: 
+Have you tried SettingsAndFlag extension? Most of the setting / rank features are already built in to this extension
+katiedeforest: 
+No, I wasn't aware of it. I'll check it out tomorrow. Thanks!
+tobero: 
+Alright. Give it a try
+geko_off.: 
+Add the /f home command to add a faction home
+tobero: 
+There is already a /f home. Install home extension using /f extension download HomeExtension
+geko_off.: 
+aw ok
+geko_off.: 
+And the /f chest for faction chest ?
+tobero: 
+No. That's not a thing. Dou you need it? I think I will be able to add it real quick
+geko_off.: 
+A yes it would be a very good addition please!
+tobero: 
+Alright
+jokbon: 
+thats same as faction vault
+tobero: 
+Yes. I already thought that it's something like that
+geko_off.: 
+In fact I use another faction plugins, but it was buggy so I came to yours but it doesn't have everything it had :/ Ducoup I offer you in things it had :]
+tobero: 
+This plugin is buggy too. See #╰―＞🔌ㅐto-doˈs
+geko_off.: 
+yes but much less and I already have lots of ideas for yours x) [ You will work thanks to me ]
+geko_off.: 
+Want designs for your menu? :]
+tobero: 
+Which menu?
+geko_off.: 
+for /f setting ?
+tobero: 
+Yeah. If you like
+geko_off.: 
+The gray banner to rename the faction
+The blue banner to set the description of the faction
+The white banner to set the motd of the faction
+The blue dye for the ranks
+
+The green banner to invite a member
+The orange dye to kick a member
+The red dye to banish a member
+The gate to open to the public or not
+Attachments:
+[2022-03-06_18.32.16.png]
+https://cdn.discordapp.com/attachments/881593883815968898/950084350089764994/2022-03-06_18.32.16.png?ex=66483e40&is=6646ecc0&hm=4baeb9dbc8ed1bf76041fb07725ac87e5924971d152474caba13e835ea99f531&
+
+geko_off.: 
+:]
+tobero: 
+Will make it today. Should be usable in 6 - 7 hours if you still need it
+tobero: 
+That's a great concept. Will add it to the new version (Not beta)
+tobero: 
+You can now download FactionChest Extension using /f extension download FactionChest
+geko_off.: 
+Add in the parameters, the display of the faction name when we speak in the chat, example: [Faction name] Geko: text, with a command like /f color with a color panel that is displayed to change the color of the faction name in chat [ Paid or no ]
+tobero: 
+Isn't it already a thing? When you create a faction with a color code (`/f create &a&lName` as example) all displays should display the name with color.
+
+When you want it only avaiable for specific ranks on your server, there is a `faction.color.allowColorInName` permission, defaulted to true
+tobero: 
+If that's your suggestion
+geko_off.: 
+But faction names don't show up in front of nicknames for me :/
+jokbon: 
+Thats prefix
+tobero: 
+Have you installed chat message extension?
+geko_off.: 
+Eu what is the command?
+tobero: 
+Or do you like to use essentails chat? For that you need Papi. Then you can use %faction_display%
+tobero: 
+`/f extension download ChatMessageExtension`
+geko_off.: 
+Aww ok
+geko_off.: 
+thx
+mashirothegreat: 
+@Support i need help with a bug, i cant claim chunks whilest being deoped
+jokbon: 
+you need permisions added to players
+use permision plugin like luckperms
+jokbon: 
+i think owner will add default permisions of the plugin later
+tobero: 
+Are you able to access /f claim?
+tobero: 
+The most common problem is permission handling. And its easy to fix: Just install LuckPerm and give the default users the permission faction.commands.claim
+mashirothegreat: 
+ye thanks
+mashirothegreat: 
+what one would it be??
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/881593883815968898/955140583444344962/unknown.png?ex=66482e3c&is=6646dcbc&hm=43fcaa485c5b47f1fd039701f9e3088bbccaa6f3254dcd18f3a907ab8c1cf0cc&
+
+tobero: 
+Upload it using ftp from https://www.spigotmc.org/resources/luckperms.28140/
+mashirothegreat: 
+ahhh okay
+mashirothegreat: 
+do i have to enable all factions commands???
+mashirothegreat: 
+@[Dev] Tobero
+tobero: 
+Only the ones that you want your users   be able to use. Most of them have should be allowed
+tobero: 
+By default, but that's bugged
+axolotl_bucket.: 
+@[Dev] Tobero is there any timeline for dynmap to update factions properly?
+tobero: 
+A server restart
+tobero: 
+Will get fixed when I drop the extension for the v1
+axolotl_bucket.: 
+when dis drop hapenin'
+tobero: 
+Very soon after the release of the optimised version :). It looks very promising too me that this is going to happen in the next few week.
+
+If you want to see (current / not up-to-date) optimised version, you can download it in #╰＞🌸ㅐoff-topic
+hash_guy: 
+Hello. I came here to learn about this wonderful plugin.
+I have a suggestion. How about displaying particles on the border between factions that you belong to and those that you don't so that you can tell them apart?
+tobero: 
+This is a planned feature for V1. Thanks for the suggestion 
+https://discord.com/channels/819932760550014986/885096079635402753/885099216635035688
+hash_guy: 
+ok.
+hash_guy: 
+I am looking forward to it.
+jokbon: 
+Tobero make permisions have op or admin prefix so it wont be as confusing
+for example:
+`faction.commands.op.Unclaim` / `faction.commands.admin.Unclaim`
+tobero: 
+Alright. If you think it will be usefull, I can add it to the new versions
+katiedeforest: 
+Hey, you should add a chest permission under /F settings
+katiedeforest: 
+Because right now it's connected to redstone
+katiedeforest: 
+I don't want my members to use our redstone door, but they can use their own chests. This only works if I allow redstone
+tobero: 
+Have you tried using SettingsAndFlag extension? This adds chest access permissions and others to. If you don't like any of them, just set them to false in the config.yml
+jokbon: 
+
+Attachments:
+[New_DOCX_Document_2.docx]
+https://cdn.discordapp.com/attachments/881593883815968898/963189710266699806/New_DOCX_Document_2.docx?ex=66487592&is=66472412&hm=e4345e2ccb96f0c7203d1631ccd9ea419c0833ac4387df8e7dfa7102be74dba0&
+
+jokbon: 
+**Suggestion for improvements and penalities**
+some thonks how improvements and penalities shud work.
+katiedeforest: 
+Me and a friend have tested it, and it seems like they are only able to interact with things if they have build permission. Even the open doors one don't count for iron doors, neither does redstone apparently. It all depends on build permissions.
+Which in my opinion, only should account for placing blocks and not interacting with iron doors and chests.
+tobero: 
+Yes. That should it be really
+tobero: 
+But... it interactions aren't bound to place / breaking
+tobero: 
+While creating, I needed to disable interactions with custom event
+.hydroxy: 
+That every faction can set there color
+tobero: 
+Is planned / already done
+mow_cat: 
+this might be complicated, but i would love to set precise 3d regions the same way you can with worldguard/worldedit instead of only ever selecting full chunks. maybe a separate option for enabling/disabling it
+tobero: 
+Hmm. That would be very hard to implement, because the entire system is based on chunks and traditional factions, as I know it, got always played with chunk claims.
+
+If you'd like to use something like that, maybe try towny (I think its something like that, haven't tried it myself)
+mow_cat: 
+when i log in, im already in wilderness
+but it still says wilderness when i move out of the chunk i was in
+
+could there be an option to disable this?
+tobero: 
+There was one in Beta, but there isn't one in v1
+mow_cat: 
+where was it?
+i dont see it in config
+tobero: 
+Oh. Sorry. I had thought you wanted to disable the text entirely. This thing can't be disabled in Beta, because it's a problem with how I handle movements. Alpha and later version have fixed this issue, because I changed to a more better text check
+mow_cat: 
+oh
+jokbon: 
+placeholder api for faction you standing in (maybe bad idea)
+tobero: 
+Will be able to implement it
+jokbon: 
+it will need cache or something
+tobero: 
+I would have just made a check, that tries to get the current chunk of a player, if they aren't same, get the registry from it.
+bcat2616: 
+vertical particles when using /sc,
+red is enemy
+green is ur claim
+white is ally
+gray or oragne is neutral
+bcat2616: 
+my suggestion :)
+tobero: 
+Think you mean that, right?
+https://discord.com/channels/819932760550014986/885096079635402753/885099216635035688
+bcat2616: 
+no horizontal
+bcat2616: 
+mb
+bcat2616: 
+:)
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/881593883815968898/980913278421200906/unknown.png?ex=6648566e&is=664704ee&hm=6457f4505be47a8894ebfd33a5bddbe2b90ffd3ec9584d8381ccc8d3505122e7&
+
+bcat2616: 
+⭐  art ⭐
+tobero: 
+On the same level as the user?
+bcat2616: 
+ye
+bcat2616: 
+ig just inbetween
+tobero: 
+Where in-between?
+bcat2616: 
+so there now lines on chunk corners
+bcat2616: 
+so horizontal between those a couple at eye level
+tobero: 
+Okey, I see
+bcat2616: 
+might make too much lag idk
+tobero: 
+Yep, that's why it will be an extension, so that you can remove it when it's too laggy
+jokbon: 
+particle count config option lol
+jokbon: 
+and duration
+josh65: 
+Add an update checker for people who aren't in the discord. Should show a message to people with a permission showing "Your version is outdated - new version X.X.X - <spigot link here>" in chat
+tobero: 
+There is one, but I'm always forgetting to update the version with each update
+josh65: 
+oh right is it not possible to detect changes to the spigot update section since it always adds a new one there
+tobero: 
+probably yes
+are7ee: 
+i wish suggestion like
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/881593883815968898/986414713376243742/unknown.png?ex=6647eaca&is=6646994a&hm=f351f98abe227b0b596e8fa121a2f22bca7f2c9319b105ac76091a92f75681d8&
+
+tobero: 
+You would like factions to declare a area where it's their main base?
+are7ee: 
+like a faction can have towns and a capital t AL
+tobero: 
+nice idea, can add it when I'm bored and don't have to do anything
+leonzockt01: 
+Suggestion: You could add a range to auto-claim and unclaim, example: "/f claim auto 3" to claim everything in 3 chunks range from the player
+josh65: 
+the mass claim extention might do that already
+leonzockt01: 
+Already forgot about massclaim haha
+leonzockt01: 
+My bad
+leonzockt01: 
+Never got to test it
+tobero: 
+Just install it
+tobero: 
+I have coded it yesterday with three other extensions
+tobero: 
+/f extension download
+tobero: 
+Just that everyone knows, suggestions can be everything. 
+Some examples:
+- Change message for command help command to something like this (image of the message)
+- Make command accessible through gui
+- Change command output of /f mass claim to only show how many chunks got claimed and how many failed
+- Put /f mass  to /f claim mass
+- Make guis configurable through config
+- Add faction permission
+
+Just everything you don't like in the current version and with an example on how to do it better. I want to make the plugin fit it's community, which is using it.
+jokbon: 
+@[Dev] Tobero  i think u missed that suggestion, its whole office doc lmao
+tobero: 
+Oh, I actually did. Thanks
+jokbon: 
+i think i made few mistakes, but it think u will figure that out
+tobero: 
+Yep. I will. Thanks again
+jokbon: 
+
+Attachments:
+[New_DOCX_Documexngxfgnnt_2.docx]
+https://cdn.discordapp.com/attachments/881593883815968898/990649016138235945/New_DOCX_Documexngxfgnnt_2.docx?ex=6648290a&is=6646d78a&hm=4d66d6ec87a13dc0cd2cc236e824bb7f39d607a915a5a6d1b04dc7cab3875a6b&
+
+jokbon: 
+this must be more readable as i added colors
+leonzockt01: 
+1. Would be really cool to see different colors of the factions with the dynmap extension (if possible)
+2. There could be a sound when entering another faction, maybe even different ones for different relations
+leonzockt01: 
+Any opinions on that?
+tobero: 
+Aren't colours for dynmap already added?
+tobero: 
+But sounds will be customizable using the action system coming with 1.5
+leonzockt01: 
+It's set to yellow in my faction, but on the dynmap it's still shown in red
+tobero: 
+Still white with red border?
+leonzockt01: 
+Yes
+leonzockt01: 
+@[Dev] Tobero Colors on dynmap actually do work, my bad
+leonzockt01: 
+But it would be nice if the border color could also be changed
+tobero: 
+Yep, will look how I could change that
+josh65: 
+Could there be a config option to follow papers no permision error message.
+tobero: 
+How do you mean it? That there is no message saying you have no permissions (
+tobero: 
+?
+josh65: 
+yeah when the user dosnt have permistions it currently has it own mesge and says what permision is needed. i would like it to follow the one in papers config file instead
+tobero: 
+So, basically just customize the permission message?
+josh65: 
+yeah
+tobero: 
+Isn't it already in the lang files?
+josh65: 
+for the config folder not that i can see. I search permission only comes up with in faction ones
+tobero: 
+Did you search the lang/en_us.json one?
+josh65: 
+yeah its the only one i have
+tobero: 
+Okey. Will add it, sure thing
+tobero: 
+Will get uploaded with the other fixes and features in v1.6
+josh65: 
+thanks
+tobero: 
+No problem
+josh65: 
+could there be an option to set the default settings of territory display position
+josh65: 
+Also support for the dynmap extention to live update when a setting changes. Currently I have to restart the server for it to show.
+leonzockt01: 
+This actually had worked for me last time I checked
+josh65: 
+and for the on click content to have classes so that they can be customised better
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/881593883815968898/995345029486870598/unknown.png?ex=66481b0b&is=6646c98b&hm=b1ce17618a287982b9bf767492460bc9db9e917221df0d67884686aa53802752&
+
+tobero: 
+Okay
+tobero: 
+Pinned a message.
+tobero: 
+Pinned a message.
+josh65: 
+Add the ability to mass claim zones. Could proberly be done with /f mass claim <zone name> with no zone name it just does what it does now
+tobero: 
+Okay
+tobero: 
+Pinned a message.
+tobero: 
+```If you have want to submit a feature request, please follow these steps```
+
+As it would get the features added faster, please make an issue on github, using this link:
+https://github.com/ToberoCat/ImprovedFactions_new/issues/new?assignees=&labels=suggestion&template=feature_request.md&title=%5BSuggestion%5D+Quick+%26+descriptive+name+for+your+suggestion
+
+**How to do it:**
+
+- First, you need to have a github account to make a issue
+- After you have done that, please fill out the form on github. Some fields got filled with a value automatically.
+- Set the title to: [Suggestion] Describe Your Problem
+
+Things that make my file easier:
+- Include screenshots, if it's something visual / hard to explain
+- You can always reformat the layout as long as it includes the required things I need

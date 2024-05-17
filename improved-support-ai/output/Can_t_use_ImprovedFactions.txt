@@ -1,0 +1,12 @@
+Channel: Can't use ImprovedFactions
+Channel Type: GuildPublicThread
+Topic: None
+
+josh65: 
+Install GUI engine too https://modrinth.com/plugin/guiengine/versions
+kenjaca: 
+Thank you it worked and just, to configure the power and the allow commands it's my the config.yml from imrpovedfactions right ?
+josh65: 
+Yes power can be configured in there. Command are done though your permission manager. If you don't have one you can use LuckPerms
+kenjaca: 
+ok thanks i'll use it so thank you a lot !

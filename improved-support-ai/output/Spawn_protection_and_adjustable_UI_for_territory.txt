@@ -1,0 +1,20 @@
+Channel: Spawn protection and adjustable UI for territory
+Channel Type: GuildPublicThread
+Topic: None
+
+kinoko3002: 
+Hello, I just installed your mod on my server and there's two questions I'd like an answer to:
+
+1) Is it possible to disable claiming the worldspawn chunks? I can't find anything about it in the config.yml
+
+2) The text in the middle of the screen that says when I enter wilderness/claimed chunks is very big and annoying, is there a way to change that? I remember back in the day you'd get a message in the chat for that, which would be preferrable.
+kinoko3002: 
+Third question: is it possible to give each factions territory their own color on Dynmap?
+josh65: 
+1. You can use the safe zone or unclaimed in the admin commands https://github.com/ToberoCat/ImprovedFactions_new/blob/main/docs/commands/admin-commands.md#factions-zone
+
+2. Not yet, it's being tracked here https://github.com/ToberoCat/ImprovedFactions_new/issues/67 You can check there or click subscribe in the right sidebar for updates.
+
+3. It's automatically assigned with no way of changing right now, as far as I know.
+kinoko3002: 
+Thank you!

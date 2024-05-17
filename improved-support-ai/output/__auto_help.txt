@@ -1,0 +1,1388 @@
+Channel: ㅐ❓auto-help
+Channel Type: GuildTextChat
+Topic: None
+
+are7ee: 
+are you useful
+jokbon: 
+claim safezone
+YAGPDB.xyz: 
+
+jokbon: 
+claim safezone
+YAGPDB.xyz: 
+
+jokbon: 
+players break
+YAGPDB.xyz: 
+
+jokbon: 
+cannot claim
+YAGPDB.xyz: 
+
+are7ee: 
+geyser
+pro_snape: 
+how to kick a player out of a faction
+pro_snape: 
+kick a player
+jokbon: 
+not yet added
+its more server owner isusues focused, than player
+i doubt i will make this tell for every command
+cause there is limit of commands this can have
+pvink7: 
+wat is 1+1
+pvink7: 
+1+1
+pvink7: 
+=+=
+jokbon: 
+it got just 6 commands now
+divuyes: 
+f download extension
+YAGPDB.xyz: 
+
+jokbon: 
+^ fixed i alredy forgot about it
+harutom: 
+raid
+harutom: 
+how do I raid
+harutom: 
+How do I raid a faction
+tobero: 
+Kill other faction members. When you killed enough members, the faction had lost enough powerso that you can go to one of their claims and over claim it, using /f claim
+harutom: 
+ohh
+harutom: 
+So I just need to have more power and step on one of their claims and claim it?
+tobero: 
+No, the other faction needs to have less power then chunks. Each death of an member uses 10 of their power by default. In one hours 1 power regenerates per online person (by default again)
+
+But you need to have enough power to claim chunks, yes
+harutom: 
+oh, makes sense
+harutom: 
+thanks!
+tobero: 
+No problem
+zackzark: 
+Plugin enters standby
+tobero: 
+This is because of an error in the console. Can you send me your error log?
+tobero: 
+You can send me the entire log file too (under logs/latest.log)
+jokbon: 
+claim warone
+jokbon: 
+how to claim warzone
+YAGPDB.xyz: 
+
+jokbon: 
+claim warzone
+YAGPDB.xyz: 
+
+jokbon: 
+how to claim land
+jokbon: 
+ow to claim land
+jokbon: 
+how to claim land
+batmannnn5865: 
+map
+batmannnn5865: 
+how to use the map
+tobero: 
+/f map, if that's what you need
+jokbon: 
+or dynmap
+a_soccer: 
+How to fix "factions is in standby. Protection is enabled for claimed chunk
+YAGPDB.xyz: 
+
+a_soccer: 
+How to get out of standby mode
+YAGPDB.xyz: 
+
+a_soccer: 
+Is there a way i can see all factions in a list
+a_soccer: 
+Is there a way i can see all factions that were made?
+a_soccer: 
+/f rank isnt working how can i fix this?
+a_soccer: 
+How to fix /f rank
+tobero: 
+/f settings
+tobero: 
+There isn't such a command anymore
+tobero: 
+It's changeable under Manage ranks
+a_soccer: 
+Thx
+jokbon: 
+-mass
+jokbon: 
+massclaim
+jokbon: 
+mass claim
+jokbon: 
+how to safezone
+jokbon: 
+>??????????????
+jokbon: 
+what they broke it?
+jokbon: 
+oh
+jokbon: 
+-massclaim
+jokbon: 
+-claiming
+YAGPDB.xyz: 
+
+jokbon: 
+standby
+YAGPDB.xyz: 
+
+jokbon: 
+Updated to detect errors.
+mr.quokka: 
+-prefix
+YAGPDB.xyz: 
+Prefix of `819932760550014986`: `-`
+mr.quokka: 
+prefix
+mr.quokka: 
+How do you add faction prefixes
+tobero: 
+You mean tags? /f settings > Change tag (3 characters by default)
+
+You can access it for chat, scoreboard, tab list, etc using PlaceholderAPI.
+Only download & install it.
+
+Placeholder is: `%faction_tag%`
+flamingrhin0: 
+How do I use dynmap with Improved Factions?
+flamingrhin0: 
+How do I use dynmap with Improved Factions
+flamingrhin0: 
+dynmap
+flamingrhin0: 
+how to use DynmapExtension
+flamingrhin0: 
+DynmapExtension
+jokbon: 
+you get set up dynmap and download extension thats it
+YAGPDB.xyz: 
+
+jokbon: 
+standby
+finx1: 
+permissions
+finx1: 
+how to setup permissions
+finx1: 
+Permission
+jokbon: 
+-permision
+YAGPDB.xyz: 
+
+finx1: 
+Zone
+finx1: 
+Zone help
+finx1: 
+-zones
+finx1: 
+-zone
+jokbon: 
+those might be outdated by now, many changes, but plugin kinda not working as suposed.
+jokbon: 
+NoLocalization
+jokbon: 
+wtf
+irkagiga: 
+How to fix the no localization problem
+irkagiga: 
+How to fix the no localization error
+irkagiga: 
+standby mdoe
+YAGPDB.xyz: 
+
+irkagiga: 
+ugh
+jokbon: 
+nolocalization
+jokbon: 
+NoLocalization
+jokbon: 
+NoLocalizationFound
+YAGPDB.xyz: 
+
+jokbon: 
+NoLocalization
+YAGPDB.xyz: 
+
+jokbon: 
+NoLocalizationFoundError
+YAGPDB.xyz: 
+
+notmyidea: 
+Dynmap?
+notmyidea: 
+dynmap working?
+pvink7: 
+help
+Attachments:
+[message.txt]
+[Pterodactyl Daemon]: Checking server disk space usage, this could take a few seconds...
+[Pterodactyl Daemon]: Updating process configuration files...
+[Pterodactyl Daemon]: Ensuring file permissions are set correctly, this could take a few seconds...
+container@pterodactyl~ Server marked as starting...
+[Pterodactyl Daemon]: Pulling Docker container image, this could take a few minutes to complete...
+[Pterodactyl Daemon]: Finished pulling Docker container image
+container@pterodactyl~ java -version
+openjdk version "17.0.2" 2022-01-18
+OpenJDK Runtime Environment (build 17.0.2+8-86)
+OpenJDK 64-Bit Server VM (build 17.0.2+8-86, mixed mode, sharing)
+container@pterodactyl~ java -Xms128M -Xmx10240M -jar server.jar
+Unbundling libraries to /home/container/bundler
+Starting server
+*** Error, this build is outdated ***
+*** Please download a new build as per instructions from https://www.spigotmc.org/go/outdated-spigot ***
+*** Server will start in 20 seconds ***
+Loading libraries, please wait...
+[22:27:56] [ServerMain/INFO]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[22:27:56] [ServerMain/INFO]: Found new data pack file/mystic-swords-datapack-rivers-of-bloods-e2011.zip, loading it automatically
+[22:27:58] [Worker-Main-5/ERROR]: Couldn't read tag list minecraft:tick from minecraft:tags/functions/tick.json in data pack lake-ironman-datapack-v7-2.zip
+com.google.gson.JsonParseException: com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 2 path $
+        at net.minecraft.util.ChatDeserializer.a(SourceFile:505) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at net.minecraft.util.ChatDeserializer.a(SourceFile:542) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at net.minecraft.tags.TagDataPack.a(SourceFile:56) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at net.minecraft.server.CustomFunctionManager.b(SourceFile:70) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768) [?:?]
+        at java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1760) [?:?]
+        at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) [?:?]
+        at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) [?:?]
+        at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) [?:?]
+        at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) [?:?]
+        at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) [?:?]
+Caused by: com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 2 path $
+        at com.google.gson.stream.JsonReader.syntaxError(JsonReader.java:1562) ~[gson-2.8.9.jar:?]
+        at com.google.gson.stream.JsonReader.checkLenient(JsonReader.java:1403) ~[gson-2.8.9.jar:?]
+        at com.google.gson.stream.JsonReader.nextNonWhitespace(JsonReader.java:1354) ~[gson-2.8.9.jar:?]
+        at com.google.gson.stream.JsonReader.doPeek(JsonReader.java:548) ~[gson-2.8.9.jar:?]
+        at com.google.gson.stream.JsonReader.peek(JsonReader.java:424) ~[gson-2.8.9.jar:?]
+        at com.google.gson.internal.bind.TypeAdapters$27.read(TypeAdapters.java:661) ~[gson-2.8.9.jar:?]
+        at com.google.gson.internal.bind.TypeAdapters$27.read(TypeAdapters.java:655) ~[gson-2.8.9.jar:?]
+        at com.google.gson.internal.bind.TypeAdapters$33$1.read(TypeAdapters.java:866) ~[gson-2.8.9.jar:?]
+        at net.minecraft.util.ChatDeserializer.a(SourceFile:503) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        ... 10 more
+[22:27:58] [ServerMain/WARN]: Failed to load datapacks, can't proceed with server load. You can either fix your datapacks or reset to vanilla with --safeMode
+java.util.concurrent.ExecutionException: net.minecraft.ResourceKeyInvalidException: Non [a-z0-9/._-] character in path of location: ui:functions/getkathat2 copy.mcfunction
+        at java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:396) ~[?:?]
+        at java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2073) ~[?:?]
+        at net.minecraft.server.Main.main(Main.java:229) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at org.bukkit.craftbukkit.Main.main(Main.java:206) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at org.bukkit.craftbukkit.bootstrap.Main.lambda$1(Main.java:60) ~[server.jar:?]
+        at java.lang.Thread.run(Thread.java:833) [?:?]
+Caused by: net.minecraft.ResourceKeyInvalidException: Non [a-z0-9/._-] character in path of location: ui:functions/getkathat2 copy.mcfunction
+        at net.minecraft.resources.MinecraftKey.<init>(SourceFile:41) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at net.minecraft.resources.MinecraftKey.<init>(SourceFile:50) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at net.minecraft.server.packs.ResourcePackFile.a(SourceFile:136) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at net.minecraft.server.packs.resources.ResourceManagerFallback.a(SourceFile:156) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at net.minecraft.server.packs.resources.ResourceManager.a(SourceFile:80) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at net.minecraft.server.CustomFunctionManager.a(SourceFile:73) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768) ~[?:?]
+        at java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1760) ~[?:?]
+        at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) ~[?:?]
+        at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) ~[?:?]
+        at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) ~[?:?]
+        at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) ~[?:?]
+        at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) ~[?:?]
+container@pterodactyl~ Server marked as offline...
+[Pterodactyl Daemon]: ---------- Detected server process in a crashed state! ----------
+[Pterodactyl Daemon]: Exit code: 0
+[Pterodactyl Daemon]: Out of memory: false
+[Pterodactyl Daemon]: Aborting automatic restart, last crash occurred less than 60 seconds ago.
+
+
+pvink7: 
+wat hebbent
+Attachments:
+[message.txt]
+[Pterodactyl Daemon]: Checking server disk space usage, this could take a few seconds...
+[Pterodactyl Daemon]: Updating process configuration files...
+[Pterodactyl Daemon]: Ensuring file permissions are set correctly, this could take a few seconds...
+container@pterodactyl~ Server marked as starting...
+[Pterodactyl Daemon]: Pulling Docker container image, this could take a few minutes to complete...
+[Pterodactyl Daemon]: Finished pulling Docker container image
+container@pterodactyl~ java -version
+openjdk version "17.0.2" 2022-01-18
+OpenJDK Runtime Environment (build 17.0.2+8-86)
+OpenJDK 64-Bit Server VM (build 17.0.2+8-86, mixed mode, sharing)
+container@pterodactyl~ java -Xms128M -Xmx10240M -jar server.jar
+Unbundling libraries to /home/container/bundler
+Starting server
+*** Error, this build is outdated ***
+*** Please download a new build as per instructions from https://www.spigotmc.org/go/outdated-spigot ***
+*** Server will start in 20 seconds ***
+Loading libraries, please wait...
+[22:27:56] [ServerMain/INFO]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[22:27:56] [ServerMain/INFO]: Found new data pack file/mystic-swords-datapack-rivers-of-bloods-e2011.zip, loading it automatically
+[22:27:58] [Worker-Main-5/ERROR]: Couldn't read tag list minecraft:tick from minecraft:tags/functions/tick.json in data pack lake-ironman-datapack-v7-2.zip
+com.google.gson.JsonParseException: com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 2 path $
+        at net.minecraft.util.ChatDeserializer.a(SourceFile:505) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at net.minecraft.util.ChatDeserializer.a(SourceFile:542) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at net.minecraft.tags.TagDataPack.a(SourceFile:56) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at net.minecraft.server.CustomFunctionManager.b(SourceFile:70) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768) [?:?]
+        at java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1760) [?:?]
+        at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) [?:?]
+        at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) [?:?]
+        at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) [?:?]
+        at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) [?:?]
+        at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) [?:?]
+Caused by: com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 2 path $
+        at com.google.gson.stream.JsonReader.syntaxError(JsonReader.java:1562) ~[gson-2.8.9.jar:?]
+        at com.google.gson.stream.JsonReader.checkLenient(JsonReader.java:1403) ~[gson-2.8.9.jar:?]
+        at com.google.gson.stream.JsonReader.nextNonWhitespace(JsonReader.java:1354) ~[gson-2.8.9.jar:?]
+        at com.google.gson.stream.JsonReader.doPeek(JsonReader.java:548) ~[gson-2.8.9.jar:?]
+        at com.google.gson.stream.JsonReader.peek(JsonReader.java:424) ~[gson-2.8.9.jar:?]
+        at com.google.gson.internal.bind.TypeAdapters$27.read(TypeAdapters.java:661) ~[gson-2.8.9.jar:?]
+        at com.google.gson.internal.bind.TypeAdapters$27.read(TypeAdapters.java:655) ~[gson-2.8.9.jar:?]
+        at com.google.gson.internal.bind.TypeAdapters$33$1.read(TypeAdapters.java:866) ~[gson-2.8.9.jar:?]
+        at net.minecraft.util.ChatDeserializer.a(SourceFile:503) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        ... 10 more
+[22:27:58] [ServerMain/WARN]: Failed to load datapacks, can't proceed with server load. You can either fix your datapacks or reset to vanilla with --safeMode
+java.util.concurrent.ExecutionException: net.minecraft.ResourceKeyInvalidException: Non [a-z0-9/._-] character in path of location: ui:functions/getkathat2 copy.mcfunction
+        at java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:396) ~[?:?]
+        at java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2073) ~[?:?]
+        at net.minecraft.server.Main.main(Main.java:229) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at org.bukkit.craftbukkit.Main.main(Main.java:206) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at org.bukkit.craftbukkit.bootstrap.Main.lambda$1(Main.java:60) ~[server.jar:?]
+        at java.lang.Thread.run(Thread.java:833) [?:?]
+Caused by: net.minecraft.ResourceKeyInvalidException: Non [a-z0-9/._-] character in path of location: ui:functions/getkathat2 copy.mcfunction
+        at net.minecraft.resources.MinecraftKey.<init>(SourceFile:41) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at net.minecraft.resources.MinecraftKey.<init>(SourceFile:50) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at net.minecraft.server.packs.ResourcePackFile.a(SourceFile:136) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at net.minecraft.server.packs.resources.ResourceManagerFallback.a(SourceFile:156) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at net.minecraft.server.packs.resources.ResourceManager.a(SourceFile:80) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at net.minecraft.server.CustomFunctionManager.a(SourceFile:73) ~[spigot-1.18.2-R0.1-SNAPSHOT.jar:3484-Spigot-b6d12d1-7bc728a]
+        at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768) ~[?:?]
+        at java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1760) ~[?:?]
+        at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) ~[?:?]
+        at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) ~[?:?]
+        at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) ~[?:?]
+        at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) ~[?:?]
+        at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) ~[?:?]
+container@pterodactyl~ Server marked as offline...
+[Pterodactyl Daemon]: ---------- Detected server process in a crashed state! ----------
+[Pterodactyl Daemon]: Exit code: 0
+[Pterodactyl Daemon]: Out of memory: false
+[Pterodactyl Daemon]: Aborting automatic restart, last crash occurred less than 60 seconds ago.
+
+
+xcomcadx: 
+/f ally  command gives me "command doesn't exist"
+jokbon: 
+command permisions
+YAGPDB.xyz: 
+
+jokbon: 
+prefix
+jokbon: 
+prefix
+xcomcadx: 
+change /f relation ally to just /ally
+nguythanvu: 
+There went something wrong. if this happens more than two times, please report it to an admin. Error: nolocalizationFound
+YAGPDB.xyz: 
+
+tobero: 
+Nothing to worry about, I just forgot to add the right property
+nguythanvu: 
+How does the player lose 1 amount of money to use the command /f create
+tobero: 
+When I'm right, you need to change it in the commands.yml
+nguythanvu: 
+Thank you so much!
+nguythanvu: 
+similar
+nguythanvu: 
+we can also use for command /f claim ??
+tobero: 
+Yeah, all commands should have a cost property
+nguythanvu: 
+Thank you so much, Have a good day!
+tobero: 
+You're welcome. Have a great day too
+nguythanvu: 
+Hey bro
+nguythanvu: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1018091313754820628/unknown.png?ex=6648756c&is=664723ec&hm=f8a535ea4dbf658df5c6f6b303ed234b05db043cc9e88739368e160572a39d53&
+
+tobero: 
+Still the same
+nguythanvu: 
+I use /f settings it gives an error
+tobero: 
+Which one?
+nguythanvu: 
+command /f settings
+tobero: 
+No, I mean the error you get
+nguythanvu: 
+after use command /f unclaim
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1018092310057209866/unknown.png?ex=66487659&is=664724d9&hm=95571167b14efebc3536908c31ea5601277af3b532748d4150c917bbfd081d9d&
+
+nguythanvu: 
+and /f settings
+tobero: 
+Yeah, that's no error, it's onyl telling you I made a mistake while creating the lang files. You can disable it using /f user > commandDescriptions
+nguythanvu: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1018092863013265438/unknown.png?ex=664876dd&is=6647255d&hm=e785b6f81d28a6f1650d70e14962da97276878705a00a268e378c692b22bf775&
+
+tobero: 
+Yeah, the command block, click it and they should be hidden
+nguythanvu: 
+what to do next
+nguythanvu: 
+okay~
+nguythanvu: 
+"lãnh thổ" = "claim"
+why is it a negative value? "-2"
+nguythanvu: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1018093710510133278/unknown.png?ex=664877a7&is=66472627&hm=b7e7871b4753a9e01bca5e38556a4298b3e15900b16ddc9463b00c9b8839ff21&
+
+tobero: 
+What have you done that the claims could go negative?
+nguythanvu: 
+I do not know
+tobero: 
+Have you unclaimed anything?
+nguythanvu: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1018094095077486652/unknown.png?ex=66487803&is=66472683&hm=5890423fd5debed99b1bbc47679c9c29603ee8bc9e75e16f72f925ec142f5c0b&
+
+nguythanvu: 
+everything is in default state
+tobero: 
+Yeah, the negative value is the faction power or the claims?
+nguythanvu: 
+I just edited here
+tobero: 
+If it's the power, that can happen
+tobero: 
+If it's with the claims, there must be something wrong with the unclaim handler
+nguythanvu: 
+Claims
+nguythanvu: 
+help me :v
+tobero: 
+Do you know what action you did? Did you use /f unclaim, or /f zone unclaim? Have you used the massclaim extension for doing this?
+nguythanvu: 
+/f claim auto?
+nguythanvu: 
+no
+tobero: 
+No, I mean for doing the unclaiming, claiming shouldn't cause negative values
+nguythanvu: 
+I think I haven't done it yet
+tobero: 
+Okay, will try to fix it
+nguythanvu: 
+tks bro
+nguythanvu: 
+hey bro
+tobero: 
+yes
+nguythanvu: 
+I think I know where the error is
+tobero: 
+okay
+nguythanvu: 
+if i claim then claim value will be 1
+nguythanvu: 
+but
+nguythanvu: 
+when i ulclaim then the minus value will be 2
+tobero: 
+okay, so you think it's because it subtracts 2 instead of one?
+nguythanvu: 
+yeah
+tobero: 
+okay
+nguythanvu: 
+Is that the default?
+tobero: 
+No
+tobero: 
+they are only for power management
+nguythanvu: 
+so now what can i do to fix it?
+tobero: 
+Wait until I have have time to fix it
+tobero: 
+nothing much
+nguythanvu: 
+okay i will wait for you
+nguythanvu: 
+thank you brother
+tobero: 
+No problem
+jokbon: 
+permision
+jokbon: 
+perms
+jokbon: 
+no permision
+jokbon: 
+hmm
+jokbon: 
+oh
+crystalwinds: 
+How do I install extensions
+tobero: 
+/f extension download
+crystalwinds: 
+/f extension download
+YAGPDB.xyz: 
+
+crystalwinds: 
+thanks!
+nguythanvu: 
+@[Dev] Tobero hey bro
+nguythanvu: 
+after using ./f zones safe command to claim I can't break the blocks, is there any other way to fix it? Or am I missing some steps?
+tobero: 
+This one is for making claims that aren't editable by anyone
+tobero: 
+Use /f claim
+jokbon: 
+lol its anoying that each user ask diferently but suposed to help here xd
+tobero: 
+Yeah, I have no clue why the bot doesn't respond
+jokbon: 
+it responded with second one atleast, need to update keywords
+tobero: 
+Yeah
+jokbon: 
+install extensions how (just testing)
+YAGPDB.xyz: 
+
+jokbon: 
+get extensions
+YAGPDB.xyz: 
+
+jokbon: 
+obtain extensions
+YAGPDB.xyz: 
+
+jokbon: 
+where to find extensions?
+YAGPDB.xyz: 
+
+jokbon: 
+find extension
+YAGPDB.xyz: 
+
+jokbon: 
+find addon
+YAGPDB.xyz: 
+
+jokbon: 
+lol
+YAGPDB.xyz: 
+
+jokbon: 
+find addon
+jokbon: 
+find extension
+jokbon: 
+obtain extensions
+jokbon: 
+get extensions
+jokbon: 
+install extensions
+YAGPDB.xyz: 
+
+jokbon: 
+commands
+YAGPDB.xyz: 
+
+jokbon: 
+commands
+jokbon: 
+permisions
+jokbon: 
+permision
+jokbon: 
+um cant add that will make spammy chat
+jokbon: 
+where i can see permisions?
+jokbon: 
+where i can get permisions
+jokbon: 
+where i can check permisions
+jokbon: 
+where i can viev permisions
+dancodes: 
+luckperms permissions not working
+tobero: 
+How do you mean that the permissions don't work?
+dancodes: 
+normal players can disable the plugin, etc.
+tobero: 
+Have you set faction.commands.* to allow, and then removed all these:
+faction.commands.zone
+faction.commands.admin
+faction.commands.plugin
+faction.commands.config
+faction.commands.extension
+dancodes: 
+i'll try that
+dancodes: 
+the page should be updated to include that
+tobero: 
+Okay, did it now. Thanks for pointing it out
+dancodes: 
+np
+nguythanvu: 
+@[Dev] Tobero
+jackistrying: 
+why does the factions mod go into standby
+YAGPDB.xyz: 
+
+tobero: 
+As the last bot's answer said, this is a error, that is probabliy getting caused by inviting someone, which is bugged
+tobero: 
+What do you need?
+nguythanvu: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1020332762890260620/unknown.png?ex=66480b2f&is=6646b9af&hm=e6f858afd1bd1babd2b44606be5f39ed716dd6344e66ba5dcc06e3bfecf83daa&
+
+nguythanvu: 
+it's still buggy, i deleted and re-downloaded several times
+tobero: 
+The localisation bugs aren't fixed, because I stopped fixing them for v1.5.1. I'm working on v2.0.0, which will come with all bugs fixed. You can disable the error within the user preferences menu (`/f user`)
+nguythanvu: 
+okay tks!
+jokbon: 
+Started a thread.
+dancodes: 
+papi
+dancodes: 
+how to use papi placeholders
+Deleted User: 
+how can I get chunkborder
+tobero: 
+/f extension download
+Deleted User: 
+how can I fill the claim
+tobero: 
+How do you mean fill the claim?
+Deleted User: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1023847505550643260/unknown.png?ex=66484e4b&is=6646fccb&hm=54888b78706d0b87bc89772ddae312ce12e49cfd50501840a8f3aa319d72684e&
+
+Deleted User: 
+fill this
+Deleted User: 
+is it possible?
+tobero: 
+You mean fill it as a claim or as with particles?
+
+As a claim, just download the mass claim extension and use the wand like a worldedit tool where you select two points and select claim. This will probably lag a little bit with such a big selection, but it will work.
+
+With particles this isn't possible. Even if it were, it would make your server unplayable
+Deleted User: 
+claim
+Deleted User: 
+ok
+Deleted User: 
+how can I set safezone / warzone and edit my faction description? sorry for the many questions
+tobero: 
+No problem. For the zones, you can use /f zones <desired zone>
+tobero: 
+The description should be setable in the faction settings gui
+Deleted User: 
+why can't I place blocks in my faction?
+Deleted User: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1023854344422043688/unknown.png?ex=664854aa&is=6647032a&hm=b722475462c6cd170f91e786c7ea1c50a88876eb3b345ec1e7a8daaf6a56b6a1&
+
+tobero: 
+As the plugin says, it's in standby. I have explained it a little bit too bad, that's why there are many misconceptions about it.
+tobero: 
+Standby will usually kick in to protect your server when something went wrong with the plugin. To stop griefing, everything is getting protected
+Deleted User: 
+what should I do
+tobero: 
+But sadly, this is way too often the case for none serious things. That's why a simple /rl
+tobero: 
+should fix it again
+Deleted User: 
+ok
+Deleted User: 
+I reloaded the server and it fixed to me but my faction members still can't
+tobero: 
+Have you allowed them the place / break perms in the rank manager
+Deleted User: 
+yes
+tobero: 
+What rank do they have?
+Deleted User: 
+member
+Deleted User: 
+and i tried admin also
+tobero: 
+Check it in the member gui, maybe the standby got caused by a invite
+Deleted User: 
+I reloaded then it fixed, will it happen every time a player invite another players / join a faction?
+tobero: 
+Yeah, Inviting crashes the server with the version on spigot.
+
+I made a version that fixes this issue, I'll send you the link to it
+tobero: 
+Only invites crash the server
+tobero: 
+
+Attachments:
+[ImprovedFactionsV1.5.1.jar]
+https://cdn.discordapp.com/attachments/986214601806983248/1023860527404953621/ImprovedFactionsV1.5.1.jar?ex=66485a6c&is=664708ec&hm=7897cce9016880063a4a217d2184f5314667109a9342eb82c3e051f45986a1e9&
+
+Deleted User: 
+Do I need to remove the current version? Or can I just put it on the plugin folder and it will works
+tobero: 
+Remove the other plugin file
+tobero: 
+Just swap the version
+tobero: 
+the folder has to stay
+tobero: 
+else your data will be lost
+Deleted User: 
+now the dynmap-extension not working
+tobero: 
+There is an error in the console?
+Deleted User: 
+oh
+Deleted User: 
+the faction that i claimed on the old version stayed and i can't see them on the map, how can I remove them?
+tobero: 
+You mean you have deleted the folder?
+Deleted User: 
+yes
+tobero: 
+Try /f admin regenerate
+tobero: 
+and then /f admin reset
+tobero: 
+this will clear all leftover data
+tobero: 
+but make sure that you are on the version you where playing before
+tobero: 
+else this won't clear the entire persistent data
+Deleted User: 
+ok
+Deleted User: 
+so now i can invite player and players can join another faction and the plugin won't crash right?
+tobero: 
+Yeah, that should be the case with the newer version I sent you
+Deleted User: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1023869287959629895/unknown.png?ex=66486294&is=66471114&hm=9f0dfd8afcc9750cdfcac1ad25e97db32e0cbd60f4f0f49c10f0dc5b738d1a11&
+
+Deleted User: 
+its shows that I claimed the chunk and I didnt
+tobero: 
+Yeah, that's why I said don't delete the folder for improved factions. It kept all references to the persistent data containers.
+
+If the references are gone, the system will recognise them still as claimed because you haven't unclaimed them, just deleted the folder where dynmap etc kept looking at when it tried to render the chunks on the map.
+
+You have some options:
+- Use worldedit to regenerate the chunks, this will remove the persistent data, must be done by hand, for each previously claimed chunk
+- Use /f zones unclaim to remove the data, must be done manually, for each previously claimed chunk
+- If it's just a test world, save your seed and generate a new one.
+- Restore the old folder and use /f admin reset
+
+The plugin can't do much about it anymore (cause it's reference is gone)
+jokbon: 
+test
+YAGPDB.xyz: 
+
+jokbon: 
+test
+YAGPDB.xyz: 
+
+jokbon: 
+test
+pvink7: 
+/f zones scanWg admin the wond work
+pvink7: 
+command dasent work /f zones scanWg admin
+pvink7: 
+-_-
+pvink7: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1025401661830725642/unknown.png?ex=664806f7&is=6646b577&hm=a74483af0a0bbab2200d2fe902995d237da0f55fc4e6e432c7f7b326cb77991a&
+
+pvink7: 
+tobero plz help
+tobero: 
+You aren't using a dev build
+tobero: 
+therefore the new features don't exist
+playbutton27: 
+I Installed LuckyPerms, but it doesn't allow me to do the faction.commands.create command
+tobero: 
+Have you given the default group this permission and applied?
+tobero: 
+It
+playbutton27: 
+Wdym?
+playbutton27: 
+I did "/permission:faction.commands.create"
+playbutton27: 
+and there was an error
+tobero: 
+Use the web editor
+tobero: 
+/lp editor
+tobero: 
+There you go to default group and add it
+tobero: 
+After that press apply and it should work
+playbutton27: 
+I may sound dumb, but how?
+tobero: 
+/lp editor
+playbutton27: 
+On the server I have Improved factions on. Do I have to install any extra plugins except LuckyPerms
+playbutton27: 
+Do I have to Install Any Extra Plugins
+playbutton27: 
+I Don't Have access to the command
+tobero: 
+Aren't you server owner?
+tobero: 
+If you aren't the owner, ask them if they fix it
+playbutton27: 
+Yes I am
+tobero: 
+Okay, so you don't have op, right?
+playbutton27: 
+I have gotten Op on it, and I can perform things, but my friends who are not op canot create factions et.c, and the commands are not working.
+playbutton27: 
+I am able to perform /f create et.c
+playbutton27: 
+but not Permission:faction.commands.create
+tobero: 
+And you are using luckperms for permissions?
+playbutton27: 
+yes
+tobero: 
+Then you should be able to use /luckperms editor
+playbutton27: 
+k, and after that in the web editor
+tobero: 
+Go to the default group
+tobero: 
+add the permission (You can do this in the bottom text field)
+tobero: 
+When you added faction.command.create you should press apply
+tobero: 
+But when you want the permissions to work properly, you should allow / disallow these permissions:
+
+**Allow:**
+```
+faction.commands.*
+```
+
+**Deny:**
+```
+faction.commands.zone
+faction.commands.admin
+faction.commands.plugin
+faction.commands.config
+faction.commands.extension
+```
+tobero: 
+The red marked fields are the ones you have to set for allowing / denying a permission
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1030800180469059624/unknown.png?ex=66488cfa&is=66473b7a&hm=7a2aa465694b9060af2eaa1eb8f3aeec06aaadb933f6ef2d246fd49276bff833&
+
+playbutton27: 
+and to allow /deny?
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1030800756477009970/unknown.png?ex=66488d83&is=66473c03&hm=7c2665d4a664188c41d147e977eb3cca6f5182952c76d5b34cae80b1647abf67&
+
+tobero: 
+For allowing set the smaller field to true
+
+Denying by simply setting it to false (See the screenshot I sent above)
+playbutton27: 
+the "Value" Tab?
+tobero: 
+You see the value column. This specifies if it's allowed / denied. True for allowed, false for denied
+tobero: 
+Yep
+playbutton27: 
+alright
+playbutton27: 
+so this
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1030801378072858717/unknown.png?ex=66488e17&is=66473c97&hm=ded81fb23e8a9c06f6993c1f80434b48e59c0694ab74b584126829b7529e97b6&
+
+playbutton27: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1030801417734209536/unknown.png?ex=66488e21&is=66473ca1&hm=2c2373cb0d6f0dca77037450315b6e0d7a62ee2ca4f1bd3f5e644410d072b133&
+
+tobero: 
+Yes
+playbutton27: 
+ok
+playbutton27: 
+so now I save it and
+playbutton27: 
+add it
+tobero: 
+Yeah, just press apply and you run the command ig
+playbutton27: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1030801723402489947/unknown.png?ex=66488e6a&is=66473cea&hm=a61435376252993030f8154c085453aedde087850f8d0674f0b7f32c33cfb706&
+
+tobero: 
+Yeah, your players should now be able to use the commands
+playbutton27: 
+k
+playbutton27: 
+thx
+tobero: 
+You're welcome
+myddrim: 
+Hello, quick question on the chunks claimed. On DynMap, it seems like I've claimed 25 blocks, but in the game itself when I typed `/faction who`, the claimed blocks show only 3. How do I fix this without causing a lot of problems to the plugin?
+tobero: 
+You have claimed some chunks and dynmap doesn't display them right?
+tobero: 
+Are you able to send me a screenshot of the issue?
+myddrim: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1031092118409707562/unknown.png?ex=66484b5d&is=6646f9dd&hm=551a9c6b0149685e6a90f39e050e567c7978ae00b2bad5ad7511c8c40e0843b5&
+
+myddrim: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1031092191868764230/unknown.png?ex=66484b6f&is=6646f9ef&hm=cc29a71e4f800d1099fe7dad73c667083d4c1906ebbe533d75676173d14693fd&
+
+tobero: 
+Oh, okay. You mean dynmap isn't updating the chunks, right?
+myddrim: 
+It was kinda confusing at first. Something happened to the claims, so I had to use` /f zones unclaim`, at first to re-claim it. There were times when I logged in, I was not in my own Faction
+myddrim: 
+So had the typical, grief prevention on my own chest. This always happens when I had to use `/f zones unclaim`. Sometimes, I had to use `/f unclaim` for it to work. Not sure what's happening
+tobero: 
+Okay, that seems really weird. So the issue probably is, that the `/f zone unclaim` for zones is, which doesn't remove some faction claim trackers.
+
+Usually, dynmap fixes itself after a restart (The website must be closed too to take effect)
+
+If that doesn't help, you can try to regenerate your data, using `/f admin regenerate`
+This will create the missing data / fox the broken one.
+tobero: 
+The issue with you not being in your faction sometimes is new to me, so when you encounter it the next time, could you take a look into the `ImprovedFactions/Data/Factions` folder, open your faction.json and check the member list. Tell me then if you saw your UUID (You can see your own UUID when joining the server)
+myddrim: 
+I actually did that. My UUID is in the member's line as it should be
+myddrim: 
+New error now, so with a restart on the server, my other member (who's testing with me) cannot open chests. I did not change the `/faction settings` so I'm not sure why they cannot interact with chests
+tobero: 
+Are there any issues in the console?
+tobero: 
+Okay, so there must be an issue with the loading of the faction
+myddrim: 
+just checked. nope
+tobero: 
+Can you do /data entity <tester name> and send me a screenshot of it? This could help me check if there's something wrong with the persistent data
+myddrim: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1031098044189528134/unknown.png?ex=664850e2&is=6646ff62&hm=2f0db482860cf61e5f29e33bdca308242d20a503ccbf741c77a4e469b9245502&
+
+tobero: 
+oh sorry
+tobero: 
+it's /data get entity <testerName>
+myddrim: 
+i got a wall of text. how do I send it to you? take a screenshot?
+tobero: 
+Yeah, screenshot it
+myddrim: 
+Something like this?
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1031098849265205288/unknown.png?ex=664851a2&is=66470022&hm=3fa010234cfa8d9b50d5e24accaa84bb6b91ab623f26c645553be8de45851b3e&
+
+tobero: 
+Yeah, but I would need everything, or if you see it, only the bukkit section
+myddrim: 
+I don't see it on the console, so it's going to be really tough to screenshot everything, is there a better way?
+tobero: 
+Yeah, but I'll have to hop on my test server real quick, so I can tell you in minutes or something
+tobero: 
+/data get entity <testname> BukkitValues
+tobero: 
+This will give you the data I need
+tobero: 
+Should look something like this when your testing mate joined a faction
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1031101524606189588/unknown.png?ex=66485420&is=664702a0&hm=dadf56f4b1d3ea533b598191a07d57f393b66750b80c60ef9a6f50bf1cc4735e&
+
+myddrim: 
+Member is indeed in the correct faction
+myddrim: 
+Even with the correct info, still cannot interact with anything
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1031102418752122890/unknown.png?ex=664854f5&is=66470375&hm=15d4359124291a3f2431d6e1d3d726053e03c66c8a7dca2748a4f051b66b238a&
+
+tobero: 
+Okay, when checking the file, what rank does he have?
+tobero: 
+yeah, that's really weird
+myddrim: 
+Mod
+myddrim: 
+His unable to break blocks in the wilderness too
+tobero: 
+Okay, you checked that he has the break / place permission and interaction and nothing else blocks it?
+
+This is a version that fixes some things, try this one maybe: https://discord.com/channels/819932760550014986/1023861830495506482
+tobero: 
+Okay, yeah, that's usually not from improved factions, but remove the plugin and check if he's now able to break stuff
+myddrim: 
+For now, his gotta leave for an appointment. So will need to test this out a little more
+tobero: 
+Okay, no problem
+myddrim: 
+I just downloaded IF yesterday and the only plugins I've added so far were WorldGuard (update), VaultBanker, and some of the extensions for IF
+myddrim: 
+I don't mind doing a reset on all my plugins tho, then start from scratch again but I'm concern on how the claimed blocks will be a problem
+YAGPDB.xyz: 
+
+tobero: 
+Okay, have you checked if worldguard makes some issues with regions being claimed where you are testing?
+myddrim: 
+1) I've not used any WorldGuard commands yet
+2) I'm certain is the 3/65 claimed chunks that's giving the problem
+tobero: 
+Yeah, usually, for normal players only /f claim and /f unclaim should be used, as /f zone unclaim will do some stuff that is supposed to remove zones
+myddrim: 
+Let me remove the claims. Is there a faster way to clear the claims regardless of faction?
+tobero: 
+You can use /f admin reset
+myddrim: 
+What does /admin reset do?
+tobero: 
+It will remove all mess improved factions left behind
+myddrim: 
+okay. I've tried to disband the Faction, release the claims. - did not work.
+I'm trying the /admin reset now
+tobero: 
+Okay, that's really weird
+myddrim: 
+`/f zones unclaim` did this to me several times
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1031106601236574288/unknown.png?ex=664858da&is=6647075a&hm=a6be5bc43cb41451bfc675e4c1a6377e18f250502ac6b4838d7a2dbcb543311c&
+
+myddrim: 
+Recall this problem? After doing /admin reset, I'm back to this stage
+tobero: 
+Have you tried reloading the server?
+myddrim: 
+yes
+tobero: 
+Okay, as sorry as I'm to say, I can't help with that. I can't fix the issues, because I don't have the old source code and as it looks, the core for claiming is broken, which can't be fixed without source code.
+
+I think you'll be better of by using a working plugin, because until I can release the version I'm working on is server ready, it will take some time.
+
+Sorry for the time you wasted. Sorry again for all issues this plugin has
+myddrim: 
+No worries. I'm planning to do a hard reset on the plugin options and try again. See if it works from there. I noticed why this problem all started to occur. I edited the /ImprovedFaction/Data/*.json file by changing the Description and MOTD. That's the start of this complicated mess
+tobero: 
+Yeah, but this shouldn't happen by editing something in the files (Unless you did it incorrectly, like removing a `"` or not escaping stuff like `\`, which I don't think is the case)
+myddrim: 
+I do know a basic knowledge of programming, so I can assure that syntax like that, I really make sure it stays intact
+tobero: 
+Yeah, so these things shouldn't kill anything
+myddrim: 
+Okay, I think I did a really hard reset on the plugins, err like by removing IF folder and .jar and everything else related
+myddrim: 
+It looks fine and probably won't be touching the Description/MOTD from now onwards. However, one thing to ask tho. In the `/faction settings` are the items in the GUI suppose to move?
+myddrim: 
+Something like that
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1031112202989617182/unknown.png?ex=66485e12&is=66470c92&hm=51b3be3a8539d18480f2396fb1e00accefdb21ec6ea52ed217bb77cf71e11017&
+
+tobero: 
+No, I fixed in in his version
+tobero: 
+*this
+myddrim: 
+I'll update that in my next reset then. For now I've gotta head out to work then will play around with the settings more after this. Thanks so much (not gonna give up trying to get this plugin to work as it intended to be)
+tobero: 
+You're welcome. Hope the issues get resolved when resetting agian
+myddrim: 
+Mhm, when all else fails, reboot and start over :SharkPomPom:
+playbutton27: 
+Creating factions is not working
+playbutton27: 
+my friends (Who are not Operators on the server) can't do the /f create command
+tobero: 
+Then you have a permission issue
+playbutton27: 
+IS there any way I can add other players into the 'default' group
+tobero: 
+They are defaulted to this group, so there is no way for it
+tobero: 
+there has to be an issue with your permission layering
+playbutton27: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1031209947435905095/unknown.png?ex=6648105a&is=6646beda&hm=28373b38c251562109b4612336a924c773b14134dc19ed5bfb7e8d5855ce964c&
+
+playbutton27: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1031210002997841980/unknown.png?ex=66481067&is=6646bee7&hm=39de8bc6fd2417c7d16128bd85ff2b334f0cd50befa6e7e1a48d0379893a1cfa&
+
+tobero: 
+There is a s missing
+tobero: 
+You wrote: faction.command.\*, but what you should write is: faction.command**s**.\*
+playbutton27: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1031210182832836629/unknown.png?ex=66481092&is=6646bf12&hm=0f0cda3ba5a8e5c518c071bcbfef56311f05f8ae15ecad6fe48cfce9f3024eb5&
+
+playbutton27: 
+Now hopefully it should work
+tobero: 
+Should be working
+playbutton27: 
+k thx
+playbutton27: 
+Yep, It is working now
+_jind: 
+When I try to unclaim land in a faction it says NoLocalizationFound everytime and claims go negative
+YAGPDB.xyz: 
+
+tobero: 
+The localisation is just that there isn't a message found that gets sent to you when using the command. this shouldn't affect anything.
+
+When do they get negative? Instantly? Like you have 10 claims use it once and it turns to -1?
+myddrim: 
+So this is what I'm seeing every time my server restarts. I cannot interact with my chests within the claims. Any idea what to do to fix it?
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1031576264064106496/unknown.png?ex=66481403&is=6646c283&hm=14ca79c6befaf68ae9117af12216aafb5458dc35a6b43b5aaf09bb7bd9a69d86&
+
+YAGPDB.xyz: 
+
+tobero: 
+Yeah, that's telling you there is a error in the console
+tobero: 
+And this thing is the grief prevention, so even when someone crashed the plugin, they can't destroy anything
+myddrim: 
+I've removed grief prevention plugin from my server. The only one I have now is World Guard.
+tobero: 
+No, I mean IF has a anti grief system built in, so even when someone crashed IF, they won't be able to loot bases, etc. It has nothing to do with the plugin grief prevention, it's just how I call the system (Because standby mode is a rather useless name)
+myddrim: 
+So is there a way that this can be fixed? Cause it's happening a little too often and it can affect me too
+tobero: 
+Depends on the error you're getting
+myddrim: 
+on console?
+tobero: 
+yep
+myddrim: 
+How can I send you a .txt of the log on console? It's quite long
+tobero: 
+Usually there is just a latest.log file in the logs folder. Just send me that
+tobero: 
+Okay, seems like a issue with a faction file
+myddrim: 
+So by deleting the .jar it'll be fine?
+tobero: 
+no, if you want a quick fix, just use `/f admin reset`, stop the server, remove the `plugins/ImprovedFactions/Data` folder.
+
+The longer one would require that you send me the corrupted faction file.
+I also saw that the error gets originiated by the dynmap extension, so this might have caused it to not update. If there is no corrupted faction file, there could also be a claim in the world claim list, telling dynmap that there should be a faction for a claim, that doesn't exist anymore
+myddrim: 
+So the thing now is, even with these steps done, this isn't the first time it has happen. Ideally I don't download dynmap extension till this stablize?
+YAGPDB.xyz: 
+
+tobero: 
+No, the extension doesn't cause the issue, it just causes the issue that it loads all things on server start, which tells what's wrong right way. If you didn't have dynmap extension, these things might be happening somewhen when nobody expected them
+tobero: 
+As I said, the issue is that a faction file isn't formatted correctly
+tobero: 
+To be exact, the issue is that the json parser expected a object closing tag, which wasn't found at the place it wanted it to exist
+myddrim: 
+so with /f admin reset, all players will be removed from their existing factions?
+tobero: 
+no, the entire plugin will remove it's data sorted directly into the nbt of chunks, players, etc
+gunsnhemps: 
+I am currently experiencing a problem with the plugin. the command /f relation allyaccept indicates that no invite was sent and or this command needs more arguments. The rest seems to be working fine so far. Can someone help me with this as I can't figure it out at the moment.
+tobero: 
+What's the faction registry you tried to accept?
+gunsnhemps: 
+Sorry, I forgot permission faction.commands.relation.allyaccept. Its working now.
+tobero: 
+Okay, you're welcome. Glad it works for you now
+gunsnhemps: 
+👍
+saefely: 
+hello does anyone know how to fix this?
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1039094839943385098/unknown.png?ex=6648677b&is=664715fb&hm=0a0a6d13530ed58a519be5638bf48fd2e26d7487e83a38540921063749f82738&
+
+jokbon: 
+permisions
+jokbon: 
+permisions list
+YAGPDB.xyz: 
+
+jokbon: 
+@justanotherhuman
+saefely: 
+thanks a lot!
+jokbon: 
+ye u can ask questions here, just note bot doesnt ansver everything, it needs questions more on topic, rather than asking just for asking
+jokbon: 
+it doesnt understand images yet :(((
+jokbon: 
+but maybe in future it will be posible, because there are services which transcode image crap to text
+saefely: 
+sorry if im bothering you, but im using apex hosting for my server. which directory should i place it in?
+saefely: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1039097037054021662/image.png?ex=66486987&is=66471807&hm=d65700b6d86323f754bd39cd6692d2792dab2acb8c92d6f6467c8f17025ae14b&
+
+saefely: 
+i would assume it is the /plugins, but im not sure since all the other files there have a duplicate file of their name
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1039097232110145567/image.png?ex=664869b5&is=66471835&hm=7fbd23efc184a57007b9c2a70ebdddd3528042bc99d615bac3707275ec6892ba&
+
+saefely: 
+oh wait sorry im stupid i didnt read the install page. thanks for your help :D
+cruxtruder: 
+/f home causes my server to crash regardless if i have the extension installed or not
+YAGPDB.xyz: 
+
+tobero: 
+Can you send me the error message?
+jokbon: 
+I wish this plugin was better but dev not improving it alot it seems. He need help or something. Anyways. Hopefully he improves it if he sees exitement.
+Usualy exitement and reports helps him xD
+tobero: 
+Yeah, but right now I had some coding contests and many things to do for school
+jokbon: 
+ah crap dont worry do ur school stuff!
+tobero: 
+Yeah, thanks. Haven't forgotten this plugin. Just little time
+akalix: 
+What are the dependencies?
+tobero: 
+There are no depends
+jokbon: 
+Improved factions has home, particle, chat addons which dependency is improved factions itself.
+Meanwhile dynmap addon needs dynmap and improved factions as dependency.
+mrbot420: 
+how to let everyone make factions and not just admins?
+en4y.: 
+how to make claims visual only
+attractivemommy: 
+How do you get rid of No Localization Found error when unclaiming chunks
+josh65: 
+You can try turning off command description, I believe `/f settings` will have it. Its an issue with the code it will be fixed for 2.0.0 but there no current release time for it.
+attractivemommy: 
+okay thanks
+attractivemommy: 
+/f settings doesnt have it, but its fine for now.
+josh65: 
+@sunrise it might be `/f user`
+attractivemommy: 
+that was it! thanks!
+_frostyyy1: 
+dyn
+_frostyyy1: 
+how to use dyn?
+_frostyyy1: 
+how to access the dyn map
+mcompass: 
+So how am I supposed to know what version is for which minecraft version
+jokbon: 
+
+Attachments:
+[Screenshot_20230126_081942.png]
+https://cdn.discordapp.com/attachments/986214601806983248/1068052669475848284/Screenshot_20230126_081942.png?ex=6648488f&is=6646f70f&hm=0e64569f9c96f6f3032f9208a3163cfbdd8e7a0a4880b961ce16d4bb9766e165&
+
+cha5392: 
+permission list
+YAGPDB.xyz: 
+
+jokbon: 
+theres none someone deleted one i made
+jokbon: 
+but it changed anyways so lol
+jokbon: 
+👊🏿 😹
+jokbon: 
+test
+jokbon: 
+lol

@@ -1,0 +1,16 @@
+Channel: The clan name doesn't come up
+Channel Type: GuildPublicThread
+Topic: None
+
+wafflewp: 
+As in the picture, the %faction_name% data is not coming.
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1219456342331228231/1219456342667034765/image.png?ex=66480338&is=6646b1b8&hm=fddc475bd40dc0d2df45738b8c1ee74125e6810cbce2cc56bd36c7f271011336&
+
+tobero: 
+Did the console say that the papi extension registered correctly?
+wafflewp: 
+I didn't call for any papi.
+tobero: 
+How are you then trying to get the placeholder replaced?

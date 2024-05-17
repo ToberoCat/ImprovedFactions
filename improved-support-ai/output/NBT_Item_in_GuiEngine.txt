@@ -1,0 +1,69 @@
+Channel: NBT Item in GuiEngine
+Channel Type: GuildPublicThread
+Topic: None
+
+techwithandrew: 
+Is there a way to have a item in the gui to be nbt
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1224006207069491240/1224007734576545942/image.png?ex=66481748&is=6646c5c8&hm=e3dcfb5a36873a515214e13d85512802005ae6dd49802da9f3695f0946e1c447&
+
+tobero: 
+Yeah, you can specify nbt data using the nbt tag. For the item, just ad nbt="<yourJson>"
+techwithandrew: 
+Thank you, also is there a way to make the ui item spawn in someone inventory instantly when they join or do I need to make a plugin for that
+jokbon: 
+oops my bad
+jokbon: 
+https://github.com/ToberoCat/GuiEngine/wiki/Components
+jokbon: 
+sec
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1224006207069491240/1224009317171073044/image.png?ex=664818c2&is=6646c742&hm=65666c6aca887aab59c4de7772691ee01062d51931413dc58d14e12573d671d9&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1224006207069491240/1224009418287484998/image.png?ex=664818da&is=6646c75a&hm=a91c8bc2a31ab5fead80be03f0003df5c4ddb3a2d919104aa82ca183238593af&
+
+jokbon: 
+I gues here it missing it.
+jokbon: 
+idk how to edit wiki since i never done it XD
+tobero: 
+Oh, looks like I forgot to add it. Added this tag for custom gui textures through resource packs
+techwithandrew: 
+Am I doing it wrong?
+techwithandrew: 
+<gui width="9" height="4" title="Menu">
+<component type="item" x="1" y="1" material="DIAMOND_HOE" nbt="CustomModelData:1" name="§aRides">
+<lore>§7A button</lore>
+<on-click type="action">[player] guiengine open default warps </on-click>
+<on-click type="action">[close]</on-click>
+</component>
+</gui>
+techwithandrew: 
+I could be dumb and typing the wrong nbt which is prob
+techwithandrew: 
+Nvm
+jokbon: 
+if u want easyer for eyes rename to xml
+jokbon: 
+while editing. still it needs .gui extension to function in game
+tobero: 
+You have to specify it as Json, like this:
+{CustomModelData:1}
+techwithandrew: 
+Yea it didn't work
+tobero: 
+Hm. weird thin. Have you used the most recent version of it (Need to know for bug hunting)?
+grandhappy: 
+@TechWithAndrew did u get it working?
+techwithandrew: 
+No

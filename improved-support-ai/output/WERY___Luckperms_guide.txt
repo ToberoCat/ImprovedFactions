@@ -1,0 +1,48 @@
+Channel: WERY!  Luckperms guide
+Channel Type: GuildPublicThread
+Topic: None
+
+jokbon: 
+XD
+Attachments:
+[Untitled.png]
+https://cdn.discordapp.com/attachments/1118991993574522910/1118991993759080548/Untitled.png?ex=66485ec1&is=66470d41&hm=e82944bd7ea0507b9d75ee671cf12e7ba5cb4a4ae71779fbeb08cb9c914fd335&
+
+jokbon: 
+☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲
+**OPEN EDITOR** 
+Proxy (velocity) console `lpv editor`
+Proxy (velocity) in game `/lpv editor`
+Proxy (bungee) console `lpb editor`
+Proxy (bungee) in game `/lpb editor`
+Server console `lp editor`
+Server in game `/lp editor`
+☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲
+**SET PERMISIONS** 
+Open desired group, add permisions. Each plugin you own got own permisions, see in plugins wiki page.
+☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲
+**SET DEFAULT PERMISIONS**
+Put permisions in `default` group. Players who join server will automaticaly be added to `group.default`
+☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲
+**SET PARRENT (give permisions from lower to higher rank)**
+In desired group put group name of your lower rank group `group.lowerrank`
+☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲
+**SET CONTEXT**
+proxy commands in specified server `server proxy`**,**`world [servername]`
+server commands in specified world `server [servername]`**,**`world [worldname]`
+☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲
+**SET PREFIX** (before playername)
+**Adding prefix to group example:** `prefix.5.&a[VIP]`
+**Priority:** higher number higher priority!
+**color format:** `&5` and `&#4854`
+☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲
+**SET SUFFIX** (after playername)
+**Adding prefix to group example:** `suffix.5.&a[VIP]`
+**Priority:** higher number higher priority!
+**color format:** `&5` and `&#4854`
+jokbon: 
+Changed the channel name: WERY! Detailed luckperms
+jokbon: 
+Changed the channel name: WERY!  luckperms guide
+jokbon: 
+Changed the channel name: WERY!  Luckperms guide

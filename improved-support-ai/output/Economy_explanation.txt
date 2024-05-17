@@ -1,0 +1,8 @@
+Channel: Economy explanation
+Channel Type: GuildPublicThread
+Topic: None
+
+tobero: 
+
+tobero: 
+Have a faction bank and put coins in. This will be an downloadable extension (Using the extension system)

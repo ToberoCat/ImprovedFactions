@@ -1,0 +1,8 @@
+Channel: lang files
+Channel Type: GuildPublicThread
+Topic: None
+
+tobero: 
+
+tobero: 
+Translate the texts sent to different languages. Whit this update every message is customizable

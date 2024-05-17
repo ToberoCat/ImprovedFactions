@@ -1,0 +1,12 @@
+Channel: How to delete factions?
+Channel Type: GuildPublicThread
+Topic: None
+
+aweek_: 
+Hi, I would know how delete a faction ? The server send me this message when I try
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1180890910888829009/1180890911190814761/image.png?ex=66481e1d&is=6646cc9d&hm=a6e14be3b367755f322af5ea29e6dd11d7770d04e6c0a85bff08642bbd36b5df&
+
+tobero: 
+YOu have to ue `/f delete confirm`

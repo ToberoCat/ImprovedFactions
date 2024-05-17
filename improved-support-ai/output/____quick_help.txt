@@ -1,0 +1,604 @@
+Channel: ╰＞💌ㅐquick-help
+Channel Type: GuildTextChat
+Topic: None
+
+hunteriskindaindifferent: 
+Hello!
+hunteriskindaindifferent: 
+I just recently installed your factions plugin on my server!
+hunteriskindaindifferent: 
+I was messing around with it and managed to mostly figure it out
+hunteriskindaindifferent: 
+I was wondering if other players who are not operator can claim chunks? and if they can is there a limit to how many they can claim
+hunteriskindaindifferent: 
+also is there any way to visibly see what chunks are claimed?
+hunteriskindaindifferent: 
+or a way to stop people from joining a faction?
+tobero: 
+Joining a faction: I have added a setting command ( Not finished) where you can set the open type. That's something so you can say if you can only join via invite.
+tobero: 
+I was also working in ranks. Like admin, member... So you can set the permissions for users within your faction. Currently there is no chunk limit, but I want to add this as well.
+tobero: 
+I can also try to make a /f map command.
+tobero: 
+No problem at all
+hunteriskindaindifferent: 
+Very nice, thanks! 
+Cant wait to see how this plugin gets better. Its already very solid.
+May I also suggest an updates channel so people who join can follow the development
+tobero: 
+Thanks for the support. I have added a channel.
+.kyrenic: 
+Will we be able to set the default settings and flags in the config if we don't download the extention to lets the players do it?
+tobero: 
+The ture and false statements in the config are if the permission is allowed on the server. This means if you put a false in the factions.flags.firespread noone is able to set firespread to false. It will just be hidden. I can add defaults. That wouldn't be much of a problem
+.kyrenic: 
+Ooooh cool, if the permissions for your example firespread is set to false, will it not appear in the GUI?
+.kyrenic: 
+(Haven't downloaded it yet, going to later when I finish my villager farm)
+tobero: 
+No problem. But yes.
+tobero: 
+But I think it's not clear enough that this is for the gui and not for the default value it's set to
+.kyrenic: 
+I know, gonna try it out now
+jravens: 
+Hello, I recently installed this plugins to my server, whenever i try to install an extension, it says "You don't have enough permissions to use this command. Permission: faction.commands.extension"
+tobero: 
+You have op rights, right? Have you installed an external permission manager (LuckPerms for example)?
+jravens: 
+I have op rights, i havent installed an external permission manager tho, do i need that?
+tobero: 
+what did you type?
+jravens: 
+/f extension DynmapExtension
+tobero: 
+you need /f extension download DynampExtensionNotWorking
+tobero: 
+The NotWorking because I forgot to rename it
+tobero: 
+But I promise, it should be working
+jravens: 
+Thanks it works now
+jravens: 
+uhhh
+jravens: 
+im getting messages
+jravens: 
+"An internal error occurred while attempting to tab-complete this command"
+tobero: 
+Can you send me the console log?
+jravens: 
+wait
+jravens: 
+
+Attachments:
+[uhhhh.PNG]
+https://cdn.discordapp.com/attachments/879662766451986442/914184228164476958/uhhhh.PNG?ex=66482828&is=6646d6a8&hm=d7b1601467ae5ac37feaa3217adcdb032e8dd2503d76913f32ed0268f16daa91&
+
+tobero: 
+Are you able to send a text version of it?
+jravens: 
+
+Attachments:
+[message.txt]
+27.11 23:59:50 [Server] INFO org.bukkit.command.CommandException: Unhandled exception during tab completion for command '/f extension' in plugin ImprovedFactions vBETA-3.0.0
+27.11 23:59:50 [Server] INFO at org.bukkit.command.PluginCommand.tabComplete(PluginCommand.java:150) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at org.bukkit.command.Command.tabComplete(Command.java:93) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at org.bukkit.command.SimpleCommandMap.tabComplete(SimpleCommandMap.java:244) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at org.bukkit.craftbukkit.v1_17_R1.CraftServer.tabCompleteCommand(CraftServer.java:2176) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at org.bukkit.craftbukkit.v1_17_R1.CraftServer.tabComplete(CraftServer.java:2148) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at org.bukkit.craftbukkit.v1_17_R1.command.BukkitCommandWrapper.getSuggestions(BukkitCommandWrapper.java:58) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at com.mojang.brigadier.tree.ArgumentCommandNode.listSuggestions(ArgumentCommandNode.java:71) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at com.mojang.brigadier.CommandDispatcher.getCompletionSuggestions(CommandDispatcher.java:600) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at com.mojang.brigadier.CommandDispatcher.getCompletionSuggestions(CommandDispatcher.java:580) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at net.minecraft.server.network.ServerGamePacketListenerImpl.lambda$handleCustomCommandSuggestions$5(ServerGamePacketListenerImpl.java:824) ~[app:?]
+27.11 23:59:50 [Server] INFO at net.minecraft.server.TickTask.run(TickTask.java:18) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:149) ~[app:?]
+27.11 23:59:50 [Server] INFO at net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23) ~[app:?]
+27.11 23:59:50 [Server] INFO at net.minecraft.server.MinecraftServer.doRunTask(MinecraftServer.java:1426) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at net.minecraft.server.MinecraftServer.executeTask(MinecraftServer.java:192) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:122) ~[app:?]
+27.11 23:59:50 [Server] INFO at net.minecraft.server.MinecraftServer.pollTaskInternal(MinecraftServer.java:1404) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at net.minecraft.server.MinecraftServer.pollTask(MinecraftServer.java:1397) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at net.minecraft.util.thread.BlockableEventLoop.runAllTasks(BlockableEventLoop.java:110) ~[app:?]
+27.11 23:59:50 [Server] INFO at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1536) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1282) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:319) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at java.lang.Thread.run(Thread.java:831) ~[?:?]
+27.11 23:59:50 [Server] INFO Caused by: java.lang.IllegalStateException: zip file closed
+27.11 23:59:50 [Server] INFO at java.util.zip.ZipFile.ensureOpen(ZipFile.java:828) ~[?:?]
+27.11 23:59:50 [Server] INFO at java.util.zip.ZipFile.getEntry(ZipFile.java:327) ~[?:?]
+27.11 23:59:50 [Server] INFO at java.util.jar.JarFile.getEntry(JarFile.java:514) ~[?:?]
+27.11 23:59:50 [Server] INFO at java.util.jar.JarFile.getJarEntry(JarFile.java:469) ~[?:?]
+27.11 23:59:50 [Server] INFO at org.bukkit.plugin.java.PluginClassLoader.findClass(PluginClassLoader.java:163) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at java.lang.ClassLoader.loadClass(ClassLoader.java:586) ~[?:?]
+27.11 23:59:50 [Server] INFO at org.bukkit.plugin.java.PluginClassLoader.loadClass0(PluginClassLoader.java:108) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at org.bukkit.plugin.java.PluginClassLoader.loadClass(PluginClassLoader.java:103) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO at java.lang.ClassLoader.loadClass(ClassLoader.java:519) ~[?:?]
+27.11 23:59:50 [Server] INFO at io.github.toberocat.improvedfactions.commands.subCommands.SubCommandSettings.areConditionsTrue(SubCommandSettings.java:103) ~[ImprovedFactions-BETAv4.0.0.jar:?]
+27.11 23:59:50 [Server] INFO at io.github.toberocat.improvedfactions.commands.subCommands.SubCommand.CommandDisplayCondition(SubCommand.java:201) ~[ImprovedFactions-BETAv4.0.0.jar:?]
+27.11 23:59:50 [Server] INFO at io.github.toberocat.improvedfactions.commands.subCommands.SubCommand.CallSubCommandsTab(SubCommand.java:66) ~[ImprovedFactions-BETAv4.0.0.jar:?]
+27.11 23:59:50 [Server] INFO at io.github.toberocat.improvedfactions.tab.FactionCommandTab.onTabComplete(FactionCommandTab.java:27) ~[ImprovedFactions-BETAv4.0.0.jar:?]
+27.11 23:59:50 [Server] INFO at org.bukkit.command.PluginCommand.tabComplete(PluginCommand.java:138) ~[patched_1.17.1.jar:git-Paper-388]
+27.11 23:59:50 [Server] INFO ... 22 more
+
+tobero: 
+Thanks
+tobero: 
+Looks like the conditionChecker crashes
+tobero: 
+I try to fix it
+tobero: 
+I'm going to tell you when the plugin is fixed
+jravens: 
+oh ok thx
+tobero: 
+I found the bug
+tobero: 
+The problem is that I need to change the way command permissions are checks. SoI need some time
+tobero: 
+Should be fixed in the new version
+hxnxh: 
+hello I just installed the plugin and was wondering how I could make myself the op so that I can create factions and stuff
+tobero: 
+Normally, everyone has rights to create a faction
+tobero: 
+Use /f create name
+hxnxh: 
+oh it's okay I figured it out in the end, thanks a lot still
+tobero: 
+But if you don't have the permissions to do so, you need to look at your custom permissions plugin (like LuckPerns)
+tobero: 
+Alright. Glad you found it out
+henry_alden: 
+Good evening! Is there a published guide for converting from the old factions "mcore" system? (assuming it is not compatible)
+tobero: 
+Currently not. But I could take a look how it works and write a convertion system. But it depends on the file. If the file is raw (like the IF file) and not encoded (unreadable for normal humans) i could able to do it
+henry_alden: 
+It is readable for humans! I manually converted it once before but I have a baby on the way and no time these days 😅
+henry_alden: 
+I would love to send you my data to play around with if that would be helpful
+tobero: 
+Yes. It would help me alot
+henry_alden: 
+awesome, what's the best way to do that? Link to a zip file on dropbox/googledrive?
+tobero: 
+I would prefer google drive, but use whatever you want. Along as its easy to download
+tobero: 
+And upload
+henry_alden: 
+sure thing! Do you have a tip jar somewhere? I can't afford to pay you what your time is worth but i'd be happy to buy you a coffee so to speak
+tobero: 
+I don't have one currently. But if you want to do me a favour, you could write a review (After using the plugin of course). It doesn't need to be positive, just describing your experience. This would help me a lot at the moment. But if you really want to I will create one in the next few days.
+henry_alden: 
+I will definitely do that
+henry_alden: 
+I've run a factionsish server since I was a teenage college kid in 2010 , been factions properly for going on a decade now, and it's always been very hard to maintain
+henry_alden: 
+currently on 1.5.2 due to our reliance on this plugin
+henry_alden: 
+It's just a few of my college mates but they're having kids now so we're hoping we can turn it over to the next generation in a year or two
+tobero: 
+That's sounds awesome. Thanks for choosing this plugin for this project. I hope your kids will have as much fun as you (probably) had playing minecraft.
+henry_alden: 
+Thank you 🙂 And you're welcome but to be honest I only see you and SaberFactions in the 1.8 space at the moment
+henry_alden: 
+XD
+henry_alden: 
+I'm building a stripped down model of my file directory rn and uploading it to a googledrive
+tobero: 
+Yeah. The other popular faction plugins (The massivcraft one) isn't getting any updates anymore.
+tobero: 
+Alright. Just send me the link per dms
+henry_alden: 
+Done! Thank you
+Deleted User: 
+Hi. It's possible to disable/change this display to not show message on the middle of screen?
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/879662766451986442/928172482156957736/unknown.png?ex=664849fc&is=6646f87c&hm=29282c912bf3c671d720061e85991834128b6efa58e9e0f4021b5df9c2429361&
+
+tobero: 
+Yes. there is you can set general.messageType to TITLE, ACTIONBAR or SUBTITLE
+tobero: 
+In config.yml
+Deleted User: 
+I changed it but nothing happened
+Deleted User: 
+I'll take a look, thanks
+tobero: 
+You need to reload the server if you haven't already done that
+tobero: 
+To load the config again. Or use /f reload
+xcomcadx: 
+hey i have EssesialsX, Improved factions, MobMoney, and Vault... now how can i make the money the user has gotten be able to spend it on buying chunks
+xcomcadx: 
+anyone?
+Deleted User: 
+Pretty sure you can use grief prevention
+Deleted User: 
+Might even be available in improved faction config file not sure
+xcomcadx: 
+allowClaimProtection: true?
+xcomcadx: 
+like how do i use vault with improved factions
+tobero: 
+So currently there is only a command cost support. You can set the amount a command costs the user to execute in commands.yml
+xcomcadx: 
+what is it costing?
+tobero: 
+Normally every command 0, so nothing
+tobero: 
+But you can change it
+xcomcadx: 
+but lets say i make it cost 1 will it use my money system from essentials through vault
+tobero: 
+Yes
+tobero: 
+It will only use vault system
+xcomcadx: 
+okay im trying it out
+xcomcadx: 
+Can i get it to say "you dont have enough Land Points" Rather than Factions: Loan was Not Permited
+xcomcadx: 
+when a player does simply not have enough money
+xcomcadx: 
+and how can i delete a players faction from console
+tobero: 
+I have not implement such a message. Should be manageable from another economy plugin. But I didn't spent that much time with the vault api
+tobero: 
+In this version you can't execute any commands in console. But to do so, use /f admin disband faction
+xcomcadx: 
+im looking to delete faction upon death
+tobero: 
+hmmm. If you want I can send you a version with an extra command for deletion in the console
+xcomcadx: 
+yes like #Should any commands be executed on death ban?
+#Placeholders: %player%
+CommandsOnDeathBan: 
+ - "f delete"
+xcomcadx: 
+like f delete %player%   as i set everyones faction to their own name
+xcomcadx: 
+if you can do that
+tobero: 
+So in the extra version it would be /fdel <FactionName>
+xcomcadx: 
+okay
+tobero: 
+But you only need this command, right? Not the system with the death listener. This is handled by another plugin
+tobero: 
+right?
+xcomcadx: 
+another plugin will be running this command upon death
+tobero: 
+Alright
+xcomcadx: 
+everyone will have access to this command can i make it so people cant type other peoples factions and delete them
+xcomcadx: 
+or is that already implimented
+tobero: 
+So, I would not use this command for deletion. There is /f delete for faction owners
+tobero: 
+./fdel should be a command for only ops / console
+xcomcadx: 
+okay
+xcomcadx: 
+i will test it
+tobero: 
+And admins should use /f admin disband, because this will be better implemented for players.
+xcomcadx: 
+im using a plugin called AugmentedHardcore
+xcomcadx: 
+and in the config file i have the option to run a command upon death ban. i was going to run /f delete to disband the players faction upon death
+xcomcadx: 
+but f delete dosent do anything because im assuming it is running that comman from console
+tobero: 
+Yes, /f delete isn't possible, because it is a player only command
+xcomcadx: 
+but is also includes #Placeholders: %player%
+xcomcadx: 
+so i was thinking maybe  if i have that command it will allow me to use 'fdel %player%'
+tobero: 
+Yeah, but the command `/f` needs to executed by a player
+xcomcadx: 
+ya
+xcomcadx: 
+lol
+tobero: 
+If the %player% is the faction name, that would work. Otherwise you need to use `/fdelP`
+xcomcadx: 
+that is exactly what it is
+xcomcadx: 
+each faction is named after the player by defauld
+xcomcadx: 
+default*
+xcomcadx: 
+on my server
+tobero: 
+okey. Than use `/fdel` to save some processing power. Because `/fdelP` would search in each faction if the player is in there
+xcomcadx: 
+okay
+xcomcadx: 
+let me know when its ready
+xcomcadx: 
+ill brb
+tobero: 
+I've sent you the file per dms
+xcomcadx: 
+thanks your a life saver im testing now
+xcomcadx: 
+works as intended and users dont have access to the command!
+xcomcadx: 
+thank you so much
+tobero: 
+No problem. You'r welcome
+pyxgames: 
+Hey man how do I download the extensions?
+tobero: 
+`/f extension download <Extension>`
+pyxgames: 
+Ow COOL!
+pyxgames: 
+Hey how do I set if in a world guard region that nobody can claims chunks?
+tobero: 
+Currently only opteion is to create a faction, call it, Safezone (Or other name). Claim the chunks colliding with the wg region (You can see it when pressing F3 + G). After you have done that, set your own rank per /f rank set <name> Member and leave the faction. Its kinda ugly to do, but there will a a better way coming soon
+pyxgames: 
+Great Thanks!
+pyxgames: 
+One more thing bare with me😅  where in bloody hell can I change the Titel pop-up that says Wildness😅
+tobero: 
+That's not possible. Is it something important?
+pyxgames: 
+Hmm yeah I think its really important. I think is looks weird. Was also the reason why I switched (But came back because it just the best for 1.18)
+tobero: 
+Alright. I will post a update when I added it. Please be patient. Should take abut 20 minutes
+pyxgames: 
+😲
+tobero: 
+Alright. I finished. Uploaded it to spigotmc.org
+pyxgames: 
+Hey I there  a command so I can give power to a faction. Not via config but via command
+tobero: 
+Yes. There should be one. use `/f admin gpower <Faction> power`
+pyxgames: 
+It says "this command does not exist" I am on version 28 December
+tobero: 
+Hmm. Try to update
+pyxgames: 
+On it!
+tobero: 
+There should be the new version from today
+pyxgames: 
+Yep got it 😄
+tobero: 
+oh
+tobero: 
+Dies it work?
+pyxgames: 
+One moment.
+pyxgames: 
+No.
+pyxgames: 
+Wanna hop in call?
+tobero: 
+I can't I'm currently in a train and I don't want to disturb someone
+pyxgames: 
+Okay no problem. Any idea why the Gpower command does not work?
+tobero: 
+No. Maybe I forgot to add it to the subcommands
+pyxgames: 
+Ah okay
+tobero: 
+Alright. Found the bug and fixed it. I will update it
+pyxgames: 
+Great!
+tobero: 
+But you need to set max power higher, because the power doesn't go above that
+pyxgames: 
+Ah okay got it!
+tobero: 
+Alright. Uploaded it
+pyxgames: 
+Great
+pyxgames: 
+Thanks for the super fast help!!
+pyxgames: 
+Hey does Impoved factions also have ally and enemey?
+tobero: 
+No. It doesn't. But this will also be added with the first none Beta release
+pyxgames: 
+Sick when may that come out?
+tobero: 
+So, it will take some time, because 1.18 changed many things (nms for everyone how has experience). I have already a snapshot version, but it is pretty old (Many commands are missing, because I rewrote the plugin from scratch to reduce RAM usage by half). Currently I can't add a new snapshot, because I have problems with the dynamic data loading. But if you are interested  and know how to build a jar you can build it from the github repository
+pyxgames: 
+Ah okay. Sadly I am not dev so I dont know how to build jar
+pyxgames: 
+One more thing 😉  When a player joins/creates a clan can I put the name as a suffix automaticly
+tobero: 
+Yes. If you use Placeholder API you can get the faction displayname from %faction_name%. If the player is in no faction you get the text you set in general.noFactionPapi. With this you can set the suffix with another plugin. If you want a chat suffix, I would recommend to use ChatMessageExtension, if you don't use any other chat plugin
+pyxgames: 
+Great!
+pyxgames: 
+Hey is there an Admin bypass so I can make safe zones easyier?
+tobero: 
+Bypass... not really. I will create one
+pyxgames: 
+Cool!
+tobero: 
+I have updated the plugin to have a command in admins. Use `/f admin safezone` for claiming a safezone (Faction safezone). Change the display text in the config.yml general.safezoneText. If you change it, make sure to remove safzone in factions.yml. Use `/f admin uUnclaim` to unclaim any chunk (UUnclaim -> Universal unclaim).
+pyxgames: 
+How many chunks will admin safezone get
+tobero: 
+The default amount. Change it by adding power
+tobero: 
+Its just a work around for the other method
+pyxgames: 
+Great!
+pyxgames: 
+It gives error when I use "/f admin safezone"
+tobero: 
+What error? Can you send it to me?
+pyxgames: 
+Its in your dm 😄
+tobero: 
+Alright
+tobero: 
+Can you use `/f save` and  check if in the factions.yml a safezone exists
+rnkappa: 
+Hi, i keep getting an error saying "Cannot claim in this world" and i was curious as to how to go about fixing that issue
+tobero: 
+What world name do you have? If it's the default name (world) check if you have in general.worlds all three worlds listed (world, world_nether, world_the_end)
+tobero: 
+If your world name is not world, replace this lost with the names of your world
+tobero: 
+Btw what release do you use? I fixed a typo which lead into troubles with the world claim protection. I fixed it in the latest downloadelable version
+rnkappa: 
+4.0.0 Beta
+rnkappa: 
+ImprovedFactions-BETAv4.0.0
+tobero: 
+Yes, but I mean if you have downloaded the version yesterday and when
+rnkappa: 
+I downloaded it about 4 hours ago
+tobero: 
+Did you change the world name?
+rnkappa: 
+i did not
+tobero: 
+Do you use multiverse?
+rnkappa: 
+it was installed temporarily but isnt anymore, this is the current list of plugins https://gyazo.com/7b3df7521a903a5d542c6abd86dc913e
+tobero: 
+
+Attachments:
+[unknown-4.png]
+https://cdn.discordapp.com/attachments/879662766451986442/929953255923015720/unknown-4.png?ex=66482cf5&is=6646db75&hm=d2b06fdee699b88325cb54c60a64ff681bca15c910c626d8e3d6ecb360163c69&
+
+tobero: 
+When you go into the root folder of your server, what worlds are listed?
+tobero: 
+Only world, world_nether, world_the_end?
+rnkappa: 
+just these https://gyazo.com/82bdf18b922b3d1a0c839366d776fa2d
+tobero: 
+Do you see
+Attachments:
+[unknown-5.png]
+https://cdn.discordapp.com/attachments/879662766451986442/929954102455197748/unknown-5.png?ex=66482dbf&is=6646dc3f&hm=940dfaab5872e274e72b6868de07772eead38d93f6632476edc83ddfcdd6a456&
+
+tobero: 
+This in the conifg.yml?
+tobero: 
+Or something similar?
+rnkappa: 
+https://gyazo.com/56f7ab14ef2304dc0deb22676756d5a3
+rnkappa: 
+this is in the plugin config
+tobero: 
+Are you getting messages in the console when using a claim command?
+rnkappa: 
+none
+tobero: 
+Okey. I will take a look why it is not working
+rnkappa: 
+yeah it shows that im issuing the commands but nothing happens in game or on the console
+tobero: 
+Oke. My computer is starting
+tobero: 
+Uploaded the fix to this problem (at least on my server)
+rnkappa: 
+how would i go about fixing it on mine?
+tobero: 
+Download the latest version (released a few minutes ago) and restart the server. Use the command /f admin SafeZone to test. If it claims in your world, it's fixed
+rnkappa: 
+perfect, I'll try it now
+rnkappa: 
+still seems to be persisting...
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/879662766451986442/929966397604388874/unknown.png?ex=66483933&is=6646e7b3&hm=6b9a15417c1d9c33fcdcd6ef15ac709dad7908d4591163ff9b58d030c68bfe66&
+
+tobero: 
+Enable debug mode in the config.yml. if it works, there should be the list with the world's outputed
+rnkappa: 
+i reloaded the server, where should the list output to?
+tobero: 
+When you use /f admin SafeZone, you should get a I fo message
+tobero: 
+Info
+rnkappa: 
+[05:21:41 INFO]: [Factions] [world, world_nether, world_the_end]
+tobero: 
+And you are sure that you are in one of these words? Because I tried it on my test server. It did work first time. I modified the code, reload and it worked again. O also tried it in nether and end. Even after Data deletion iit wasn't working
+tobero: 
+Did you download from Spigot?
+rnkappa: 
+i did download from spigot
+rnkappa: 
+and i should be as im in the overworld and the world was only generated 6 days ago
+tobero: 
+That's weird. I will build a veri for you without the world limitation until i fixed the bug
+tobero: 
+Version
+rnkappa: 
+if you'd like, would you be able to do a remote login to see if you'd be able to fix it? entirely up to you
+tobero: 
+I would be able to do so, but you need to have provider and I think it would be easier to just build a version ignoring the worlds
+rnkappa: 
+okay
+rnkappa: 
+thank you
+tobero: 
+You need to wait because I'm currently waiting for the bus and can only start my laptop when I'm sitting
+rnkappa: 
+youre helping me so take your time :)
+tobero: 
+Should be done. Redownload it from Spigot
+rnkappa: 
+it worked :)
+tobero: 
+Alright. Glad that you can play properly
+rnkappa: 
+hi, people were able to destroy things on my faction land, is that normal or is that not supposed to happen? they can also open chests as well doors
+tobero: 
+Do you get errors in console? Are you on 1.18 or 1.17?
+tobero: 
+No, they shouldn't be ae to do this, unless they are on your faction
+rnkappa: 
+no errors are thrown, and i went to another factions claimed land, and i wasnt able to open their doors, did i maybe set up something in my factions permissions to allow non faction members to open my doors and access my tools?
+rnkappa: 
+and im on 1.18
+tobero: 
+Are you sure they are not in your faction? They could have joined and left to troll you. Because there is currently no feature to allow none members to.
+tobero: 
+But if I understood right, they can't place or break blocks, only interact with them?
+rnkappa: 
+i have no clue whether or not they can place or destroy, i can let you join the server to test it if you would like
+tobero: 
+If you want, I can get online
+rnkappa: 
+im fine with that
+tobero: 
+Fixed the bug and uploaded it o spigotmc. Thanks for reporting
+rnkappa: 
+ofc :)
+rnkappa: 
+do i need to update any configs for it?
+tobero: 
+No. Everything should work as it worked before
+tobero: 
+Only difference is, that now there are more options for power in the options (And the bug fix)
+rnkappa: 
+speaking of, how is power gained
+rnkappa: 
+this is my first experience with factions
+tobero: 
+So in the currently in this version, there is only the power manager integrated, but normally, power will generate slowly after time. You have a maxPower of 12 and claim a chunk, only have 10 power left. As soon as the power doesn't match the maxPower, the power will regenerate (with the settings set in the config). But currently, power only "regenerates" using `/f admin gPower faction amount`
+rnkappa: 
+will the regeneration aspect be changed later on to generate over time always?
+tobero: 
+Yes, normally it will generate power until max power is reached. Power gets lost, when a member leaves the faction or a member dies (If the faction has not enough power, other factions can claim their chunks (Overpower system for wars and capturing))
+rnkappa: 
+thats dope, good to know, thank you :)

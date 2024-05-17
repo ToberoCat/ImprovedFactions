@@ -1,0 +1,8 @@
+Channel: Quick questions, what versions are for 1.16 / 1.16.5?
+Channel Type: GuildPublicThread
+Topic: None
+
+then_1_: 
+I'm trying to run the plugin on it's newest version, but my server is 1.16.5, it appears the newest version isn't compatable for the 1.16.5 version, any versions that support 1.16.5?
+tobero: 
+Yeah, some older one, like v1.5 or Beta versions

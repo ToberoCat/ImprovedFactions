@@ -1,0 +1,1371 @@
+Channel: ╰＞🌸ㅐoff-topic
+Channel Type: GuildTextChat
+Topic: None
+
+tobero: 
+What are the things you want in the next upate? I want to know, because I don't have much time and I want to add features most people on this server would like
+.kyrenic: 
+Outsider rank and overpower are the main things I'd like to see
+ooo7: 
+I want you to work with Vault
+tobero: 
+Vault... ywhat do you mean? The economy is already running through vault
+ooo7: 
+understood. I'll try
+tobero: 
+You need vault and an eco plugin (Vault - Essential, Vault -  iConomy) They some more are listed at the vault spigot page
+tobero: 
+These things are coming in the first release (v1.0) no beta.  This update will take a while to make (Making more cool extenions, adding a gui for the config and rewritting the plugin again to remove the last performance leaks)
+tobero: 
+Both are now implemented in the v1.0.
+.kyrenic: 
+POG
+tobero: 
+Overpower feature got now added to ImprovedFactions + a proper power system
+dunr: 
+less go!
+tobero: 
+Outsider rank is now out. Its called Guest. Every person not in your faction or allied is a guest. You can give them permissions to break, place and interactions
+.kyrenic: 
+Nice!
+tobero: 
+I know... it took very long but now I implemented it for the beta versions too
+tobero: 
+If someone wants to help me find bugs in the newest version, containing the performance upgrades & new claim manager.
+
+You need to know:
+- Not all commands from the BETA builds are currently available
+- Extensions aren't a thing yet
+- Old data isn't getting loaded (So don't put it on your server)
+- Faction permissions are missing
+- Most commands have missing descriptions (You get a long message in chat telling you that something is missing)
+
+Most changes come to performance(Less RAM / Player), (stability), storage read & access time and lang files will automatically add missing translations (Always english, doesn't matter what file)
+
+**No dependencies**
+Attachments:
+[ImprovedFactionsV1-0.jar]
+https://cdn.discordapp.com/attachments/901151588167598170/941676434290802779/ImprovedFactionsV1-0.jar?ex=6647fa45&is=6646a8c5&hm=761b342434c765c346b54f8b5b6ad8f7584bf2e0f3d220ae66516dadbde514b1&
+
+tobero: 
+Added the faction settings gui back - Now fully translateable. Every line of text
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/901151588167598170/948254044198146108/unknown.png?ex=66482d25&is=6646dba5&hm=b0782ada0404520dbebb8d3d972775e2558ef3fa88ee78070cf7bbea12522ebe&
+
+tobero: 
+Update for ImprovedFactions optimised version
+
+-Added faction settings gui
+
+**Missing:**
+- Extensions
+- Many translateable texts (Shows localization error in chat)
+- Typical commands (/f map, etc)
+
+**Troubles:**
+- When using `/f plugin disable` and you reload the server, server has bad tps
+Attachments:
+[ImprovedFactionsV1-0.jar]
+https://cdn.discordapp.com/attachments/901151588167598170/953367855120924682/ImprovedFactionsV1-0.jar?ex=664852c1&is=66470141&hm=cecd182d7379f2145de88e2be7036007907413b4a57a6a15caf74d82950d92bf&
+
+tobero: 
+First version that should work with basic features
+
+- Faction creation
+- Faction member management
+- Faction settings
+
+- Admin commands
+
+When testing, please tell me everything that has brings problems with it
+Attachments:
+[ImprovedFactionsV1-0.jar]
+https://cdn.discordapp.com/attachments/901151588167598170/960588799015018526/ImprovedFactionsV1-0.jar?ex=664839c8&is=6646e848&hm=dfa49b278d247864493fe7c8ac193ac1258926167076cc460970fb2305106d56&
+
+tobero: 
+Do you want extension support next for the alpha version?
+jokbon: 
+first 1. fmap,
+later 2. Mass claim extension 
+later 3. placeholders & chat extension needed
+later 4. dynmap
+jokbon: 
+after 1 , 2, 3 complete i will start using this plugin
+tobero: 
+alright
+tobero: 
+They will be added in the next update
+jokbon: 
+dont rush to dynmap first write how to use extensions and what they give
+jokbon: 
+or else they will be useles  yk
+tobero: 
+No worries. For this I have the beta version that tells me what not to do...
+tobero: 
+Added papi support. fmap comes next and aftre that the extension updates
+tobero: 
+After (too) many days working on the new faction modules (The way extensions can register new items to a faction json) I have finished it now.
+So now all extensions will be rewritten for this version. Means: When you want to use extensions, please switch to v1 pre release 3, as soon as it comes out.
+tobero: 
+I have noticed that the faction save files are now bigger than the old ones
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/901151588167598170/977919517424508948/unknown.png?ex=6647fe45&is=6646acc5&hm=a4094e21fa5285e19a9fe881b396b4aa647b36a8493d4170c003e83543280d39&
+
+holadopa: 
+@[Dev] Tobero  do you have 5 min please ?
+tobero: 
+Yep
+holadopa: 
+can you go to our discord please ?
+tobero: 
+Of course
+josh65: 
+Does the plugin sperate essentals/vault money balances on faction worlds?
+jokbon: 
+no
+jokbon: 
+@Josh65
+jokbon: 
+(thats like imposible)
+tobero: 
+It does only create a bank for the faction. So it will interact but with it's own account
+josh65: 
+is there a way to disable or sync the money for all worlds as i dont want a seprate bank for the faction ones if possible and just use the players exsting balance
+tobero: 
+Best way is to just remove the permissions to use /f balance
+tobero: 
+But without faction economy extension the bank is useless
+tobero: 
+As it has no /f deposit, /f withdraw, etc
+tobero: 
+So without the faction economy, you won't have to worry about users depositing money there
+tobero: 
+What's the next extension you want? First three are form beta and last one will be new
+🌰  - Faction chest extension
+💸 - Faction economy extension
+🪰 - Faction fly extension
+✨ - Chunk particle border
+jokbon: 
+marf ...comon sens lol
+pvink7: 
+and?
+tobero: 
+Looks like I'm gonna add the chunk particle extension
+pvink7: 
+i meen wan ar ju done whit biulding it wat doe ju ting?
+tobero: 
+I'm currently trying to fix the lang not found bug many people have
+pvink7: 
+o ju doe that first plz
+tobero: 
+Bugs need to be fixed before I can continue adding new features, because else no one is using the plugin anymore until I added all wanted features
+pvink7: 
+jure done whit bugs?
+pvink7: 
+?
+tobero: 
+I think I'm finished
+pvink7: 
+ok
+pvink7: 
+plz doe @çlaim_gui  wan jure done
+tobero: 
+claim gui is already added
+pvink7: 
+✨ - Chunk particle border
+tobero: 
+Yes, of course
+pvink7: 
+is it online or in biuld?
+tobero: 
+No, I thought you meant the claim gui, not the border extension.
+tobero: 
+I'm currently working on it
+tobero: 
+So, I'm not sure about how you imagined the borders to work, but I would have implement it in this way (Not my images, just some random I found on google)
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/901151588167598170/989891129723977728/unknown.png?ex=66480a34&is=6646b8b4&hm=1439fbf7317f442681d68f6d8a0b53fc85503e8db0a1d008e4fc8da0f569f29a&
+[unknown.png]
+https://cdn.discordapp.com/attachments/901151588167598170/989891130097291324/unknown.png?ex=66480a34&is=6646b8b4&hm=28d7b2568375b1cdb43a08a5e3fa27fee1e8d75142d43efe270d233a4b838d5f&
+
+pvink7: 
+cool can ju make it that there ar lines evre 10 block hicht
+pvink7: 
+and plz the pluging doanload
+tobero: 
+No
+tobero: 
+its not added. I just wanted to know if that would be how you would like it
+pvink7: 
+yes bhut ist whut be cool if there where more lines like 10 block up 1 more line
+tobero: 
+Yeah, but this would make the server performance and client render performance even worse
+pvink7: 
+o ten dont
+tobero: 
+ill give the link to the first version that works
+pvink7: 
+ok
+pvink7: 
+and?
+josh65: 
+could make it a client option for how high they go
+tobero: 
+Yeah, it takes time. I'm currently stuck with calculating the particle shape that should get followed.
+pvink7: 
+o ok
+tobero: 
+Yeah, sure. Is that what you meant?
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/901151588167598170/989909617742061608/unknown.png?ex=66481b6c&is=6646c9ec&hm=8ee6a28d3fce5ebf7248a831a290a2a6364e09271a6294ff7280e73e70aa37c1&
+
+tobero: 
+Or do I get it wrong?
+josh65: 
+would those chage the block height too or just how many there are
+tobero: 
+only the density.
+tobero: 
+But you meant the height. So the height from the highest point on the world surface or whre it starts?
+josh65: 
+where it starts then how many block it goes up from there
+tobero: 
+Ah, okey
+tobero: 
+Yeah, can add it of course
+tobero: 
+Finally, I atleast managed to display the x lines for a single chunk
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/901151588167598170/990014884207005706/unknown.png?ex=66487d75&is=66472bf5&hm=e6b259c20f056a10eb7584129edae3f5e4e63d01afc68b490477ee1051b452cf&
+
+pvink7: 
+😃😃😃😃😊😊😊😊
+jokbon: 
+can i post mean crap just because i had bad day?
+jokbon: 
+🙃
+tobero: 
+This is the current working version of the particle extension and the version you require to run it.
+
+Feautures:
+- Every chunk gets a particle outline
+Missing:
+- Setting to change resolution
+- More config options
+- Unclaiming doesn't remove particles in most chases
+- Only new claimed zones get particles loaded
+- Chunks don't form one single shape (They have particles around same faction chunks)
+- Block place and break doesn't update the particle height
+Attachments:
+[ImprovedFactionsV1.5.jar]
+https://cdn.discordapp.com/attachments/901151588167598170/990019362587037706/ImprovedFactionsV1.5.jar?ex=664881a1&is=66473021&hm=1758ea62af3c5c6c53c17bcdf420a40ba9ff35fe71ea62e40fa4a85b6578c7d2&
+[ChunkParticleExtension.jar]
+https://cdn.discordapp.com/attachments/901151588167598170/990019363216195624/ChunkParticleExtension.jar?ex=664881a1&is=66473021&hm=a02fc7b6a4268796ab04a7098e796de55873c8d0fe0d27ac9465d74e30d29af3&
+
+tobero: 
+Yes, why not
+jokbon: 
+if u want to kill server add more things to move event 😂 
+and if u want to kill brain, put old particle names from minecraft alpha, and make users choose those in config, but incompatibility with 1.19 is a must have XD
+jokbon: 
+😂
+tobero: 
+Yeah, a good idea. I will do it xd
+tobero: 
+Pinned a message.
+pvink7: 
+i cant doanload command it isent in the game
+jokbon: 
+i think its not done yet just early stock version of particle extension
+pvink7: 
+hoe doe i just it?
+jokbon: 
+you can put this extension in plugins folder under extensions for now i think
+/plugins/ImprovedFactions/Extensions/
+pvink7: 
+je phut i wond wurk whit that
+jokbon: 
+@[Dev] Tobero
+tobero: 
+Shapes are now getting generated correctly
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/901151588167598170/990207509505671208/unknown.png?ex=6648881b&is=6647369b&hm=b7d6a3e43536f06410c4dfe0b2a5e90898a0fc4253186fa245b2b5572f2fca89&
+
+pvink7: 
+And the collors ?
+tobero: 
+I'm currently focusing on reducing ram usage and making the cpu load less, so that the server isn't lagging and players don't get lag spikes while seeing the particles.
+
+So, I haven't focused on colors, but they will be used before the first version released officially
+pvink7: 
+and can ju chance the pardikols form?
+tobero: 
+Yes. it's a config options under chunk_particle_extension.dust
+tobero: 
+I just choose the redstone particle, because it is like the image
+pvink7: 
+no i meen tru setting command so all player cna chose
+tobero: 
+Yeah, can add it. But config option will be the default value
+pvink7: 
+ok
+tobero: 
+This is the first properly, version that displays chunk border with particles. It currently doesn't have any differently coloured borders and only fancy performance option for players (There isn't a selector generally)
+Attachments:
+[ChunkParticleExtension.jar]
+https://cdn.discordapp.com/attachments/901151588167598170/990584804321927208/ChunkParticleExtension.jar?ex=6647ed3d&is=66469bbd&hm=93e9bc9ee8f38f18484eafb2765eaa936023429cc566b829ae0e2f94bff5b25c&
+[unknown.png]
+https://cdn.discordapp.com/attachments/901151588167598170/990584805030772776/unknown.png?ex=6647ed3d&is=66469bbd&hm=80a55b4a007344718ddcfc4621b78a237127511ca6ae1c293ebf00ef882c9989&
+[config.yml]
+chunk_particles_extension:
+  max-particle-render-distance: 25600
+  display-unclaimable: true
+  interval: 10
+commands:
+  forbidden:
+  - 'tellraw @a {"text":"This word, {word}, is maybe similar to {similar}. Used: {player_name},
+    {player_uuid} while {task}. {similarityPer}% similar "}'
+  standby:
+  - tellraw @a {"text":"Standby enabled"}
+faction:
+  ranks:
+    guest: Guest
+    ally-member: Ally member
+    ally-elder: Ally elder
+    ally-moderator: Ally moderator
+    ally-admin: Ally admin
+    ally-owner: Ally owner
+    member: Member
+    elder: Elder
+    moderator: Moderator
+    admin: Admin
+    owner: Owner
+  invitationTimeout: 300
+  maxTagLen: 3
+  maxNameLen: 10
+  allowExplosions: true
+  joinTimeout: 24
+  permanent: false
+history:
+  territoryChange: false
+power:
+  enabled: true
+  chunkPowerConsume: 3
+  memberDeathConsume: 10
+  regenerationPerHour: 4
+  maxDefaultFaction: 20
+  powerPerPlayer: 5
+  maxPowerPerPlayer: 5
+forbidden:
+  factionNames:
+  - fuck
+  - ass
+  - stupid
+  checkLeetspeak: true
+  reportAtPercent: 39.99
+  disbandAtPercent: 69.99
+  checkFactionNames: true
+gui:
+  wrapLength: 20
+  closeGuiCps: 10
+  maxCps: 5
+general:
+  limit-chunks-to-power: false
+  disabledWorlds:
+  - FactionsWontWorkHere
+  debugMode: false
+  colorConsole: true
+  useSQL: false
+  commandDescriptions: true
+  printStacktrace: true
+  prefix: '&e&lImprovedFactions'
+  sendCrashesToGithub: true
+  mapViewDistanceH: 4
+  mapViewDistanceW: 4
+  autoMigrate: true
+debug:
+  logLevel:
+  - INFO
+  - WARNING
+  - SEVERE
+version: '1.5'
+
+[ImprovedFactionsV1.5.jar]
+https://cdn.discordapp.com/attachments/901151588167598170/990584805873836032/ImprovedFactionsV1.5.jar?ex=6647ed3d&is=66469bbd&hm=38585d970bff39ca4341a9565c5100c5527c6513453e2308e9c77ea50a36666e&
+
+pvink7: 
+ajajajajajajaa
+leonzockt01: 
+Crazy
+leonzockt01: 
+Very happy to see the advancement of this project
+tobero: 
+
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/901151588167598170/990649660643364964/unknown.png?ex=664829a4&is=6646d824&hm=89d46b1bf32694fe997060390e582b583f595bf7f333f463c2ade47ce975eed7&
+
+jokbon: 
+TPS 1
+jokbon: 
+xD
+tobero: 
+No, not that bad, but just a bit slower
+Attachments:
+[unknown.png]
+https://cdn.discordapp.com/attachments/901151588167598170/990650150504521818/unknown.png?ex=66482a19&is=6646d899&hm=ccb63e4719d104bd1c8ad3f9e092cd43146c9a2ba88190feaa5fab679d72665a&
+
+tobero: 
+But there are some known problems, so hope that improved the performance when they got resolved
+jokbon: 
+lol on windows my tick time 0.500
+jokbon: 
+while on linux 3.785
+jokbon: 
+😂  wtf
+tobero: 
+Shouldn't it be the other way around?
+jokbon: 
+i thought so
+jokbon: 
+but i moded my windows ngl maybe it impacted
+jokbon: 
+like removed lots of stuff and made win 11 use 700mb ram
+tobero: 
+I think, that it would make more sense for the extension to not run in the server, instead run on a client side mod, because my server has some serious issues with ram using the extension and round 4 Ms CPU time are getting lost with the extension.
+
+
+That's why I was thinking of handling it with a client side mod. The mod would take over projecting the particles, so that the server isn't needed to take care of that.
+
+Would someone still use this extension when a mod is required to display the particles?
+jokbon: 
+yes but there is some problems with ur current extension design
+jokbon: 
+add config option for particle distance
+jokbon: 
+if u want ofc
+jokbon: 
+yep mod gives more iq i agree
+pvink7: 
+Adding air
+jokbon: 
+tobero iama invite u to my server and show some particle things
+jokbon: 
+i let everyone on server use particles iam pro at it
+jokbon: 
+(and yes its server side aka uneficient thing)
+tobero: 
+There is already
+leonzockt01: 
+I would use it
+tobero: 
+Optimising the chunk caching process for the server sided chunk border extension, then I will be able to upload it to the public extension registry
+tobero: 
+Extension is now available using /f extension download
+tobero: 
+So, I got inspiration from three online templates and my friend. I'm no graphics designer, but if I would print this to an image and use it as spigot banner and website, would this be appealing for you, when you are looking for a faction plugin?
+tobero: 
+Video gets uploaded
+tobero: 
+
+Attachments:
+[hm.mp4]
+https://cdn.discordapp.com/attachments/901151588167598170/991077816009371689/hm.mp4?ex=664866e4&is=66471564&hm=0f50a2732eebd8dd435144784320324f89e68520feac6fa1a031fd20f7799aca&
+
+tobero: 
+Sorry for the bad quality, but I'm too stupid to set obs up correctly
+tobero: 
+That's the full sized banner in good quality
+tobero: 
+
+Attachments:
+[banner.png]
+https://cdn.discordapp.com/attachments/901151588167598170/991078573626523648/banner.png?ex=66486799&is=66471619&hm=a0d98d9590be3c0942d30a372e38ca68e521e68b6be013b9b446b8fdb49e99fd&
+
+leonzockt01: 
+https://www.youtube.com/watch?v=rR4n-0KYeKQ
+leonzockt01: 
+Is this really accurate? xDD
+tobero: 
+I have no idea, but I thin for junior devs this would be fitting
+tobero: 
+I was working on a system to allow more customization of what happens when a event gets called.
+
+That would be the config file for it, every suggestions is welcome
+Attachments:
+[actions.yml]
+# An action is nothing else than code that gets run when a
+# event got called
+# All available actions:
+# - "[actionbar] This will be seen in actionbar"
+# - "[broadcast] Message will be sent to everyone"
+# - "[close]" # Closes currently open gui
+# - "[console] give @a minecraft:dirt 64" # Executes a command as console
+# - "[message] A message sent to player"
+# - "[player] give @s minecraft:dirt 64" # Runs code as player
+# - "[sound] ENTITY_VILLAGER_HURT" # Plays a sound for the player
+# - "[title] Title Subtitle" # Displays a title for the player
+# - "[message-factions-broadcast] Message for all faction members" # Broadcasts a message to every faction player
+# - "[message-factions-broadcast-ally] Message for all faction members and allies" # Broadcasts a message to every faction player and ally
+# - "[lang-message] action.run.test" # Gets the translation from the players lang file and displays it to the player
+
+faction: # Provided: {faction} -> display
+  create: # Provided: {creator} -> name
+    #- "[title] &aCreated your faction"
+  ally: # Provided: {allied-faction} -> display
+  ban: # Provided: {banned} -> name
+  delete: # Provided: {deletor} -> name
+  join: # Provided: {joined} -> name
+  kick: # Provided: {kicked} -> name
+  leave: # Provided: {left} -> name
+  load: # Gets called whenever a faction gets loaded from storage
+  member: # Provided: {member} -> name
+    offline:
+    online:
+  overclaim: # Provided: {overclaim-faction} -> display, {chunk-x} -> number and {chunk-z} -> number
+  power: # Provided: {change} -> number
+    player-killed: # Provided: {killer} -> name and {killed} -> name
+    player-left: # Provided: {left} -> name
+    player-joined: # Provided: {joined} -> name
+    regeneration-tick: # Provided: {regenerator} -> name
+    max-power:
+  transfer-ownership: # Provided: {old} -> name and {new} -> name
+  pardon: # Provided: {unbanned} -> name
+  update-rank: # Provided: {player} -> name and {rank} -> displayname
+
+chunks: # Provided: {chunk-x} -> number, {chunk_z} -> number and {registry} -> registry
+  protect:
+  rm-protection: # Called when chunk gets unclaimed from any faction / zone, etc
+
+tobero: 
+With the new version, v1.6, there will also be a updated spigot site, as 1.6 adds more user customizablilty, as example the actions, the config GUIs, 
+As well as some bug fixes coming for faction pvp, the unclaimable zone, tnt cannons and auto world guard protection
+jokbon: 
+brugh every 5 mins i go i coma and back when i try to sleep. bc hearth problems (i worked hard irl it trigered this shit)
+jokbon: 
+wow iam actualy alive
+iam so suprised
+jokbon: 
+:D
+tobero: 
+why would you have died?
+jokbon: 
+i was constantly loosing conciousnes when trying to sleep because of too litle blood flowing to brain
+tobero: 
+haven't you put up your legs somewhere so that your brain gets more blood?
+jokbon: 
+it hapened 60 times this night or more
+tobero: 
+Should work, at least that's what they've told use in first aid class
+jokbon: 
+lol
+jokbon: 
+in 2014 i had hearth infarkt
+jokbon: 
+dodtors failed to diagnose it
+tobero: 
+What?
+jokbon: 
+and i was dying every single day for 2 years
+jokbon: 
+until i get back on foot
+jokbon: 
+but because hearth working partialy
+jokbon: 
+it needs alot to do alot more  work
+jokbon: 
+so i started to loose minerals like potasium realy fast
+tobero: 
+okay
+jokbon: 
+so sometimes after alot of work i get into this condition
+I was moving 50cm by 50cm by 10cm concrete street tiles in my land which trigered it. I was consuming minerals on large doses, and i had nothing like that after 2016 only on rare cases
+jokbon: 
+i still nearly died, like i didnt owerwork i tryed to rest after each time wtf
+jokbon: 
+https://youtu.be/fclA1hETGC0
+jokbon: 
+https://media.discordapp.net/attachments/929799370105307277/978938622575255593/1653467467629.jpg
+tobero: 
+This plugin is just a modified version of that. Replace the bird with an crocodile to correct it
+jokbon: 
+https://cdn.discordapp.com/attachments/602195621667012629/924743672879276042/2021-12-26_21.21.01.png
+jokbon: 
+@Trashulius
+jokbon: 
+Now if u don't translate message factions plugin will put itself in standby 😡 😡  /this is sarcasm 😂
+jokbon: 
+ye i kinda looking at it alergy gone it seems
+tobero: 
+No, it won't, but I have decapitated the raw usage of it giving me a warning
+jokbon: 
+😂
+jokbon: 
+it still valid as you dont see problems ower warnings ☺️
+jokbon: 
+🥴
+jokbon: 
+ur plugin is huge omg
+tobero: 
+Yeah, but I don't like it untranslatable
+tobero: 
+And performant
+tobero: 
+By the way, I've reached more than 100 hours of coding on the plugin (counting since sometime in June)
+irkagiga: 
+Damn
+irkagiga: 
+Dedication
+jokbon: 
+https://www.spigotmc.org/resources/improved-factions.95617/
+jokbon: 
+Pinned a message.
+jokbon: 
+https://youtu.be/nElodeHRjRk
+jokbon: 
+2022 in nut shell but need to take alot of weed to understand politics
+jokbon: 
+huh
+jokbon: 
+seemed pretty acurate
+jokbon: 
+Pinned a message.
+jokbon: 
+
+Attachments:
+[Screenshot_20220910_094146.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1018048708849434664/Screenshot_20220910_094146.png?ex=66484dbe&is=6646fc3e&hm=75abb60ddfa5d23b1927f446e796c9946cda94fda8c12a7ecc213df8de5655bf&
+
+jokbon: 
+❤️
+jokbon: 
+I got no time for this omg. I will probaly work just on bot.
+Unless you find better system.
+tobero: 
+Yeah, no problem
+jokbon: 
+https://www.guinnessworldrecords.com/world-records/101165-most-players-in-an-online-fps-battle
+jokbon: 
+https://cdn.discordapp.com/attachments/1036564744095678475/1036670329453543484/Screenshot_20221031_175744.png
+jokbon: 
+i have some fun
+jokbon: 
+https://cdn.discordapp.com/attachments/831805233230643240/1043259795110629476/Screenshot_20221118_222154.png
+jokbon: 
+but like no time at all
+jokbon: 
+still owerburned
+jokbon: 
+¯\_(ツ)_/¯
+jokbon: 
+XD
+i cant arive home from work tomorow
+jokbon: 
+
+Attachments:
+[Screenshot_20221216_223758.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1053413751543562272/Screenshot_20221216_223758.png?ex=66486bc1&is=66471a41&hm=328dfc36239ca88cb843ace130a4f6738bf4c819179617ee3e81dcacb603344c&
+
+jokbon: 
+thats where sheldules
+jokbon: 
+
+Attachments:
+[Screenshot_20221216_225111.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1053414048257036438/Screenshot_20221216_225111.png?ex=66486c08&is=66471a88&hm=5924431d208de7061c0cf937dad98fba9d56a9e46e9997d02a2eaf18b2fc77fa&
+
+jokbon: 
+https://tenor.com/view/jurassic-park-shades-off-poop-pile-jeff-goldblum-ian-malcolm-gif-17408803
+jokbon: 
+i only have lung infection
+jokbon: 
+cuz if i dont they will fire me
+jokbon: 
+even if i sick legal way
+jokbon: 
+they dont want to pay
+jokbon: 
+🙂
+jokbon: 
+https://cdn.discordapp.com/attachments/803196804651941959/1068205678977626203/image.png
+jokbon: 
+https://pbs.twimg.com/media/FnZ5TEvXoAIIOsR?format=png&name=900x900
+jokbon: 
+major 4chan alert
+https://git.ecker.tech/mrq/ai-voice-cloning
+jokbon: 
+@TabbyMinecraft i have and had to stop chating on discord for too much. but ye i unblocked now. too much talk i dont finish work irl 😡 😡 😡
+jokbon: 
+(also u would bitch each time abt stalcraft abt pvp which is totaly false lol, well atleast i didn waste my time on recent events since i cant do shit, i would spam memes on erodogan which is dumb) @TabbyMinecraft
+jokbon: 
+too much pc bad
+tobero: 
+can you please fight about your stuff in dms or another discord server? 
+I think this is too off topic
+jokbon: 
+@TabbyMinecraft i have few minecraft advice for you tho 🙂 since there are so little plugins i found some replacement methods lol
+tobero: 
+**A bad version of the improved factions auto answer bot trying to replicate a normal conversation on this discord:**
+
+PVink7: where could it to kind of the less Right and then out?
+Tobero: Yep, I won't recemption that allows you start, as its any other guys many time when the problème procks and modils in the updated I finuse. https://www.spigotmc.org/resources/improved-factions.java:93) ~[paper-1.18.8.jar:git-Paper-247]
+ast metral? /f infin
+jokbon: [ATTACHMENT]: what should i probrem all other factions? is the entire members is removed timeout from cconfustive chunk?
+jokbon: thing my dayb doesn't work weird
+jokbon: 
+@[Dev] Tobero what?
+jokbon: 
+????????/
+jokbon: 
+u mean there are human like virus bots?
+jokbon: 
+because of chat gpt?
+tobero: 
+I've trained a neural network on the chat history of this discord, trying to create a bot that can answer the questions people ask for instant answers (As well as in plugin integrated help)
+
+I'm currently trying to find a way making more synthetic data (fake discord question & answer). I've also gathered data from many other discords needing a detox and anti spam.
+jokbon: 
+lol
+tobero: 
+No, It's not chat gpt. It's jsut based on the same technology. Training ChatGpt / Using their api would be to expensive for this discord
+jokbon: 
+tobero can you leave my yagpdb bot?
+jokbon: 
+and maybe those chanels
+tobero: 
+Why should I kick him?
+tobero: 
+Oh
+jokbon: 
+then who kicks?
+tobero: 
+yeah
+tobero: 
+Sure. I've never planned on replacing him / the channels. The bot right now is still getting screwed by gramma errors
+jokbon: 
+i think i shud make own server for auto ansvers then
+jokbon: 
+bc it keeps being removed
+jokbon: 
+u probaly hate when i do something
+jokbon: 
+cuz idk it keeps being removed
+tobero: 
+I've never kicked the bot / removed channels
+jokbon: 
+is there any other discord admin
+jokbon: 
+who kicks bots
+tobero: 
+Not that I know
+jokbon: 
+wait
+jokbon: 
+i know reason
+jokbon: 
+did u change perms of it?
+tobero: 
+Not that I know
+jokbon: 
+also
+jokbon: 
+one more question
+jokbon: 
+do you like the way u set the server more than i did
+jokbon: 
+i mean that support section that i made
+jokbon: 
+is it bad?
+jokbon: 
+too bloated?
+tobero: 
+I think it's missing the support community channel.
+I think #🔳│settings is unnecessary.
+
+But everything else is okay, it would reduce my support discord to only one
+jokbon: 
+i mean i plan that comunity
+jokbon: 
+settings is nescesary
+jokbon: 
+just setting chanel not finished
+tobero: 
+oh, okay. Then it's all good
+jokbon: 
+so  which setup u prefer
+jokbon: 
+ur own?
+jokbon: 
+just asking so i know the best way to provide for you
+jokbon: 
+btw tip never put slowmode in any chanel it breaks linux discord users
+jokbon: 
+that put image and text in same message
+tobero: 
+I think the one we currently have fits improved factions, but I would even more like it if we can manage to make this server not just for improved factions, so maybe try to update the current one, instead of making a hole new one.
+
+I just think the one you designed feels a little bit cramped
+jokbon: 
+i see
+jokbon: 
+but its done so on purpose
+jokbon: 
+since if was extremely unstable it was hard to track bugs
+jokbon: 
+thats why its so
+jokbon: 
+when there was multiple reports ansvering one question made other questions become forgoten or misinpreted due flow of information spreading in scroll mess
+jokbon: 
+since users lazy to post in forums it became so
+jokbon: 
+thats my defense lol
+tobero: 
+Yeah, makes sense.
+How about I'll just document every question, try to make it clear from the plugin side and if that's not possible, but it into a easy searchable forum?
+jokbon: 
+i wish to do that but i dont know some part of programing and dont have time to learn that
+jokbon: 
+it will break ansvers
+jokbon: 
+when i will have more time i will look into that
+jokbon: 
+.
+jokbon: 
+
+Attachments:
+[Screenshot_20230604_141218.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1114874488857841735/Screenshot_20230604_141218.png?ex=66488d47&is=66473bc7&hm=3b321c8f51fcd8d7691b6715d380629ad56aa30942a5f8afe9cefa8ad0ffcf95&
+
+jokbon: 
+https://tenor.com/view/rishi-dhamala-rishi-yawn-cats-cat-yawn-yawn-gif-25829125
+jokbon: 
+lol
+jokbon: 
+they all leak
+jokbon: 
+tgxfjcfkjvgiulhgio
+jokbon: 
+
+Attachments:
+[Screenshot_20230604_143048.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1114878950812942366/Screenshot_20230604_143048.png?ex=6647e8af&is=6646972f&hm=0c04439997012855919f2fec54b1a026c2d9080dacdb9725f9433e379c1a56b3&
+
+jokbon: 
+i will wait 2hrs just to besure
+jokbon: 
+but it looks theyall increasing
+jokbon: 
+😭
+jokbon: 
+
+Attachments:
+[Screenshot_20230604_144854.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1114883520570085396/Screenshot_20230604_144854.png?ex=6647ecf0&is=66469b70&hm=1b1cba21fe3904127488f001a30b7c8659813c86a6d402ca22bc7140a24f665c&
+
+jokbon: 
+bruh
+jokbon: 
+maybe there bugs with bukkit
+jokbon: 
+hmm
+jokbon: 
+bukkit api doesnt unload spawn chunks if specified?
+jokbon: 
+if player was there
+jokbon: 
+ugh
+jokbon: 
+another go with even less plugins
+jokbon: 
+
+Attachments:
+[Screenshot_20230604_151935.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1114891388383920178/Screenshot_20230604_151935.png?ex=6647f444&is=6646a2c4&hm=d7ed400cae81f075ac26034b86280fa14c570176b6018fc45132acc49634a62a&
+
+jokbon: 
+👊🏿 😹 ]
+jokbon: 
+no via version this time
+jokbon: 
+
+Attachments:
+[Screenshot_20230604_203802.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1114971542804254800/Screenshot_20230604_203802.png?ex=66483eea&is=6646ed6a&hm=d90f463cbf7bd5bdeeed99371563f0f974b556fcd234de170436171b8824764f&
+
+jokbon: 
+
+Attachments:
+[Fz3YmnXaQAMtzUs.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1128047031416520704/Fz3YmnXaQAMtzUs.png?ex=66485a6a&is=664708ea&hm=f9e9e042339126e265a6804300129403dcf80ea6baba75d696e8de82ba7e54db&
+
+jokbon: 
+Meow~
+jokbon: 
+I feel so lonely ***:((***
+jokbon: 
+I know nato loves me.
+jokbon: 
+So i will be femboy of any male during nato meeting days.
+Thats my hard decision :((
+jokbon: 
+Going to play apex nyan! 
+I wish everyone nice day !
+jokbon: 
+:iconpride:
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1128048075592704030/image.png?ex=66485b63&is=664709e3&hm=da0e610ffa2ca3a3adb9677073f7af4bc81823e73b97432a306d5105bf758ad9&
+
+jokbon: 
+https://tenor.com/view/elrond-network-egld-nft-crypto-funny-gif-25931377
+tobero: 
+Okay.... I've let this thing train even longer and I think I should be terrified. Here's the response:
+
+Question: I need help
+Response: Maybe me, your old partner, [Dev] Tobero, not any real human who should only look at what they really see, and now they might finally, see everything. You get what you paid for right?
+tobero: 
+Okay... the continuation of this response is even worse:
+
+But maybe they shouldn't, ever get that lucky. Because its not every morning after going home and going back to support only for a friend on Factions to wake your plugin back up with this, you know... this dare (but mostly joke "yeah sure like you are going to post this?" Then maybe post them) * you're not that stupid so now you walk across all those people, through this bright red carpet, filled with help, you're so focused it's getting hard to remember where your members are, even if you could see them as a long gone memory
+tobero: 
+Imagine you just joined the server to ask for help and the bot is answering with this crap, like you did something wrong.
+josh65: 
+Have you look into a ChatGPT api/model to use, or is that one?
+tobero: 
+No, I'm not using their api, as I on't want to pay for every single request. I created my own 'ChatGPT'.
+
+
+At first, I used a very simple RNN, one that generates letter for letter. The training data for the linked tries were just the scraped discord channels.
+
+My second attempt was using Attention and Tokenisation (Basically, instead of predicting letters, it now predicts words). Because these things are currently the state of the art technology, needing a ton of training data, therefor a lot of time (ChatGPT as example had ~500Gb of Text and 300 Years of GPU hours) it would be impossible for me to train something like that.
+But, I some weeks ago I heard of a new open source LLM, called falcon-40b, having the Apache 2.0 license (Meaning I can use it commerical and non commercial), pretrained one a huge training set, across multiple gpus (Costing extremely much money, See the attached images). I then used this model for transfer learning (I just copied the lower Layers of the model into my new one and fine tuned it to reproduce Q&A like conversations). The data I used for training this model not only included this discords chat, but chats from ~ 200 different big discords, filtered for profanity. I also let chatapi talk to itself using the api.
+
+At the end I trained it for a ~12 hours on my computer. The results where... weird. But I found a fix to it. These outputs are being generated with a high temperature, a numeric value, where something near 0 means extremely accurate, with risk of repeating itself, while something close to 1 means being creative, at the risk of hallucinating (Just as the text above). In my case, the text response above has been generated with a temperature of 0.9.
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1129763796152504390/image.png?ex=664801c6&is=6646b046&hm=007789ce30ae3f53351dc98d39d9d8fbf54cc271a7ee9f6afb6ef42e321bd8d8&
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1129763796362215444/image.png?ex=664801c7&is=6646b047&hm=fd8cf8eae7c13b8992b2cc75af27923e3d861d640a7c8685d864abe7d899204c&
+
+tobero: 
+I hope it's not too technical
+jokbon: 
+i agree with the bot xd
+jokbon: 
+its still wery helfull at saying "hey tobero just finish factions"
+jokbon: 
+lmao
+jokbon: 
+also
+jokbon: 
+nvidis only ai friendly gpu
+tobero: 
+Other gpus can be used too. Nvidia just has the gpus you'll have wet dreams about
+jokbon: 
+api incompatibility
+tobero: 
+Not really. AMD Gpus are supported by tensorflow, aswell as the ones from intel. 
+When you want to count tpus, they're supported too
+jokbon: 
+lol
+jokbon: 
+intel cant copute minecraft
+tobero: 
+Yeah, but these things are still gpus usable by tensorflow. How much sense it makes using them is a different story
+jokbon: 
+brugh i want intel to make minecraft computable
+jokbon: 
+😡
+tobero: 
+Their integrated gpus aren't as bad as they once were anymore
+jokbon: 
+they are bad
+jokbon: 
+but
+jokbon: 
+they have some low latency strangely
+jokbon: 
+perform better than amd at peak framerates
+jokbon: 
+which is impresing
+jokbon: 
+but they suck at any serious load while arc is exactly oposite
+jokbon: 
+i had igpu arc and radeon
+jokbon: 
+and nvidia
+tobero: 
+Yeah, they aren't designed for games, but they can handle more things than they were able to do before. 
+When I look at the laptop of my grandma I'm glad to have a integrated cpu of modern standarts, not the one my grandma uses
+tobero: 
+I like nvidia gpus
+jokbon: 
+i kinda hate because have high refresh rate monitor
+jokbon: 
+amd gpus are perfect for high refresh rate gaming
+jokbon: 
+i beaten world record by startup time
+jokbon: 
+at some strategy game
+jokbon: 
+but later fucking alien beat me
+jokbon: 
+ram disk instaliation + amd gpu is big big fun
+jokbon: 
+trust me
+tobero: 
+I don't usually play games. Instead, I torture my GPUs to demanding computations, pushing them to their limits, especially with the bad fan setup I have
+tobero: 
+Mine aren't even capable of playing minecraft with more than 90 fps
+jokbon: 
+if u saiy i dont push to limit
+jokbon: 
+XD
+tobero: 
+No, I mean I utilise all of their cores, which is usually not done by modern games, outside of rendering.
+jokbon: 
+LOL
+jokbon: 
+you are living in 2000
+jokbon: 
+ngl
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1133129379468300370/image.png?ex=664862b8&is=66471138&hm=bd741636fe89bc13c14db90b563b5bdf85ede9e74382c0db6daacc38b243acb0&
+
+jokbon: 
+lol
+jokbon: 
+if u get new games cores will be used
+jokbon: 
+
+Attachments:
+[zdfhdfhzd.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1136183989506412544/zdfhdfhzd.png?ex=66484acc&is=6646f94c&hm=2d49ff6de6d6d61e08409ef0c1f756298ed1046c8bae248f3547802d2bd5b2b5&
+
+jokbon: 
+😂
+jokbon: 
+world edit question
+how do i range replace both air and blocks 
+-.-
+tobero: 
+I have no clue. Don't use plugins to be true
+jokbon: 
+How to be unsucesfull: gitlab docker kubernetes travis teamcity microsoft azure  datadog docker slack ops genie snyk heroku runable zendesk jasmine omnidesk shipable ms teams keybase smartsheet and other bulshit that takes time from you
+jokbon: 
+🤓 🤓
+jokbon: 
+bruh what a corporate bloatware i dont get it why people actualy use that shiiit
+jokbon: 
+jenkins decent tho, but still kindof bloat?
+tobero: 
+jenkins is useless when you use gitlab correctly. So lemme explain:
+- Gitlab is the better github when you do open source stuff. It has better ci / cd (Automation for tests, deployment etc)
+- Docker is usefull af. It allows me to define linux environments where all setup has already done, therefore no need to install stuff locally (For example, my minecraft server runs with docker, the databases run with docker, my ides get hosted by docker). This allows me to install stuff with a single click and remove ***ALL** files (Tem stuff, etc) with one click too, therefore no wasting my space with files I don't veen konw exist. 
+It also pretty time saving, as a docker container will jsut work without a setup or something.
+Teamcity Useful for automated tests in large teams (Where the tested code base in not just units tests, but a whole project scoped one where you need a whole machine to run it).
+azure It's just a cloud host making it easier for your webapps to grow when user requests reach a high (and shrink whe not needed, therefore saving you a lot fo money)
+teams is useful for meetings and team communitaction.
+
+All other stuff... I don't know, but I think everyhing most devs might needs is covered with these few services
+jokbon: 
+its sometimes easyers to make app for own stuff
+jokbon: 
+ye its usefull
+jokbon: 
+but in the end waste time with changes
+jokbon: 
+especialy when bad comunications happen
+jokbon: 
+that sometimes can take more time than your project
+jokbon: 
+especialy love when using those services makes ur project bonkers
+in the end from feature perspective it would look like this:
+jokbon: 
+
+Attachments:
+[bonk-meme-vobss-1-500x500.jpg]
+https://cdn.discordapp.com/attachments/901151588167598170/1158808560524857365/bonk-meme-vobss-1-500x500.jpg?ex=664833d2&is=6646e252&hm=d1f8a4a9d889916695cdfebc6dcda8d09033aee794047707f28289e28cea18dc&
+
+jokbon: 
+@[Dev] Tobero  I found something to blame why my server is delayed
+jokbon: 
+
+Attachments:
+[20231022_120253.mp4]
+https://cdn.discordapp.com/attachments/901151588167598170/1165577412172587039/20231022_120253.mp4?ex=6648700e&is=66471e8e&hm=5aac99ab3ae2fd4814ee48cf9a2ca32938abf51cd36005c3546ed35586110832&
+
+jokbon: 
+¯\_(ツ)_/¯
+jokbon: 
+https://youtu.be/aPzR8LiUut8?list=PLttSbuuoyDWoMIALhBetLZ1oRZmLIRBv1
+vanilla.__.: 
+https://www.youtube.com/shorts/j-qhF5DCpmY
+jokbon: 
+kek
+jokbon: 
+Remember if u run vscode in ramdisk ur not only one on this planet ^^
+jokbon: 
+
+Attachments:
+[dynamodb_latency4.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1181163064528224296/dynamodb_latency4.png?ex=664872d3&is=66472153&hm=0d0ffb7ff48cde4a9e405c4c1130e57037bf62e27be00d626d52fcbeee8cb828&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1181163405864878171/image.png?ex=66487324&is=664721a4&hm=1d2f7b7710d18dea68bd87cca60467c5ed345afae89ac012201783b8a929f275&
+
+jokbon: 
+
+Attachments:
+[image-0.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1181163837647491132/image-0.png?ex=6648738b&is=6647220b&hm=c800c2b55f44e7f8f7a6b5b4823794d1eb4eb64ee1bcdffc32787093432b69df&
+
+jokbon: 
+https://www.somkiat.cc/note-from-database-journey-at-discord/
+jokbon: 
+https://www.cybertec-postgresql.com/en/why-favor-postgresql-over-mariadb-mysql/
+jokbon: 
+lol
+jokbon: 
+maria db got preventions of dumbasery
+jokbon: 
+hmmm good
+jokbon: 
+but all these posts are realy old
+jokbon: 
+**JOSH you can instal files on ram disk, it will load files to ram on win startup**
+jokbon: 
+i didnt thought of that before
+jokbon: 
+but what i thought is
+jokbon: 
+that maria db slow
+jokbon: 
+no longer this is case
+vanilla.__.: 
+https://www.youtube.com/shorts/uxBFHQ1fAQs
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1212167105655349339/image.png?ex=66488556&is=664733d6&hm=6219f816ac09df3e3245a6a716afc95cf7a65a1ea1f3c602e7568e99adf45771&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1212167593540976660/image.png?ex=664885cb&is=6647344b&hm=d7974569038880aa3fa2ff02d56ad89ed0f95dbb32b0b4a3dc33a44ba7adb2db&
+
+jokbon: 
+prieviev seems strange
+jokbon: 
+Howewer i have good suggestion in my head
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1212174276002844672/image.png?ex=66488c04&is=66473a84&hm=7c39c0bb6df393804e76a588aeee7e733759dc7f29906cab76ff2fe1c7e3f498&
+
+jokbon: 
+Column viev mode underated!
+jokbon: 
+https://youtu.be/TIq8nNG-WBM?t=49
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1220138827965010072/image.png?ex=66488495&is=66473315&hm=cadc3e9d7f285f5ebe0750b703c5e9c06859a40acc93ad63be7100daa64176e0&
+
+jokbon: 
+yes
+jokbon: 
+regarding that error
+jokbon: 
+its not easy to spot
+jokbon: 
+but its easy after u find it once XD
+jokbon: 
+replying to 1 year old post
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1224012109881282690/image.png?ex=66481b5c&is=6646c9dc&hm=490a3693df975478bbe6ea50c18550fa092e16bf4ec4a823b9b12db514ea8a13&
+
+jokbon: 
+8 is too much
+jokbon: 
+XD
+jokbon: 
+Josh idk if he told u but this error is simple one
+jokbon: 
+its again your gramar XD
+jokbon: 
+This is correct marking ^
+jokbon: 
+@[Dev] Tobero
+jokbon: 
+Hope it helps xD
+jokbon: 
+my mom is artish she even doesnt know those XD
+jokbon: 
+so dont worry if ure mistaken. dont take too hearth too much
+jokbon: 
+these mistakes are taken from "home depot" shops which specifies how long object is. 
+They usualy mix up coodinates in theyr naming. Because how long is becomes height, since its most important to a costumer it gets specified first, but coordinates are specified:
+X 
+Y 
+Z,
+While home depots specify them incorectly as:
+Y
+X 
+Z.
+jokbon: 
+@[Dev] Tobero i think this is pretty important xD im smart, but i don't usualy think about everything. Sorry for not specifying this mistake earlyer.
+tobero: 
+Width right now is corresponding to the column count, height to the row count, isn't that correct?
+jokbon: 
+Incorect
+but it also means that change will make me to rip my configuration XD
+jokbon: 
+but for sake of less brainfuck lets do it correctly
+jokbon: 
+you not only made me F|-|ck my head but also F|-|cked josh head where he couldnt find his mistake xD
+jokbon: 
+since you didnt folow the standart
+jokbon: 
+also i need to update mymodpack
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1224050608869347530/image.png?ex=66483f36&is=6646edb6&hm=145a82e5dcd7fa356dba8ed12ede1ea9504ef8ac25f277e3ae9230a38a9047c1&
+
+jokbon: 
+😵‍💫
+jokbon: 
+Bruh
+jokbon: 
+when u mod everything out
+jokbon: 
+XD
+jokbon: 
+this happens
+jokbon: 
+😹
+jokbon: 
+now i got why modrinth gave me captcha
+jokbon: 
+XD
+jokbon: 
+hahahah
+jokbon: 
+mods taking 2 gigabytes
+jokbon: 
+😵‍💫
+jokbon: 
+but worth it
+jokbon: 
+just need to fix 50 incompatibilities
+jokbon: 
+it actualy launched xd
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1224064852692176996/image.png?ex=66484c7a&is=6646fafa&hm=1d3a38b407d32b2aad544061fe3d7dbc2c88399ee2236c33de182383ccd165ea&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1224065648364097536/image.png?ex=66484d38&is=6646fbb8&hm=efe44737938f1e9cb020808ea45d6a79204da3499ed1ce03aaba5e6f4ec2bf4e&
+
+jokbon: 
+lighting not fixed yet
+jokbon: 
+unplayable 1.20.4 version
+jokbon: 
+need to make it more good or else i will miss things mentaly
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1224072869076533479/image.png?ex=664853f2&is=66470272&hm=bdda79044454cb0cb914755e090822adee631d31691aa54ba8bd05d50caa3bbf&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1224077288715456612/image.png?ex=6648580f&is=6647068f&hm=778cbebd6551c7f96e71abd04d3223aa3e0cd557cbbe5021ac8ad26360fca4c9&
+
+jokbon: 
+perfection
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1224080974778994851/image.png?ex=66485b7e&is=664709fe&hm=78a3332a8ce3e8fee6650d09b67e30faa8083835a9fa95df3ded018358a2a469&
+
+jokbon: 
+interestingly
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1224081669053616179/image.png?ex=66485c24&is=66470aa4&hm=8f937e74eaa12380054d894dc2fcf32f5cc21acf4755680c5035be30aa854fca&
+
+jokbon: 
+found bug
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1224081743682998272/image.png?ex=66485c36&is=66470ab6&hm=df756f08091efeacc498989d84d0b4924c9585fde5a986567157852e31f9da3e&
+
+jokbon: 
+xD
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1224082218754900129/image.png?ex=66485ca7&is=66470b27&hm=1c7eafa0240c6780fc7b4960b81e1242d590b15ee945b93a9bf6386e78754e6b&
+
+jokbon: 
+xDDD
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/901151588167598170/1224095599587229746/image.png?ex=6648691d&is=6647179d&hm=4f78a4c86aec6045e385574a62e57526dacfc4fd5f749bb78d73c42f600a0422&
+
+jokbon: 
+realising anger on repeater
+jokbon: 
+😹
+jokbon: 
+(it doesn't have sound phisix)
+jokbon: 
+https://private-user-images.githubusercontent.com/68905776/314100283-81a9dca6-824d-4590-a1b7-228fcf54cee0.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTE5MTgwMDgsIm5iZiI6MTcxMTkxNzcwOCwicGF0aCI6Ii82ODkwNTc3Ni8zMTQxMDAyODMtODFhOWRjYTYtODI0ZC00NTkwLWExYjctMjI4ZmNmNTRjZWUwLm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAzMzElMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMzMxVDIwNDE0OFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTY1YmYzYzc5OTc3NjYxOGFkN2VmZjEwM2FlOTU2NTNkNDQ0NTAwZmQ0YzQ5NjA2ZDJjYjI2YjQxMGE5MzFkN2ImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.l9qfPbHOZDZ93o9eY1HhdjMsERtubUqPsuvDcs8v5FY
+jokbon: 
+Everything is correct. sorry my mistake got the brain freeze this time.
+jokbon: 
+Width right now is corresponding to the column count, height to the row count.
+jokbon: 
+(sorry)
+jokbon: 
+NATTY NEKO NATTTY NEKO NATTY NEKO NATTTY NEKO  xD

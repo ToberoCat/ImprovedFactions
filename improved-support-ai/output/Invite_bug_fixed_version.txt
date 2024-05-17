@@ -1,0 +1,14 @@
+Channel: Invite bug fixed version
+Channel Type: GuildPublicThread
+Topic: None
+
+tobero: 
+This is a file where the invitation standby mode got fixed.
+
+Please note: This bug got fixed by decompiling and recompiling class files, assembling them a again, etc. This method is not the safest one for servers, because the method signature could be changed through this process, which will lead to issues with extensions an the other classes depending on it.
+tobero: 
+Invite crash fixed file
+Attachments:
+[ImprovedFactionsV1.5.1.jar]
+https://cdn.discordapp.com/attachments/1023861830495506482/1023861877786292275/ImprovedFactionsV1.5.1.jar?ex=66485bae&is=66470a2e&hm=f11ab709a52cb8e9ebd7390fb49ab38e04f140513ee69a8d6eefbfd945d00149&
+

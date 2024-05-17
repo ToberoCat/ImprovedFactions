@@ -1,0 +1,24 @@
+Channel: 🪧│info
+Channel Type: GuildTextChat
+Topic: None
+
+jokbon: 
+☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲
+▶️ Website https://toberocat.github.io/
+☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲
+▶️ Donations https://www.paypal.com/donate/?hosted_button_id=BGB6QWR886Q6Y
+☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲ 
+▶️ Factions ⚠️ Bug reports in github
+⊙Spigot https://www.spigotmc.org/resources/improved-factions.95617/
+⊙Website https://toberocat.github.io/improved-factions/index.html
+⊙GUI https://toberocat.github.io/ImprovedFactions_new/website/editor/
+⊙IF Githubhttps://github.com/ToberoCat/ImprovedFactions_new
+⊙IF Expansions Githubhttps://github.com/ToberoCat/ImprovedFaction
+☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲
+▶️ Aliases ⚠️ Bug reports in github
+⊙Spigot https://www.spigotmc.org/resources/custom-command-aliases.105037/
+⊙Github https://github.com/ToberoCat/CustomCommandAliases
+☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲☲
+▶️ Vault-bank ⚠️ Bug reports in github
+⊙Spigot https://www.spigotmc.org/resources/vaultbanker.99343/
+⊙Github missing

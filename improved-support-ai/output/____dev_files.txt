@@ -1,0 +1,1173 @@
+Channel: ╰＞💾ㅐdev-files
+Channel Type: GuildTextChat
+Topic: None
+
+jokbon: 
+build?
+tobero: 
+Nope, I won't release a version where I get errors by just walking around. I will upload a version with not that obvious bugs
+tobero: 
+Okay, first dev build is out: https://github.com/ToberoCat/ImprovedFactions_new/releases/tag/v1.6-dev.1
+
+Currently there is only `/f create`, `/f delete` and `/f list` (/f list is a new long awaited command)
+
+**What should get tested:**
+To make it short: Everything. Break the plugin (that will be easy) by using in-game stuff or by killing it with changing config files at runtime. Tell me everything that wasn't expected to happen when doing something
+
+Everything you spot should get reported with this issue template: https://github.com/ToberoCat/ImprovedFactions_new/issues/new?assignees=&labels=dev-report&template=dev_build.md&title=%5BDevReport%5D+Description
+Or should at least have the de-report label
+tobero: 
+Okay, I released a new dev build. It includes claiming and unclaming.
+
+Claming is able to have a radius and an auto mode.
+
+I added many more messages to the lang files due to missing ones (See the issues).
+tobero: 
+The new dev build includes inviting and zones. You can now create zones within the config file, so you are no longer limited to the ones provided by default.
+
+When having worldguard on your server, there is a new command (`/f zones scanWg <zone>`). This command allows you to scan your entire server for worldguard regions. When a region got found, all chunks within the region will be claimed with the specified zone.
+Thought it might be useful, due to many servers having worldguard
+
+https://github.com/ToberoCat/ImprovedFactions_new/releases/tag/v2.0.0-dev.3
+pvink7: 
+ju meen like regions also claim of the pluging ???
+tobero: 
+Yeah, /f zones
+pvink7: 
+so if i have a pluging taht also hase claim if overclaims it cant delete the old claim that whit help so much time
+tobero: 
+Yes, but this feature is already in v1.5. The thing new is that you can create zones within the config. It also supports to scan worldguard regions into zone claims
+pvink7: 
+ok tnx
+pvink7: 
+cn aju doe 1 ting for me  im not so goed whit pluging can i sand me pluging list can ju look wat pluging hase claims>?
+tobero: 
+Okay
+pvink7: 
+i snand in dms
+tobero: 
+okay
+tobero: 
+This devbuild now includes a gui system. It doesn't cover all features it will be required to do, but it does it job.
+
+It includes a ingame gui editor, where you can place items into the gui, after you've set them to be translatable (!Important. Always use `/f gui translate` before placing a item into the gui). 
+
+How it works:
+After you have decided on a name for your item, you have go into the lang file you're currently using and add a new tag within the items section.
+Each item can hold a title and a description property. If you haven't done this correctly, the gui won't render the next time you try to open it (It's something I was too lazy to fix, will be done someday).
+
+After re-opening the gui, you should see that the items change their names according to your translation selected.
+If you want to change the size of the gui or the title, you can do it in the gui selection menu, but that will be explained anyways.
+
+If you want to add a click action to your item, you can go into the `ImprovedFactions/actions/<guiId>` folder and create a file named `<item_name>.yml`. In there you can specify a `let-click`, `right-click`, `shift-left-click` and `shift-right-click` property. These list elements will get parsed into a action. All actions can be found in this example of an clickable item: https://github.com/ToberoCat/ImprovedFactions_new/blob/main/core/src/main/resources/actions/manage-faction/rename.yml
+
+**The file if you want to help me find bugs**
+https://github.com/ToberoCat/ImprovedFactions_new/releases/tag/v2.0.0-dev.4
+@Beta Testers
+tobero: 
+Btw, this dev build doesn't contain any suggestions from dev reports, because I focused on making the gui system
+tobero: 
+**New features**
+There is a new feature that allows you to 100% costomize your servers guis. It uses a webeditor for gui designing which then exports the created gui into a format that is recognisable by improved factions.
+There are also some upcoming changes to how texts get processed. The old messages in the lang file, eg.: `<faction-is-frozen>§cThis faction has been frozen and can not be modified ingame</faction-is-frozen>` will now get a fancy text box, which allows you to embbed hoverable texts, clickable urls, item showcases, etc. A example that gets used by the plugin already is `{text: You got invited by §e} {text: {inviter_faction_displayname}; hover: §eRegisty: {inviter_faction_registry}\nMembers: {inviter_faction_members_active}\n [...]} {text:§7. Click} {text: §e§l[here]; command: /f inviteaccept {inviter_faction_registry}}`. 
+This would produce a message where you can hover over the faction name and see some info about it. When clicking on the [here] button you will join the faction by its invite.
+
+At first these fancy messages seem complicated, but once you get the twist, they are super useful and can make your server stand out form others.
+
+**Download**
+When you want to try out the link between web and plugin, you need to download the plugin file from github.
+Use /f admin gui edit <gui> to receive a link that will contain your gui
+
+If you just want to test out the webdesigner, go to this address: https://toberocat.github.io/ImprovedFactions_new/website/editor/
+
+You then will get asked to upload a file. A sample gui is provided in this message
+
+https://github.com/ToberoCat/ImprovedFactions_new/releases/tag/v2.0.0-dev.5
+@Beta Testers
+Attachments:
+[SPOILER_image.png]
+https://cdn.discordapp.com/attachments/998990362028806266/1049411144739205130/SPOILER_image.png?ex=66485c8a&is=66470b0a&hm=bb1a23c4595229ab292f17f25b21295c9ce1c63d36bfa2692288efb5ef3d4d72&
+[manage-faction.gui]
+https://cdn.discordapp.com/attachments/998990362028806266/1049411146387570810/manage-faction.gui?ex=66485c8a&is=66470b0a&hm=7c0b3248479e91662bb0c06317413b15ec0e69a83ce13bf24f61e87c2c677417&
+
+tobero: 
+@Beta Testers 
+Finished the gui editor. It's now able to create the files you need for improved factions.
+
+I would need someone competent to design the gui(s), because the ones I create look pretty ugly.
+
+When you want to redesign it, so I can include the better version, you have to run the plugin once.
+Once you have the gui file you can open up https://toberocat.github.io/ImprovedFactions_new/website/editor/ and start editing the settings gui.
+Once done, press the export button and send me the .gui file. When you find bugs within the editor, please tell me about them:
+
+Here is the link to the latest build: https://github.com/ToberoCat/ImprovedFactions_new/releases/tag/v2.0.0-dev5.2
+tobero: 
+Okay... I'm sorry for being absent so long. I was really busy and I'll now be working on the plugin again.
+
+In this message I've attached two images. You might've already guessed what's the reason I'm posting this message. There'll be changes to the gui file save format.
+Everyone who worked with the gui edit probably noticed these huge files you download and have to put onto your server.
+
+They're gone now.
+
+Why are they gone you might ask. Simply, because reading a file that has 4kB of data just to display a gui is quite inperformant. To be exact, loading the faction setting gui with the old system takes ~300ms (avg). That's a lot of time your server will waste on that. 
+
+This is where the new format comes in handy. It's now not only editable for the user without an web editor, it's also small, compact and easily extendible (Just how I like it :)).
+
+When I benchmarked the new format... it took only 4ms to parse, load and render the gui. That's much better. One big plus you'll also have with this system is multithreading. The gui will be loaded and parsed in an parallel running thread, so your server won't be blocked my the I/O processes. Only rendering takes place on the main thread (Due to minecrafts limitations)
+
+The attached images show the gui I built (without) the editor and the code required to generate it. The new files will be XML type files, so when you view / edit them, it's suggested to use an xml viewing app (Like Visual Studio Code).
+
+
+As you might have noticed in the third screenshot, the plugin giving me the info is called GuiEngineAPI. I decided to outsource the code for the gui engine into it's separate plugin, so other devs can easily use the format and webeditor in their plugins, to give their users a great way for customizing their servers too.
+GuiEngine will be released soon. I'm currently just writing docs for it and adding more provided components.
+
+Have a great day
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/998990362028806266/1093673772395012209/image.png?ex=66488c52&is=66473ad2&hm=04007dd3cb3e6a9b362d0bb062078daa57dc3907a0006bf49880742e3e89952a&
+[image.png]
+https://cdn.discordapp.com/attachments/998990362028806266/1093673772638273608/image.png?ex=66488c52&is=66473ad2&hm=4b2bf24707e4fd78f6cde971bc05c74ed2a4edbf8a04b07d1b8b0be888b6a593&
+[image.png]
+https://cdn.discordapp.com/attachments/998990362028806266/1093673772965441566/image.png?ex=66488c52&is=66473ad2&hm=4e56f6a78951386d59b2f33123cd1848441b1121744787f87fc52a01e90fac81&
+
+tobero: 
+Hi. I'm back again.
+This build now doesn't contain all the commands you'll know from the beta build.
+
+This build is just one that is supposed to fix all issues I had with the older version. There were some cases of the plugins code being overengineered. I removed these extremely complicated parts and replaced them with something simpler, costing a little bit of extendibility. 
+
+
+Anyways.
+Attached are now three plugins. 
+GuiEngineAPI - This plugin is the plugin containing all gui logic.
+ImprovedFactions Paper - This is improved factions
+ToberoCore - This plugin contains all shared functionalites for all my plugins (Actions, Formattings, Utils, Item stuff, etc. Just the common things I need).
+
+You have to put all three in the plugins folder.
+
+Commands:
+- `/f create <name>`
+- `/f settings` -> This is the most important change coming with this build. You can customize 100% of the gui.
+Commands now have advanced configs.
+The config file is now fully commented too.
+Attachments:
+[GuiEngineAPI-1.0.0.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1105204475381153814/GuiEngineAPI-1.0.0.jar?ex=66484f20&is=6646fda0&hm=9382e3fe21ed5e261930665b7fb28b29c8f4fb12893bd9804909f79f0a5da6f0&
+[ImprovedFactions_Paper-2.0.0-dev.5.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1105204475716710430/ImprovedFactions_Paper-2.0.0-dev.5.jar?ex=66484f20&is=6646fda0&hm=9e6b78521f21a37d9f1c8781f1ad80aad47583a8cd7e5f26a69815ccfea1ef14&
+[ToberoCore-1.0.0.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1105204476027076689/ToberoCore-1.0.0.jar?ex=66484f20&is=6646fda0&hm=f3b7b8f8eb3beb6ff9a885066c4a902fbd6bf7281e217ae80aae528293b6df6d&
+
+tobero: 
+**Changelog for Version 1.0 - Stable Dev Release**
+
+Note: This is version is missing many commands, which are essential for me to release it on spigot
+
+**Features:**
+
+- **MySQL Integration:** The plugin now fully utilizes SQL to store its data. However, users won't need a dedicated MySQL server to run it, as the plugin automatically falls back to using an SQLite file when the MySQL server is unreachable. To configure the SQL server, simply access the `config.yml` and modify the necessary values.
+
+- **RabbitMQ Message Broker:** I've implemented RabbitMQ as a message broker. This ensures that when you're using a server for each world, faction broadcasts will be seen by everyone at the same time, and many more. If rabbitmq isn't configured correctly, it will fallback into using a local broker, so there is no need for it unless using multiple servers.
+
+- **Customizable GUIs with GuiEngine:** Enjoy the freedom to customize GUIs to your heart's content using GuiEngine. This feature allows you to create unique and engaging user interfaces tailored to your server's needs.
+
+- **Enhanced Faction Naming:** Faction names can now include spaces, thanks to the improved tab completion algorithm. This makes faction names more expressive and user-friendly. The name can now also be filtered by regex, just configure it in the  `config.yml`
+tobero: 
+**Commands:**
+
+- `/f create <faction name with spaces>`: Create a new faction with the provided name, including spaces.
+
+- `/f join <faction name>`: Join an existing faction by specifying its name.
+
+- `/f invites`: View the invites you've received from other factions.
+
+- `/f inviteaccept <inviteId>`: Accept a specific faction invite. For a more user-friendly approach, I suggest using the GUI instead.
+
+- `/f invitediscard <inviteId>`: Disregard a specific faction invite. For a more user-friendly approach, I suggest using the GUI instead.
+
+- `/f info [faction name]`: Access faction information. If you're already a member of a faction, using `/f info` will display details of your own faction. However, if you provide a faction name, it will show information about that specific faction.
+
+- `/f delete confirm`: Delete the faction
+
+- `/f leave confirm`: Leave the faction
+
+- `/f invite <Player>`: Invite another player to join your faction.
+
+- `/f icon`: Use the item from a player's inventory as the new faction's icon.
+
+- `/f rename <faction name>`: Rename your faction to a new specified name.
+
+Download the latest version of GuiEngine: https://www.spigotmc.org/resources/guiengine-%E2%9C%A8-craft-unlimited-guis-effortlessly-%E2%9C%A8-1-16-1-20-1-api.109983/
+Attachments:
+[ImprovedFactionsBase-v2.0.0-stable-dev.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1137497683473485834/ImprovedFactionsBase-v2.0.0-stable-dev.jar?ex=66487505&is=66472385&hm=41165e6d91b6e9893cffd5fed6b2bf82c760510a61dffdee52dacd6cd389ce8d&
+
+josh65: 
+Is the ToberoCore the same?
+tobero: 
+ToberoCore isn't needed anymore
+tobero: 
+It's now a library and no longer a standalone plugin, as I think it would scare many users from needing to install three seperate plugins
+tobero: 
+This stable dev build now includes claims & claim protection. Right now no permissions exist, so when someone's in your faction, they can do everything in every claimed chunk.
+
+Some things that have been excluded from claim protection on purpose (Don't know, but I think makes sense for factions):
+- Entity Grief: Zombies can break doors, Creepers can explode (Unless gamerule says other thing)
+- Entity damage: Non Faction players can kill entities like farm animals
+- Entity spawning: Non Faction players can summon entities, like creppers from spawneggs
+- Redstone contraptions: Observers, Pistons, Redstone, etc aren't disabled. Only thing making it harder: Buttons, Levers, Trapdoors, etc can't be interacted with in claims, so you have to design your flying machines to take this into account
+- TNT Damage: TNT can explode in claims BUT you can't ignite it in chunks. So TNT cannons are needed / Bombarding Flying machines
+- Gravitational blocks: Blocks having gravity, like sand or gravel are allowed to enter claims, making it possible for raiders to build sand cannons (To stop water or something else)
+- Block generation: Block generators, like cobble or basalt ones can be created in claims, even when the source of water / lava comes from outside.
+
+
+Hope these exclusions are fair enough for a faction experience
+Attachments:
+[ImprovedFactionsBase-2.0.0-stable-dev.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1137740000981680178/ImprovedFactionsBase-2.0.0-stable-dev.jar?ex=66480532&is=6646b3b2&hm=a64d6ee6830e49c1c962d521a7f7b9108e02cce545e13c3e299f0eb58fe5d9f2&
+
+josh65: 
+Started a thread.
+tobero: 
+This should be hopefully the last 2.0.0 stable dev release. In this build I added the faction territory announcement title (Which will be configurable through the user preferences command) and adding the ability to enable / disable specific claim protection modules.
+
+When there aren't any issues with this version anymore, I'll be dropping it on spigotmc. I'll tell people about this version being very minimalistic (but stable), but I need to get out a new version of factions, else my motivation for updating this version will be gone in the next few days.
+
+I've also attached the latest config.yml. As you can see, I'm trying to top the beta versions on configurability.
+Attachments:
+[ImprovedFactionsBase-2.0.0-stable-dev.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1137831617411420240/ImprovedFactionsBase-2.0.0-stable-dev.jar?ex=66485a85&is=66470905&hm=1c46074c02a9b31c4739c1ee6b86856a86bc539254e1538f589101de40ead709&
+[config.yml]
+mysql:
+  host: "localhost"
+  port: 3306
+  database: "improvedfactions"
+  user: "root"
+  password: "1234"
+  verbose: false
+
+rabbitmq:
+  host: "localhost"
+  port: 5672
+  user: "guest"
+  password: "guest"
+  virtual-host: "/"
+
+factions:
+  max-spaces-in-name: 5
+  # Unit is minutes
+  invites-expire-in: 5
+  name-regex: "[a-zA-Z ]*"
+  # Whenever you change values in this section, you'll have issues with your database
+  # Choose values that go for you and never touch them again
+  unsafe:
+    max-name-length: 36
+    # Define how long the item in base64 format can get. Bigger numbers allow more complex items, while costing more space
+    max-icon-length: 5000
+
+# Changing these settings requires a server restart / reload to take effect
+claim-protection:
+  protect-animal-damage: true
+  protect-villager-damage: true
+  protect-golem-damage: false
+  protect-monster-damage: false
+  protect-boss-damage: false
+  protect-minecart-damage: true
+  protect-block-place: true
+  protect-block-break: true
+  protect-entity-spawned-by-egg: true
+  protect-explosions: true
+  protect-block-interaction: true
+  protect-entity-interaction: true
+  protect-entity-break-hanging: true
+
+# List the worlds you don't people be able to claim chunks in
+# Example:
+# blacklisted-worlds:
+#   - world_nether
+#   - world_the_end
+blacklisted-worlds:
+
+tobero: 
+Here is the latest dev build. I've decided to **not** release this build on spigot yet, as I've made some changes that might need some more testing, as they might break stuff.
+
+**Zone System:**
+`So, the what about the changes I made? Well, zones are back - This time with a whole new approach to zones.
+Basically, in all previous versions, zones where just system managed factions, which allowed them to claim chunks. They didn their job pretty well, but they've been a pain in the ass to implemented, as I always had to consider the edge cases of what will happen if there's a faction with ...
+
+Now, zones are a separate property in a faction claim. Zones will now define attributes, like how claim protection should work, which title to display when leaving a chunk, if chunks are claimable, etc (See the config file). While zone handle all the logic, faction claims now only hold the information which faction owns this chunk, independent of the zone.
+
+For this to work, there now has to be a default zone, which will be used on every claim with no explicitly assigned zone (Which will further allow me to change the default based on the world). As zones now can co-exist with a faction claim, this allows for factions having claimed chunks in safe zone (With default safezone settings; When the faction owned the chunk **before** setting the zone to safezone). `
+
+Long story short: Zones will do what they've always done. You can create your own zones and manage what people can do within this zone.
+
+**Commands:**
+/f help - The help menu will now get dynamically generated from the command meta data. 
+/f zone claim <zone> - Note: Zones don't allow for spaces / special name validation. Max name length is 25 characters
+/f zone unclaim - Basically 'claims' the zone with the default zone. Does the same as /f zone claim default.
+
+default config.yml attached
+Attachments:
+[ImprovedFactionsBase-2.0.0-stable.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1138198608034938890/ImprovedFactionsBase-2.0.0-stable.jar?ex=66485ece&is=66470d4e&hm=fecd2461ce43988d1c8ec191f0ec4013ee711bd3c7abae6593ed1b4716876583&
+[config.yml]
+mysql:
+  host: "localhost"
+  port: 3306
+  database: "improvedfactions"
+  user: "root"
+  password: "1234"
+  verbose: false
+
+rabbitmq:
+  host: "localhost"
+  port: 5672
+  user: "guest"
+  password: "guest"
+  virtual-host: "/"
+
+factions:
+  max-spaces-in-name: 5
+  # Unit is minutes
+  invites-expire-in: 5
+  name-regex: "[a-zA-Z ]*"
+  # Whenever you change values in this section, you'll have issues with your database
+  # Choose values that go for you and never touch them again
+  unsafe:
+    max-name-length: 36
+    # Define how long the item in base64 format can get. Bigger numbers allow more complex items, while costing more space
+    max-icon-length: 5000
+
+# Changing these settings requires a server restart / reload to take effect,
+# Please note: Once a zone has been added and got used on the server, it might be difficult to remove all references
+# to it again, so only add zones you know you want to keep in the long run
+zones:
+  # Don't remove this zone ever. If you do, this will cause extremely weird
+  # behavior of the plugin, which is almost impossible to trace back
+  default:
+    announce-title: true
+    allow-claiming: true
+    no-faction-title: base.zone.wilderness
+    always-protect: false
+    protection:
+      animal-damage: true
+      villager-damage: true
+      golem-damage: false
+      monster-damage: false
+      boss-damage: false
+      minecart-damage: true
+      block-place: true
+      entity-spawned-by-egg: true
+      explosions: false
+      block-break: true
+      block-interaction: true
+      entity-interaction: true
+      entity-break-hanging: true
+  safezone:
+    announce-title: true
+    allow-claiming: false
+    no-faction-title: base.zone.safezone
+    always-protect: true
+    protection:
+      animal-damage: true
+      villager-damage: true
+      golem-damage: false
+      monster-damage: false
+      boss-damage: false
+      minecart-damage: true
+      block-place: true
+      entity-spawned-by-egg: true
+      explosions: false
+      block-break: true
+      block-interaction: true
+      entity-interaction: true
+      entity-break-hanging: true
+  unclaimable:
+    announce-title: false
+    allow-claiming: false
+    no-faction-title: base.zone.wilderness
+    always-protect: false
+    protection:
+      animal-damage: true
+      villager-damage: true
+      golem-damage: false
+      monster-damage: false
+      boss-damage: false
+      minecart-damage: true
+      block-place: true
+      entity-spawned-by-egg: true
+      explosions: false
+      block-break: true
+      block-interaction: true
+      entity-interaction: true
+      entity-break-hanging: true
+
+# List the worlds you don't people be able to claim chunks in
+# Example:
+# blacklisted-worlds:
+#   - world_nether
+#   - world_the_end
+blacklisted-worlds:
+
+tobero: 
+This build now mostly contains database migrations to support ranks. Only thing that won't work are previously created factions. If you want to keep them, wait for the next build where you can create the missing ranks.
+
+This build doesn't contain any relevant feature changes yet, as it only includes the backend for handling ranks.
+Changes that have been made to the plugin:
+- All factions now have a default rank a user joining gets assigned
+- All factions are able to create their own ranks. When creating a faction, default ranks will be created for it. Default ranks can be configured in the config file.
+- Inviting players now requires you to add a rank as which they will join. 
+- Ranks will only have to ability to manage ranks with lower or same priority.
+- Sending, receiving and processing of faction notifications will now happen on a separate thread to prevent bigger freezes while preparing the message
+- Fixed cleanup process when a faction gets deleted. Claims will get unclaimed, unused ranks will get deleted from the database
+Attachments:
+[ImprovedFactionsBase-2.0.0-stable.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1138564059252400158/ImprovedFactionsBase-2.0.0-stable.jar?ex=664861a9&is=66471029&hm=f85e545382620c549dea71dee1b0f224fa7465c0d1831769a078cb1f3779e296&
+[config.yml]
+mysql:
+  host: "localhost"
+  port: 3306
+  database: "improvedfactions"
+  user: "root"
+  password: "1234"
+  verbose: false
+
+rabbitmq:
+  host: "localhost"
+  port: 5672
+  user: "guest"
+  password: "guest"
+  virtual-host: "/"
+
+factions:
+  max-rank-name-length: 50
+  max-spaces-in-name: 5
+  # Unit is minutes
+  invites-expire-in: 5
+  name-regex: "[a-zA-Z ]*"
+
+  # Default ranks every faction will receive once created. When modifying it,
+  # note that the first rank will be set to be the default rank for members joining,
+  # while the last one will be considered as the owner rank, the rank the owner will receive on faction creation
+  default-faction-ranks:
+    Member: 1
+    Elder: 10
+    Admin: 100
+    Owner: 1000
+  # Whenever you change values in this section, you'll have issues with your database
+  # Choose values that go for you and never touch them again
+  unsafe:
+    guest-rank-name: "Guest"
+    max-name-length: 36
+    # Define how long the item in base64 format can get. Bigger numbers allow more complex items, while costing more space
+    max-icon-length: 5000
+
+# Changing these settings requires a server restart / reload to take effect,
+# Please note: Once a zone has been added and got used on the server, it might be difficult to remove all references
+# to it again, so only add zones you know you want to keep in the long run
+zones:
+  # Don't remove this zone ever. If you do, this will cause extremely weird
+  # behavior of the plugin, which is almost impossible to trace back
+  default:
+    announce-title: true # True will allow this zone to send titles to the player - Faction claims and no faction claims
+    allow-claiming: true # Set to true will allow factions to claim their chunks in these regions
+    # This is the language key of the title getting displayed when a claimed chunk is being left into an unclaimed one
+    no-faction-title: base.zone.wilderness
+    always-protect: false # If set to true, all chunks, even unclaimed ones, will be affected from the protection rules defined below
+
+    # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
+    protection:
+      animal-damage: true # Prevent animals from being damaged in a claim
+      villager-damage: true # Prevent villagers from being damaged in a claim
+      golem-damage: false # Prevent damage to Iron Golems in a claim
+      monster-damage: false # Prevent damage caused by monsters in a claim
+      boss-damage: false # Prevent damage caused by bosses in a claim
+      general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
+      in-faction-pvp: true # Prevent PvP between faction members in a claim
+      minecart-damage: true # Prevent minecarts being destroyed in a claim
+      block-place: true # Prevent placing blocks in a claim
+      entity-spawned-by-egg: true # Prevent spawning entities using spawn eggs in a claim
+      explosions: false # Prevent explosions to occur in a claim
+      block-break: true # Prevent breaking blocks in a claim
+      block-interaction: true # Prevent interacting with blocks in a claim
+      entity-interaction: true # Prevent interacting with entities in a claim
+      entity-break-hanging: true # Prevent breaking hanging entities (like paintings or itemframes) in a claim
+  safezone:
+    announce-title: true # True will allow this zone to send titles to the player - Faction claims and no faction claims
+    allow-claiming: false # Set to true will allow factions to claim their chunks in these regions
+    # This is the language key of the title getting displayed when a claimed chunk is being left into an unclaimed one
+    no-faction-title: base.zone.safezone
+    always-protect: true # If set to true, all chunks, even unclaimed ones, will be affected from the protection rules defined below
+
+    # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
+    protection:
+      animal-damage: true # Prevent animals from being damaged in a claim
+      villager-damage: true # Prevent villagers from being damaged in a claim
+      golem-damage: true # Prevent damage to Iron Golems in a claim
+      monster-damage: false # Prevent damage caused by monsters in a claim
+      boss-damage: false # Prevent damage caused by bosses in a claim
+      general-pvp: true # Prevent general PvP in a claims. This means any sort of pvp
+      in-faction-pvp: true # Prevent PvP between faction members in a claim
+      minecart-damage: true # Prevent minecarts being destroyed in a claim
+      block-place: true # Prevent placing blocks in a claim
+      entity-spawned-by-egg: true # Prevent spawning entities using spawn eggs in a claim
+      explosions: true # Prevent explosions to occur in a claim
+      block-break: true # Prevent breaking blocks in a claim
+      block-interaction: true # Prevent interacting with blocks in a claim
+      entity-interaction: true # Prevent interacting with entities in a claim
+      entity-break-hanging: true # Prevent breaking hanging entities (like paintings or itemframes) in a claim
+  warzone:
+    announce-title: true # True will allow this zone to send titles to the player - Faction claims and no faction claims
+    allow-claiming: false # Set to true will allow factions to claim their chunks in these regions
+    # This is the language key of the title getting displayed when a claimed chunk is being left into an unclaimed one
+    no-faction-title: base.zone.warzone
+    always-protect: true # If set to true, all chunks, even unclaimed ones, will be affected from the protection rules defined below
+
+    # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
+    protection:
+      animal-damage: false # Prevent animals from being damaged in a claim
+      villager-damage: false # Prevent villagers from being damaged in a claim
+      golem-damage: false # Prevent damage to Iron Golems in a claim
+      monster-damage: false # Prevent damage caused by monsters in a claim
+      boss-damage: false # Prevent damage caused by bosses in a claim
+      general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
+      in-faction-pvp: true # Prevent PvP between faction members in a claim
+      minecart-damage: true # Prevent minecarts being destroyed in a claim
+      block-place: true # Prevent placing blocks in a claim
+      entity-spawned-by-egg: false # Prevent spawning entities using spawn eggs in a claim
+      explosions: false # Prevent explosions to occur in a claim
+      block-break: true # Prevent breaking blocks in a claim
+      block-interaction: true # Prevent interacting with blocks in a claim
+      entity-interaction: true # Prevent interacting with entities in a claim
+      entity-break-hanging: true # Prevent breaking hanging entities (like paintings or itemframes) in a claim
+  unmanaged:
+    announce-title: false # True will allow this zone to send titles to the player - Faction claims and no faction claims
+    allow-claiming: false # Set to true will allow factions to claim their chunks in these regions
+    # This is the language key of the title getting displayed when a claimed chunk is being left into an unclaimed one
+    no-faction-title: base.zone.unmanaged
+    always-protect: false # If set to true, all chunks, even unclaimed ones, will be affected from the protection rules defined below
+
+    # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
+    protection:
+      animal-damage: false # Prevent animals from being damaged in a claim
+      villager-damage: false # Prevent villagers from being damaged in a claim
+      golem-damage: false # Prevent damage to Iron Golems in a claim
+      monster-damage: false # Prevent damage caused by monsters in a claim
+      boss-damage: false # Prevent damage caused by bosses in a claim
+      general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
+      in-faction-pvp: false # Prevent PvP between faction members in a claim
+      minecart-damage: false # Prevent minecarts being destroyed in a claim
+      block-place: false # Prevent placing blocks in a claim
+      entity-spawned-by-egg: false # Prevent spawning entities using spawn eggs in a claim
+      explosions: false # Prevent explosions to occur in a claim
+      block-break: false # Prevent breaking blocks in a claim
+      block-interaction: false # Prevent interacting with blocks in a claim
+      entity-interaction: false # Prevent interacting with entities in a claim
+      entity-break-hanging: false # Prevent breaking hanging entities (like paintings or itemframes) in a claim
+
+performance:
+  thread-pool-size: 5 # Amount of thread that should be pooled waiting for operations
+
+# List the worlds you don't people be able to claim chunks in
+# Example:
+# blacklisted-worlds:
+#   - world_nether
+#   - world_the_end
+blacklisted-worlds:
+
+tobero: 
+This is just a minor change to the help command. The help command will now automatically generate the command usage. Required arguments will be aqua, optionals are gold. 
+When hovering over them, you can see a description of the argument. When clicking the usage, you'll see the command typed in chat for you, so you'll just have to edit the arguments.
+
+Other things must wait, but this is something I wanted to do before creating even more commands.
+Attachments:
+[ImprovedFactionsBase-2.0.0-stable.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1139275662557974588/ImprovedFactionsBase-2.0.0-stable.jar?ex=66485564&is=664703e4&hm=9a19e2aa6f43e7fd05bc7a2be85c696a722df3a3a30f0e09455859918dc5dbc2&
+
+tobero: 
+This version now includes permissions & ranks fully integrated. Currently, you can only manage them through running commands, but guis will come soon
+Attachments:
+[ImprovedFactionsBase-2.0.0-stable.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1139595845201833984/ImprovedFactionsBase-2.0.0-stable.jar?ex=66482e16&is=6646dc96&hm=c8b50105abdab339eb5b8b3d8ef69ad6ed738e4429812faaafda59c74a0d82e5&
+
+tobero: 
+Alright. I've managed to add the gui for ranks. Use `/f rank` to see it
+Attachments:
+[GuiEngine-1.2.3.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1140024081945727147/GuiEngine-1.2.3.jar?ex=66486b69&is=664719e9&hm=0e38ab486eadd265d2d44296f5632fe80b833d3cb21b1bc1b977149cee5f7f75&
+[ImprovedFactionsBase-2.0.0-stable.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1140024082633588845/ImprovedFactionsBase-2.0.0-stable.jar?ex=66486b69&is=664719e9&hm=40ef728872f88147be30ae7d30d1840858698788dcbb1cc1d1cc5a895544c313&
+
+tobero: 
+This should fix the issue with the migration of the old database
+Attachments:
+[ImprovedFactionsBase-2.0.0-stable.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1140740839837024417/ImprovedFactionsBase-2.0.0-stable.jar?ex=664863f2&is=66471272&hm=c7196caab04c6db12811f940c08a35c7d5b8cc90782f1bddeed8bd67c1848543&
+
+tobero: 
+I've fixed some issues and added three new commands:
+- /f kick
+- /f ban
+-/f unban
+
+
+Please regenerate the config files when upgrading, as I've added new options, allowing the default ranks to now also have default permissions
+Attachments:
+[ImprovedFactionsBase-2.0.0-stable.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1140945565694296104/ImprovedFactionsBase-2.0.0-stable.jar?ex=664879dc&is=6647285c&hm=cb5b229b431dd18839754b8d3dd0b3850fef594d17cf2df808c96f9cba32c76f&
+
+tobero: 
+This version now includes the members gui. You can now manage members through the gui. Addionally, /f transferowner and /f members have been added. 
+
+GuiEngine now uses the same uuid for the mocked virtual player used for rendering the gui when the server starts, else it would create a bunch of uuids in the server's storage never being used.
+Attachments:
+[ImprovedFactionsBase-2.0.0-stable.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1142886295975231701/ImprovedFactionsBase-2.0.0-stable.jar?ex=6648490e&is=6646f78e&hm=40ec94352d593f44bf404bab29e68a5000ae9410294f0744552440ef8b68cf16&
+[GuiEngine-1.2.3.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1142886296319176855/GuiEngine-1.2.3.jar?ex=6648490e&is=6646f78e&hm=281867b743faa15c69b36b7d83cc5f581e10520999dd7c758e3a3e05ce7de429&
+[image.png]
+https://cdn.discordapp.com/attachments/998990362028806266/1142886296889593876/image.png?ex=6648490e&is=6646f78e&hm=8abdb87670d32bb5228d12cea70fc723052218f230f747787e290ca0f16c2c4d&
+
+jokbon: 
+Ability to conect to diferent servers ^^ `2023-08-31 23:04`
+```        <on-click type="action">[connect] survival </on-click>```
+Attachments:
+[GuiEngine-1.2.3.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1146898190189215804/GuiEngine-1.2.3.jar?ex=664860ec&is=66470f6c&hm=9a447a296b54820d3d8a103a6298e84bce929fb14a369a62c3b6836ee03349f7&
+
+tobero: 
+This is now a offical gui engine build. This not only includes the connect action, but also the new gui function, delay.
+Checkout the wiki page about gui functions: https://github.com/ToberoCat/GuiEngine/wiki/GuiFunctions#delay-action
+Attachments:
+[GuiEngine-1.2.3.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1146914745899827330/GuiEngine-1.2.3.jar?ex=66487058&is=66471ed8&hm=2e936b3ddd66e6c44b619be46ed43bd8c5593ff96afc405bea05922062a01e33&
+
+jokbon: 
+__Dont use GuiEngine version above me ^__ ||(His version downloads My Little Pony! Totaly not worth it ;; i gave that game 0 stars!)||
+use this instead https://discord.com/channels/819932760550014986/998990362028806266/1146898190495404052
+tobero: 
+This is now a pretty major update to old gui engine. I've switched gui engine from java to kotlin.
+It also includes new interpreters, used to open different menus.
+
+How to use a different interpreter? Here's a example:
+```xml
+<gui interpreter="dispenser" title="§eDispenser Interpreter">
+    <component type="item" material="IRON_BLOCK" name="§eBack">
+        <on-click type="action">[container:previous]</on-click>
+    </component>
+</gui>
+```
+
+Available interpreters:
+- `anvil`
+- `chest`
+- `default`
+- `dispenser`
+- `enchanting`
+- `furnace`
+- `workbench`
+Attachments:
+[GuiEngine-1.2.3.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1147170764840255568/GuiEngine-1.2.3.jar?ex=66480d47&is=6646bbc7&hm=602de9390e8ee21b66daf282648f1ddbf3f6bbe36b84daf5c2ea6ad85772172b&
+[image.png]
+https://cdn.discordapp.com/attachments/998990362028806266/1147170766056603781/image.png?ex=66480d48&is=6646bbc8&hm=eefdecb503936d64770fd6aff5ddb5c2642dbc656cf173f862b782d238b3b12c&
+[image.png]
+https://cdn.discordapp.com/attachments/998990362028806266/1147170766555709621/image.png?ex=66480d48&is=6646bbc8&hm=374fed0708fbd70dfa7f3ed0021d1bba2ff71e18b1245be6a4be76b4b5b78ad4&
+[image.png]
+https://cdn.discordapp.com/attachments/998990362028806266/1147170766836744253/image.png?ex=66480d48&is=6646bbc8&hm=741bc64362414f5232bfeb99a43e44a3a725d8ae17c448ab54ba190c79e33609&
+[image.png]
+https://cdn.discordapp.com/attachments/998990362028806266/1147170767189049405/image.png?ex=66480d48&is=6646bbc8&hm=a094bd3f2184aeb943c4b3f11e9981cddf8dd1e54a01d729a5827519af6bde3b&
+[image.png]
+https://cdn.discordapp.com/attachments/998990362028806266/1147170767839178874/image.png?ex=66480d48&is=6646bbc8&hm=552d3d7bfd17942f9878dd503e175ed00764fabaa57a40fed210cd9c1c954c90&
+
+tobero: 
+Heeeeey. I'm back from vaccation and there are many new things coming to `GuiEngine-v1.4.0`.
+
+Here's what's new:
+- Papi Support (https://github.com/ToberoCat/GuiEngine/wiki/Miscellaneous#papi-support)
+- New update checker.
+- Input functions (https://github.com/ToberoCat/GuiEngine/wiki/GuiFunctions#input-function)
+- Rerender action (https://github.com/ToberoCat/GuiEngine/wiki/Actions#rerenderaction)
+- New function handling system. They can be used like you used them before, but computable functions are now refreshable. They will nwo try to update when rerendered Check out the part about implicit updating: (https://github.com/ToberoCat/GuiEngine/wiki/Interpreters#sizeable-interpreter)
+- on-render - This is a new event getting triggered. Can be used to update computables with implicit updates disables (Because they can be very inefficient).
+- on-load - This is a new event getting triggered. Gets trigged once when the gui loaded. Can be used to instantly input the user before showing anything.
+
+Todo:
+New input types (SIGN, BOOK and ANVIL).
+
+
+Download here: https://github.com/ToberoCat/GuiEngine/releases/tag/1.4.0-pre-release
+
+Btw, please notify me if there are performance issues. I've tested gui engine in a local server (Server had very limited resources) and it took the server 500ms to render a whole gui virtually. Hope this is just my dev environment.
+tobero: 
+Okay, performance isn't as bad as it was on my resource limited server
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/998990362028806266/1152631354241073322/image.png?ex=66482459&is=6646d2d9&hm=6058dc231fed655cddb39c3c8db1663d744bf5b97e96767f5f18fceb57c7b477&
+
+tobero: 
+Maybe someone is able to spot some bugs in the plugin - I for my part did, because the titles don't work anymore
+tobero: 
+Okay, here is the first build including the power module.
+
+Modules are the replacement to extensions. They made development just more difficult as they had to integrate themself using the API. 
+Modules on the other had get shipped with the plugin directly and have access to lower level applications, making development with them much easier.
+They can be disabled / enabled in the config, just like you could with extensions.
+
+Anyways, this now adds the big config block for power. It also adds a command, `/f power`and currently only limits claims. Nothing much has been implemented yet, but the logic for it is ready to go
+Attachments:
+[GuiEngine-1.4.1.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1173706595671224371/GuiEngine-1.4.1.jar?ex=66485932&is=664707b2&hm=1934c2163bb89f707727510b02a6dfe08953d2834334383a632cf65cdda46ea5&
+[ImprovedFactionsBase-2.0.3-stable.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1173706596052910121/ImprovedFactionsBase-2.0.3-stable.jar?ex=66485932&is=664707b2&hm=c36240034c4d445f20ed0834f5a0cdb2d1509856a3bdfb330dc6a9125f48002d&
+
+jokbon: 
+for now (there must be bundle sec)
+Attachments:
+[ImprovedFactionsBase-2.0.3-stable3.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1174435213338755172/ImprovedFactionsBase-2.0.3-stable3.jar?ex=66485cc6&is=66470b46&hm=a223c5c6119a10305448efb4fa5e1e6131ff06c547bdc4911e28bc136ab10cf7&
+
+tobero: 
+Here's the latest dev build. This build now contains the full power system - Which is still a little bit buggy.
+
+So, basically factions gain power by having online members. This power is used to claim more chunks.
+Each claimed chunk consumes power over time.
+
+When a player dies, the faction losses power
+
+If a faction can't afford this claim maintenance cost, their chunks will start to get raidable. A raidable claim doesn't have any protection anymore.
+When a chunk is raidable, factions you're in war with (Right now all factions) has the ability to start a siege.
+
+A siege is started by just going into a raidable chunk. This then will automatically start a siege and notify all people in your faction and the claim's owning faction.
+A siege has a siege progression speed. The more people of the enemy faction are in the attacked claim, the faster the claim will be taken. Your faction has the ability to defend itself by getting into the claim themself, therefore slowing down siege progression. Additionally, by liquidating the people in their claim, they can also reduce the progression speed.
+
+At the end, if the siege is won (The attackers stayed long enough with enough force to reduce the boss bar to 0) the chunk will get unclaimed, allowing for claim by anyone.
+If the siege has been defeated (All enemies are gone from the claim), the claim gets a small protection before the next siege can get started.
+
+In general, when a claim has been gone through a siege, it will take some time until it fully recovered. This is the case if the claim has recently been unclaimed by a siege or defended from a siege. The bar has to go up to 100% again. This system allows for the faction that just lost the claim to retake it more easily.
+
+Hope it makes sense. I've attached a screenshot and the power-raids.md (Basically the document I used to implement this system)
+Attachments:
+[power-raids.md]
+https://cdn.discordapp.com/attachments/998990362028806266/1174812590355005570/power-raids.md?ex=66486abc&is=6647193c&hm=c9dfaa53343a8fb2bfd7f47cd58f49fa605ddbe5ca422372165b6321dcdbd57f&
+[GuiEngine-1.4.2.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1174812591122546761/GuiEngine-1.4.2.jar?ex=66486abc&is=6647193c&hm=2e159eb49e555b7381193dbcfaa2bc1fb2c01a7d892cf5cd277417d2eadcdc96&
+[ImprovedFactionsBase-2.0.3-stable.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1174812591642660964/ImprovedFactionsBase-2.0.3-stable.jar?ex=66486abc&is=6647193c&hm=fd462286959599596d6ef5444602f45f1b4b9972942c5464d77b19be89f32e02&
+
+tobero: 
+Discord didn't send the image
+Attachments:
+[2023-11-16_21.35.10.png]
+https://cdn.discordapp.com/attachments/998990362028806266/1174812912989261886/2023-11-16_21.35.10.png?ex=66486b09&is=66471989&hm=8c35ec05e4dfddee0276a646789577a74e335db41d37ec48cf80d8c712629750&
+
+josh65: 
+Is the config for the power module the same?
+tobero: 
+No, here's the new one (It got even more complex):
+```yml
+  #
+  # -------- { Power Raid Module Settings } --------
+  # These settings only apply when you enabled this module.
+  #
+  # This section represents the constants mentioned in the power-raids module documentation.
+  # If you have no clue what you're doing here, a good place to start looking would be the power raid module documentation
+  power-management:
+    base-member-constant: 50 # Note that this is indeed a constant - Therefore changing this might cause balancing issues on your server
+    accumulation-rate: # Configure how often faction powers will be accumulated. Increasing it to be too frequent might cause database bottlenecks
+      unit: HOURS # The time unit this value will be interpreted as. Some more common possibilities are: SECONDS, MINUTES, HOURS and DAYS
+      value: 1
+
+    # Configure how long a player counts as active. Should be smaller than the accumulation rate
+    inactive:
+      unit: DAYS # The time unit this value will be interpreted as. Some more common possibilities are: SECONDS, MINUTES, HOURS and DAYS
+      value: 7
+    base-accumulation: 0 # Set how much power a faction gets even when no members are online
+    accumulation-multiplier: 10 # A value that will get applied at the end
+    # This is a constant responsible for rewarding when multiple people of a faction are online simultaneous.
+    # It's used in an exponential growth function, so don't make it too big
+    accumulation-active-exponent: 2
+    # This is a constant responsible for penalizing inactive people of a faction are online simultaneous.
+    # It's used in an exponential growth function, so don't make it too big
+    accumulation-inactive-multiplier: 2
+    base-claim-power-cost: 5 # The base power cost for claiming a chunk
+    claim-power-cost-growth: 1.1 # exponentially grows the power cost of claims.
+    # This is the amount of power each claim costs a faction. Note that this will be withdrawn even when the faction is offline,
+    # making it possible for them getting vulnerable while being offline
+    claim-power-keep: 1
+    player-death-cost: 5 # How much power the faction loses when a player dies
+    siege: # Sieges are needed for over-claiming to be possible
+      breach-progress: 1.0 # This is the progress an intruder adds to the overall siege's progress when joining it
+      resistance-progress: .5 # This is the amount of progress a defender is blocking by joining the defense of a siege
+      recovery-speed: 1.0 # Define how fast the claim recovers its integrity
+```
+tobero: 
+But it's mostly the same
+tobero: 
+This version of the plugin now contains dynmap support - This time with much more configurability options and with less bugs.
+The module config: https://pastebin.com/2iX6Z7yg
+
+I plan on releasing this version tomorrow, depending on how quickly I progress with the home extension.
+
+**Other changes**
+- 1.20.4 is now officially supported
+- Language File updated shouldn't break utf-8 formatting anymore
+- Power managment admin commands (`/f power set <accumulated|maximum> <faction> <power>`)
+- Modules will now announce themself in the console when being loaded
+- Claim clustering for the power module has been bulkified, increasing the performance for both, the dynmap and power-raid module
+- Papi has been fixed and works again
+- Factions now start off with max power (Previously, they started with none)
+Attachments:
+[ImprovedFactionsBase-2.0.3-stable.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1224109196300124210/ImprovedFactionsBase-2.0.3-stable.jar?ex=664875c7&is=66472447&hm=500d4f881b20198b1ac7cda0896d89e92ecf569c1483e3695eee63024c8ec05b&
+[image.png]
+https://cdn.discordapp.com/attachments/998990362028806266/1224109196858101880/image.png?ex=664875c7&is=66472447&hm=898b1d9194becf13373bba5f64575c4282dabd9d21924a7a3123a028cd5c9523&
+
+tobero: 
+Fixed the Dynmap issue (Hopefully) and added the Wilderness Module.
+Attachments:
+[Wilderness.webm]
+https://cdn.discordapp.com/attachments/998990362028806266/1225500416213520507/Wilderness.webm?ex=66483f73&is=6646edf3&hm=28ad935c82d1fcf0c43d43062af4b364a425677d4ef06a787c87918d2fa2c01a&
+[ImprovedFactionsBase-2.0.3-stable.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1225500416649854977/ImprovedFactionsBase-2.0.3-stable.jar?ex=66483f74&is=6646edf4&hm=323a306de5f42f16e0a9f5bac014c996e8d2d1871d8684e19e90bd5d13b388b0&
+[config.yml]
+#
+# -------- { General Settings } --------
+#
+update-checker: true
+
+# Configure a mysql connection. If no connection was established, the plugin uses sqlite.
+# This allows to use this plugin without a mysql server
+mysql:
+  host: "localhost"
+  port: 3306
+  database: "improvedfactions"
+  user: "root"
+  password: "1234"
+  verbose: false
+modules:
+  # This module is responsible for managing power, and it's associated side effects, like raids and over-claims.
+  power-raids: true
+  # This module will try to render the factions on a map, using the dynmap plugin
+  dynmap: true
+  # This module will add the /f wilderness and /wilderness command, allowing players to teleport to the wilderness (A place where no factions has yet claimed)
+  wilderness: true
+#
+# -------- { Base Module Settings } --------
+#
+factions:
+  max-rank-name-length: 50
+  rank-name-regex: "[a-zA-Z]*" # The regex a rank name has to match. Spaces are supported, but strongly discouraged
+  max-spaces-in-name: 5
+  # Unit is minutes
+  invites-expire-in: 5
+  name-regex: "[a-zA-Z]*" # The regex a faction name has to match. Spaces are supported, but strongly discouraged
+
+  # Default ranks every faction will receive once created. When modifying it,
+  # note that the first rank will be set to be the default rank for members joining,
+  # while the last one will be considered as the owner rank, the rank the owner will receive on faction creation
+  default-faction-ranks:
+    Member:
+      priority: 1 # The priority this rank has
+      # Defines the faction permissions this rank has by default. Can always be changed by factions
+      default-permissions:
+        - send-invites
+        - view-power
+    Elder:
+      priority: 10
+      default-permissions:
+        - send-invites
+        - manage-claims
+        - view-power
+    Admin:
+      priority: 100
+      default-permissions:
+        - send-invites
+        - manage-claims
+        - manage-permissions
+        - kick-player
+        - manage-bans
+        - view-power
+    Owner:
+      priority: 1000
+      default-permissions:
+        - send-invites
+        - manage-claims
+        - set-icon
+        - rename-faction
+        - manage-permissions
+        - kick-player
+        - manage-bans
+        - transfer-ownership
+        - view-power
+
+  #
+  # -------- { Power Raid Module Settings } --------
+  # These settings only apply when you enabled this module.
+  #
+  # This section represents the constants mentioned in the power-raids module documentation.
+  # If you have no clue what you're doing here, a good place to start looking would be the power raid module documentation
+  power-management:
+    base-member-constant: 50 # Note that this is indeed a constant - Therefore changing this might cause balancing issues on your server
+    accumulation-rate: # Configure how often faction powers will be accumulated. Increasing it to be too frequent might cause database bottlenecks
+      unit: HOURS # The time unit this value will be interpreted as. Some more common possibilities are: SECONDS, MINUTES, HOURS and DAYS
+      value: 1
+
+    # Configure how long a player counts as active.
+    inactive:
+      unit: DAYS # The time unit this value will be interpreted as. Some more common possibilities are: SECONDS, MINUTES, HOURS and DAYS
+      value: 7
+    base-accumulation: 0 # Set how much power a faction gets even when no members are online
+    accumulation-multiplier: 10 # A value that will get applied at the end
+    # This is a constant responsible for rewarding when multiple people of a faction are online simultaneous.
+    # It's used in an exponential growth function, so don't make it too big
+    accumulation-active-exponent: 2
+    # This is a constant responsible for penalizing inactive people of a faction are online simultaneous.
+    # It's used in an exponential growth function, so don't make it too big
+    accumulation-inactive-multiplier: 2
+    base-claim-power-cost: 5 # The base power cost for claiming a chunk
+    claim-power-cost-growth: 1.1 # exponentially grows the power cost of claims.
+    # This is the amount of power each claim costs a faction. Note that this will be withdrawn even when the faction is offline,
+    # making it possible for them getting vulnerable while being offline
+    claim-power-keep: 1
+    player-death-cost: 5 # How much power the faction loses when a player dies
+    siege: # Sieges are needed for over-claiming to be possible
+      breach-progress: 1.0 # This is the progress an intruder adds to the overall siege's progress when joining it
+      resistance-progress: .5 # This is the amount of progress a defender is blocking by joining the defense of a siege
+      recovery-speed: 1.0 # Define how fast the claim recovers its integrity
+
+  #
+  # -------- { Dynmap Module Settings } --------
+  # These settings only apply when you enabled this module.
+  #
+  # This section represents the constants mentioned in the dynmap module documentation.
+  # If you have no clue what you're doing here, a good place to start looking would be the dynmap module documentation
+  dynmap:
+    # Specify the info windows for dynmap. This is a map of faction names to html strings.
+    # Only very basic ot-of-the-box placeholder support provided. For more placeholders, install the placeholder api plugin, with it, all papi placeholders can be used here.
+    # The target player will be the faction owner, so make sure to only use placeholders that allow for offline players
+    # The key value can be a faction name, zone names or __default__. If a faction has a custom info window, it will be used instead of the default one (Has to be allowed)
+    # Placeholders that work without papi: %faction_name%
+    info-windows:
+      # This is the default window a player will see when clicking on a faction's area on the dynmap. It allows html, css as well as js. This can be overridden by the values below
+      __default__: "<p style=\"font-weight:700;text-align:center\">%faction_name%</p><hr><div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:10px\"><span>Owner: </span><span style=\"font-weight:700\">%faction_owner%</span></div><div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:10px\"><span>Max Power: </span><span style=\"font-weight:700\">%faction_maxPower%</span></div>"
+      safezone: "<div class=\"infowindow\"><span style=\"font-weight:bold\">Safezone</span></div>"
+      warzone: "<div class=\"infowindow\"><span style=\"font-weight:bold\">Warzone</span></div>"
+      unmanaged: "<div class=\"infowindow\"><span style=\"font-weight:bold\">Unmanaged</span></div>"
+    claim-colors:
+      __default__:
+        color: "FF0000" # The color of the claim on the dynmap. This is the color in hex. This can be overridden by the values below
+        opacity: 0.3 # The opacity of the claim on the dynmap. 0 - 1 This can be overridden by the values below
+      safezone:
+        color: "00FFFF"
+        opacity: 0.3
+      warzone:
+        color: "8B0000"
+        opacity: 0.3
+      unmanaged:
+        color: "FFFF00"
+        opacity: 0.3
+    show-zones: true # This will show the zones on the dynmap. If set to false, the zones will be hidden, useful for servers where zones may already get rendered by a different plugin
+    marker-set:
+      id: "factions" # The id of the marker set on the dynmap. When changed, the old marker has to be removed manually
+      display-name: "Factions" # The display name of the marker set
+      layer-priority: 10 # The priority of the layer. Higher values will be displayed on top of lower values
+      hidden-by-default: false # If set to true, the layer will be hidden by default
+
+  #
+  # -------- { Wilderness Module Settings } --------
+  # These settings only apply when you enabled this module.
+  #
+  # This section represents the constants mentioned in the wilderness module documentation.
+  # If you have no clue what you're doing here, a good place to start looking would be the wilderness module documentation
+  wilderness:
+    cooldown-unit: SECONDS # The time unit this value will be interpreted as. Some more common possibilities are: SECONDS, MINUTES, HOURS and DAYS
+    cooldown-value: 30 # The time the player has to wait before being able to use the command again
+    included-zones: # The zones that should be considered as wilderness. This is a list of zone names
+      - unmanaged
+      - default
+    gain-resistance: true # If set to true, the player will gain resistance for 10 seconds when teleporting to the wilderness
+    resistance-duration: 10 # The duration the player will gain resistance for if gain-resistance is set to true. This is the time in seconds
+    resistance-amplifier: 5 # The amplifier of the resistance effect
+    prevent-spawn-over-liquids: true # If set to true, the player won't be teleported over bodies of water
+    stand-still-unit: SECONDS # The time unit this value will be interpreted as. Some more common possibilities are: SECONDS, MINUTES, HOURS and DAYS
+    stand-still-value: 5 # The time the player has to stand still before being teleported
+    blacklisted-biomes:
+      - OCEAN
+    usage-limit: -1 # The amount of times a player can use this command to teleport to wilderness. -1 means no limit
+    claim-distance-check: 5 # The distance of the player to the nearest claimed chunk. This is the distance in chunks
+    retry-limit: 10 # The amount of times the plugin will try to find a suitable location before giving up
+    blacklisted-worlds: # This is a list of worlds where the wilderness command should not work. It automatically includes the blacklisted worlds from the base module
+      - world_nether
+      - world_the_end
+    # Uncomment to choose the regions where the wilderness command should try to teleport the player to.
+    # If no regions are defined, the player will be teleported to a random location within proximity in the same world
+    # regions:
+    #   default-region:
+    #     min-x: -1000
+    #     max-x: 1000
+    #     min-z: -1000
+    #     max-z: 1000
+    #     world: "world"
+
+    # The proximity the player will be teleported to when no regions are defined.
+    # If set to -1 and regions are not defined, the whole area within the world border will be considered
+    teleport-proximity: 100
+  # Whenever you change values in this section, you'll have issues with your database
+  # Choose values that go for you and never touch them again
+  unsafe:
+    guest-rank-name: "Guest"
+    max-name-length: 36
+    # Define how long the item in base64 format can get. Bigger numbers allow more complex items, while costing more space
+    max-icon-length: 5000
+
+# Changing these settings requires a server restart / reload to take effect,
+# Please note: Once a zone has been added and got used on the server, it might be difficult to remove all references
+# to it again, so only add zones you know you want to keep in the long run
+zones:
+  # Don't remove this zone ever. If you do, this will cause extremely weird
+  # behavior of the plugin, which is almost impossible to trace back
+  default:
+    announce-title: true # True will allow this zone to send titles to the player - Faction claims and no faction claims
+    allow-claiming: true # Set to true will allow factions to claim their chunks in these regions
+    # This is the language key of the title getting displayed when a claimed chunk is being left into an unclaimed one
+    no-faction-title: base.zone.wilderness
+    always-protect: false # If set to true, all chunks, even unclaimed ones, will be affected from the protection rules defined below
+
+    # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
+    protection:
+      animal-damage: true # Prevent animals from being damaged in a claim
+      villager-damage: true # Prevent villagers from being damaged in a claim
+      golem-damage: false # Prevent damage to Iron Golems in a claim
+      monster-damage: false # Prevent damage caused by monsters in a claim
+      boss-damage: false # Prevent damage caused by bosses in a claim
+      general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
+      in-faction-pvp: true # Prevent PvP between faction members in a claim
+      minecart-damage: true # Prevent minecarts being destroyed in a claim
+      block-place: true # Prevent placing blocks in a claim
+      entity-spawned-by-egg: true # Prevent spawning entities using spawn eggs in a claim
+      explosions: false # Prevent explosions to occur in a claim
+      block-break: true # Prevent breaking blocks in a claim
+      block-interaction: true # Prevent interacting with blocks in a claim
+      entity-interaction: true # Prevent interacting with entities in a claim
+      entity-break-hanging: true # Prevent breaking hanging entities (like paintings or itemframes) in a claim
+  safezone:
+    announce-title: true # True will allow this zone to send titles to the player - Faction claims and no faction claims
+    allow-claiming: false # Set to true will allow factions to claim their chunks in these regions
+    # This is the language key of the title getting displayed when a claimed chunk is being left into an unclaimed one
+    no-faction-title: base.zone.safezone
+    always-protect: true # If set to true, all chunks, even unclaimed ones, will be affected from the protection rules defined below
+
+    # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
+    protection:
+      animal-damage: true # Prevent animals from being damaged in a claim
+      villager-damage: true # Prevent villagers from being damaged in a claim
+      golem-damage: true # Prevent damage to Iron Golems in a claim
+      monster-damage: false # Prevent damage caused by monsters in a claim
+      boss-damage: false # Prevent damage caused by bosses in a claim
+      general-pvp: true # Prevent general PvP in a claims. This means any sort of pvp
+      in-faction-pvp: true # Prevent PvP between faction members in a claim
+      minecart-damage: true # Prevent minecarts being destroyed in a claim
+      block-place: true # Prevent placing blocks in a claim
+      entity-spawned-by-egg: true # Prevent spawning entities using spawn eggs in a claim
+      explosions: true # Prevent explosions to occur in a claim
+      block-break: true # Prevent breaking blocks in a claim
+      block-interaction: true # Prevent interacting with blocks in a claim
+      entity-interaction: true # Prevent interacting with entities in a claim
+      entity-break-hanging: true # Prevent breaking hanging entities (like paintings or itemframes) in a claim
+  warzone:
+    announce-title: true # True will allow this zone to send titles to the player - Faction claims and no faction claims
+    allow-claiming: false # Set to true will allow factions to claim their chunks in these regions
+    # This is the language key of the title getting displayed when a claimed chunk is being left into an unclaimed one
+    no-faction-title: base.zone.warzone
+    always-protect: true # If set to true, all chunks, even unclaimed ones, will be affected from the protection rules defined below
+
+    # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
+    protection:
+      animal-damage: false # Prevent animals from being damaged in a claim
+      villager-damage: false # Prevent villagers from being damaged in a claim
+      golem-damage: false # Prevent damage to Iron Golems in a claim
+      monster-damage: false # Prevent damage caused by monsters in a claim
+      boss-damage: false # Prevent damage caused by bosses in a claim
+      general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
+      in-faction-pvp: true # Prevent PvP between faction members in a claim
+      minecart-damage: true # Prevent minecarts being destroyed in a claim
+      block-place: true # Prevent placing blocks in a claim
+      entity-spawned-by-egg: false # Prevent spawning entities using spawn eggs in a claim
+      explosions: false # Prevent explosions to occur in a claim
+      block-break: true # Prevent breaking blocks in a claim
+      block-interaction: true # Prevent interacting with blocks in a claim
+      entity-interaction: true # Prevent interacting with entities in a claim
+      entity-break-hanging: true # Prevent breaking hanging entities (like paintings or itemframes) in a claim
+  unmanaged:
+    announce-title: false # True will allow this zone to send titles to the player - Faction claims and no faction claims
+    allow-claiming: false # Set to true will allow factions to claim their chunks in these regions
+    # This is the language key of the title getting displayed when a claimed chunk is being left into an unclaimed one
+    no-faction-title: base.zone.unmanaged
+    always-protect: false # If set to true, all chunks, even unclaimed ones, will be affected from the protection rules defined below
+
+    # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
+    protection:
+      animal-damage: false # Prevent animals from being damaged in a claim
+      villager-damage: false # Prevent villagers from being damaged in a claim
+      golem-damage: false # Prevent damage to Iron Golems in a claim
+      monster-damage: false # Prevent damage caused by monsters in a claim
+      boss-damage: false # Prevent damage caused by bosses in a claim
+      general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
+      in-faction-pvp: false # Prevent PvP between faction members in a claim
+      minecart-damage: false # Prevent minecarts being destroyed in a claim
+      block-place: false # Prevent placing blocks in a claim
+      entity-spawned-by-egg: false # Prevent spawning entities using spawn eggs in a claim
+      explosions: false # Prevent explosions to occur in a claim
+      block-break: false # Prevent breaking blocks in a claim
+      block-interaction: false # Prevent interacting with blocks in a claim
+      entity-interaction: false # Prevent interacting with entities in a claim
+      entity-break-hanging: false # Prevent breaking hanging entities (like paintings or itemframes) in a claim
+
+performance:
+  thread-pool-size: 5 # Amount of thread that should be pooled waiting for operations
+
+  # This section is responsible for the particles that will be displayed only for decorative purposes, having little to no impact on the gameplay
+  decorative-particles:
+    hidden: false # If set to true, the particles will be hidden
+    tick-speed: 1 # The speed the particles will be updated. The higher the value, the better the resolution of the particle animations will be. 1 Is the fastes.
+
+# List the worlds you don't people be able to claim chunks in
+# Example:
+# blacklisted-worlds:
+#   - world_nether
+#   - world_the_end
+blacklisted-worlds:
+
+
+tobero: 
+Btw, the frame rate is only this bad because I was recording
+tobero: 
+Home module has been added. This version of the home module can already be used, but I'll add some options to limit the locations of where factions can place their homes (Right now, there are none). The messages are currently also not very useful.
+
+Anyways, to enable it, set home to true under the modules section.
+
+New commands (With the wilderness module):
+- `/f sethome`
+- `/f home`
+- `/f wilderness`
+Attachments:
+[ImprovedFactionsBase-2.0.3-stable.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1225517157081944094/ImprovedFactionsBase-2.0.3-stable.jar?ex=66484f0b&is=6646fd8b&hm=86894f0f120ea2f8850e961646b6adb7a118afca827ac32c91b902ef6a994842&
+
+jokbon: 
+Stable, not a dev build:  `https://cdn.modrinth.com/data/KqTWR5Ji/versions/AQhuAjZj/ImprovedFactionsBase-2.1.0-stable.jar`
+tobero: 
+Radius claim command build
+Attachments:
+[ImprovedFactionsBase-2.1.0-stable.jar]
+https://cdn.discordapp.com/attachments/998990362028806266/1235282501174300812/ImprovedFactionsBase-2.1.0-stable.jar?ex=66483d3a&is=6646ebba&hm=819d5fd9e70f5d969440851971fea27bacecf69889705dd62a609465396e67a5&
+
+jokbon: 
+Stable, not a dev build: `https://cdn.modrinth.com/data/KqTWR5Ji/versions/tZZstL4S/ImprovedFactionsBase-2.1.1-stable.jar`
+New stuff: Radius for faction claims + zone claims; /f map
+**`Known bugs:`**`Player position is incorrect for negative coords when using /f map (dynmap works as intended)`
+jokbon: 
+Pre realise: `https://github.com/ToberoCat/ImprovedFactions_new/releases/download/2.1.2-snapshot/ImprovedFactionsBase-2.1.2-snapshot.jar`
+New stuff: h2 support, kicking offline players is now possible, ability to choose database.
+**`Known bugs:`**`Player position is incorrect for negative coords when using /f map (dynmap works as intended), h2 responds slow, ops can't interact in protective claims`

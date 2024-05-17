@@ -1,0 +1,22 @@
+Channel: Cant manage/kick offline players
+Channel Type: GuildPublicThread
+Topic: None
+
+kinoko3002: 
+The plugin wont allow me to do anything with offline players
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1233888174099533845/1233888174229422141/image.png?ex=664870a9&is=66471f29&hm=003d95de5c4357867007d881ea2498bd49940d0cb4769d1ae36c6432a530ee30&
+
+tobero: 
+Oh shooot. I thought I fixed this issue. I'll fix it as soon as I've some time available.
+kinoko3002: 
+👍
+kinoko3002: 
+@[Dev] Tobero quick question, what confirmation do i need for this?
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1233888174099533845/1233896906338603220/image.png?ex=664878cb&is=6647274b&hm=77d4e4c67d2fe15b8c7896e9fd4b261b3c963bf4993ca8ee122abd62eefb63bd&
+
+tobero: 
+/f delete confirm

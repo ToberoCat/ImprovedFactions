@@ -1,0 +1,81 @@
+Channel: Add the faction name to a player in chat
+Channel Type: GuildPublicThread
+Topic: None
+
+tobero: 
+In this guide I'll tell you how you can put the name of a faction next to the name of a user in chat using placeholders.
+
+**What you need:**
+- ImprovedFactions, when you want to use the faction placeholders
+- PlaceHolderAPI (https://www.spigotmc.org/resources/placeholderapi.6245/)
+
+- A plugin that customizes the messages players send. A example would be essentials.
+
+```I'll go ahead and explain how you would do it with essentials, as it's probably the most commonly used chat formatter. ```
+
+
+When you've downloaded all the required plugins, you have to start your server. Now you should see a folder in plugins that's named Essentials.
+In there you should be able to find a file where a line says `format: //Stuff behind that`.
+
+Now when you want to add the faction placeholders, you have to install ChatInjector, because Essentials doesn't support Papi out of the box. Here is the link to this plugin: https://www.spigotmc.org/resources/chatinjector-1-13.81201/.
+
+When installed, you can now edit the value for the property format.
+Attachments:
+[sample.png]
+https://cdn.discordapp.com/attachments/1072211979533561887/1072211979730702356/sample.png?ex=664840f8&is=6646ef78&hm=81d6229680c55522d973906fa308feffdabff9df0342aefe1f5848d2b983489e&
+
+tobero: 
+Changed the channel name: [WIP] Add the faction name to a player in chat
+tobero: 
+When you now want to use placeholders, you can use them like you would normally, except you now have to replace `%` with `{` and `}` like the image shows below.
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1072211979533561887/1072228928393052242/image.png?ex=664850c1&is=6646ff41&hm=a0f87affa446fc64109ff5bf78977da8f2e7454ec790a9f5ae5c3fbec5c3c94c&
+
+tobero: 
+When you now send a message (And you're in a faction) your message should look like this.
+
+The `Nexxt` is the name of the faction I created
+`MateoSp5` is the player's display name
+and `a` is the message that got sent.
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1072211979533561887/1072229992433463456/image.png?ex=664851bf&is=6647003f&hm=4037d8db0382e6579b34851c7fedaff628602af7fa4526b798475e2535376f00&
+
+tobero: 
+You can now add more placeholders, like the `%faction_rank%` placeholder. You can find the hole list of placeholders on spigot.
+tobero: 
+Changed the channel name: Add the faction name to a player in chat
+jokbon: 
+lmao kill it with fire
+tobero: 
+Why?
+jokbon: 
+bad compatibility + censor
+tobero: 
+Okay, didn't know that. I thought it's a decent guide. 
+Would you mind correcting my failures?
+jokbon: 
+keep it for now
+tobero: 
+alright
+jokbon: 
+i will check other plugins if they got things done
+jokbon: 
+kinda new to this area, but that essentials are evil is no secret
+tobero: 
+Yeah, I hate essentials, but it's used on most servers
+tobero: 
+So I made a guide to get formatting for chat done with it
+treblero: 
+Sorry to revive this, is there a solution for a factionless player having the placeholder show in chat instead of being blank?
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1072211979533561887/1240557188838199296/image.png?ex=66484fea&is=6646fe6a&hm=05dd528cd33c11352e02ad30745971a15d04b895b0b306b0c360459679e7471c&
+
+treblero: 
+When I'm in a faction, the faction name shows fine
+tobero: 
+Oh... Yeah that's an issue. I'll add a config property for the default  value when the player has no faction. Will make a build in 4 - 5 hours if that's okay
+treblero: 
+Thank you so much!

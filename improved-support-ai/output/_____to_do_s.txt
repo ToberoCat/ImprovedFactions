@@ -1,0 +1,266 @@
+Channel: ╰―＞🔌ㅐto-doˈs
+Channel Type: GuildTextChat
+Topic: Here I post all the features coming soon. Thepinned features are work in progress
+
+tobero: 
+**Status:**
+1. Working on it
+2. Will be coming soon
+3. Not sure when it will be made
+tobero: 
+**Faction icons**
+Status: 2
+tobero: 
+**Faction Chunk Particles**
+Status: 3
+tobero: 
+**List command**
+Status: 1
+tobero: 
+**Jail extension:**
+Status: 2
+tobero: 
+**New optimised version(Soon first snapshots):**
+Status: 1
+tobero: 
+**Faction switch cooldown**
+Status: 1
+tobero: 
+~~Hide errors from settings gui.~~
+~~Map auto mode (toggle)~~
+~~Dynamap fix to show all factions~~
+~~Fix for /f map corners~~
+~~/f invite & /f inviteaccept check and fixing (probably not working as intended)~~
+tobero: 
+Big chunk problem.
+1) ~~Claims disappear~~
+2) Claims go to negative
+3) Over claimed chunks won't claim
+tobero: 
+Faction swap cooldown (Power reset prevention)
+tobero: 
+Prevention
+tobero: 
+~~Garbage collector for chunks fix~~
+tobero: 
+/f map - Display map ONCE
+/f map auto - Toggle map display on moving
+tobero: 
+/f map is flipped
+tobero: 
+north is not top
+tobero: 
+/f map completly bugged
+tobero: 
+/f extension list better command feedback
+tobero: 
+/f  and /faction should display help
+tobero: 
+/f modt misspelled
+tobero: 
+/f settings modt doesn't work (Argument error)?
+tobero: 
+config.yml - general.worlds doesn't prevent claiming
+tobero: 
+/f tutorial isn't a command
+tobero: 
+/f claim mass bug with permissions
+tobero: 
+MassClaim message spam - Solution: Only tell failed and at the end: `Claimed 30/32 chunks successfully`
+tobero: 
+/admin rank (faction) (user) (rank)
+tobero: 
+Dynmap isn't updating
+jokbon: 
+**Filter out colors for dynmap** or restrict color codes in faction names, also in motd.
+tobero: 
+Papi get user faction rank
+jokbon: 
+`factions.comand.mass` missing perms while op BETAv5.0.4
+tobero: 
+/f fly permissions bugged
+tobero: 
+Error with pregeneration of faction persistent data
+jokbon: 
+Update plugins version in game (you forgot).
+tobero: 
+This list will be a thing in near future. As extension or as main feature
+
+[+] /f create - Create your own faction
+[+] /f who (name) - Show factions info
+[+] /f tag - Change faction tag
+[+] /f join - Join faction
+[+] /f list - Lists all factions
+[+] /f home - Teleport to the faction home
+[+] /f leave - leave your current faction
+[+] /f power - Show player power info
+[+] /f desc - change the faction description
+[+] /f sethome - set the faction home
+[+] /f invite - invite a player to your faction
+[+] /f deinvite - remove pending invitation
+[+] /f kick - kick a player from the faction
+[+] /f top - open faction top menu
+[+] /f vault [num] - open your faction vault
+[+] /f value - see your own or other faction value
+[+] /f map - show the territory map
+[+] /f spawners - shee your own or other spawners
+[+] /f shield - open faction shield menu
+[+] /f logs - open faction logs menu
+[+] /f chat - change chat mode (channels)
+[+] /f open - allow everyone to join your faction
+[+] /f raid <claim/unclaim> [radius] - raid claim
+[+] /f claim - claim land from where you are standing
+[+] /f autoclaim - auto claim land as you walk around
+[+] /f unclaim - unclaim the land where you are
+[+] /f unclaimall - unclaimall of your factions land
+[+] /f promote - 
+[+] /f demote
+[+] /f makeleader - hand over your leader rights
+[+] /f title - set or remove a player title
+[+] /f neutral <tag> - set relation wish to another faction
+[+] /f enemy <tag> - set relation wish to another faction
+[+] /f info <tag> - show the extra stats of the faction
+[+] /f missions - show the daily and leveled missions
+[+] /f perk - open the faction perk shop
+[+] /f perms -  open the faction permissions settings
+[+] /f lowpower - show lowpoer players
+[+] /f mute - mute a player in your faction ( f chat )
+[+] /f unmute - unmute a player in your f chat
+[+] /f mutelist - faction mute list
+[+] /f near - show the nearby players in your faction
+[+] /f warns - shows the faction warnings
+tobero: 
+A quick side note: Many things will be a GUI thing, like /f promote / demote
+tobero: 
+They would be a command, because it's easier for me to make it as GUI
+jokbon: 
+Rate limit gui pls
+tobero: 
+What do you mean with rate limit guis?
+jokbon: 
+i mean to rate limit clicks
+tobero: 
+You mean so that you can't use auto clickers to lag the server?
+jokbon: 
+yes
+tobero: 
+Alright. I will go for it. What do you think will be a good limit as default? 2 clicks per second?
+jokbon: 
+yea
+tobero: 
+Alright, will add it to the config too. Thanks for the feedback
+jokbon: 
+yep thanks, every person hurt my server in some way, idk *they just digging for things* that so anoying lol
+jokbon: 
+**New version v1:** winderness actionbar message is missing
+tobero: 
+Fix for future updates:
+https://discord.com/channels/819932760550014986/881593704614350921/977264449998159932
+https://discord.com/channels/819932760550014986/881593704614350921/977320461107097681
+jokbon: 
+update text in spigot
+jokbon: 
+
+Attachments:
+[gwamaw5415.txt]
+/f admin disband <Faction> - Force delet a faction
+/f admin gPower <Faction> <Amount> - Give (or remove) a faction power by the amount (negative will decrease)
+/f admin sJoin <Faction> - Join a faction as owner even if the faction is set to private
+/f admin safezone - Claims unclaimable chunk. It will prevent block placement / breaking and explosions. Best to use with worldguard to disable pvp and other unique features
+/f admin uUnclaim - Unclaims any chunk.
+/f ally <Faction> - Invite a faction to be allied
+/f allyaccept <Faction> - Accept the invite of a faction to be allied
+/f allydeny <Faction> - Denies aliance with a faction
+/f ban <Player> - Bans the player from joining your faction
+/f claim - This will execute /f claim one
+/f claim auto - Claims every chunk you walk on
+/f claim one - This will claim the current chunk you are standing in
+/f claimPower - Displays how many chunks can be claimed until you run out of power
+/f create - Creates your faction. Name it whatever you like. But don't use spaces
+/f delete - Deletes faction
+/f description <Text... blah blah text> - Set descrption (currently unused)
+/f extension download <Extension> - Downloads extension
+/f extension list - Displays the currently installed extension & their versions
+/f extension refresh - Reloads the extension list from github to get the newest extension available
+/f extension remove - Removes the extension (sometimes). The best way to remove them is to stop the server, go to /plugins/ImprovedFactions/Extensions/ and delete the extension .jar file you want to get removed
+/f extension upgrade - Updates all installed extensions to their newest version
+/f help - Shows list of help
+/f info - Displays some information of your current faction
+/f invite <Player> - Sends a invite to the player if he is online. The player will then receive a clickable message that allows them to join the faction
+/f inviteaccept <Faction> - Accept a invite if you can't click messages (android/IOS)
+/f join <Faction> - Join a public faction. Every faction is by default set to private to prevent unexpected intruders
+/f kick <Player> - Kicks a player from your faction
+/f leave - Leave your current faction, unless you are the owner
+/f listbanned - Displays all banned players from the faction
+/f map - Displays a (by default) 7x7 chunk grid of land claims
+/f neutral <Faction> - Sets your factions neutrality to specified faction, requires admin
+/f power - Displays your current power
+/f rank permissions - Sets the permissions for your faction members. Click on a icon and allow / disallow the usage of specific commands
+/f rank set <Player> <Admin|Member|NewMember> - Sets the rank of your faction member
+/f reload - Reloads faction plugin configuration files
+/f rules - Shows rules of your faction
+/f save - Saves all currently unsaved data. Will get executed on chunk saves and server shutdowns
+/f setRules - Define the rules for your faction
+/f setting modt - Sets message of the day (displayed in sub title)
+/f settings - Lets you change settings using a GUI. Click to toggle.
+/f settings rename - Changes the displayname of your faction. Don't use spaces
+/f tutorial - Displays text tutorial
+/f unban <Player> - Unbans the player and lets join the faction again
+/f unclaim - Executes /f unclaim one
+/f unclaim auto - Unclaims every chunk you walk on
+/f unclaim one - Unclaims the chunk you are standing in
+/f version - Displays the version of the currently installed instance
+/f war <Faction> - Declares war to other faction
+
+
+tobero: 
+
+Attachments:
+[ToDo.txt]
+- Faction map
+- Dynmap Extension
+- Home extension
+- Warp extension
+- Faction chest extension
+- Faction power change display using boss bars
+- ChatMessageExtension
+- ChunkParticleExtension
+- Relation commands
+- Custom rank names
+- Rank assignment using the manage member gui
+- Make all messages, Gui texts, titles, etc... translateable using lang files
+- Faction icons (Looper GUI, desigin own banner) Extension
+- List factions command
+- Jail command (Like home, just for jails) Extension
+- Rule command (Add rule, remove rule, modify rule, set rule, ...)
+- Faction map command
+- More extension management commands
+- Language file sharing system (Like extensions, just with uploads from users directly)
+- Faction tutorial command
+- Faction tutorial extension (A none chat version of the tutorial)
+- Mass claim extension
+- Dynmap custom colored factio stuff
+- Papi faction get player rank
+- Faction fly command
+- Top command (Balance)
+- Value command, to see balance of faction
+- Spawners extension
+- Shop extension
+- Shield extension
+- More data logging (Extension)
+- Faction chat
+- Raid command (Teleports you to a nearby faction you can raid)
+- Transfer ownership
+- Prevent owner form leaving if faction isn't permanent
+- Faciton perks
+- Faction missions (Extension; A battle pass like thing, idk really)
+- Mute (Player in f chat)
+- Unmute
+- Wildness command (Tps to random location) (Extension)
+- %faction_rank% as papi placeholder to get the players rank
+- Recommendation system (Allows faction to search for users. Users can search for factions too, using a gui)
+
+tobero: 
+- Dynmap shapes should use chunk particle extension caches shapes
+tobero: 
+EnumSettings hsould support default values too

@@ -1,0 +1,175 @@
+Channel: someTesting
+Channel Type: GuildPublicThread
+Topic: None
+
+jokbon: 
+just general plugin behavior
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1235901152453857340/1235901152596459571/image.png?ex=66488324&is=664731a4&hm=7f29a3f3b8f67b4dc43c37ee44cb0ac8de17bf74646949d91f07a47872f4f0ae&
+
+jokbon: 
+So we start having:
+1. main config, 
+2. wilderness config, 
+3. power raid config, 
+4. dynmap module config
+jokbon: 
+Configuration is `default`
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1235901152453857340/1235902336581505056/image.png?ex=6648843e&is=664732be&hm=fcb0d387f99a949669e61f7aa5c41093df2362a88afb561f04fcbe3d7af44328&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1235901152453857340/1235902462167220296/image.png?ex=6648845c&is=664732dc&hm=6413e9956706b28c21e6f5e9098550f6b4b06601c0eb9199ec8afde313cc71fc&
+
+jokbon: 
+What we dont understand at all is:
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1235901152453857340/1235902658045280266/image.png?ex=6648848b&is=6647330b&hm=8ae64a3a8e06106bdd724b3c4530f9e9dca3ee15ba2775484fb80650b7175345&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1235901152453857340/1235902841030443008/image.png?ex=664884b7&is=66473337&hm=a15fce5c51ca3faebe57d648749923576c98883e2f42a02106438e415aa76af9&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1235901152453857340/1235902983867207711/image.png?ex=664884d9&is=66473359&hm=ae075768f3a659891ae1ff308aba01f57ae435e2153d39ea55eb5f0ea74e9458&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1235901152453857340/1235903076247015424/image.png?ex=664884ef&is=6647336f&hm=0212730e4d8f87c2b2f2ba97766e571998e6c1b015c1ef206e04cf50745bb375&
+
+jokbon: 
+claim r4
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1235901152453857340/1235903267117072474/image.png?ex=6648851c&is=6647339c&hm=d01d9474bc46fdda3fdcebe3363470d4c711bec55ac4ba2623ae90a605ac7981&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1235901152453857340/1235903534701084753/image.png?ex=6648855c&is=664733dc&hm=5783364ece727087cb4613e8bfae66486b81e82894667c1d2949ef442f182157&
+
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1235901152453857340/1235903554414317568/image.png?ex=66488561&is=664733e1&hm=87857dda6a584563f95b72cbe3c1dcb8f90f32a23ab84492ed5e1222c62e8352&
+
+jokbon: 
+claim with limited power conditions
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1235901152453857340/1235904550880284682/image.png?ex=6648864e&is=664734ce&hm=e705db815546722512e4e600ab4aac179b59f4d34d263085d7d58b628742dd39&
+
+jokbon: 
+claim r4
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1235901152453857340/1235904743222542377/image.png?ex=6648867c&is=664734fc&hm=cf379972b098bd06e66c3a749d7ee2312b5f5503c84abb1ba8abab4972533740&
+
+jokbon: 
+claim r4 again
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1235901152453857340/1235904908578783252/image.png?ex=664886a4&is=66473524&hm=7a1e279fd128e1ea26db60dc0864df47f658dc5d118b13b185287158992d0a67&
+
+jokbon: 
+and again
+jokbon: 
+11 chunks claimed
+jokbon: 
+5 chunks claimed
+jokbon: 
+3 chunks claimed
+The first problem:
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1235901152453857340/1235906625764724777/image.png?ex=6648883d&is=664736bd&hm=853ccd4421619c2a7ecddc9f685d01adcb9efd202f2f227d66f46055889c9620&
+
+jokbon: 
+@Plugin Dev
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1235901152453857340/1235906793360719893/image.png?ex=66488865&is=664736e5&hm=dbc88308de93b53bf34d25f7835a72babb78b14a67df480cf9158f6a3522eaae&
+
+jokbon: 
+Dynmap is correct
+jokbon: 
+while /f map is not
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1235901152453857340/1235906997530923051/image.png?ex=66488896&is=66473716&hm=49a29fdc9e0b5d3ac1e550abcb6feea8fee3bb8035f435634646e02b240e47bc&
+
+jokbon: 
+Map is facing west rather than north
+jokbon: 
+Player position is incorrect for negative
+jokbon: 
+Player position is correct for possitive
+tobero: 
+I see, negative needs to flip the rounding operation
+jokbon: 
+@[Dev] Tobero map top should face north too
+jokbon: 
+dont skip this lolz
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1235901152453857340/1235940946491998248/image.png?ex=6647ff74&is=6646adf4&hm=85db6b364c336ef41415109298521e6ed71633ad95782fb7fb791d2ec097fb16&
+
+jokbon: 
+Bug: zones got limited max claim
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1235901152453857340/1235944335896215593/image.png?ex=6648029c&is=6646b11c&hm=0c38b7c9938dc5accda2215c6a7c8466723730caa29eb110263d5dbdd5425596&
+
+jokbon: 
+interesting aspect of safezone
+jokbon: 
+when interacting it says nonsense
+jokbon: 
+
+Attachments:
+[image.png]
+https://cdn.discordapp.com/attachments/1235901152453857340/1235945986111705132/image.png?ex=66480425&is=6646b2a5&hm=7ffea0c8924df8fbca5cb712b3080253eee63991866728116cb300005a1548ce&
+
+tobero: 
+Hm, okay. Thought it would be a better for performance to limit all radius commands
+tobero: 
+Not sure what you mean. It's just telling you that you aren't permitted to interact with it. The message just wrongly includes the fact that this chunk has been claimed and is thereby protected
+jokbon: 
+doesnt make sense to send such message in safezone. people are interacting with objects

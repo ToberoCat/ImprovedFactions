@@ -1,0 +1,23 @@
+Channel: Zone protection rules don't work
+Channel Type: GuildPublicThread
+Topic: None
+
+josh65: 
+I have the safe zone set to not have mob damage and block breaking yet I still can.
+Attachments:
+[safezone.yaml]
+https://cdn.discordapp.com/attachments/1226292490101985361/1226292490257043538/safezone.yaml?ex=66487e21&is=66472ca1&hm=33e3d14011f8efbe01c2ef0a68a9c5c87d7a7f39a5785b7bfa36005b2317d3b6&
+
+tobero: 
+I'll be checking it at the weekend, I'm busy right now
+jokbon: 
+josh you can use it with world guard for now
+jokbon: 
+so its still "usable" i think no quick action needed for this
+josh65: 
+Yeah, I'm currently doing so.
+tobero: 
+Still, even though there's an alternative, it's not optimal
+tobero: 
+Tried to reproduce it, but I haven't been able to get this behaviour. I can't break any blocks in the safezone.
+But the monster damage property is confusing. Right now, you can only prevent monsts from being damaged. Due to this limitation, I now changed the damage properties to allow both sided prevention. You can now prevent monsters from damagin the player and prevent the player from damaging monsters
