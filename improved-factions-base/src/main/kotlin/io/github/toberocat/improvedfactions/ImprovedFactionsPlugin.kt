@@ -25,6 +25,7 @@ import io.github.toberocat.improvedfactions.factions.Factions
 import io.github.toberocat.improvedfactions.functions.FactionPermissionFunction
 import io.github.toberocat.improvedfactions.invites.FactionInvites
 import io.github.toberocat.improvedfactions.listeners.move.MoveListener
+import io.github.toberocat.improvedfactions.modules.aistoryteller.AiStorytellerModule
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.modules.home.HomeModule
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
@@ -67,7 +68,8 @@ class ImprovedFactionsPlugin : JavaPlugin() {
             PowerRaidsModule.powerRaidsPair(),
             DynmapModule.dynmapPair(),
             WildernessModule.wildernessPair(),
-            HomeModule.homePair()
+            HomeModule.homePair(),
+            AiStorytellerModule.aiSupportPair()
         )
 
         fun getActiveModules() = modules.filter { it.value.shouldEnable(instance) }

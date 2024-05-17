@@ -13,6 +13,8 @@ mysql:
   user: "root"
   password: "1234"
   verbose: false
+
+
 modules:
   # This module is responsible for managing power, and it's associated side effects, like raids and over-claims.
   power-raids: true
@@ -22,6 +24,15 @@ modules:
   wilderness: true
   # This module will add various home related commands for setting and teleporting to a faction's home
   home: true
+
+  # This module will enable an locally run ai storyteller. This is turned of by default, because:
+  # - It's experimental
+  # - It's not very performant
+  #
+  # What it does:
+  # - It will give an in-game support to the player (/f ai support)
+  ai-storyteller: false
+
 #
 # -------- { Base Module Settings } --------
 #
@@ -332,4 +343,7 @@ performance:
 # blacklisted-worlds:
 #   - world_nether
 #   - world_the_end
-blacklisted-worlds:
+blacklisted-worlds: [ ]
+
+# This options decides if what kind of notification the players will receive when a certain event happens (Teleport, Territory change, etc)
+event-display-location: "TITLE" # Options are: TITLE, CHAT, ACTIONBAR
