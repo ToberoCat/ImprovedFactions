@@ -38,7 +38,7 @@ class Cluster(val factionId: Int,
 
     fun addAll(positions: Set<Position>) {
         if (positions.any { it.factionId != factionId })
-            throw IllegalArgumentException()
+            throw IllegalArgumentException("All positions must belong to the same faction")
 
         this.positions.addAll(positions)
         calculateCenter()
