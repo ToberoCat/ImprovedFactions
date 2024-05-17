@@ -37,7 +37,7 @@
         <guiengine.version>6c00296e4c</guiengine.version>
         <adventure-text-minimessage.version>4.16.0</adventure-text-minimessage.version>
         <adventure-text-serializer-legacy.version>4.16.0</adventure-text-serializer-legacy.version>
-        <kyori-adventure-platform-bukkit.version>4.3.2</kyori-adventure-platform-bukkit.version>
+        <kyori-adventure-platform-bukkit.version>4.3.3-SNAPSHOT</kyori-adventure-platform-bukkit.version>
         <base64-itemstack.version>1.0.0</base64-itemstack.version>
         <bstats-bukkit.version>3.0.2</bstats-bukkit.version>
         <placeholderapi.version>2.11.3</placeholderapi.version>
@@ -69,6 +69,10 @@
         <repository>
             <id>MikeRepo</id>
             <url>https://repo.mikeprimm.com/</url>
+        </repository>
+        <repository>
+            <id>sonatype-oss-snapshots1</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
     </repositories>
 
