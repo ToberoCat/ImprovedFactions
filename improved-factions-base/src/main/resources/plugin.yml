@@ -75,6 +75,12 @@ permissions:
     default: true
   factions.zone:
     default: op
+  factions.bypass:
+    default: op
+  factions.force:
+    default: op
+  factions.force.join:
+    default: op
   factions.zone.claim:
     default: op
   factions.zone.unclaim:

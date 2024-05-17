@@ -5,12 +5,13 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 open class StringArgument(private val usage: String,
-                          private val descriptionKey: String) : Argument<String> {
+                          private val descriptionKey: String,
+    private val tabComplete: List<String> = emptyList()) : Argument<String> {
     override fun parse(player: Player, arg: String): String {
         return arg
     }
 
-    override fun tab(p0: Player): List<String> = emptyList()
+    override fun tab(p0: Player): List<String> = tabComplete
 
     override fun descriptionKey(): String = descriptionKey
 

@@ -87,3 +87,45 @@ Module: power-raids
 | power | Provide a power value | true |
 | faction | Provide a faction | true |
 
+## factions bypass
+
+Permission: factions.bypass
+
+Usage: `/factions bypass [player]`
+
+Description: Add or remove a bypass for a player. A bypass only stays until the next server restart
+
+Module: core
+
+| Argument | Description | Required |
+| --- | --- | --- |
+| player | Provide a player for this argument | false |
+
+## factions force
+
+Permission: factions.force
+
+Usage: `/factions force `
+
+Description: base.command.force.description
+
+Module: core
+
+| Argument | Description | Required |
+| --- | --- | --- |
+
+## factions force join
+
+Permission: factions.force.join
+
+Usage: `/factions force join <player> <faction>`
+
+Description: Force a player to join a faction
+
+Module: core
+
+| Argument | Description | Required |
+| --- | --- | --- |
+| player | Provide a player for this argument | true |
+| faction | Provide a faction | true |
+

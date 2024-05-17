@@ -42,6 +42,9 @@ More details when you click on a command.
 | [factions zone claim](admin-commands.md#factions-zone-claim) | Mark a claim as property of this zone | core |
 | [factions power add](admin-commands.md#factions-power-add) | Set the power of a faction | power-raids |
 | [factions power set](admin-commands.md#factions-power-set) | Set the power of a faction | power-raids |
+| [factions bypass](admin-commands.md#factions-bypass) | Add or remove a bypass for a player. A bypass only stays until the next server restart | core |
+| [factions force](admin-commands.md#factions-force) | base.command.force.description | core |
+| [factions force join](admin-commands.md#factions-force-join) | Force a player to join a faction | core |
 | [factions rank](permission-management-commands.md#factions-rank) | Access rank commands | core |
 | [factions rank set](permission-management-commands.md#factions-rank-set) | Set a permission for a rank | core |
 | [factions rank joinas](permission-management-commands.md#factions-rank-joinas) | Set the rank new members will join with | core |

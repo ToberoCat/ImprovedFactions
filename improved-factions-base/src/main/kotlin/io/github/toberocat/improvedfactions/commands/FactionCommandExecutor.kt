@@ -3,7 +3,8 @@ package io.github.toberocat.improvedfactions.commands
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.commands.admin.ByPassCommand
 import io.github.toberocat.improvedfactions.commands.admin.ReloadCommand
-import io.github.toberocat.improvedfactions.commands.admin.ZoneCommandRoute
+import io.github.toberocat.improvedfactions.commands.admin.force.ForceCommandRoute
+import io.github.toberocat.improvedfactions.commands.admin.zone.ZoneCommandRoute
 import io.github.toberocat.improvedfactions.commands.claim.ClaimCommand
 import io.github.toberocat.improvedfactions.commands.claim.FactionMap
 import io.github.toberocat.improvedfactions.commands.claim.UnclaimCommand
@@ -17,14 +18,12 @@ import io.github.toberocat.improvedfactions.commands.manage.IconCommand
 import io.github.toberocat.improvedfactions.commands.manage.RenameCommand
 import io.github.toberocat.improvedfactions.commands.member.*
 import io.github.toberocat.improvedfactions.commands.rank.RankCommandRoute
-import io.github.toberocat.improvedfactions.translation.localize
 import io.github.toberocat.improvedfactions.translation.localizeUnformatted
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.toberocore.command.CommandExecutor
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import java.util.*
-import kotlin.reflect.jvm.internal.impl.descriptors.Visibilities.Local
 
 /**
  * Created: 04.08.2023
@@ -67,6 +66,7 @@ class FactionCommandExecutor(plugin: ImprovedFactionsPlugin) {
         executor.addChild(ReloadCommand(plugin))
         executor.addChild(ZoneCommandRoute(plugin))
         executor.addChild(ByPassCommand(plugin))
+        executor.addChild(ForceCommandRoute(plugin))
 
         plugin.addModuleCommands(executor)
 
