@@ -24,14 +24,14 @@ class PlayerTeleporter(
     private val audience = player.toAudience()
     private val startedLocation = player.location
     private val startTime = System.currentTimeMillis()
-    private val teleportAnimation =  TeleportParticles(
+    private val teleportAnimation = TeleportParticles(
         plugin,
         (standStillMs * 0.02).toInt(),
         { player.location }
     )
 
 
-        fun startTeleport() {
+    fun startTeleport() {
         audience.sendTitlePart(
             TitlePart.TIMES, Title.Times.times(
                 Duration.ofMillis(0),
@@ -58,11 +58,9 @@ class PlayerTeleporter(
         }
 
         val leftSeconds = ceil((standStillMs - (current - startTime)) / 1000.0).toInt()
-        audience.sendTitlePart(TitlePart.TITLE, player.getLocalized(titleKey))
-        audience.sendTitlePart(
-            TitlePart.SUBTITLE,
-            player.getLocalized(subtitleKey, mapOf("time" to leftSeconds.toString()))
-        )
+        val displayLocation = plugin.improvedFactionsConfig.territoryDisplayLocation
+        displayLocation.display(player, titleKey, subtitleKey, mapOf("time" to leftSeconds.toString()))
+
         val distance = player.location.distanceSquared(startedLocation)
         if (distance > 0.01) {
             player.sendLocalized("base.player-teleport.cancel-message")
