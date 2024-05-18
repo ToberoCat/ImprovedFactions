@@ -13,6 +13,7 @@ import io.github.toberocat.improvedfactions.database.DatabaseConnector
 import io.github.toberocat.improvedfactions.factions.Factions
 import io.github.toberocat.improvedfactions.invites.FactionInvites
 import io.github.toberocat.improvedfactions.listeners.move.MoveListener
+import io.github.toberocat.improvedfactions.modules.chat.ChatModule
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.modules.gui.GuiModule
 import io.github.toberocat.improvedfactions.modules.home.HomeModule
@@ -32,6 +33,8 @@ import io.github.toberocat.toberocore.command.CommandExecutor
 import me.clip.placeholderapi.PlaceholderAPI
 import net.kyori.adventure.platform.bukkit.BukkitAudiences
 import org.bukkit.OfflinePlayer
+import org.bukkit.event.Listener
+import org.bukkit.plugin.PluginManager
 import org.bukkit.plugin.java.JavaPlugin
 import org.jetbrains.exposed.sql.Database
 
@@ -58,6 +61,7 @@ class ImprovedFactionsPlugin : JavaPlugin() {
             DynmapModule.dynmapPair(),
             WildernessModule.wildernessPair(),
             HomeModule.homePair(),
+            ChatModule.chatPair(),
             GuiModule.guiPair()
         )
 
@@ -84,7 +88,7 @@ class ImprovedFactionsPlugin : JavaPlugin() {
         database = DatabaseConnector(this).createDatabase()
 
         registerModules()
-        registerListeners()
+        registerListeners(MoveListener(this))
         registerCommands()
         registerPapi()
 
@@ -184,7 +188,7 @@ class ImprovedFactionsPlugin : JavaPlugin() {
         FactionCommandExecutor(this)
     }
 
-    private fun registerListeners() {
-        server.pluginManager.registerEvents(MoveListener(this), this)
+    fun registerListeners(vararg listeners: Listener) {
+        listeners.forEach { server.pluginManager.registerEvents(it, this) }
     }
 }

@@ -72,6 +72,8 @@ permissions:
     default: true
   factions.sethome:
     default: true
+  factions.chat:
+    default: true
   factions.zone:
     default: op
   factions.bypass:
@@ -79,6 +81,8 @@ permissions:
   factions.force:
     default: op
   factions.force.join:
+    default: op
+  factions.force.unclaim:
     default: op
   factions.zone.claim:
     default: op

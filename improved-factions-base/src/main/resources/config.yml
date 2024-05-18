@@ -2,7 +2,7 @@
 # -------- { General Settings } --------
 #
 update-checker: true
-config-version: 4
+config-version: 10
 
 # Configure a mysql connection. If no connection was established, the plugin uses sqlite.
 # This allows to use this plugin without a mysql server
@@ -15,7 +15,6 @@ mysql:
   user: "root"
   password: "1234"
 
-
 modules:
   # This module is responsible for managing power, and it's associated side effects, like raids and over-claims.
   power-raids: true
@@ -25,6 +24,8 @@ modules:
   wilderness: true
   # This module will add various home related commands for setting and teleporting to a faction's home
   home: true
+  # This module will allow factions to enter their own chat, where only faction members can read the messages
+  chat: true
   # This module will replace some commands with gui alternatives, for example the /f invites or /f info command
   gui: true
 

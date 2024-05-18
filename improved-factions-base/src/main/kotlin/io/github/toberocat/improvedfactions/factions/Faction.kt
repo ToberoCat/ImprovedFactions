@@ -11,6 +11,7 @@ import io.github.toberocat.improvedfactions.factions.ban.FactionBans
 import io.github.toberocat.improvedfactions.invites.FactionInvite
 import io.github.toberocat.improvedfactions.invites.FactionInvites
 import io.github.toberocat.improvedfactions.messages.MessageBroker
+import io.github.toberocat.improvedfactions.modules.chat.ChatModule.resetChatMode
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Companion.powerRaidModule
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
@@ -325,6 +326,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
     private fun unsetUserData(user: FactionUser) {
         user.factionId = noFactionId
         user.assignedRank = FactionRankHandler.guestRankId
+        user.player()?.resetChatMode()
         powerRaidModule().factionModuleHandle.memberLeave(this)
     }
 }
