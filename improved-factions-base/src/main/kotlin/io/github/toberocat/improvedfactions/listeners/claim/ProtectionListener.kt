@@ -32,7 +32,7 @@ abstract class ProtectionListener(protected val zoneType: String,
     private fun protectChunk(event: Cancellable, chunk: Chunk?, player: Player) = loggedTransaction {
         val claim = chunk?.getFactionClaim()
         val claimZone = claim?.zone()
-        if (claim?.zoneType != zoneType || (claimZone?.protectAlways == false && claim.factionId == noFactionId))
+        if (claim?.zoneType != zoneType || claimZone?.protectAlways == false && claim.factionId == noFactionId)
             return@loggedTransaction
 
         val claimedFaction = claim.factionId

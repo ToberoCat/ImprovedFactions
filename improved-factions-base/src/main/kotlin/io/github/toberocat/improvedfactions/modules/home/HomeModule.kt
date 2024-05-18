@@ -21,7 +21,7 @@ object HomeModule : BaseModule {
     const val MODULE_NAME = "home"
     override val moduleName = MODULE_NAME
 
-    var homeModuleHandle: HomeModuleHandle = DummyHomeModuleHandle()
+    private var homeModuleHandle: HomeModuleHandle = DummyHomeModuleHandle()
 
     override fun onEnable(plugin: ImprovedFactionsPlugin) {
         homeModuleHandle = HomeModuleHandleImpl()

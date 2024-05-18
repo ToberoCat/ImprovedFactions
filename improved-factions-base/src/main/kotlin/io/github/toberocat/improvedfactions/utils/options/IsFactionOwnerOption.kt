@@ -21,7 +21,7 @@ class IsFactionOwnerOption : PlayerOption {
     }
 
     override fun show(sender: CommandSender, args: Array<out String>): Boolean {
-        val player = (sender as? Player) ?: return false
+        val player = sender as? Player ?: return false
         return player.uniqueId == loggedTransaction { player.factionUser().faction()?.owner }
     }
 }

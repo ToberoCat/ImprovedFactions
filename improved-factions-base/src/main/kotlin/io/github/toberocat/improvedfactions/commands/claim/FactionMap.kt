@@ -114,7 +114,7 @@ class FactionMap(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand(
         }
     }
 
-    private fun getCombined(x: Int, z: Int) = (x.toLong() shl 32) or (z.toLong() and 0xFFFFFFFFL)
+    private fun getCombined(x: Int, z: Int) = x.toLong() shl 32 or (z.toLong() and 0xFFFFFFFFL)
 
     companion object {
         var MAP_WIDTH = 20
