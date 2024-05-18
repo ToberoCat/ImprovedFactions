@@ -25,7 +25,7 @@ import org.bukkit.entity.Player
 class InviteCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("invite") {
     override fun options(): Options = Options.getFromConfig(plugin, "invite") { options, _ ->
         options.cmdOpt(InFactionOption(true))
-            .opt(PlayerNameOption(0))
+            .cmdOpt(PlayerNameOption(0))
             .cmdOpt(RankNameOption(1))
             .cmdOpt(CanManageRankOption(1))
             .cmdOpt(ArgLengthOption(2))

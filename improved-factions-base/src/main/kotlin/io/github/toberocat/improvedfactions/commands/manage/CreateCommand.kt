@@ -29,10 +29,10 @@ import org.bukkit.entity.Player
 class CreateCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("create") {
     override fun options(): Options = Options.getFromConfig(plugin, "create") { options, _ ->
         options
-            .opt(InFactionOption(false))
+            .cmdOpt(InFactionOption(false))
             .addFactionNameOption(0)
-            .opt(ArgLengthOption(1))
-            .opt(FactionExistOption(0, false))
+            .cmdOpt(ArgLengthOption(1))
+            .cmdOpt(FactionExistOption(0, false))
     }
 
     override fun arguments(): Array<Argument<*>> = arrayOf(

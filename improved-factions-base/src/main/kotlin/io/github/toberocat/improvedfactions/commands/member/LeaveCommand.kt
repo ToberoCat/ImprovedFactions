@@ -20,7 +20,7 @@ import org.bukkit.entity.Player
 )
 class LeaveCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("leave") {
     override fun options(): Options = Options.getFromConfig(plugin, "leave") { options, _ ->
-        options.cmdOpt(ConfirmOption()).opt(InFactionOption(true))
+        options.cmdOpt(ConfirmOption()).cmdOpt(InFactionOption(true))
     }
 
     override fun arguments(): Array<Argument<*>> = emptyArray()

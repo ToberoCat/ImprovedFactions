@@ -5,8 +5,8 @@ import io.github.toberocat.toberocore.command.options.MaxArgLengthOption
 import io.github.toberocat.toberocore.command.options.Options
 
 fun Options.addFactionNameOption(index: Int): Options {
-    opt(JoinedTextOption(index, Factions.maxSpacesInName))
-    opt(MaxArgLengthOption(index, Factions.maxNameLength))
-    opt(ArgRegexMatcherOption(index, Factions.nameRegex))
+    cmdOpt(JoinedTextOption(index, Factions.maxSpacesInName))
+    cmdOpt(MaxArgLengthOption(index, Factions.maxNameLength))
+    cmdOpt(ArgRegexMatcherOption(index, Factions.nameRegex))
     return this
 }

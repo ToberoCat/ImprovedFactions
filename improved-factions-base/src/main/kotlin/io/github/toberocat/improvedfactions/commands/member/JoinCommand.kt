@@ -27,9 +27,9 @@ import org.bukkit.entity.Player
 )
 class JoinCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("join") {
     override fun options(): Options = Options.getFromConfig(plugin, "join") { options, _ ->
-        options.opt(InFactionOption(false))
+        options.cmdOpt(InFactionOption(false))
             .addFactionNameOption(0)
-            .opt(ArgLengthOption(1))
+            .cmdOpt(ArgLengthOption(1))
             .cmdOpt(FactionExistOption(0, true))
     }
 

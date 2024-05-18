@@ -22,7 +22,8 @@ import org.bukkit.entity.Player
 )
 class InviteAcceptCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("inviteaccept") {
     override fun options(): Options = Options.getFromConfig(plugin, "inviteaccept") { options, _ ->
-        options.opt(InFactionOption(false)).opt(ArgLengthOption(1))
+        options.cmdOpt(InFactionOption(false))
+            .cmdOpt(ArgLengthOption(1))
     }
 
     override fun arguments(): Array<Argument<*>> = arrayOf(

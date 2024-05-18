@@ -35,7 +35,7 @@ class WildernessCommand(
     override fun options() = Options.getFromConfig(plugin, label) { options, _ ->
         options.cmdOpt(CooldownOption(plugin, cooldownManager))
             .tabOpt(CooldownTabOption(cooldownManager, false))
-            .opt(UsageLimitOption(config.usageLimit, "wilderness"))
+            .cmdOpt(UsageLimitOption(config.usageLimit, "wilderness"))
     }
 
     override fun arguments() = arrayOf<Argument<*>>()

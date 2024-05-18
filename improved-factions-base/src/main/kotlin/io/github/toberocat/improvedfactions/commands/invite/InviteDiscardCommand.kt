@@ -20,7 +20,7 @@ import org.bukkit.entity.Player
 )
 class InviteDiscardCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("invitediscard") {
     override fun options(): Options = Options.getFromConfig(plugin, "invitediscard") { options, _ ->
-        options.opt(ArgLengthOption(1))
+        options.cmdOpt(ArgLengthOption(1))
     }
 
     override fun arguments(): Array<Argument<*>> = arrayOf(
