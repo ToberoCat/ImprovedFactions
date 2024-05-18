@@ -18,7 +18,7 @@ import org.bukkit.entity.Player
 )
 class ByPassCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("bypass") {
     override fun options(): Options = Options.getFromConfig(plugin, label) { options, _ ->
-        options.opt(PlayerNameOption(0))
+        options.cmdOpt(PlayerNameOption(0))
     }
 
     override fun arguments(): Array<Argument<*>> = arrayOf(

@@ -24,8 +24,8 @@ class MembersCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubComm
     private val dateFormat = SimpleDateFormat("dd/MM/yyyy")
 
     override fun options(): Options = Options.getFromConfig(plugin, label) { options, _ ->
-        options.opt(InFactionOption(true))
-            .opt(ArgLengthOption(0))
+        options.cmdOpt(InFactionOption(true))
+            .cmdOpt(ArgLengthOption(0))
     }
 
     override fun arguments(): Array<Argument<*>> = emptyArray()

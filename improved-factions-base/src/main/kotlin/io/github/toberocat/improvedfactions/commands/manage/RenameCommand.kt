@@ -23,8 +23,8 @@ import org.bukkit.entity.Player
 )
 class RenameCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("rename") {
     override fun options(): Options = Options.getFromConfig(plugin, "rename") { options, _ ->
-        options.opt(InFactionOption(true)).opt(IsFactionOwnerOption()).addFactionNameOption(0).opt(ArgLengthOption(1))
-            .opt(FactionExistOption(0, false))
+        options.cmdOpt(InFactionOption(true)).cmdOpt(IsFactionOwnerOption()).addFactionNameOption(0).cmdOpt(ArgLengthOption(1))
+            .cmdOpt(FactionExistOption(0, false))
             .cmdOpt(FactionPermissionOption(Permissions.RENAME_FACTION))
     }
 

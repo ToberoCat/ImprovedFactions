@@ -23,7 +23,7 @@ import org.bukkit.entity.Player
 )
 class HomeSetCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("sethome") {
     override fun options(): Options = Options.getFromConfig(plugin, label) { options, _ ->
-        options.opt(InFactionOption(true))
+        options.cmdOpt(InFactionOption(true))
             .cmdOpt(FactionPermissionOption(Permissions.SET_HOME))
     }
 

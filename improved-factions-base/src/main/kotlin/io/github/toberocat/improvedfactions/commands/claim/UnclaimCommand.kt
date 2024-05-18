@@ -23,7 +23,7 @@ import org.bukkit.entity.Player
 )
 class UnclaimCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("unclaim") {
     override fun options(): Options = Options.getFromConfig(plugin, "unclaim") { options, _ ->
-        options.opt(InFactionOption(true))
+        options.cmdOpt(InFactionOption(true))
             .cmdOpt(FactionPermissionOption(Permissions.MANAGE_CLAIMS))
     }
 

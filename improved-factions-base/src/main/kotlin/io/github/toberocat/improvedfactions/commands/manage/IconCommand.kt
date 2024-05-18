@@ -23,7 +23,7 @@ import org.bukkit.entity.Player
 )
 class IconCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("icon") {
     override fun options(): Options = Options.getFromConfig(plugin, "icon") { options, _ ->
-        options.opt(InFactionOption(true)).opt(IsFactionOwnerOption())
+        options.cmdOpt(InFactionOption(true)).cmdOpt(IsFactionOwnerOption())
             .cmdOpt(FactionPermissionOption(Permissions.SET_ICON))
     }
 
