@@ -11,6 +11,7 @@ import io.github.toberocat.toberocore.command.PlayerSubCommand
 import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
+import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
     description = "base.command.force.unclaim.description",
@@ -30,7 +31,7 @@ class ForceUnclaimCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSu
         val parsedArgs = parseArgs(player, args)
         val faction = parsedArgs.get<Faction>(0) ?: return false
 
-        faction.unclaim(player.location.chunk)
+        transaction { faction.unclaim(player.location.chunk) }
         player.sendLocalized("base.command.force.unclaim.unclaimed")
         return true
     }
