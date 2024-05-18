@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedfactions.components.rankselector
+package io.github.toberocat.improvedfactions.modules.gui.components.rankselector
 
 import io.github.toberocat.guiengine.components.AbstractGuiComponent
 import io.github.toberocat.guiengine.function.GuiFunction

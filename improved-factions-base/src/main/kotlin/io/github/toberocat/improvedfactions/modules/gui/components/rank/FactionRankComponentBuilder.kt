@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedfactions.components.rank
+package io.github.toberocat.improvedfactions.modules.gui.components.rank
 
 import io.github.toberocat.guiengine.components.AbstractGuiComponentBuilder
 import io.github.toberocat.guiengine.exception.InvalidGuiComponentException

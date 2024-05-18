@@ -3,31 +3,18 @@ package io.github.toberocat.improvedfactions
 import com.jeff_media.updatechecker.UpdateCheckSource
 import com.jeff_media.updatechecker.UpdateChecker
 import com.jeff_media.updatechecker.UserAgentBuilder
-import io.github.toberocat.guiengine.GuiEngineApi
-import io.github.toberocat.guiengine.function.FunctionProcessor
-import io.github.toberocat.guiengine.utils.FileUtils
-import io.github.toberocat.guiengine.utils.logger.PluginLogger
+import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.claims.clustering.ClaimClusterDetector
 import io.github.toberocat.improvedfactions.claims.clustering.DatabaseClaimQueryProvider
-import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.commands.FactionCommandExecutor
 import io.github.toberocat.improvedfactions.commands.claim.FactionMap
-import io.github.toberocat.improvedfactions.components.icon.FactionIconComponent
-import io.github.toberocat.improvedfactions.components.icon.FactionIconComponentBuilder
-import io.github.toberocat.improvedfactions.components.permission.FactionPermissionComponent
-import io.github.toberocat.improvedfactions.components.permission.FactionPermissionComponentBuilder
-import io.github.toberocat.improvedfactions.components.permission.TYPE
-import io.github.toberocat.improvedfactions.components.rank.FactionRankComponent
-import io.github.toberocat.improvedfactions.components.rank.FactionRankComponentBuilder
-import io.github.toberocat.improvedfactions.components.rankselector.FactionRankSelectorComponent
-import io.github.toberocat.improvedfactions.components.rankselector.FactionRankSelectorComponentBuilder
 import io.github.toberocat.improvedfactions.config.ImprovedFactionsConfig
 import io.github.toberocat.improvedfactions.database.DatabaseConnector
 import io.github.toberocat.improvedfactions.factions.Factions
-import io.github.toberocat.improvedfactions.functions.FactionPermissionFunction
 import io.github.toberocat.improvedfactions.invites.FactionInvites
 import io.github.toberocat.improvedfactions.listeners.move.MoveListener
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
+import io.github.toberocat.improvedfactions.modules.gui.GuiModule
 import io.github.toberocat.improvedfactions.modules.home.HomeModule
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.modules.wilderness.WildernessModule
@@ -35,11 +22,12 @@ import io.github.toberocat.improvedfactions.papi.PapiExpansion
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
 import io.github.toberocat.improvedfactions.ranks.FactionRanks
 import io.github.toberocat.improvedfactions.translation.updateLanguages
-import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import io.github.toberocat.improvedfactions.utils.BStatsCollector
+import io.github.toberocat.improvedfactions.utils.FileUtils
 import io.github.toberocat.improvedfactions.utils.arguments.ClaimRadiusArgument
 import io.github.toberocat.improvedfactions.utils.particles.ParticleAnimation
 import io.github.toberocat.improvedfactions.utils.threadPool
+import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import io.github.toberocat.toberocore.command.CommandExecutor
 import me.clip.placeholderapi.PlaceholderAPI
 import net.kyori.adventure.platform.bukkit.BukkitAudiences
@@ -57,7 +45,6 @@ const val SPIGOT_RESOURCE_ID = 95617
 class ImprovedFactionsPlugin : JavaPlugin() {
 
     private lateinit var database: Database
-    lateinit var guiEngineApi: GuiEngineApi
     lateinit var adventure: BukkitAudiences
     lateinit var improvedFactionsConfig: ImprovedFactionsConfig
     lateinit var claimChunkClusters: ClaimClusterDetector
@@ -70,7 +57,8 @@ class ImprovedFactionsPlugin : JavaPlugin() {
             PowerRaidsModule.powerRaidsPair(),
             DynmapModule.dynmapPair(),
             WildernessModule.wildernessPair(),
-            HomeModule.homePair()
+            HomeModule.homePair(),
+            GuiModule.guiPair()
         )
 
         fun getActiveModules() = modules.filter { it.value.shouldEnable(instance) }
@@ -94,11 +82,6 @@ class ImprovedFactionsPlugin : JavaPlugin() {
         loadConfig()
 
         database = DatabaseConnector(this).createDatabase()
-
-        guiEngineApi = GuiEngineApi(this)
-        registerComponents()
-        registerFunctions()
-        guiEngineApi.reload(PluginLogger(logger))
 
         registerModules()
         registerListeners()
@@ -199,30 +182,6 @@ class ImprovedFactionsPlugin : JavaPlugin() {
 
     private fun registerCommands() {
         FactionCommandExecutor(this)
-    }
-
-    private fun registerComponents() {
-        guiEngineApi.registerFactory(
-            "faction-icon", FactionIconComponent::class.java, FactionIconComponentBuilder::class.java
-        )
-
-        guiEngineApi.registerFactory(
-            "faction-rank", FactionRankComponent::class.java, FactionRankComponentBuilder::class.java
-        )
-
-        guiEngineApi.registerFactory(
-            TYPE, FactionPermissionComponent::class.java, FactionPermissionComponentBuilder::class.java
-        )
-
-        guiEngineApi.registerFactory(
-            FactionRankSelectorComponent.TYPE,
-            FactionRankSelectorComponent::class.java,
-            FactionRankSelectorComponentBuilder::class.java
-        )
-    }
-
-    private fun registerFunctions() {
-        FunctionProcessor.registerComputeFunction(FactionPermissionFunction())
     }
 
     private fun registerListeners() {

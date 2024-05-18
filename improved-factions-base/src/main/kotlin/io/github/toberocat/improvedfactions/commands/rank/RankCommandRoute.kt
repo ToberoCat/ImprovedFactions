@@ -1,12 +1,10 @@
 package io.github.toberocat.improvedfactions.commands.rank
 
-import io.github.toberocat.guiengine.components.container.tab.PagedContainer
-import io.github.toberocat.guiengine.function.GuiFunction
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.components.rank.FactionRankComponentBuilder
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.ranks.listRanks
+import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.utils.command.CommandCategory
 import io.github.toberocat.improvedfactions.utils.command.CommandMeta
@@ -14,14 +12,17 @@ import io.github.toberocat.improvedfactions.utils.options.FactionPermissionOptio
 import io.github.toberocat.improvedfactions.utils.options.InFactionOption
 import io.github.toberocat.toberocore.command.CommandRoute
 import io.github.toberocat.toberocore.command.options.Options
-import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 
+const val RANK_COMMAND_DESCRIPTION = "base.command.rank.description"
+const val RANK_COMMAND_CATEGORY = CommandCategory.PERMISSION_CATEGORY
+
+
 @CommandMeta(
-    description = "base.command.rank.description",
-    category = CommandCategory.PERMISSION_CATEGORY
+    description = RANK_COMMAND_DESCRIPTION,
+    category = RANK_COMMAND_CATEGORY
 )
-class RankCommandRoute(private val plugin: ImprovedFactionsPlugin) : CommandRoute("rank", plugin) {
+open class RankCommandRoute(plugin: ImprovedFactionsPlugin) : CommandRoute("rank", plugin) {
     init {
         addChild(CreateRankCommand(plugin))
         addChild(AssignRankCommand(plugin))
@@ -35,30 +36,21 @@ class RankCommandRoute(private val plugin: ImprovedFactionsPlugin) : CommandRout
         .cmdOpt(FactionPermissionOption(Permissions.MANAGE_PERMISSIONS))
         .cmdOpt(InFactionOption(true))
 
-    override fun handle(player: Player, p1: Array<out String>): Boolean {
-        val context = plugin.guiEngineApi.openGui(player, "rank/rank-overview")
-        val container = context.findComponentByClass<PagedContainer>()
-            ?: return false
+    override fun handle(player: Player, args: Array<String>): Boolean {
+        player.sendLocalized("base.command.rank.header")
         loggedTransaction {
             val user = player.factionUser()
             user.faction()
                 ?.listRanks()
                 ?.filter { user.canManage(it) }
                 ?.forEach {
-                    container.addComponent(
-                        FactionRankComponentBuilder()
-                            .setRank(it)
-                            .setClickFunctions(listOf(GuiFunction.anonymousSync { _ ->
-                                Bukkit.dispatchCommand(
-                                    player,
-                                    "factions rank edit ${it.name}"
-                                )
-                            }))
-                            .createComponent()
-                    )
+                    player.sendLocalized("base.command.rank.rank-overview", mapOf(
+                        "name" to it.name,
+                        "priority" to it.priority.toString(),
+                        "countAssignedUsers" to it.countAssignedUsers().toString()
+                    ))
                 }
         }
-        context.render()
         return true
     }
 }

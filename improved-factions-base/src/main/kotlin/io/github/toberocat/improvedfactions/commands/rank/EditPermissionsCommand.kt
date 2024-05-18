@@ -1,10 +1,9 @@
 package io.github.toberocat.improvedfactions.commands.rank
 
-import io.github.toberocat.guiengine.components.container.tab.PagedContainer
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.components.permission.FactionPermissionComponentBuilder
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.ranks.FactionRank
+import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.utils.arguments.entity.RankArgument
 import io.github.toberocat.improvedfactions.utils.command.CommandCategory
 import io.github.toberocat.improvedfactions.utils.command.CommandMeta
@@ -16,11 +15,15 @@ import io.github.toberocat.toberocore.command.options.ArgLengthOption
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
 
+const val EDIT_RANK_COMMAND_DESCRIPTION = "base.command.rank.edit.description"
+const val EDIT_RANK_COMMAND_CATEGORY = CommandCategory.PERMISSION_CATEGORY
+
+
 @CommandMeta(
-    description = "base.command.rank.edit.description",
-    category = CommandCategory.PERMISSION_CATEGORY
+    description = EDIT_RANK_COMMAND_DESCRIPTION,
+    category = EDIT_RANK_COMMAND_CATEGORY
 )
-class EditPermissionsCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("edit") {
+open class EditPermissionsCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("edit") {
     override fun options(): Options = Options.getFromConfig(plugin, label)
         .cmdOpt(InFactionOption(true))
         .cmdOpt(RankNameOption(0))
@@ -32,23 +35,17 @@ class EditPermissionsCommand(private val plugin: ImprovedFactionsPlugin) : Playe
 
     override fun handle(player: Player, args: Array<out String>): Boolean {
         val rank = parseArgs(player, args).get<FactionRank>(0) ?: return false
-        val context = plugin.guiEngineApi.openGui(
-            player, "rank/rank-detail", mapOf(
-                "rank" to rank.name
-            )
-        )
-        val container = context.findComponentByClass<PagedContainer>() ?: return false
+
+        player.sendLocalized("base.command.rank.edit.header")
         loggedTransaction {
             rank.permissions().forEach {
-                container.addComponent(
-                    FactionPermissionComponentBuilder()
-                        .setPermission(it)
-                        .createComponent()
-                )
+                player.sendLocalized("base.command.rank.edit.permission-details", mapOf(
+                    "rank" to rank.name,
+                    "permission" to it.permission,
+                    "value" to it.allowed.toString()
+                ))
             }
         }
-
-        context.render()
         return true
     }
 }
