@@ -7,7 +7,7 @@ import io.github.toberocat.improvedfactions.user.noFactionId
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import org.jetbrains.exposed.sql.SizedIterable
 import org.jetbrains.exposed.sql.and
-import org.jetbrains.exposed.sql.transactions.transaction
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction 
 
 fun Faction.listRanks(): SizedIterable<FactionRank> = FactionRank.find { FactionRanks.factionId eq id.value }
 
@@ -29,7 +29,7 @@ object FactionRankHandler {
         if (!FactionRanks.rankNameRegex.matches(rankName))
             throw CommandException("base.exceptions.rank-name-not-matching", emptyMap())
 
-        return transaction {
+        return loggedTransaction {
             val rank = FactionRank.new {
                 this.factionId = factionId
                 this.name = rankName
@@ -43,12 +43,12 @@ object FactionRankHandler {
                     allowed = allowedPermissions.contains(it)
                 }
             }
-            return@transaction rank
+            return@loggedTransaction rank
         }
     }
 
     fun initRanks() {
-        transaction {
+        loggedTransaction {
             guestRank = FactionRank.find { FactionRanks.name eq guestRankName }.firstOrNull() ?: createRank(
                 noFactionId, guestRankName, -1, emptyList()
             )

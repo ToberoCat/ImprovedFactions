@@ -3,6 +3,7 @@ package io.github.toberocat.improvedfactions.commands.claim
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.FactionClaim
 import io.github.toberocat.improvedfactions.claims.FactionClaims
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.translation.getLocalized
 import io.github.toberocat.improvedfactions.utils.command.CommandCategory
 import io.github.toberocat.improvedfactions.utils.command.CommandMeta
@@ -16,7 +17,6 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
 import org.bukkit.entity.Player
 import org.jetbrains.exposed.sql.and
-import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
     category = CommandCategory.CLAIM_CATEGORY,
@@ -51,7 +51,7 @@ class FactionMap(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand(
         )
 
         val claims = getAffectedClaims(player)
-        transaction {
+        loggedTransaction {
             for (x in -MAP_HEIGHT..MAP_HEIGHT) {
                 val mapBuffer = Component.text()
                 for (z in -MAP_WIDTH..MAP_WIDTH) {
@@ -108,7 +108,7 @@ class FactionMap(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand(
         val upperZ = player.location.chunk.z + MAP_WIDTH
         val lowerX = player.location.chunk.x - MAP_HEIGHT
         val upperX = player.location.chunk.x + MAP_HEIGHT
-        return transaction {
+        return loggedTransaction {
             FactionClaim.find { FactionClaims.chunkZ greaterEq lowerZ and (FactionClaims.chunkZ lessEq upperZ) and (FactionClaims.chunkX greaterEq lowerX) and (FactionClaims.chunkX lessEq upperX) }
                 .associateBy { getCombined(it.chunkX, it.chunkZ) }
         }

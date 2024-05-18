@@ -3,12 +3,11 @@ package io.github.toberocat.improvedfactions.commands.invite
 import io.github.toberocat.guiengine.components.container.tab.PagedContainer
 import io.github.toberocat.guiengine.components.provided.item.SimpleItemComponent
 import io.github.toberocat.guiengine.components.provided.paged.PagedComponent
-import io.github.toberocat.guiengine.event.GuiEvents
 import io.github.toberocat.guiengine.event.spigot.GuiCloseEvent
-import io.github.toberocat.guiengine.event.spigot.GuiEngineEvent
 import io.github.toberocat.guiengine.function.GuiFunction
 import io.github.toberocat.guiengine.render.RenderPriority
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.invites.FactionInvite
 import io.github.toberocat.improvedfactions.invites.FactionInvites
@@ -30,7 +29,6 @@ import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
-import org.jetbrains.exposed.sql.transactions.transaction
 import java.util.*
 import kotlin.time.Duration
 
@@ -60,7 +58,7 @@ class ListInvitesCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSub
 
     private fun populateContainer(player: Player, invited: Int, container: PagedContainer) {
         container.clearContainer()
-        transaction {
+        loggedTransaction {
             FactionInvite.find { FactionInvites.invitedId eq invited }.forEach { invite ->
                 container.addComponent(createComponent(Faction.findById(invite.factionId), invite, player))
             }

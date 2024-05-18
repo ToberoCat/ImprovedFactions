@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.commands.manage
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.utils.command.CommandCategory
@@ -12,7 +13,6 @@ import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.options.ConfirmOption
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
 
 /**
  * Created: 05.08.2023
@@ -31,7 +31,7 @@ class DeleteCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubComma
     override fun arguments(): Array<Argument<*>> = emptyArray()
 
     override fun handle(player: Player, args: Array<out String>): Boolean {
-        transaction {
+        loggedTransaction {
             player.factionUser().faction()?.delete()
         }
 

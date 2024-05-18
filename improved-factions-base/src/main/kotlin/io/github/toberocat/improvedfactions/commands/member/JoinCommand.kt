@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.commands.member
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.utils.arguments.entity.FactionArgument
@@ -14,7 +15,6 @@ import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.options.ArgLengthOption
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
 
 /**
  * Created: 05.08.2023
@@ -39,7 +39,7 @@ class JoinCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand
 
     override fun handle(player: Player, args: Array<out String>): Boolean {
         val faction = parseArgs(player, args).get<Faction>(0) ?: return false
-        transaction { faction.join(player.uniqueId, faction.defaultRank) }
+        loggedTransaction { faction.join(player.uniqueId, faction.defaultRank) }
         player.sendLocalized("base.command.join.joined")
         return true
     }

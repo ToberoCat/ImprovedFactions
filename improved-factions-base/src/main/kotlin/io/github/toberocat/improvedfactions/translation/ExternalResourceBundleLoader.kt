@@ -23,7 +23,7 @@ class ExternalResourceBundleLoader(private val bundlePath: String) : ResourceBun
         if (file.exists()) {
             FileInputStream(file).use { stream -> return PropertyResourceBundle(stream) }
         }
-        return super.newBundle(baseName, locale, format, loader, reload);
+        return super.newBundle(baseName, locale, format, loader, reload)
     }
 
     override fun getFallbackLocale(baseName: String?, locale: Locale?): Locale = Locale.ENGLISH

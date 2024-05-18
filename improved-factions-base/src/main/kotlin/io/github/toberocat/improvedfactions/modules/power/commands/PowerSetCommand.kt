@@ -23,7 +23,7 @@ import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction 
 
 @CommandMeta(
     description = "base.command.power.set.description",
@@ -60,7 +60,7 @@ class PowerSetCommand(
             faction = FactionHandler.getFaction(args.drop(2).joinToString(separator = " ")) ?: throw CommandException("base.exceptions.arg-doesnt-match", emptyMap())
         }
 
-        transaction {
+        loggedTransaction {
             when (powerType) {
                 PowerType.ACCUMULATED -> faction.setAccumulatedPower(power, PowerAccumulationChangeReason.OTHER)
                 PowerType.MAXIMUM -> faction.setMaxPower(power)

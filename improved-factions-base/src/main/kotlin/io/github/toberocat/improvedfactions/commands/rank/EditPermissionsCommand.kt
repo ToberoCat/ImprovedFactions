@@ -3,6 +3,7 @@ package io.github.toberocat.improvedfactions.commands.rank
 import io.github.toberocat.guiengine.components.container.tab.PagedContainer
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.components.permission.FactionPermissionComponentBuilder
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.ranks.FactionRank
 import io.github.toberocat.improvedfactions.utils.arguments.entity.RankArgument
 import io.github.toberocat.improvedfactions.utils.command.CommandCategory
@@ -14,7 +15,6 @@ import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.options.ArgLengthOption
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
     description = "base.command.rank.edit.description",
@@ -38,7 +38,7 @@ class EditPermissionsCommand(private val plugin: ImprovedFactionsPlugin) : Playe
             )
         )
         val container = context.findComponentByClass<PagedContainer>() ?: return false
-        transaction {
+        loggedTransaction {
             rank.permissions().forEach {
                 container.addComponent(
                     FactionPermissionComponentBuilder()

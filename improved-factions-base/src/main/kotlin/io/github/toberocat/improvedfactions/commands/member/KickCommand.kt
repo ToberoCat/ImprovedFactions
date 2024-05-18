@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.commands.member
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.FactionUser
@@ -15,7 +16,6 @@ import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.options.ArgLengthOption
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
     description = "base.command.kick.description",
@@ -35,7 +35,7 @@ class KickCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand
 
     override fun handle(player: Player, args: Array<out String>): Boolean {
         val target = parseArgs(player, args).get<FactionUser>(0) ?: return false
-        transaction {
+        loggedTransaction {
             target.faction()?.kick(target.uniqueId)
         }
         player.sendLocalized("base.command.kick.kicked")

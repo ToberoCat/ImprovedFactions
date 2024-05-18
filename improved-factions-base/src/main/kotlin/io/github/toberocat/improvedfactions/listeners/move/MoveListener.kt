@@ -2,11 +2,11 @@ package io.github.toberocat.improvedfactions.listeners.move
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.utils.toAudience
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerMoveEvent
-import org.jetbrains.exposed.sql.transactions.transaction
 
 class MoveListener(plugin: ImprovedFactionsPlugin) : Listener {
     private val territoryListener = TerritoryTitle(plugin.improvedFactionsConfig)
@@ -17,7 +17,7 @@ class MoveListener(plugin: ImprovedFactionsPlugin) : Listener {
         val from = event.from.chunk
         if (to == event.from.chunk) return
 
-        transaction {
+        loggedTransaction {
             val toClaim = to?.getFactionClaim()
             val fromClaim = from.getFactionClaim()
             val audience = event.player.toAudience()

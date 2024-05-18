@@ -6,21 +6,21 @@ import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction 
 
 class OptionalFactionArgument : Argument<Faction> {
     override fun parse(player: Player, arg: String): Faction =
-        transaction { FactionHandler.searchFactions(arg).firstOrNull() } ?: throw CommandException(
+        loggedTransaction { FactionHandler.searchFactions(arg).firstOrNull() } ?: throw CommandException(
             "base.exceptions.faction-not-found", emptyMap()
         )
 
     override fun defaultValue(player: Player): Faction =
-        transaction { player.factionUser().faction() } ?: throw CommandException(
+        loggedTransaction { player.factionUser().faction() } ?: throw CommandException(
             "base.exceptions.faction-not-found", emptyMap()
         )
 
     override fun tab(sender: Player): List<String> =
-        transaction { return@transaction Faction.all().map { x -> x.name } }
+        loggedTransaction { return@loggedTransaction Faction.all().map { x -> x.name } }
 
     override fun descriptionKey(): String = "base.command.args.optional-faction"
 

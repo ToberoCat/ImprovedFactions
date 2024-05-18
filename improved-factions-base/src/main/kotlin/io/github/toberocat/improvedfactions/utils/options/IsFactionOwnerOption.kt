@@ -5,7 +5,7 @@ import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.command.options.PlayerOption
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction 
 
 /**
  * Created: 05.08.2023
@@ -13,7 +13,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
  */
 class IsFactionOwnerOption : PlayerOption {
     override fun executePlayer(player: Player, args: Array<out String>): Array<out String> {
-        transaction {
+        loggedTransaction {
             if (player.uniqueId != player.factionUser().faction()?.owner)
                 throw CommandException("base.exceptions.needs-to-be-faction-owner", emptyMap())
         }
@@ -22,6 +22,6 @@ class IsFactionOwnerOption : PlayerOption {
 
     override fun show(sender: CommandSender, args: Array<out String>): Boolean {
         val player = (sender as? Player) ?: return false
-        return player.uniqueId == transaction { player.factionUser().faction()?.owner }
+        return player.uniqueId == loggedTransaction { player.factionUser().faction()?.owner }
     }
 }

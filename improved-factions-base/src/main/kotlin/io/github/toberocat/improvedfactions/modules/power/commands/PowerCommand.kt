@@ -15,7 +15,7 @@ import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction 
 import kotlin.math.round
 
 @CommandMeta(
@@ -42,7 +42,7 @@ class PowerCommand(
     override fun arguments() = arrayOf<Argument<*>>()
 
     override fun handle(player: Player, args: Array<out String>): Boolean {
-        transaction {
+        loggedTransaction {
             val faction = player.factionUser().faction() ?: throw CommandException(
                 "power.command.power.faction-needed", emptyMap()
             )

@@ -7,7 +7,7 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction 
 
 
 /**
@@ -35,7 +35,7 @@ class PapiExpansion(private val pluginConfig: ImprovedFactionsConfig) : Placehol
     override fun persist(): Boolean = true
 
     override fun onRequest(player: OfflinePlayer?, params: String): String? {
-        return player?.let { transaction { placeholders[params]?.invoke(it) } }
+        return player?.let { loggedTransaction { placeholders[params]?.invoke(it) } }
             ?: pluginConfig.defaultPlaceholders[params]
     }
 }

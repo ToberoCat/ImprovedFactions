@@ -3,6 +3,7 @@ package io.github.toberocat.improvedfactions.listeners.claim
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.clustering.Position
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.managers.ByPassManager
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
@@ -13,7 +14,6 @@ import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Listener
-import org.jetbrains.exposed.sql.transactions.transaction
 
 abstract class ProtectionListener(protected val zoneType: String,
                                   private val sendMessage: Boolean = true) : Listener {
@@ -29,25 +29,25 @@ abstract class ProtectionListener(protected val zoneType: String,
         protectChunk(event, block?.chunk, player)
     }
 
-    private fun protectChunk(event: Cancellable, chunk: Chunk?, player: Player) = transaction {
+    private fun protectChunk(event: Cancellable, chunk: Chunk?, player: Player) = loggedTransaction {
         val claim = chunk?.getFactionClaim()
         val claimZone = claim?.zone()
         if (claim?.zoneType != zoneType || (claimZone?.protectAlways == false && claim.factionId == noFactionId))
-            return@transaction
+            return@loggedTransaction
 
         val claimedFaction = claim.factionId
         val playerFaction = player.factionUser().factionId
         if (claimedFaction == playerFaction)
-            return@transaction
+            return@loggedTransaction
 
         if (claimClusters.getCluster(Position(chunk.x, chunk.z, claim.world, claimedFaction))
                 ?.isUnprotected(chunk.x, chunk.z, chunk.world.name) == true
         )
-            return@transaction
+            return@loggedTransaction
 
         event.isCancelled = true
         if (!sendMessage) {
-            return@transaction
+            return@loggedTransaction
         }
 
         when (claimZone?.protectAlways) {

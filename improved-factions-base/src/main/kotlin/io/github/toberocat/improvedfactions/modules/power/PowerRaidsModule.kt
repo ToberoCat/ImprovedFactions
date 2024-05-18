@@ -10,7 +10,7 @@ import io.github.toberocat.improvedfactions.modules.power.impl.FactionPowerRaidM
 import io.github.toberocat.toberocore.command.CommandExecutor
 
 class PowerRaidsModule : BaseModule {
-    override val moduleName = MODULE_NAME;
+    override val moduleName = MODULE_NAME
 
     var factionModuleHandle: FactionPowerRaidModuleHandle = DummyFactionPowerRaidModuleHandle()
     val config = PowerManagementConfig()

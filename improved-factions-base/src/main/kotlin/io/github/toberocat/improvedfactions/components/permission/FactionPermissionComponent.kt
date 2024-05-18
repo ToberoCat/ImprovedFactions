@@ -4,6 +4,7 @@ import io.github.toberocat.guiengine.components.AbstractGuiComponent
 import io.github.toberocat.guiengine.function.GuiFunction
 import io.github.toberocat.guiengine.render.RenderPriority
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.permissions.FactionPermission
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.toberocore.util.ItemBuilder
@@ -11,7 +12,6 @@ import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
-import org.jetbrains.exposed.sql.transactions.transaction
 
 const val TYPE = "faction-permission"
 
@@ -63,6 +63,6 @@ class FactionPermissionComponent(
 
     private fun setSelected(value: Int) {
         selected = value
-        transaction { permission.allowed = value == 0 }
+        loggedTransaction { permission.allowed = value == 0 }
     }
 }

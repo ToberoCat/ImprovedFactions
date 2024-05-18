@@ -3,13 +3,14 @@ package io.github.toberocat.improvedfactions.factions
 import dev.s7a.base64.Base64ItemStack
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.*
-import io.github.toberocat.improvedfactions.messages.MessageBroker
 import io.github.toberocat.improvedfactions.claims.clustering.Position
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.exceptions.*
 import io.github.toberocat.improvedfactions.factions.ban.FactionBan
 import io.github.toberocat.improvedfactions.factions.ban.FactionBans
 import io.github.toberocat.improvedfactions.invites.FactionInvite
 import io.github.toberocat.improvedfactions.invites.FactionInvites
+import io.github.toberocat.improvedfactions.messages.MessageBroker
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Companion.powerRaidModule
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
@@ -24,6 +25,7 @@ import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.util.ItemUtils
 import io.github.toberocat.toberocore.util.MathUtils
 import kotlinx.datetime.*
+import kotlinx.datetime.TimeZone
 import org.bukkit.Bukkit
 import org.bukkit.Chunk
 import org.bukkit.Material
@@ -34,8 +36,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.sql.SizedIterable
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.and
-import org.jetbrains.exposed.sql.transactions.transaction
-import java.util.UUID
+import java.util.*
 import kotlin.math.max
 
 /**
@@ -171,7 +172,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         user.assignedRank = rankId
 
         val player = Bukkit.getPlayer(uuid) ?: return
-        val rank = transaction { user.rank() }
+        val rank = loggedTransaction { user.rank() }
         broadcast(
             "base.faction.player-joined", mapOf(
                 "player" to player.displayName, "rank" to rank.name
@@ -196,7 +197,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         }
         Bukkit.getScheduler().runTaskLater(
             ImprovedFactionsPlugin.instance,
-            Runnable { transaction { invite.delete() } },
+            Runnable { loggedTransaction { invite.delete() } },
             FactionInvites.inviteExpiresInMinutes * 60 * 20L
         )
 

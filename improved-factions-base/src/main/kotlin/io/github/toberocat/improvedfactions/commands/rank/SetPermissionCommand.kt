@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.commands.rank
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.permissions.FactionPermission
 import io.github.toberocat.improvedfactions.permissions.FactionPermissions
 import io.github.toberocat.improvedfactions.ranks.FactionRank
@@ -21,7 +22,6 @@ import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.and
-import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
     description = "base.command.rank.set.description",
@@ -46,7 +46,7 @@ class SetPermissionCommand(private val plugin: ImprovedFactionsPlugin) : PlayerS
         val permission = arguments.get<String>(1) ?: return false
         val value = arguments.get<Boolean>(2) ?: return false
 
-        transaction {
+        loggedTransaction {
             val factionPermission = FactionPermission.find(
                 FactionPermissions.rankId eq rank.id.value and (FactionPermissions.permission eq permission)
             ).firstOrNull() ?: FactionPermission.new {

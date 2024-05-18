@@ -4,6 +4,7 @@ import io.github.toberocat.guiengine.components.container.tab.PagedContainer
 import io.github.toberocat.guiengine.function.GuiFunction
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.components.rank.FactionRankComponentBuilder
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.ranks.listRanks
 import io.github.toberocat.improvedfactions.user.factionUser
@@ -15,7 +16,6 @@ import io.github.toberocat.toberocore.command.CommandRoute
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
     description = "base.command.rank.description",
@@ -39,7 +39,7 @@ class RankCommandRoute(private val plugin: ImprovedFactionsPlugin) : CommandRout
         val context = plugin.guiEngineApi.openGui(player, "rank/rank-overview")
         val container = context.findComponentByClass<PagedContainer>()
             ?: return false
-        transaction {
+        loggedTransaction {
             val user = player.factionUser()
             user.faction()
                 ?.listRanks()

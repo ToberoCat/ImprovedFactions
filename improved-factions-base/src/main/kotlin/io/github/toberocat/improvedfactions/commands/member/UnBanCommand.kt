@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.commands.member
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.ban.FactionBan
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.translation.sendLocalized
@@ -15,7 +16,6 @@ import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.options.ArgLengthOption
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
     description = "base.command.unban.description",
@@ -36,7 +36,7 @@ class UnBanCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubComman
 
     override fun handle(player: Player, args: Array<out String>): Boolean {
         val ban = parseArgs(player, args).get<FactionBan>(0) ?: return false
-        transaction { ban.delete() }
+        loggedTransaction { ban.delete() }
         player.sendLocalized("base.command.unban.unbanned-target")
         return true
     }

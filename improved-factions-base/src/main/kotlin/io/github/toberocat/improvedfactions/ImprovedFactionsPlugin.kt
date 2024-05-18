@@ -22,6 +22,7 @@ import io.github.toberocat.improvedfactions.components.rank.FactionRankComponent
 import io.github.toberocat.improvedfactions.components.rankselector.FactionRankSelectorComponent
 import io.github.toberocat.improvedfactions.components.rankselector.FactionRankSelectorComponentBuilder
 import io.github.toberocat.improvedfactions.config.ImprovedFactionsConfig
+import io.github.toberocat.improvedfactions.database.DatabaseConnector
 import io.github.toberocat.improvedfactions.factions.Factions
 import io.github.toberocat.improvedfactions.functions.FactionPermissionFunction
 import io.github.toberocat.improvedfactions.invites.FactionInvites
