@@ -12,10 +12,12 @@ import io.github.toberocat.toberocore.command.CommandExecutor
 class PowerRaidsModule : BaseModule {
     override val moduleName = MODULE_NAME
 
+    var isEnabled = false
     var factionModuleHandle: FactionPowerRaidModuleHandle = DummyFactionPowerRaidModuleHandle()
     val config = PowerManagementConfig()
 
     override fun onEnable(plugin: ImprovedFactionsPlugin) {
+        isEnabled = true
         factionModuleHandle = FactionPowerRaidModuleHandleImpl(config)
     }
 

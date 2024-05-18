@@ -2,7 +2,7 @@
 # -------- { General Settings } --------
 #
 update-checker: true
-config-version: 3
+config-version: 4
 
 # Configure a mysql connection. If no connection was established, the plugin uses sqlite.
 # This allows to use this plugin without a mysql server
@@ -25,6 +25,8 @@ modules:
   wilderness: true
   # This module will add various home related commands for setting and teleporting to a faction's home
   home: true
+  # This module will replace some commands with gui alternatives, for example the /f invites or /f info command
+  gui: true
 
 #
 # -------- { Base Module Settings } --------

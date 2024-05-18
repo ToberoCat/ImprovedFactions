@@ -1,7 +1,6 @@
 package io.github.toberocat.improvedfactions.commands.rank
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.action.CommandActionMapper
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
 import io.github.toberocat.improvedfactions.translation.sendLocalized
@@ -22,10 +21,6 @@ import org.bukkit.entity.Player
     description = "base.command.rank.create.description"
 )
 class CreateRankCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("create") {
-
-    init {
-        CommandActionMapper("factions.rank.create", this).register()
-    }
 
     override fun options(): Options =
         Options.getFromConfig(plugin, label)

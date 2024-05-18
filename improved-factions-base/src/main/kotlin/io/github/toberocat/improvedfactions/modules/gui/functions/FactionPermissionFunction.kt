@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedfactions.functions
+package io.github.toberocat.improvedfactions.modules.gui.functions
 
 import io.github.toberocat.guiengine.context.GuiContext
 import io.github.toberocat.guiengine.function.GuiComputeFunction

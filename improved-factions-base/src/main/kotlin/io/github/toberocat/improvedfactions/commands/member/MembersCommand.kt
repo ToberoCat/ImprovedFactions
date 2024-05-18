@@ -1,10 +1,8 @@
 package io.github.toberocat.improvedfactions.commands.member
 
-import io.github.toberocat.guiengine.components.container.tab.PagedContainer
-import io.github.toberocat.guiengine.components.provided.item.SimpleItemComponentBuilder
-import io.github.toberocat.guiengine.function.GuiFunction
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.utils.command.CommandCategory
 import io.github.toberocat.improvedfactions.utils.command.CommandMeta
@@ -13,14 +11,18 @@ import io.github.toberocat.toberocore.command.PlayerSubCommand
 import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.options.ArgLengthOption
 import io.github.toberocat.toberocore.command.options.Options
+import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import java.text.SimpleDateFormat
 
+const val MEMBERS_COMMAND_DESCRIPTION = "base.command.members.description"
+const val MEMBERS_COMMAND_CATEGORY = CommandCategory.MEMBER_CATEGORY
+
 @CommandMeta(
-    description = "base.commands.members.description",
-    category = CommandCategory.MEMBER_CATEGORY
+    description = MEMBERS_COMMAND_DESCRIPTION,
+    category = MEMBERS_COMMAND_CATEGORY
 )
-class MembersCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("members") {
+open class MembersCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("members") {
     private val dateFormat = SimpleDateFormat("dd/MM/yyyy")
 
     override fun options(): Options = Options.getFromConfig(plugin, label) { options, _ ->
@@ -30,40 +32,26 @@ class MembersCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubComm
 
     override fun arguments(): Array<Argument<*>> = emptyArray()
 
-    override fun handle(player: Player, args: Array<out String>): Boolean {
-        val context = plugin.guiEngineApi.openGui(player, "member/member-overview-page")
-        val container = context.findComponentByClass<PagedContainer>() ?: return false
+    override fun handle(player: Player, args: Array<String>): Boolean {
+        player.sendLocalized("base.command.members.header")
+
         loggedTransaction {
             player.factionUser().faction()?.members()?.forEach {
-                val member = it.offlinePlayer()
-                container.addComponent(
-                    SimpleItemComponentBuilder()
-                        .setName("§e${member.name}")
-                        .setLore(
-                            arrayOf(
-                                "",
-                                "§7Status: ${
-                                    if (member.isOnline) "§aOnline"
-                                    else "§e${dateFormat.format(member.lastPlayed)}"
-                                }",
-                                "§7Rank: §e${it.rank().name}"
-                            )
-                        )
-                        .setOwner(it.uniqueId)
-                        .setClickFunctions(listOf(
-                            GuiFunction.anonymous {
-                                plugin.guiEngineApi.openGui(player, "member/member-detail-page", mapOf(
-                                    "member" to (member.name ?: "")
-                                ))
-                            }
-                        ))
-                        .createComponent()
+                val offlinePlayer = it.offlinePlayer()
+                player.sendLocalized(
+                    "base.command.members.detail", mapOf(
+                        "name" to (offlinePlayer.name ?: "Unknown"),
+                        "lastSeen" to getLastSeen(offlinePlayer),
+                        "rank" to it.rank().name
+                    )
                 )
             }
         }
-
-        context.render()
         return true
     }
 
+    protected fun getLastSeen(member: OfflinePlayer) = when {
+        member.isOnline -> "§aOnline"
+        else -> "§e${dateFormat.format(member.lastPlayed)}"
+    }
 }

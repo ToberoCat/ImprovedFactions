@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.modules.power.commands
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.modules.power.impl.FactionPowerRaidModuleHandleImpl
 import io.github.toberocat.improvedfactions.permissions.Permissions
@@ -15,21 +16,24 @@ import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction 
 import kotlin.math.round
 
+const val POWER_COMMAND_DESCRIPTION = "base.command.power.description"
+const val POWER_COMMAND_CATEGORY = CommandCategory.POWER_CATEGORY
+const val POWER_COMMAND_MODULE = PowerRaidsModule.MODULE_NAME
+
 @CommandMeta(
-    description = "base.command.power.description",
-    category = CommandCategory.POWER_CATEGORY,
-    module = PowerRaidsModule.MODULE_NAME
+    description = POWER_COMMAND_DESCRIPTION,
+    category = POWER_COMMAND_CATEGORY,
+    module = POWER_COMMAND_MODULE
 )
-class PowerCommand(
+open class PowerCommand(
     private val plugin: ImprovedFactionsPlugin,
-    private val powerHandle: FactionPowerRaidModuleHandleImpl
+    protected val powerHandle: FactionPowerRaidModuleHandleImpl
 ) : PlayerSubCommand("power") {
 
     init {
-          addChild(PowerSetCommand(plugin))
+        addChild(PowerSetCommand(plugin))
         addChild(PowerAddCommand(plugin))
     }
 
@@ -42,6 +46,8 @@ class PowerCommand(
     override fun arguments() = arrayOf<Argument<*>>()
 
     override fun handle(player: Player, args: Array<out String>): Boolean {
+        player.sendLocalized("base.command.power.header")
+
         loggedTransaction {
             val faction = player.factionUser().faction() ?: throw CommandException(
                 "power.command.power.faction-needed", emptyMap()
@@ -49,25 +55,31 @@ class PowerCommand(
             val activeAccumulation = powerHandle.getActivePowerAccumulation(faction)
             val inactiveAccumulation = powerHandle.getInactivePowerAccumulation(faction)
             val claimKeep = powerHandle.getClaimMaintenanceCost(faction)
-            plugin.guiEngineApi.openGui(
-                player, "power/overview", mapOf(
-                    "power" to faction.accumulatedPower.toString(),
-                    "maxPower" to faction.maxPower.toString(),
-                    "currently-accumulated" to stringify(
-                        powerHandle.getPowerAccumulated(
-                            activeAccumulation,
-                            inactiveAccumulation
-                        )
-                    ),
-                    "active-accumulation" to stringify(activeAccumulation),
-                    "inactive-accumulation" to stringify(inactiveAccumulation),
-                    "claim-keep" to stringify(claimKeep),
-                    "next-claim-cost" to powerHandle.getNextClaimCost(faction).toString()
-                )
+            val currentlyAccumulated = powerHandle.getPowerAccumulated(
+                activeAccumulation,
+                inactiveAccumulation
             )
+            val nextClaimCost = powerHandle.getNextClaimCost(faction)
+
+
+            player.showDetails("Active Accumulation", stringify(activeAccumulation))
+            player.showDetails("Inactive Accumulation", stringify(inactiveAccumulation))
+            player.showDetails("Claim Keep", stringify(claimKeep))
+            player.showDetails("Current Accumulation", stringify(currentlyAccumulated))
+            player.showDetails("Next Claim Cost", stringify(nextClaimCost.toDouble()))
         }
         return true
     }
 
-    private fun stringify(value: Double) = (round(value * 100) / 100).toString()
+    private fun Player.showDetails(key: String, value: String, cmd: String = "") {
+        sendLocalized(
+            "base.command.power.detail", mapOf(
+                "cmd" to cmd,
+                "key" to key,
+                "value" to value
+            )
+        )
+    }
+
+    protected fun stringify(value: Double) = (round(value * 100) / 100).toString()
 }

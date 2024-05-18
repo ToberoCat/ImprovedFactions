@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedfactions.components.icon
+package io.github.toberocat.improvedfactions.modules.gui.components.icon
 
 import io.github.toberocat.guiengine.components.provided.item.SimpleItemComponent
 import io.github.toberocat.guiengine.function.GuiFunction

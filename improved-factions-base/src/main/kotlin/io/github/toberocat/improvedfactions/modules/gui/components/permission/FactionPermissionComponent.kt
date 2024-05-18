@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedfactions.components.permission
+package io.github.toberocat.improvedfactions.modules.gui.components.permission
 
 import io.github.toberocat.guiengine.components.AbstractGuiComponent
 import io.github.toberocat.guiengine.function.GuiFunction

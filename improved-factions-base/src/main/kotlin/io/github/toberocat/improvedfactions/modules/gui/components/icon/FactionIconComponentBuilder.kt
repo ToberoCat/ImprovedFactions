@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedfactions.components.icon
+package io.github.toberocat.improvedfactions.modules.gui.components.icon
 
 import io.github.toberocat.guiengine.components.AbstractGuiComponentBuilder
 import io.github.toberocat.guiengine.exception.InvalidGuiComponentException

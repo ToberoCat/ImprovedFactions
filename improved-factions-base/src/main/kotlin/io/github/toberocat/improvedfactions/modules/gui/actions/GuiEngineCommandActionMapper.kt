@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedfactions.action
+package io.github.toberocat.improvedfactions.modules.gui.actions
 
 import io.github.toberocat.guiengine.utils.GuiEngineAction
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
@@ -12,7 +12,8 @@ import io.github.toberocat.toberocore.task.Promise
 import org.bukkit.entity.Player
 import java.util.function.Function
 
-class CommandActionMapper(private val label: String, private val command: PlayerSubCommand) : GuiEngineAction() {
+class GuiEngineCommandMapperAction(private val label: String, private val command: PlayerSubCommand) :
+    GuiEngineAction() {
     override fun label(): String = label
 
 
@@ -32,7 +33,6 @@ class CommandActionMapper(private val label: String, private val command: Player
                         )
                     )
                     ChatInput.prompt(ImprovedFactionsPlugin.instance, player, null, Function { text ->
-
                         val result: Any?
                         try {
                             result = it.parse(player, text)
@@ -59,5 +59,6 @@ class CommandActionMapper(private val label: String, private val command: Player
                 player.sendLocalized(e.localizedMessage, e.placeholders)
             }
         }
+
     }
 }
