@@ -20,7 +20,7 @@ Permission: factions.members
 
 Usage: `/factions members `
 
-Description: View your faction's members
+Description: base.command.members.description
 
 Module: core
 

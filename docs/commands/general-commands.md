@@ -41,6 +41,20 @@ Module: core
 | --- | --- | --- |
 | command | Optionally, only show usage and description for this specific command | false |
 
+## factions chat
+
+Permission: factions.chat
+
+Usage: `/factions chat [message]`
+
+Description: Toggle the chat your messages will be sent to. If you provide a message, it will send the message into the faction chat
+
+Module: core
+
+| Argument | Description | Required |
+| --- | --- | --- |
+| message | The chat message that should get sent into the faction | false |
+
 ## factions wilderness
 
 Permission: factions.wilderness

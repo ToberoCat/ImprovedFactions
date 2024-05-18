@@ -107,12 +107,26 @@ Permission: factions.force
 
 Usage: `/factions force `
 
-Description: base.command.force.description
+Description: Force a player to certain faction-related actions
 
 Module: core
 
 | Argument | Description | Required |
 | --- | --- | --- |
+
+## factions force unclaim
+
+Permission: factions.force.unclaim
+
+Usage: `/factions force unclaim <faction>`
+
+Description: Force a faction to unclaim a chunk
+
+Module: core
+
+| Argument | Description | Required |
+| --- | --- | --- |
+| faction | Provide a faction | true |
 
 ## factions force join
 

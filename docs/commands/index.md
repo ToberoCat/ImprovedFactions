@@ -28,7 +28,7 @@ More details when you click on a command.
 | [factions create](manage-commands.md#factions-create) | Create a new faction | core |
 | [factions rename](manage-commands.md#factions-rename) | Rename your faction | core |
 | [factions ban](member-commands.md#factions-ban) | Ban a player, making him unable to join again | core |
-| [factions members](member-commands.md#factions-members) | View your faction's members | core |
+| [factions members](member-commands.md#factions-members) | base.command.members.description | core |
 | [factions join](member-commands.md#factions-join) | Join a faction | core |
 | [factions transferowner](member-commands.md#factions-transferowner) | Transfer the ownership to someone else from your faction | core |
 | [factions unban](member-commands.md#factions-unban) | Unban a player, making him able to join again after being banned | core |
@@ -43,7 +43,8 @@ More details when you click on a command.
 | [factions power add](admin-commands.md#factions-power-add) | Set the power of a faction | power-raids |
 | [factions power set](admin-commands.md#factions-power-set) | Set the power of a faction | power-raids |
 | [factions bypass](admin-commands.md#factions-bypass) | Add or remove a bypass for a player. A bypass only stays until the next server restart | core |
-| [factions force](admin-commands.md#factions-force) | base.command.force.description | core |
+| [factions force](admin-commands.md#factions-force) | Force a player to certain faction-related actions | core |
+| [factions force unclaim](admin-commands.md#factions-force-unclaim) | Force a faction to unclaim a chunk | core |
 | [factions force join](admin-commands.md#factions-force-join) | Force a player to join a faction | core |
 | [factions rank](permission-management-commands.md#factions-rank) | Access rank commands | core |
 | [factions rank set](permission-management-commands.md#factions-rank-set) | Set a permission for a rank | core |
@@ -56,4 +57,5 @@ More details when you click on a command.
 | [factions info](general-commands.md#factions-info) | Display information about a faction | core |
 | [factions home](general-commands.md#factions-home) | Teleport to your faction's home | home |
 | [factions help](general-commands.md#factions-help) | Display the help menu | core |
+| [factions chat](general-commands.md#factions-chat) | Toggle the chat your messages will be sent to. If you provide a message, it will send the message into the faction chat | core |
 | [factions wilderness](general-commands.md#factions-wilderness) | Teleport to a random location in the wilderness | wilderness |
