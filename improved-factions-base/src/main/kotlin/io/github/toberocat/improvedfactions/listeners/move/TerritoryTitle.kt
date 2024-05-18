@@ -47,7 +47,8 @@ class TerritoryTitle(private val pluginConfig: ImprovedFactionsConfig) : Listene
 
                 val fromZoneType = fromClaim?.zoneType ?: ZoneHandler.FACTION_ZONE_TYPE
                 val toZoneType = toZone?.type ?: ZoneHandler.FACTION_ZONE_TYPE
-                return (toFaction?.id?.value ?: noFactionId) == fromFaction && toZoneType == fromZoneType
+                val toFactionId = toFaction?.id?.value ?: noFactionId
+                return toFactionId == fromFaction && toZoneType == fromZoneType
             }
         }
     }
