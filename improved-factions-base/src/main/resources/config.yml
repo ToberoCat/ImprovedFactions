@@ -2,6 +2,7 @@
 # -------- { General Settings } --------
 #
 update-checker: true
+config-version: 2
 
 # Configure a mysql connection. If no connection was established, the plugin uses sqlite.
 # This allows to use this plugin without a mysql server
