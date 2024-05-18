@@ -4,6 +4,7 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.squareClaimAction
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.ranks.FactionRank
+import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
 import io.github.toberocat.improvedfactions.ranks.anyRank
 import io.github.toberocat.improvedfactions.ranks.listRanks
 import io.github.toberocat.improvedfactions.translation.sendLocalized
@@ -59,7 +60,7 @@ class ForceJoinCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCo
                     user.faction()?.leave(player.uniqueId)
                 }
 
-                faction.join(playerToJoin.uniqueId, faction.defaultRank)
+                faction.join(playerToJoin.uniqueId, faction.listRanks().lastOrNull()?.id?.value ?: faction.defaultRank)
                 player.sendLocalized("base.command.force.join.success")
                 playerToJoin.sendLocalized("base.command.force.join.player-joined", mapOf("faction" to faction.name))
             } catch (e: CommandException) {
