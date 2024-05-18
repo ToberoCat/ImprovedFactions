@@ -101,6 +101,8 @@ class DatabaseConnector(private val plugin: ImprovedFactionsPlugin) {
     fun createDatabase(): Database {
         val database = connectDatabase()
         transaction {
+            if (config.getBoolean("mysql.verbose", true)) addLogger(StdOutSqlLogger)
+
             SchemaUtils.createMissingTablesAndColumns(FactionUsers)
             SchemaUtils.createMissingTablesAndColumns(FactionClaims)
             SchemaUtils.createMissingTablesAndColumns(FactionPermissions)
