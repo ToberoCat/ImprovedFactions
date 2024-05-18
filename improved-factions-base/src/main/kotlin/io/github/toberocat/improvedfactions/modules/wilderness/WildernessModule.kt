@@ -20,8 +20,6 @@ class WildernessModule : BaseModule {
 
     companion object {
         const val MODULE_NAME = "wilderness"
-        fun wildernessModule() =
-            (ImprovedFactionsPlugin.modules[MODULE_NAME] as? WildernessModule) ?: throw IllegalStateException()
 
         fun wildernessPair() = MODULE_NAME to WildernessModule()
     }

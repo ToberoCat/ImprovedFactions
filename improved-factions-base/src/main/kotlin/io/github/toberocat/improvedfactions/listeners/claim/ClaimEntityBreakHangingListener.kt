@@ -9,6 +9,6 @@ class ClaimEntityBreakHangingListener(zoneType: String) : ProtectionListener(zon
 
     @EventHandler
     fun hangingBreak(event: HangingBreakByEntityEvent) {
-        protectChunk(event, event.entity, (event.remover as? Player) ?: return)
+        protectChunk(event, event.entity, event.remover as? Player ?: return)
     }
 }

@@ -14,6 +14,6 @@ class ClaimEntityDamagePlayerListener<T : Entity>(private val name: String, priv
     @EventHandler
     fun entityDamage(event: EntityDamageByEntityEvent) {
         if (!clazz.isInstance(event.damager)) return
-        protectChunk(event, event.entity, (event.entity as? Player) ?: return)
+        protectChunk(event, event.entity, event.entity as? Player ?: return)
     }
 }

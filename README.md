@@ -7,6 +7,7 @@
 [![GitHub release](https://img.shields.io/github/release/ToberoCat/ImprovedFactions_new?include_prereleases=&sort=semver&color=%23FEDD58)](https://github.com/ToberoCat/ImprovedFactions_new/releases/)
 [![issues - ImprovedFactions](https://img.shields.io/github/issues/ToberoCat/ImprovedFactions_new)](https://github.com/ToberoCat/ImprovedFactions_new/issues)
 [![SpigotMain - ImprovedFactions](https://img.shields.io/badge/Spigot-ImprovedFactions-orange)](https://www.spigotmc.org/resources/improved-factions.95617 "Spigot ImprovedFactions page")
+[![CodeFactor](https://www.codefactor.io/repository/github/toberocat/improvedfactions/badge)](https://www.codefactor.io/repository/github/toberocat/improvedfactions)
 <a href="https://www.paypal.com/donate/?hosted_button_id=BGB6QWR886Q6Y">
     <img src="https://img.shields.io/badge/Donate-PayPal-green.svg?logo=paypal&style=flat-square" height="20" alt="Donate">
 </a>

@@ -51,7 +51,7 @@ class PlayerTeleporter(
 
     override fun run() {
         val current = System.currentTimeMillis()
-        if ((current - startTime) >= standStillMs) {
+        if (current - startTime >= standStillMs) {
             onTeleport()
             cancel()
             return

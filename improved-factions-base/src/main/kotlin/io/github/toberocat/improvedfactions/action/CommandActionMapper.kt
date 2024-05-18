@@ -19,7 +19,7 @@ class CommandActionMapper(private val label: String, private val command: Player
     override fun run(player: Player) {
         async {
             val arguments = command.args.map {
-                (Promise { resolve ->
+                Promise { resolve ->
                     player.sendLocalized(
                         "base.action.required-argument", mapOf(
                             "usage" to it.usage(),
@@ -49,7 +49,7 @@ class CommandActionMapper(private val label: String, private val command: Player
                         resolve.accept(text)
                         return@Function ChatInput.Action.SUCCESS
                     })
-                }).result()
+                }.result()
             }.toMutableList()
 
             arguments.add(0, "")

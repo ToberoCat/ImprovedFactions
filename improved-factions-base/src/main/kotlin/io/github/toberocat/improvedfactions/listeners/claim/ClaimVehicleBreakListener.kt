@@ -12,6 +12,6 @@ class ClaimVehicleBreakListener(zoneType: String) : ProtectionListener(zoneType)
     fun vehicleBreak(event: VehicleDamageEvent) {
         if (event.vehicle !is Minecart)
             return
-        protectChunk(event, event.vehicle, (event.attacker as? Player) ?: return)
+        protectChunk(event, event.vehicle, event.attacker as? Player ?: return)
     }
 }
