@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.commands.member
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
@@ -16,7 +17,6 @@ import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.command.options.ArgLengthOption
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
     description = "base.command.ban.description",
@@ -39,7 +39,7 @@ class BanCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand(
         val target = parseArgs(player, args).get<Player>(0) ?: return false
         if (target == player)
             throw CommandException("base.command.ban.cant-ban-yourself", emptyMap())
-        transaction {
+        loggedTransaction {
             player.factionUser().faction()?.ban(target.factionUser())
         }
 

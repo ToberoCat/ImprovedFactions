@@ -1,10 +1,10 @@
 package io.github.toberocat.improvedfactions.listeners.claim
 
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.user.noFactionId
 import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityExplodeEvent
-import org.jetbrains.exposed.sql.transactions.transaction
 
 
 class ClaimTntListener(zoneType: String) : ProtectionListener(zoneType) {
@@ -15,7 +15,7 @@ class ClaimTntListener(zoneType: String) : ProtectionListener(zoneType) {
 
     @EventHandler
     fun onTNTExplode(event: EntityExplodeEvent) {
-        transaction {
+        loggedTransaction {
             val sourceFaction = event.entity.location.getFactionClaim()?.factionId ?: noFactionId
 
             val iterator = event.blockList().iterator()

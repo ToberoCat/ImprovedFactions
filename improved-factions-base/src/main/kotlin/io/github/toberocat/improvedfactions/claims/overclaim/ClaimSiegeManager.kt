@@ -3,6 +3,7 @@ package io.github.toberocat.improvedfactions.claims.overclaim
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.FactionClaim
 import io.github.toberocat.improvedfactions.claims.clustering.Position
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Companion.powerRaidModule
 import io.github.toberocat.improvedfactions.translation.getLocaleEnum
@@ -14,7 +15,6 @@ import net.kyori.adventure.bossbar.BossBar
 import net.kyori.adventure.text.Component
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitTask
-import org.jetbrains.exposed.sql.transactions.transaction
 import java.util.*
 
 class ClaimSiegeManager(private val claim: FactionClaim) {
@@ -126,7 +126,7 @@ class ClaimSiegeManager(private val claim: FactionClaim) {
         remove(claim)
     }
 
-    private fun getAssociatedFactions() = transaction {
+    private fun getAssociatedFactions() = loggedTransaction {
         players
             .map { it.factionUser().factionId }
             .toMutableList()
@@ -141,7 +141,7 @@ class ClaimSiegeManager(private val claim: FactionClaim) {
         players.clear()
     }
 
-    private fun hideAllBossBars() = transaction {
+    private fun hideAllBossBars() = loggedTransaction {
         getAssociatedFactions()
             .flatMap { it.members().mapNotNull { user -> user.player() } }
             .forEach { it.toAudience().hideBossBar(getBossBar(it)) }
@@ -160,7 +160,7 @@ class ClaimSiegeManager(private val claim: FactionClaim) {
                     )
                 )
             }
-        transaction { claim.chunk()?.let { claim.faction()?.unclaim(it) } }
+        loggedTransaction { claim.chunk()?.let { claim.faction()?.unclaim(it) } }
     }
 
     private fun handleSiegeFailure() {

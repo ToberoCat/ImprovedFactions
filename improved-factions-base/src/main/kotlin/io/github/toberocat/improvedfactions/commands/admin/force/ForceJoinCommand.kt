@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.commands.admin.force
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.ranks.listRanks
 import io.github.toberocat.improvedfactions.translation.sendLocalized
@@ -16,7 +17,6 @@ import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
     description = "base.command.force.join.description",
@@ -39,11 +39,11 @@ class ForceJoinCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCo
         val faction = parsedArgs.get<Faction>(1) ?: return false
         val playerToJoin = parsedArgs.get<Player>(0) ?: return false
 
-        transaction {
+        loggedTransaction {
             val user = player.factionUser()
             if (user.factionId == faction.id.value) {
                 player.sendLocalized("base.command.force.join.already-member")
-                return@transaction true
+                return@loggedTransaction true
             }
 
             try {

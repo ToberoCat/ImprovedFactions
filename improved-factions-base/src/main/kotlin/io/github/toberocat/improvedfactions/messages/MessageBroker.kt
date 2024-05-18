@@ -11,6 +11,6 @@ object MessageBroker {
     }
 
     fun listenLocalized(id: Int, callback: (message: LocalizedMessage) -> Unit) {
-        listenersLocalized.computeIfAbsent(id) { HashSet() }.add(callback);
+        listenersLocalized.computeIfAbsent(id) { HashSet() }.add(callback)
     }
 }

@@ -2,6 +2,7 @@ package io.github.toberocat.improvedfactions.commands.claim
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.ClaimStatistics
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.exceptions.CantClaimThisChunkException
 import io.github.toberocat.improvedfactions.exceptions.NotInFactionException
 import io.github.toberocat.improvedfactions.permissions.Permissions
@@ -15,7 +16,6 @@ import io.github.toberocat.improvedfactions.utils.options.InFactionOption
 import io.github.toberocat.toberocore.command.PlayerSubCommand
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
     description = "base.command.claim.description",
@@ -35,7 +35,7 @@ class ClaimCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubComman
         val squareRadius = parseArgs(player, args).get<Int>(0) ?: 0
 
         var statistics = ClaimStatistics(0, 0)
-        transaction {
+        loggedTransaction {
             val faction = player.factionUser().faction() ?: throw NotInFactionException()
             statistics = faction.claimSquare(player.location.chunk, squareRadius) { e ->
                 if (squareRadius == 0) {

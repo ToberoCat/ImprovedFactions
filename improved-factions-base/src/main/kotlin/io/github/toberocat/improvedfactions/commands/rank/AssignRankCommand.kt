@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.commands.rank
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.ranks.FactionRank
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
@@ -16,7 +17,6 @@ import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.options.ArgLengthOption
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
     description = "base.command.rank.assign.description",
@@ -39,7 +39,7 @@ class AssignRankCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubC
         val target = arguments.get<Player>(0) ?: return false
         val rank = arguments.get<FactionRank>(1) ?: return false
 
-        transaction {
+        loggedTransaction {
             target.factionUser().assignedRank = rank.id.value
         }
         player.sendLocalized("base.command.rank.assign.assigned", emptyMap())

@@ -2,18 +2,18 @@
 # -------- { General Settings } --------
 #
 update-checker: true
-config-version: 2
+config-version: 3
 
 # Configure a mysql connection. If no connection was established, the plugin uses sqlite.
 # This allows to use this plugin without a mysql server
 database: "sqlite" # ImprovedFactions supports H2, SQLite and MySQL. H2 and SQLite are local databases
+verbose-database-logging: false # If set to true, the plugin will log all database queries. This is useful for debugging, but can cause performance issues
 mysql:
   host: "localhost"
   port: 3306
   database: "improvedfactions"
   user: "root"
   password: "1234"
-  verbose: false
 
 
 modules:

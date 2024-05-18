@@ -2,6 +2,7 @@ package io.github.toberocat.improvedfactions.commands.admin.zone
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.squareClaimAction
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.utils.arguments.ClaimRadiusArgument
 import io.github.toberocat.improvedfactions.utils.arguments.ZoneArgument
@@ -13,7 +14,6 @@ import io.github.toberocat.toberocore.command.PlayerSubCommand
 import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
     description = "base.command.zone.claim.description",
@@ -33,7 +33,7 @@ class ZoneClaimCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCo
         val parsedArgs = parseArgs(player, args)
         val zone = parsedArgs.get<Zone>(0) ?: return false
         val squareRadius = parsedArgs.get<Int>(1) ?: 0
-        val statistics = transaction {
+        val statistics = loggedTransaction {
             squareClaimAction(
                 player.location.chunk,
                 squareRadius,

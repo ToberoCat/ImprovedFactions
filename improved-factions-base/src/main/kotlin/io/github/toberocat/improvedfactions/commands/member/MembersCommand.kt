@@ -4,6 +4,7 @@ import io.github.toberocat.guiengine.components.container.tab.PagedContainer
 import io.github.toberocat.guiengine.components.provided.item.SimpleItemComponentBuilder
 import io.github.toberocat.guiengine.function.GuiFunction
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.utils.command.CommandCategory
 import io.github.toberocat.improvedfactions.utils.command.CommandMeta
@@ -13,7 +14,6 @@ import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.options.ArgLengthOption
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
 import java.text.SimpleDateFormat
 
 @CommandMeta(
@@ -33,8 +33,7 @@ class MembersCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubComm
     override fun handle(player: Player, args: Array<out String>): Boolean {
         val context = plugin.guiEngineApi.openGui(player, "member/member-overview-page")
         val container = context.findComponentByClass<PagedContainer>() ?: return false
-        transaction {
-
+        loggedTransaction {
             player.factionUser().faction()?.members()?.forEach {
                 val member = it.offlinePlayer()
                 container.addComponent(

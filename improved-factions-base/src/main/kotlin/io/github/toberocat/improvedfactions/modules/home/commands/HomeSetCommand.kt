@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.modules.home.commands
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.modules.home.HomeModule
 import io.github.toberocat.improvedfactions.modules.home.HomeModule.setHome
 import io.github.toberocat.improvedfactions.permissions.Permissions
@@ -14,7 +15,6 @@ import io.github.toberocat.toberocore.command.PlayerSubCommand
 import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
     category = CommandCategory.MANAGE_CATEGORY,
@@ -29,7 +29,7 @@ class HomeSetCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubComm
 
     override fun arguments() = emptyArray<Argument<*>>()
     override fun handle(player: Player, args: Array<String>): Boolean {
-        val success = transaction { player.factionUser().faction()?.setHome(player.location) } ?: false
+        val success = loggedTransaction { player.factionUser().faction()?.setHome(player.location) } ?: false
         if (success) {
             player.sendLocalized("home.commands.sethome.success")
         } else {

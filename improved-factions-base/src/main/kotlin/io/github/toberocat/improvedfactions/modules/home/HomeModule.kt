@@ -1,6 +1,8 @@
 package io.github.toberocat.improvedfactions.modules.home
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.home.commands.HomeSetCommand
@@ -14,8 +16,6 @@ import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.toberocore.command.CommandExecutor
 import org.bukkit.Location
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.transactions.transaction
 
 object HomeModule : BaseModule {
     const val MODULE_NAME = "home"
@@ -28,7 +28,7 @@ object HomeModule : BaseModule {
     }
 
     override fun onLoadDatabase(plugin: ImprovedFactionsPlugin) {
-        SchemaUtils.createMissingTablesAndColumns(FactionHomes)
+        DatabaseManager.createTables(FactionHomes)
     }
 
     override fun addCommands(plugin: ImprovedFactionsPlugin, executor: CommandExecutor) {
@@ -38,7 +38,7 @@ object HomeModule : BaseModule {
 
     fun Faction.getHome() = homeModuleHandle.getHome(this@getHome)
     fun Faction.setHome(location: Location) = homeModuleHandle.setHome(this@setHome, location)
-    fun Player.teleportToFactionHome() = transaction {
+    fun Player.teleportToFactionHome() = loggedTransaction {
         factionUser().faction()?.let { faction ->
             homeModuleHandle.teleportToFactionHome(
                 faction,
@@ -47,7 +47,7 @@ object HomeModule : BaseModule {
         }
     }
 
-    fun FactionUser.teleportToFactionHome() = transaction {
+    fun FactionUser.teleportToFactionHome() = loggedTransaction {
         faction()?.let { faction ->
             player()?.let { player ->
                 homeModuleHandle.teleportToFactionHome(

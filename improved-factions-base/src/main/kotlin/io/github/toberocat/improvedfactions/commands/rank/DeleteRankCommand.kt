@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.commands.rank
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.ranks.FactionRank
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.FactionUser
@@ -17,7 +18,6 @@ import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
     description = "base.command.rank.delete.description",
@@ -36,7 +36,7 @@ class DeleteRankCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubC
         val arguments = parseArgs(player, args)
         val rank = arguments.get<FactionRank>(0) ?: return false
         val fallbackRank = arguments.get<FactionRank>(1) ?: return false
-        transaction {
+        loggedTransaction {
             if (player.factionUser().faction()?.defaultRank == rank.id.value)
                 throw CommandException("base.command.rank.delete.rank-is-default", emptyMap())
             FactionUser.find { FactionUsers.assignedRank eq rank.id.value }

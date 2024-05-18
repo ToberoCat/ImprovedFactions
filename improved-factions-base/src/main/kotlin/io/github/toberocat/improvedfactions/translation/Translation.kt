@@ -23,7 +23,7 @@ fun Player.getLocalized(key: String, placeholders: Map<String, String> = emptyMa
     getLocaleEnum().localize(key, placeholders)
 
 fun Player.getLocaleEnum(): Locale {
-    val localeParts = locale.split("_");
+    val localeParts = locale.split("_")
     val locale = when (localeParts.size) {
         1 -> Locale(localeParts[0])
         2 -> Locale(localeParts[0], localeParts[1])

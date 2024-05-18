@@ -7,7 +7,7 @@ import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.configuration.file.FileConfiguration
-import org.jetbrains.exposed.sql.transactions.transaction
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction 
 import java.lang.Math.round
 import java.util.concurrent.TimeUnit
 import kotlin.math.cos
@@ -87,7 +87,7 @@ class WildernessModuleConfig(
         for (i in -claimDistanceCheck until claimDistanceCheck) {
             for (j in -claimDistanceCheck until claimDistanceCheck) {
                 val claim =
-                    transaction { location.clone().add(i.toDouble(), 0.0, j.toDouble()).getFactionClaim() } ?: continue
+                    loggedTransaction { location.clone().add(i.toDouble(), 0.0, j.toDouble()).getFactionClaim() } ?: continue
                 val factionId = claim.factionId
                 val zoneId = claim.zoneType
                 if (factionId != noFactionId || zoneId !in includedZones) {

@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.commands.invite
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.invites.FactionInvite
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.utils.arguments.entity.InviteIdArgument
@@ -12,7 +13,6 @@ import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.command.options.ArgLengthOption
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
     description = "base.command.invitediscard.description",
@@ -29,7 +29,7 @@ class InviteDiscardCommand(private val plugin: ImprovedFactionsPlugin) : PlayerS
 
     override fun handle(player: Player, args: Array<out String>): Boolean {
         val id = parseArgs(player, args).get<Int>(0) ?: return false
-        transaction {
+        loggedTransaction {
             val invite = FactionInvite.findById(id) ?: throw CommandException(
                 "base.command.invitediscard.invalid-invite",
                 emptyMap()

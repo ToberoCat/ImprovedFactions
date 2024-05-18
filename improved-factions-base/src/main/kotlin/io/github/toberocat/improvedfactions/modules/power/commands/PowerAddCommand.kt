@@ -1,21 +1,17 @@
 package io.github.toberocat.improvedfactions.modules.power.commands
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.factions.PowerAccumulationChangeReason
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.modules.power.PowerType
-import io.github.toberocat.improvedfactions.modules.power.impl.FactionPowerRaidModuleHandleImpl
-import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.utils.arguments.EnumArgument
-import io.github.toberocat.improvedfactions.utils.arguments.IntegerArgument
 import io.github.toberocat.improvedfactions.utils.arguments.PowerArgument
 import io.github.toberocat.improvedfactions.utils.arguments.entity.FactionArgument
 import io.github.toberocat.improvedfactions.utils.command.CommandCategory
 import io.github.toberocat.improvedfactions.utils.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.FactionPermissionOption
-import io.github.toberocat.improvedfactions.utils.options.InFactionOption
 import io.github.toberocat.improvedfactions.utils.options.addFactionNameOption
 import io.github.toberocat.toberocore.command.SubCommand
 import io.github.toberocat.toberocore.command.arguments.Argument
@@ -23,7 +19,6 @@ import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
     description = "base.command.power.set.description",
@@ -60,7 +55,7 @@ class PowerAddCommand(
             faction = FactionHandler.getFaction(args.drop(2).joinToString(separator = " ")) ?: throw CommandException("base.exceptions.arg-doesnt-match", emptyMap())
         }
 
-        transaction {
+        loggedTransaction {
             when (powerType) {
                 PowerType.ACCUMULATED -> faction.setAccumulatedPower(faction.accumulatedPower + power, PowerAccumulationChangeReason.OTHER)
                 PowerType.MAXIMUM -> faction.setMaxPower(faction.maxPower + power)

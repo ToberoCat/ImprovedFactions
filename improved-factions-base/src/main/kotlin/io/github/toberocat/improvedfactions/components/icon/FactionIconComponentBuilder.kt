@@ -3,9 +3,9 @@ package io.github.toberocat.improvedfactions.components.icon
 import io.github.toberocat.guiengine.components.AbstractGuiComponentBuilder
 import io.github.toberocat.guiengine.exception.InvalidGuiComponentException
 import io.github.toberocat.guiengine.xml.parsing.ParserContext
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionHandler
-import org.jetbrains.exposed.sql.transactions.transaction
 
 class FactionIconComponentBuilder : AbstractGuiComponentBuilder<FactionIconComponentBuilder>() {
     var faction: Faction? = null
@@ -26,6 +26,6 @@ class FactionIconComponentBuilder : AbstractGuiComponentBuilder<FactionIconCompo
     override fun deserialize(node: ParserContext) {
         super.deserialize(node)
         val name = node.string("faction-name").require(this)
-        faction = transaction { return@transaction FactionHandler.searchFactions(name).firstOrNull() }
+        faction = loggedTransaction { return@loggedTransaction FactionHandler.searchFactions(name).firstOrNull() }
     }
 }

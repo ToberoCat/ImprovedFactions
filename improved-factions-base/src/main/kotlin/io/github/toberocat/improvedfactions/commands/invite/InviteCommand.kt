@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.commands.invite
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.ranks.FactionRank
 import io.github.toberocat.improvedfactions.translation.sendLocalized
@@ -16,7 +17,6 @@ import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.command.options.ArgLengthOption
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
     description = "base.command.invite.description",
@@ -42,13 +42,13 @@ class InviteCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubComma
         val invited = arguments.get<Player>(0) ?: return false
         val rank = arguments.get<FactionRank>(1) ?: return false
 
-        val faction = transaction {
+        val faction = loggedTransaction {
             val faction = inviter.factionUser().faction() ?: throw CommandException(
                 "base.command.invite.player-no-faction", emptyMap()
             )
 
             faction.invite(inviter.uniqueId, invited.uniqueId, rank.id.value)
-            return@transaction faction
+            return@loggedTransaction faction
         }
         inviter.sendLocalized(
             "base.command.invite.invited-player", mapOf(

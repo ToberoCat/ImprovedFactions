@@ -8,7 +8,7 @@ import io.github.toberocat.improvedfactions.listeners.claim.ClaimProtectionListe
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import org.bukkit.Chunk
 import org.bukkit.configuration.ConfigurationSection
-import org.jetbrains.exposed.sql.transactions.transaction
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction 
 
 object ZoneHandler {
     const val FACTION_ZONE_TYPE = "default"
@@ -45,7 +45,7 @@ object ZoneHandler {
 
     fun getZones(): Set<String> = knownZones.keys
 
-    fun getZoneClaims(): List<FactionClaim> = transaction { FactionClaim
+    fun getZoneClaims(): List<FactionClaim> = loggedTransaction { FactionClaim
         .find { FactionClaims.zoneType neq FACTION_ZONE_TYPE }
         .toList() }
     fun unclaim(chunk: Chunk) {

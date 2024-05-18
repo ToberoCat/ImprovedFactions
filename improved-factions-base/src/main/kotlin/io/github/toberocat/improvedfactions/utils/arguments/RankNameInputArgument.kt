@@ -5,11 +5,11 @@ import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction 
 
 class RankNameInputArgument : Argument<String> {
     override fun parse(player: Player, value: String): String {
-        transaction {
+        loggedTransaction {
             if (player.factionUser().faction()?.anyRank(value) != null)
                 throw CommandException("base.command.args.invalid-rank-name", emptyMap())
         }

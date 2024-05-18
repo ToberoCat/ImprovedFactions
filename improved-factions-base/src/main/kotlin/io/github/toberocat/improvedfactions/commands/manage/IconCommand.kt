@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.commands.manage
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
@@ -15,7 +16,6 @@ import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.Material
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.transactions.transaction
 
 @CommandMeta(
     description = "base.command.icon.description",
@@ -33,7 +33,7 @@ class IconCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand
         val item = player.inventory.itemInMainHand.clone()
         if (item.type == Material.AIR) throw CommandException("base.command.icon.invalid-icon", emptyMap())
 
-        transaction {
+        loggedTransaction {
             val faction =
                 player.factionUser().faction() ?: throw CommandException("base.command.icon.faction-needed", emptyMap())
             faction.icon = item

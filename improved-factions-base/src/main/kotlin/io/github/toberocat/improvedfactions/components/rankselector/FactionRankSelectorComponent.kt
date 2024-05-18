@@ -4,6 +4,7 @@ import io.github.toberocat.guiengine.components.AbstractGuiComponent
 import io.github.toberocat.guiengine.function.GuiFunction
 import io.github.toberocat.guiengine.render.RenderPriority
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.ranks.listRanks
 import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.toberocore.util.ItemBuilder
@@ -12,7 +13,6 @@ import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
-import org.jetbrains.exposed.sql.transactions.transaction
 
 
 private const val SELECTED_TEXT = "  §8[§e*§8] §f"
@@ -37,8 +37,8 @@ class FactionRankSelectorComponent(
     override val type = TYPE
 
     init {
-        println(transaction { player.factionUser().assignedRank })
-        selected = transaction { getSelectionModel().indexOf(player.factionUser().rank().name) }
+        println(loggedTransaction { player.factionUser().assignedRank })
+        selected = loggedTransaction { getSelectionModel().indexOf(player.factionUser().rank().name) }
     }
 
     override fun clickedComponent(event: InventoryClickEvent) {
@@ -66,7 +66,7 @@ class FactionRankSelectorComponent(
             ).create(ImprovedFactionsPlugin.instance)
     }
 
-    fun getSelectionModel(): Array<String> = transaction {
+    fun getSelectionModel(): Array<String> = loggedTransaction {
         println(player.factionUser().faction()
             ?.listRanks()
             ?.map { it.name })
@@ -81,7 +81,7 @@ class FactionRankSelectorComponent(
 
     fun setSelected(value: Int) {
         selected = value % getSelectionModel().size
-        transaction {
+        loggedTransaction {
             val user = player.factionUser()
             user.assignedRank = user.faction()
                 ?.listRanks()

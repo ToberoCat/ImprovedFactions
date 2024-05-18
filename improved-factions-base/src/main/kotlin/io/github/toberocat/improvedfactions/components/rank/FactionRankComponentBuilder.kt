@@ -3,9 +3,9 @@ package io.github.toberocat.improvedfactions.components.rank
 import io.github.toberocat.guiengine.components.AbstractGuiComponentBuilder
 import io.github.toberocat.guiengine.exception.InvalidGuiComponentException
 import io.github.toberocat.guiengine.xml.parsing.ParserContext
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.ranks.FactionRank
 import io.github.toberocat.improvedfactions.ranks.FactionRanks
-import org.jetbrains.exposed.sql.transactions.transaction
 
 class FactionRankComponentBuilder : AbstractGuiComponentBuilder<FactionRankComponentBuilder>() {
 
@@ -16,10 +16,10 @@ class FactionRankComponentBuilder : AbstractGuiComponentBuilder<FactionRankCompo
         return this
     }
 
-    override fun createComponent(): FactionRankComponent = transaction {
+    override fun createComponent(): FactionRankComponent = loggedTransaction {
         val rank = FactionRank.find { FactionRanks.name eq rank }.firstOrNull()
             ?: throw InvalidGuiComponentException("Rank hasn't been found in the database")
-        return@transaction FactionRankComponent(
+        return@loggedTransaction FactionRankComponent(
             x,
             y,
             priority,

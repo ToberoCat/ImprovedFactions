@@ -19,7 +19,7 @@ import org.bukkit.Chunk
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.PlayerDeathEvent
-import org.jetbrains.exposed.sql.transactions.transaction
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction 
 import java.util.concurrent.TimeUnit
 import kotlin.math.*
 
@@ -75,8 +75,8 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
 
     @EventHandler
     private fun onDeath(event: PlayerDeathEvent) {
-        transaction {
-            val faction = event.entity.factionUser().faction() ?: return@transaction
+        loggedTransaction {
+            val faction = event.entity.factionUser().faction() ?: return@loggedTransaction
             faction.setAccumulatedPower(faction.accumulatedPower - config.playerDeathCost, PowerAccumulationChangeReason.PLAYER_DEATH)
         }
     }
@@ -96,7 +96,7 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
             ).taskId
     }
 
-    private fun claimKeepCostsCollector() = transaction {
+    private fun claimKeepCostsCollector() = loggedTransaction {
         Faction.all().forEach {
             it.setAccumulatedPower(
                 it.accumulatedPower - getClaimMaintenanceCost(it).toInt(),
@@ -105,7 +105,7 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
         }
     }
 
-    private fun accumulateAll() = transaction {
+    private fun accumulateAll() = loggedTransaction {
         Faction.all().forEach {
             it.setAccumulatedPower(
                 it.accumulatedPower + getPowerAccumulated(it).toInt(),
