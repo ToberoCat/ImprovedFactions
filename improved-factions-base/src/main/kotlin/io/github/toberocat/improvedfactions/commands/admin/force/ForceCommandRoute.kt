@@ -15,6 +15,7 @@ class ForceCommandRoute(plugin: ImprovedFactionsPlugin) : CommandRoute("force", 
 
     init {
         addChild(ForceJoinCommand(plugin))
+        addChild(ForceUnclaimCommand(plugin))
     }
 
     override fun handle(player: Player, p1: Array<out String>): Boolean {
