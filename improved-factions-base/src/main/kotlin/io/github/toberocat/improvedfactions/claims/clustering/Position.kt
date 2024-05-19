@@ -30,4 +30,5 @@ data class Position(val x: Int, val y: Int, val world: String, val factionId: In
     }
 
     fun uniquId() = "$x-$y-$world"
+    operator fun minus(cellFrom: Position) = Position(x - cellFrom.x, y - cellFrom.y, world, factionId)
 }
