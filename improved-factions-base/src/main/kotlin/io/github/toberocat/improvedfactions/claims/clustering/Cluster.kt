@@ -7,7 +7,7 @@ import io.github.toberocat.improvedfactions.utils.LazyUpdate
 
 class Cluster(private val positions: MutableSet<Position>) {
     private val powerModuleHandle: FactionPowerRaidModuleHandle = powerRaidModule().factionModuleHandle
-    private val outerNodes = LazyUpdate(mutableSetOf()) { detectOuterNodes() }
+    private val outerNodes = LazyUpdate(mutableListOf()) { detectOuterNodes() }
     private val unprotectedPositions = LazyUpdate(mutableSetOf()) {
         mutableSetOf<Position>().apply {
             powerModuleHandle.calculateUnprotectedChunks(this@Cluster, this)
@@ -23,13 +23,14 @@ class Cluster(private val positions: MutableSet<Position>) {
     var centerY = 0.0
 
     init {
-        calculateCenter()
+        updateCluster()
     }
+
+    fun getOuterNodes() = outerNodes.get()
 
     fun getReadOnlyPositions(): Set<Position> = positions.toSet()
 
     fun scheduleUpdate() {
-        outerNodes.scheduleUpdate()
         unprotectedPositions.scheduleUpdate()
     }
 
@@ -41,8 +42,7 @@ class Cluster(private val positions: MutableSet<Position>) {
 
     fun removeAll(position: Set<Position>) {
         positions.removeAll(position)
-        calculateCenter()
-        DynmapModule.dynmapModule().dynmapModuleHandle.factionClusterChange(this)
+        updateCluster()
     }
 
     fun addAll(positions: Set<Position>) {
@@ -52,11 +52,14 @@ class Cluster(private val positions: MutableSet<Position>) {
             throw IllegalArgumentException("All positions must belong to the same world")
 
         this.positions.addAll(positions)
-        calculateCenter()
-        detectOuterNodes()
-        DynmapModule.dynmapModule().dynmapModuleHandle.factionClusterChange(this)
+        updateCluster()
     }
 
+    private fun updateCluster() {
+        calculateCenter()
+        outerNodes.scheduleUpdate()
+        DynmapModule.dynmapModule().dynmapModuleHandle.factionClusterChange(this)
+    }
     private fun calculateCenter() {
         if (positions.isEmpty())
             return
