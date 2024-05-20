@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedfactions.claims.clustering
 
-data class Position(val x: Int, val y: Int, val world: String, val factionId: Int) {
+data class Position(val x: Int, val y: Int, val world: String) {
 
 
     fun distanceSquaredTo(x: Double, y: Double): Double {
@@ -30,5 +30,5 @@ data class Position(val x: Int, val y: Int, val world: String, val factionId: In
     }
 
     fun uniquId() = "$x-$y-$world"
-    operator fun minus(cellFrom: Position) = Position(x - cellFrom.x, y - cellFrom.y, world, factionId)
+    operator fun minus(cellFrom: Position) = Position(x - cellFrom.x, y - cellFrom.y, world)
 }

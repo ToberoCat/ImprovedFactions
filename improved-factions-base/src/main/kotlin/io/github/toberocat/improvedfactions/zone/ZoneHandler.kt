@@ -49,9 +49,6 @@ object ZoneHandler {
         .find { FactionClaims.zoneType neq FACTION_ZONE_TYPE }
         .toList() }
     fun unclaim(chunk: Chunk) {
-        chunk.getFactionClaim()?.let {
-            it.zoneType = FACTION_ZONE_TYPE
-            DynmapModule.dynmapModule().dynmapModuleHandle.zoneClaimRemove(it.toPosition())
-        }
+        chunk.getFactionClaim()?.let { it.zoneType = FACTION_ZONE_TYPE }
     }
 }
