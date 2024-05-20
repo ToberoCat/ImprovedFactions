@@ -10,4 +10,5 @@ class DummyFactionDynmapModuleHandles : FactionDynmapModuleHandle {
     override fun factionHomeChange(faction: Faction, homeLocation: Location) = Unit
     override fun clusterChange(cluster: Cluster) = Unit
     override fun clusterRemove(cluster: Cluster) = Unit
+    override fun removePosition(position: Position) = Unit
 }

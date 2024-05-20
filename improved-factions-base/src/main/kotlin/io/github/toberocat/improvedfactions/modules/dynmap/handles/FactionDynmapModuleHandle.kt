@@ -9,4 +9,5 @@ interface FactionDynmapModuleHandle {
     fun factionHomeChange(faction: Faction, homeLocation: Location)
     fun clusterChange(cluster: Cluster)
     fun clusterRemove(cluster: Cluster)
+    fun removePosition(position: Position)
 }

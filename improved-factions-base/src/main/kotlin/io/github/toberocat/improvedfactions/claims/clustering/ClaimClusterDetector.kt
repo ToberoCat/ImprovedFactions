@@ -59,6 +59,7 @@ class ClaimClusterDetector(
         val cluster = clusters[clusterIndex]?.also { it.removeAll(setOf(position)) }
             ?: throw IllegalArgumentException()
         clusterMap.remove(position)
+        DynmapModule.dynmapModule().dynmapModuleHandle.removePosition(position)
 
         val unreachablePositions = ClusterReachabilityChecker(cluster.getReadOnlyPositions()).getUnreachablePositions()
         if (unreachablePositions.isEmpty())
