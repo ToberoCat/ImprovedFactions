@@ -8,24 +8,24 @@ import io.github.toberocat.improvedfactions.modules.home.HomeModule.getHome
 import io.github.toberocat.improvedfactions.modules.home.data.FactionHome
 import io.github.toberocat.improvedfactions.modules.home.handles.HomeModuleHandle
 import io.github.toberocat.improvedfactions.utils.PlayerTeleporter
+import io.github.toberocat.toberocore.command.exceptions.CommandException
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.entity.Player
 
 class HomeModuleHandleImpl : HomeModuleHandle {
-    override fun setHome(faction: Faction, location: Location): Boolean {
+    override fun setHome(faction: Faction, location: Location) {
         if (location.getFactionClaim()?.factionId?.equals(faction.id.value) != true) {
-            return false
+            throw CommandException("home.messages.not-in-claim", mapOf())
         }
 
-        val worldName = location.world?.name ?: return false
+        val worldName = location.world?.name ?: throw CommandException("home.messages.invalid-world", mapOf())
         val factionHome = getOrCreateHome(faction.id.value)
         factionHome.x = location.x
         factionHome.y = location.y
         factionHome.z = location.z
         factionHome.world = worldName
         DynmapModule.dynmapModule().dynmapModuleHandle.factionHomeChange(faction, location)
-        return true
     }
 
     override fun getHome(faction: Faction) = FactionHome.findById(faction.id.value)?.let {

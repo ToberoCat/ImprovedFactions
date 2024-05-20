@@ -29,13 +29,9 @@ class HomeSetCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubComm
 
     override fun arguments() = emptyArray<Argument<*>>()
     override fun handle(player: Player, args: Array<String>): Boolean {
-        val success = loggedTransaction { player.factionUser().faction()?.setHome(player.location) } ?: false
-        if (success) {
-            player.sendLocalized("home.commands.sethome.success")
-        } else {
-            player.sendLocalized("home.commands.sethome.failed")
-        }
-
+        loggedTransaction { player.factionUser().faction()?.setHome(player.location) }
+            ?: player.sendLocalized("home.commands.sethome.failed")
+        player.sendLocalized("home.commands.sethome.success")
         return true
     }
 }

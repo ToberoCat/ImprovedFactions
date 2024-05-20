@@ -5,7 +5,7 @@ import org.bukkit.Location
 import org.bukkit.entity.Player
 
 class DummyHomeModuleHandle : HomeModuleHandle {
-    override fun setHome(faction: Faction, location: Location) = false
+    override fun setHome(faction: Faction, location: Location) = Unit
     override fun getHome(faction: Faction): Location? = null
     override fun teleportToFactionHome(faction: Faction, player: Player) = false
 }
