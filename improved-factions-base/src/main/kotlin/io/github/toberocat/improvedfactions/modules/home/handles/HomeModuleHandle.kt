@@ -5,7 +5,7 @@ import org.bukkit.Location
 import org.bukkit.entity.Player
 
 interface HomeModuleHandle {
-    fun setHome(faction: Faction, location: Location): Boolean
+    fun setHome(faction: Faction, location: Location)
     fun getHome(faction: Faction): Location?
     fun teleportToFactionHome(faction: Faction, player: Player): Boolean
 }

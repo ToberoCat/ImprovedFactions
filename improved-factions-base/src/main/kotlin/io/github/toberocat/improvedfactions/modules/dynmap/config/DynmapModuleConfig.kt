@@ -17,6 +17,7 @@ data class DynmapModuleConfig(
     var markerSetHiddenByDefault: Boolean = false,
     var showZones: Boolean = false,
     var showHomes: Boolean = true,
+    var colorFactionClaims: Boolean = true
 ) {
     private val configPath = "factions.dynmap"
 
@@ -28,6 +29,7 @@ data class DynmapModuleConfig(
         markerSetHiddenByDefault = config.getBoolean("$configPath.marker-set.hidden-by-default", markerSetHiddenByDefault)
         showZones = config.getBoolean("$configPath.show-zones", showZones)
         showHomes = config.getBoolean("$configPath.show-homes", showHomes)
+        colorFactionClaims = config.getBoolean("$configPath.color-faction-claims", colorFactionClaims)
         config.getConfigurationSection("$configPath.info-windows")?.let { section ->
             infoWindows = section.getKeys(false).associateWith { section.getString(it)!! }
         }

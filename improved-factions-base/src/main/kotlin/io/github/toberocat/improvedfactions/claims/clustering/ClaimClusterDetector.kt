@@ -79,8 +79,13 @@ class ClaimClusterDetector(
 
     private fun createNewCluster(position: Position) {
         val clusterId = generateClusterId()
-        clusters.getOrPut(clusterId) { Cluster(position.factionId) }.addAll(setOf(position))
+        val positions = mutableSetOf(position)
+
         clusterMap[position] = clusterId
+        when (clusterId) {
+            in clusters -> clusters[clusterId]?.addAll(positions)
+            else -> clusters[clusterId] = Cluster(positions)
+        }
     }
 
     private fun assignToCluster(positions: Set<Position>, clusterId: UUID) {
@@ -91,7 +96,7 @@ class ClaimClusterDetector(
     private fun mergeClusters(clusterIds: List<UUID>) {
         val newClusterPositions = clusterIds.flatMap { clusters[it]?.getReadOnlyPositions() ?: emptyList() }
         clusterIds.forEach { clusters.remove(it) }
-        clusters[clusterIds[0]] = Cluster(newClusterPositions[0].factionId, newClusterPositions.toMutableSet())
+        clusters[clusterIds[0]] = Cluster(newClusterPositions.toMutableSet())
         assignToCluster(newClusterPositions.toSet(), clusterIds[0])
     }
 }
