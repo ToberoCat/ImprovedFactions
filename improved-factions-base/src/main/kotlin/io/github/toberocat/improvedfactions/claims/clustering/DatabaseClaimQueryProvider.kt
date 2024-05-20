@@ -20,7 +20,6 @@ class DatabaseClaimQueryProvider : ClaimQueryProvider {
         }.map { Position(it.chunkX, it.chunkZ, it.world) }
     }
 
-
     override fun allFactionPositions() = loggedTransaction {
         FactionClaim.find { FactionClaims.factionId neq noFactionId }
             .map { Position(it.chunkX, it.chunkZ, it.world) to it.factionId }

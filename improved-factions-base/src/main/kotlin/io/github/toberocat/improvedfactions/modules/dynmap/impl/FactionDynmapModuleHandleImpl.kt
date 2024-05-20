@@ -93,7 +93,11 @@ class FactionDynmapModuleHandleImpl(
     }
 
     override fun clusterRemove(cluster: Cluster) {
-        set.findAreaMarker(cluster.id.toString())?.deleteMarker()
+        set.findPolyLineMarker(cluster.id.toString())?.deleteMarker()
+    }
+
+    override fun removePosition(position: Position) {
+        set.findAreaMarker(position.uniquId())?.deleteMarker()
     }
 
     private fun getColor(name: String, overrideColor: Int? = null): DynmapColorConfig? {
@@ -138,7 +142,7 @@ class FactionDynmapModuleHandleImpl(
         overrideColor: Int? = null
     ) {
         position.add(position.first()) // Close the polygon
-        println(position)
+
         val markerId = clusterId.toString()
         val xArray = position.map { it.x.toDouble() }.toDoubleArray()
         val yArray = position.map { 0.0 }.toDoubleArray()
