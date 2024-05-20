@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.claims
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.claims.clustering.FactionCluster
 import io.github.toberocat.improvedfactions.claims.clustering.Position
 import io.github.toberocat.improvedfactions.claims.overclaim.ClaimSiegeManager
 import io.github.toberocat.improvedfactions.factions.Faction
@@ -11,6 +12,7 @@ import org.bukkit.Bukkit
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
+import kotlin.math.abs
 
 class FactionClaim(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<FactionClaim>(FactionClaims)
@@ -40,16 +42,9 @@ class FactionClaim(id: EntityID<Int>) : IntEntity(id) {
     fun isClaimed() = factionId != noFactionId
 
     fun chunk() = Bukkit.getWorld(world)?.getChunkAt(chunkX, chunkZ)
-    fun toPosition() = Position(chunkX, chunkZ, world, factionId)
+    fun toPosition() = Position(chunkX, chunkZ, world)
 
-    fun getCluster() = ImprovedFactionsPlugin.instance.claimChunkClusters.getCluster(
-        Position(
-            chunkX,
-            chunkZ,
-            world,
-            factionId
-        )
-    )
+    private fun getCluster() = ImprovedFactionsPlugin.instance.claimChunkClusters.getCluster(toPosition())
 
-    fun isRaidable() = getCluster()?.isUnprotected(chunkX, chunkZ, world)
+    fun isRaidable() = (getCluster() as? FactionCluster)?.isUnprotected(chunkX, chunkZ, world)
 }

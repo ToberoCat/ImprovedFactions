@@ -1,9 +1,7 @@
 package io.github.toberocat.improvedfactions.modules.dynmap.impl
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.claims.clustering.Cluster
-import io.github.toberocat.improvedfactions.claims.clustering.Position
-import io.github.toberocat.improvedfactions.claims.clustering.WorldPosition
+import io.github.toberocat.improvedfactions.claims.clustering.*
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapColorConfig
@@ -46,7 +44,6 @@ class FactionDynmapModuleHandleImpl(
 
     init {
         set.markers.forEach { it.deleteMarker() }
-        ZoneHandler.getZoneClaims().forEach { zoneClaimAdd(it.zoneType, it.toPosition()) }
     }
 
     override fun factionHomeChange(faction: Faction, homeLocation: Location) {
@@ -65,35 +62,38 @@ class FactionDynmapModuleHandleImpl(
         )
     }
 
-    override fun factionClusterChange(cluster: Cluster) {
-        val faction = FactionHandler.getFaction(cluster.factionId) ?: return
+    override fun clusterChange(cluster: Cluster) {
+        if (cluster is ZoneCluster && !config.showZones)
+                return
+
+        var generatedColor: Int? = null
+        var name = "Unknown"
+        var labelTransformer: (input: String) -> String = { it }
+        when (cluster) {
+            is FactionCluster -> FactionHandler.getFaction(cluster.factionId)?.run {
+                generatedColor = generateColor()
+                name = this.name
+                labelTransformer = {
+                    plugin.papiTransformer(owner.toOfflinePlayer(), it)
+                        .replace("%faction_name%", name)
+                }
+            }
+
+            is ZoneCluster -> name = cluster.zoneType
+            else -> throw IllegalArgumentException("Unknown cluster type")
+        }
+
         addPolylineMarker(
-            faction.name,
+            name,
             cluster.id,
             cluster.getOuterNodes(),
-            faction.generateColor()
+            generatedColor
         )
-        cluster.getReadOnlyPositions().forEach {
-            addAreaMarker(faction.name, it, faction.generateColor()) { label ->
-                plugin.papiTransformer(faction.owner.toOfflinePlayer(), label)
-                    .replace("%faction_name%", faction.name)
-            }
-        }
+        cluster.getReadOnlyPositions().forEach { addAreaMarker(name, it, generatedColor, labelTransformer) }
     }
 
-    override fun factionClaimRemove(position: Position) {
-        set.findAreaMarker(position.uniquId())?.deleteMarker()
-    }
-
-    override fun zoneClaimAdd(type: String, position: Position) {
-        if (!config.showZones)
-            return
-
-        addAreaMarker(type, position) { it }
-    }
-
-    override fun zoneClaimRemove(position: Position) {
-        set.findAreaMarker(position.uniquId())?.deleteMarker()
+    override fun clusterRemove(cluster: Cluster) {
+        set.findAreaMarker(cluster.id.toString())?.deleteMarker()
     }
 
     private fun getColor(name: String, overrideColor: Int? = null): DynmapColorConfig? {
@@ -135,7 +135,7 @@ class FactionDynmapModuleHandleImpl(
         name: String,
         clusterId: UUID,
         position: MutableList<WorldPosition>,
-        overrideColor: Int?= null
+        overrideColor: Int? = null
     ) {
         position.add(position.first()) // Close the polygon
         println(position)

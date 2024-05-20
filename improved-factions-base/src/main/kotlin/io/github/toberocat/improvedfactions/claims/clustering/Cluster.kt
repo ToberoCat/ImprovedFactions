@@ -6,18 +6,10 @@ import io.github.toberocat.improvedfactions.modules.power.handles.FactionPowerRa
 import io.github.toberocat.improvedfactions.utils.LazyUpdate
 import java.util.UUID
 
-class Cluster(val id: UUID, private val positions: MutableSet<Position>) {
-    private val powerModuleHandle: FactionPowerRaidModuleHandle = powerRaidModule().factionModuleHandle
+abstract class Cluster(val id: UUID, private val positions: MutableSet<Position>) {
     private val outerNodes = LazyUpdate(mutableListOf()) { detectOuterNodes() }
-    private val unprotectedPositions = LazyUpdate(mutableSetOf()) {
-        mutableSetOf<Position>().apply {
-            powerModuleHandle.calculateUnprotectedChunks(this@Cluster, this)
-        }
-    }
 
     private val world = positions.firstOrNull()?.world
-        ?: throw IllegalArgumentException("Cluster must have at least one position")
-    val factionId = positions.firstOrNull()?.factionId
         ?: throw IllegalArgumentException("Cluster must have at least one position")
 
     var centerX = 0.0
@@ -27,17 +19,11 @@ class Cluster(val id: UUID, private val positions: MutableSet<Position>) {
         updateCluster()
     }
 
+    abstract fun scheduleUpdate()
+
     fun getOuterNodes() = outerNodes.get()
 
     fun getReadOnlyPositions(): Set<Position> = positions.toSet()
-
-    fun scheduleUpdate() {
-        unprotectedPositions.scheduleUpdate()
-    }
-
-    fun isUnprotected(x: Int, y: Int, world: String): Boolean {
-        return Position(x, y, world, -1) in unprotectedPositions.get()
-    }
 
     fun isEmpty() = positions.isEmpty()
 
@@ -47,8 +33,6 @@ class Cluster(val id: UUID, private val positions: MutableSet<Position>) {
     }
 
     fun addAll(positions: Set<Position>) {
-        if (positions.any { it.factionId != factionId })
-            throw IllegalArgumentException("All positions must belong to the same faction")
         if (positions.any { it.world != this.world })
             throw IllegalArgumentException("All positions must belong to the same world")
 
@@ -59,7 +43,7 @@ class Cluster(val id: UUID, private val positions: MutableSet<Position>) {
     private fun updateCluster() {
         calculateCenter()
         outerNodes.scheduleUpdate()
-        DynmapModule.dynmapModule().dynmapModuleHandle.factionClusterChange(this)
+        DynmapModule.dynmapModule().dynmapModuleHandle.clusterChange(this)
     }
 
     private fun calculateCenter() {

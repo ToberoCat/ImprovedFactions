@@ -92,14 +92,6 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         listRanks().forEach { it.delete() }
         claims().forEach {
             it.factionId = noFactionId
-            DynmapModule.dynmapModule().dynmapModuleHandle.factionClaimRemove(
-                Position(
-                    it.chunkX,
-                    it.chunkZ,
-                    it.world,
-                    id.value
-                )
-            )
         }
         members().forEach { unsetUserData(it) }
 
@@ -234,13 +226,13 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         }
 
         factionClaim.factionId = factionId
-        ImprovedFactionsPlugin.instance.claimChunkClusters.insertPosition(
+        ImprovedFactionsPlugin.instance.claimChunkClusters.insertFactionPosition(
             Position(
                 chunk.x,
                 chunk.z,
-                chunk.world.name,
-                id.value
-            )
+                chunk.world.name
+            ),
+            id.value
         )
 
         if (announce) {
@@ -266,13 +258,11 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         val claim = chunk.getFactionClaim()
         if (claim == null || claim.factionId != id.value) throw FactionDoesntHaveThisClaimException()
         claim.factionId = noFactionId
-        DynmapModule.dynmapModule().dynmapModuleHandle.factionClaimRemove(claim.toPosition())
         ImprovedFactionsPlugin.instance.claimChunkClusters.removePosition(
             Position(
                 chunk.x,
                 chunk.z,
-                chunk.world.name,
-                id.value
+                chunk.world.name
             )
         )
         if (announce) {
