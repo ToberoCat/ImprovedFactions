@@ -3,6 +3,7 @@ package io.github.toberocat.improvedfactions.modules.dynmap.impl
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.clustering.Cluster
 import io.github.toberocat.improvedfactions.claims.clustering.Position
+import io.github.toberocat.improvedfactions.claims.clustering.WorldPosition
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapColorConfig
@@ -14,6 +15,7 @@ import org.bukkit.Location
 import org.dynmap.DynmapCommonAPI
 import org.dynmap.markers.MarkerIcon
 import org.dynmap.markers.MarkerSet
+import java.util.UUID
 
 class FactionDynmapModuleHandleImpl(
     private val config: DynmapModuleConfig,
@@ -64,8 +66,14 @@ class FactionDynmapModuleHandleImpl(
     }
 
     override fun factionClusterChange(cluster: Cluster) {
+        val faction = FactionHandler.getFaction(cluster.factionId) ?: return
+        addPolylineMarker(
+            faction.name,
+            cluster.id,
+            cluster.getOuterNodes(),
+            faction.generateColor()
+        )
         cluster.getReadOnlyPositions().forEach {
-            val faction = FactionHandler.getFaction(cluster.factionId) ?: return@forEach
             addAreaMarker(faction.name, it, faction.generateColor()) { label ->
                 plugin.papiTransformer(faction.owner.toOfflinePlayer(), label)
                     .replace("%faction_name%", faction.name)
@@ -88,6 +96,14 @@ class FactionDynmapModuleHandleImpl(
         set.findAreaMarker(position.uniquId())?.deleteMarker()
     }
 
+    private fun getColor(name: String, overrideColor: Int? = null): DynmapColorConfig? {
+        val colorPack = when {
+            config.colorFactionClaims -> overrideColor?.let { DynmapColorConfig(it, 0.3) }
+            else -> null
+        }
+        return config.claimColors[name] ?: colorPack ?: config.claimColors["__default__"]
+    }
+
     private fun addAreaMarker(
         name: String,
         position: Position,
@@ -108,14 +124,43 @@ class FactionDynmapModuleHandleImpl(
             false
         ) ?: return
 
-        val colorPack = when {
-            config.colorFactionClaims -> color?.let { DynmapColorConfig(it, 0.3) }
-            else -> null
-        }
 
-        (config.claimColors[name] ?: colorPack ?: config.claimColors["__default__"])?.let { colorConfig ->
+        getColor(name, color)?.let { colorConfig ->
             marker.setFillStyle(colorConfig.opacity, colorConfig.color)
-            marker.setLineStyle(3, colorConfig.opacity + 0.2, colorConfig.color)
+            marker.setLineStyle(0, 0.0, colorConfig.color)
+        }
+    }
+
+    private fun addPolylineMarker(
+        name: String,
+        clusterId: UUID,
+        position: MutableList<WorldPosition>,
+        overrideColor: Int?= null
+    ) {
+        position.add(position.first()) // Close the polygon
+        println(position)
+        val markerId = clusterId.toString()
+        val xArray = position.map { it.x.toDouble() }.toDoubleArray()
+        val yArray = position.map { 0.0 }.toDoubleArray()
+        val zArray = position.map { it.y.toDouble() }.toDoubleArray()
+        val marker = set.findPolyLineMarker(markerId) ?: set.createPolyLineMarker(
+            markerId,
+            "",
+            false,
+            position.first().world,
+            DoubleArray(0),
+            DoubleArray(0),
+            DoubleArray(0),
+            false
+        ) ?: return
+
+        marker.setCornerLocations(
+            xArray,
+            yArray,
+            zArray
+        )
+        getColor(name, overrideColor)?.let {
+            marker.setLineStyle(3, it.opacity + 0.2, it.color)
         }
     }
 }

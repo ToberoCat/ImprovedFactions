@@ -9,14 +9,17 @@ import org.jetbrains.exposed.sql.or
 
 class DatabaseClaimQueryProvider : ClaimQueryProvider {
     override fun queryNeighbours(position: Position) = loggedTransaction {
-        FactionClaim.find {
-            FactionClaims.factionId neq noFactionId and
-                    (FactionClaims.chunkX inList listOf(position.x + 1, position.x - 1)) and
-                    (FactionClaims.chunkZ inList listOf(position.y + 1, position.y - 1)) and
-                    (FactionClaims.chunkX neq position.x or (FactionClaims.chunkZ neq position.y))
-        }.map { Position(it.chunkX, it.chunkZ, it.world, it.factionId) }
-            .toList()
+        val claims = FactionClaim.find {
+            (FactionClaims.world eq position.world) and (
+                    (FactionClaims.chunkX eq position.x - 1 and (FactionClaims.chunkZ eq position.y)) or
+                            (FactionClaims.chunkX eq position.x + 1 and (FactionClaims.chunkZ eq position.y)) or
+                            (FactionClaims.chunkZ eq position.y - 1 and (FactionClaims.chunkX eq position.x)) or
+                            (FactionClaims.chunkZ eq position.y + 1 and (FactionClaims.chunkX eq position.x))
+                    )
+        }
+        return@loggedTransaction claims.map { Position(it.chunkX, it.chunkZ, it.world, it.factionId) }
     }
+
 
     override fun all() = loggedTransaction {
         FactionClaim.find { FactionClaims.factionId neq noFactionId }

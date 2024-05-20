@@ -21,6 +21,9 @@ class ClaimClusterDetector(
             throw IllegalArgumentException("Position already exists in the cluster map")
 
         val neighborClusters = getNeighboringClusters(position)
+        println("Raw positional neighbors: ${queryProvider.queryNeighbours(position)}")
+        println("Neighbor clusters: $neighborClusters")
+        println("Position: $position")
         when {
             neighborClusters.isEmpty() -> createNewCluster(position)
             neighborClusters.size == 1 -> assignToCluster(setOf(position), neighborClusters[0])
@@ -78,13 +81,14 @@ class ClaimClusterDetector(
             .mapNotNull { clusterMap.getOrDefault(it, null) }
 
     private fun createNewCluster(position: Position) {
+        println("Creating new cluster")
         val clusterId = generateClusterId()
         val positions = mutableSetOf(position)
 
         clusterMap[position] = clusterId
         when (clusterId) {
             in clusters -> clusters[clusterId]?.addAll(positions)
-            else -> clusters[clusterId] = Cluster(positions)
+            else -> clusters[clusterId] = Cluster(clusterId, positions)
         }
     }
 
@@ -96,7 +100,8 @@ class ClaimClusterDetector(
     private fun mergeClusters(clusterIds: List<UUID>) {
         val newClusterPositions = clusterIds.flatMap { clusters[it]?.getReadOnlyPositions() ?: emptyList() }
         clusterIds.forEach { clusters.remove(it) }
-        clusters[clusterIds[0]] = Cluster(newClusterPositions.toMutableSet())
-        assignToCluster(newClusterPositions.toSet(), clusterIds[0])
+        val newId = clusterIds[0]
+        clusters[newId] = Cluster(newId, newClusterPositions.toMutableSet())
+        assignToCluster(newClusterPositions.toSet(), newId)
     }
 }
