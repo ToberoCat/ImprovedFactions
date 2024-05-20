@@ -26,8 +26,8 @@ class DatabaseClaimQueryProvider : ClaimQueryProvider {
             .map { Position(it.chunkX, it.chunkZ, it.world) to it.factionId }
     }
 
-    override fun allZonePositions(): List<Pair<Position, String>> {
-        return FactionClaim.find {
+    override fun allZonePositions() = loggedTransaction {
+        return@loggedTransaction FactionClaim.find {
             FactionClaims.factionId eq noFactionId and
                     (FactionClaims.zoneType neq ZoneHandler.FACTION_ZONE_TYPE)
         }.map { Position(it.chunkX, it.chunkZ, it.world) to it.zoneType }
