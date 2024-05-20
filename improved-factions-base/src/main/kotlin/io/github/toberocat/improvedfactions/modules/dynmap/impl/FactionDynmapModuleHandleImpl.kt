@@ -5,6 +5,7 @@ import io.github.toberocat.improvedfactions.claims.clustering.Cluster
 import io.github.toberocat.improvedfactions.claims.clustering.Position
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionHandler
+import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapColorConfig
 import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapModuleConfig
 import io.github.toberocat.improvedfactions.modules.dynmap.handles.FactionDynmapModuleHandle
 import io.github.toberocat.improvedfactions.utils.toOfflinePlayer
@@ -65,7 +66,7 @@ class FactionDynmapModuleHandleImpl(
     override fun factionClusterChange(cluster: Cluster) {
         cluster.getReadOnlyPositions().forEach {
             val faction = FactionHandler.getFaction(cluster.factionId) ?: return@forEach
-            addAreaMarker(faction.name, it) { label ->
+            addAreaMarker(faction.name, it, faction.generateColor()) { label ->
                 plugin.papiTransformer(faction.owner.toOfflinePlayer(), label)
                     .replace("%faction_name%", faction.name)
             }
@@ -87,7 +88,12 @@ class FactionDynmapModuleHandleImpl(
         set.findAreaMarker(position.uniquId())?.deleteMarker()
     }
 
-    private fun addAreaMarker(name: String, position: Position, transformer: (input: String) -> String) {
+    private fun addAreaMarker(
+        name: String,
+        position: Position,
+        color: Int? = null,
+        transformer: (input: String) -> String,
+    ) {
         val worldX = position.x * 16.0
         val worldZ = position.y * 16.0
         val label = transformer(config.infoWindows[name] ?: config.infoWindows["__default__"] ?: name)
@@ -101,7 +107,13 @@ class FactionDynmapModuleHandleImpl(
             doubleArrayOf(worldZ, worldZ + 16),
             false
         ) ?: return
-        (config.claimColors[name] ?: config.claimColors["__default__"])?.let { colorConfig ->
+
+        val colorPack = when {
+            config.colorFactionClaims -> color?.let { DynmapColorConfig(it, 0.3) }
+            else -> null
+        }
+
+        (config.claimColors[name] ?: colorPack ?: config.claimColors["__default__"])?.let { colorConfig ->
             marker.setFillStyle(colorConfig.opacity, colorConfig.color)
             marker.setLineStyle(3, colorConfig.opacity + 0.2, colorConfig.color)
         }

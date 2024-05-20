@@ -2,7 +2,7 @@
 # -------- { General Settings } --------
 #
 update-checker: true
-config-version: 10
+config-version: 11
 
 # Configure a mysql connection. If no connection was established, the plugin uses sqlite.
 # This allows to use this plugin without a mysql server
@@ -155,6 +155,7 @@ factions:
         opacity: 0.3
     show-zones: true # This will show the zones on the dynmap. If set to false, the zones will be hidden, useful for servers where zones may already get rendered by a different plugin
     show-homes: true # This will show the homes of factions on the dynmap if the homes module is enabled. If set to false, the homes will be hidden
+    color-faction-claims: true # This will color claims on dynmap based on the faction's color. Named colors will have more priority
     marker-set:
       id: "factions" # The id of the marker set on the dynmap. When changed, the old marker has to be removed manually
       display-name: "Factions" # The display name of the marker set
