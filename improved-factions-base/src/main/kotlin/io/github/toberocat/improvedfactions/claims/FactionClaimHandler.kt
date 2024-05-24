@@ -9,9 +9,7 @@ import kotlin.math.ceil
 import kotlin.math.floor
 
 fun Block.getFactionClaim(): FactionClaim? = location.getFactionClaim()
-fun Location.getFactionClaim(): FactionClaim? = world?.name?.let {
-    getFactionClaim((x / 16.0).largerValueRound(), (z / 16.0).largerValueRound(), it)
-}
+fun Location.getFactionClaim(): FactionClaim? = chunk.getFactionClaim()
 fun Chunk.getFactionClaim() = getFactionClaim(x, z, world.name)
 
 fun getFactionClaim(x: Int, z: Int, worldName: String) = FactionClaim.find {
