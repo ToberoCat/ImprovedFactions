@@ -15,7 +15,8 @@ import org.bukkit.entity.Player
 
 class HomeModuleHandleImpl : HomeModuleHandle {
     override fun setHome(faction: Faction, location: Location) {
-        if (location.getFactionClaim()?.factionId?.equals(faction.id.value) != true) {
+        val claim = location.getFactionClaim()
+        if (claim == null || claim.factionId != faction.id.value) {
             throw CommandException("home.messages.not-in-claim", mapOf())
         }
 
