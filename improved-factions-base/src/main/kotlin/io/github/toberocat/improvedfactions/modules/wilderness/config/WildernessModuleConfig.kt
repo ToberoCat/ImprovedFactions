@@ -48,8 +48,7 @@ class WildernessModuleConfig(
         resistanceDuration = config.getInt("$configPath.resistance-duration", resistanceDuration)
         resistanceAmplifier = config.getInt("$configPath.resistance-amplifier", resistanceAmplifier)
         retryLimit = config.getInt("$configPath.retry-limit", retryLimit)
-        blacklistedWorlds =
-            config.getStringList("$configPath.blacklisted-worlds").toSet().union(FactionClaims.blockedWorlds)
+        blacklistedWorlds = FactionClaims.allowedWorlds.subtract(config.getStringList("$configPath.blacklisted-worlds").toSet())
         teleportProximity = config.getInt("$configPath.teleport-proximity", teleportProximity)
         val regionSection = config.getConfigurationSection("$configPath.regions") ?: return
         regions = regionSection.getKeys(false).associateWith { key ->
