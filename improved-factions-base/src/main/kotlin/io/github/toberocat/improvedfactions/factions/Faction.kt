@@ -180,7 +180,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
             )
         )
 
-        powerRaidModule().factionModuleHandle.memberJoin(this)
+        powerRaidModule().powerModuleHandle.memberJoin(this)
     }
 
     fun invite(inviter: UUID, invited: UUID, rankId: Int): FactionInvite {
@@ -223,7 +223,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
     fun claim(chunk: Chunk, announce: Boolean = true): FactionClaim {
         val claim = chunk.getFactionClaim()
         if (claim != null && !claim.canClaim()) throw CantClaimThisChunkException(chunk)
-        powerRaidModule().factionModuleHandle.claimChunk(chunk, this)
+        powerRaidModule().powerModuleHandle.claimChunk(chunk, this)
 
         val factionId = id.value
         val factionClaim = claim ?: FactionClaim.new {
@@ -327,6 +327,6 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         user.factionId = noFactionId
         user.assignedRank = FactionRankHandler.guestRankId
         user.player()?.resetChatMode()
-        powerRaidModule().factionModuleHandle.memberLeave(this)
+        powerRaidModule().powerModuleHandle.memberLeave(this)
     }
 }

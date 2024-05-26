@@ -7,33 +7,49 @@ import io.github.toberocat.improvedfactions.modules.power.config.PowerManagement
 import io.github.toberocat.improvedfactions.modules.power.handles.DummyFactionPowerRaidModuleHandle
 import io.github.toberocat.improvedfactions.modules.power.handles.FactionPowerRaidModuleHandle
 import io.github.toberocat.improvedfactions.modules.power.impl.FactionPowerRaidModuleHandleImpl
+import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.toberocore.command.CommandExecutor
+import org.bukkit.OfflinePlayer
 
 class PowerRaidsModule : BaseModule {
     override val moduleName = MODULE_NAME
 
     var isEnabled = false
-    var factionModuleHandle: FactionPowerRaidModuleHandle = DummyFactionPowerRaidModuleHandle()
+    var powerModuleHandle: FactionPowerRaidModuleHandle = DummyFactionPowerRaidModuleHandle()
     val config = PowerManagementConfig()
 
     override fun onEnable(plugin: ImprovedFactionsPlugin) {
         isEnabled = true
-        factionModuleHandle = FactionPowerRaidModuleHandleImpl(config)
+        powerModuleHandle = FactionPowerRaidModuleHandleImpl(config)
     }
 
     override fun reloadConfig(plugin: ImprovedFactionsPlugin) {
         config.reload(plugin.config)
-        factionModuleHandle.reloadConfig(plugin)
+        powerModuleHandle.reloadConfig(plugin)
     }
 
     override fun addCommands(plugin: ImprovedFactionsPlugin, executor: CommandExecutor) {
-        executor.addChild(PowerCommand(plugin, factionModuleHandle as FactionPowerRaidModuleHandleImpl))
+        executor.addChild(PowerCommand(plugin, powerModuleHandle as FactionPowerRaidModuleHandleImpl))
+    }
+
+    override fun onPapiPlaceholder(placeholders: HashMap<String, (player: OfflinePlayer) -> String?>) {
+        placeholders["power"] = { it.factionUser().faction()?.accumulatedPower?.toString() }
+        placeholders["maxPower"] = { it.factionUser().faction()?.maxPower?.toString() }
+        (powerModuleHandle as? FactionPowerRaidModuleHandleImpl)?.let { handle ->
+            placeholders["active_accumulation"] =
+                { player -> player.factionUser().faction()?.let { handle.getActivePowerAccumulation(it).toString() } }
+            placeholders["inactive_accumulation"] =
+                { player -> player.factionUser().faction()?.let { handle.getInactivePowerAccumulation(it).toString() } }
+            placeholders["claim_upkeep_cost"] =
+                { player -> player.factionUser().faction()?.let { handle.getClaimMaintenanceCost(it).toString() } }
+        }
     }
 
     companion object {
         const val MODULE_NAME = "power-raids"
         fun powerRaidModule() =
             ImprovedFactionsPlugin.modules[MODULE_NAME] as? PowerRaidsModule ?: throw IllegalStateException()
+
         fun powerRaidsPair() = MODULE_NAME to PowerRaidsModule()
     }
 }

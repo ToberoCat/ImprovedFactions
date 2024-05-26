@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedfactions.papi
 
+import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.config.ImprovedFactionsConfig
 import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.utils.toOfflinePlayer
@@ -22,8 +23,9 @@ class PapiExpansion(private val pluginConfig: ImprovedFactionsConfig) : Placehol
         placeholders["owner"] = { it.factionUser().faction()?.owner?.toOfflinePlayer()?.name }
         placeholders["name"] = { it.factionUser().faction()?.name }
         placeholders["rank"] = { it.factionUser().rank().name }
-        placeholders["power"] = { it.factionUser().faction()?.accumulatedPower?.toString() }
-        placeholders["maxPower"] = { it.factionUser().faction()?.maxPower?.toString() }
+
+        ImprovedFactionsPlugin.getActiveModules()
+            .forEach { (_, module) -> module.onPapiPlaceholder(placeholders) }
     }
 
     override fun getAuthor(): String = "Tobero"
