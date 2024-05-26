@@ -18,6 +18,8 @@ fun getFactionClaim(x: Int, z: Int, worldName: String) = FactionClaim.find {
             (FactionClaims.world eq worldName)
 }.firstOrNull()
 
+fun canClaimInWorld(world: String): Boolean = world in FactionClaims.allowedWorlds
+
 fun squareClaimAction(
     centerChunk: Chunk,
     squareRadius: Int,
