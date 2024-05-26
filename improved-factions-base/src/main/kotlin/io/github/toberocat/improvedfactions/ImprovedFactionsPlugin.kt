@@ -32,6 +32,7 @@ import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import io.github.toberocat.toberocore.command.CommandExecutor
 import me.clip.placeholderapi.PlaceholderAPI
 import net.kyori.adventure.platform.bukkit.BukkitAudiences
+import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
@@ -155,7 +156,6 @@ open class ImprovedFactionsPlugin : JavaPlugin() {
         Factions.nameRegex = Regex(config.getString("factions.name-regex") ?: "[a-zA-Z ]*")
         FactionInvites.inviteExpiresInMinutes = config.getInt("factions.invites-expire-in", 5)
         FactionRanks.maxRankNameLength = config.getInt("factions.max-rank-name-length", 50)
-        FactionClaims.allowedWorlds = config.getStringList("blacklisted-worlds").toSet()
         FactionRankHandler.guestRankName =
             config.getString("factions.unsafe.guest-rank-name") ?: FactionRankHandler.guestRankName
         FactionRanks.rankNameRegex = Regex(config.getString("factions.rank-name-regex") ?: "[a-zA-Z ]*")
@@ -166,6 +166,14 @@ open class ImprovedFactionsPlugin : JavaPlugin() {
         ClaimRadiusArgument.MAX_RADIUS = config.getInt("factions.max-claim-radius", 10)
         FactionMap.MAP_WIDTH = config.getInt("factions.map-width", FactionMap.MAP_WIDTH)
         FactionMap.MAP_HEIGHT = config.getInt("factions.map-height", FactionMap.MAP_HEIGHT)
+
+        var allowedWorlds = config.getStringList("whitelisted-worlds").toSet()
+        if (allowedWorlds.isEmpty()) {
+            logger.warning("No whitelisted worlds found in config. Allowing all worlds")
+            allowedWorlds = Bukkit.getWorlds().map { it.name }.toSet()
+        }
+
+        FactionClaims.allowedWorlds = allowedWorlds.subtract(config.getStringList("blacklisted-worlds").toSet())
 
         config.getConfigurationSection("zones")?.getKeys(false)?.let {
             it.forEach { zone ->
