@@ -24,8 +24,7 @@ class PapiExpansion(private val pluginConfig: ImprovedFactionsConfig) : Placehol
         placeholders["name"] = { it.factionUser().faction()?.name }
         placeholders["rank"] = { it.factionUser().rank().name }
 
-        ImprovedFactionsPlugin.getActiveModules()
-            .forEach { (_, module) -> module.onPapiPlaceholder(placeholders) }
+        ImprovedFactionsPlugin.instance.moduleManager.loadPapiPlaceholders(placeholders)
     }
 
     override fun getAuthor(): String = "Tobero"

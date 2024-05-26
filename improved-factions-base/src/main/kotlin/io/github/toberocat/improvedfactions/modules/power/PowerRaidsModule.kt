@@ -47,9 +47,7 @@ class PowerRaidsModule : BaseModule {
 
     companion object {
         const val MODULE_NAME = "power-raids"
-        fun powerRaidModule() =
-            ImprovedFactionsPlugin.modules[MODULE_NAME] as? PowerRaidsModule ?: throw IllegalStateException()
-
+        fun powerRaidModule() = ImprovedFactionsPlugin.instance.moduleManager.getModule<PowerRaidsModule>(MODULE_NAME)
         fun powerRaidsPair() = MODULE_NAME to PowerRaidsModule()
     }
 }

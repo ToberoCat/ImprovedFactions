@@ -8,7 +8,7 @@ import org.bstats.charts.SingleLineChart
 
 fun Metrics.addModuleChart() {
     addCustomChart(AdvancedPie("modules") {
-        ImprovedFactionsPlugin.getActiveModules().map { it.key to 1 }.toMap()
+        ImprovedFactionsPlugin.instance.moduleManager.activeModules.map { it.key to 1 }.toMap()
     })
 }
 

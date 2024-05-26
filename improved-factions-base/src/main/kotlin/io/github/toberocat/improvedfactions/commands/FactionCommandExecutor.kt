@@ -68,7 +68,7 @@ class FactionCommandExecutor(plugin: ImprovedFactionsPlugin) {
         executor.addChild(ByPassCommand(plugin))
         executor.addChild(ForceCommandRoute(plugin))
 
-        plugin.addModuleCommands(executor)
+        plugin.moduleManager.addModuleCommands(executor)
 
         executor.addChild(HelpCommand(plugin, executor))
         executor.addChild(GenerateWikiSourcesCommand(plugin, executor))

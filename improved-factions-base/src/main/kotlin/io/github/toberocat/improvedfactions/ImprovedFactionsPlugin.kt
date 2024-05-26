@@ -13,6 +13,7 @@ import io.github.toberocat.improvedfactions.database.DatabaseConnector
 import io.github.toberocat.improvedfactions.factions.Factions
 import io.github.toberocat.improvedfactions.invites.FactionInvites
 import io.github.toberocat.improvedfactions.listeners.move.MoveListener
+import io.github.toberocat.improvedfactions.modules.ModuleManager
 import io.github.toberocat.improvedfactions.modules.chat.ChatModule
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.modules.gui.GuiModule
@@ -52,30 +53,17 @@ open class ImprovedFactionsPlugin : JavaPlugin() {
     lateinit var improvedFactionsConfig: ImprovedFactionsConfig
     lateinit var claimChunkClusters: ClaimClusterDetector
     lateinit var papiTransformer: (player: OfflinePlayer, input: String) -> String
+    lateinit var moduleManager: ModuleManager
 
     companion object {
         lateinit var instance: ImprovedFactionsPlugin
             private set
-        val modules = mutableMapOf(
-            PowerRaidsModule.powerRaidsPair(),
-            DynmapModule.dynmapPair(),
-            WildernessModule.wildernessPair(),
-            HomeModule.homePair(),
-            ChatModule.chatPair(),
-            GuiModule.guiPair()
-        )
-
-        fun getActiveModules() = modules.filter { it.value.shouldEnable(instance) }
-    }
-
-    fun addModuleCommands(executor: CommandExecutor) {
-        modules.filter { it.value.shouldEnable(this) }
-            .forEach { (_, module) -> module.addCommands(this, executor) }
     }
 
     override fun onEnable() {
         saveDefaultConfig()
         instance = this
+        moduleManager = ModuleManager(this)
         adventure = BukkitAudiences.create(this)
         claimChunkClusters = ClaimClusterDetector(DatabaseClaimQueryProvider())
 
@@ -87,7 +75,7 @@ open class ImprovedFactionsPlugin : JavaPlugin() {
 
         database = DatabaseConnector(this).createDatabase()
 
-        registerModules()
+        moduleManager.registerModules()
         registerListeners(MoveListener(this))
         registerCommands()
         registerPapi()
@@ -127,13 +115,6 @@ open class ImprovedFactionsPlugin : JavaPlugin() {
     private fun copyFolders() {
         FileUtils.copyAll(this, "languages")
     }
-
-    private fun registerModules() = getActiveModules()
-        .forEach { (name, module) ->
-            module.onEnable(this)
-            logger.info("Loaded module $name")
-            module.reloadConfig(this)
-        }
 
     private fun registerPapi() {
         if (server.pluginManager.isPluginEnabled("PlaceholderAPI")) {
@@ -187,8 +168,7 @@ open class ImprovedFactionsPlugin : JavaPlugin() {
         }
 
         ZoneHandler.defaultZoneCheck(this)
-
-        modules.values.forEach { it.reloadConfig(this) }
+        moduleManager.reloadModuleConfigs()
     }
 
     private fun registerCommands() {
