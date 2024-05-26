@@ -50,7 +50,7 @@ class DatabaseConnector(private val plugin: ImprovedFactionsPlugin) {
             FactionRankHandler.initRanks()
             FactionInvites.scheduleInviteExpirations()
 
-            ImprovedFactionsPlugin.getActiveModules().forEach { (_, module) -> module.onLoadDatabase(plugin) }
+            ImprovedFactionsPlugin.instance.moduleManager.initializeModuleDatabase()
         }
         return database
     }

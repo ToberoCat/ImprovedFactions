@@ -62,6 +62,8 @@ open class PowerCommand(
             val nextClaimCost = powerHandle.getNextClaimCost(faction)
 
 
+            player.showDetails("Power", stringify(faction.accumulatedPower.toDouble()))
+            player.showDetails("Max Power", stringify(faction.maxPower.toDouble()))
             player.showDetails("Active Accumulation", stringify(activeAccumulation))
             player.showDetails("Inactive Accumulation", stringify(inactiveAccumulation))
             player.showDetails("Claim Keep", stringify(claimKeep))

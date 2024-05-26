@@ -54,7 +54,7 @@ class DynmapModule : BaseModule {
     companion object {
         const val MODULE_NAME = "dynmap"
         fun dynmapModule() =
-            ImprovedFactionsPlugin.modules[MODULE_NAME] as? DynmapModule ?: throw IllegalStateException()
+            ImprovedFactionsPlugin.instance.moduleManager.getModule<DynmapModule>(MODULE_NAME)
 
         fun dynmapPair() = MODULE_NAME to DynmapModule()
     }
