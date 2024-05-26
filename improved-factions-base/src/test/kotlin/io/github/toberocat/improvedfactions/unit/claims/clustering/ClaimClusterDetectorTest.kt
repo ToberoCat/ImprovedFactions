@@ -1,5 +1,9 @@
-package io.github.toberocat.improvedfactions.claims.clustering
+package io.github.toberocat.improvedfactions.unit.claims.clustering
 
+import io.github.toberocat.improvedfactions.claims.clustering.ClaimClusterDetector
+import io.github.toberocat.improvedfactions.claims.clustering.ClaimQueryProvider
+import io.github.toberocat.improvedfactions.claims.clustering.Position
+import io.github.toberocat.improvedfactions.unit.ImprovedFactionsTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -8,7 +12,7 @@ import java.util.UUID
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
-class ClaimDetectorTest {
+class ClaimDetectorTest : ImprovedFactionsTest() {
 
     @Test
     fun `test cluster detection`() {
