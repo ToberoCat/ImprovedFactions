@@ -1,14 +1,15 @@
-package io.github.toberocat.improvedfactions
+package io.github.toberocat.improvedfactions.unit
 
 import be.seeseemelk.mockbukkit.MockBukkit
 import be.seeseemelk.mockbukkit.ServerMock
+import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 
 
-class ImprovedFactionsTest {
-    private lateinit var server: ServerMock
-    private lateinit var plugin: ImprovedFactionsPlugin
+open class ImprovedFactionsTest {
+    protected lateinit var server: ServerMock
+    protected lateinit var plugin: ImprovedFactionsPlugin
 
     @BeforeEach
     fun setUp() {

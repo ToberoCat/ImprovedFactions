@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedfactions.claims.clustering
+package io.github.toberocat.improvedfactions.unit.claims.clustering
 
 import io.github.toberocat.improvedfactions.claims.clustering.Position
 import org.junit.jupiter.api.Assertions.*
