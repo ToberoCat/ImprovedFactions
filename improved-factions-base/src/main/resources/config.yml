@@ -2,7 +2,7 @@
 # -------- { General Settings } --------
 #
 update-checker: true
-config-version: 11
+config-version: 12
 
 # Configure a mysql connection. If no connection was established, the plugin uses sqlite.
 # This allows to use this plugin without a mysql server
@@ -185,7 +185,7 @@ factions:
     usage-limit: -1 # The amount of times a player can use this command to teleport to wilderness. -1 means no limit
     claim-distance-check: 5 # The distance of the player to the nearest claimed chunk. This is the distance in chunks
     retry-limit: 10 # The amount of times the plugin will try to find a suitable location before giving up
-    blacklisted-worlds: # This is a list of worlds where the wilderness command should not work. It automatically includes the blacklisted worlds from the base module
+    blacklisted-worlds: # This is a list of worlds where the wilderness command should not work. It limits the worlds the plugin can be used in. Whitelist and Blacklist below are respected
       - world_nether
       - world_the_end
     # Uncomment to choose the regions where the wilderness command should try to teleport the player to.
@@ -335,12 +335,19 @@ performance:
     hidden: false # If set to true, the particles will be hidden
     tick-speed: 1 # The speed the particles will be updated. The higher the value, the better the resolution of the particle animations will be. 1 Is the fastes.
 
-# List the worlds you don't people be able to claim chunks in
-# Example:
+# List the whitelisted and blacklisted worlds here.
+# If no whitelist is provided, all worlds will be considered as valid worlds. The blacklist will then be used to exclude worlds from this list
+# Example 1: Allow all worlds except the nether and the end
 # blacklisted-worlds:
 #   - world_nether
 #   - world_the_end
+# whitelisted-worlds: [ ]
+# Example 2: Only allow the world "world"
+# blacklisted-worlds: [ ]
+# whitelisted-worlds:
+#   - world
 blacklisted-worlds: [ ]
+whitelisted-worlds: [ ]
 
 # The default values removed for a papi placeholder if no value has been provided. For example, when a player doesn't have a faction, the faction name will be replaced with this value
 default-placeholders:

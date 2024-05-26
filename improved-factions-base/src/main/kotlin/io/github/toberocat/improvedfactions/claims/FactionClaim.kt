@@ -30,7 +30,7 @@ class FactionClaim(id: EntityID<Int>) : IntEntity(id) {
 
     fun canClaim(): Boolean {
         return when {
-            FactionClaims.blockedWorlds.contains(world) -> false
+            world !in FactionClaims.allowedWorlds -> false
             factionId != noFactionId -> false
             zone()?.allowClaiming == false -> false
             else -> true

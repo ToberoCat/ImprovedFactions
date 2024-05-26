@@ -34,7 +34,6 @@ import me.clip.placeholderapi.PlaceholderAPI
 import net.kyori.adventure.platform.bukkit.BukkitAudiences
 import org.bukkit.OfflinePlayer
 import org.bukkit.event.Listener
-import org.bukkit.plugin.PluginManager
 import org.bukkit.plugin.java.JavaPlugin
 import org.jetbrains.exposed.sql.Database
 
@@ -45,7 +44,7 @@ import org.jetbrains.exposed.sql.Database
  */
 const val SPIGOT_RESOURCE_ID = 95617
 
-class ImprovedFactionsPlugin : JavaPlugin() {
+open class ImprovedFactionsPlugin : JavaPlugin() {
 
     private lateinit var database: Database
     lateinit var adventure: BukkitAudiences
@@ -156,7 +155,7 @@ class ImprovedFactionsPlugin : JavaPlugin() {
         Factions.nameRegex = Regex(config.getString("factions.name-regex") ?: "[a-zA-Z ]*")
         FactionInvites.inviteExpiresInMinutes = config.getInt("factions.invites-expire-in", 5)
         FactionRanks.maxRankNameLength = config.getInt("factions.max-rank-name-length", 50)
-        FactionClaims.blockedWorlds = config.getStringList("blacklisted-worlds").toSet()
+        FactionClaims.allowedWorlds = config.getStringList("blacklisted-worlds").toSet()
         FactionRankHandler.guestRankName =
             config.getString("factions.unsafe.guest-rank-name") ?: FactionRankHandler.guestRankName
         FactionRanks.rankNameRegex = Regex(config.getString("factions.rank-name-regex") ?: "[a-zA-Z ]*")
