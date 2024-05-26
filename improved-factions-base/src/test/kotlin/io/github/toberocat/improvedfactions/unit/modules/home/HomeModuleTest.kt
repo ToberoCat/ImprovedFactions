@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.unit.modules.home
 
 import be.seeseemelk.mockbukkit.WorldMock
+import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.modules.home.HomeModule.setHome
 import io.github.toberocat.improvedfactions.unit.ImprovedFactionsTest
@@ -19,6 +20,7 @@ class HomeModuleTest : ImprovedFactionsTest() {
         val chunk = world.getChunkAt(0, 0)
 
         val faction = testFaction()
+        FactionClaims.allowedWorlds = setOf(world.name)
         transaction {
             faction.claim(chunk)
             assertDoesNotThrow { faction.setHome(chunk.getBlock(0, 0, 0).location) }

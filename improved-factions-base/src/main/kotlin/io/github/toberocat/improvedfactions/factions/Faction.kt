@@ -222,7 +222,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
 
     fun claim(chunk: Chunk, announce: Boolean = true): FactionClaim {
         val claim = chunk.getFactionClaim()
-        if (claim != null && !claim.canClaim()) throw CantClaimThisChunkException(chunk)
+        if (!canClaimInWorld(chunk.world.name) || claim?.canClaim() == false) throw CantClaimThisChunkException(chunk)
         powerRaidModule().powerModuleHandle.claimChunk(chunk, this)
 
         val factionId = id.value
