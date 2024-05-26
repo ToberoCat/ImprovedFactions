@@ -45,7 +45,7 @@ import org.jetbrains.exposed.sql.Database
  */
 const val SPIGOT_RESOURCE_ID = 95617
 
-class ImprovedFactionsPlugin : JavaPlugin() {
+open class ImprovedFactionsPlugin : JavaPlugin() {
 
     private lateinit var database: Database
     lateinit var adventure: BukkitAudiences

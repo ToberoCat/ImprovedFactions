@@ -13,6 +13,7 @@ open class ImprovedFactionsTest {
 
     @BeforeEach
     fun setUp() {
+        System.setProperty("bstats.relocatecheck", "false")
         server = MockBukkit.mock()
         plugin = MockBukkit.load(ImprovedFactionsPlugin::class.java)
     }

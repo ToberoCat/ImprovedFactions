@@ -44,6 +44,7 @@
         <dynmap-api.version>3.5</dynmap-api.version>
         <h2.version>2.2.220</h2.version>
         <mockbukkit.version>3.9.0</mockbukkit.version>
+        <snakeyaml.version>2.2</snakeyaml.version>
     </properties>
 
     <repositories>
@@ -206,6 +207,20 @@
             <version>${mockbukkit.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.yaml/snakeyaml -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>${snakeyaml.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+            <scope>test</scope>
+        </dependency>
+
 
         <!-- Dependencies -->
         <dependency>
