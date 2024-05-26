@@ -38,7 +38,7 @@ class GuiModule : BaseModule {
     override fun addCommands(plugin: ImprovedFactionsPlugin, executor: CommandExecutor) {
         executor.overrideCoreCommands(plugin)
 
-        (PowerRaidsModule.powerRaidModule().factionModuleHandle as? FactionPowerRaidModuleHandleImpl)?.let {
+        (PowerRaidsModule.powerRaidModule().powerModuleHandle as? FactionPowerRaidModuleHandleImpl)?.let {
             executor.overridePowerRaidModuleCommands(plugin, it)
         }
     }

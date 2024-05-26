@@ -6,7 +6,7 @@ import io.github.toberocat.improvedfactions.modules.power.handles.FactionPowerRa
 import io.github.toberocat.improvedfactions.utils.LazyUpdate
 
 class Cluster(private val positions: MutableSet<Position>) {
-    private val powerModuleHandle: FactionPowerRaidModuleHandle = powerRaidModule().factionModuleHandle
+    private val powerModuleHandle: FactionPowerRaidModuleHandle = powerRaidModule().powerModuleHandle
     private val outerNodes = LazyUpdate(mutableListOf()) { detectOuterNodes() }
     private val unprotectedPositions = LazyUpdate(mutableSetOf()) {
         mutableSetOf<Position>().apply {
