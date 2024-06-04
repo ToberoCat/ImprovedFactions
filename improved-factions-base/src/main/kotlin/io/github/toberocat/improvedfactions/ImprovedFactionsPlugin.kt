@@ -99,7 +99,7 @@ open class ImprovedFactionsPlugin : JavaPlugin() {
             .setDonationLink("https://www.paypal.com/donate/?hosted_button_id=BGB6QWR886Q6Y")
             .setChangelogLink(SPIGOT_RESOURCE_ID)
             .setNotifyOpsOnJoin(true)
-            .setColoredConsoleOutput(true)
+            .setColoredConsoleOutput(false)
             .setSupportLink("https://discord.com/invite/yJYyNRfk39")
             .setNotifyByPermissionOnJoin("factions.updatechecker")
             .setUserAgent(
