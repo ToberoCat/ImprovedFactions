@@ -20,7 +20,8 @@ data class PowerManagementConfig(
     var playerDeathCost: Int = 5,
     var siegeBreachProgress: Double = 1.0,
     var siegeResistanceProgress: Double = .5,
-    var siegeClaimRecoverySpeed: Double = 1.0
+    var siegeClaimRecoverySpeed: Double = 1.0,
+    var allowOverclaim: Boolean = true
 ) {
     private val configPath = "factions.power-management"
     fun reload(config: FileConfiguration) {
@@ -43,7 +44,10 @@ data class PowerManagementConfig(
         claimPowerKeep = config.getUnsignedDouble("$configPath.claim-power-keep", claimPowerKeep)
         playerDeathCost = abs(config.getInt("$configPath.player-death-cost", playerDeathCost))
         siegeBreachProgress = config.getUnsignedDouble("$configPath.siege.breach-progress", siegeBreachProgress)
-        siegeResistanceProgress = config.getUnsignedDouble("$configPath.siege.resistance-progress", siegeResistanceProgress)
-        siegeClaimRecoverySpeed = config.getUnsignedDouble("$configPath.siege.claim-recovery-speed", siegeClaimRecoverySpeed)
+        siegeResistanceProgress =
+            config.getUnsignedDouble("$configPath.siege.resistance-progress", siegeResistanceProgress)
+        siegeClaimRecoverySpeed =
+            config.getUnsignedDouble("$configPath.siege.claim-recovery-speed", siegeClaimRecoverySpeed)
+        allowOverclaim = config.getBoolean("$configPath.allow-overclaim", allowOverclaim)
     }
 }
