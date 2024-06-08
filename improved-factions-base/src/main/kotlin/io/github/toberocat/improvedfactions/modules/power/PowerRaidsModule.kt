@@ -7,6 +7,7 @@ import io.github.toberocat.improvedfactions.modules.power.config.PowerManagement
 import io.github.toberocat.improvedfactions.modules.power.handles.DummyFactionPowerRaidModuleHandle
 import io.github.toberocat.improvedfactions.modules.power.handles.FactionPowerRaidModuleHandle
 import io.github.toberocat.improvedfactions.modules.power.impl.FactionPowerRaidModuleHandleImpl
+import io.github.toberocat.improvedfactions.modules.power.listener.PlayerDeathListener
 import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.toberocore.command.CommandExecutor
 import org.bukkit.OfflinePlayer
@@ -20,7 +21,11 @@ class PowerRaidsModule : BaseModule {
 
     override fun onEnable(plugin: ImprovedFactionsPlugin) {
         isEnabled = true
-        powerModuleHandle = FactionPowerRaidModuleHandleImpl(config)
+
+        val module = FactionPowerRaidModuleHandleImpl(config)
+        powerModuleHandle = module
+
+        plugin.server.pluginManager.registerEvents(PlayerDeathListener(module), plugin)
     }
 
     override fun reloadConfig(plugin: ImprovedFactionsPlugin) {

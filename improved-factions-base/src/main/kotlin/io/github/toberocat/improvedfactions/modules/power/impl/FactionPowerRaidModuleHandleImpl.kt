@@ -3,16 +3,12 @@ package io.github.toberocat.improvedfactions.modules.power.impl
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.clustering.Cluster
 import io.github.toberocat.improvedfactions.claims.clustering.Position
-import io.github.toberocat.improvedfactions.exceptions.NotEnoughPowerException
 import io.github.toberocat.improvedfactions.exceptions.NotEnoughPowerForClaimException
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.PowerAccumulationChangeReason
-import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.modules.power.config.PowerManagementConfig
 import io.github.toberocat.improvedfactions.modules.power.handles.FactionPowerRaidModuleHandle
 import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.utils.getEnum
-import io.github.toberocat.improvedfactions.utils.getUnsignedDouble
 import io.github.toberocat.toberocore.util.MathUtils
 import org.bukkit.Bukkit
 import org.bukkit.Chunk
@@ -20,11 +16,10 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.PlayerDeathEvent
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import java.util.concurrent.TimeUnit
+import org.bukkit.OfflinePlayer
 import kotlin.math.*
 
-class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig) : FactionPowerRaidModuleHandle,
-    Listener {
+class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig) : FactionPowerRaidModuleHandle {
 
     private var accumulateTaskId: Int = 0
     private var claimKeepCostTaskId: Int = 1
@@ -75,17 +70,6 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
         val positions = cluster.getReadOnlyPositions().toList()
         unprotectedPositions.addAll(distancePercentages
             .mapIndexedNotNull { index, element -> if (element * claimPowerCost >= threshold) positions[index] else null })
-    }
-
-    @EventHandler
-    private fun onDeath(event: PlayerDeathEvent) {
-        loggedTransaction {
-            val faction = event.entity.factionUser().faction() ?: return@loggedTransaction
-            faction.setAccumulatedPower(
-                faction.accumulatedPower - config.playerDeathCost,
-                PowerAccumulationChangeReason.PLAYER_DEATH
-            )
-        }
     }
 
     override fun reloadConfig(plugin: ImprovedFactionsPlugin) {
@@ -142,4 +126,10 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
 
     private fun calculatePowerChange(members: Long) = config.baseMemberConstant * (1f / members)
     private fun getClaimMaintenanceCost(claims: Long) = claims * config.claimPowerKeep
+    fun playerDie(faction: Faction) {
+        faction.setAccumulatedPower(
+            faction.accumulatedPower - config.playerDeathCost,
+            PowerAccumulationChangeReason.PLAYER_DEATH
+        )
+    }
 }
