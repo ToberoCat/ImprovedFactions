@@ -8,9 +8,11 @@ import org.bukkit.entity.Boss
 import org.bukkit.entity.Golem
 import org.bukkit.entity.Monster
 
-class ClaimProtectionListener(private val plugin: ImprovedFactionsPlugin,
-                              private val zoneType: String,
-                              private val section: ConfigurationSection) {
+class ClaimProtectionListener(
+    private val plugin: ImprovedFactionsPlugin,
+    zoneType: String,
+    private val section: ConfigurationSection
+) {
 
     init {
         register(ClaimBlockPlaceListener(zoneType))
@@ -21,6 +23,7 @@ class ClaimProtectionListener(private val plugin: ImprovedFactionsPlugin,
         register(ClaimEntitySpawnedByEggListener(zoneType))
         register(ClaimVehicleBreakListener(zoneType))
         register(ClaimTntListener(zoneType))
+        register(ClaimBucketListener(zoneType))
 
         register(GeneralPvPListener(zoneType))
         register(InFactionPvPListener(zoneType))
