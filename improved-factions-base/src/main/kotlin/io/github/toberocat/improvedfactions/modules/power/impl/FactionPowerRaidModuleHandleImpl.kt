@@ -19,11 +19,12 @@ import org.bukkit.Chunk
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.PlayerDeathEvent
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction 
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import java.util.concurrent.TimeUnit
 import kotlin.math.*
 
-class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig) : FactionPowerRaidModuleHandle, Listener {
+class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig) : FactionPowerRaidModuleHandle,
+    Listener {
 
     private var accumulateTaskId: Int = 0
     private var claimKeepCostTaskId: Int = 1
@@ -44,6 +45,8 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
     }
 
     override fun calculateUnprotectedChunks(cluster: Cluster, unprotectedPositions: MutableSet<Position>) {
+        if (!config.allowOverclaim) return
+
         val faction = Faction.findById(cluster.factionId)
             ?: throw IllegalArgumentException("Faction is missing")
 
@@ -53,7 +56,8 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
         val clusterClaimsRatio = cluster.getReadOnlyPositions().size.toDouble() / totalClaims
         val clusterPowerCost = claimMaintenanceCost * clusterClaimsRatio
 
-        val positionSrqDistances = cluster.getReadOnlyPositions().map { it.distanceSquaredTo(cluster.centerX, cluster.centerY) }
+        val positionSrqDistances =
+            cluster.getReadOnlyPositions().map { it.distanceSquaredTo(cluster.centerX, cluster.centerY) }
 
         val biggestDistance = positionSrqDistances.maxOrNull() ?: return
         val distancePercentages = positionSrqDistances.map { it / biggestDistance }
@@ -77,7 +81,10 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
     private fun onDeath(event: PlayerDeathEvent) {
         loggedTransaction {
             val faction = event.entity.factionUser().faction() ?: return@loggedTransaction
-            faction.setAccumulatedPower(faction.accumulatedPower - config.playerDeathCost, PowerAccumulationChangeReason.PLAYER_DEATH)
+            faction.setAccumulatedPower(
+                faction.accumulatedPower - config.playerDeathCost,
+                PowerAccumulationChangeReason.PLAYER_DEATH
+            )
         }
     }
 
