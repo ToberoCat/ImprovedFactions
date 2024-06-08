@@ -2,7 +2,7 @@
 # -------- { General Settings } --------
 #
 update-checker: true
-config-version: 12
+config-version: 13
 
 # Configure a mysql connection. If no connection was established, the plugin uses sqlite.
 # This allows to use this plugin without a mysql server
@@ -233,6 +233,8 @@ zones:
       monster-damage-player: false # Prevent damage to players by monsters in a claim
       player-damage-boss: false # Prevent damage to bosses in a claim by a player
       boss-damage-player: false # Prevent damage to players by bosses in a claim
+      trampling: false # Prevent farmland from being trampled in a claim
+      bucket-usage: false # Prevent using buckets in a claim
 
       general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
       in-faction-pvp: true # Prevent PvP between faction members in a claim
@@ -261,6 +263,9 @@ zones:
       monster-damage-player: true # Prevent damage to players by monsters in a claim
       player-damage-boss: true # Prevent damage to bosses in a claim by a player
       boss-damage-player: true # Prevent damage to players by bosses in a claim
+      trampling: true # Prevent farmland from being trampled in a claim
+      bucket-usage: true # Prevent using buckets in a claim
+
       general-pvp: true # Prevent general PvP in a claims. This means any sort of pvp
       in-faction-pvp: true # Prevent PvP between faction members in a claim
       minecart-damage: true # Prevent minecarts being destroyed in a claim
@@ -289,6 +294,9 @@ zones:
       monster-damage-player: false # Prevent damage to players by monsters in a claim
       player-damage-boss: false # Prevent damage to bosses in a claim by a player
       boss-damage-player: false # Prevent damage to players by bosses in a claim
+      trampling: true # Prevent farmland from being trampled in a claim
+      bucket-usage: true # Prevent using buckets in a claim
+
       general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
       in-faction-pvp: true # Prevent PvP between faction members in a claim
       minecart-damage: true # Prevent minecarts being destroyed in a claim
@@ -316,6 +324,9 @@ zones:
       monster-damage-player: false # Prevent damage to players by monsters in a claim
       player-damage-boss: false # Prevent damage to bosses in a claim by a player
       boss-damage-player: false # Prevent damage to players by bosses in a claim
+      trampling: false # Prevent farmland from being trampled in a claim
+      bucket-usage: false # Prevent using buckets in a claim
+
       general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
       in-faction-pvp: false # Prevent PvP between faction members in a claim
       minecart-damage: false # Prevent minecarts being destroyed in a claim
