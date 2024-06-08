@@ -24,6 +24,7 @@ class ClaimProtectionListener(
         register(ClaimVehicleBreakListener(zoneType))
         register(ClaimTntListener(zoneType))
         register(ClaimBucketListener(zoneType))
+        register(ClaimTramplingListener(zoneType))
 
         register(GeneralPvPListener(zoneType))
         register(InFactionPvPListener(zoneType))
