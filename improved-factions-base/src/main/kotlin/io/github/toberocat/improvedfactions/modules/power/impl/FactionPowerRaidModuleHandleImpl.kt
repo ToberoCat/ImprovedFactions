@@ -1,8 +1,8 @@
 package io.github.toberocat.improvedfactions.modules.power.impl
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.claims.clustering.Cluster
 import io.github.toberocat.improvedfactions.claims.clustering.FactionCluster
+import io.github.toberocat.improvedfactions.claims.clustering.ChunkPosition
 import io.github.toberocat.improvedfactions.claims.clustering.Position
 import io.github.toberocat.improvedfactions.exceptions.NotEnoughPowerForClaimException
 import io.github.toberocat.improvedfactions.factions.Faction
@@ -40,7 +40,7 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
         faction.setAccumulatedPower(faction.accumulatedPower - cost, PowerAccumulationChangeReason.CHUNK_CLAIMED)
     }
 
-    override fun calculateUnprotectedChunks(cluster: FactionCluster, unprotectedPositions: MutableSet<Position>) {
+    override fun calculateUnprotectedChunks(cluster: FactionCluster, unprotectedPositions: MutableSet<ChunkPosition>) {
         if (!config.allowOverclaim) return
         val faction = Faction.findById(cluster.factionId)
             ?: throw IllegalArgumentException("Faction is missing")

@@ -8,10 +8,8 @@ import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapColorCon
 import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapModuleConfig
 import io.github.toberocat.improvedfactions.modules.dynmap.handles.FactionDynmapModuleHandle
 import io.github.toberocat.improvedfactions.utils.toOfflinePlayer
-import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import org.bukkit.Location
 import org.dynmap.DynmapCommonAPI
-import org.dynmap.markers.MarkerIcon
 import org.dynmap.markers.MarkerSet
 import java.util.UUID
 
@@ -26,6 +24,8 @@ class FactionDynmapModuleHandleImpl(
         "Faction Home",
         plugin.getResource("icons/home-icon.png")
     )
+
+    private val clusterPolylineMarkers = mutableMapOf<UUID, MutableSet<String>>()
 
     private fun createFactionMarker(api: DynmapCommonAPI): MarkerSet {
         val markerApi = api.markerAPI
@@ -83,20 +83,27 @@ class FactionDynmapModuleHandleImpl(
             else -> throw IllegalArgumentException("Unknown cluster type")
         }
 
-        addPolylineMarker(
-            name,
-            cluster.id,
-            cluster.getOuterNodes(),
-            generatedColor
-        )
-        cluster.getReadOnlyPositions().forEach { addAreaMarker(name, it, generatedColor, labelTransformer) }
+        clusterPolylineMarkers[cluster.id]?.forEach { set.findPolyLineMarker(it)?.deleteMarker() }
+        cluster.getOuterNodes().forEachIndexed { index, worldPositions ->
+            val markerId = "${cluster.id}-$index"
+            clusterPolylineMarkers.computeIfAbsent(cluster.id) { mutableSetOf() }.add(markerId)
+            addPolylineMarker(
+                name,
+                markerId,
+                worldPositions.toMutableList(),
+                generatedColor
+            )
+        }
+
+        //cluster.getReadOnlyPositions().forEach { addAreaMarker(name, it, generatedColor, labelTransformer) }
     }
 
     override fun clusterRemove(cluster: Cluster) {
-        set.findPolyLineMarker(cluster.id.toString())?.deleteMarker()
+        clusterPolylineMarkers[cluster.id]?.forEach { set.findPolyLineMarker(it)?.deleteMarker() }
+        clusterPolylineMarkers.remove(cluster.id)
     }
 
-    override fun removePosition(position: Position) {
+    override fun removePosition(position: ChunkPosition) {
         set.findAreaMarker(position.uniquId())?.deleteMarker()
     }
 
@@ -110,7 +117,7 @@ class FactionDynmapModuleHandleImpl(
 
     private fun addAreaMarker(
         name: String,
-        position: Position,
+        position: ChunkPosition,
         color: Int? = null,
         transformer: (input: String) -> String,
     ) {
@@ -137,13 +144,12 @@ class FactionDynmapModuleHandleImpl(
 
     private fun addPolylineMarker(
         name: String,
-        clusterId: UUID,
+        markerId: String,
         position: MutableList<WorldPosition>,
         overrideColor: Int? = null
     ) {
         position.add(position.first()) // Close the polygon
 
-        val markerId = clusterId.toString()
         val xArray = position.map { it.x.toDouble() }.toDoubleArray()
         val yArray = position.map { 0.0 }.toDoubleArray()
         val zArray = position.map { it.y.toDouble() }.toDoubleArray()

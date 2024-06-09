@@ -2,7 +2,7 @@ package io.github.toberocat.improvedfactions.listeners.claim
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.clustering.FactionCluster
-import io.github.toberocat.improvedfactions.claims.clustering.Position
+import io.github.toberocat.improvedfactions.claims.clustering.ChunkPosition
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.managers.ByPassManager
@@ -41,7 +41,7 @@ abstract class ProtectionListener(protected val zoneType: String,
         if (claimedFaction == playerFaction && playerFaction != noFactionId)
             return@loggedTransaction
 
-        val cluster = claimClusters.getCluster(Position(chunk.x, chunk.z, claim.world))
+        val cluster = claimClusters.getCluster(ChunkPosition(chunk.x, chunk.z, claim.world))
         if (cluster is FactionCluster && cluster.isUnprotected(chunk.x, chunk.z, chunk.world.name))
             return@loggedTransaction
 

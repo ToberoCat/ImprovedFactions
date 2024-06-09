@@ -5,10 +5,10 @@ import io.github.toberocat.improvedfactions.modules.power.handles.FactionPowerRa
 import io.github.toberocat.improvedfactions.utils.LazyUpdate
 import java.util.*
 
-class FactionCluster(val factionId: Int, id: UUID, positions: MutableSet<Position>) : Cluster(id, positions) {
+class FactionCluster(val factionId: Int, id: UUID, positions: MutableSet<ChunkPosition>) : Cluster(id, positions) {
     private val powerModuleHandle: FactionPowerRaidModuleHandle = powerRaidModule().factionModuleHandle
     private val unprotectedPositions = LazyUpdate(mutableSetOf()) {
-        mutableSetOf<Position>().apply {
+        mutableSetOf<ChunkPosition>().apply {
             powerModuleHandle.calculateUnprotectedChunks(this@FactionCluster, this)
         }
     }
@@ -18,6 +18,6 @@ class FactionCluster(val factionId: Int, id: UUID, positions: MutableSet<Positio
     }
 
     fun isUnprotected(x: Int, y: Int, world: String): Boolean {
-        return Position(x, y, world) in unprotectedPositions.get()
+        return ChunkPosition(x, y, world) in unprotectedPositions.get()
     }
 }
