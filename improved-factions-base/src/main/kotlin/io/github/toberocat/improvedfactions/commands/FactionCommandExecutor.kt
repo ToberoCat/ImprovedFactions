@@ -63,6 +63,7 @@ class FactionCommandExecutor(plugin: ImprovedFactionsPlugin) {
         executor.addChild(InviteAcceptCommand(plugin))
         executor.addChild(InviteDiscardCommand(plugin))
 
+        executor.addChild(ListFactionsCommand(plugin))
         executor.addChild(ReloadCommand(plugin))
         executor.addChild(ZoneCommandRoute(plugin))
         executor.addChild(ByPassCommand(plugin))
