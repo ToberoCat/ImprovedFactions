@@ -37,7 +37,7 @@ abstract class ProtectionListener(protected val zoneType: String,
 
         val claimedFaction = claim.factionId
         val playerFaction = player.factionUser().factionId
-        if (claimedFaction == playerFaction)
+        if (claimedFaction == playerFaction && playerFaction != noFactionId)
             return@loggedTransaction
 
         if (claimClusters.getCluster(Position(chunk.x, chunk.z, claim.world, claimedFaction))
