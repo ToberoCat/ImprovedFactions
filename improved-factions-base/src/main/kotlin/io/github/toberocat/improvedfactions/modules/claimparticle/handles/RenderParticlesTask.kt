@@ -40,6 +40,8 @@ class RenderParticlesTask(private val config: ClaimParticleModuleConfig) : Bukki
             else -> baseColor
         }
 
+        // ToDo: This is a very expensive operation, consider not iterating twice over the player
+        // TODo: Cache the locations instead of computing every render interval
         Bukkit.getOnlinePlayers()
             .forEach { player ->
                 val distance = player.location.distanceSquared(location).toFloat()
