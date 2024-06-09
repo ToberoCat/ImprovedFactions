@@ -4,7 +4,7 @@ import kotlin.math.sign
 import kotlin.math.sqrt
 
 data class WorldPosition(val world: String, val x: Int, val y: Int) {
-    fun isSameAxis(other: WorldPosition) = (x == other.x && y != other.y) || (x != other.x && y == other.y)
+    fun isSameAxis(other: WorldPosition) = x == other.x && y != other.y || x != other.x && y == other.y
 
     fun isSameAxis(other: WorldPosition, allowedAxis: Set<Pair<Int, Int>>) =
         allowedAxis.contains(getAxis(other))
@@ -24,21 +24,7 @@ data class WorldPosition(val world: String, val x: Int, val y: Int) {
         )
     }
 
-    fun getMatchingPositions(options: List<Pair<ChunkPosition, List<WorldPosition>>>) = options
-        .filter { it.second.contains(this) }
-        .map { it.first }
-
-
-    fun getChunkNeighbours() = listOf(
-        ChunkPosition(x, y, world),
-        ChunkPosition(x - 1, y, world),
-        ChunkPosition(x - 1, y - 1, world),
-        ChunkPosition(x, y - 1, world)
-    )
-
-    fun distanceTo(other: WorldPosition): Double {
-        return sqrt(distanceSquaredTo(other.x.toDouble(), other.y.toDouble()))
-    }
+    fun distanceTo(other: WorldPosition) = sqrt(distanceSquaredTo(other.x.toDouble(), other.y.toDouble()))
 
     private fun toChunkPosition() = ChunkPosition(x shr 4, y shr 4, world)
 

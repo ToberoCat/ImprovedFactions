@@ -11,11 +11,6 @@ data class ChunkPosition(val x: Int, val y: Int, val world: String) {
         return deltaX * deltaX + deltaY * deltaY
     }
 
-    fun distanceTo(other: ChunkPosition): Double {
-        return sqrt(distanceSquaredTo(other.x.toDouble(), other.y.toDouble()))
-    }
-
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
