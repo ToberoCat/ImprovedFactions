@@ -2,7 +2,7 @@ package io.github.toberocat.improvedfactions.claims.overclaim
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.FactionClaim
-import io.github.toberocat.improvedfactions.claims.clustering.Position
+import io.github.toberocat.improvedfactions.claims.clustering.ChunkPosition
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Companion.powerRaidModule
@@ -26,17 +26,17 @@ class ClaimSiegeManager(private val claim: FactionClaim) {
     private var claimIntegrity: Double = 100.0
 
     companion object {
-        private val siegeManagers = mutableMapOf<Position, ClaimSiegeManager>()
+        private val siegeManagers = mutableMapOf<ChunkPosition, ClaimSiegeManager>()
 
         fun getManager(claim: FactionClaim): ClaimSiegeManager {
-            return siegeManagers.computeIfAbsent(Position(claim.chunkX, claim.chunkZ, claim.world, -1)) {
+            return siegeManagers.computeIfAbsent(ChunkPosition(claim.chunkX, claim.chunkZ, claim.world)) {
                 ClaimSiegeManager(
                     claim
                 )
             }
         }
 
-        fun remove(claim: FactionClaim) = siegeManagers.remove(Position(claim.chunkX, claim.chunkZ, claim.world, -1))
+        fun remove(claim: FactionClaim) = siegeManagers.remove(ChunkPosition(claim.chunkX, claim.chunkZ, claim.world))
     }
 
     fun enterClaimCombat(player: Player) {

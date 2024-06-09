@@ -5,10 +5,9 @@ import io.github.toberocat.improvedfactions.claims.FactionClaim
 import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
 import io.github.toberocat.improvedfactions.listeners.claim.ClaimProtectionListener
-import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import org.bukkit.Chunk
 import org.bukkit.configuration.ConfigurationSection
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction 
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 
 object ZoneHandler {
     const val FACTION_ZONE_TYPE = "default"
@@ -45,13 +44,16 @@ object ZoneHandler {
 
     fun getZones(): Set<String> = knownZones.keys
 
-    fun getZoneClaims(): List<FactionClaim> = loggedTransaction { FactionClaim
-        .find { FactionClaims.zoneType neq FACTION_ZONE_TYPE }
-        .toList() }
+    fun getZoneClaims(): List<FactionClaim> = loggedTransaction {
+        FactionClaim
+            .find { FactionClaims.zoneType neq FACTION_ZONE_TYPE }
+            .toList()
+    }
+
     fun unclaim(chunk: Chunk) {
         chunk.getFactionClaim()?.let {
             it.zoneType = FACTION_ZONE_TYPE
-            DynmapModule.dynmapModule().dynmapModuleHandle.zoneClaimRemove(it.toPosition())
+            ImprovedFactionsPlugin.instance.claimChunkClusters.removePosition(it.toPosition())
         }
     }
 }

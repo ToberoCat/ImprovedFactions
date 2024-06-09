@@ -1,20 +1,17 @@
 package io.github.toberocat.improvedfactions.claims.clustering
 
-class ClusterReachabilityChecker(private val positions: Set<Position>) {
-    private val visited = mutableSetOf<Position>()
+class ClusterReachabilityChecker(private val positions: Set<ChunkPosition>) {
+    private val visited = mutableSetOf<ChunkPosition>()
 
-    fun getUnreachablePositions(): Set<Position> {
+    fun getUnreachablePositions(): Set<ChunkPosition> {
         if (positions.isEmpty())
             return emptySet()
         val start = positions.first()
-        if (positions.any { start.factionId != it.factionId })
-            throw IllegalArgumentException("Only claims of the same type are allowed")
-
         dfs(start)
         return positions.toSet().subtract(visited)
     }
 
-    private fun dfs(position: Position) {
+    private fun dfs(position: ChunkPosition) {
         if (position in visited)
             return
 
@@ -22,10 +19,10 @@ class ClusterReachabilityChecker(private val positions: Set<Position>) {
         getNeighbors(position).forEach(::dfs)
     }
 
-    private fun getNeighbors(position: Position) = listOf(
-        Position(position.x - 1, position.y, position.world, position.factionId),
-        Position(position.x + 1, position.y, position.world, position.factionId),
-        Position(position.x, position.y + 1, position.world, position.factionId),
-        Position(position.x, position.y - 1, position.world, position.factionId)
+    private fun getNeighbors(position: ChunkPosition) = listOf(
+        ChunkPosition(position.x - 1, position.y, position.world),
+        ChunkPosition(position.x + 1, position.y, position.world),
+        ChunkPosition(position.x, position.y + 1, position.world),
+        ChunkPosition(position.x, position.y - 1, position.world)
     ).filter { it in positions }
 }

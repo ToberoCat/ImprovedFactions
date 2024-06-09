@@ -1,59 +1,57 @@
 package io.github.toberocat.improvedfactions.unit.claims.clustering
 
+import io.github.toberocat.improvedfactions.claims.clustering.ChunkPosition
 import io.github.toberocat.improvedfactions.claims.clustering.ClusterReachabilityChecker
-import io.github.toberocat.improvedfactions.claims.clustering.Position
-import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.assertThrows
-import java.lang.IllegalArgumentException
+import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 
 class ClusterReachabilityCheckerTest {
     @Test
     fun `test get unreachable positions`() {
         val positions = setOf(
-            Position(0, 0, "",1),
-            Position(0, 1,  "",1),
-            Position(1, 0,  "",1),
-            Position(1, 1,  "",1),
-            Position(2, 2,  "",1)
+            ChunkPosition(0, 0, ""),
+            ChunkPosition(0, 1,  ""),
+            ChunkPosition(1, 0,  ""),
+            ChunkPosition(1, 1,  ""),
+            ChunkPosition(2, 2,  "")
         )
 
         val checker = ClusterReachabilityChecker(positions)
 
         val unreachablePositions = checker.getUnreachablePositions()
 
-        assertEquals(setOf(Position(2, 2,  "",1)), unreachablePositions)
+        assertEquals(setOf(ChunkPosition(2, 2,  "")), unreachablePositions)
     }
 
     @Test
     fun `test get unreachable positions empty list`() {
-        val positions = emptySet<Position>()
+        val positions = emptySet<ChunkPosition>()
 
         val checker = ClusterReachabilityChecker(positions)
 
         val unreachablePositions = checker.getUnreachablePositions()
 
-        assertEquals(emptySet<Position>(), unreachablePositions)
+        assertEquals(emptySet<ChunkPosition>(), unreachablePositions)
     }
 
     @Test
     fun `test get unreachable positions single element`() {
-        val positions = setOf(Position(0, 0, "", 1))
+        val positions = setOf(ChunkPosition(0, 0, ""))
 
         val checker = ClusterReachabilityChecker(positions)
 
         val unreachablePositions = checker.getUnreachablePositions()
 
-        assertEquals(emptySet<Position>(), unreachablePositions)
+        assertEquals(emptySet<ChunkPosition>(), unreachablePositions)
     }
 
 
     @Test
     fun `test get unreachable positions all unreachable`() {
         val positions = setOf(
-            Position(0, 0,  "",1),
-            Position(1, 1,  "",1),
-            Position(2, 2,  "",1)
+            ChunkPosition(0, 0,  ""),
+            ChunkPosition(1, 1,  ""),
+            ChunkPosition(2, 2,  "")
         )
 
         val checker = ClusterReachabilityChecker(positions)
@@ -62,27 +60,10 @@ class ClusterReachabilityCheckerTest {
 
         assertEquals(
             setOf(
-                Position(1, 1,  "",1),
-                Position(2, 2,  "",1)
+                ChunkPosition(1, 1,  ""),
+                ChunkPosition(2, 2,  "")
             ), unreachablePositions
         )
-    }
-
-    @Test
-    fun `test get different claim types`() {
-        val positions = setOf(
-            Position(0, 0,  "",1),
-            Position(0, 1,  "",1),
-            Position(1, 0,  "",1),
-            Position(1, 1,  "",1),
-            Position(4, 4,  "",2),
-            Position(4, 5,  "",2),
-            Position(5, 4,  "",2),
-            Position(5, 5,  "",2)
-        )
-
-        val checker = ClusterReachabilityChecker(positions)
-        assertThrows<IllegalArgumentException> { checker.getUnreachablePositions() }
     }
 
     @Test
@@ -90,7 +71,7 @@ class ClusterReachabilityCheckerTest {
         val gridSize = 100
         val positions = (0 until gridSize).flatMap { x ->
             (0 until gridSize).map { y ->
-                Position(x, y,  "",1)
+                ChunkPosition(x, y,  "")
             }
         }.toSet()
 
@@ -98,6 +79,6 @@ class ClusterReachabilityCheckerTest {
 
         val unreachablePositions = checker.getUnreachablePositions()
 
-        assertEquals(emptySet<Position>(), unreachablePositions)
+        assertEquals(emptySet<ChunkPosition>(), unreachablePositions)
     }
 }

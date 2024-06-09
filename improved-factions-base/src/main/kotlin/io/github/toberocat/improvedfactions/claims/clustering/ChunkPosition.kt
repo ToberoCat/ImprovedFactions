@@ -1,7 +1,9 @@
 package io.github.toberocat.improvedfactions.claims.clustering
 
-data class Position(val x: Int, val y: Int, val world: String, val factionId: Int) {
+import org.bukkit.Bukkit
+import kotlin.math.sqrt
 
+data class ChunkPosition(val x: Int, val y: Int, val world: String) {
 
     fun distanceSquaredTo(x: Double, y: Double): Double {
         val deltaX = this.x - x
@@ -13,7 +15,7 @@ data class Position(val x: Int, val y: Int, val world: String, val factionId: In
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as Position
+        other as ChunkPosition
 
         if (x != other.x) return false
         if (y != other.y) return false
@@ -29,6 +31,15 @@ data class Position(val x: Int, val y: Int, val world: String, val factionId: In
         return result
     }
 
+    fun getCornerPoints() = listOf(
+        WorldPosition(world, x * 16, y * 16),
+        WorldPosition(world, x * 16 + 16, y * 16),
+        WorldPosition(world, x * 16, y * 16 + 16),
+        WorldPosition(world, x * 16 + 16, y * 16 + 16)
+    )
+
     fun uniquId() = "$x-$y-$world"
-    operator fun minus(cellFrom: Position) = Position(x - cellFrom.x, y - cellFrom.y, world, factionId)
+    operator fun minus(cellFrom: ChunkPosition) = ChunkPosition(x - cellFrom.x, y - cellFrom.y, world)
+    fun toWorldPosition(): WorldPosition = WorldPosition(world, x * 16, y * 16)
+    fun getChunk() = Bukkit.getWorld(world)?.getChunkAt(x, y)
 }

@@ -1,53 +1,57 @@
 package io.github.toberocat.improvedfactions.claims.clustering
 
 import io.github.toberocat.improvedfactions.factions.Faction
+import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import java.util.UUID
 
 class ClaimClusterDetector(
     private val queryProvider: ClaimQueryProvider,
     private val generateClusterId: () -> UUID = UUID::randomUUID
 ) {
-    val clusterMap = mutableMapOf<Position, UUID>()
+    val clusterMap = mutableMapOf<ChunkPosition, UUID>()
     val clusters = mutableMapOf<UUID, Cluster>()
 
     fun detectClusters() {
         clusterMap.clear()
         clusters.clear()
-        queryProvider.all().forEach(::insertPosition)
+        queryProvider.allFactionPositions()
+            .forEach { (position, factionId) -> insertFactionPosition(position, factionId) }
+        queryProvider.allZonePositions().forEach { (position, zoneType) -> insertZonePosition(position, zoneType) }
     }
 
-    fun insertPosition(position: Position) {
-        if (position in clusterMap)
-            throw IllegalArgumentException("Position already exists in the cluster map")
-
-        val neighborClusters = getNeighboringClusters(position)
-        when {
-            neighborClusters.isEmpty() -> createNewCluster(position)
-            neighborClusters.size == 1 -> assignToCluster(setOf(position), neighborClusters[0])
-            else -> {
-                assignToCluster(setOf(position), neighborClusters[0])
-                mergeClusters(neighborClusters)
+    fun insertFactionPosition(position: ChunkPosition, factionId: Int) {
+        insertPosition(position, neighboursProvider = {
+            getMatchingClusters(position) { id ->
+                val factionCluster = clusters[id] as? FactionCluster ?: return@getMatchingClusters false
+                return@getMatchingClusters factionCluster.factionId == factionId
             }
-        }
+        }) { id, positions -> FactionCluster(factionId, id, positions) }
+    }
+
+    fun insertZonePosition(position: ChunkPosition, zoneType: String) {
+        insertPosition(position, neighboursProvider = {
+            getMatchingClusters(position) { id ->
+                val zoneCluster = clusters[id] as? ZoneCluster ?: return@getMatchingClusters false
+                return@getMatchingClusters zoneCluster.zoneType == zoneType
+            }
+        }) { id, positions -> ZoneCluster(zoneType, id, positions) }
     }
 
     fun markFactionClusterForUpdate(faction: Faction) = clusters.values
+        .mapNotNull { it as? FactionCluster }
         .filter { it.factionId == faction.id.value }
         .forEach(Cluster::scheduleUpdate)
 
     fun removeFactionClusters(faction: Faction) = clusters
-        .filter { it.value.factionId == faction.id.value }
-        .forEach { removeCluster(it.key) }
+        .map { it.key to it.value as? FactionCluster }
+        .filter { it.second?.factionId == faction.id.value }
+        .forEach { removeCluster(it.first) }
 
-    fun getClusterId(position: Position) = clusterMap[position]
+    fun getClusterId(position: ChunkPosition) = clusterMap[position]
 
-    private fun getCluster(clusterId: UUID) = clusters.getOrDefault(clusterId, null)
-    fun getCluster(position: Position): Cluster? = getClusterId(position)?.let {
-        val cluster = getCluster(it)
-        return if (cluster?.getReadOnlyPositions()?.firstOrNull()?.factionId != position.factionId) null else cluster
-    }
+    fun getCluster(position: ChunkPosition) = getClusterId(position)?.let { getCluster(it) }
 
-    fun removePosition(position: Position) {
+    fun removePosition(position: ChunkPosition) {
         if (position !in clusterMap)
             return
 
@@ -55,6 +59,7 @@ class ClaimClusterDetector(
         val cluster = clusters[clusterIndex]?.also { it.removeAll(setOf(position)) }
             ?: throw IllegalArgumentException()
         clusterMap.remove(position)
+        DynmapModule.dynmapModule().dynmapModuleHandle.removePosition(position)
 
         val unreachablePositions = ClusterReachabilityChecker(cluster.getReadOnlyPositions()).getUnreachablePositions()
         if (unreachablePositions.isEmpty())
@@ -62,41 +67,76 @@ class ClaimClusterDetector(
 
         cluster.removeAll(unreachablePositions)
         if (cluster.isEmpty())
-            clusters.remove(clusterIndex)
+            clusterIndex?.let { rawRemoveCluster(it) }
 
         unreachablePositions.forEach(clusterMap::remove)
-        unreachablePositions.forEach { insertPosition(it) }
+
+        when (cluster) {
+            is FactionCluster -> unreachablePositions.forEach { insertFactionPosition(it, cluster.factionId) }
+            is ZoneCluster -> unreachablePositions.forEach { insertZonePosition(it, cluster.zoneType) }
+            else -> throw IllegalArgumentException("Unknown cluster type")
+        }
     }
 
     fun removeCluster(clusterId: UUID) {
         clusters[clusterId]?.getReadOnlyPositions()?.forEach(clusterMap::remove)
-        clusters.remove(clusterId)
+        rawRemoveCluster(clusterId)
     }
 
-    private fun getNeighboringClusters(position: Position) =
-        queryProvider.querySameFactionNeighbours(position)
-            .mapNotNull { clusterMap.getOrDefault(it, null) }
+    private fun getCluster(clusterId: UUID) = clusters.getOrDefault(clusterId, null)
 
-    private fun createNewCluster(position: Position) {
+    private fun getMatchingClusters(position: ChunkPosition, matchCondition: (uuid: UUID) -> Boolean) =
+        queryProvider.queryNeighbours(position)
+            .mapNotNull { clusterMap.getOrDefault(it, null) }
+            .filter { matchCondition(it) }
+
+    private fun createNewCluster(position: ChunkPosition, clusterGenerator: (UUID, MutableSet<ChunkPosition>) -> Cluster) {
         val clusterId = generateClusterId()
         val positions = mutableSetOf(position)
 
         clusterMap[position] = clusterId
         when (clusterId) {
             in clusters -> clusters[clusterId]?.addAll(positions)
-            else -> clusters[clusterId] = Cluster(positions)
+            else -> clusters[clusterId] = clusterGenerator(clusterId, positions)
         }
     }
 
-    private fun assignToCluster(positions: Set<Position>, clusterId: UUID) {
+    private fun assignToCluster(positions: Set<ChunkPosition>, clusterId: UUID) {
         clusters[clusterId]?.addAll(positions)
         positions.forEach { clusterMap[it] = clusterId }
     }
 
-    private fun mergeClusters(clusterIds: List<UUID>) {
+    private fun mergeClusters(
+        clusterIds: List<UUID>,
+        clusterGenerator: (UUID, MutableSet<ChunkPosition>) -> Cluster
+    ) {
         val newClusterPositions = clusterIds.flatMap { clusters[it]?.getReadOnlyPositions() ?: emptyList() }
-        clusterIds.forEach { clusters.remove(it) }
-        clusters[clusterIds[0]] = Cluster(newClusterPositions.toMutableSet())
-        assignToCluster(newClusterPositions.toSet(), clusterIds[0])
+        clusterIds.forEach { rawRemoveCluster(it) }
+        val newId = clusterIds[0]
+        clusters[newId] = clusterGenerator(newId, newClusterPositions.toMutableSet())
+        assignToCluster(newClusterPositions.toSet(), newId)
+    }
+
+    private fun insertPosition(
+        position: ChunkPosition,
+        neighboursProvider: () -> List<UUID>,
+        createNewCluster: (UUID, MutableSet<ChunkPosition>) -> Cluster
+    ) {
+        if (position in clusterMap)
+            throw IllegalArgumentException("Position already exists in the cluster map")
+
+        val neighborClusters = neighboursProvider()
+        when {
+            neighborClusters.isEmpty() -> createNewCluster(position, createNewCluster)
+            neighborClusters.size == 1 -> assignToCluster(setOf(position), neighborClusters[0])
+            else -> {
+                assignToCluster(setOf(position), neighborClusters[0])
+                mergeClusters(neighborClusters, createNewCluster)
+            }
+        }
+    }
+
+    private fun rawRemoveCluster(clusterId: UUID) {
+        clusters.remove(clusterId)?.let(DynmapModule.dynmapModule().dynmapModuleHandle::clusterRemove)
     }
 }

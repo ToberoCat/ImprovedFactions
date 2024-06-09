@@ -3,7 +3,7 @@ package io.github.toberocat.improvedfactions.factions
 import dev.s7a.base64.Base64ItemStack
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.*
-import io.github.toberocat.improvedfactions.claims.clustering.Position
+import io.github.toberocat.improvedfactions.claims.clustering.ChunkPosition
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.exceptions.*
 import io.github.toberocat.improvedfactions.factions.ban.FactionBan
@@ -12,7 +12,6 @@ import io.github.toberocat.improvedfactions.invites.FactionInvite
 import io.github.toberocat.improvedfactions.invites.FactionInvites
 import io.github.toberocat.improvedfactions.messages.MessageBroker
 import io.github.toberocat.improvedfactions.modules.chat.ChatModule.resetChatMode
-import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Companion.powerRaidModule
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
 import io.github.toberocat.improvedfactions.ranks.listRanks
@@ -92,14 +91,6 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         listRanks().forEach { it.delete() }
         claims().forEach {
             it.factionId = noFactionId
-            DynmapModule.dynmapModule().dynmapModuleHandle.factionClaimRemove(
-                Position(
-                    it.chunkX,
-                    it.chunkZ,
-                    it.world,
-                    id.value
-                )
-            )
         }
         members().forEach { unsetUserData(it) }
 
@@ -234,13 +225,13 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         }
 
         factionClaim.factionId = factionId
-        ImprovedFactionsPlugin.instance.claimChunkClusters.insertPosition(
-            Position(
+        ImprovedFactionsPlugin.instance.claimChunkClusters.insertFactionPosition(
+            ChunkPosition(
                 chunk.x,
                 chunk.z,
-                chunk.world.name,
-                id.value
-            )
+                chunk.world.name
+            ),
+            id.value
         )
 
         if (announce) {
@@ -266,13 +257,11 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         val claim = chunk.getFactionClaim()
         if (claim == null || claim.factionId != id.value) throw FactionDoesntHaveThisClaimException()
         claim.factionId = noFactionId
-        DynmapModule.dynmapModule().dynmapModuleHandle.factionClaimRemove(claim.toPosition())
         ImprovedFactionsPlugin.instance.claimChunkClusters.removePosition(
-            Position(
+            ChunkPosition(
                 chunk.x,
                 chunk.z,
-                chunk.world.name,
-                id.value
+                chunk.world.name
             )
         )
         if (announce) {

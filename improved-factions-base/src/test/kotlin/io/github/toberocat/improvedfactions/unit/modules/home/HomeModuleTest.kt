@@ -1,13 +1,10 @@
 package io.github.toberocat.improvedfactions.unit.modules.home
 
-import be.seeseemelk.mockbukkit.WorldMock
 import io.github.toberocat.improvedfactions.claims.FactionClaims
-import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.modules.home.HomeModule.setHome
 import io.github.toberocat.improvedfactions.unit.ImprovedFactionsTest
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import org.bukkit.Location
-import org.bukkit.Material
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
