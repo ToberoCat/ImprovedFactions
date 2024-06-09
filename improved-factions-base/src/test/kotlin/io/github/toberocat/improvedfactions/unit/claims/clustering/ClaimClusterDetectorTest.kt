@@ -317,14 +317,15 @@ class ClaimDetectorTest {
         val outerNodes = cluster.getOuterNodes()
 
         kotlin.test.assertEquals(2, outerNodes.size)
-        kotlin.test.assertEquals(4, outerNodes[0].size)
-        kotlin.test.assertEquals(4, outerNodes[1].size)
+        kotlin.test.assertEquals(5, outerNodes[0].size)
+        kotlin.test.assertEquals(5, outerNodes[1].size)
         kotlin.test.assertEquals(
             listOf(
                 WorldPosition(world = "", x = 0, y = 0),
                 WorldPosition(world = "", x = 48, y = 0),
                 WorldPosition(world = "", x = 48, y = 48),
-                WorldPosition(world = "", x = 0, y = 48)
+                WorldPosition(world = "", x = 0, y = 48),
+                WorldPosition(world = "", x = 0, y = 0)
             ), outerNodes[0]
         )
         kotlin.test.assertEquals(
@@ -332,7 +333,8 @@ class ClaimDetectorTest {
                 WorldPosition(world = "", x = 16, y = 16),
                 WorldPosition(world = "", x = 32, y = 16),
                 WorldPosition(world = "", x = 32, y = 32),
-                WorldPosition(world = "", x = 16, y = 32)
+                WorldPosition(world = "", x = 16, y = 32),
+                WorldPosition(world = "", x = 16, y = 16)
             ), outerNodes[1]
         )
 
@@ -340,13 +342,14 @@ class ClaimDetectorTest {
         val updatedOuterNodes = detector.clusters.values.first().getOuterNodes()
 
         kotlin.test.assertEquals(1, updatedOuterNodes.size)
-        kotlin.test.assertEquals(4, updatedOuterNodes[0].size)
+        kotlin.test.assertEquals(5, updatedOuterNodes[0].size)
         kotlin.test.assertEquals(
             listOf(
                 WorldPosition(world = "", x = 0, y = 0),
                 WorldPosition(world = "", x = 48, y = 0),
                 WorldPosition(world = "", x = 48, y = 48),
-                WorldPosition(world = "", x = 0, y = 48)
+                WorldPosition(world = "", x = 0, y = 48),
+                WorldPosition(world = "", x = 0, y = 0)
             ), updatedOuterNodes[0]
         )
     }
@@ -369,7 +372,7 @@ class ClaimDetectorTest {
 
         outerNodes[0].forEach { println(it) }
         kotlin.test.assertEquals(1, outerNodes.size)
-        kotlin.test.assertEquals(10, outerNodes[0].size)
+        kotlin.test.assertEquals(11, outerNodes[0].size)
         kotlin.test.assertEquals(
             listOf(
                 WorldPosition(world = "", x = 0, y = 0),
@@ -381,7 +384,8 @@ class ClaimDetectorTest {
                 WorldPosition(world = "", x = 48, y = 32),
                 WorldPosition(world = "", x = 48, y = 16),
                 WorldPosition(world = "", x = 32, y = 16),
-                WorldPosition(world = "", x = 32, y = 0)
+                WorldPosition(world = "", x = 32, y = 0),
+                WorldPosition(world = "", x = 0, y = 0)
             ), outerNodes[0]
         )
     }

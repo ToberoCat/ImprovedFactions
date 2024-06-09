@@ -18,6 +18,7 @@ abstract class Cluster(val id: UUID, private val positions: MutableSet<ChunkPosi
     }
 
     abstract fun scheduleUpdate()
+    abstract fun getColor(): Int
 
     fun getOuterNodes() = outerNodes.get()
 
@@ -80,6 +81,7 @@ abstract class Cluster(val id: UUID, private val positions: MutableSet<ChunkPosi
                 val allowedAxis = next.allowedAxis()
                 next = openSupportingPoints.filter { it.isSameAxis(next!!, allowedAxis) }.minByOrNull { it.distanceTo(next!!) }
             }
+            loop.add(loop.first()) // Close the polygon
             outerNodes.add(loop)
         }
         return outerNodes

@@ -1,7 +1,6 @@
 package io.github.toberocat.improvedfactions.claims.clustering
 
 import org.bukkit.Bukkit
-import kotlin.math.sqrt
 
 data class ChunkPosition(val x: Int, val y: Int, val world: String) {
 
@@ -39,7 +38,18 @@ data class ChunkPosition(val x: Int, val y: Int, val world: String) {
     )
 
     fun uniquId() = "$x-$y-$world"
-    operator fun minus(cellFrom: ChunkPosition) = ChunkPosition(x - cellFrom.x, y - cellFrom.y, world)
+
     fun toWorldPosition(): WorldPosition = WorldPosition(world, x * 16, y * 16)
+
     fun getChunk() = Bukkit.getWorld(world)?.getChunkAt(x, y)
+
+    fun getNeighbours(radius: Int): MutableList<ChunkPosition> {
+        val neightbours = mutableListOf<ChunkPosition>()
+        for (i in -radius..radius)
+            for (j in -radius..radius)
+                neightbours.add(ChunkPosition(x + i, y + j, world))
+        return neightbours
+    }
+
+    operator fun minus(cellFrom: ChunkPosition) = ChunkPosition(x - cellFrom.x, y - cellFrom.y, world)
 }
