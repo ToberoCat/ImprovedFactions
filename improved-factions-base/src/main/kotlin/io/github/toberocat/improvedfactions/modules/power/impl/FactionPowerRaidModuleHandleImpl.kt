@@ -1,19 +1,14 @@
 package io.github.toberocat.improvedfactions.modules.power.impl
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.claims.clustering.Cluster
 import io.github.toberocat.improvedfactions.claims.clustering.FactionCluster
-import io.github.toberocat.improvedfactions.claims.clustering.Position
-import io.github.toberocat.improvedfactions.exceptions.NotEnoughPowerException
+import io.github.toberocat.improvedfactions.claims.clustering.ChunkPosition
 import io.github.toberocat.improvedfactions.exceptions.NotEnoughPowerForClaimException
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.PowerAccumulationChangeReason
-import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.modules.power.config.PowerManagementConfig
 import io.github.toberocat.improvedfactions.modules.power.handles.FactionPowerRaidModuleHandle
 import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.utils.getEnum
-import io.github.toberocat.improvedfactions.utils.getUnsignedDouble
 import io.github.toberocat.toberocore.util.MathUtils
 import org.bukkit.Bukkit
 import org.bukkit.Chunk
@@ -21,7 +16,6 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.PlayerDeathEvent
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import java.util.concurrent.TimeUnit
 import kotlin.math.*
 
 class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig) : FactionPowerRaidModuleHandle, Listener {
@@ -44,7 +38,7 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
         faction.setAccumulatedPower(faction.accumulatedPower - cost, PowerAccumulationChangeReason.CHUNK_CLAIMED)
     }
 
-    override fun calculateUnprotectedChunks(cluster: FactionCluster, unprotectedPositions: MutableSet<Position>) {
+    override fun calculateUnprotectedChunks(cluster: FactionCluster, unprotectedPositions: MutableSet<ChunkPosition>) {
         val faction = Faction.findById(cluster.factionId)
             ?: throw IllegalArgumentException("Faction is missing")
 

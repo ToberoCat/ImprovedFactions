@@ -1,12 +1,10 @@
 package io.github.toberocat.improvedfactions.claims.clustering
 
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
-import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Companion.powerRaidModule
-import io.github.toberocat.improvedfactions.modules.power.handles.FactionPowerRaidModuleHandle
 import io.github.toberocat.improvedfactions.utils.LazyUpdate
 import java.util.UUID
 
-abstract class Cluster(val id: UUID, private val positions: MutableSet<Position>) {
+abstract class Cluster(val id: UUID, private val positions: MutableSet<ChunkPosition>) {
     private val outerNodes = LazyUpdate(mutableListOf()) { detectOuterNodes() }
 
     private val world = positions.firstOrNull()?.world
@@ -23,16 +21,16 @@ abstract class Cluster(val id: UUID, private val positions: MutableSet<Position>
 
     fun getOuterNodes() = outerNodes.get()
 
-    fun getReadOnlyPositions(): Set<Position> = positions.toSet()
+    fun getReadOnlyPositions(): Set<ChunkPosition> = positions.toSet()
 
     fun isEmpty() = positions.isEmpty()
 
-    fun removeAll(position: Set<Position>) {
+    fun removeAll(position: Set<ChunkPosition>) {
         positions.removeAll(position)
         updateCluster()
     }
 
-    fun addAll(positions: Set<Position>) {
+    fun addAll(positions: Set<ChunkPosition>) {
         if (positions.any { it.world != this.world })
             throw IllegalArgumentException("All positions must belong to the same world")
 
@@ -54,74 +52,36 @@ abstract class Cluster(val id: UUID, private val positions: MutableSet<Position>
         centerY = positions.map { it.y }.average()
     }
 
-    private fun detectOuterNodes(): MutableList<WorldPosition> {
-        val nodes = generateNodesFromPositions()
-        val hull = calculateConvexHull(nodes)
-        return adjustNodesOnHull(hull)
-    }
+    private fun detectOuterNodes(): List<List<WorldPosition>> {
+        val openChunks = positions.toMutableList()
 
-    private fun generateNodesFromPositions(): List<WorldPosition> {
-        return positions.flatMap { position ->
-            val blockX = position.x * 16
-            val blockY = position.y * 16
-            listOf(
-                WorldPosition(position.world, blockX, blockY),
-                WorldPosition(position.world, blockX + 16, blockY),
-                WorldPosition(position.world, blockX, blockY + 16),
-                WorldPosition(position.world, blockX + 16, blockY + 16)
-            )
+        fun WorldPosition.allowedAxis(): Set<Pair<Int, Int>> {
+            val possibleCornerPoints = computeChunksFromCenter().toSet()
+                .subtract(positions)
+                .flatMap { it.getCornerPoints() }
+                .filter { it.isSameAxis(this) }
+            return possibleCornerPoints.map { it.getAxis(this) }.toSet()
         }
-    }
 
-    private fun calculateConvexHull(nodes: List<WorldPosition>): List<WorldPosition> {
-        val sortedByYX = nodes.sortedWith(compareBy<WorldPosition> { it.y }.thenBy { it.x })
-        val pivot = sortedByYX.first()
+        val cornerPoints = mutableMapOf<WorldPosition, Int>()
+        while (openChunks.isNotEmpty())
+            openChunks.removeFirst()
+                .getCornerPoints()
+                .forEach { cornerPoints[it] = cornerPoints.getOrDefault(it, 0) + 1 }
+        val openSupportingPoints = cornerPoints.filter { it.value == 1 || it.value == 3 }.keys.toMutableList()
+        val outerNodes = mutableListOf<List<WorldPosition>>()
+        while (openSupportingPoints.isNotEmpty()) {
+            val loop = mutableListOf<WorldPosition>()
+            var next = openSupportingPoints.firstOrNull()
+            while (next != null) {
+                loop.add(next)
+                openSupportingPoints.remove(next)
 
-        val sortedByAngle = sortedByYX.sortedBy { pivot.angleWithPivot(it) }
-
-        val hull = mutableListOf<WorldPosition>()
-
-        for (point in sortedByAngle) {
-            while (hull.size >= 2 && !isCounterClockwise(hull[hull.size - 2], hull.last(), point)) {
-                hull.removeAt(hull.size - 1)
+                val allowedAxis = next.allowedAxis()
+                next = openSupportingPoints.filter { it.isSameAxis(next!!, allowedAxis) }.minByOrNull { it.distanceTo(next!!) }
             }
-            hull.add(point)
+            outerNodes.add(loop)
         }
-
-        return hull
-    }
-
-    private fun isCounterClockwise(p1: WorldPosition, p2: WorldPosition, p3: WorldPosition): Boolean {
-        val crossProduct = (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x)
-        return crossProduct > 0
-    }
-
-    private fun adjustNodesOnHull(hull: List<WorldPosition>): MutableList<WorldPosition> {
-        val adjustedNodes = mutableListOf<WorldPosition>()
-
-        for (i in hull.indices) {
-            val p1 = hull[i]
-            adjustedNodes.add(p1)
-            adjustNode(hull, p1)?.let { adjustedNodes.add(it) }
-        }
-
-        return adjustedNodes
-    }
-
-    private fun adjustNode(hull: List<WorldPosition>, p1: WorldPosition): WorldPosition? {
-        val p2 = hull[(hull.indexOf(p1) + 1) % hull.size]
-        return when {
-            p1.x != p2.x && p1.y != p2.y -> when {
-                p1.x < p2.x -> when {
-                    p1.y < p2.y -> WorldPosition(p1.world, p1.x, p2.y)
-                    else -> WorldPosition(p1.world, p2.x, p1.y)
-                }
-                else -> when {
-                    p1.y < p2.y -> WorldPosition(p1.world, p2.x, p1.y)
-                    else -> WorldPosition(p1.world, p1.x, p2.y)
-                }
-            }
-            else -> null
-        }
+        return outerNodes
     }
 }

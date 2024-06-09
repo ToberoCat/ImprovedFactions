@@ -3,10 +3,8 @@ package io.github.toberocat.improvedfactions.zone
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.FactionClaim
 import io.github.toberocat.improvedfactions.claims.FactionClaims
-import io.github.toberocat.improvedfactions.claims.clustering.Position
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
 import io.github.toberocat.improvedfactions.listeners.claim.ClaimProtectionListener
-import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import org.bukkit.Chunk
 import org.bukkit.configuration.ConfigurationSection
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction

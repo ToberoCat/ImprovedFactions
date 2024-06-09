@@ -8,7 +8,7 @@ class ClaimClusterDetector(
     private val queryProvider: ClaimQueryProvider,
     private val generateClusterId: () -> UUID = UUID::randomUUID
 ) {
-    val clusterMap = mutableMapOf<Position, UUID>()
+    val clusterMap = mutableMapOf<ChunkPosition, UUID>()
     val clusters = mutableMapOf<UUID, Cluster>()
 
     fun detectClusters() {
@@ -19,7 +19,7 @@ class ClaimClusterDetector(
         queryProvider.allZonePositions().forEach { (position, zoneType) -> insertZonePosition(position, zoneType) }
     }
 
-    fun insertFactionPosition(position: Position, factionId: Int) {
+    fun insertFactionPosition(position: ChunkPosition, factionId: Int) {
         insertPosition(position, neighboursProvider = {
             getMatchingClusters(position) { id ->
                 val factionCluster = clusters[id] as? FactionCluster ?: return@getMatchingClusters false
@@ -28,7 +28,7 @@ class ClaimClusterDetector(
         }) { id, positions -> FactionCluster(factionId, id, positions) }
     }
 
-    fun insertZonePosition(position: Position, zoneType: String) {
+    fun insertZonePosition(position: ChunkPosition, zoneType: String) {
         insertPosition(position, neighboursProvider = {
             getMatchingClusters(position) { id ->
                 val zoneCluster = clusters[id] as? ZoneCluster ?: return@getMatchingClusters false
@@ -47,11 +47,11 @@ class ClaimClusterDetector(
         .filter { it.second?.factionId == faction.id.value }
         .forEach { removeCluster(it.first) }
 
-    fun getClusterId(position: Position) = clusterMap[position]
+    fun getClusterId(position: ChunkPosition) = clusterMap[position]
 
-    fun getCluster(position: Position) = getClusterId(position)?.let { getCluster(it) }
+    fun getCluster(position: ChunkPosition) = getClusterId(position)?.let { getCluster(it) }
 
-    fun removePosition(position: Position) {
+    fun removePosition(position: ChunkPosition) {
         if (position !in clusterMap)
             return
 
@@ -85,12 +85,12 @@ class ClaimClusterDetector(
 
     private fun getCluster(clusterId: UUID) = clusters.getOrDefault(clusterId, null)
 
-    private fun getMatchingClusters(position: Position, matchCondition: (uuid: UUID) -> Boolean) =
+    private fun getMatchingClusters(position: ChunkPosition, matchCondition: (uuid: UUID) -> Boolean) =
         queryProvider.queryNeighbours(position)
             .mapNotNull { clusterMap.getOrDefault(it, null) }
             .filter { matchCondition(it) }
 
-    private fun createNewCluster(position: Position, clusterGenerator: (UUID, MutableSet<Position>) -> Cluster) {
+    private fun createNewCluster(position: ChunkPosition, clusterGenerator: (UUID, MutableSet<ChunkPosition>) -> Cluster) {
         val clusterId = generateClusterId()
         val positions = mutableSetOf(position)
 
@@ -101,14 +101,14 @@ class ClaimClusterDetector(
         }
     }
 
-    private fun assignToCluster(positions: Set<Position>, clusterId: UUID) {
+    private fun assignToCluster(positions: Set<ChunkPosition>, clusterId: UUID) {
         clusters[clusterId]?.addAll(positions)
         positions.forEach { clusterMap[it] = clusterId }
     }
 
     private fun mergeClusters(
         clusterIds: List<UUID>,
-        clusterGenerator: (UUID, MutableSet<Position>) -> Cluster
+        clusterGenerator: (UUID, MutableSet<ChunkPosition>) -> Cluster
     ) {
         val newClusterPositions = clusterIds.flatMap { clusters[it]?.getReadOnlyPositions() ?: emptyList() }
         clusterIds.forEach { rawRemoveCluster(it) }
@@ -118,9 +118,9 @@ class ClaimClusterDetector(
     }
 
     private fun insertPosition(
-        position: Position,
+        position: ChunkPosition,
         neighboursProvider: () -> List<UUID>,
-        createNewCluster: (UUID, MutableSet<Position>) -> Cluster
+        createNewCluster: (UUID, MutableSet<ChunkPosition>) -> Cluster
     ) {
         if (position in clusterMap)
             throw IllegalArgumentException("Position already exists in the cluster map")

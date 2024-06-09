@@ -9,7 +9,7 @@ import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.or
 
 class DatabaseClaimQueryProvider : ClaimQueryProvider {
-    override fun queryNeighbours(position: Position) = loggedTransaction {
+    override fun queryNeighbours(position: ChunkPosition) = loggedTransaction {
         return@loggedTransaction FactionClaim.find {
             (FactionClaims.world eq position.world) and (
                     (FactionClaims.chunkX eq position.x - 1 and (FactionClaims.chunkZ eq position.y)) or
@@ -17,18 +17,18 @@ class DatabaseClaimQueryProvider : ClaimQueryProvider {
                             (FactionClaims.chunkZ eq position.y - 1 and (FactionClaims.chunkX eq position.x)) or
                             (FactionClaims.chunkZ eq position.y + 1 and (FactionClaims.chunkX eq position.x))
                     )
-        }.map { Position(it.chunkX, it.chunkZ, it.world) }
+        }.map { ChunkPosition(it.chunkX, it.chunkZ, it.world) }
     }
 
     override fun allFactionPositions() = loggedTransaction {
         FactionClaim.find { FactionClaims.factionId neq noFactionId }
-            .map { Position(it.chunkX, it.chunkZ, it.world) to it.factionId }
+            .map { ChunkPosition(it.chunkX, it.chunkZ, it.world) to it.factionId }
     }
 
     override fun allZonePositions() = loggedTransaction {
         return@loggedTransaction FactionClaim.find {
             FactionClaims.factionId eq noFactionId and
                     (FactionClaims.zoneType neq ZoneHandler.FACTION_ZONE_TYPE)
-        }.map { Position(it.chunkX, it.chunkZ, it.world) to it.zoneType }
+        }.map { ChunkPosition(it.chunkX, it.chunkZ, it.world) to it.zoneType }
     }
 }
