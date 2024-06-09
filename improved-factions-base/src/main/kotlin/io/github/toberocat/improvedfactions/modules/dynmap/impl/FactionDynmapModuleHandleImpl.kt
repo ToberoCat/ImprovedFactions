@@ -95,7 +95,7 @@ class FactionDynmapModuleHandleImpl(
             )
         }
 
-        //cluster.getReadOnlyPositions().forEach { addAreaMarker(name, it, generatedColor, labelTransformer) }
+        cluster.getReadOnlyPositions().forEach { addAreaMarker(name, it, generatedColor, labelTransformer) }
     }
 
     override fun clusterRemove(cluster: Cluster) {
