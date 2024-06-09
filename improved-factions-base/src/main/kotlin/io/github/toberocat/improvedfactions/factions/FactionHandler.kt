@@ -38,6 +38,12 @@ object FactionHandler {
         }
     }
 
+    fun generateColor(id: Int) = Integer.parseInt(
+        Integer.toHexString("${id}-${Bukkit.getServer().name}".hashCode())
+            .padStart(6, '0')
+            .substring(0, 6), 16
+    )
+
     fun getFactions(): SizedIterable<Faction> {
         return loggedTransaction { return@loggedTransaction Faction.all() }
     }

@@ -4,6 +4,7 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin.Companion.instance
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.chat.ChatModule
+import io.github.toberocat.improvedfactions.modules.claimparticle.ClaimParticleModule
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.modules.gui.GuiModule
 import io.github.toberocat.improvedfactions.modules.home.HomeModule
@@ -20,7 +21,8 @@ class ModuleManager(private val plugin: ImprovedFactionsPlugin) {
         WildernessModule.wildernessPair(),
         HomeModule.homePair(),
         ChatModule.chatPair(),
-        GuiModule.guiPair()
+        GuiModule.guiPair(),
+        ClaimParticleModule.claimParticlesPair()
     )
 
     init {

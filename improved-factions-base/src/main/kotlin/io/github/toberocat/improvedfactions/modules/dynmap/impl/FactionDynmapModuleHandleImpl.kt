@@ -149,9 +149,6 @@ class FactionDynmapModuleHandleImpl(
         position: MutableList<WorldPosition>,
         overrideColor: Int? = null
     ) {
-        position.add(position.first()) // Close the polygon
-
-        val world = Bukkit.getWorld(position.first().world) ?: return
         val xArray = position.map { it.x.toDouble() }.toDoubleArray()
         val yArray = position.map { 64.0 }.toDoubleArray()
         val zArray = position.map { it.y.toDouble() }.toDoubleArray()

@@ -97,11 +97,8 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         super.delete()
     }
 
-    fun generateColor() = Integer.parseInt(
-        Integer.toHexString("${id.value}-${Bukkit.getServer().name}".hashCode())
-            .padStart(6, '0')
-            .substring(0, 6), 16
-    )
+    fun generateColor() = FactionHandler.generateColor(id.value)
+
 
     fun setMaxPower(newMaxPower: Int) {
         val actualNewMaxPower = max(newMaxPower, 0)
@@ -185,7 +182,9 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
             invitedId = invitedUserId
             factionId = factId
             this.rankId = rankId
-            expirationDate = Clock.System.now().plus(5, DateTimeUnit.MINUTE).toLocalDateTime(TimeZone.UTC)
+            expirationDate = Clock.System.now()
+                .plus(5, DateTimeUnit.MINUTE)
+                .toLocalDateTime(TimeZone.UTC)
         }
         Bukkit.getScheduler().runTaskLater(
             ImprovedFactionsPlugin.instance,

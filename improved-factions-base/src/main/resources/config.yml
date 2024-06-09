@@ -2,7 +2,7 @@
 # -------- { General Settings } --------
 #
 update-checker: true
-config-version: 14
+config-version: 16
 
 # Configure a mysql connection. If no connection was established, the plugin uses sqlite.
 # This allows to use this plugin without a mysql server
@@ -28,6 +28,8 @@ modules:
   chat: true
   # This module will replace some commands with gui alternatives, for example the /f invites or /f info command
   gui: true
+  # Claim particles will show the border of claims
+  claim-particles: true
 
 #
 # -------- { Base Module Settings } --------
@@ -202,6 +204,24 @@ factions:
     # The proximity the player will be teleported to when no regions are defined.
     # If set to -1 and regions are not defined, the whole area within the world border will be considered
     teleport-proximity: 100
+
+  #
+  # -------- { Claim Particle Module Settings } --------
+  # These settings only apply when you enabled this module.
+  #
+  # This section represents the constants mentioned in the wilderness module documentation.
+  # If you have no clue what you're doing here, a good place to start looking would be the claim particle module documentation
+  claim-particles:
+    particle-count: 2 # The number of particles that will be spawned
+    particle-speed: 0 # The speed the particles will have
+    particle-spread: 0.1 # The spread of the particles
+    block-render-distance: 30 # The distance the particles will be rendered in blocks
+    chunk-render-distance: 1 # The distance of chunks that will be checked
+    min-particle-size: 0.0 # The minimum y value the particles will be rendered at
+    max-particle-size: 2.0 # The maximum y value the particles will be rendered at
+    particle-size-bias: 0.5 # The shift in size a particle has
+    particle-spawn-interval: 15 # The interval in ticks the particles will be spawned
+
   # Whenever you change values in this section, you'll have issues with your database
   # Choose values that go for you and never touch them again
   unsafe:

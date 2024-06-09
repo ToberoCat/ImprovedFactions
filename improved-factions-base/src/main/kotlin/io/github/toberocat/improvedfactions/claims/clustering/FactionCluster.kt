@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedfactions.claims.clustering
 
+import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Companion.powerRaidModule
 import io.github.toberocat.improvedfactions.modules.power.handles.FactionPowerRaidModuleHandle
 import io.github.toberocat.improvedfactions.utils.LazyUpdate
@@ -13,11 +14,10 @@ class FactionCluster(val factionId: Int, id: UUID, positions: MutableSet<ChunkPo
         }
     }
 
-    override fun scheduleUpdate() {
-        unprotectedPositions.scheduleUpdate()
-    }
+    override fun scheduleUpdate() = unprotectedPositions.scheduleUpdate()
 
-    fun isUnprotected(x: Int, y: Int, world: String): Boolean {
-        return ChunkPosition(x, y, world) in unprotectedPositions.get()
-    }
+    fun isUnprotected(x: Int, y: Int, world: String) = ChunkPosition(x, y, world) in unprotectedPositions.get()
+
+    override fun getColor() = FactionHandler.generateColor(factionId)
+
 }
