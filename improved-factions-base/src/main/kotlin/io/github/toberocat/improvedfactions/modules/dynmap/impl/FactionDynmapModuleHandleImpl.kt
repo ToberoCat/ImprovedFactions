@@ -8,6 +8,7 @@ import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapColorCon
 import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapModuleConfig
 import io.github.toberocat.improvedfactions.modules.dynmap.handles.FactionDynmapModuleHandle
 import io.github.toberocat.improvedfactions.utils.toOfflinePlayer
+import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.dynmap.DynmapCommonAPI
 import org.dynmap.markers.MarkerSet
@@ -150,8 +151,9 @@ class FactionDynmapModuleHandleImpl(
     ) {
         position.add(position.first()) // Close the polygon
 
+        val world = Bukkit.getWorld(position.first().world) ?: return
         val xArray = position.map { it.x.toDouble() }.toDoubleArray()
-        val yArray = position.map { 0.0 }.toDoubleArray()
+        val yArray = position.map { 64.0 }.toDoubleArray()
         val zArray = position.map { it.y.toDouble() }.toDoubleArray()
         val marker = set.findPolyLineMarker(markerId) ?: set.createPolyLineMarker(
             markerId,
