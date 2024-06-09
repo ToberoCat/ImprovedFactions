@@ -1,5 +1,7 @@
 package io.github.toberocat.improvedfactions.unit.claims.clustering
 
+import io.github.toberocat.improvedfactions.claims.clustering.ChunkPosition
+import io.github.toberocat.improvedfactions.claims.clustering.ClusterReachabilityChecker
 import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 
