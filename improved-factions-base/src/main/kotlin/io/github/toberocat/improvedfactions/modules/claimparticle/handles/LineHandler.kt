@@ -7,7 +7,25 @@ import org.bukkit.Material
 import org.bukkit.World
 
 object LineHandler {
+    // ToDo: Update cache on block place / break instead of each render phase
+    private val locationCache = mutableMapOf<Pair<WorldPosition, WorldPosition>, List<Location>>()
+
+    fun clearCache() {
+        locationCache.clear()
+    }
+
     fun getLocations(start: WorldPosition, end: WorldPosition): List<Location> {
+        val key = Pair(start, end)
+        if (locationCache.containsKey(key)) {
+            return locationCache[key]!!
+        }
+
+        val locations = computeLocations(start, end)
+        locationCache[key] = locations
+        return locations
+    }
+
+    private fun computeLocations(start: WorldPosition, end: WorldPosition): List<Location> {
         val locations = mutableListOf<Location>()
 
         val world = Bukkit.getWorld(start.world) ?: return locations
