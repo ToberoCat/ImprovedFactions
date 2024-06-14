@@ -30,7 +30,7 @@ class TerritoryTitle(private val pluginConfig: ImprovedFactionsConfig) : Listene
             player,
             key,
             when {
-                isRaidable -> "base.claim-faction-territory.subtitles.protected"
+                isRaidable -> "base.claim-faction-territory.subtitles.unprotected"
                 else -> null
             },
             mapOf("faction" to (toFaction?.name ?: "Wilderness"))
