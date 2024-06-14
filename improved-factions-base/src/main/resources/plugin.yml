@@ -74,6 +74,8 @@ permissions:
     default: true
   factions.chat:
     default: true
+  factions.map:
+    default: true
   factions.zone:
     default: op
   factions.bypass:
