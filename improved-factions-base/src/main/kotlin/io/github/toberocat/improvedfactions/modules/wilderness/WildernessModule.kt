@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.modules.wilderness
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.config.ImprovedFactionsConfig
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.wilderness.commands.WildernessCommand
 import io.github.toberocat.improvedfactions.modules.wilderness.config.WildernessModuleConfig
