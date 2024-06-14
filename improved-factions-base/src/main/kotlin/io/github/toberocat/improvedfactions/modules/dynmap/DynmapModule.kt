@@ -2,6 +2,7 @@ package io.github.toberocat.improvedfactions.modules.dynmap
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.FactionClaim
+import io.github.toberocat.improvedfactions.config.ImprovedFactionsConfig
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapModuleConfig
 import io.github.toberocat.improvedfactions.modules.dynmap.handles.DummyFactionDynmapModuleHandles

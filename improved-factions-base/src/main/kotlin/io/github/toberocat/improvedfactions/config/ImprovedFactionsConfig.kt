@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.config
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.utils.FileUtils
 import io.github.toberocat.improvedfactions.utils.getEnum
 import org.bukkit.configuration.MemorySection
 import org.bukkit.configuration.file.FileConfiguration
@@ -33,25 +34,42 @@ class ImprovedFactionsConfig(config: FileConfiguration) {
             }
 
             plugin.logger.info("Config is outdated $configFileVersion -> $latestConfigVersion. Updating...")
-            val previousValueTree = plugin.config.getValues(true)
-                .filter { it.value !is MemorySection }
-                .filter { it.key != "config-version" }
+            plugin.logger.info("Backing up the old config...")
+
+            val configBackups = File(plugin.dataFolder, "backups/configs")
+            if (!configBackups.exists()) {
+                configBackups.mkdirs()
+            }
+
+            Files.copy(
+                File(plugin.dataFolder, "config.yml").toPath(),
+                File(configBackups, "config-${configFileVersion}.yml").toPath(),
+                StandardCopyOption.REPLACE_EXISTING
+            )
+
+            val previousValueTree = generatePreviousValueTree(plugin)
 
             overrideOldConfig(plugin)
             plugin.reloadConfig()
-            val keysToUpdate = previousValueTree
-                .filter { entry -> latestConfig.get(entry.key)?.let { it != entry.value } == true }
-            val removedKeysCount = previousValueTree
-                .filter { !latestConfig.contains(it.key) }
-                .size
-            keysToUpdate.forEach { plugin.config.set(it.key, it.value) }
+
+            updateConfig(previousValueTree, plugin)
             plugin.saveConfig()
 
-            plugin.logger.info("$removedKeysCount keys were removed.")
-            plugin.logger.info("${keysToUpdate.size} values have been restored from the old config.")
             plugin.logger.info("Config updated successfully")
 
             return ImprovedFactionsConfig(plugin.config)
+        }
+
+        fun generatePreviousValueTree(plugin: ImprovedFactionsPlugin) = plugin.config.getValues(true)
+            .filter { it.value !is MemorySection }
+            .filter { it.key != "config-version" }
+
+        fun updateConfig(
+            previousValueTree: Map<String, Any>,
+            plugin: ImprovedFactionsPlugin
+        ) {
+            previousValueTree.forEach { plugin.config.set(it.key, it.value) }
+            plugin.logger.info("${previousValueTree.size} values have been restored from the old config.")
         }
 
         private fun overrideOldConfig(plugin: ImprovedFactionsPlugin) {
