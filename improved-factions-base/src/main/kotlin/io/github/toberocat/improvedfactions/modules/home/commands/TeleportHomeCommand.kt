@@ -22,7 +22,7 @@ import org.bukkit.entity.Player
 class TeleportHomeCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("home") {
     override fun options(): Options = Options.getFromConfig(plugin, label) { options, _ ->
         options.cmdOpt(InFactionOption(true))
-            .cmdOpt(FactionPermissionOption(Permissions.SET_HOME))
+            .cmdOpt(FactionPermissionOption(Permissions.HOME))
     }
 
     override fun arguments() = emptyArray<Argument<*>>()
