@@ -22,12 +22,17 @@ jobs:
         working-directory: ./improved-factions-base
         run: mvn clean package
 
+      - name: Extract version from pom.xml
+        id: extract_version
+        run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+
       - name: Publish to Modrinth
         uses: Kir-Antipov/mc-publish@v3.3
         with:
           modrinth-id: KqTWR5Ji
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 
+          version: ${{ env.VERSION }}
           github-token: ${{ secrets.GB_TOKEN }}
           files: |
             improved-factions-base/target/ImprovedFactions-*.jar
