@@ -24,6 +24,7 @@ jobs:
 
       - name: Extract version from pom.xml
         id: extract_version
+        working-directory: ./improved-factions-base
         run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
       - name: Publish to Modrinth
