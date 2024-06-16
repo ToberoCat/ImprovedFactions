@@ -32,7 +32,7 @@ jobs:
         with:
           modrinth-id: KqTWR5Ji
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          version: ImprovedFactions ${{ env.VERSION }}
+          version: ${{ env.VERSION }}
           version-type: beta
 
           github-tag: ${{ env.VERSION }}
