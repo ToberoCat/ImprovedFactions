@@ -1,4 +1,4 @@
-name: Deploy to Modrinth
+name: Deploy to Stable Branch
 on:
   push:
     branches: [ "main" ]
