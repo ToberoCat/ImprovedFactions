@@ -17,4 +17,4 @@ jobs:
           modrinth-id: KqTWR5Ji
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GB_TOKEN }}
