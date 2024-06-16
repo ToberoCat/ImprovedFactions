@@ -2,7 +2,7 @@
 # -------- { General Settings } --------
 #
 update-checker: true
-config-version: 16
+config-version: 18
 
 # Configure a mysql connection. If no connection was established, the plugin uses sqlite.
 # This allows to use this plugin without a mysql server
@@ -30,6 +30,8 @@ modules:
   gui: true
   # Claim particles will show the border of claims
   claim-particles: true
+  # PvE Module will add hostile groups to the game, trying to traid factions
+  pve: true
 
 #
 # -------- { Base Module Settings } --------
@@ -221,6 +223,18 @@ factions:
     max-particle-size: 2.0 # The maximum y value the particles will be rendered at
     particle-size-bias: 0.5 # The shift in size a particle has
     particle-spawn-interval: 15 # The interval in ticks the particles will be spawned
+
+  #
+  # -------- { PvE Module Settings } --------
+  # These settings only apply when you enabled this module.
+  #
+  # This section represents the constants mentioned in the pve module documentation.
+  # If you have no clue what you're doing here, a good place to start looking would be the pve module documentation
+  pve:
+    min-raid-distance: 5 # The minimum distance a raid can be started from a faction's home
+    max-raid-distance: 50 # The maximum distance a raid can be started from a faction's home
+
+
 
   # Whenever you change values in this section, you'll have issues with your database
   # Choose values that go for you and never touch them again

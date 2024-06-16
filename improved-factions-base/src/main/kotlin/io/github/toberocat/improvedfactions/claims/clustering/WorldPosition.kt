@@ -1,5 +1,7 @@
 package io.github.toberocat.improvedfactions.claims.clustering
 
+import org.bukkit.Location
+import org.bukkit.util.Vector
 import kotlin.math.sign
 import kotlin.math.sqrt
 
@@ -35,5 +37,9 @@ data class WorldPosition(val world: String, val x: Int, val y: Int) {
             sign(axisX.toDouble()).toInt() * if (axisX != 0) 1 else 0,
             sign(axisY.toDouble()).toInt() * if (axisY != 0) 1 else 0
         )
+    }
+
+    fun getDirection(worldPosition: WorldPosition): Vector {
+        return Vector(worldPosition.x - x, 0, worldPosition.y - y)
     }
 }

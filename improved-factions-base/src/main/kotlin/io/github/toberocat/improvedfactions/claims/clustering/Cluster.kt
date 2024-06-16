@@ -7,7 +7,7 @@ import java.util.UUID
 abstract class Cluster(val id: UUID, private val positions: MutableSet<ChunkPosition>) {
     private val outerNodes = LazyUpdate(mutableListOf()) { detectOuterNodes() }
 
-    private val world = positions.firstOrNull()?.world
+    val world = positions.firstOrNull()?.world
         ?: throw IllegalArgumentException("Cluster must have at least one position")
 
     var centerX = 0.0

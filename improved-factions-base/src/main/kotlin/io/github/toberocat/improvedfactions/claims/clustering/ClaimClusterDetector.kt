@@ -37,6 +37,10 @@ class ClaimClusterDetector(
         }) { id, positions -> ZoneCluster(zoneType, id, positions) }
     }
 
+    fun getFactionClustersById(factionId: Int) = clusters.values
+        .mapNotNull { it as? FactionCluster }
+        .filter { it.factionId == factionId }
+
     fun markFactionClusterForUpdate(faction: Faction) = clusters.values
         .mapNotNull { it as? FactionCluster }
         .filter { it.factionId == faction.id.value }
@@ -90,7 +94,10 @@ class ClaimClusterDetector(
             .mapNotNull { clusterMap.getOrDefault(it, null) }
             .filter { matchCondition(it) }
 
-    private fun createNewCluster(position: ChunkPosition, clusterGenerator: (UUID, MutableSet<ChunkPosition>) -> Cluster) {
+    private fun createNewCluster(
+        position: ChunkPosition,
+        clusterGenerator: (UUID, MutableSet<ChunkPosition>) -> Cluster
+    ) {
         val clusterId = generateClusterId()
         val positions = mutableSetOf(position)
 
