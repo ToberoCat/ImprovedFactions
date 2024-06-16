@@ -33,6 +33,12 @@ jobs:
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 
           version: ${{ env.VERSION }}
+          version-type: beta
           github-token: ${{ secrets.GB_TOKEN }}
+          loaders: |
+            bukkit
+            purpur
+            paper
+            spigot
           files: |
             improved-factions-base/target/ImprovedFactions-*.jar
