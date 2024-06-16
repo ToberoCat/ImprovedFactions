@@ -17,3 +17,5 @@ jobs:
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 
           github-token: ${{ secrets.GB_TOKEN }}
+          files: |
+            improved-factions-base/target/ImprovedFactions-*.jar
