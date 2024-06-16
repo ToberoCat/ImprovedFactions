@@ -1,5 +1,4 @@
-name: Test Improved Factions
-
+name: Deploy to Modrinth
 on:
   push:
     branches: [ "main" ]
