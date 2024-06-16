@@ -32,7 +32,6 @@ jobs:
         with:
           modrinth-id: KqTWR5Ji
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-          changelog: Checkout the changelog at [Github](https://github.com/ToberoCat/ImprovedFactions/releases/tag/${{ env.VERSION }})
           version: ${{ env.VERSION }}
           version-type: beta
 
