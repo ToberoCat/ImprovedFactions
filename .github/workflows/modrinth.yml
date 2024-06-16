@@ -35,11 +35,23 @@ jobs:
 
           version: ${{ env.VERSION }}
           version-type: beta
+
+          github-tag: ${{ env.VERSION }}
+          github-generate-changelog: true
+          github-prerelease: true
+          github-commitish: main
+          github-discussion: Announcements
           github-token: ${{ secrets.GB_TOKEN }}
+
           loaders: |
             bukkit
             purpur
             paper
             spigot
+          game-versions: |
+            [1.18,1.20.6)
           files: |
             improved-factions-base/target/ImprovedFactions-*.jar
+          retry-attempts: 2
+          retry-delay: 10000
+          fail-mode: fail
