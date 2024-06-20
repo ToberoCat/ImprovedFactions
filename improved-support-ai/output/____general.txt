@@ -1167,8 +1167,8 @@ Attachments:
 [j5MYSfpaI6HzyFqS.txt]
 [15:48:31 ERROR]: Error occurred while enabling ImprovedFactions v2.0.3-stable (Is it up to date?)
 java.lang.NullPointerException: Cannot invoke "org.dynmap.markers.AreaMarker.setFillStyle(double, int)" because "marker" is null
-        at io.github.toberocat.improvedfactions.modules.dynmap.impl.FactionDynmapModuleHandleImpl.addAreaMarker(FactionDynmapModuleHandleImpl.kt:79) ~[ImprovedFactionsBase-2.0.3-stable.jar:?]
-        at io.github.toberocat.improvedfactions.modules.dynmap.impl.FactionDynmapModuleHandleImpl.factionClusterChange(FactionDynmapModuleHandleImpl.kt:43) ~[ImprovedFactionsBase-2.0.3-stable.jar:?]
+        at io.github.toberocat.improvedfactions.modules.webmap.impl.FactionDynmapModuleHandleImpl.addAreaMarker(FactionDynmapModuleHandleImpl.kt:79) ~[ImprovedFactionsBase-2.0.3-stable.jar:?]
+        at io.github.toberocat.improvedfactions.modules.webmap.impl.FactionDynmapModuleHandleImpl.factionClusterChange(FactionDynmapModuleHandleImpl.kt:43) ~[ImprovedFactionsBase-2.0.3-stable.jar:?]
         at io.github.toberocat.improvedfactions.claims.clustering.Cluster.addAll(Cluster.kt:45) ~[ImprovedFactionsBase-2.0.3-stable.jar:?]
         at io.github.toberocat.improvedfactions.claims.clustering.ClaimClusterDetector.assignToCluster(ClaimClusterDetector.kt:82) ~[ImprovedFactionsBase-2.0.3-stable.jar:?]
         at io.github.toberocat.improvedfactions.claims.clustering.ClaimClusterDetector.insertPosition(ClaimClusterDetector.kt:22) ~[ImprovedFactionsBase-2.0.3-stable.jar:?]

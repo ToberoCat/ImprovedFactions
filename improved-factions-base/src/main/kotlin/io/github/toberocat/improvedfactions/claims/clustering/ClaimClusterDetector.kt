@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedfactions.claims.clustering
 
 import io.github.toberocat.improvedfactions.factions.Faction
-import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
+import io.github.toberocat.improvedfactions.modules.webmap.WebMapModule
 import java.util.UUID
 
 class ClaimClusterDetector(
@@ -59,7 +59,7 @@ class ClaimClusterDetector(
         val cluster = clusters[clusterIndex]?.also { it.removeAll(setOf(position)) }
             ?: throw IllegalArgumentException()
         clusterMap.remove(position)
-        DynmapModule.dynmapModule().dynmapModuleHandle.removePosition(position)
+        WebMapModule.dynmapModule().webMapModuleHandle.removePosition(position)
 
         val unreachablePositions = ClusterReachabilityChecker(cluster.getReadOnlyPositions()).getUnreachablePositions()
         if (unreachablePositions.isEmpty())
@@ -137,6 +137,6 @@ class ClaimClusterDetector(
     }
 
     private fun rawRemoveCluster(clusterId: UUID) {
-        clusters.remove(clusterId)?.let(DynmapModule.dynmapModule().dynmapModuleHandle::clusterRemove)
+        clusters.remove(clusterId)?.let(WebMapModule.dynmapModule().webMapModuleHandle::clusterRemove)
     }
 }

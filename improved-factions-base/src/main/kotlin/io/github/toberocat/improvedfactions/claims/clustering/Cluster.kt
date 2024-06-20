@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedfactions.claims.clustering
 
-import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
+import io.github.toberocat.improvedfactions.modules.webmap.WebMapModule
 import io.github.toberocat.improvedfactions.utils.LazyUpdate
 import java.util.UUID
 
@@ -42,7 +42,7 @@ abstract class Cluster(val id: UUID, private val positions: MutableSet<ChunkPosi
     private fun updateCluster() {
         calculateCenter()
         outerNodes.scheduleUpdate()
-        DynmapModule.dynmapModule().dynmapModuleHandle.clusterChange(this)
+        WebMapModule.dynmapModule().webMapModuleHandle.clusterChange(this)
     }
 
     private fun calculateCenter() {

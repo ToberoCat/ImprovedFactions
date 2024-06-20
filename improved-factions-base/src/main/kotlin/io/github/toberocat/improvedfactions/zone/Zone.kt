@@ -3,7 +3,6 @@ package io.github.toberocat.improvedfactions.zone
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.FactionClaim
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
-import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.user.noFactionId
 import org.bukkit.Chunk
 

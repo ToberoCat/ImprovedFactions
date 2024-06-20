@@ -45,6 +45,7 @@
         <h2.version>2.2.220</h2.version>
         <mockbukkit.version>3.9.0</mockbukkit.version>
         <snakeyaml.version>2.2</snakeyaml.version>
+        <pl3xmap.version>1.20.4-476</pl3xmap.version>
     </properties>
 
     <repositories>
@@ -79,6 +80,10 @@
         <repository>
             <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
+        <repository>
+            <id>Modrinth</id>
+            <url>https://api.modrinth.com/maven</url>
         </repository>
     </repositories>
 
@@ -369,6 +374,12 @@
             <groupId>us.dynmap</groupId>
             <artifactId>dynmap-api</artifactId>
             <version>${dynmap-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>maven.modrinth</groupId>
+            <artifactId>pl3xmap</artifactId>
+            <version>${pl3xmap.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

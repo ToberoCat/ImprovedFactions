@@ -5,7 +5,7 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin.Companion.ins
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.chat.ChatModule
 import io.github.toberocat.improvedfactions.modules.claimparticle.ClaimParticleModule
-import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
+import io.github.toberocat.improvedfactions.modules.webmap.WebMapModule
 import io.github.toberocat.improvedfactions.modules.gui.GuiModule
 import io.github.toberocat.improvedfactions.modules.home.HomeModule
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
@@ -17,7 +17,7 @@ class ModuleManager(private val plugin: ImprovedFactionsPlugin) {
     val activeModules: Map<String, BaseModule>
     val modules = mutableMapOf(
         PowerRaidsModule.powerRaidsPair(),
-        DynmapModule.dynmapPair(),
+        WebMapModule.dynmapPair(),
         WildernessModule.wildernessPair(),
         HomeModule.homePair(),
         ChatModule.chatPair(),

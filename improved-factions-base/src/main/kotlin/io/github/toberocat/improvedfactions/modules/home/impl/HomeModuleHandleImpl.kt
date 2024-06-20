@@ -3,7 +3,7 @@ package io.github.toberocat.improvedfactions.modules.home.impl
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
 import io.github.toberocat.improvedfactions.factions.Faction
-import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
+import io.github.toberocat.improvedfactions.modules.webmap.WebMapModule
 import io.github.toberocat.improvedfactions.modules.home.HomeModule.getHome
 import io.github.toberocat.improvedfactions.modules.home.data.FactionHome
 import io.github.toberocat.improvedfactions.modules.home.handles.HomeModuleHandle
@@ -26,7 +26,7 @@ class HomeModuleHandleImpl : HomeModuleHandle {
         factionHome.y = location.y
         factionHome.z = location.z
         factionHome.world = worldName
-        DynmapModule.dynmapModule().dynmapModuleHandle.factionHomeChange(faction, location)
+        WebMapModule.dynmapModule().webMapModuleHandle.factionHomeChange(faction, location)
     }
 
     override fun getHome(faction: Faction) = FactionHome.findById(faction.id.value)?.let {

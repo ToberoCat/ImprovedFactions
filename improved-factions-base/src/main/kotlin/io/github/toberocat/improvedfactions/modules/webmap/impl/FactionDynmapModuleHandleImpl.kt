@@ -1,30 +1,41 @@
-package io.github.toberocat.improvedfactions.modules.dynmap.impl
+package io.github.toberocat.improvedfactions.modules.webmap.impl
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.clustering.*
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionHandler
-import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapColorConfig
-import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapModuleConfig
-import io.github.toberocat.improvedfactions.modules.dynmap.handles.FactionDynmapModuleHandle
+import io.github.toberocat.improvedfactions.modules.webmap.config.DynmapColorConfig
+import io.github.toberocat.improvedfactions.modules.webmap.config.DynmapModuleConfig
+import io.github.toberocat.improvedfactions.modules.webmap.handles.FactionWebMapModuleHandle
 import io.github.toberocat.improvedfactions.utils.toOfflinePlayer
-import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.dynmap.DynmapCommonAPI
+import org.dynmap.DynmapCommonAPIListener
+import org.dynmap.markers.MarkerIcon
 import org.dynmap.markers.MarkerSet
 import java.util.UUID
 
 class FactionDynmapModuleHandleImpl(
     private val config: DynmapModuleConfig,
-    private val plugin: ImprovedFactionsPlugin,
-    api: DynmapCommonAPI
-) : FactionDynmapModuleHandle {
-    private val set = createFactionMarker(api)
-    private val homeIcon = api.markerAPI.getMarkerIcon("faction_home_icon") ?: api.markerAPI.createMarkerIcon(
-        "faction_home_icon",
-        "Faction Home",
-        plugin.getResource("icons/home-icon.png")
-    )
+    private val plugin: ImprovedFactionsPlugin
+) : FactionWebMapModuleHandle {
+    private lateinit var set: MarkerSet
+    private lateinit var homeIcon: MarkerIcon
+
+    init {
+        DynmapCommonAPIListener.register(
+            object : DynmapCommonAPIListener() {
+                override fun apiEnabled(api: DynmapCommonAPI) {
+                    set = createFactionMarker(api)
+                    homeIcon = api.markerAPI.getMarkerIcon("faction_home_icon") ?: api.markerAPI.createMarkerIcon(
+                        "faction_home_icon",
+                        "Faction Home",
+                        plugin.getResource("icons/home-icon.png")
+                    )
+                }
+            }
+        )
+    }
 
     private val clusterPolylineMarkers = mutableMapOf<UUID, MutableSet<String>>()
 
@@ -65,7 +76,7 @@ class FactionDynmapModuleHandleImpl(
 
     override fun clusterChange(cluster: Cluster) {
         if (cluster is ZoneCluster && !config.showZones)
-                return
+            return
 
         var generatedColor: Int? = null
         var name = "Unknown"

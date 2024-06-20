@@ -14,12 +14,6 @@ import io.github.toberocat.improvedfactions.factions.Factions
 import io.github.toberocat.improvedfactions.invites.FactionInvites
 import io.github.toberocat.improvedfactions.listeners.move.MoveListener
 import io.github.toberocat.improvedfactions.modules.ModuleManager
-import io.github.toberocat.improvedfactions.modules.chat.ChatModule
-import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
-import io.github.toberocat.improvedfactions.modules.gui.GuiModule
-import io.github.toberocat.improvedfactions.modules.home.HomeModule
-import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
-import io.github.toberocat.improvedfactions.modules.wilderness.WildernessModule
 import io.github.toberocat.improvedfactions.papi.PapiExpansion
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
 import io.github.toberocat.improvedfactions.ranks.FactionRanks
@@ -30,7 +24,6 @@ import io.github.toberocat.improvedfactions.utils.arguments.ClaimRadiusArgument
 import io.github.toberocat.improvedfactions.utils.particles.ParticleAnimation
 import io.github.toberocat.improvedfactions.utils.threadPool
 import io.github.toberocat.improvedfactions.zone.ZoneHandler
-import io.github.toberocat.toberocore.command.CommandExecutor
 import me.clip.placeholderapi.PlaceholderAPI
 import net.kyori.adventure.platform.bukkit.BukkitAudiences
 import org.bukkit.Bukkit

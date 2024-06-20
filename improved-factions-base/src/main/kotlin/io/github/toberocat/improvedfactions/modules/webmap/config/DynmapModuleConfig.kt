@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedfactions.modules.dynmap.config
+package io.github.toberocat.improvedfactions.modules.webmap.config
 
 import org.bukkit.configuration.file.FileConfiguration
 

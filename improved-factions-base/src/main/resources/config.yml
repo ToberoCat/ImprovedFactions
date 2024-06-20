@@ -19,7 +19,7 @@ modules:
   # This module is responsible for managing power, and it's associated side effects, like raids and over-claims.
   power-raids: true
   # This module will try to render the factions on a map, using the dynmap plugin
-  dynmap: true
+  webmap: true
   # This module will add the /f wilderness and /wilderness command, allowing players to teleport to the wilderness (A place where no factions has yet claimed)
   wilderness: true
   # This module will add various home related commands for setting and teleporting to a faction's home
@@ -126,12 +126,12 @@ factions:
       recovery-speed: 1.0 # Define how fast the claim recovers its integrity
 
   #
-  # -------- { Dynmap Module Settings } --------
+  # -------- { Webmap Module Settings } --------
   # These settings only apply when you enabled this module.
   #
   # This section represents the constants mentioned in the dynmap module documentation.
   # If you have no clue what you're doing here, a good place to start looking would be the dynmap module documentation
-  dynmap:
+  webmap:
     # Specify the info windows for dynmap. This is a map of faction names to html strings.
     # Only very basic ot-of-the-box placeholder support provided. For more placeholders, install the placeholder api plugin, with it, all papi placeholders can be used here.
     # The target player will be the faction owner, so make sure to only use placeholders that allow for offline players
