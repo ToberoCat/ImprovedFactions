@@ -2,6 +2,7 @@ package io.github.toberocat.improvedfactions.modules.chat.commands
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.modules.chat.ChatMode
+import io.github.toberocat.improvedfactions.modules.chat.ChatModule
 import io.github.toberocat.improvedfactions.modules.chat.ChatModule.sendFactionChat
 import io.github.toberocat.improvedfactions.modules.chat.ChatModule.toggleChatMode
 import io.github.toberocat.improvedfactions.modules.chat.handles.ChatModuleHandle
@@ -15,7 +16,8 @@ import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
 
 @CommandMeta(
-    description = "chat.commands.chat.description"
+    description = "chat.commands.chat.description",
+    module = ChatModule.MODULE_NAME
 )
 class ChatCommand(
     private val chatModuleHandle: ChatModuleHandle,
