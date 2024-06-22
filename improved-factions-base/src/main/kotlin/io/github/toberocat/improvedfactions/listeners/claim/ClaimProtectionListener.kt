@@ -25,6 +25,7 @@ class ClaimProtectionListener(
         register(ClaimTntListener(zoneType))
         register(ClaimBucketListener(zoneType))
         register(ClaimTramplingListener(zoneType))
+        register(ClaimEndCrystalListener(zoneType))
 
         register(GeneralPvPListener(zoneType))
         register(InFactionPvPListener(zoneType))

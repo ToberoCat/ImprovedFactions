@@ -2,7 +2,7 @@
 # -------- { General Settings } --------
 #
 update-checker: true
-config-version: 16
+config-version: 17
 
 # Configure a mysql connection. If no connection was established, the plugin uses sqlite.
 # This allows to use this plugin without a mysql server
@@ -267,6 +267,7 @@ zones:
       block-interaction: true # Prevent interacting with blocks in a claim
       entity-interaction: true # Prevent interacting with entities in a claim
       entity-break-hanging: true # Prevent breaking hanging entities (like paintings or itemframes) in a claim
+      entity-place: true # Prevent placing entities in a claim
   safezone:
     announce-title: true # True will allow this zone to send titles to the player - Faction claims and no faction claims
     allow-claiming: false # Set to true will allow factions to claim their chunks in these regions
@@ -297,6 +298,7 @@ zones:
       block-interaction: true # Prevent interacting with blocks in a claim
       entity-interaction: true # Prevent interacting with entities in a claim
       entity-break-hanging: true # Prevent breaking hanging entities (like paintings or itemframes) in a claim
+      entity-place: true # Prevent placing entities in a claim
   warzone:
     announce-title: true # True will allow this zone to send titles to the player - Faction claims and no faction claims
     allow-claiming: false # Set to true will allow factions to claim their chunks in these regions
@@ -328,6 +330,7 @@ zones:
       block-interaction: true # Prevent interacting with blocks in a claim
       entity-interaction: true # Prevent interacting with entities in a claim
       entity-break-hanging: true # Prevent breaking hanging entities (like paintings or itemframes) in a claim
+      entity-place: false # Prevent placing entities in a claim
   unmanaged:
     announce-title: false # True will allow this zone to send titles to the player - Faction claims and no faction claims
     allow-claiming: false # Set to true will allow factions to claim their chunks in these regions
@@ -358,6 +361,7 @@ zones:
       block-interaction: false # Prevent interacting with blocks in a claim
       entity-interaction: false # Prevent interacting with entities in a claim
       entity-break-hanging: false # Prevent breaking hanging entities (like paintings or itemframes) in a claim
+      entity-place: false # Prevent placing entities in a claim
 
 performance:
   thread-pool-size: 5 # Amount of thread that should be pooled waiting for operations
