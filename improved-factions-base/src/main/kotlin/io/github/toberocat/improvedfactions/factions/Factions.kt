@@ -24,6 +24,8 @@ object Factions : IntIdTable("factions") {
     val defaultRank = integer("default_rank").default(FactionRankHandler.guestRankId)
     val base64Icon = varchar("icon_base64", maxIconLength)
         .default(Base64ItemStack.encode(ItemStack(Material.WOODEN_SWORD)))
+    val factionJoinType = enumeration("join_type", FactionJoinType::class)
+        .default(FactionJoinType.INVITE_ONLY)
 
     fun handleQueues() {
         Faction.all().forEach { FactionHandler.createListenersFor(it) }

@@ -5,6 +5,7 @@ import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTrans
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.utils.arguments.entity.FactionArgument
+import io.github.toberocat.improvedfactions.utils.arguments.entity.JoinableFactionArgument
 import io.github.toberocat.improvedfactions.utils.command.CommandCategory
 import io.github.toberocat.improvedfactions.utils.command.CommandMeta
 import io.github.toberocat.improvedfactions.utils.options.FactionExistOption
@@ -34,7 +35,7 @@ class JoinCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand
     }
 
     override fun arguments(): Array<Argument<*>> = arrayOf(
-        FactionArgument()
+        JoinableFactionArgument()
     )
 
     override fun handle(player: Player, args: Array<out String>): Boolean {

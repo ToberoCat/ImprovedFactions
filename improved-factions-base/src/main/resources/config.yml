@@ -2,7 +2,7 @@
 # -------- { General Settings } --------
 #
 update-checker: true
-config-version: 17
+config-version: 18
 
 # Configure a mysql connection. If no connection was established, the plugin uses sqlite.
 # This allows to use this plugin without a mysql server
@@ -74,6 +74,7 @@ factions:
         - view-power
         - teleport-home
         - set-home
+        - set-join-type
     Owner:
       priority: 1000
       default-permissions:
@@ -88,6 +89,7 @@ factions:
         - view-power
         - teleport-home
         - set-home
+        - set-join-type
 
   #
   # -------- { Power Raid Module Settings } --------

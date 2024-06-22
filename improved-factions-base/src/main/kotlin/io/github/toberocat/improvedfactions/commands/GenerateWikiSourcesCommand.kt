@@ -108,7 +108,7 @@ class GenerateWikiSourcesCommand(
             }
         }
 
-        val indexFile = plugin.dataFolder.resolve("wiki/commands/index.md")
+        val indexFile = plugin.dataFolder.resolve("wiki/commands/readme.md")
         if (indexFile.exists()) {
             indexFile.delete()
         }
