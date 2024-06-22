@@ -1,8 +1,10 @@
 package io.github.toberocat.improvedfactions.claims.clustering
 
+import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import java.util.UUID
+import kotlin.concurrent.thread
 
 class ClaimClusterDetector(
     private val queryProvider: ClaimQueryProvider,
@@ -12,11 +14,24 @@ class ClaimClusterDetector(
     val clusters = mutableMapOf<UUID, Cluster>()
 
     fun detectClusters() {
+        ImprovedFactionsPlugin.instance.logger.info("[detector] Detecting clusters...")
         clusterMap.clear()
         clusters.clear()
-        queryProvider.allFactionPositions()
-            .forEach { (position, factionId) -> insertFactionPosition(position, factionId) }
-        queryProvider.allZonePositions().forEach { (position, zoneType) -> insertZonePosition(position, zoneType) }
+        ImprovedFactionsPlugin.instance.logger.info("[detector] Loading faction and zone positions..")
+        ImprovedFactionsPlugin.instance.logger.info("[detector] Positions: ${queryProvider.allFactionPositions().size} " +
+                "Faction | ${queryProvider.allZonePositions().size} Zone. This might take some time")
+
+        val job = thread {
+            queryProvider.allFactionPositions()
+                .forEach { (position, factionId) -> insertFactionPosition(position, factionId) }
+            ImprovedFactionsPlugin.instance.logger.info("[detector] Finished loading faction positions.")
+        }
+
+        queryProvider.allZonePositions()
+            .forEach { (position, zoneType) -> insertZonePosition(position, zoneType) }
+        ImprovedFactionsPlugin.instance.logger.info("[detector] Finished loading zone positions.")
+        job.join()
+        ImprovedFactionsPlugin.instance.logger.info("[detector] All done!")
     }
 
     fun insertFactionPosition(position: ChunkPosition, factionId: Int) {
@@ -90,7 +105,10 @@ class ClaimClusterDetector(
             .mapNotNull { clusterMap.getOrDefault(it, null) }
             .filter { matchCondition(it) }
 
-    private fun createNewCluster(position: ChunkPosition, clusterGenerator: (UUID, MutableSet<ChunkPosition>) -> Cluster) {
+    private fun createNewCluster(
+        position: ChunkPosition,
+        clusterGenerator: (UUID, MutableSet<ChunkPosition>) -> Cluster
+    ) {
         val clusterId = generateClusterId()
         val positions = mutableSetOf(position)
 
