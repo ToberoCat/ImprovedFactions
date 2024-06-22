@@ -1,5 +1,19 @@
 # Manage commands
 
+## factions joinMode
+
+Permission: factions.joinMode
+
+Usage: `/factions joinMode <factionjointype>`
+
+Description: Change the join mode of your faction
+
+Module: core
+
+| Argument | Description | Required |
+| --- | --- | --- |
+| factionjointype | Join Mode | true |
+
 ## factions icon
 
 Permission: factions.icon
