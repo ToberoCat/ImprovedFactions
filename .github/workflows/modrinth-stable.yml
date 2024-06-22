@@ -48,7 +48,7 @@ jobs:
             paper
             spigot
           game-versions: |
-            (1.18,1.20.6]
+            (1.18,1.21]
           files: |
             improved-factions-base/target/ImprovedFactions-*.jar
           retry-attempts: 2
