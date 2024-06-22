@@ -8,7 +8,6 @@ import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapColorCon
 import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapModuleConfig
 import io.github.toberocat.improvedfactions.modules.dynmap.handles.FactionDynmapModuleHandle
 import io.github.toberocat.improvedfactions.utils.toOfflinePlayer
-import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.dynmap.DynmapCommonAPI
 import org.dynmap.markers.MarkerSet
