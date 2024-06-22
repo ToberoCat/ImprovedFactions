@@ -77,7 +77,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         set(value) {
             broadcast(
                 "base.faction.join-type-changed", mapOf(
-                    "mode" to value.name
+                    "mode" to value.name.lowercase()
                 )
             )
             localFactionJoinType = value

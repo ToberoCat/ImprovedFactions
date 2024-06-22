@@ -37,7 +37,7 @@ class JoinTypeCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCom
             faction.factionJoinType = joinType
         }
 
-        player.sendLocalized("base.command.joinMode.changed")
+        player.sendLocalized("base.command.joinMode.changed", mapOf("mode" to joinType.name.lowercase()))
         return true
     }
 }
