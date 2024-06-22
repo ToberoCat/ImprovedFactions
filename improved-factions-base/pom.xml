@@ -13,35 +13,35 @@
 
     <properties>
         <!-- Kotlin Settings -->
-        <kotlin.version>1.9.0</kotlin.version>
+        <kotlin.version>2.0.0</kotlin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.code.style>official</kotlin.code.style>
-        <kotlin.compiler.jvmTarget>16</kotlin.compiler.jvmTarget>
+        <kotlin.compiler.jvmTarget>17</kotlin.compiler.jvmTarget>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
-        <maven.compiler.target>16</maven.compiler.target>
+        <maven.compiler.target>17</maven.compiler.target>
 
         <!--Compiler Targets -->
-        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.source>17</maven.compiler.source>
 
         <!-- Installation Location -->
         <server.location>../server/plugins</server.location>
 
         <!-- Versions -->
-        <exposed.version>0.50.0</exposed.version>
-        <jackson.version>2.15.2</jackson.version>
+        <exposed.version>0.51.1</exposed.version>
+        <jackson.version>2.16.0</jackson.version>
         <spigot.version>1.18.1-R0.1-SNAPSHOT</spigot.version>
-        <sqlite-jdbc.version>3.45.3.0</sqlite-jdbc.version>
+        <sqlite-jdbc.version>3.46.0.0</sqlite-jdbc.version>
         <spigot-update-checker.version>3.0.3</spigot-update-checker.version>
-        <kotlinx-datetime.version>0.4.0</kotlinx-datetime.version>
+        <kotlinx-datetime.version>0.6.0</kotlinx-datetime.version>
         <toberocore.version>be356f9253</toberocore.version>
         <guiengine.version>6c00296e4c</guiengine.version>
-        <adventure-text-minimessage.version>4.16.0</adventure-text-minimessage.version>
-        <adventure-text-serializer-legacy.version>4.16.0</adventure-text-serializer-legacy.version>
-        <kyori-adventure-platform-bukkit.version>4.3.3-SNAPSHOT</kyori-adventure-platform-bukkit.version>
+        <adventure-text-minimessage.version>4.17.0</adventure-text-minimessage.version>
+        <adventure-text-serializer-legacy.version>4.17.0</adventure-text-serializer-legacy.version>
+        <kyori-adventure-platform-bukkit.version>4.3.3</kyori-adventure-platform-bukkit.version>
         <base64-itemstack.version>1.0.0</base64-itemstack.version>
         <bstats-bukkit.version>3.0.2</bstats-bukkit.version>
-        <placeholderapi.version>2.11.3</placeholderapi.version>
-        <dynmap-api.version>3.5</dynmap-api.version>
+        <placeholderapi.version>2.11.6</placeholderapi.version>
+        <dynmap-api.version>3.6</dynmap-api.version>
         <h2.version>2.2.220</h2.version>
         <mockbukkit.version>3.9.0</mockbukkit.version>
         <snakeyaml.version>2.2</snakeyaml.version>
