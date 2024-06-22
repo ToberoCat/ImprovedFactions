@@ -12,10 +12,7 @@ import io.github.toberocat.improvedfactions.commands.invite.InviteAcceptCommand
 import io.github.toberocat.improvedfactions.commands.invite.InviteCommand
 import io.github.toberocat.improvedfactions.commands.invite.InviteDiscardCommand
 import io.github.toberocat.improvedfactions.commands.invite.ListInvitesCommand
-import io.github.toberocat.improvedfactions.commands.manage.CreateCommand
-import io.github.toberocat.improvedfactions.commands.manage.DeleteCommand
-import io.github.toberocat.improvedfactions.commands.manage.IconCommand
-import io.github.toberocat.improvedfactions.commands.manage.RenameCommand
+import io.github.toberocat.improvedfactions.commands.manage.*
 import io.github.toberocat.improvedfactions.commands.member.*
 import io.github.toberocat.improvedfactions.commands.rank.RankCommandRoute
 import io.github.toberocat.improvedfactions.translation.localizeUnformatted
@@ -45,6 +42,7 @@ class FactionCommandExecutor(plugin: ImprovedFactionsPlugin) {
         executor.addChild(IconCommand(plugin))
         executor.addChild(RenameCommand(plugin))
         executor.addChild(RankCommandRoute(plugin))
+        executor.addChild(JoinTypeCommand(plugin))
 
         executor.addChild(JoinCommand(plugin))
         executor.addChild(LeaveCommand(plugin))

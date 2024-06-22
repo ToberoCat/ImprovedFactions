@@ -48,12 +48,12 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
 
     var owner by Factions.owner
     var defaultRank by Factions.defaultRank
-
     internal var localName by Factions.name
 
     private var base64Icon by Factions.base64Icon
     private var localAccumulatedPower by Factions.accumulatedPower
     private var localMaxPower by Factions.maxPower
+    private var localFactionJoinType by Factions.factionJoinType
 
     val maxPower
         get() = localMaxPower
@@ -70,6 +70,17 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
                 )
             )
             localName = value
+        }
+
+    var factionJoinType
+        get() = localFactionJoinType
+        set(value) {
+            broadcast(
+                "base.faction.join-type-changed", mapOf(
+                    "mode" to value.name.lowercase()
+                )
+            )
+            localFactionJoinType = value
         }
 
     var icon: ItemStack

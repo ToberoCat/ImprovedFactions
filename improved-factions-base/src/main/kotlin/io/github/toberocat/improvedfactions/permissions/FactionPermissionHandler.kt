@@ -4,6 +4,7 @@ import org.bukkit.Material
 
 object Permissions {
     val knownPermissions: MutableMap<String, PermissionHolder> = mutableMapOf()
+
     val VIEW_POWER = "view-power".registerAsPermission(Material.BEACON)
     val MANAGE_CLAIMS = "manage-claims".registerAsPermission(Material.GRASS)
     val SEND_INVITES = "send-invites".registerAsPermission(Material.BIRCH_SIGN)
@@ -15,6 +16,7 @@ object Permissions {
     val TRANSFER_OWNERSHIP = "transfer-ownership".registerAsPermission(Material.BARRIER)
     val SET_HOME = "set-home".registerAsPermission(Material.RED_BED)
     val HOME = "teleport-home".registerAsPermission(Material.WHITE_BED)
+    val SET_JOIN_TYPE = "set-join-type".registerAsPermission(Material.IRON_DOOR)
 
     fun String.registerAsPermission(material: Material): String {
         knownPermissions[this] = PermissionHolder(material)
