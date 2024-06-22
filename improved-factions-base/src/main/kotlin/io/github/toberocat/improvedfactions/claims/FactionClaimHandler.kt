@@ -45,5 +45,3 @@ fun squareClaimAction(
     }
     return ClaimStatistics(totalClaims, successfulClaims)
 }
-
-private fun Double.largerValueRound() = (if (this < 0) floor(this) else ceil(this)).toInt()
