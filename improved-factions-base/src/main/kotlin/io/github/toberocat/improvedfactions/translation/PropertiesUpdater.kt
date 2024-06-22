@@ -7,6 +7,7 @@ import java.io.InputStreamReader
 import java.util.Properties
 
 fun updateLanguages(plugin: ImprovedFactionsPlugin) {
+    plugin.logger.info("Updating language files...")
     File(plugin.dataFolder, "languages").listFiles()?.forEach { file ->
         PropertiesUpdater("languages/messages_en.properties", file.absolutePath)
             .updatePropertiesFile()
