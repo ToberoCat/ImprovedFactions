@@ -38,6 +38,9 @@ open class InfoCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCo
         loggedTransaction {
             player.showDetails("Members", faction.members().count().toString(), "/f members")
             player.showDetails("Ranks", faction.listRanks().count().toString(), "/f rank")
+            player.showDetails("Claims", faction.claims().count().toString(), "/f map")
+            player.showDetails("Power", faction.accumulatedPower.toString(), "/f power")
+            player.showDetails("Join Type", faction.factionJoinType.name.lowercase())
         }
 
         return true
