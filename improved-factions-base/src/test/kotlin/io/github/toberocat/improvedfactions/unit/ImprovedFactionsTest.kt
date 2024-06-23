@@ -24,10 +24,11 @@ open class ImprovedFactionsTest {
 
     @AfterEach
     fun tearDown() {
+        plugin.adventure.close()
         MockBukkit.unmock()
     }
 
-    fun createTestPlayer(name: String? = null) = if (name == null) server.addPlayer() else server.addPlayer()
+    fun createTestPlayer() = server.addPlayer()
 
     fun testWorld() = WorldMock(Material.DIRT, 3)
 

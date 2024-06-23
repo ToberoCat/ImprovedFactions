@@ -203,14 +203,13 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
             FactionInvites.inviteExpiresInMinutes * 60 * 20L
         )
 
-        async {
-            broadcast(
-                "base.faction.player-invited", mapOf(
-                    "inviter" to (Bukkit.getPlayer(inviter)?.displayName ?: "§cNot found"),
-                    "invited" to (Bukkit.getPlayer(invited)?.displayName ?: "§cNot found")
-                )
+        broadcast(
+            "base.faction.player-invited", mapOf(
+                "inviter" to (Bukkit.getPlayer(inviter)?.displayName ?: "§cNot found"),
+                "invited" to (Bukkit.getPlayer(invited)?.displayName ?: "§cNot found")
             )
-        }
+        )
+
         return invite
     }
 

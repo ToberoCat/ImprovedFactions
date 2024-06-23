@@ -1,11 +1,11 @@
 package io.github.toberocat.improvedfactions.integration.commands.invite
 
 import be.seeseemelk.mockbukkit.entity.PlayerMock
-import io.github.toberocat.improvedfactions.commands.invite.InviteCommand
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.unit.ImprovedFactionsTest
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
+import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 class InviteCommandTest : ImprovedFactionsTest() {
@@ -16,8 +16,8 @@ class InviteCommandTest : ImprovedFactionsTest() {
 
     override fun setUp() {
         super.setUp()
-        player1 = createTestPlayer("aaa")
-        player2 = createTestPlayer("Tober0")
+        player1 = createTestPlayer()
+        player2 = createTestPlayer()
         player1.isOp = true
         player2.isOp = true
 
@@ -30,7 +30,7 @@ class InviteCommandTest : ImprovedFactionsTest() {
         server.onlineMode = onlineMode
 
         assertTrue(server.dispatchCommand(player1, "f invite ${player2.name} Member"))
-        player2.assertSaid("Hello world!");
-        player2.assertNoMoreSaid();
+        assertNotNull(player1.nextMessage())
+        player1.assertNoMoreSaid()
     }
 }
