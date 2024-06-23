@@ -1,8 +1,8 @@
 package io.github.toberocat.improvedfactions.claims
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.claims.clustering.FactionCluster
-import io.github.toberocat.improvedfactions.claims.clustering.ChunkPosition
+import io.github.toberocat.improvedfactions.claims.clustering.cluster.FactionCluster
+import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
 import io.github.toberocat.improvedfactions.claims.overclaim.ClaimSiegeManager
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.user.noFactionId

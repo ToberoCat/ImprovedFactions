@@ -1,9 +1,14 @@
-package io.github.toberocat.improvedfactions.claims.clustering
+package io.github.toberocat.improvedfactions.claims.clustering.detector
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.claims.clustering.cluster.Cluster
+import io.github.toberocat.improvedfactions.claims.clustering.cluster.FactionCluster
+import io.github.toberocat.improvedfactions.claims.clustering.cluster.ZoneCluster
+import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
+import io.github.toberocat.improvedfactions.claims.clustering.query.ClaimQueryProvider
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
-import java.util.UUID
+import java.util.*
 import kotlin.concurrent.thread
 
 class ClaimClusterDetector(

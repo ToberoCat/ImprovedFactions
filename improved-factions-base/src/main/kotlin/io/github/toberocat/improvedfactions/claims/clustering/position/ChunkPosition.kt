@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedfactions.claims.clustering
+package io.github.toberocat.improvedfactions.claims.clustering.position
 
 import org.bukkit.Bukkit
 

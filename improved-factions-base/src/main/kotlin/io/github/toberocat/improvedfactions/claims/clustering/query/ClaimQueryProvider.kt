@@ -1,4 +1,6 @@
-package io.github.toberocat.improvedfactions.claims.clustering
+package io.github.toberocat.improvedfactions.claims.clustering.query
+
+import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
 
 interface ClaimQueryProvider {
     fun queryNeighbours(position: ChunkPosition): List<ChunkPosition>

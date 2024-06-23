@@ -1,9 +1,9 @@
 package io.github.toberocat.improvedfactions.unit.claims.clustering
 
-import io.github.toberocat.improvedfactions.claims.clustering.ChunkPosition
-import io.github.toberocat.improvedfactions.claims.clustering.ClaimClusterDetector
-import io.github.toberocat.improvedfactions.claims.clustering.ClaimQueryProvider
-import io.github.toberocat.improvedfactions.claims.clustering.WorldPosition
+import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
+import io.github.toberocat.improvedfactions.claims.clustering.detector.ClaimClusterDetector
+import io.github.toberocat.improvedfactions.claims.clustering.query.ClaimQueryProvider
+import io.github.toberocat.improvedfactions.claims.clustering.position.WorldPosition
 import io.github.toberocat.improvedfactions.unit.ImprovedFactionsTest
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test

@@ -1,8 +1,10 @@
-package io.github.toberocat.improvedfactions.claims.clustering
+package io.github.toberocat.improvedfactions.claims.clustering.cluster
 
+import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
+import io.github.toberocat.improvedfactions.claims.clustering.position.WorldPosition
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.utils.LazyUpdate
-import java.util.UUID
+import java.util.*
 
 abstract class Cluster(val id: UUID, private val positions: MutableSet<ChunkPosition>) {
     private val outerNodes = LazyUpdate(mutableListOf()) { detectOuterNodes() }

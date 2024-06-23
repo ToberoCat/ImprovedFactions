@@ -1,5 +1,6 @@
-package io.github.toberocat.improvedfactions.claims.clustering
+package io.github.toberocat.improvedfactions.claims.clustering.cluster
 
+import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
 import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import java.util.*
 

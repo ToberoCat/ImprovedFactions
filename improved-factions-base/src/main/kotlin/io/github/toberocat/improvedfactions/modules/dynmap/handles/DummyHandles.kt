@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedfactions.modules.dynmap.handles
 
-import io.github.toberocat.improvedfactions.claims.clustering.Cluster
-import io.github.toberocat.improvedfactions.claims.clustering.ChunkPosition
+import io.github.toberocat.improvedfactions.claims.clustering.cluster.Cluster
+import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
 import io.github.toberocat.improvedfactions.factions.Faction
 import org.bukkit.Location
 

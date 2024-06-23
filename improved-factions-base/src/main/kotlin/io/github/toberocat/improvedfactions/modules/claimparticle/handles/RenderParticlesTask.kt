@@ -1,8 +1,8 @@
 package io.github.toberocat.improvedfactions.modules.claimparticle.handles
 
-import io.github.toberocat.improvedfactions.claims.clustering.Cluster
-import io.github.toberocat.improvedfactions.claims.clustering.ClusterExtension.getCurrentClusters
-import io.github.toberocat.improvedfactions.claims.clustering.WorldPosition
+import io.github.toberocat.improvedfactions.claims.clustering.cluster.Cluster
+import io.github.toberocat.improvedfactions.claims.clustering.getCurrentClusters
+import io.github.toberocat.improvedfactions.claims.clustering.position.WorldPosition
 import io.github.toberocat.improvedfactions.modules.claimparticle.config.ClaimParticleModuleConfig
 import io.github.toberocat.toberocore.util.MathUtils
 import org.bukkit.Bukkit

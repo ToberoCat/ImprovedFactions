@@ -2,7 +2,7 @@ package io.github.toberocat.improvedfactions.claims.overclaim
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.FactionClaim
-import io.github.toberocat.improvedfactions.claims.clustering.ChunkPosition
+import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Companion.powerRaidModule
