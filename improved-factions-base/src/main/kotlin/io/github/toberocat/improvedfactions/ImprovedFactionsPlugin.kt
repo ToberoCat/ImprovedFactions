@@ -12,6 +12,7 @@ import io.github.toberocat.improvedfactions.config.ImprovedFactionsConfig
 import io.github.toberocat.improvedfactions.database.DatabaseConnector
 import io.github.toberocat.improvedfactions.factions.Factions
 import io.github.toberocat.improvedfactions.invites.FactionInvites
+import io.github.toberocat.improvedfactions.listeners.PlayerJoinListener
 import io.github.toberocat.improvedfactions.listeners.move.MoveListener
 import io.github.toberocat.improvedfactions.modules.ModuleManager
 import io.github.toberocat.improvedfactions.modules.chat.ChatModule
@@ -27,6 +28,7 @@ import io.github.toberocat.improvedfactions.translation.updateLanguages
 import io.github.toberocat.improvedfactions.utils.BStatsCollector
 import io.github.toberocat.improvedfactions.utils.FileUtils
 import io.github.toberocat.improvedfactions.utils.arguments.ClaimRadiusArgument
+import io.github.toberocat.improvedfactions.utils.options.PlayerNameOption
 import io.github.toberocat.improvedfactions.utils.particles.ParticleAnimation
 import io.github.toberocat.improvedfactions.utils.threadPool
 import io.github.toberocat.improvedfactions.zone.ZoneHandler
@@ -76,7 +78,11 @@ open class ImprovedFactionsPlugin : JavaPlugin() {
         database = DatabaseConnector(this).createDatabase()
 
         moduleManager.registerModules()
-        registerListeners(MoveListener(this))
+        registerListeners(
+            MoveListener(this),
+            PlayerJoinListener()
+        )
+
         registerCommands()
         registerPapi()
 

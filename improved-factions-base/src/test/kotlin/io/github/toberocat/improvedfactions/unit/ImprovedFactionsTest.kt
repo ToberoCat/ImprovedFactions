@@ -27,6 +27,7 @@ open class ImprovedFactionsTest {
         MockBukkit.unmock()
     }
 
+    fun createTestPlayer(name: String? = null) = if (name == null) server.addPlayer() else server.addPlayer()
 
     fun testWorld() = WorldMock(Material.DIRT, 3)
 

@@ -6,6 +6,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.serializer.ComponentSerializer
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
+import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import java.util.*
 
@@ -15,6 +16,11 @@ import java.util.*
  * @author Tobias Madlberger (Tobias)
  */
 typealias LocalizationKey = String
+
+fun OfflinePlayer.sendLocalized(key: String, placeholders: Map<String, String> = emptyMap()) {
+    player?.sendLocalized(key, placeholders)
+    // ToDo: Make sure players can catch up on messages when they log in
+}
 
 fun Player.sendLocalized(key: String, placeholders: Map<String, String> = emptyMap()) =
     toAudience().sendMessage(getLocalized(key, placeholders))
