@@ -8,6 +8,7 @@ import io.github.toberocat.improvedfactions.permissions.FactionPermissions
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
 import io.github.toberocat.improvedfactions.ranks.FactionRanks
 import io.github.toberocat.improvedfactions.user.FactionUsers
+import io.github.toberocat.improvedfactions.utils.offline.KnownOfflinePlayers
 import io.github.toberocat.improvedfactions.utils.options.limit.PlayerUsageLimits
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -34,7 +35,8 @@ object DatabaseManager {
                 PlayerUsageLimits,
                 Factions,
                 FactionRanks,
-                FactionInvites
+                FactionInvites,
+                KnownOfflinePlayers
             )
 
             Factions.handleQueues()

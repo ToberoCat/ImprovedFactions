@@ -6,7 +6,7 @@ object Permissions {
     val knownPermissions: MutableMap<String, PermissionHolder> = mutableMapOf()
 
     val VIEW_POWER = "view-power".registerAsPermission(Material.BEACON)
-    val MANAGE_CLAIMS = "manage-claims".registerAsPermission(Material.GRASS)
+    val MANAGE_CLAIMS = "manage-claims".registerAsPermission(Material.DIRT)
     val SEND_INVITES = "send-invites".registerAsPermission(Material.BIRCH_SIGN)
     val SET_ICON = "set-icon".registerAsPermission(Material.WHITE_BANNER)
     val RENAME_FACTION = "rename-faction".registerAsPermission(Material.NAME_TAG)

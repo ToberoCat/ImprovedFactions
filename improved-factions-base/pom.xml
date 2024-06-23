@@ -43,8 +43,10 @@
         <placeholderapi.version>2.11.6</placeholderapi.version>
         <dynmap-api.version>3.5</dynmap-api.version>
         <h2.version>2.2.220</h2.version>
-        <mockbukkit.version>3.9.0</mockbukkit.version>
+        <mockbukkit.version>3.80.0</mockbukkit.version>
         <snakeyaml.version>2.2</snakeyaml.version>
+        <gson.version>2.11.0</gson.version>
+        <logback-classic.version>1.2.13</logback-classic.version>
     </properties>
 
     <repositories>
@@ -233,6 +235,13 @@
             <version>${mockbukkit.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+            <scope>test</scope>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.yaml/snakeyaml -->
         <dependency>
             <groupId>org.yaml</groupId>
@@ -243,7 +252,7 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.13</version>
+            <version>${logback-classic.version}</version>
             <scope>test</scope>
         </dependency>
 

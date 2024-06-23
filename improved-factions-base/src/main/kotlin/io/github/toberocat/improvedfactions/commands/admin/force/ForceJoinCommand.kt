@@ -6,7 +6,7 @@ import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.ranks.listRanks
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.utils.arguments.PlayerArgument
+import io.github.toberocat.improvedfactions.utils.arguments.OfflinePlayerArgument
 import io.github.toberocat.improvedfactions.utils.arguments.entity.FactionArgument
 import io.github.toberocat.improvedfactions.utils.command.CommandCategory
 import io.github.toberocat.improvedfactions.utils.command.CommandMeta
@@ -16,6 +16,7 @@ import io.github.toberocat.toberocore.command.PlayerSubCommand
 import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.command.options.Options
+import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 
 @CommandMeta(
@@ -30,14 +31,14 @@ class ForceJoinCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCo
     }
 
     override fun arguments(): Array<Argument<*>> = arrayOf(
-        PlayerArgument(),
+        OfflinePlayerArgument(),
         FactionArgument()
     )
 
     override fun handle(player: Player, args: Array<String>): Boolean {
         val parsedArgs = parseArgs(player, args)
         val faction = parsedArgs.get<Faction>(1) ?: return false
-        val playerToJoin = parsedArgs.get<Player>(0) ?: return false
+        val playerToJoin = parsedArgs.get<OfflinePlayer>(0) ?: return false
 
         loggedTransaction {
             val user = player.factionUser()

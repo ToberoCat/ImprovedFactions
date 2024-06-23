@@ -5,7 +5,7 @@ import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTrans
 import io.github.toberocat.improvedfactions.ranks.FactionRank
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.utils.arguments.PlayerArgument
+import io.github.toberocat.improvedfactions.utils.arguments.OfflinePlayerArgument
 import io.github.toberocat.improvedfactions.utils.arguments.entity.RankArgument
 import io.github.toberocat.improvedfactions.utils.command.CommandCategory
 import io.github.toberocat.improvedfactions.utils.command.CommandMeta
@@ -16,6 +16,7 @@ import io.github.toberocat.toberocore.command.PlayerSubCommand
 import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.options.ArgLengthOption
 import io.github.toberocat.toberocore.command.options.Options
+import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 
 @CommandMeta(
@@ -30,13 +31,13 @@ class AssignRankCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubC
         .cmdOpt(ArgLengthOption(2))
 
     override fun arguments(): Array<Argument<*>> = arrayOf(
-        PlayerArgument(),
+        OfflinePlayerArgument(),
         RankArgument()
     )
 
     override fun handle(player: Player, args: Array<out String>): Boolean {
         val arguments = parseArgs(player, args)
-        val target = arguments.get<Player>(0) ?: return false
+        val target = arguments.get<OfflinePlayer>(0) ?: return false
         val rank = arguments.get<FactionRank>(1) ?: return false
 
         loggedTransaction {

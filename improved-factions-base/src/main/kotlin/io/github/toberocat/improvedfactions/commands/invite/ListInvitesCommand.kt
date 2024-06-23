@@ -5,6 +5,7 @@ import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTrans
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.invites.FactionInvite
 import io.github.toberocat.improvedfactions.invites.FactionInvites
+import io.github.toberocat.improvedfactions.invites.invites
 import io.github.toberocat.improvedfactions.ranks.FactionRank
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
@@ -27,10 +28,10 @@ open class ListInvitesCommand(private val plugin: ImprovedFactionsPlugin) : Play
 
     override fun arguments(): Array<Argument<*>> = emptyArray()
     override fun handle(player: Player, args: Array<String>): Boolean {
-        val invitedId = player.factionUser().id.value
+        val invited = player.factionUser()
         player.sendLocalized("base.command.invites.header")
         loggedTransaction {
-            FactionInvite.find { FactionInvites.invitedId eq invitedId }.forEach { invite ->
+            invited.invites().forEach { invite ->
                 val faction = Faction.findById(invite.factionId) ?: return@forEach
                 val rankId = FactionRank.findById(invite.rankId) ?: return@forEach
                 player.sendLocalized("base.command.invites.detail", mapOf(

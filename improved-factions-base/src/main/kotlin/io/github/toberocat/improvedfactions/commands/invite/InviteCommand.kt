@@ -6,7 +6,7 @@ import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.ranks.FactionRank
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.utils.arguments.PlayerArgument
+import io.github.toberocat.improvedfactions.utils.arguments.OfflinePlayerArgument
 import io.github.toberocat.improvedfactions.utils.arguments.entity.RankArgument
 import io.github.toberocat.improvedfactions.utils.command.CommandCategory
 import io.github.toberocat.improvedfactions.utils.command.CommandMeta
@@ -16,6 +16,7 @@ import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.command.options.ArgLengthOption
 import io.github.toberocat.toberocore.command.options.Options
+import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 
 @CommandMeta(
@@ -33,13 +34,13 @@ class InviteCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubComma
     }
 
     override fun arguments(): Array<Argument<*>> = arrayOf(
-        PlayerArgument(),
+        OfflinePlayerArgument(),
         RankArgument()
     )
 
     override fun handle(inviter: Player, args: Array<out String>): Boolean {
         val arguments = parseArgs(inviter, args)
-        val invited = arguments.get<Player>(0) ?: return false
+        val invited = arguments.get<OfflinePlayer>(0) ?: return false
         val rank = arguments.get<FactionRank>(1) ?: return false
 
         val faction = loggedTransaction {
@@ -52,7 +53,7 @@ class InviteCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubComma
         }
         inviter.sendLocalized(
             "base.command.invite.invited-player", mapOf(
-                "player" to invited.displayName
+                "player" to (invited.name ?: "unknown")
             )
         )
         invited.sendLocalized(
