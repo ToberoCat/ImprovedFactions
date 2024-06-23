@@ -1,11 +1,13 @@
 package io.github.toberocat.improvedfactions.claims.clustering.detector
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.claims.clustering.DBCluster
 import io.github.toberocat.improvedfactions.claims.clustering.cluster.Cluster
 import io.github.toberocat.improvedfactions.claims.clustering.cluster.FactionCluster
 import io.github.toberocat.improvedfactions.claims.clustering.cluster.ZoneCluster
 import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
 import io.github.toberocat.improvedfactions.claims.clustering.query.ClaimQueryProvider
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import java.util.*
@@ -15,16 +17,11 @@ class ClaimClusterDetector(
     private val queryProvider: ClaimQueryProvider,
     private val generateClusterId: () -> UUID = UUID::randomUUID
 ) {
-    val clusterMap = mutableMapOf<ChunkPosition, UUID>()
-    val clusters = mutableMapOf<UUID, Cluster>()
+    val _clusterMap = mutableMapOf<ChunkPosition, UUID>()
+    val _clusters = mutableMapOf<UUID, Cluster>()
 
     fun detectClusters() {
         ImprovedFactionsPlugin.instance.logger.info("[detector] Detecting clusters...")
-        clusterMap.clear()
-        clusters.clear()
-        ImprovedFactionsPlugin.instance.logger.info("[detector] Loading faction and zone positions..")
-        ImprovedFactionsPlugin.instance.logger.info("[detector] Positions: ${queryProvider.allFactionPositions().size} " +
-                "Faction | ${queryProvider.allZonePositions().size} Zone. This might take some time")
 
         val job = thread {
             queryProvider.allFactionPositions()
@@ -72,10 +69,10 @@ class ClaimClusterDetector(
     fun getCluster(position: ChunkPosition) = getClusterId(position)?.let { getCluster(it) }
 
     fun removePosition(position: ChunkPosition) {
-        if (position !in clusterMap)
-            return
-
-        val clusterIndex = clusterMap[position]
+        loggedTransaction {
+            val claim = position.getFactionClaim()
+            val cluster = claim?.cluster ?: return@loggedTransaction
+        }
         val cluster = clusters[clusterIndex]?.also { it.removeAll(setOf(position)) }
             ?: throw IllegalArgumentException()
         clusterMap.remove(position)

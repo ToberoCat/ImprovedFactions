@@ -1,11 +1,14 @@
 package io.github.toberocat.improvedfactions.claims
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.claims.clustering.DBCluster
 import io.github.toberocat.improvedfactions.claims.clustering.cluster.FactionCluster
 import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
 import io.github.toberocat.improvedfactions.claims.overclaim.ClaimSiegeManager
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.user.noFactionId
+import io.github.toberocat.improvedfactions.utils.DatabaseLazyUpdate
 import io.github.toberocat.improvedfactions.zone.Zone
 import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import org.bukkit.Bukkit
@@ -24,6 +27,7 @@ class FactionClaim(id: EntityID<Int>) : IntEntity(id) {
     var chunkZ by FactionClaims.chunkZ
     var factionId by FactionClaims.factionId
     var zoneType by FactionClaims.zoneType
+    var cluster by DBCluster optionalReferencedOn FactionClaims.clusterId
 
     fun faction(): Faction? = Faction.findById(factionId)
 
