@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.modules.wilderness.commands
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.modules.wilderness.WildernessModule
 import io.github.toberocat.improvedfactions.modules.wilderness.config.WildernessModuleConfig
 import io.github.toberocat.improvedfactions.translation.sendLocalized
@@ -77,6 +78,8 @@ class WildernessCommand(
 
     private fun cancelCommand(player: Player) {
         cooldownManager.removeCooldown(player.uniqueId)
-        PlayerUsageLimits.getUsageLimit("wilderness", player.uniqueId).used--
+        loggedTransaction {
+            PlayerUsageLimits.getUsageLimit("wilderness", player.uniqueId).used--
+        }
     }
 }
