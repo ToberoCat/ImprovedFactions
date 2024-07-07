@@ -59,7 +59,7 @@ class Cluster(id: EntityID<UUID>) : UUIDEntity(id) {
         updateCluster()
     }
 
-    fun getClaims() = FactionClaim.find { FactionClaims.clusterId eq id }.toList()
+    fun getClaims() =  FactionClaim.find { FactionClaims.clusterId eq id }.toList()
 
     fun isEmpty() = FactionClaim.count(FactionClaims.clusterId eq id) == 0L
 

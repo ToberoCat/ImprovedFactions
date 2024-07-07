@@ -48,4 +48,8 @@ class FactionClaim(id: EntityID<Int>) : IntEntity(id) {
     private fun getCluster() = ImprovedFactionsPlugin.instance.claimChunkClusters.getCluster(this)
 
     fun isRaidable() = (getCluster()?.findAdditionalType() as? FactionCluster)?.isUnprotected(chunkX, chunkZ, world)
+    override fun toString(): String {
+        return "FactionClaim(world='$world', chunkX=$chunkX, chunkZ=$chunkZ, factionId=$factionId, zoneType='$zoneType', claimCluster=${claimCluster?.id?.value})"
+    }
+
 }
