@@ -22,7 +22,7 @@ data class Zone(val type: String,
         }
 
         claim.zoneType = type
-        ImprovedFactionsPlugin.instance.claimChunkClusters.insertZonePosition(claim.toPosition(), type)
+        ImprovedFactionsPlugin.instance.claimChunkClusters.insertZonePosition(claim, type)
         return claim
     }
 }

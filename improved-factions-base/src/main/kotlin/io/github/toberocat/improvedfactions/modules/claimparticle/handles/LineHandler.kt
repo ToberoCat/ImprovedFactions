@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedfactions.modules.claimparticle.handles
 
-import io.github.toberocat.improvedfactions.claims.clustering.WorldPosition
+import io.github.toberocat.improvedfactions.claims.clustering.position.WorldPosition
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material

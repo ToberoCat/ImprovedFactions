@@ -4,8 +4,10 @@ import be.seeseemelk.mockbukkit.MockBukkit
 import be.seeseemelk.mockbukkit.ServerMock
 import be.seeseemelk.mockbukkit.WorldMock
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionHandler
 import org.bukkit.Material
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import java.util.*
@@ -32,5 +34,12 @@ open class ImprovedFactionsTest {
 
     fun testWorld() = WorldMock(Material.DIRT, 3)
 
-    fun testFaction(owner: UUID = UUID.randomUUID()) = FactionHandler.createFaction(owner, "TestFaction")
+    fun testFaction(owner: UUID = UUID.randomUUID(), id: Int? = null): Faction {
+        val faction = transaction { id?.let { FactionHandler.getFaction(it) } }
+        if (faction != null) {
+            return faction
+        }
+        return FactionHandler.createFaction(owner, "TestFaction", id)
+    }
+
 }

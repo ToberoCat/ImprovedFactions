@@ -1,8 +1,10 @@
 package io.github.toberocat.improvedfactions.modules.power.impl
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.claims.clustering.ChunkPosition
-import io.github.toberocat.improvedfactions.claims.clustering.FactionCluster
+import io.github.toberocat.improvedfactions.claims.FactionClaim
+import io.github.toberocat.improvedfactions.claims.clustering.cluster.Cluster
+import io.github.toberocat.improvedfactions.claims.clustering.cluster.FactionCluster
+import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.exceptions.NotEnoughPowerForClaimException
 import io.github.toberocat.improvedfactions.factions.Faction
@@ -34,21 +36,20 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
         faction.setAccumulatedPower(faction.accumulatedPower - cost, PowerAccumulationChangeReason.CHUNK_CLAIMED)
     }
 
-    override fun calculateUnprotectedChunks(cluster: FactionCluster, unprotectedPositions: MutableSet<ChunkPosition>) {
-        if (!config.allowOverclaim) return
-        val faction = Faction.findById(cluster.factionId)
-            ?: throw IllegalArgumentException("Faction is missing")
-
+    override fun calculateUnprotectedChunks(cluster: Cluster): Set<FactionClaim> {
+        if (!config.allowOverclaim) return emptySet()
+        val faction = (cluster.findAdditionalType() as? FactionCluster)?.faction
+            ?: throw IllegalArgumentException("No faction cluster")
         val totalClaims = faction.claims().count()
         val claimMaintenanceCost = getClaimMaintenanceCost(totalClaims)
 
-        val clusterClaimsRatio = cluster.getReadOnlyPositions().size.toDouble() / totalClaims
+        val clusterClaimsRatio = cluster.getClaims().size.toDouble() / totalClaims
         val clusterPowerCost = claimMaintenanceCost * clusterClaimsRatio
 
-        val positionSrqDistances =
-            cluster.getReadOnlyPositions().map { it.distanceSquaredTo(cluster.centerX, cluster.centerY) }
+        val (centerX, centerY) = cluster.center.get()
+        val positionSrqDistances = cluster.getClaims().map { it.toPosition().distanceSquaredTo(centerX, centerY) }
 
-        val biggestDistance = positionSrqDistances.maxOrNull() ?: return
+        val biggestDistance = positionSrqDistances.maxOrNull() ?: return emptySet()
         val distancePercentages = positionSrqDistances.map { it / biggestDistance }
         val totalDistancePercentageSum = distancePercentages.sum()
 
@@ -61,9 +62,10 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
             )) * clusterClaimsRatio
         )
 
-        val positions = cluster.getReadOnlyPositions().toList()
-        unprotectedPositions.addAll(distancePercentages
-            .mapIndexedNotNull { index, element -> if (element * claimPowerCost >= threshold) positions[index] else null })
+        val positions = cluster.getClaims()
+        return distancePercentages
+            .mapIndexedNotNull { index, element -> if (element * claimPowerCost >= threshold) positions[index] else null }
+            .toSet()
     }
 
     override fun reloadConfig(plugin: ImprovedFactionsPlugin) {

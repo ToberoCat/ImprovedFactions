@@ -1,5 +1,6 @@
-package io.github.toberocat.improvedfactions.claims.clustering
+package io.github.toberocat.improvedfactions.claims.clustering.position
 
+import io.github.toberocat.improvedfactions.claims.getFactionClaim
 import org.bukkit.Bukkit
 
 data class ChunkPosition(val x: Int, val y: Int, val world: String) {
@@ -52,4 +53,5 @@ data class ChunkPosition(val x: Int, val y: Int, val world: String) {
     }
 
     operator fun minus(cellFrom: ChunkPosition) = ChunkPosition(x - cellFrom.x, y - cellFrom.y, world)
+    fun getFactionClaim() = getFactionClaim(x, y, world)
 }

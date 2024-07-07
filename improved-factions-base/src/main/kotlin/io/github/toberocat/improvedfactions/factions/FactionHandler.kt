@@ -19,9 +19,9 @@ import java.util.*
  * @author Tobias Madlberger (Tobias)
  */
 object FactionHandler {
-    fun createFaction(ownerId: UUID, factionName: String): Faction {
+    fun createFaction(ownerId: UUID, factionName: String, id: Int? = null): Faction {
         return loggedTransaction {
-            val faction = Faction.new {
+            val faction = Faction.new(id) {
                 owner = ownerId
                 localName = factionName
                 icon = ItemBuilder().title("§e$factionName").material(Material.WOODEN_SWORD)

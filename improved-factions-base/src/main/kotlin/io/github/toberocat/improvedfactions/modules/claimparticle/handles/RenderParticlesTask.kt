@@ -1,8 +1,9 @@
 package io.github.toberocat.improvedfactions.modules.claimparticle.handles
 
-import io.github.toberocat.improvedfactions.claims.clustering.Cluster
-import io.github.toberocat.improvedfactions.claims.clustering.ClusterExtension.getCurrentClusters
-import io.github.toberocat.improvedfactions.claims.clustering.WorldPosition
+import io.github.toberocat.improvedfactions.claims.clustering.cluster.Cluster
+import io.github.toberocat.improvedfactions.claims.clustering.getCurrentClusters
+import io.github.toberocat.improvedfactions.claims.clustering.position.WorldPosition
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.modules.claimparticle.config.ClaimParticleModuleConfig
 import io.github.toberocat.toberocore.util.MathUtils
 import org.bukkit.Bukkit
@@ -15,8 +16,10 @@ import org.bukkit.scheduler.BukkitRunnable
 class RenderParticlesTask(private val config: ClaimParticleModuleConfig) : BukkitRunnable() {
     override fun run() {
         LineHandler.clearCache()
-        Bukkit.getOnlinePlayers().forEach { player ->
-            player.getCurrentClusters(config.chunkRenderDistance).forEach { player.renderClusterParticles(it) }
+        loggedTransaction {
+            Bukkit.getOnlinePlayers().forEach { player ->
+                player.getCurrentClusters(config.chunkRenderDistance).forEach { player.renderClusterParticles(it) }
+            }
         }
     }
 

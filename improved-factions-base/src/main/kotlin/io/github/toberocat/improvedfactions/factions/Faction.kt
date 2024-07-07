@@ -3,7 +3,7 @@ package io.github.toberocat.improvedfactions.factions
 import dev.s7a.base64.Base64ItemStack
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.*
-import io.github.toberocat.improvedfactions.claims.clustering.ChunkPosition
+import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.exceptions.*
 import io.github.toberocat.improvedfactions.factions.ban.FactionBan
@@ -20,7 +20,6 @@ import io.github.toberocat.improvedfactions.user.FactionUser
 import io.github.toberocat.improvedfactions.user.FactionUsers
 import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.user.noFactionId
-import io.github.toberocat.improvedfactions.utils.async
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.util.ItemUtils
 import io.github.toberocat.toberocore.util.MathUtils
@@ -235,11 +234,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
 
         factionClaim.factionId = factionId
         ImprovedFactionsPlugin.instance.claimChunkClusters.insertFactionPosition(
-            ChunkPosition(
-                chunk.x,
-                chunk.z,
-                chunk.world.name
-            ),
+            factionClaim,
             id.value
         )
 
@@ -266,13 +261,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         val claim = chunk.getFactionClaim()
         if (claim == null || claim.factionId != id.value) throw FactionDoesntHaveThisClaimException()
         claim.factionId = noFactionId
-        ImprovedFactionsPlugin.instance.claimChunkClusters.removePosition(
-            ChunkPosition(
-                chunk.x,
-                chunk.z,
-                chunk.world.name
-            )
-        )
+        ImprovedFactionsPlugin.instance.claimChunkClusters.removePosition(claim)
         if (announce) {
             broadcast(
                 "base.faction.chunk-unclaimed", mapOf(

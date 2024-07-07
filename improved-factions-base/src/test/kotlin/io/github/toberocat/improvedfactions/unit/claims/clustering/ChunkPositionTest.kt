@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedfactions.unit.claims.clustering
 
-import io.github.toberocat.improvedfactions.claims.clustering.ChunkPosition
+import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import kotlin.test.Test

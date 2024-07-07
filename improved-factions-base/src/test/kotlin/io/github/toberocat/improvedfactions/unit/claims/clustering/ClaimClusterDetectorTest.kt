@@ -1,14 +1,16 @@
 package io.github.toberocat.improvedfactions.unit.claims.clustering
 
-import io.github.toberocat.improvedfactions.claims.clustering.ChunkPosition
-import io.github.toberocat.improvedfactions.claims.clustering.ClaimClusterDetector
-import io.github.toberocat.improvedfactions.claims.clustering.ClaimQueryProvider
-import io.github.toberocat.improvedfactions.claims.clustering.WorldPosition
+import io.github.toberocat.improvedfactions.claims.FactionClaim
+import io.github.toberocat.improvedfactions.claims.clustering.detector.ClaimClusterDetector
+import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
+import io.github.toberocat.improvedfactions.claims.clustering.position.WorldPosition
+import io.github.toberocat.improvedfactions.claims.clustering.query.ClaimQueryProvider
+import io.github.toberocat.improvedfactions.claims.getFactionClaim
 import io.github.toberocat.improvedfactions.unit.ImprovedFactionsTest
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import java.util.UUID
-import kotlin.test.assertNotNull
+import java.util.*
 import kotlin.test.assertNull
 
 class ClaimDetectorTest : ImprovedFactionsTest() {
@@ -24,42 +26,60 @@ class ClaimDetectorTest : ImprovedFactionsTest() {
             Pair(ChunkPosition(3, 2, ""), 2),
             Pair(ChunkPosition(3, 3, ""), 2)
         )
-        val positions = factionPositions.map { it.first }
         val detector = ClaimClusterDetector(DummyClaimQueryProvider(factionPositions))
         detector.detectClusters()
 
         assertEquals(2, detector.clusters.size)
-        assertEquals(2, detector.clusterMap.values.distinct().count())
 
-        assertNotNull(detector.getClusterId(positions[0]))
+        assertNotNull(detector.getClusterId(factionClaim(factionPositions[0])))
         assertTrue(
-            detector.getClusterId(positions[0]) == detector.getClusterId(positions[1]) &&
-                    detector.getClusterId(positions[1]) == detector.getClusterId(positions[2])
-        )
-
-        assertNotNull(detector.getClusterId(positions[3]))
-        assertTrue(
-            detector.getClusterId(positions[3]) == detector.getClusterId(positions[4]) &&
-                    detector.getClusterId(positions[4]) == detector.getClusterId(positions[5])
-        )
-
-        assertTrue(
-            detector.getCluster(positions[0])?.getReadOnlyPositions()?.containsAll(
-                listOf(
-                    positions[0],
-                    positions[1],
-                    positions[2]
+            detector.getClusterId(factionClaim(factionPositions[0])) == detector.getClusterId(
+                factionClaim(
+                    factionPositions[1]
                 )
-            ) == true
+            ) &&
+                    detector.getClusterId(factionClaim(factionPositions[1])) == detector.getClusterId(
+                factionClaim(
+                    factionPositions[2]
+                )
+            )
+        )
+
+        assertNotNull(detector.getClusterId(factionClaim(factionPositions[3])))
+        assertTrue(
+            detector.getClusterId(factionClaim(factionPositions[3])) == detector.getClusterId(
+                factionClaim(
+                    factionPositions[4]
+                )
+            ) &&
+                    detector.getClusterId(factionClaim(factionPositions[4])) == detector.getClusterId(
+                factionClaim(
+                    factionPositions[5]
+                )
+            )
+        )
+
+        assertTrue(
+            transaction {
+                detector.getCluster(factionClaim(factionPositions[0]))?.getClaims()?.containsAll(
+                    listOf(
+                        factionClaim(factionPositions[0]),
+                        factionClaim(factionPositions[1]),
+                        factionClaim(factionPositions[2])
+                    )
+                ) == true
+            }
         )
         assertTrue(
-            detector.getCluster(positions[3])?.getReadOnlyPositions()?.containsAll(
-                listOf(
-                    positions[3],
-                    positions[4],
-                    positions[5]
-                )
-            ) == true
+            transaction {
+                detector.getCluster(factionClaim(factionPositions[3]))?.getClaims()?.containsAll(
+                    listOf(
+                        factionClaim(factionPositions[3]),
+                        factionClaim(factionPositions[4]),
+                        factionClaim(factionPositions[5])
+                    )
+                ) == true
+            }
         )
     }
 
@@ -81,21 +101,23 @@ class ClaimDetectorTest : ImprovedFactionsTest() {
         )
         detector.detectClusters()
 
-        assertEquals(2, detector.clusterMap.size)
+        assertEquals(2, detector.getAffectedClaims())
         assertEquals(1, detector.clusters.size)
 
-        detector.removePosition(ChunkPosition(0, 0, ""))
+        detector.removePosition(factionClaim(0, 0, "", 1))
 
-        assertEquals(1, detector.clusterMap.size)
+        assertEquals(1, detector.getAffectedClaims())
         assertEquals(1, detector.clusters.size)
 
-        assertEquals(clusterIds[0], detector.getClusterId(ChunkPosition(1, 0, "")))
-        assertNull(detector.getClusterId(ChunkPosition(0, 0, "")))
-        assertEquals(1, detector.getCluster(ChunkPosition(1, 0, ""))?.getReadOnlyPositions()?.size)
-        assertEquals(
-            ChunkPosition(1, 0, ""),
-            detector.getCluster(ChunkPosition(1, 0, ""))?.getReadOnlyPositions()?.first()
-        )
+        assertEquals(clusterIds[0], detector.getClusterId(factionClaim(1, 0, "", 1)))
+        assertNull(detector.getClusterId(factionClaim(0, 0, "", 1)))
+        assertEquals(1, transaction { detector.getCluster(factionClaim(1, 0, "", 1))?.getClaims()?.size })
+        transaction {
+            assertEquals(
+                factionClaim(1, 0, "", 1),
+                detector.getCluster(factionClaim(1, 0, "", 1))?.getClaims()?.first()
+            )
+        }
     }
 
     @Test
@@ -111,12 +133,12 @@ class ClaimDetectorTest : ImprovedFactionsTest() {
         val detector = ClaimClusterDetector(DummyClaimQueryProvider(factionPositions))
         detector.detectClusters()
 
-        assertEquals(3, detector.clusterMap.size)
+        assertEquals(3, detector.getAffectedClaims())
         assertEquals(1, detector.clusters.size)
 
-        detector.removePosition(ChunkPosition(0, 0, ""))
+        detector.removePosition(factionClaim(0, 0, "", 1))
 
-        assertEquals(2, detector.clusterMap.size)
+        assertEquals(2, detector.getAffectedClaims())
         assertEquals(2, detector.clusters.size)
     }
 
@@ -134,12 +156,12 @@ class ClaimDetectorTest : ImprovedFactionsTest() {
         val detector = ClaimClusterDetector(DummyClaimQueryProvider(factionPositions))
         detector.detectClusters()
 
-        assertEquals(4, detector.clusterMap.size)
+        assertEquals(4, detector.getAffectedClaims())
         assertEquals(1, detector.clusters.size)
 
-        detector.removePosition(ChunkPosition(0, 0, ""))
+        detector.removePosition(factionClaim(0, 0, "", 1))
 
-        assertEquals(3, detector.clusterMap.size)
+        assertEquals(3, detector.getAffectedClaims())
         assertEquals(1, detector.clusters.size)
     }
 
@@ -150,9 +172,9 @@ class ClaimDetectorTest : ImprovedFactionsTest() {
             DummyClaimQueryProvider(emptyList()),
             predeterminedIdGenerator(listOf(clusterId))
         )
-        detector.insertFactionPosition(ChunkPosition(1, 1, ""), 1)
+        detector.insertFactionPosition(factionClaim(1, 1, "", 1), 1)
 
-        assertEquals(clusterId, detector.getClusterId(ChunkPosition(1, 1, "")))
+        assertEquals(clusterId, detector.getClusterId(factionClaim(1, 1, "", 1)))
     }
 
     @Test
@@ -172,12 +194,12 @@ class ClaimDetectorTest : ImprovedFactionsTest() {
             DummyClaimQueryProvider(factionPositions),
             predeterminedIdGenerator(clusterIds)
         )
-        factionPositions.forEach { detector.insertFactionPosition(it.first, it.second) }
+        factionPositions.forEach { (c, id) -> detector.insertFactionPosition(factionClaim(c.x, c.y, c.world, id), id) }
 
         // Assert your expectations
-        assertEquals(clusterIds[0], detector.getClusterId(ChunkPosition(1, 1, "")))
-        assertEquals(clusterIds[0], detector.getClusterId(ChunkPosition(2, 1, "")))
-        assertEquals(clusterIds[1], detector.getClusterId(ChunkPosition(5, 5, "")))
+        assertEquals(clusterIds[0], detector.getClusterId(factionClaim(1, 1, "", 1)))
+        assertEquals(clusterIds[0], detector.getClusterId(factionClaim(2, 1, "", 1)))
+        assertEquals(clusterIds[1], detector.getClusterId(factionClaim(5, 5, "", 2)))
     }
 
     @Test
@@ -200,14 +222,14 @@ class ClaimDetectorTest : ImprovedFactionsTest() {
             predeterminedIdGenerator(clusterIds)
         )
 
-        factionPositions.forEach { detector.insertFactionPosition(it.first, it.second) }
+        factionPositions.forEach { (c, id) -> detector.insertFactionPosition(factionClaim(c.x, c.y, c.world, id), id) }
 
         // Assert your expectations
-        assertEquals(clusterIds[0], detector.getClusterId(ChunkPosition(1, 1, "")))
-        assertEquals(clusterIds[0], detector.getClusterId(ChunkPosition(2, 1, "")))
-        assertEquals(clusterIds[1], detector.getClusterId(ChunkPosition(5, 5, "")))
-        assertEquals(clusterIds[2], detector.getClusterId(ChunkPosition(10, 9, "")))
-        assertEquals(clusterIds[2], detector.getClusterId(ChunkPosition(10, 10, "")))
+        assertEquals(clusterIds[0], detector.getClusterId(factionClaim(1, 1, "", 1)))
+        assertEquals(clusterIds[0], detector.getClusterId(factionClaim(2, 1, "", 1)))
+        assertEquals(clusterIds[1], detector.getClusterId(factionClaim(5, 5, "", 2)))
+        assertEquals(clusterIds[2], detector.getClusterId(factionClaim(10, 9, "", 3)))
+        assertEquals(clusterIds[2], detector.getClusterId(factionClaim(10, 10, "", 3)))
     }
 
 
@@ -222,12 +244,12 @@ class ClaimDetectorTest : ImprovedFactionsTest() {
             predeterminedIdGenerator(clusterIds)
         )
         // Insert positions with same id but different x and y
-        detector.insertFactionPosition(ChunkPosition(1, 1, ""), 1)
-        detector.insertFactionPosition(ChunkPosition(2, 2, ""), 2)
+        detector.insertFactionPosition(factionClaim(1, 1, "", 1), 1)
+        detector.insertFactionPosition(factionClaim(2, 2, "", 2), 2)
 
         // Assert your expectations
-        assertEquals(clusterIds[0], detector.getClusterId(ChunkPosition(1, 1, "")))
-        assertEquals(clusterIds[1], detector.getClusterId(ChunkPosition(2, 2, "")))
+        assertEquals(clusterIds[0], detector.getClusterId(factionClaim(1, 1, "", 1)))
+        assertEquals(clusterIds[1], detector.getClusterId(factionClaim(2, 2, "", 2)))
     }
 
     @Test
@@ -242,12 +264,12 @@ class ClaimDetectorTest : ImprovedFactionsTest() {
             predeterminedIdGenerator(clusterIds)
         )
         // Insert positions with different x, y, and id
-        detector.insertFactionPosition(ChunkPosition(0, 0, ""), 1)
-        detector.insertFactionPosition(ChunkPosition(1, 0, ""), 2)
+        detector.insertFactionPosition(factionClaim(0, 0, "", 1), 1)
+        detector.insertFactionPosition(factionClaim(1, 0, "", 2), 2)
 
         // Assert your expectations
-        assertEquals(clusterIds[0], detector.getClusterId(ChunkPosition(0, 0, "")))
-        assertEquals(clusterIds[1], detector.getClusterId(ChunkPosition(1, 0, "")))
+        assertEquals(clusterIds[0], detector.getClusterId(factionClaim(0, 0, "", 1)))
+        assertEquals(clusterIds[1], detector.getClusterId(factionClaim(1, 0, "", 2)))
     }
 
     @Test
@@ -292,10 +314,10 @@ class ClaimDetectorTest : ImprovedFactionsTest() {
 
         assertEquals(2, detector.clusters.size)
 
-        detector.removeCluster(clusterIds[0])
+        detector.deleteCluster(clusterIds[0])
         assertEquals(1, detector.clusters.size)
 
-        detector.insertFactionPosition(ChunkPosition(4, 4, ""), 1)
+        detector.insertFactionPosition(factionClaim(4, 4, "", 1), 1)
         assertEquals(2, detector.clusters.size)
     }
 
@@ -314,8 +336,8 @@ class ClaimDetectorTest : ImprovedFactionsTest() {
 
         val detector = ClaimClusterDetector(DummyClaimQueryProvider(factionPositions))
         detector.detectClusters()
-        val cluster = detector.clusters.values.first()
-        val outerNodes = cluster.getOuterNodes()
+        val cluster = detector.clusters.first()
+        val outerNodes = transaction { cluster.getOuterNodes() }
 
         kotlin.test.assertEquals(2, outerNodes.size)
         kotlin.test.assertEquals(5, outerNodes[0].size)
@@ -339,8 +361,8 @@ class ClaimDetectorTest : ImprovedFactionsTest() {
             ), outerNodes[1]
         )
 
-        detector.insertFactionPosition(ChunkPosition(1, 1, ""), 1)
-        val updatedOuterNodes = detector.clusters.values.first().getOuterNodes()
+        detector.insertFactionPosition(factionClaim(1, 1, "", 1), 1)
+        val updatedOuterNodes = transaction { detector.clusters.first().getOuterNodes() }
 
         kotlin.test.assertEquals(1, updatedOuterNodes.size)
         kotlin.test.assertEquals(5, updatedOuterNodes[0].size)
@@ -368,8 +390,8 @@ class ClaimDetectorTest : ImprovedFactionsTest() {
 
         val detector = ClaimClusterDetector(DummyClaimQueryProvider(factionPositions))
         detector.detectClusters()
-        val cluster = detector.clusters.values.first()
-        val outerNodes = cluster.getOuterNodes()
+        val cluster = detector.clusters.first()
+        val outerNodes = transaction { cluster.getOuterNodes() }
 
         outerNodes[0].forEach { println(it) }
         kotlin.test.assertEquals(1, outerNodes.size)
@@ -395,19 +417,39 @@ class ClaimDetectorTest : ImprovedFactionsTest() {
         var index = 0
         return { ids[index++] }
     }
-}
 
-class DummyClaimQueryProvider(private val positions: List<Pair<ChunkPosition, Int>>) : ClaimQueryProvider {
-    private val positionsOnly = positions.map { it.first }
+    private fun factionClaim(x: Int, y: Int, world: String, id: Int): FactionClaim {
+        return transaction {
+            testFaction(id = id)
+            getFactionClaim(x, y, world) ?: FactionClaim.new {
+                chunkX = x
+                chunkZ = y
+                this.world = world
+                factionId = id
+            }
+        }
+    }
 
-    override fun queryNeighbours(position: ChunkPosition) = listOf(
-        ChunkPosition(position.x + 1, position.y, position.world),
-        ChunkPosition(position.x - 1, position.y, position.world),
-        ChunkPosition(position.x, position.y + 1, position.world),
-        ChunkPosition(position.x, position.y - 1, position.world)
-    ).filter { it in positionsOnly }
+    private fun factionClaim(pair: Pair<ChunkPosition, Int>): FactionClaim {
+        val (c, id) = pair
+        return transaction { factionClaim(c.x, c.y, c.world, id) }
+    }
 
-    override fun allFactionPositions() = positions
+    inner class DummyClaimQueryProvider(positions: List<Pair<ChunkPosition, Int>>) : ClaimQueryProvider {
+        private val positionsOnly = positions.map { it.first }
+        private val factionClaims = transaction {
+            positions.map { (chunk, id) -> factionClaim(chunk.x, chunk.y, chunk.world, id) to id }
+        }
 
-    override fun allZonePositions(): List<Pair<ChunkPosition, String>> = emptyList()
+        override fun queryNeighbours(claim: FactionClaim) = listOf(
+            ChunkPosition(claim.chunkX + 1, claim.chunkZ, claim.world),
+            ChunkPosition(claim.chunkX - 1, claim.chunkZ, claim.world),
+            ChunkPosition(claim.chunkX, claim.chunkZ + 1, claim.world),
+            ChunkPosition(claim.chunkX, claim.chunkZ - 1, claim.world)
+        ).filter { it in positionsOnly }.mapNotNull { it.getFactionClaim() }
+
+        override fun allFactionPositions() = factionClaims
+
+        override fun allZonePositions(): List<Pair<FactionClaim, String>> = emptyList()
+    }
 }

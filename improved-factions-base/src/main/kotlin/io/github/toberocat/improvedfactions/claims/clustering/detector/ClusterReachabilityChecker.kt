@@ -1,4 +1,6 @@
-package io.github.toberocat.improvedfactions.claims.clustering
+package io.github.toberocat.improvedfactions.claims.clustering.detector
+
+import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
 
 class ClusterReachabilityChecker(private val positions: Set<ChunkPosition>) {
     private val visited = mutableSetOf<ChunkPosition>()

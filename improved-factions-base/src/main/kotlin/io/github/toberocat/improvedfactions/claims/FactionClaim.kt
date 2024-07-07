@@ -1,8 +1,9 @@
 package io.github.toberocat.improvedfactions.claims
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.claims.clustering.FactionCluster
-import io.github.toberocat.improvedfactions.claims.clustering.ChunkPosition
+import io.github.toberocat.improvedfactions.claims.clustering.cluster.Cluster
+import io.github.toberocat.improvedfactions.claims.clustering.cluster.FactionCluster
+import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
 import io.github.toberocat.improvedfactions.claims.overclaim.ClaimSiegeManager
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.user.noFactionId
@@ -24,6 +25,7 @@ class FactionClaim(id: EntityID<Int>) : IntEntity(id) {
     var chunkZ by FactionClaims.chunkZ
     var factionId by FactionClaims.factionId
     var zoneType by FactionClaims.zoneType
+    var claimCluster by Cluster optionalReferencedOn FactionClaims.clusterId
 
     fun faction(): Faction? = Faction.findById(factionId)
 
@@ -43,7 +45,11 @@ class FactionClaim(id: EntityID<Int>) : IntEntity(id) {
     fun chunk() = Bukkit.getWorld(world)?.getChunkAt(chunkX, chunkZ)
     fun toPosition() = ChunkPosition(chunkX, chunkZ, world)
 
-    private fun getCluster() = ImprovedFactionsPlugin.instance.claimChunkClusters.getCluster(toPosition())
+    private fun getCluster() = ImprovedFactionsPlugin.instance.claimChunkClusters.getCluster(this)
 
-    fun isRaidable() = (getCluster() as? FactionCluster)?.isUnprotected(chunkX, chunkZ, world)
+    fun isRaidable() = (getCluster()?.findAdditionalType() as? FactionCluster)?.isUnprotected(chunkX, chunkZ, world)
+    override fun toString(): String {
+        return "FactionClaim(world='$world', chunkX=$chunkX, chunkZ=$chunkZ, factionId=$factionId, zoneType='$zoneType', claimCluster=${claimCluster?.id?.value})"
+    }
+
 }
