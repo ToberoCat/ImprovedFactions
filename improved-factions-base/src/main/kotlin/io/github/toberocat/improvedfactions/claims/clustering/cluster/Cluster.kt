@@ -66,7 +66,7 @@ class Cluster(id: EntityID<UUID>) : UUIDEntity(id) {
     fun getColor() = findAdditionalType()?.getColor() ?: 0xffffff
 
     fun updateCluster() {
-        centerLazyUpdate = true
+        center.scheduleUpdate()
         outerNodes.scheduleUpdate()
         findAdditionalType()?.scheduleUpdate()
         DynmapModule.dynmapModule().dynmapModuleHandle.clusterChange(this)
