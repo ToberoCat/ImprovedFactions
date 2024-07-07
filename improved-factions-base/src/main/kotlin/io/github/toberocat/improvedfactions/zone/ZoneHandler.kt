@@ -53,7 +53,7 @@ object ZoneHandler {
     fun unclaim(chunk: Chunk) {
         chunk.getFactionClaim()?.let {
             it.zoneType = FACTION_ZONE_TYPE
-            ImprovedFactionsPlugin.instance.claimChunkClusters.removePosition(it.toPosition())
+            ImprovedFactionsPlugin.instance.claimChunkClusters.removePosition(it)
         }
     }
 }

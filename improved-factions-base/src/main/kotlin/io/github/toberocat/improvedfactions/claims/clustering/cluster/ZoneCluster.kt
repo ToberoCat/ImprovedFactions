@@ -1,10 +1,15 @@
 package io.github.toberocat.improvedfactions.claims.clustering.cluster
 
-import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
 import io.github.toberocat.improvedfactions.zone.ZoneHandler
-import java.util.*
+import org.jetbrains.exposed.dao.IntEntity
+import org.jetbrains.exposed.dao.IntEntityClass
+import org.jetbrains.exposed.dao.id.EntityID
 
-class ZoneCluster(val zoneType: String, id: UUID, positions: MutableSet<ChunkPosition>) : Cluster(id, positions) {
+class ZoneCluster(id: EntityID<Int>) : IntEntity(id), AdditionalClusterType {
+    companion object : IntEntityClass<ZoneCluster>(ZoneClusters)
+
+    var zoneType by ZoneClusters.zoneType
+
     override fun scheduleUpdate() = Unit
-    override fun getColor(): Int = ZoneHandler.getZone(zoneType)?.mapColor ?: 0xffffff
+    override fun getColor() = ZoneHandler.getZone(zoneType)?.mapColor
 }

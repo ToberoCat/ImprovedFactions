@@ -1,7 +1,5 @@
 package io.github.toberocat.improvedfactions.claims.clustering.position
 
-import io.github.toberocat.improvedfactions.claims.FactionClaim
-import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
 import org.bukkit.Bukkit
 

@@ -234,11 +234,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
 
         factionClaim.factionId = factionId
         ImprovedFactionsPlugin.instance.claimChunkClusters.insertFactionPosition(
-            ChunkPosition(
-                chunk.x,
-                chunk.z,
-                chunk.world.name
-            ),
+            factionClaim,
             id.value
         )
 
@@ -265,13 +261,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         val claim = chunk.getFactionClaim()
         if (claim == null || claim.factionId != id.value) throw FactionDoesntHaveThisClaimException()
         claim.factionId = noFactionId
-        ImprovedFactionsPlugin.instance.claimChunkClusters.removePosition(
-            ChunkPosition(
-                chunk.x,
-                chunk.z,
-                chunk.world.name
-            )
-        )
+        ImprovedFactionsPlugin.instance.claimChunkClusters.removePosition(claim)
         if (announce) {
             broadcast(
                 "base.faction.chunk-unclaimed", mapOf(

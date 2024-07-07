@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedfactions.claims
 
-import io.github.toberocat.improvedfactions.claims.clustering.Clusters
+import io.github.toberocat.improvedfactions.claims.clustering.cluster.Clusters
 import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import org.jetbrains.exposed.dao.id.IntIdTable
 

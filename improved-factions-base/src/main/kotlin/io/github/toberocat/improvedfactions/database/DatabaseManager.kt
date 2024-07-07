@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedfactions.database
 
 import io.github.toberocat.improvedfactions.claims.FactionClaims
-import io.github.toberocat.improvedfactions.claims.clustering.Clusters
+import io.github.toberocat.improvedfactions.claims.clustering.cluster.Clusters
 import io.github.toberocat.improvedfactions.factions.Factions
 import io.github.toberocat.improvedfactions.factions.ban.FactionBans
 import io.github.toberocat.improvedfactions.invites.FactionInvites

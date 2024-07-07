@@ -8,7 +8,6 @@ import io.github.toberocat.improvedfactions.unit.ImprovedFactionsTest
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.util.UUID
-import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
 class ClaimDetectorTest : ImprovedFactionsTest() {
@@ -292,7 +291,7 @@ class ClaimDetectorTest : ImprovedFactionsTest() {
 
         assertEquals(2, detector.clusters.size)
 
-        detector.removeCluster(clusterIds[0])
+        detector.deleteCluster(clusterIds[0])
         assertEquals(1, detector.clusters.size)
 
         detector.insertFactionPosition(ChunkPosition(4, 4, ""), 1)

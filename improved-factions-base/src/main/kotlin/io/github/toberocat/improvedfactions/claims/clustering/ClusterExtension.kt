@@ -7,5 +7,6 @@ import org.bukkit.entity.Player
 fun Player.getCurrentClusters(chunkRenderDistance: Int) = location.world?.name?.let { world ->
     ChunkPosition(location.chunk.x, location.chunk.z, world)
         .getNeighbours(chunkRenderDistance)
+        .mapNotNull { it.getFactionClaim() }
         .mapNotNull { ImprovedFactionsPlugin.instance.claimChunkClusters.getCluster(it) }
 } ?: emptyList()

@@ -16,8 +16,10 @@ import org.bukkit.entity.Player
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Listener
 
-abstract class ProtectionListener(protected val zoneType: String,
-                                  private val sendMessage: Boolean = true) : Listener {
+abstract class ProtectionListener(
+    protected val zoneType: String,
+    private val sendMessage: Boolean = true
+) : Listener {
     private val claimClusters = ImprovedFactionsPlugin.instance.claimChunkClusters
     abstract fun namespace(): String
 
@@ -41,8 +43,11 @@ abstract class ProtectionListener(protected val zoneType: String,
         if (claimedFaction == playerFaction && playerFaction != noFactionId)
             return@loggedTransaction
 
-        val cluster = claimClusters.getCluster(ChunkPosition(chunk.x, chunk.z, claim.world))
-        if (cluster is FactionCluster && cluster.isUnprotected(chunk.x, chunk.z, chunk.world.name))
+        val isRaidable = ChunkPosition(chunk.x, chunk.z, claim.world).getFactionClaim()
+            ?.let { claimClusters.getCluster(it) }
+            ?.let { it.findAdditionalType() as? FactionCluster }?.isUnprotected(chunk.x, chunk.z, chunk.world.name)
+            ?: false
+        if (isRaidable)
             return@loggedTransaction
 
         event.isCancelled = true

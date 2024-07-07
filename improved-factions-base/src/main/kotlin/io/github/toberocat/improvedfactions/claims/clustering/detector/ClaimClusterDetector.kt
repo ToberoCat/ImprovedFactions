@@ -1,14 +1,15 @@
 package io.github.toberocat.improvedfactions.claims.clustering.detector
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.claims.clustering.DBCluster
+import io.github.toberocat.improvedfactions.claims.FactionClaim
+import io.github.toberocat.improvedfactions.claims.clustering.ClusterType
 import io.github.toberocat.improvedfactions.claims.clustering.cluster.Cluster
 import io.github.toberocat.improvedfactions.claims.clustering.cluster.FactionCluster
 import io.github.toberocat.improvedfactions.claims.clustering.cluster.ZoneCluster
-import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
 import io.github.toberocat.improvedfactions.claims.clustering.query.ClaimQueryProvider
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
+import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import java.util.*
 import kotlin.concurrent.thread
@@ -17,9 +18,6 @@ class ClaimClusterDetector(
     private val queryProvider: ClaimQueryProvider,
     private val generateClusterId: () -> UUID = UUID::randomUUID
 ) {
-    val _clusterMap = mutableMapOf<ChunkPosition, UUID>()
-    val _clusters = mutableMapOf<UUID, Cluster>()
-
     fun detectClusters() {
         ImprovedFactionsPlugin.instance.logger.info("[detector] Detecting clusters...")
 
@@ -36,127 +34,137 @@ class ClaimClusterDetector(
         ImprovedFactionsPlugin.instance.logger.info("[detector] All done!")
     }
 
-    fun insertFactionPosition(position: ChunkPosition, factionId: Int) {
-        insertPosition(position, neighboursProvider = {
-            getMatchingClusters(position) { id ->
-                val factionCluster = clusters[id] as? FactionCluster ?: return@getMatchingClusters false
-                return@getMatchingClusters factionCluster.factionId == factionId
+    fun insertFactionPosition(claim: FactionClaim, factionId: Int) {
+        insertPosition(claim, neighboursProvider = {
+            getMatchingClusters(claim) { id ->
+                val cluster = Cluster.findById(id)?.findAdditionalType() as? FactionCluster
+                    ?: return@getMatchingClusters false
+                return@getMatchingClusters cluster.faction.id.value == factionId
             }
-        }) { id, positions -> FactionCluster(factionId, id, positions) }
+        }) { id, claims ->
+            val factionAdditional = FactionCluster.new {
+                this.faction =
+                    FactionHandler.getFaction(factionId) ?: throw IllegalArgumentException("Faction not found")
+            }
+            Cluster.new(id) {
+                type = ClusterType.FACTION
+                typeReferenceId = factionAdditional.id.value
+                world = claims.first().world
+            }.addAll(claims)
+        }
     }
 
-    fun insertZonePosition(position: ChunkPosition, zoneType: String) {
-        insertPosition(position, neighboursProvider = {
-            getMatchingClusters(position) { id ->
-                val zoneCluster = clusters[id] as? ZoneCluster ?: return@getMatchingClusters false
-                return@getMatchingClusters zoneCluster.zoneType == zoneType
+    fun insertZonePosition(claim: FactionClaim, zoneType: String) {
+        insertPosition(claim, neighboursProvider = {
+            getMatchingClusters(claim) { id ->
+                val cluster = Cluster.findById(id)?.findAdditionalType() as? ZoneCluster
+                    ?: return@getMatchingClusters false
+                return@getMatchingClusters cluster.zoneType == zoneType
             }
-        }) { id, positions -> ZoneCluster(zoneType, id, positions) }
+        }) { id, claims ->
+            val zone = zoneType
+            val zoneAdditional = ZoneCluster.new {
+                this.zoneType = zone
+            }
+            Cluster.new(id) {
+                type = ClusterType.ZONE
+                typeReferenceId = zoneAdditional.id.value
+                world = claims.first().world
+            }.addAll(claims)
+        }
     }
 
-    fun markFactionClusterForUpdate(faction: Faction) = clusters.values
-        .mapNotNull { it as? FactionCluster }
-        .filter { it.factionId == faction.id.value }
-        .forEach(Cluster::scheduleUpdate)
+    fun markFactionClusterForUpdate(faction: Faction) {
+        faction.claims()
+            .mapNotNull { it.claimCluster }
+            .distinctBy { it.id.value }
+            .forEach { it.updateCluster() }
+    }
 
-    fun removeFactionClusters(faction: Faction) = clusters
-        .map { it.key to it.value as? FactionCluster }
-        .filter { it.second?.factionId == faction.id.value }
-        .forEach { removeCluster(it.first) }
+    fun removeFactionClusters(faction: Faction) {
+        faction.claims()
+            .mapNotNull { it.claimCluster }
+            .distinctBy { it.id.value }
+            .forEach { it.delete() }
+    }
 
-    fun getClusterId(position: ChunkPosition) = clusterMap[position]
+    fun getClusterId(claim: FactionClaim) = claim.claimCluster?.id?.value
 
-    fun getCluster(position: ChunkPosition) = getClusterId(position)?.let { getCluster(it) }
+    fun getCluster(claim: FactionClaim) = claim.claimCluster
 
-    fun removePosition(position: ChunkPosition) {
+    fun removePosition(claim: FactionClaim) {
         loggedTransaction {
-            val claim = position.getFactionClaim()
-            val cluster = claim?.cluster ?: return@loggedTransaction
-        }
-        val cluster = clusters[clusterIndex]?.also { it.removeAll(setOf(position)) }
-            ?: throw IllegalArgumentException()
-        clusterMap.remove(position)
-        DynmapModule.dynmapModule().dynmapModuleHandle.removePosition(position)
+            val cluster = claim.claimCluster ?: return@loggedTransaction
+            cluster.removeAll(setOf(claim))
+            DynmapModule.dynmapModule().dynmapModuleHandle.removeClaim(claim)
 
-        val unreachablePositions = ClusterReachabilityChecker(cluster.getReadOnlyPositions()).getUnreachablePositions()
-        if (unreachablePositions.isEmpty())
-            return
+            val unreachablePositions = ClusterReachabilityChecker(cluster.getClaims().map { it.toPosition() }.toSet())
+                .getUnreachablePositions()
+                .mapNotNull { it.getFactionClaim() }
+                .toSet()
+            if (unreachablePositions.isEmpty())
+                return@loggedTransaction
 
-        cluster.removeAll(unreachablePositions)
-        if (cluster.isEmpty())
-            clusterIndex?.let { rawRemoveCluster(it) }
+            cluster.removeAll(unreachablePositions)
+            when (cluster.type) {
+                ClusterType.FACTION -> {
+                    val factionId = (cluster.findAdditionalType() as? FactionCluster)?.faction?.id?.value
+                        ?: throw IllegalArgumentException("Faction claim not actually a faction claim")
+                    unreachablePositions.forEach { insertFactionPosition(it, factionId) }
+                }
 
-        unreachablePositions.forEach(clusterMap::remove)
-
-        when (cluster) {
-            is FactionCluster -> unreachablePositions.forEach { insertFactionPosition(it, cluster.factionId) }
-            is ZoneCluster -> unreachablePositions.forEach { insertZonePosition(it, cluster.zoneType) }
-            else -> throw IllegalArgumentException("Unknown cluster type")
+                ClusterType.ZONE -> {
+                    val zoneType = (cluster.findAdditionalType() as? ZoneCluster)?.zoneType
+                        ?: throw IllegalArgumentException("Faction claim not actually a zone type claim")
+                    unreachablePositions.forEach { insertZonePosition(it, zoneType) }
+                }
+            }
         }
     }
 
-    fun removeCluster(clusterId: UUID) {
-        clusters[clusterId]?.getReadOnlyPositions()?.forEach(clusterMap::remove)
-        rawRemoveCluster(clusterId)
+    fun deleteCluster(clusterId: UUID) {
+        Cluster.findById(clusterId)?.delete()
     }
 
-    private fun getCluster(clusterId: UUID) = clusters.getOrDefault(clusterId, null)
+    private fun getCluster(clusterId: UUID) = Cluster.findById(clusterId)
 
-    private fun getMatchingClusters(position: ChunkPosition, matchCondition: (uuid: UUID) -> Boolean) =
+    private fun getMatchingClusters(position: FactionClaim, matchCondition: (uuid: UUID) -> Boolean) =
         queryProvider.queryNeighbours(position)
-            .mapNotNull { clusterMap.getOrDefault(it, null) }
+            .mapNotNull { it.claimCluster?.id?.value }
             .filter { matchCondition(it) }
 
-    private fun createNewCluster(
-        position: ChunkPosition,
-        clusterGenerator: (UUID, MutableSet<ChunkPosition>) -> Cluster
-    ) {
-        val clusterId = generateClusterId()
-        val positions = mutableSetOf(position)
 
-        clusterMap[position] = clusterId
-        when (clusterId) {
-            in clusters -> clusters[clusterId]?.addAll(positions)
-            else -> clusters[clusterId] = clusterGenerator(clusterId, positions)
-        }
-    }
-
-    private fun assignToCluster(positions: Set<ChunkPosition>, clusterId: UUID) {
-        clusters[clusterId]?.addAll(positions)
-        positions.forEach { clusterMap[it] = clusterId }
+    private fun assignToCluster(claims: Set<FactionClaim>, clusterId: UUID) {
+        Cluster.findById(clusterId)?.addAll(claims)
     }
 
     private fun mergeClusters(
         clusterIds: List<UUID>,
-        clusterGenerator: (UUID, MutableSet<ChunkPosition>) -> Cluster
+        clusterGenerator: (UUID, Set<FactionClaim>) -> Unit
     ) {
-        val newClusterPositions = clusterIds.flatMap { clusters[it]?.getReadOnlyPositions() ?: emptyList() }
-        clusterIds.forEach { rawRemoveCluster(it) }
+        val newClusterPositions = clusterIds.flatMap { Cluster.findById(it)?.getClaims() ?: emptyList() }
+        clusterIds.forEach { deleteCluster(it) }
         val newId = clusterIds[0]
-        clusters[newId] = clusterGenerator(newId, newClusterPositions.toMutableSet())
+        clusterGenerator(newId, newClusterPositions.toSet())
         assignToCluster(newClusterPositions.toSet(), newId)
     }
 
     private fun insertPosition(
-        position: ChunkPosition,
+        claim: FactionClaim,
         neighboursProvider: () -> List<UUID>,
-        createNewCluster: (UUID, MutableSet<ChunkPosition>) -> Cluster
+        generator: (UUID, Set<FactionClaim>) -> Unit
     ) {
-        if (position in clusterMap)
+        if (claim.claimCluster != null)
             throw IllegalArgumentException("Position already exists in the cluster map")
 
         val neighborClusters = neighboursProvider()
         when {
-            neighborClusters.isEmpty() -> createNewCluster(position, createNewCluster)
-            neighborClusters.size == 1 -> assignToCluster(setOf(position), neighborClusters[0])
+            neighborClusters.isEmpty() -> generator(generateClusterId(), setOf(claim))
+            neighborClusters.size == 1 -> assignToCluster(setOf(claim), neighborClusters[0])
             else -> {
-                assignToCluster(setOf(position), neighborClusters[0])
-                mergeClusters(neighborClusters, createNewCluster)
+                assignToCluster(setOf(claim), neighborClusters[0])
+                mergeClusters(neighborClusters, generator)
             }
         }
-    }
-
-    private fun rawRemoveCluster(clusterId: UUID) {
-        clusters.remove(clusterId)?.let(DynmapModule.dynmapModule().dynmapModuleHandle::clusterRemove)
     }
 }

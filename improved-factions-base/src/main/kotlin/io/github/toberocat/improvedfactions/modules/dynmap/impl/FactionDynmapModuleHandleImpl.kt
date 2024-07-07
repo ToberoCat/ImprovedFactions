@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.modules.dynmap.impl
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.claims.FactionClaim
 import io.github.toberocat.improvedfactions.claims.clustering.cluster.Cluster
 import io.github.toberocat.improvedfactions.claims.clustering.cluster.FactionCluster
 import io.github.toberocat.improvedfactions.claims.clustering.cluster.ZoneCluster
@@ -67,14 +68,14 @@ class FactionDynmapModuleHandleImpl(
     }
 
     override fun clusterChange(cluster: Cluster) {
-        if (cluster is ZoneCluster && !config.showZones)
+        if (cluster.findAdditionalType() is ZoneCluster && !config.showZones)
                 return
 
         var generatedColor: Int? = null
-        var name = "Unknown"
+        var name: String
         var labelTransformer: (input: String) -> String = { it }
-        when (cluster) {
-            is FactionCluster -> FactionHandler.getFaction(cluster.factionId)?.run {
+        when (val additionalType = cluster.findAdditionalType()) {
+            is FactionCluster -> additionalType.faction.run {
                 generatedColor = generateColor()
                 name = this.name
                 labelTransformer = {
@@ -83,14 +84,14 @@ class FactionDynmapModuleHandleImpl(
                 }
             }
 
-            is ZoneCluster -> name = cluster.zoneType
+            is ZoneCluster -> name = additionalType.zoneType
             else -> throw IllegalArgumentException("Unknown cluster type")
         }
 
-        clusterPolylineMarkers[cluster.id]?.forEach { set.findPolyLineMarker(it)?.deleteMarker() }
+        clusterPolylineMarkers[cluster.id.value]?.forEach { set.findPolyLineMarker(it)?.deleteMarker() }
         cluster.getOuterNodes().forEachIndexed { index, worldPositions ->
             val markerId = "${cluster.id}-$index"
-            clusterPolylineMarkers.computeIfAbsent(cluster.id) { mutableSetOf() }.add(markerId)
+            clusterPolylineMarkers.computeIfAbsent(cluster.id.value) { mutableSetOf() }.add(markerId)
             addPolylineMarker(
                 name,
                 markerId,
@@ -99,16 +100,16 @@ class FactionDynmapModuleHandleImpl(
             )
         }
 
-        cluster.getReadOnlyPositions().forEach { addAreaMarker(name, it, generatedColor, labelTransformer) }
+        cluster.getClaims().forEach { addAreaMarker(name, it, generatedColor, labelTransformer) }
     }
 
     override fun clusterRemove(cluster: Cluster) {
-        clusterPolylineMarkers[cluster.id]?.forEach { set.findPolyLineMarker(it)?.deleteMarker() }
-        clusterPolylineMarkers.remove(cluster.id)
+        clusterPolylineMarkers[cluster.id.value]?.forEach { set.findPolyLineMarker(it)?.deleteMarker() }
+        clusterPolylineMarkers.remove(cluster.id.value)
     }
 
-    override fun removePosition(position: ChunkPosition) {
-        set.findAreaMarker(position.uniquId())?.deleteMarker()
+    override fun removeClaim(position: FactionClaim) {
+        set.findAreaMarker(position.toPosition().uniquId())?.deleteMarker()
     }
 
     private fun getColor(name: String, overrideColor: Int? = null): DynmapColorConfig? {
@@ -121,14 +122,14 @@ class FactionDynmapModuleHandleImpl(
 
     private fun addAreaMarker(
         name: String,
-        position: ChunkPosition,
+        position: FactionClaim,
         color: Int? = null,
         transformer: (input: String) -> String,
     ) {
-        val worldX = position.x * 16.0
-        val worldZ = position.y * 16.0
+        val worldX = position.chunkX * 16.0
+        val worldZ = position.chunkZ * 16.0
         val label = transformer(config.infoWindows[name] ?: config.infoWindows["__default__"] ?: name)
-        val markerId = position.uniquId()
+        val markerId = position.toPosition().uniquId()
         val marker = set.findAreaMarker(markerId) ?: set.createAreaMarker(
             markerId,
             label,
