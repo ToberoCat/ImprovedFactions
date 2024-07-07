@@ -2,6 +2,7 @@ package io.github.toberocat.improvedfactions.claims.clustering.detector
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.FactionClaim
+import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.claims.clustering.ClusterType
 import io.github.toberocat.improvedfactions.claims.clustering.cluster.Cluster
 import io.github.toberocat.improvedfactions.claims.clustering.cluster.FactionCluster
@@ -11,6 +12,7 @@ import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTrans
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.util.*
 import kotlin.concurrent.thread
@@ -24,17 +26,17 @@ class ClaimClusterDetector(
 
     fun detectClusters() {
         ImprovedFactionsPlugin.instance.logger.info("[detector] Detecting clusters...")
-
-        val job = thread {
-            queryProvider.allFactionPositions()
-                .forEach { (position, factionId) -> insertFactionPosition(position, factionId) }
-            ImprovedFactionsPlugin.instance.logger.info("[detector] Finished loading faction positions.")
+        if (transaction { FactionClaim.count(FactionClaims.clusterId eq null) == 0L }) {
+            ImprovedFactionsPlugin.instance.logger.info("[detector] No Faction claimed detected that have missing clusters...")
+            return
         }
 
+        queryProvider.allFactionPositions()
+            .forEach { (position, factionId) -> insertFactionPosition(position, factionId) }
+        ImprovedFactionsPlugin.instance.logger.info("[detector] Finished loading faction positions.")
         queryProvider.allZonePositions()
             .forEach { (position, zoneType) -> insertZonePosition(position, zoneType) }
         ImprovedFactionsPlugin.instance.logger.info("[detector] Finished loading zone positions.")
-        job.join()
         ImprovedFactionsPlugin.instance.logger.info("[detector] All done!")
     }
 
@@ -168,8 +170,12 @@ class ClaimClusterDetector(
         neighboursProvider: () -> List<UUID>,
         generator: (UUID, Set<FactionClaim>) -> Unit
     ) {
-        if (claim.claimCluster != null)
-            throw IllegalArgumentException("Position already exists in the cluster map")
+        if (claim.claimCluster != null) {
+            ImprovedFactionsPlugin.instance.logger.warning("Chunk at X: ${claim.chunkX}, Y: ${claim.chunkZ}, " +
+                    "World: ${claim.world} for faction ${claim.factionId} was not able to get clustered.")
+            return
+        }
+
 
         val neighborClusters = neighboursProvider()
         when {
