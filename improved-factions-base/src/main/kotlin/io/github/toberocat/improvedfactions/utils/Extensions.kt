@@ -26,7 +26,4 @@ fun String.hasOfflinePlayerByName() = loggedTransaction {
     KnownOfflinePlayer.count(KnownOfflinePlayers.name eq this@hasOfflinePlayerByName) > 0
 }
 
-fun String.getOfflinePlayerByName() = loggedTransaction {
-    KnownOfflinePlayer.find { KnownOfflinePlayers.name eq this@getOfflinePlayerByName }
-        .firstOrNull()?.id?.value
-}?.let { Bukkit.getOfflinePlayer(it) }
+fun String.getOfflinePlayerByName() = Bukkit.getOfflinePlayers().find { it.name == this@getOfflinePlayerByName };
