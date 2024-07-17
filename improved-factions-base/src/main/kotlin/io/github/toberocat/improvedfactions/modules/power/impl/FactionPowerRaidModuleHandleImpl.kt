@@ -96,7 +96,7 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
         Faction.all().forEach {
             it.setAccumulatedPower(
                 it.accumulatedPower + getPowerAccumulated(it).toInt(),
-                PowerAccumulationChangeReason.PASSIV_ENERGY_ACCUMULATION
+                PowerAccumulationChangeReason.PASSIVE_ENERGY_ACCUMULATION
             )
         }
     }
