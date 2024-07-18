@@ -27,19 +27,14 @@ fun String.hasOfflinePlayerByName() = loggedTransaction {
     KnownOfflinePlayer.count(KnownOfflinePlayers.name eq this@hasOfflinePlayerByName) > 0
 }
 
-fun String.getOfflinePlayerByName(): OfflinePlayer? {
-    val player = Bukkit.getPlayer(this@getOfflinePlayerByName);
-    if (player == null) { /* Checking if Player is online, so that it uses this instead of possibly looping through a lot of players in online mode */
-        val knownPlayerUUID = UUID.nameUUIDFromBytes(
-            String.format("OfflinePlayer:%s", this@getOfflinePlayerByName)
-                .toByteArray(StandardCharsets.UTF_8)
-        );
-        return if (Bukkit.getOfflinePlayer(knownPlayerUUID).name != null) {
-            Bukkit.getOfflinePlayer(knownPlayerUUID);
-        } else { /* Fallback to Bukkit API if provided UUID is incorrect thus returning null. */
-            Bukkit.getOfflinePlayers().find { it.name == this@getOfflinePlayerByName };
-        }
-    } else {
-        return Bukkit.getOfflinePlayer(player.uniqueId);
+fun String.getOfflinePlayerByName() = loggedTransaction {
+    val knownPlayerUUID = KnownOfflinePlayer.find { KnownOfflinePlayers.name eq this@getOfflinePlayerByName }
+        .firstOrNull()?.id?.value;
+    return@loggedTransaction if (knownPlayerUUID?.let { Bukkit.getOfflinePlayer(it).name } != null) {
+        ImprovedFactionsPlugin.instance.logger.info("[OfflinePlayers] KnownPlayerUUID found.")
+        Bukkit.getOfflinePlayer(knownPlayerUUID);
+    } else { /* Fallback to Bukkit API if provided UUID is incorrect thus returning null. */
+        ImprovedFactionsPlugin.instance.logger.info("[OfflinePlayers] KnownPlayerUUID null, fell back to Bukkit " + knownPlayerUUID.toString())
+        Bukkit.getOfflinePlayers().find { it.name == this@getOfflinePlayerByName };
     }
 }

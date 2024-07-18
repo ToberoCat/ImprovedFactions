@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedfactions.listeners
 
+import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.utils.offline.KnownOfflinePlayer
 import org.bukkit.entity.Player
@@ -20,7 +21,9 @@ class PlayerJoinListener : Listener {
                 return@loggedTransaction
             }
 
-            KnownOfflinePlayer.new {
+            ImprovedFactionsPlugin.instance.logger.info("[OfflinePlayers] Created new offline data " + player.uniqueId)
+
+            KnownOfflinePlayer.new(player.uniqueId) {
                 name = player.name
             }
         }
