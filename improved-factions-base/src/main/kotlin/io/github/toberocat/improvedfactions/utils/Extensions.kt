@@ -12,6 +12,7 @@ import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import java.util.*
+import java.nio.charset.StandardCharsets;
 import kotlin.reflect.full.findAnnotations
 
 inline fun <T, R> T.compute(computeBlock: (T) -> R) = computeBlock(this)
@@ -27,6 +28,13 @@ fun String.hasOfflinePlayerByName() = loggedTransaction {
 }
 
 fun String.getOfflinePlayerByName() = loggedTransaction {
-    KnownOfflinePlayer.find { KnownOfflinePlayers.name eq this@getOfflinePlayerByName }
-        .firstOrNull()?.id?.value
-}?.let { Bukkit.getOfflinePlayer(it) }
+    val knownPlayerUUID = KnownOfflinePlayer.find { KnownOfflinePlayers.name eq this@getOfflinePlayerByName }
+        .firstOrNull()?.id?.value;
+    return@loggedTransaction if (knownPlayerUUID?.let { Bukkit.getOfflinePlayer(it).name } != null) {
+        ImprovedFactionsPlugin.instance.logger.fine("[OfflinePlayers] KnownPlayerUUID found.")
+        Bukkit.getOfflinePlayer(knownPlayerUUID);
+    } else { /* Fallback to Bukkit API if provided UUID is incorrect thus returning null. */
+        ImprovedFactionsPlugin.instance.logger.fine("[OfflinePlayers] KnownPlayerUUID null, fell back to Bukkit " + knownPlayerUUID.toString())
+        Bukkit.getOfflinePlayers().find { it.name == this@getOfflinePlayerByName };
+    }
+}

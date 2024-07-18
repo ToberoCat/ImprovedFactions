@@ -28,9 +28,9 @@ class InviteDiscardCommand(private val plugin: ImprovedFactionsPlugin) : PlayerS
     )
 
     override fun handle(player: Player, args: Array<out String>): Boolean {
-        val id = parseArgs(player, args).get<Int>(0) ?: return false
+        val inviteId = parseArgs(player, args).get<FactionInvite>(0) ?: return false
         loggedTransaction {
-            val invite = FactionInvite.findById(id) ?: throw CommandException(
+            val invite = FactionInvite.findById(inviteId.id) ?: throw CommandException(
                 "base.command.invitediscard.invalid-invite",
                 emptyMap()
             )

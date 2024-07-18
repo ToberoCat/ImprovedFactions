@@ -33,7 +33,7 @@ object FactionHandler {
 
             faction.defaultRank = ranks.firstOrNull()?.id?.value ?: FactionRankHandler.guestRankId
             faction.join(ownerId, ranks.lastOrNull()?.id?.value ?: FactionRankHandler.guestRankId)
-            faction.setAccumulatedPower(faction.maxPower, PowerAccumulationChangeReason.PASSIV_ENERGY_ACCUMULATION)
+            faction.setAccumulatedPower(faction.maxPower, PowerAccumulationChangeReason.PASSIVE_ENERGY_ACCUMULATION)
             return@loggedTransaction faction
         }
     }
