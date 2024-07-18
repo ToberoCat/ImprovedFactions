@@ -12,6 +12,7 @@ import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import java.util.*
+import java.nio.charset.StandardCharsets;
 import kotlin.reflect.full.findAnnotations
 
 inline fun <T, R> T.compute(computeBlock: (T) -> R) = computeBlock(this)
@@ -26,4 +27,19 @@ fun String.hasOfflinePlayerByName() = loggedTransaction {
     KnownOfflinePlayer.count(KnownOfflinePlayers.name eq this@hasOfflinePlayerByName) > 0
 }
 
-fun String.getOfflinePlayerByName() = Bukkit.getOfflinePlayers().find { it.name == this@getOfflinePlayerByName };
+fun String.getOfflinePlayerByName(): OfflinePlayer? {
+    val player = Bukkit.getPlayer(this@getOfflinePlayerByName);
+    if (player == null) { /* Checking if Player is online, so that it uses this instead of possibly looping through a lot of players in online mode */
+        val knownPlayerUUID = UUID.nameUUIDFromBytes(
+            String.format("OfflinePlayer:%s", this@getOfflinePlayerByName)
+                .toByteArray(StandardCharsets.UTF_8)
+        );
+        return if (Bukkit.getOfflinePlayer(knownPlayerUUID).name != null) {
+            Bukkit.getOfflinePlayer(knownPlayerUUID);
+        } else { /* Fallback to Bukkit API if provided UUID is incorrect thus returning null. */
+            Bukkit.getOfflinePlayers().find { it.name == this@getOfflinePlayerByName };
+        }
+    } else {
+        return Bukkit.getOfflinePlayer(player.uniqueId);
+    }
+}
