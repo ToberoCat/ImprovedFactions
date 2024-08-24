@@ -8,6 +8,7 @@ import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Companion.powerRaidModule
 import io.github.toberocat.improvedfactions.translation.getLocaleEnum
 import io.github.toberocat.improvedfactions.translation.localize
+import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.utils.toAudience
 import io.github.toberocat.toberocore.util.MathUtils
@@ -44,17 +45,25 @@ class ClaimSiegeManager(private val claim: FactionClaim) {
             return
         if (players.isEmpty() && player.factionUser().factionId == claim.factionId)
             return
+        if (players.isEmpty()) {
+            player.sendLocalized("power.siege.start")
+            return
+        }
 
-        players.add(player.uniqueId)
-        siegeProgressSpeed += if (isIntruder(player)) config.siegeBreachProgress else -config.siegeResistanceProgress
-        player.toAudience().showBossBar(getBossBar(player))
+        addPlayer(player)
+    }
 
-        getAssociatedFactions()
-            .flatMap { it.members().mapNotNull { user -> user.player() } }
-            .forEach { it.toAudience().showBossBar(getBossBar(it)) }
+    fun startSiege(player: Player) {
+        if (player.uniqueId in players)
+            return
+        if (players.isEmpty() && player.factionUser().factionId == claim.factionId)
+            return
+        if (players.isNotEmpty()) {
+            player.sendLocalized("power.siege.already-started")
+            return
+        }
 
-        if (players.size == 1)
-            startSiegeTask()
+        addPlayer(player)
     }
 
     fun leaveClaimCombat(player: Player) {
@@ -188,5 +197,18 @@ class ClaimSiegeManager(private val claim: FactionClaim) {
                     )
                 )
             }
+    }
+
+    private fun addPlayer(player: Player) {
+        players.add(player.uniqueId)
+        siegeProgressSpeed += if (isIntruder(player)) config.siegeBreachProgress else -config.siegeResistanceProgress
+        player.toAudience().showBossBar(getBossBar(player))
+
+        getAssociatedFactions()
+            .flatMap { it.members().mapNotNull { user -> user.player() } }
+            .forEach { it.toAudience().showBossBar(getBossBar(it)) }
+
+        if (players.size == 1)
+            startSiegeTask()
     }
 }

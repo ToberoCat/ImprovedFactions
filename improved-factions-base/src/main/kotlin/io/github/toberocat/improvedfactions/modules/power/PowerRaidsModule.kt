@@ -3,6 +3,7 @@ package io.github.toberocat.improvedfactions.modules.power
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.power.commands.PowerCommand
+import io.github.toberocat.improvedfactions.modules.power.commands.SiegeCommand
 import io.github.toberocat.improvedfactions.modules.power.config.PowerManagementConfig
 import io.github.toberocat.improvedfactions.modules.power.handles.DummyFactionPowerRaidModuleHandle
 import io.github.toberocat.improvedfactions.modules.power.handles.FactionPowerRaidModuleHandle
@@ -35,6 +36,7 @@ class PowerRaidsModule : BaseModule {
 
     override fun addCommands(plugin: ImprovedFactionsPlugin, executor: CommandExecutor) {
         executor.addChild(PowerCommand(plugin, powerModuleHandle as FactionPowerRaidModuleHandleImpl))
+        executor.addChild(SiegeCommand(plugin, powerModuleHandle as FactionPowerRaidModuleHandleImpl))
     }
 
     override fun onPapiPlaceholder(placeholders: HashMap<String, (player: OfflinePlayer) -> String?>) {
