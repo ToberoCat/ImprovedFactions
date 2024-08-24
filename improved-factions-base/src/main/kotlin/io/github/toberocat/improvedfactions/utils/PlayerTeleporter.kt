@@ -45,7 +45,9 @@ class PlayerTeleporter(
     }
 
     override fun cancel() {
-        teleportAnimation.cancel()
+        runCatching {
+            teleportAnimation.cancel()
+        }.onFailure { plugin.logger.warning("Failed to cancel teleport animation") }
         super.cancel()
     }
 
