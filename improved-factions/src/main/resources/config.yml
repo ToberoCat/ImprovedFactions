@@ -232,6 +232,8 @@ factions:
   chat:
     log-faction-chats-to-console: true # If set to true, all faction chats will be logged to the console
 
+  hide-wilderness-title: false # If set to true, the title will be hidden when a player leaves a claimed chunk into the wilderness
+
   # Whenever you change values in this section, you'll have issues with your database
   # Choose values that go for you and never touch them again
   unsafe:
