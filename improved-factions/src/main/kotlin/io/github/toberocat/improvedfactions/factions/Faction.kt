@@ -16,10 +16,12 @@ import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Compa
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
 import io.github.toberocat.improvedfactions.ranks.listRanks
 import io.github.toberocat.improvedfactions.translation.LocalizationKey
+import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.FactionUser
 import io.github.toberocat.improvedfactions.user.FactionUsers
 import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.user.noFactionId
+import io.github.toberocat.improvedfactions.utils.toOfflinePlayer
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.util.ItemUtils
 import io.github.toberocat.toberocore.util.MathUtils
@@ -215,7 +217,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
     fun claimSquare(
         centerChunk: Chunk,
         squareRadius: Int,
-        handleError: (e: CommandException) -> Unit
+        handleError: (e: CommandException) -> Unit,
     ): ClaimStatistics =
         squareClaimAction(centerChunk, squareRadius, { claim(it, announce = false) }, handleError)
 
@@ -305,6 +307,22 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
                 "player" to (Bukkit.getOfflinePlayer(player).name ?: "unknown")
             )
         )
+    }
+
+    fun transferOwnership(newOwner: UUID) {
+        val user = newOwner.factionUser()
+        if (user.factionId != id.value)
+            throw CommandException("base.exceptions.player-not-in-faction", emptyMap())
+        if (owner == newOwner)
+            throw CommandException("base.exceptions.player-already-owner", emptyMap())
+        owner = user.uniqueId
+
+        val previousOwner = owner.factionUser()
+        user.assignedRank = previousOwner.assignedRank
+        previousOwner.assignedRank = defaultRank
+
+        owner.toOfflinePlayer().sendLocalized("base.faction.transferowner.owner-transfered")
+        user.player()?.sendLocalized("base.faction.transferowner.youre-the-owner-now")
     }
 
     fun broadcast(key: LocalizationKey, placeholders: Map<String, String>) =

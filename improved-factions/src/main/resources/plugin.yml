@@ -30,6 +30,8 @@ permissions:
     default: true
   factions.inviteaccept:
     default: true
+  factions.siege:
+    default: true
   factions.leave:
     default: true
   factions.rename:
@@ -83,6 +85,12 @@ permissions:
   factions.force:
     default: op
   factions.force.join:
+    default: op
+  factions.force.leave:
+    default: op
+  factions.force.claim:
+    default: op
+  factions.force.info:
     default: op
   factions.force.unclaim:
     default: op

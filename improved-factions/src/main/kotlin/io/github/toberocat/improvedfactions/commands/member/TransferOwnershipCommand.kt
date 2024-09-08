@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.commands.member
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.FactionUser
@@ -33,22 +34,10 @@ class TransferOwnershipCommand(private val plugin: ImprovedFactionsPlugin) : Pla
     override fun arguments(): Array<Argument<*>> = arrayOf(
         FactionMemberArgument()
     )
+
     override fun handle(player: Player, args: Array<out String>): Boolean {
         val user = parseArgs(player, args).get<FactionUser>(0) ?: return false
-        if (user.factionId != player.factionUser().factionId)
-            throw CommandException("base.exceptions.player-not-in-faction", emptyMap())
-        if (user.faction()?.owner == player.uniqueId)
-            throw CommandException("base.exceptions.player-already-owner", emptyMap())
-        player.factionUser().faction()?.let {
-            it.owner = user.uniqueId
-
-            val previousOwner =  player.factionUser()
-            user.assignedRank = previousOwner.assignedRank
-            previousOwner.assignedRank = it.defaultRank
-        }
-
-        player.sendLocalized("base.commands.transferowner.owner-transfered")
-        user.player()?.sendLocalized("base.commands.transferowner.youre-the-owner-now")
+        loggedTransaction { player.factionUser().faction()?.transferOwnership(user.uniqueId) }
         return true
     }
 }
