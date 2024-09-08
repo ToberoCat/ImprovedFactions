@@ -32,7 +32,10 @@ open class ImprovedFactionsTest {
 
     fun createTestPlayer() = server.addPlayer().also { it.isOp = true }
 
-    fun testWorld() = WorldMock(Material.DIRT, 3)
+    fun testWorld(name: String? = null) = WorldMock(Material.DIRT, 3).also {
+        if (name != null) it.name = name
+        plugin.improvedFactionsConfig.allowedWorlds += it.name
+    }
 
     fun testFaction(owner: UUID = UUID.randomUUID(), id: Int? = null, vararg members: UUID): Faction {
         var faction = transaction { id?.let { FactionHandler.getFaction(it) } }

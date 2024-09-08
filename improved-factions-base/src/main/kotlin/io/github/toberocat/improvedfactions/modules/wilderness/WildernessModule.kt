@@ -12,7 +12,7 @@ class WildernessModule : BaseModule {
     private val wildernessConfig = WildernessModuleConfig()
 
     override fun reloadConfig(plugin: ImprovedFactionsPlugin) {
-        wildernessConfig.reload(plugin.config)
+        wildernessConfig.reload(plugin, plugin.config)
     }
 
     override fun addCommands(plugin: ImprovedFactionsPlugin, executor: CommandExecutor) {

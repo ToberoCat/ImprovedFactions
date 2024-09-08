@@ -26,7 +26,6 @@ class HomeCommandTest : ImprovedFactionsTest() {
 
         faction = testFaction(player1.uniqueId, members = arrayOf(player2.uniqueId))
         world = testWorld()
-        FactionClaims.allowedWorlds = setOf(world.name)
 
         chunk = world.getChunkAt(0, 0)
     }

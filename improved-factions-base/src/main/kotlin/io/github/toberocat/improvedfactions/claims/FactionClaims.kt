@@ -7,7 +7,6 @@ import org.jetbrains.exposed.dao.id.IntIdTable
 object FactionClaims : IntIdTable("faction_claims") {
     const val MAX_ZONE_NAME_LENGTH = 25
     private const val MAX_WORLD_NAME_LENGTH = 50
-    var allowedWorlds: Set<String> = emptySet()
 
     val chunkX = integer("chunk_x")
     val chunkZ = integer("chunk_z")

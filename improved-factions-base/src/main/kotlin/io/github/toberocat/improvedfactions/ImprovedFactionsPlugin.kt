@@ -129,6 +129,8 @@ open class ImprovedFactionsPlugin : JavaPlugin() {
 
     fun loadConfig() {
         improvedFactionsConfig = ImprovedFactionsConfig.createConfig(this)
+        improvedFactionsConfig.reload(this, config)
+
         Factions.maxNameLength = config.getInt("factions.unsafe.max-name-length", 36)
         Factions.maxIconLength = config.getInt("factions.unsafe.max-icon-length", 5000)
         Factions.maxSpacesInName = config.getInt("factions.max-spaces-in-name", 5)
@@ -145,14 +147,6 @@ open class ImprovedFactionsPlugin : JavaPlugin() {
         ClaimRadiusArgument.MAX_RADIUS = config.getInt("factions.max-claim-radius", 10)
         FactionMap.MAP_WIDTH = config.getInt("factions.map-width", FactionMap.MAP_WIDTH)
         FactionMap.MAP_HEIGHT = config.getInt("factions.map-height", FactionMap.MAP_HEIGHT)
-
-        var allowedWorlds = config.getStringList("whitelisted-worlds").toSet()
-        if (allowedWorlds.isEmpty()) {
-            logger.warning("No whitelisted worlds found in config. Allowing all worlds")
-            allowedWorlds = Bukkit.getWorlds().map { it.name }.toSet()
-        }
-
-        FactionClaims.allowedWorlds = allowedWorlds.subtract(config.getStringList("blacklisted-worlds").toSet())
 
         config.getConfigurationSection("zones")?.getKeys(false)?.let {
             it.forEach { zone ->
