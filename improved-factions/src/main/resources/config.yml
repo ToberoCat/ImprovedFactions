@@ -4,10 +4,10 @@
 update-checker: true
 config-version: 19
 
-# Configure a mysql connection. If no connection was established, the plugin uses sqlite.
+# Configure an mysql connection. If no connection was established, the plugin uses sqlite.
 # This allows to use this plugin without a mysql server
-database: "sqlite" # ImprovedFactions supports H2, SQLite and MySQL. H2 and SQLite are local databases
-verbose-database-logging: false # If set to true, the plugin will log all database queries. This is useful for debugging, but can cause performance issues
+database: "sqlite" # ImprovedFactions supports H2, SQLite, and MySQL. H2 and SQLite are local databases
+verbose-database-logging: false # If set to true, the plugin will log all database queries. This is useful for debugging but can cause performance issues
 mysql:
   host: "localhost"
   port: 3306
@@ -22,11 +22,11 @@ modules:
   dynmap: true
   # This module will add the /f wilderness and /wilderness command, allowing players to teleport to the wilderness (A place where no factions has yet claimed)
   wilderness: true
-  # This module will add various home related commands for setting and teleporting to a faction's home
+  # This module will add various home-related commands for setting and teleporting to a faction's home
   home: true
   # This module will allow factions to enter their own chat, where only faction members can read the messages
   chat: true
-  # This module will replace some commands with gui alternatives, for example the /f invites or /f info command
+  # This module will replace some commands with gui alternatives, for example, the /f invites or /f info command
   gui: true
   # Claim particles will show the border of claims
   claim-particles: true
@@ -36,11 +36,11 @@ modules:
 #
 factions:
   max-rank-name-length: 50
-  rank-name-regex: "[a-zA-Z]*" # The regex a rank name has to match. Spaces are supported, but strongly discouraged
+  rank-name-regex: "[a-zA-Z]*" # The regex a rank name has to match. Spaces are supported but strongly discouraged
   max-spaces-in-name: 5
   # Unit is minutes
   invites-expire-in: 5
-  name-regex: "[a-zA-Z]*" # The regex a faction name has to match. Spaces are supported, but strongly discouraged
+  name-regex: "[a-zA-Z]*" # The regex a faction name has to match. Spaces are supported but strongly discouraged
 
   max-claim-radius: 5 # The maximum square radius a faction can claim at once. Keep it low for performance reasons
   map-width: 20 # The size of the map in chunks that will be displayed when using the /f map command
@@ -224,6 +224,14 @@ factions:
     particle-size-bias: 0.5 # The shift in size a particle has
     particle-spawn-interval: 15 # The interval in ticks the particles will be spawned
 
+  #
+  # -------- { Chat Module Settings } --------
+  #
+  # This section represents the constants mentioned in the chat module documentation.
+  # If you have no clue what you're doing here, a good place to start looking would be the chat module documentation
+  chat:
+    log-faction-chats-to-console: true # If set to true, all faction chats will be logged to the console
+
   # Whenever you change values in this section, you'll have issues with your database
   # Choose values that go for you and never touch them again
   unsafe:
@@ -381,15 +389,16 @@ performance:
   # This section is responsible for the particles that will be displayed only for decorative purposes, having little to no impact on the gameplay
   decorative-particles:
     hidden: false # If set to true, the particles will be hidden
-    tick-speed: 1 # The speed the particles will be updated. The higher the value, the better the resolution of the particle animations will be. 1 Is the fastes.
+    tick-speed: 1 # The speed of the particles will be updated. The higher the value, the better the resolution of the particle animations will be. 1 Is the fastes.
 
-# List the whitelisted and blacklisted worlds here.
-# If no whitelist is provided, all worlds will be considered as valid worlds. The blacklist will then be used to exclude worlds from this list
+# List the allowlisted and blocklisted worlds here.
+# If no allowlist is provided, all worlds will be considered as valid worlds.
+# The blocklist will then be used to exclude worlds from this list
 # Example 1: Allow all worlds except the nether and the end
-# blacklisted-worlds:
+# blocklisted-worlds:
 #   - world_nether
 #   - world_the_end
-# whitelisted-worlds: [ ]
+# allowlisted-worlds: [ ]
 # Example 2: Only allow the world "world"
 # blacklisted-worlds: [ ]
 # whitelisted-worlds:
@@ -405,5 +414,5 @@ default-placeholders:
   power: "0" # The default value for %faction_power%
   maxPower: "0" # The default value for %faction_maxPower%
 
-# This options decides if what kind of notification the players will receive when a certain event happens (Teleport, Territory change, etc)
+# This option decides if what kind of notification the players will receive when a certain event happens (Teleport, Territory change, etc)
 event-display-location: "TITLE" # Options are: TITLE, CHAT, ACTIONBAR
