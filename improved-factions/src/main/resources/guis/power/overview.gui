@@ -1,0 +1,25 @@
+<gui width="9" height="3" title="§eFaction §bPower">
+    <component type="embedded" width="9" height="1" target-gui="separator"/>
+
+    <component type="item" y="1" x="2" name="§bAccumulation Details" material="NAUTILUS_SHELL">
+        <lore/>
+        <lore>§7Total Accumulation: §b%currently-accumulated%</lore>
+        <lore/>
+        <lore>§7Details</lore>
+        <lore>§7Active Accumulation: §b%active-accumulation%</lore>
+        <lore>§7Inactive Player Cost: §c%inactive-accumulation%</lore>
+    </component>
+
+    <component type="item" y="1" x="4" name="§bPower" material="HEART_OF_THE_SEA">
+        <lore/>
+        <lore>§7Faction Power: §b%power% / %maxPower%</lore>
+    </component>
+
+    <component type="item" y="1" x="6" name="§bClaim Details" material="SLIME_BALL">
+        <lore/>
+        <lore>§7Next claim cost: §b%next-claim-cost%</lore>
+        <lore>§7Claim Maintenance Cost: §c%claim-keep%</lore>
+    </component>
+
+    <component type="embedded" y="2" width="9" height="1" target-gui="separator"/>
+</gui>

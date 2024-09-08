@@ -1,0 +1,60 @@
+<gui width="9" height="3" title="§eFaction Members > %member%" virtualize="false">
+    <component type="embedded" width="9" height="1" target-gui="separator"/>
+
+    <component type="item" y="1" x="1" name="§eKick" hidden="{!has:faction.permission.kick-player}">
+        <head-texture>
+            eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODg3YTc1ZjZjYmNjOGUxN2I4ZmJmYWVlMzM3MGZlZjAyMWMyNWY3MDM1YjI1ZDRjNjU3OTZlZjMzODljZWYwMCJ9fX0=
+        </head-texture>
+        <on-click type="action">[player] factions kick %member%</on-click>
+        <on-click type="action">[close]</on-click>
+    </component>
+
+    <component type="item" y="1" x="1" name="§cKick" material="BARRIER" hidden="{has:faction.permission.kick-player}">
+        <lore/>
+        <lore>§7You are not permitted</lore>
+        <lore>§7to kick players</lore>
+    </component>
+
+    <component type="faction-rank-selector" y="1" x="3" player="%member%"
+               hidden="{!has:faction.permission.manage-permissions}"/>
+
+    <component type="item" y="1" x="3" name="§cRank" material="BARRIER"
+               hidden="{has:faction.permission.manage-permissions}">
+        <lore/>
+        <lore>§7You are not permitted</lore>
+        <lore>§7to manage a player's rank</lore>
+    </component>
+
+    <component type="item" y="1" x="5" name="§cTransfer Ownership"
+               hidden="{!has:faction.permission.transfer-ownership}">
+        <head-texture>
+            eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjQ0OGUyNzUzMTM1MzJmNTRjNGJhMjE4OTQ4MDlhMjNkY2U1MmFmMDFkZGQxZTg5ZmM3Njg5NDgxZmFiNzM3ZSJ9fX0=
+        </head-texture>
+        <on-click type="action">[player] factions transferowner %member%</on-click>
+        <on-click type="action">[close]</on-click>
+    </component>
+
+    <component type="item" y="1" x="5" name="§cTransfer Ownership" material="BARRIER"
+               hidden="{has:faction.permission.transfer-ownership}">
+        <lore/>
+        <lore>§7You are not permitted to</lore>
+        <lore>§7transfer the faction's ownership</lore>
+    </component>
+
+
+    <component type="item" y="1" x="7" name="§cBan" hidden="{!has:faction.permission.manage-bans}">
+        <head-texture>
+            eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzdkNDk5YTlhZjUyOTllZGE0Y2NkYWMyMDE5ZWZlN2YyNDk2MWYzZTFmY2U3Njk0Y2I2ODIwMjlkMjllOWVhMSJ9fX0=
+        </head-texture>
+        <on-click type="action">[player] factions ban %member%</on-click>
+        <on-click type="action">[close]</on-click>
+    </component>
+
+    <component type="item" y="1" x="7" name="§cBan" material="BARRIER" hidden="{has:faction.permission.manage-bans}">
+        <lore/>
+        <lore>§7You are not permitted to</lore>
+        <lore>§7ban players in this faction</lore>
+    </component>
+
+    <component type="embedded" y="2" width="9" height="1" target-gui="separator"/>
+</gui>
