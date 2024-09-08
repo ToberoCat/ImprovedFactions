@@ -14,6 +14,19 @@ Module: core
 | --- | --- | --- |
 | faction | If no faction is provided, your own faction will be used | false |
 
+## factions list
+
+Permission: factions.list
+
+Usage: `/factions list `
+
+Description: List all factions
+
+Module: core
+
+| Argument | Description | Required |
+| --- | --- | --- |
+
 ## factions home
 
 Permission: factions.home
@@ -49,7 +62,7 @@ Usage: `/factions chat [message]`
 
 Description: Toggle the chat your messages will be sent to. If you provide a message, it will send the message into the faction chat
 
-Module: core
+Module: chat
 
 | Argument | Description | Required |
 | --- | --- | --- |

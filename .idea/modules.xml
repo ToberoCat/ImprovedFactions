@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/improved-factions.iml" filepath="$PROJECT_DIR$/.idea/improved-factions.iml" />
-      <module fileurl="file://$PROJECT_DIR$/improved-factions-base/improved-factions-base.iml" filepath="$PROJECT_DIR$/improved-factions-base/improved-factions-base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ImprovedFactions.iml" filepath="$PROJECT_DIR$/.idea/ImprovedFactions.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.main.iml" filepath="$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.test.iml" filepath="$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.test.iml" />
     </modules>
   </component>
 </project>
