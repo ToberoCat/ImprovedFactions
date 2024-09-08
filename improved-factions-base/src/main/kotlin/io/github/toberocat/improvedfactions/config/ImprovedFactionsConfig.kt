@@ -1,8 +1,10 @@
 package io.github.toberocat.improvedfactions.config
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.utils.FileUtils
 import io.github.toberocat.improvedfactions.utils.getEnum
+import org.bukkit.Bukkit
 import org.bukkit.configuration.MemorySection
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
@@ -11,16 +13,22 @@ import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
 
-class ImprovedFactionsConfig(config: FileConfiguration) {
-    val territoryDisplayLocation = config.getEnum<EventDisplayLocation>("event-display-location")
-        ?: EventDisplayLocation.TITLE
-    val defaultPlaceholders: Map<String, String> = generateDefaultPlaceholders(config)
-
-    private fun generateDefaultPlaceholders(config: FileConfiguration): Map<String, String> {
-        return config.getConfigurationSection("default-placeholders")?.getKeys(false)?.associateWith {
-            config.getString("default-placeholders.$it") ?: ""
-        } ?: emptyMap()
+class ImprovedFactionsConfig(
+    var territoryDisplayLocation: EventDisplayLocation = EventDisplayLocation.TITLE,
+    var defaultPlaceholders: Map<String, String> = emptyMap(),
+    var allowedWorlds: Set<String> = emptySet()
+) : PluginConfig() {
+    override fun reload(plugin: ImprovedFactionsPlugin, config: FileConfiguration) {
+        territoryDisplayLocation = config.getEnum<EventDisplayLocation>("event-display-location")
+            ?: EventDisplayLocation.TITLE
+        defaultPlaceholders = config.generateDefaultPlaceholders()
+        allowedWorlds = config.generateAllowedWorlds()
     }
+
+    private fun FileConfiguration.generateDefaultPlaceholders() =
+        getConfigurationSection("default-placeholders")?.getKeys(false)?.associateWith {
+            getString("default-placeholders.$it") ?: ""
+        } ?: emptyMap()
 
     companion object {
         fun createConfig(plugin: ImprovedFactionsPlugin): ImprovedFactionsConfig {
@@ -30,7 +38,7 @@ class ImprovedFactionsConfig(config: FileConfiguration) {
 
             if (configFileVersion == latestConfigVersion) {
                 plugin.logger.info("Config is up to date")
-                return ImprovedFactionsConfig(plugin.config)
+                return ImprovedFactionsConfig()
             }
 
             plugin.logger.info("Config is outdated $configFileVersion -> $latestConfigVersion. Updating...")
@@ -57,7 +65,7 @@ class ImprovedFactionsConfig(config: FileConfiguration) {
 
             plugin.logger.info("Config updated successfully")
 
-            return ImprovedFactionsConfig(plugin.config)
+            return ImprovedFactionsConfig()
         }
 
         fun generatePreviousValueTree(plugin: ImprovedFactionsPlugin) = plugin.config.getValues(true)

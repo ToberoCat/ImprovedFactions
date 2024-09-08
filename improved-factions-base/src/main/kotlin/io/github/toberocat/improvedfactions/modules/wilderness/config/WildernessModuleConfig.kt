@@ -1,13 +1,16 @@
 package io.github.toberocat.improvedfactions.modules.wilderness.config
 
+import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
+import io.github.toberocat.improvedfactions.config.ImprovedFactionsConfig
+import io.github.toberocat.improvedfactions.config.PluginConfig
 import io.github.toberocat.improvedfactions.user.noFactionId
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.configuration.file.FileConfiguration
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction 
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import java.lang.Math.round
 import java.util.concurrent.TimeUnit
 import kotlin.math.cos
@@ -16,25 +19,27 @@ import kotlin.math.sin
 class WildernessModuleConfig(
     var cooldown: Long = 30,
     var timeUnit: TimeUnit = TimeUnit.SECONDS,
-    var includedZones: List<String> = listOf("unmanaged"),
+    private var includedZones: List<String> = listOf("unmanaged"),
     var gainResistance: Boolean = true,
     var resistanceDuration: Int = 10,
     var resistanceAmplifier: Int = 5,
-    var preventSpawnOverLiquids: Boolean = true,
+    private var preventSpawnOverLiquids: Boolean = true,
     var standStillUnit: TimeUnit = TimeUnit.SECONDS,
     var standStillValue: Long = 5,
-    var blacklistedBiomes: Set<String> = setOf("OCEAN"),
+    private var blacklistedBiomes: Set<String> = setOf("OCEAN"),
     var usageLimit: Int = -1,
-    var claimDistanceCheck: Int = 5,
-    var retryLimit: Int = 10,
-    var blacklistedWorlds: Set<String> = setOf("world_nether", "world_the_end"),
-    var teleportProximity: Int = 100,
-    var regions: Map<String, Region> = emptyMap()
-) {
-
+    private var claimDistanceCheck: Int = 5,
+    private var retryLimit: Int = 10,
+    private var teleportProximity: Int = 100,
+    private var allowedWorlds: Set<String> = emptySet(),
+    private var regions: Map<String, Region> = emptyMap()
+) : PluginConfig() {
+    private lateinit var pluginConfig: ImprovedFactionsConfig
     private val configPath = "factions.wilderness"
 
-    fun reload(config: FileConfiguration) {
+    override fun reload(plugin: ImprovedFactionsPlugin, config: FileConfiguration) {
+        pluginConfig = plugin.improvedFactionsConfig
+
         cooldown = config.getLong("$configPath.cooldown-value", cooldown)
         timeUnit = TimeUnit.valueOf(config.getString("$configPath.cooldown-unit", timeUnit.name)!!)
         includedZones = config.getStringList("$configPath.included-zones")
@@ -48,8 +53,12 @@ class WildernessModuleConfig(
         resistanceDuration = config.getInt("$configPath.resistance-duration", resistanceDuration)
         resistanceAmplifier = config.getInt("$configPath.resistance-amplifier", resistanceAmplifier)
         retryLimit = config.getInt("$configPath.retry-limit", retryLimit)
-        blacklistedWorlds = FactionClaims.allowedWorlds.subtract(config.getStringList("$configPath.blacklisted-worlds").toSet())
         teleportProximity = config.getInt("$configPath.teleport-proximity", teleportProximity)
+        allowedWorlds = computeAllowedWorlds(
+            pluginConfig.allowedWorlds,
+            config.getStringList("$configPath.blacklisted-worlds").toSet()
+        )
+
         val regionSection = config.getConfigurationSection("$configPath.regions") ?: return
         regions = regionSection.getKeys(false).associateWith { key ->
             Region().apply {
@@ -79,14 +88,15 @@ class WildernessModuleConfig(
         if (blacklistedBiomes.contains(location.block.biome.name)) {
             return false
         }
-        if (blacklistedWorlds.contains(location.world?.name)) {
+        if (!pluginConfig.allowedWorlds.contains(location.world?.name)) {
             return false
         }
 
         for (i in -claimDistanceCheck until claimDistanceCheck) {
             for (j in -claimDistanceCheck until claimDistanceCheck) {
                 val claim =
-                    loggedTransaction { location.clone().add(i.toDouble(), 0.0, j.toDouble()).getFactionClaim() } ?: continue
+                    loggedTransaction { location.clone().add(i.toDouble(), 0.0, j.toDouble()).getFactionClaim() }
+                        ?: continue
                 val factionId = claim.factionId
                 val zoneId = claim.zoneType
                 if (factionId != noFactionId || zoneId !in includedZones) {

@@ -17,7 +17,6 @@ class HomeModuleTest : ImprovedFactionsTest() {
         val chunk = world.getChunkAt(0, 0)
 
         val faction = testFaction()
-        FactionClaims.allowedWorlds = setOf(world.name)
         transaction {
             faction.claim(chunk)
             assertDoesNotThrow { faction.setHome(chunk.getBlock(0, 0, 0).location) }

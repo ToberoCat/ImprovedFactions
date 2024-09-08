@@ -15,7 +15,6 @@ class FactionClaimTest : ImprovedFactionsTest() {
         val world = testWorld()
         val chunk = world.getChunkAt(0, 0)
 
-        FactionClaims.allowedWorlds = setOf(world.name)
         transaction { assertDoesNotThrow { faction.claim(chunk) } }
     }
 
@@ -25,7 +24,7 @@ class FactionClaimTest : ImprovedFactionsTest() {
         val world = testWorld()
         val chunk = world.getChunkAt(0, 0)
 
-        FactionClaims.allowedWorlds = setOf("other-world")
+        plugin.improvedFactionsConfig.allowedWorlds = setOf("other-world")
         transaction { assertThrows<CantClaimThisChunkException> { faction.claim(chunk) } }
     }
 }

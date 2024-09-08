@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedfactions.modules.power.listener
 
+import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.modules.power.impl.FactionPowerRaidModuleHandleImpl
@@ -12,7 +13,7 @@ class PlayerDeathListener(private val powerRaidModuleHandleImpl: FactionPowerRai
 
     @EventHandler
     private fun onDeath(event: PlayerDeathEvent) {
-        if (event.entity.world.name !in FactionClaims.allowedWorlds)
+        if (event.entity.world.name !in ImprovedFactionsPlugin.instance.improvedFactionsConfig.allowedWorlds)
             return
 
         loggedTransaction {
