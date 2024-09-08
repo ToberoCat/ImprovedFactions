@@ -16,13 +16,16 @@ import java.nio.file.StandardCopyOption
 class ImprovedFactionsConfig(
     var territoryDisplayLocation: EventDisplayLocation = EventDisplayLocation.TITLE,
     var defaultPlaceholders: Map<String, String> = emptyMap(),
-    var allowedWorlds: Set<String> = emptySet()
+    var allowedWorlds: Set<String> = emptySet(),
+    var hideWildernessTitle: Boolean = false
 ) : PluginConfig() {
+
     override fun reload(plugin: ImprovedFactionsPlugin, config: FileConfiguration) {
         territoryDisplayLocation = config.getEnum<EventDisplayLocation>("event-display-location")
             ?: EventDisplayLocation.TITLE
         defaultPlaceholders = config.generateDefaultPlaceholders()
         allowedWorlds = config.generateAllowedWorlds()
+        hideWildernessTitle = config.getBoolean("factions.hide-wilderness-title", hideWildernessTitle)
     }
 
     private fun FileConfiguration.generateDefaultPlaceholders() =

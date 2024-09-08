@@ -39,6 +39,7 @@ class TerritoryTitle(private val pluginConfig: ImprovedFactionsConfig) : Listene
 
     private fun hideTerritoryAnnouncement(toClaim: FactionClaim?, fromClaim: FactionClaim?): Boolean {
         val toZone = toClaim?.zone()
+        if (toZone == null && pluginConfig.hideWildernessTitle) return false
         return when (toZone?.announceTitle) {
             false -> true
             else -> {
