@@ -14,10 +14,11 @@ import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
 
 @CommandMeta(
-    description = "base.command.force.unclaim.description",
-    category = CommandCategory.ADMIN_CATEGORY
+    description = "base.command.force.claim.description",
+    module = "core",
+    category = CommandCategory.GENERAL_CATEGORY
 )
-class ForceUnclaimCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("unclaim") {
+class ForceClaimCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("claim") {
     override fun options(): Options = Options.getFromConfig(plugin, label) { options, _ ->
         options
             .addFactionNameOption(0)
@@ -31,8 +32,8 @@ class ForceUnclaimCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSu
         val parsedArgs = parseArgs(player, args)
         val faction = parsedArgs.get<Faction>(0) ?: return false
 
-        loggedTransaction { faction.unclaim(player.location.chunk) }
-        player.sendLocalized("base.command.force.unclaim.unclaimed")
+        loggedTransaction { faction.claim(player.location.chunk) }
+        player.sendLocalized("base.command.force.claim.claimed")
         return true
     }
 }

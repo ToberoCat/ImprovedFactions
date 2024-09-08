@@ -3,6 +3,8 @@ package io.github.toberocat.improvedfactions.modules.chat
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.chat.commands.ChatCommand
+import io.github.toberocat.improvedfactions.modules.chat.commands.ChatSpyCommand
+import io.github.toberocat.improvedfactions.modules.chat.config.ChatModuleConfig
 import io.github.toberocat.improvedfactions.modules.chat.handles.ChatModuleHandle
 import io.github.toberocat.improvedfactions.modules.chat.handles.DummyChatModuleHandle
 import io.github.toberocat.improvedfactions.modules.chat.impl.ChatModuleHandleImpl
@@ -14,17 +16,23 @@ object ChatModule : BaseModule {
     const val MODULE_NAME = "chat"
     override val moduleName = MODULE_NAME
 
-    var chatModuleHandle: ChatModuleHandle = DummyChatModuleHandle()
+    private var chatModuleHandle: ChatModuleHandle = DummyChatModuleHandle()
+    private val chatModuleConfig = ChatModuleConfig()
 
     override fun addCommands(plugin: ImprovedFactionsPlugin, executor: CommandExecutor) {
         executor.addChild(ChatCommand(chatModuleHandle, plugin))
+        executor.addChild(ChatSpyCommand(plugin, chatModuleHandle))
     }
 
     override fun onEnable(plugin: ImprovedFactionsPlugin) {
         chatModuleHandle = ChatModuleHandleImpl()
         plugin.registerListeners(
-            ChatListener(chatModuleHandle)
+            ChatListener(chatModuleConfig, chatModuleHandle)
         )
+    }
+
+    override fun reloadConfig(plugin: ImprovedFactionsPlugin) {
+        chatModuleConfig.reload(plugin, plugin.config)
     }
 
     fun Player.resetChatMode() = chatModuleHandle.setChatMode(uniqueId, ChatMode.GLOBAL)
