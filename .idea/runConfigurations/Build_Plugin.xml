@@ -1,32 +1,24 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Build Plugin" type="MavenRunConfiguration" factoryName="Maven">
-    <MavenSettings>
-      <option name="myGeneralSettings" />
-      <option name="myRunnerSettings" />
-      <option name="myRunnerParameters">
-        <MavenRunnerParameters>
-          <option name="cmdOptions" />
-          <option name="profiles">
-            <set />
-          </option>
-          <option name="goals">
-            <list>
-              <option value="install" />
-            </list>
-          </option>
-          <option name="multimoduleDir" />
-          <option name="pomFileName" value="pom.xml" />
-          <option name="profilesMap">
-            <map />
-          </option>
-          <option name="projectsCmdOptionValues">
-            <list />
-          </option>
-          <option name="resolveToWorkspace" value="false" />
-          <option name="workingDirPath" value="$PROJECT_DIR$/improved-factions-base" />
-        </MavenRunnerParameters>
+  <configuration default="false" name="Build Plugin" type="GradleRunConfiguration" factoryName="Gradle">
+    <ExternalSystemSettings>
+      <option name="executionName" />
+      <option name="externalProjectPath" value="$PROJECT_DIR$/improved-factions" />
+      <option name="externalSystemIdString" value="GRADLE" />
+      <option name="scriptParameters" value="" />
+      <option name="taskDescriptions">
+        <list />
       </option>
-    </MavenSettings>
+      <option name="taskNames">
+        <list>
+          <option value="build" />
+        </list>
+      </option>
+      <option name="vmOptions" />
+    </ExternalSystemSettings>
+    <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+    <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+    <DebugAllEnabled>false</DebugAllEnabled>
+    <RunAsTest>false</RunAsTest>
     <method v="2" />
   </configuration>
 </component>

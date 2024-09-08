@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ad9c7d4c-34f8-4c4a-9806-e72e98556779" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/ImprovedFactions.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/gradle/libs.versions.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/improved-factions.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Build_Plugin.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Debug_Server.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Start_Server.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/.idea/google-java-format.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/.idea/kotlinc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/ImprovedFactionsPlugin.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/charts/Charts.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/ClaimStatistics.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/FactionClaim.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/FactionClaimHandler.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/FactionClaims.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/clustering/ClusterExtension.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/clustering/ClusterType.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/clustering/cluster/AdditionalClusterType.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/clustering/cluster/Cluster.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/clustering/cluster/Clusters.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/clustering/cluster/FactionCluster.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/clustering/cluster/FactionClusters.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/clustering/cluster/ZoneCluster.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/clustering/cluster/ZoneClusters.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/clustering/detector/ClaimClusterDetector.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/clustering/detector/ClusterReachabilityChecker.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/clustering/position/ChunkPosition.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/clustering/position/WorldPosition.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/clustering/query/ClaimQueryProvider.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/clustering/query/DatabaseClaimQueryProvider.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/overclaim/ClaimSiegeManager.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/claims/overclaim/SiegeTask.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/FactionCommandExecutor.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/GenerateWikiSourcesCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/HelpCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/InfoCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/ListFactionsCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/admin/ByPassCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/admin/ReloadCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/admin/force/ForceCommandRoute.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/admin/force/ForceJoinCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/admin/force/ForceUnclaimCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/admin/zone/ZoneClaimCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/admin/zone/ZoneCommandRoute.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/admin/zone/ZoneUnclaimCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/claim/ClaimCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/claim/FactionMap.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/claim/UnclaimCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/invite/InviteAcceptCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/invite/InviteCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/invite/InviteDiscardCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/invite/ListInvitesCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/manage/CreateCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/manage/DeleteCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/manage/IconCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/manage/JoinTypeCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/manage/RenameCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/member/BanCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/member/JoinCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/member/KickCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/member/LeaveCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/member/MembersCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/member/TransferOwnershipCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/member/UnBanCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/rank/AssignRankCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/rank/CreateRankCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/rank/DefaultRankCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/rank/DeleteRankCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/rank/EditPermissionsCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/rank/RankCommandRoute.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/commands/rank/SetPermissionCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/config/EventDisplayLocation.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/config/ImprovedFactionsConfig.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/config/PluginConfig.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/database/DatabaseConnector.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/database/DatabaseManager.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/database/DatabaseType.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/exceptions/CantClaimThisChunkException.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/exceptions/CantInviteYourselfException.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/exceptions/FactionDoesntHaveThisClaimException.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/exceptions/NotEnoughPowerException.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/exceptions/NotEnoughPowerForClaimException.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/exceptions/NotInFactionException.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/exceptions/PlayerIsOwnerLeaveException.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/factions/Faction.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/factions/FactionHandler.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/factions/FactionJoinType.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/factions/Factions.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/factions/PowerAccumulationChangeReason.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/factions/ban/FactionBan.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/factions/ban/FactionBans.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/invites/FactionInvite.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/invites/FactionInvites.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/invites/FactionInvitesHandle.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/PlayerJoinListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/UpdatePluginListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ClaimBlockBreakListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ClaimBlockInteractListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ClaimBlockPlaceListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ClaimBucketListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ClaimEndCrystalListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ClaimEntityBreakHangingListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ClaimEntityDamagePlayerListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ClaimEntityInteractionListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ClaimEntitySpawnedByEggListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ClaimPlayerDamageEntityListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ClaimProtectionListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ClaimTntListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ClaimTramplingListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ClaimVehicleBreakListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/GeneralPvPListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/InFactionPvPListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ProtectionListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/move/MoveListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/move/RaidableBossBar.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/move/TerritoryTitle.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/managers/ByPassManager.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/messages/MessageBroker.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/ModuleManager.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/base/BaseModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/chat/ChatMode.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/chat/ChatModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/chat/commands/ChatCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/chat/handles/ChatModuleHandle.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/chat/handles/DummyHandles.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/chat/impl/ChatModuleHandleImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/chat/listener/ChatListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/claimparticle/ClaimParticleModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/claimparticle/config/ClaimParticleModuleConfig.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/claimparticle/handles/LineHandler.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/claimparticle/handles/RenderParticlesTask.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/dynmap/DynmapModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/dynmap/config/DynmapModuleConfig.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/dynmap/handles/DummyHandles.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/dynmap/handles/FactionDynmapModuleHandle.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/dynmap/impl/FactionDynmapModuleHandleImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/gui/GuiModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/gui/actions/GuiEngineCommandActionMapper.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/gui/commands/core/GuiEditPermissionsCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/gui/commands/core/GuiInfoCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/gui/commands/core/GuiListInvitesCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/gui/commands/core/GuiMembersCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/gui/commands/core/GuiRankCommandRoute.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/gui/commands/power/GuiPowerCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/gui/components/icon/FactionIconComponent.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/gui/components/icon/FactionIconComponentBuilder.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/gui/components/permission/FactionPermissionComponent.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/gui/components/permission/FactionPermissionComponentBuilder.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/gui/components/rank/FactionRankComponent.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/gui/components/rank/FactionRankComponentBuilder.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/gui/components/rankselector/FactionRankSelectorComponent.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/gui/components/rankselector/FactionRankSelectorComponentBuilder.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/gui/functions/FactionPermissionFunction.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/home/HomeModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/home/commands/HomeSetCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/home/commands/TeleportHomeCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/home/data/FactionHome.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/home/data/FactionHomes.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/home/handles/DummyHandles.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/home/handles/HomeModuleHandle.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/home/impl/HomeModuleHandleImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/PowerRaidsModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/PowerType.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/commands/PowerAddCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/commands/PowerCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/commands/PowerSetCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/commands/SiegeCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/config/PowerManagementConfig.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/handles/DummyHandles.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/handles/FactionPowerRaidModuleHandle.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/impl/FactionPowerRaidModuleHandleImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/listener/PlayerDeathListener.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/wilderness/WildernessModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/wilderness/commands/WildernessCommand.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/wilderness/config/Region.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/modules/wilderness/config/WildernessModuleConfig.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/papi/PapiExpansion.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/permissions/FactionPermission.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/permissions/FactionPermissionHandler.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/permissions/FactionPermissions.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/ranks/FactionRank.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/ranks/FactionRankHandler.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/ranks/FactionRanks.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/translation/ExternalResourceBundleLoader.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/translation/PropertiesUpdater.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/translation/TranslatedBossBars.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/translation/Translation.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/user/FactionUser.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/user/FactionUserHandler.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/user/FactionUsers.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/BStatsCollector.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/ConfigUtils.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/DatabaseLazyUpdate.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/Extensions.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/FileUtils.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/LazyUpdate.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/PlayerTeleporter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/Threading.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/BooleanArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/ClaimRadiusArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/EnumArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/FactionMemberArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/FactionNameInputArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/IntegerArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/OfflinePlayerArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/OnlinePlayerArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/OptionalFactionArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/OptionalPlayerArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/PermissionArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/RankNameInputArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/StringArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/VariousArguments.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/ZoneArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/entity/EntityArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/entity/EntityIdArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/entity/FactionArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/entity/FactionBannedArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/entity/FactionMemberArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/entity/InviteIdArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/entity/JoinableFactionArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/entity/RankArgument.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/command/CommandMeta.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/offline/KnownOfflinePlayer.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/offline/KnownOfflinePlayers.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/options/ArgRegexMatcherOption.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/options/ArgumentOptions.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/options/BoolOption.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/options/CanManageRankOption.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/options/ConfirmArgOption.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/options/FactionExistOption.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/options/FactionPermissionOption.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/options/InFactionOption.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/options/IsFactionOwnerOption.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/options/JoinedTextOption.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/options/OptionPresets.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/options/PermissionOption.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/options/PlayerNameOption.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/options/RankNameOption.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/options/ZoneExistOption.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/options/limit/PlayerUsageLimit.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/options/limit/PlayerUsageLimits.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/options/limit/UsageLimitOption.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/particles/ParticleAnimation.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/utils/particles/TeleportParticles.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/zone/Zone.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/kotlin/io/github/toberocat/improvedfactions/zone/ZoneHandler.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/resources/config.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/resources/guis/faction-detail-page.gui" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/resources/guis/invite-detail-page.gui" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/resources/guis/invites.gui" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/resources/guis/member/member-detail-page.gui" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/resources/guis/member/member-overview-page.gui" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/resources/guis/power/overview.gui" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/resources/guis/rank/rank-detail.gui" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/resources/guis/rank/rank-overview.gui" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/resources/guis/separator.gui" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/resources/icons/home-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/resources/languages/messages_en.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/main/resources/plugin.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/test/kotlin/io/github/toberocat/improvedfactions/integration/commands/home/HomeCommandTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/test/kotlin/io/github/toberocat/improvedfactions/integration/commands/invite/InviteCommandTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/test/kotlin/io/github/toberocat/improvedfactions/unit/ImprovedFactionsTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/test/kotlin/io/github/toberocat/improvedfactions/unit/claims/FactionClaimTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/test/kotlin/io/github/toberocat/improvedfactions/unit/claims/clustering/ChunkPositionTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/test/kotlin/io/github/toberocat/improvedfactions/unit/claims/clustering/ClaimClusterDetectorTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/test/kotlin/io/github/toberocat/improvedfactions/unit/claims/clustering/ClusterReachabilityCheckerTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/test/kotlin/io/github/toberocat/improvedfactions/unit/config/PluginConfigTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/test/kotlin/io/github/toberocat/improvedfactions/unit/modules/home/HomeModuleTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/test/kotlin/io/github/toberocat/improvedfactions/unit/modules/power/PowerModuleTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/test/kotlin/io/github/toberocat/improvedfactions/unit/utils/options/limit/PlayerUsageLimitsTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions-base/src/test/resources/logback.xml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/improved-factions">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ImprovedFactions" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "ToberoCat"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/ToberoCat/ImprovedFactions",
+    "accountId": "4d680c3f-ea1a-4edc-a6b9-348f20b21afb"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2ln8LXTJEKgmpQZ8v9bYLdFx6df" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "maven-to-gradle",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/media/tobias/Data/Development/Minecraft/Spigot/Projects",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "Docker",
+    "settings.editor.splitter.proportion": "0.25428858",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="Gradle.Build Plugin">
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Docker.Start Server" />
+      <item itemvalue="Gradle.Build Plugin" />
+      <item itemvalue="Remote JVM Debug.Debug Server" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.Build Plugin" />
+        <item itemvalue="Docker.Start Server" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ad9c7d4c-34f8-4c4a-9806-e72e98556779" name="Changes" comment="" />
+      <created>1725804426022</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1725804426022</updated>
+      <workItem from="1725804428962" duration="31000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
