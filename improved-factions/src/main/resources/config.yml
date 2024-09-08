@@ -258,7 +258,9 @@ zones:
       boss-damage-player: false # Prevent damage to players by bosses in a claim
       trampling: false # Prevent farmland from being trampled in a claim
       bucket-usage: false # Prevent using buckets in a claim
-
+      mob-spawn: false # Prevent mobs from spawning in a claim
+      mob-destruction: false # Prevent mobs from destroying blocks in a claim
+      creeper-explosion: false # Prevent creeper explosions in a claim
       general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
       in-faction-pvp: true # Prevent PvP between faction members in a claim
       minecart-damage: true # Prevent minecarts being destroyed in a claim
@@ -289,7 +291,9 @@ zones:
       boss-damage-player: true # Prevent damage to players by bosses in a claim
       trampling: true # Prevent farmland from being trampled in a claim
       bucket-usage: true # Prevent using buckets in a claim
-
+      mob-spawn: true # Prevent mobs from spawning in a claim
+      mob-destruction: true # Prevent mobs from destroying blocks in a claim
+      creeper-explosion: true # Prevent creeper explosions in a claim
       general-pvp: true # Prevent general PvP in a claims. This means any sort of pvp
       in-faction-pvp: true # Prevent PvP between faction members in a claim
       minecart-damage: true # Prevent minecarts being destroyed in a claim
@@ -321,6 +325,9 @@ zones:
       boss-damage-player: false # Prevent damage to players by bosses in a claim
       trampling: true # Prevent farmland from being trampled in a claim
       bucket-usage: true # Prevent using buckets in a claim
+      mob-spawn: false # Prevent mobs from spawning in a claim
+      mob-destruction: true # Prevent mobs from destroying blocks in a claim
+      creeper-explosion: true # Prevent creeper explosions in a claim
 
       general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
       in-faction-pvp: true # Prevent PvP between faction members in a claim
@@ -352,6 +359,9 @@ zones:
       boss-damage-player: false # Prevent damage to players by bosses in a claim
       trampling: false # Prevent farmland from being trampled in a claim
       bucket-usage: false # Prevent using buckets in a claim
+      mob-spawn: false # Prevent mobs from spawning in a claim
+      mob-destruction: false # Prevent mobs from destroying blocks in a claim
+      creeper-explosion: false # Prevent creeper explosions in a claim
 
       general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
       in-faction-pvp: false # Prevent PvP between faction members in a claim

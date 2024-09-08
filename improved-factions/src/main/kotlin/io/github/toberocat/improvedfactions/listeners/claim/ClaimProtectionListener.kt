@@ -30,6 +30,10 @@ class ClaimProtectionListener(
         register(GeneralPvPListener(zoneType))
         register(InFactionPvPListener(zoneType))
 
+        register(ClaimMobSpawnListener(zoneType))
+        register(ClaimMobDestructionListener(zoneType))
+        register(ClaimCreeperExplosionListener(zoneType))
+
         register(ClaimPlayerDamageEntityListener("animal", Animals::class, zoneType))
         register(ClaimPlayerDamageEntityListener("villager", AbstractVillager::class, zoneType))
         register(ClaimPlayerDamageEntityListener("golem", Golem::class, zoneType))
