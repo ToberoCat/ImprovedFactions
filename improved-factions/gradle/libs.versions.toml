@@ -1,0 +1,56 @@
+[versions]
+kotlin-version = "2.0.10"
+spigot-version = "1.18.1-R0.1-SNAPSHOT"
+exposed-version = "0.51.1"
+jackson-version = "2.16.0"
+kotlinx-datetime-version = "0.6.0"
+toberocore-version = "be356f9253"
+sqlite-jdbc-version = "3.46.0.0"
+h2-version = "2.2.220"
+spigot-update-checker-version = "3.0.3"
+guiengine-version = "6c00296e4c"
+adventure-text-minimessages-version = "4.17.0"
+adventure-text-serializer-legacy-version = "4.17.0"
+kyori-adventure-platform-bukkit-version = "4.3.3"
+base64-itemstack-version = "1.0.0"
+bstats-bukkit-version = "3.0.2"
+placeholder-api-version = "2.11.6"
+dynmap-api-version = "3.7-beta-6"
+mockbukkit-version = "3.80.0"
+snakeyaml-version = "2.2"
+gson-version = "2.11.0"
+logback-classic-version = "1.2.13"
+junit-jupiter-params-version = "5.11.0"
+
+[libraries]
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin-version" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin-version" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin-version" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit-jupiter-params-version" }
+spigot-api = { module = "org.spigotmc:spigot-api", version.ref = "spigot-version" }
+exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed-version" }
+exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed-version" }
+exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed-version" }
+exposed-kotlin-datetime = { module = "org.jetbrains.exposed:exposed-kotlin-datetime", version.ref = "exposed-version" }
+jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson-version" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson-version" }
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson-version" }
+kotlinx-datetime-jvm = { module = "org.jetbrains.kotlinx:kotlinx-datetime-jvm", version.ref = "kotlinx-datetime-version" }
+toberocore = { module = "com.github.ToberoCat:ToberoCore", version.ref = "toberocore-version" }
+sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite-jdbc-version" }
+h2 = { module = "com.h2database:h2", version.ref = "h2-version" }
+spigot-update-checker = { module = "com.jeff_media:SpigotUpdateChecker", version.ref = "spigot-update-checker-version" }
+guiengine = { module = "com.github.ToberoCat:GuiEngine", version.ref = "guiengine-version" }
+adventure-text-minimessage = { module = "net.kyori:adventure-text-minimessage", version.ref = "adventure-text-minimessages-version" }
+adventure-text-serializer-legacy = { module = "net.kyori:adventure-text-serializer-legacy", version.ref = "adventure-text-serializer-legacy-version" }
+kyori-adventure-platform-bukkit = { module = "net.kyori:adventure-platform-bukkit", version.ref = "kyori-adventure-platform-bukkit-version" }
+base64-itemstack = { module = "dev.s7a:base64-itemstack", version.ref = "base64-itemstack-version" }
+bstats-bukkit = { module = "org.bstats:bstats-bukkit", version.ref = "bstats-bukkit-version" }
+placeholderapi = { module = "me.clip:placeholderapi", version.ref = "placeholder-api-version" }
+dynmap-api = { module = "us.dynmap:DynmapCoreAPI", version.ref = "dynmap-api-version" }
+mockbukkit = { module = "com.github.seeseemelk:MockBukkit-v1.20", version.ref = "mockbukkit-version" }
+snakeyaml = { module = "org.yaml:snakeyaml", version.ref = "snakeyaml-version" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson-version" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-classic-version" }
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-version" }
