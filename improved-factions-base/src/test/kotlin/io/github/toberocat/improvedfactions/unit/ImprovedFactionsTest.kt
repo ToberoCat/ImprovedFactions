@@ -30,16 +30,18 @@ open class ImprovedFactionsTest {
         MockBukkit.unmock()
     }
 
-    fun createTestPlayer() = server.addPlayer()
+    fun createTestPlayer() = server.addPlayer().also { it.isOp = true }
 
     fun testWorld() = WorldMock(Material.DIRT, 3)
 
-    fun testFaction(owner: UUID = UUID.randomUUID(), id: Int? = null): Faction {
-        val faction = transaction { id?.let { FactionHandler.getFaction(it) } }
+    fun testFaction(owner: UUID = UUID.randomUUID(), id: Int? = null, vararg members: UUID): Faction {
+        var faction = transaction { id?.let { FactionHandler.getFaction(it) } }
         if (faction != null) {
             return faction
         }
-        return FactionHandler.createFaction(owner, "TestFaction", id)
+        faction = FactionHandler.createFaction(owner, "TestFaction", id)
+        transaction { members.forEach { faction.join(it, faction.defaultRank) } }
+        return faction
     }
 
 }
