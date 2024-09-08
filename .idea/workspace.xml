@@ -85,7 +85,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Gradle.Build Plugin">
+  <component name="RunManager" selected="Gradle.Test Plugin">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml" />
       <method v="2" />
@@ -93,10 +93,12 @@
     <list>
       <item itemvalue="Docker.Start Server" />
       <item itemvalue="Gradle.Build Plugin" />
+      <item itemvalue="Gradle.Test Plugin" />
       <item itemvalue="Remote JVM Debug.Debug Server" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.Test Plugin" />
         <item itemvalue="Gradle.Build Plugin" />
         <item itemvalue="Docker.Start Server" />
       </list>
