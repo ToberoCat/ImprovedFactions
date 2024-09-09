@@ -76,8 +76,9 @@ tasks {
 
     shadowJar {
         archiveFileName.set("${project.name}-${project.version}.jar")
-        //destinationDirectory.set(file("../server/plugins"))
-
+        if (System.getenv("CI") == null) {
+            destinationDirectory.set(file("../server/plugins"))
+        }
         relocate("com.fasterxml.jackson", "io.github.toberocat.relocated.jackson")
         relocate("net.kyori", "io.github.toberocat.relocated.kyori")
         relocate("dev.s7a", "io.github.toberocat.relocated.base64itemstack")

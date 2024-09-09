@@ -1,4 +1,4 @@
-name: Nightly Build gradle
+name: Nightly GitHub Dev Builds
 
 on:
   schedule:
