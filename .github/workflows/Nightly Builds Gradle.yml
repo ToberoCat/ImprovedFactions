@@ -48,12 +48,14 @@ jobs:
           prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GB_TOKEN }}
+      - name: LS Dir
+        run: ls -R
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: improved-factions/build/libs/ImprovedFactions-*.jar
+          asset_path: ./server/plugins/ImprovedFactions-*.jar
           asset_name: ImprovedFactions-${{ env.VERSION }}.jar
           asset_content_type: application/java-archive
 
