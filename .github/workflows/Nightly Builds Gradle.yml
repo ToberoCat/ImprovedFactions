@@ -28,7 +28,7 @@ jobs:
 
       - name: Build with Gradle Wrapper
         working-directory: ./improved-factions
-        run: ./gradlew clean build
+        run: ./gradlew build
 
       - name: Extract version from build.gradle
         id: extract_version
@@ -55,7 +55,7 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: ./server/plugins/ImprovedFactions-*.jar
+          asset_path: ./improved-factions/build/libs/ImprovedFactions-${{ env.VERSION }}.jar
           asset_name: ImprovedFactions-${{ env.VERSION }}.jar
           asset_content_type: application/java-archive
 

@@ -20,7 +20,7 @@ jobs:
           cache: gradle
       - name: Run the Gradle build for ImprovedFactions
         working-directory: ./improved-factions
-        run: ./gradlew clean build
+        run: ./gradlew build
 
       - name: Extract version from build.gradle
         id: extract_version
