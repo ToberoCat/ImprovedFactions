@@ -9,6 +9,7 @@ import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.modules.gui.GuiModule
 import io.github.toberocat.improvedfactions.modules.home.HomeModule
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
+import io.github.toberocat.improvedfactions.modules.relations.RelationsModule
 import io.github.toberocat.improvedfactions.modules.wilderness.WildernessModule
 import io.github.toberocat.toberocore.command.CommandExecutor
 import org.bukkit.OfflinePlayer
@@ -22,7 +23,8 @@ class ModuleManager(private val plugin: ImprovedFactionsPlugin) {
         HomeModule.homePair(),
         ChatModule.chatPair(),
         GuiModule.guiPair(),
-        ClaimParticleModule.claimParticlesPair()
+        ClaimParticleModule.claimParticlesPair(),
+        RelationsModule.relationsModulePair()
     )
 
     init {
@@ -37,6 +39,7 @@ class ModuleManager(private val plugin: ImprovedFactionsPlugin) {
 
     fun registerModules() = activeModules.forEach { (name, module) ->
         module.onEnable(plugin)
+        module.isEnabled = true
         plugin.logger.info("Loaded module $name")
         module.reloadConfig(plugin)
     }

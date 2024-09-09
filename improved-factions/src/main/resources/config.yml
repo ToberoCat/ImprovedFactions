@@ -30,6 +30,8 @@ modules:
   gui: true
   # Claim particles will show the border of claims
   claim-particles: true
+  # This module will allow factions to create alliances with other factions and form wars
+  relations: true
 
 #
 # -------- { Base Module Settings } --------
@@ -75,6 +77,7 @@ factions:
         - teleport-home
         - set-home
         - set-join-type
+        - manage-relation
     Owner:
       priority: 1000
       default-permissions:
@@ -90,6 +93,7 @@ factions:
         - teleport-home
         - set-home
         - set-join-type
+        - manage-relation
 
   #
   # -------- { Power Raid Module Settings } --------

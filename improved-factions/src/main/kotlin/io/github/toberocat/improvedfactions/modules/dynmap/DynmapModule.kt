@@ -16,8 +16,8 @@ import org.dynmap.markers.AreaMarker
 import org.dynmap.markers.MarkerSet
 
 class DynmapModule : BaseModule {
-
     override val moduleName = MODULE_NAME
+    override var isEnabled = false
 
 
     var dynmapModuleHandle: FactionDynmapModuleHandle = DummyFactionDynmapModuleHandles()

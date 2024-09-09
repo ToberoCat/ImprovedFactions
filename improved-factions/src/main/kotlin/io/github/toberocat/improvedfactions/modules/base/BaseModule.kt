@@ -6,6 +6,7 @@ import org.bukkit.OfflinePlayer
 
 interface BaseModule {
     val moduleName: String
+    var isEnabled: Boolean
 
     fun onEnable(plugin: ImprovedFactionsPlugin) {}
     fun reloadConfig(plugin: ImprovedFactionsPlugin) {}

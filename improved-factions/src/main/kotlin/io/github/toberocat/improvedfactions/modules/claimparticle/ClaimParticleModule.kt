@@ -6,8 +6,8 @@ import io.github.toberocat.improvedfactions.modules.claimparticle.config.ClaimPa
 import io.github.toberocat.improvedfactions.modules.claimparticle.handles.RenderParticlesTask
 
 class ClaimParticleModule : BaseModule {
-    override val moduleName: String
-        get() = MODULE_NAME
+    override val moduleName = MODULE_NAME
+    override var isEnabled = false
 
     val config = ClaimParticleModuleConfig()
 

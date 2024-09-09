@@ -20,6 +20,7 @@ import org.bukkit.entity.Player
 object HomeModule : BaseModule {
     const val MODULE_NAME = "home"
     override val moduleName = MODULE_NAME
+    override var isEnabled = false
 
     private var homeModuleHandle: HomeModuleHandle = DummyHomeModuleHandle()
 

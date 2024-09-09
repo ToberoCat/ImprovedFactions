@@ -9,6 +9,7 @@ import io.github.toberocat.toberocore.command.CommandExecutor
 
 class WildernessModule : BaseModule {
     override val moduleName = MODULE_NAME
+    override var isEnabled = true
     private val wildernessConfig = WildernessModuleConfig()
 
     override fun reloadConfig(plugin: ImprovedFactionsPlugin) {

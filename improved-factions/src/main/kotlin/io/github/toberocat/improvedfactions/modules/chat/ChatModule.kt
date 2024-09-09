@@ -15,6 +15,7 @@ import org.bukkit.entity.Player
 object ChatModule : BaseModule {
     const val MODULE_NAME = "chat"
     override val moduleName = MODULE_NAME
+    override var isEnabled = false
 
     private var chatModuleHandle: ChatModuleHandle = DummyChatModuleHandle()
     private val chatModuleConfig = ChatModuleConfig()

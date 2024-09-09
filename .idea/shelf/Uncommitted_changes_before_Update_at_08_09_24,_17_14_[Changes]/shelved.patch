@@ -1,0 +1,132 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"ad9c7d4c-34f8-4c4a-9806-e72e98556779\" name=\"Changes\" comment=\"Migrated to gradle instead of maven\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/misc.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/misc.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/vcs.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/vcs.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"ExternalProjectsData\">\n    <projectState path=\"$PROJECT_DIR$/improved-factions\">\n      <ProjectState />\n    </projectState>\n  </component>\n  <component name=\"ExternalProjectsManager\">\n    <system id=\"GRADLE\">\n      <state>\n        <task path=\"$PROJECT_DIR$/improved-factions\">\n          <activation />\n        </task>\n        <projects_view>\n          <tree_state>\n            <expand>\n              <path>\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\n                <item name=\"ImprovedFactions\" type=\"f1a62948:ProjectNode\" />\n              </path>\n            </expand>\n            <select />\n          </tree_state>\n        </projects_view>\n      </state>\n    </system>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n    <option name=\"ROOT_SYNC\" value=\"DONT_SYNC\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\"><![CDATA[{\n  \"lastFilter\": {\n    \"state\": \"OPEN\",\n    \"assignee\": \"ToberoCat\"\n  }\n}]]></component>\n  <component name=\"GithubPullRequestsUISettings\"><![CDATA[{\n  \"selectedUrlAndAccountId\": {\n    \"url\": \"https://github.com/ToberoCat/ImprovedFactions\",\n    \"accountId\": \"4d680c3f-ea1a-4edc-a6b9-348f20b21afb\"\n  }\n}]]></component>\n  <component name=\"ProjectColorInfo\"><![CDATA[{\n  \"customColor\": \"\",\n  \"associatedIndex\": 6\n}]]></component>\n  <component name=\"ProjectId\" id=\"2ln8LXTJEKgmpQZ8v9bYLdFx6df\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"Docker.docker-compose.yml: Compose Deployment.executor\": \"Run\",\n    \"Gradle.Build Plugin.executor\": \"Run\",\n    \"Gradle.improved-factions [build].executor\": \"Run\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\n    \"git-widget-placeholder\": \"maven-to-gradle\",\n    \"kotlin-language-version-configured\": \"true\",\n    \"last_opened_file_path\": \"/media/tobias/Data/Development/Minecraft/Spigot/Projects\",\n    \"node.js.detected.package.eslint\": \"true\",\n    \"node.js.detected.package.tslint\": \"true\",\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\n    \"nodejs_package_manager_path\": \"npm\",\n    \"settings.editor.selected.configurable\": \"project.propVCSSupport.DirectoryMappings\",\n    \"settings.editor.splitter.proportion\": \"0.25428858\",\n    \"vue.rearranger.settings.migration\": \"true\"\n  }\n}]]></component>\n  <component name=\"RunManager\" selected=\"Gradle.Test Plugin\">\n    <configuration default=\"true\" type=\"docker-deploy\" factoryName=\"docker-compose.yml\" temporary=\"true\">\n      <deployment type=\"docker-compose.yml\" />\n      <method v=\"2\" />\n    </configuration>\n    <list>\n      <item itemvalue=\"Docker.Start Server\" />\n      <item itemvalue=\"Gradle.Build Plugin\" />\n      <item itemvalue=\"Gradle.Test Plugin\" />\n      <item itemvalue=\"Remote JVM Debug.Debug Server\" />\n    </list>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Gradle.Test Plugin\" />\n        <item itemvalue=\"Gradle.Build Plugin\" />\n        <item itemvalue=\"Docker.Start Server\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142\" />\n        <option value=\"bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"ad9c7d4c-34f8-4c4a-9806-e72e98556779\" name=\"Changes\" comment=\"\" />\n      <created>1725804426022</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1725804426022</updated>\n      <workItem from=\"1725804428962\" duration=\"1923000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Migrated to gradle instead of maven\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1725804599277</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1725804599277</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"2\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <ignored-roots>\n      <path value=\"$PROJECT_DIR$/improved-factions\" />\n    </ignored-roots>\n    <MESSAGE value=\"Migrated to gradle instead of maven\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Migrated to gradle instead of maven\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 07d19e7d3fb14d40d1eb638c30ac01cca3bcebb4)
++++ b/.idea/workspace.xml	(date 1725807588733)
+@@ -4,10 +4,12 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="ad9c7d4c-34f8-4c4a-9806-e72e98556779" name="Changes" comment="Migrated to gradle instead of maven">
+-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
++    <list default="true" id="ad9c7d4c-34f8-4c4a-9806-e72e98556779" name="Changes" comment="Added Test Stage">
++      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ClaimCreeperExplosionListener.kt" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ClaimMobDestructionListener.kt" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ClaimMobSpawnListener.kt" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ProtectionListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ProtectionListener.kt" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -32,12 +34,30 @@
+                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                 <item name="ImprovedFactions" type="f1a62948:ProjectNode" />
+               </path>
++              <path>
++                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
++                <item name="ImprovedFactions" type="f1a62948:ProjectNode" />
++                <item name="Tasks" type="e4a08cd1:TasksNode" />
++              </path>
++              <path>
++                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
++                <item name="ImprovedFactions" type="f1a62948:ProjectNode" />
++                <item name="Tasks" type="e4a08cd1:TasksNode" />
++                <item name="verification" type="c8890929:TasksNode$1" />
++              </path>
+             </expand>
+             <select />
+           </tree_state>
+         </projects_view>
+       </state>
+     </system>
++  </component>
++  <component name="FileTemplateManagerImpl">
++    <option name="RECENT_TEMPLATES">
++      <list>
++        <option value="Kotlin Class" />
++      </list>
++    </option>
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+@@ -53,6 +73,16 @@
+   "selectedUrlAndAccountId": {
+     "url": "https://github.com/ToberoCat/ImprovedFactions",
+     "accountId": "4d680c3f-ea1a-4edc-a6b9-348f20b21afb"
++  },
++  "recentNewPullRequestHead": {
++    "server": {
++      "useHttp": false,
++      "host": "github.com",
++      "port": null,
++      "suffix": null
++    },
++    "owner": "ToberoCat",
++    "repository": "ImprovedFactions"
+   }
+ }]]></component>
+   <component name="ProjectColorInfo"><![CDATA[{
+@@ -69,7 +99,9 @@
+   "keyToString": {
+     "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
+     "Gradle.Build Plugin.executor": "Run",
++    "Gradle.Test Plugin.executor": "Run",
+     "Gradle.improved-factions [build].executor": "Run",
++    "Gradle.improved-factions [test].executor": "Run",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+     "git-widget-placeholder": "maven-to-gradle",
+@@ -120,7 +152,7 @@
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+       <updated>1725804426022</updated>
+-      <workItem from="1725804428962" duration="1923000" />
++      <workItem from="1725804428962" duration="2666000" />
+     </task>
+     <task id="LOCAL-00001" summary="Migrated to gradle instead of maven">
+       <option name="closed" value="true" />
+@@ -130,7 +162,23 @@
+       <option name="project" value="LOCAL" />
+       <updated>1725804599277</updated>
+     </task>
+-    <option name="localTasksCounter" value="2" />
++    <task id="LOCAL-00002" summary="Migrated to gradle">
++      <option name="closed" value="true" />
++      <created>1725806598434</created>
++      <option name="number" value="00002" />
++      <option name="presentableId" value="LOCAL-00002" />
++      <option name="project" value="LOCAL" />
++      <updated>1725806598434</updated>
++    </task>
++    <task id="LOCAL-00003" summary="Added Test Stage">
++      <option name="closed" value="true" />
++      <created>1725806636119</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1725806636120</updated>
++    </task>
++    <option name="localTasksCounter" value="4" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -141,6 +189,11 @@
+       <path value="$PROJECT_DIR$/improved-factions" />
+     </ignored-roots>
+     <MESSAGE value="Migrated to gradle instead of maven" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Migrated to gradle instead of maven" />
++    <MESSAGE value="Migrated to gradle" />
++    <MESSAGE value="Added Test Stage" />
++    <option name="LAST_COMMIT_MESSAGE" value="Added Test Stage" />
++  </component>
++  <component name="com.intellij.coverage.CoverageDataManagerImpl">
++    <SUITE FILE_PATH="coverage/ImprovedFactions$Test_Plugin.ic" NAME="Test Plugin Coverage Results" MODIFIED="1725806623300" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+   </component>
+ </project>
+\ No newline at end of file

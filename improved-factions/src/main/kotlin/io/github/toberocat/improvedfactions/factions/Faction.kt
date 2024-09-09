@@ -13,6 +13,8 @@ import io.github.toberocat.improvedfactions.invites.FactionInvites
 import io.github.toberocat.improvedfactions.messages.MessageBroker
 import io.github.toberocat.improvedfactions.modules.chat.ChatModule.resetChatMode
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Companion.powerRaidModule
+import io.github.toberocat.improvedfactions.modules.relations.RelationsModule
+import io.github.toberocat.improvedfactions.modules.relations.RelationsModule.allies
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
 import io.github.toberocat.improvedfactions.ranks.listRanks
 import io.github.toberocat.improvedfactions.translation.LocalizationKey
@@ -105,6 +107,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
             it.factionId = noFactionId
         }
         members().forEach { unsetUserData(it) }
+        RelationsModule.deleteFactionRelations(id.value)
 
         super.delete()
     }
@@ -157,6 +160,12 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         val minStamp = System.currentTimeMillis() - millisecondsIntoPast
         return FactionUser.find { FactionUsers.factionId eq id.value }
             .count { user -> user.offlinePlayer().let { !it.isOnline && it.lastPlayed <= minStamp } }
+    }
+
+    fun isInactive(toMillis: Long): Boolean {
+        val minStamp = System.currentTimeMillis() - toMillis
+        return FactionUser.find { FactionUsers.factionId eq id.value }
+            .none { user -> user.offlinePlayer().let { it.isOnline || it.lastPlayed > minStamp } }
     }
 
     fun members(): SizedIterable<FactionUser> = FactionUser.find { FactionUsers.factionId eq id.value }

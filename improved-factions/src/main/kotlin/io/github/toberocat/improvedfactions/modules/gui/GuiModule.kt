@@ -29,6 +29,7 @@ import org.bukkit.Bukkit
 
 class GuiModule : BaseModule {
     override val moduleName = MODULE_NAME
+    override var isEnabled = false
 
     private lateinit var guiEngineApi: GuiEngineApi
 

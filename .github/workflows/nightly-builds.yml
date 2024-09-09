@@ -3,6 +3,7 @@ name: Nightly GitHub Release
 on:
   schedule:
     - cron: '0 0 * * *'  # Every day at midnight UTC
+  workflow_dispatch:
 
 jobs:
   release:
@@ -16,15 +17,15 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: maven
-      - name: Run the Maven build for ImprovedFactionsBase
-        working-directory: ./improved-factions-base
-        run: mvn clean package
+          cache: gradle
+      - name: Run the Gradle build for ImprovedFactions
+        working-directory: ./improved-factions
+        run: ./gradlew clean build
 
-      - name: Extract version from pom.xml
+      - name: Extract version from build.gradle
         id: extract_version
-        working-directory: ./improved-factions-base
-        run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+        working-directory: ./improved-factions
+        run: echo "VERSION=$(./gradlew -q printVersion)" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
@@ -43,6 +44,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: improved-factions-base/target/ImprovedFactions-*.jar
+          asset_path: improved-factions/build/libs/ImprovedFactions-*.jar
           asset_name: ImprovedFactions-${{ env.VERSION }}.jar
           asset_content_type: application/java-archive

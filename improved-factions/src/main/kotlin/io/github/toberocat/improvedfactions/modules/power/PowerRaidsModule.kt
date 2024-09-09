@@ -15,14 +15,12 @@ import org.bukkit.OfflinePlayer
 
 class PowerRaidsModule : BaseModule {
     override val moduleName = MODULE_NAME
+    override var isEnabled = false
 
-    var isEnabled = false
     var powerModuleHandle: FactionPowerRaidModuleHandle = DummyFactionPowerRaidModuleHandle()
     val config = PowerManagementConfig()
 
     override fun onEnable(plugin: ImprovedFactionsPlugin) {
-        isEnabled = true
-
         val module = FactionPowerRaidModuleHandleImpl(config)
         powerModuleHandle = module
 

@@ -17,6 +17,7 @@ object Permissions {
     val SET_HOME = "set-home".registerAsPermission(Material.RED_BED)
     val HOME = "teleport-home".registerAsPermission(Material.WHITE_BED)
     val SET_JOIN_TYPE = "set-join-type".registerAsPermission(Material.IRON_DOOR)
+    val MANAGE_RELATION = "manage-relation".registerAsPermission(Material.IRON_SWORD)
 
     fun String.registerAsPermission(material: Material): String {
         knownPermissions[this] = PermissionHolder(material)

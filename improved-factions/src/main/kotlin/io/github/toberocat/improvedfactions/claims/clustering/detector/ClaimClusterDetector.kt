@@ -17,6 +17,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import java.util.*
 import kotlin.concurrent.thread
 
+// TODO: The clusting is still not working properly.
 class ClaimClusterDetector(
     private val queryProvider: ClaimQueryProvider,
     private val generateClusterId: () -> UUID = UUID::randomUUID
@@ -171,8 +172,8 @@ class ClaimClusterDetector(
         generator: (UUID, Set<FactionClaim>) -> Unit
     ) {
         if (claim.claimCluster != null) {
-            ImprovedFactionsPlugin.instance.logger.warning("Chunk at X: ${claim.chunkX}, Y: ${claim.chunkZ}, " +
-                    "World: ${claim.world} for faction ${claim.factionId} was not able to get clustered.")
+            //ImprovedFactionsPlugin.instance.logger.warning("Chunk at X: ${claim.chunkX}, Y: ${claim.chunkZ}, " +
+            //        "World: ${claim.world} for faction ${claim.factionId} was not able to get clustered.")
             return
         }
 
