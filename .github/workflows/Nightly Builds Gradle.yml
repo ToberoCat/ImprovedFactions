@@ -33,7 +33,7 @@ jobs:
       - name: Extract version from build.gradle
         id: extract_version
         working-directory: ./improved-factions
-        run: echo "VERSION=$(./gradlew -q printVersion)" >> $GITHUB_ENV
+        run: echo "VERSION=$(./gradlew -q properties | grep "^version:" | awk '{print $2}')" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
@@ -80,3 +80,6 @@ jobs:
         uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
         with:
           build-root-directory: ./improved-factions
+          build-scan-publish: true
+          build-scan-terms-of-use-url: "https://gradle.com/help/legal-terms-of-use"
+          build-scan-terms-of-use-agree: "yes"
