@@ -32,6 +32,8 @@ modules:
   claim-particles: true
   # This module will allow factions to create alliances with other factions and form wars
   relations: true
+  # Adds tutorials to the game, explaining the plugin
+  tutorials: true
 
 #
 # -------- { Base Module Settings } --------
