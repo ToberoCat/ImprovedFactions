@@ -8,8 +8,8 @@ group = "io.github.toberocat.improved-factions"
 version = "2.3.0"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 repositories {
@@ -96,7 +96,7 @@ tasks {
 }
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(17)
 }
 
 publishing {
