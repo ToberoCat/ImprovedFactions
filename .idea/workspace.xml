@@ -4,16 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad9c7d4c-34f8-4c4a-9806-e72e98556779" name="Changes" comment="Fixed nightly build pipeline">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/TutorialModule.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/TutorialRun.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/command/TutorialCommand.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/sequence/SequenceStep.kt" afterDir="false" />
+    <list default="true" id="ad9c7d4c-34f8-4c4a-9806-e72e98556779" name="Changes" comment="Downgraded from java 21 to java 17">
+      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/coroutines/BukkitDispatcher.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/Tutorial.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/listener/PlayerListener.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/manager/TutorialManager.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/manager/TutorialWorldManager.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/scene/SampleScene.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/scene/Scene.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/scene/TutorialEntity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/world/TutorialArea.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/world/TutorialAreaPoint.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/world/TutorialWorldGenerator.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/improved-factions/src/test/kotlin/be/seeseemelk/mockbukkit/CraftChunk.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_08_09_24,_16_59_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_08_09_24__16_59__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_09_24,_17_14_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_09_24__17_14__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/ModuleManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/ModuleManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/resources/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/resources/languages/messages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/resources/languages/messages_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/gradle/libs.versions.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/ImprovedFactionsPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/ImprovedFactionsPlugin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/TutorialModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/TutorialModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/TutorialRun.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/command/TutorialCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/command/TutorialCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/sequence/SequenceStep.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/utils/Extensions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/utils/Extensions.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,16 +81,18 @@
       <list>
         <option value="Kotlin Interface" />
         <option value="Kotlin Enum" />
-        <option value="Kotlin Object" />
         <option value="IF Command" />
+        <option value="Kotlin Object" />
+        <option value="package-info" />
         <option value="Kotlin Class" />
+        <option value="Kotlin Data Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -115,33 +137,67 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
-    "Gradle.Build Plugin.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.HomeCommandTest.executor": "Run",
-    "Gradle.Test Plugin.executor": "Run",
-    "Gradle.TitleTest.Test title on enter.executor": "Debug",
-    "Gradle.improved-factions [build].executor": "Run",
-    "Gradle.improved-factions [test].executor": "Run",
-    "Remote JVM Debug.Debug Server.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "tutorial-module",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/media/tobias/Data/Development/Minecraft/Spigot/Projects",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "fileTemplates",
-    "settings.editor.splitter.proportion": "0.25428858",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.Start Server.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build Plugin.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.HomeCommandTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Test Plugin.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TitleTest.Test title on enter.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.improved-factions [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.improved-factions [test].executor&quot;: &quot;Run&quot;,
+    &quot;Remote JVM Debug.Debug Server.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;tutorial-module&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/tobias/.gradle/caches/modules-2/files-2.1/com.github.patheloper.pathetic/pathetic-mapping/3.1/79d654c9d0aecb29bccae3d4b1f431130352d428/pathetic-mapping-3.1.jar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;fileTemplates&quot;,
+    &quot;settings.editor.splitter.proportion&quot;: &quot;0.25428858&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/tutorial/world" />
+    </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="io.github.toberocat.improvedfactions.modules.tutorial.scene" />
+      <recent name="io.github.toberocat.improvedfactions.modules.tutorial.manager" />
+    </key>
+  </component>
   <component name="RunManager" selected="Gradle.Build Plugin">
+    <configuration name="HomeCommandTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/improved-factions" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;io.github.toberocat.improvedfactions.integration.commands.home.HomeCommandTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="TitleTest.Test title on enter" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -176,11 +232,14 @@
       <item itemvalue="Docker.Start Server" />
       <item itemvalue="Gradle.Build Plugin" />
       <item itemvalue="Gradle.Test Plugin" />
+      <item itemvalue="Gradle.HomeCommandTest" />
       <item itemvalue="Gradle.TitleTest.Test title on enter" />
       <item itemvalue="Remote JVM Debug.Debug Server" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.HomeCommandTest" />
+        <item itemvalue="Gradle.TitleTest.Test title on enter" />
         <item itemvalue="Gradle.TitleTest.Test title on enter" />
         <item itemvalue="Gradle.TitleTest.Test title on enter" />
       </list>
@@ -207,7 +266,14 @@
       <workItem from="1725953731207" duration="514000" />
       <workItem from="1725964540997" duration="2000" />
       <workItem from="1726311858039" duration="369000" />
-      <workItem from="1726312708360" duration="2871000" />
+      <workItem from="1726312708360" duration="6782000" />
+      <workItem from="1726481674755" duration="120000" />
+      <workItem from="1726481804220" duration="4483000" />
+      <workItem from="1726502210861" duration="7703000" />
+      <workItem from="1726674694655" duration="2862000" />
+      <workItem from="1726680388376" duration="2159000" />
+      <workItem from="1726683608602" duration="17000" />
+      <workItem from="1726683637546" duration="2583000" />
     </task>
     <task id="LOCAL-00001" summary="Migrated to gradle instead of maven">
       <option name="closed" value="true" />
@@ -329,7 +395,23 @@
       <option name="project" value="LOCAL" />
       <updated>1725912765483</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="STarted with tutorial module">
+      <option name="closed" value="true" />
+      <created>1726315691524</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1726315691524</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Downgraded from java 21 to java 17">
+      <option name="closed" value="true" />
+      <created>1726315867272</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1726315867272</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -359,18 +441,9 @@
     <MESSAGE value="Added config option to hide wilderness title" />
     <MESSAGE value="Semi fixed nightly builds" />
     <MESSAGE value="Fixed nightly build pipeline" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed nightly build pipeline" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/ImprovedFactionsPlugin.kt</url>
-          <line>71</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="STarted with tutorial module" />
+    <MESSAGE value="Downgraded from java 21 to java 17" />
+    <option name="LAST_COMMIT_MESSAGE" value="Downgraded from java 21 to java 17" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

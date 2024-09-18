@@ -3,12 +3,12 @@ package io.github.toberocat.improvedfactions
 import com.jeff_media.updatechecker.UpdateCheckSource
 import com.jeff_media.updatechecker.UpdateChecker
 import com.jeff_media.updatechecker.UserAgentBuilder
-import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.claims.clustering.detector.ClaimClusterDetector
 import io.github.toberocat.improvedfactions.claims.clustering.query.DatabaseClaimQueryProvider
 import io.github.toberocat.improvedfactions.commands.FactionCommandExecutor
 import io.github.toberocat.improvedfactions.commands.claim.FactionMap
 import io.github.toberocat.improvedfactions.config.ImprovedFactionsConfig
+import io.github.toberocat.improvedfactions.coroutines.BukkitDispatcher
 import io.github.toberocat.improvedfactions.database.DatabaseConnector
 import io.github.toberocat.improvedfactions.factions.Factions
 import io.github.toberocat.improvedfactions.invites.FactionInvites
@@ -27,11 +27,13 @@ import io.github.toberocat.improvedfactions.utils.threadPool
 import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import me.clip.placeholderapi.PlaceholderAPI
 import net.kyori.adventure.platform.bukkit.BukkitAudiences
-import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 import org.jetbrains.exposed.sql.Database
+import org.patheloper.api.pathing.Pathfinder
+import org.patheloper.api.pathing.configuration.PathfinderConfiguration
+import org.patheloper.mapping.PatheticMapper
 
 
 /**
@@ -48,6 +50,8 @@ open class ImprovedFactionsPlugin : JavaPlugin() {
     lateinit var claimChunkClusters: ClaimClusterDetector
     lateinit var papiTransformer: (player: OfflinePlayer, input: String) -> String
     lateinit var moduleManager: ModuleManager
+    lateinit var pathfinder: Pathfinder
+    lateinit var bukkitDispatcher: BukkitDispatcher
 
     companion object {
         lateinit var instance: ImprovedFactionsPlugin
@@ -59,6 +63,7 @@ open class ImprovedFactionsPlugin : JavaPlugin() {
         instance = this
         moduleManager = ModuleManager(this)
         adventure = BukkitAudiences.create(this)
+        bukkitDispatcher = BukkitDispatcher(this)
         claimChunkClusters = ClaimClusterDetector(DatabaseClaimQueryProvider())
 
         BStatsCollector(this)
@@ -81,11 +86,20 @@ open class ImprovedFactionsPlugin : JavaPlugin() {
         updateLanguages(this)
 
         claimChunkClusters.detectClusters()
+        PatheticMapper.initialize(this)
+        pathfinder = PatheticMapper.newPathfinder(
+            PathfinderConfiguration.createConfiguration()
+                .withLoadingChunks(true)
+                .withAllowingDiagonal(true)
+                .withAllowingFailFast(true)
+                .withAllowingFallback(true)
+        )
     }
 
     override fun onDisable() {
         adventure.close()
         threadPool.shutdown()
+        PatheticMapper.shutdown()
     }
 
     private fun checkForUpdate() {

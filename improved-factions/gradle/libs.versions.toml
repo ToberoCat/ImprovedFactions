@@ -13,7 +13,7 @@ adventure-text-minimessages-version = "4.17.0"
 adventure-text-serializer-legacy-version = "4.17.0"
 kyori-adventure-platform-bukkit-version = "4.3.3"
 base64-itemstack-version = "1.0.0"
-bstats-bukkit-version = "3.0.2"
+bstats-bukkit-version = "3.0.3"
 placeholder-api-version = "2.11.6"
 dynmap-api-version = "3.7-beta-6"
 mockbukkit-version = "3.80.0"
@@ -21,6 +21,8 @@ snakeyaml-version = "2.2"
 gson-version = "2.11.0"
 logback-classic-version = "1.2.13"
 junit-jupiter-params-version = "5.11.0"
+pathetic-version="3.1"
+kotlinx-courotines-version = "1.6.4"
 
 [libraries]
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit5", version.ref = "kotlin-version" }
@@ -52,5 +54,8 @@ mockbukkit = { module = "com.github.seeseemelk:MockBukkit-v1.20", version.ref = 
 snakeyaml = { module = "org.yaml:snakeyaml", version.ref = "snakeyaml-version" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson-version" }
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-classic-version" }
+pathetic-mapping = { module = "com.github.patheloper.pathetic:pathetic-mapping", version.ref = "pathetic-version" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-courotines-version" }
+
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-version" }

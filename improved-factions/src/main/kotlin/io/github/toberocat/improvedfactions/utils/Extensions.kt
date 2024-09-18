@@ -6,13 +6,16 @@ import io.github.toberocat.improvedfactions.utils.command.CommandMeta
 import io.github.toberocat.improvedfactions.utils.offline.KnownOfflinePlayer
 import io.github.toberocat.improvedfactions.utils.offline.KnownOfflinePlayers
 import io.github.toberocat.toberocore.command.SubCommand
+import kotlinx.coroutines.future.await
 import net.kyori.adventure.audience.Audience
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
+import org.bukkit.util.Vector
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import java.util.*
-import java.nio.charset.StandardCharsets;
+import java.util.UUID
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.CompletionStage
 import kotlin.reflect.full.findAnnotations
 
 inline fun <T, R> T.compute(computeBlock: (T) -> R) = computeBlock(this)
@@ -37,4 +40,8 @@ fun String.getOfflinePlayerByName() = loggedTransaction {
         ImprovedFactionsPlugin.instance.logger.fine("[OfflinePlayers] KnownPlayerUUID null, fell back to Bukkit " + knownPlayerUUID.toString())
         Bukkit.getOfflinePlayers().find { it.name == this@getOfflinePlayerByName };
     }
+}
+
+fun Vector.lerp(target: Vector, t: Double): Vector {
+    return this.clone().add(target.clone().subtract(this).multiply(t))
 }
