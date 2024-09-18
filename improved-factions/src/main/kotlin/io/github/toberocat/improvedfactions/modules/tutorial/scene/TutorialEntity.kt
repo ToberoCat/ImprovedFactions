@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.modules.tutorial.scene
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.modules.tutorial.task.LookAtTask
 import io.github.toberocat.improvedfactions.modules.tutorial.world.TutorialAreaPoint
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
@@ -10,6 +11,7 @@ import org.bukkit.Color
 import org.bukkit.Location
 import org.bukkit.Particle
 import org.bukkit.entity.Entity
+import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
 import org.patheloper.api.pathing.filter.filters.PassablePathFilter
@@ -17,9 +19,13 @@ import org.patheloper.mapping.bukkit.BukkitMapper
 
 class TutorialEntity(
     private val targetPlayer: Player,
-    val entity: Entity,
+    val entity: LivingEntity,
     private val plugin: ImprovedFactionsPlugin,
 ) {
+
+    init {
+        entity.isCustomNameVisible = true
+    }
 
     suspend fun moveTo(destination: TutorialAreaPoint, speed: Double = 1.0) {
         val startPosition = BukkitMapper.toPathPosition(entity.location)
@@ -35,6 +41,16 @@ class TutorialEntity(
         val completion = CompletableDeferred<Unit>()
         withContext(plugin.bukkitDispatcher) { MovementTask(entity, pathLocations, speed, plugin, completion).start() }
         completion.await()
+    }
+
+    suspend fun lookAt(location: TutorialAreaPoint) {
+        val target = location.getLocation()
+        LookAtTask.lookAt(plugin, entity) { target }
+    }
+
+    suspend fun runCommand(command: String) {
+        LookAtTask.lookAt(plugin, entity) { targetPlayer.location }
+        entity.customName = command
     }
 
     fun remove() {

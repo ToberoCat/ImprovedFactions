@@ -18,13 +18,13 @@ class RenderParticlesTask(private val config: ClaimParticleModuleConfig) : Bukki
         LineHandler.clearCache()
         loggedTransaction {
             Bukkit.getOnlinePlayers().forEach { player ->
-                player.getCurrentClusters(config.chunkRenderDistance).forEach { player.renderClusterParticles(it) }
+                player.getCurrentClusters(config.chunkRenderDistance).forEach { renderClusterParticles(player, it) }
             }
         }
     }
 
-    private fun Player.renderClusterParticles(cluster: Cluster) {
-        cluster.getOuterNodes().forEach { renderLoop(cluster, it) }
+    fun renderClusterParticles(player: Player, cluster: Cluster) {
+        cluster.getOuterNodes().forEach { player.renderLoop(cluster, it) }
     }
 
     private fun Player.renderLoop(cluster: Cluster, loop: List<WorldPosition>) {

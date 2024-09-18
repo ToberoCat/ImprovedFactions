@@ -9,8 +9,8 @@ import java.io.File
 object TutorialWorldManager {
 
     private const val WORLD_NAME = "faction_tutorial_world"
-    private const val CELL_SIZE = 100.0
-    private const val GRID_SIZE = 25
+    private const val CELL_SIZE = 128.0
+    private const val GRID_SIZE = 32
     private val world = createWorld()
     private var currentCell = 0
 
