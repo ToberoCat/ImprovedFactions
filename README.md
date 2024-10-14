@@ -22,7 +22,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)
-- [Documentation](https://github.com/ToberoCat/ImprovedFactions_new/wiki)
+- [Documentation](https://github.com/ToberoCat/ImprovedFactions/tree/main/docs)
 - [Contributing](#contributing)
 - [Support](#support)
 - [License](#license)
