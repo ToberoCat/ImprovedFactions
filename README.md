@@ -64,7 +64,7 @@ The main configuration file is located at `plugins/ImprovedFactions/config.yml`.
 - Power systems
 - And much more!
 
-Detailed configuration instructions can be found in our [wiki](https://github.com/ToberoCat/ImprovedFactions_new/wiki).
+Detailed configuration instructions can be found in our [wiki](https://github.com/ToberoCat/ImprovedFactions/tree/main/docs).
 
 ## Contributing
 
