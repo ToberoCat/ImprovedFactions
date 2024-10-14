@@ -22,7 +22,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)
-- [Documentation](#documentation)
+- [Documentation](https://github.com/ToberoCat/ImprovedFactions_new/wiki)
 - [Contributing](#contributing)
 - [Support](#support)
 - [License](#license)
@@ -66,12 +66,6 @@ The main configuration file is located at `plugins/ImprovedFactions/config.yml`.
 
 Detailed configuration instructions can be found in our [wiki](https://github.com/ToberoCat/ImprovedFactions_new/wiki).
 
-## Documentation
-
-[![view - Documentation](https://img.shields.io/badge/view-Documentation-blue?style=for-the-badge)](https://github.com/ToberoCat/ImprovedFactions_new/wiki "Go to project documentation")
-
-Our comprehensive documentation covers everything from basic setup to advanced features. Check out our [GitHub Wiki](https://github.com/ToberoCat/ImprovedFactions_new/wiki) for detailed guides and information.
-
 ## Contributing
 
 We welcome contributions from the community! If you'd like to contribute, please:
@@ -97,7 +91,9 @@ ImprovedFactions is released under the [MIT License](LICENSE).
 
 <div align="center">
 
-Made with ❤️ by [ToberoCat](https://github.com/ToberoCat) and [contributors](CONTRIBUTORS.md).
+Made with ❤️ by [ToberoCat](https://github.com/ToberoCat)
+
+Check [CONTRIBUTORS.md](CONTRIBUTORS.md) to see a list of all people who contributed to this project.
 
 [![Bstats](https://img.shields.io/badge/View-Bstats-blue?style=for-the-badge)](https://bstats.org/plugin/bukkit/ImprovedFactions/14810)
 
