@@ -85,7 +85,7 @@ For more information, see our [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 ## License
 
-ImprovedFactions is released under the [MIT License](LICENSE).
+ImprovedFactions is released under the [GNU License](LICENSE).
 
 ---
 
