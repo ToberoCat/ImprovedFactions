@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.devtools.ksp)
     id("maven-publish")
     id("io.github.goooler.shadow") version "8.1.8"
 }
@@ -11,6 +12,7 @@ java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }
+
 
 repositories {
     mavenCentral()
@@ -24,6 +26,8 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":annotations"))
+
     // Spigot API
     compileOnly(libs.spigot.api)
 
@@ -64,6 +68,10 @@ dependencies {
     testImplementation(libs.snakeyaml)
     testImplementation(libs.gson)
     testImplementation(libs.logback.classic)
+
+    // KSP
+    ksp(project(":code-generation"))
+    ksp(project(":documentation-generation"))
 }
 
 tasks.named<Copy>("processResources") {
@@ -97,6 +105,13 @@ tasks {
 
 kotlin {
     jvmToolchain(17)
+
+    sourceSets.main {
+        kotlin.srcDir("build/generated/ksp/main/kotlin")
+    }
+    sourceSets.test {
+        kotlin.srcDir("build/generated/ksp/test/kotlin")
+    }
 }
 
 publishing {

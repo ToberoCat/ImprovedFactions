@@ -12,8 +12,8 @@ import io.github.toberocat.improvedfactions.utils.arguments.EnumArgument
 import io.github.toberocat.improvedfactions.utils.arguments.IntegerArgument
 import io.github.toberocat.improvedfactions.utils.arguments.PowerArgument
 import io.github.toberocat.improvedfactions.utils.arguments.entity.FactionArgument
-import io.github.toberocat.improvedfactions.utils.command.CommandCategory
-import io.github.toberocat.improvedfactions.utils.command.CommandMeta
+import io.github.toberocat.improvedfactions.annotations.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.CommandMeta
 import io.github.toberocat.improvedfactions.utils.options.FactionPermissionOption
 import io.github.toberocat.improvedfactions.utils.options.InFactionOption
 import io.github.toberocat.improvedfactions.utils.options.addFactionNameOption

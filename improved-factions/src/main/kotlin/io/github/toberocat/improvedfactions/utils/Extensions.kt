@@ -2,7 +2,7 @@ package io.github.toberocat.improvedfactions.utils
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import io.github.toberocat.improvedfactions.utils.command.CommandMeta
+import io.github.toberocat.improvedfactions.annotations.CommandMeta
 import io.github.toberocat.improvedfactions.utils.offline.KnownOfflinePlayer
 import io.github.toberocat.improvedfactions.utils.offline.KnownOfflinePlayers
 import io.github.toberocat.toberocore.command.SubCommand

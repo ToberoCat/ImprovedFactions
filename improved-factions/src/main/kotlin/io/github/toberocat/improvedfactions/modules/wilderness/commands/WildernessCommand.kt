@@ -6,8 +6,8 @@ import io.github.toberocat.improvedfactions.modules.wilderness.WildernessModule
 import io.github.toberocat.improvedfactions.modules.wilderness.config.WildernessModuleConfig
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.utils.PlayerTeleporter
-import io.github.toberocat.improvedfactions.utils.command.CommandCategory
-import io.github.toberocat.improvedfactions.utils.command.CommandMeta
+import io.github.toberocat.improvedfactions.annotations.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.CommandMeta
 import io.github.toberocat.improvedfactions.utils.options.limit.PlayerUsageLimits
 import io.github.toberocat.improvedfactions.utils.options.limit.UsageLimitOption
 import io.github.toberocat.toberocore.command.PlayerSubCommand

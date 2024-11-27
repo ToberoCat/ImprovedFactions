@@ -10,7 +10,7 @@ import io.github.toberocat.improvedfactions.commands.member.MEMBERS_COMMAND_DESC
 import io.github.toberocat.improvedfactions.commands.member.MembersCommand
 import io.github.toberocat.improvedfactions.database.DatabaseManager
 import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.utils.command.CommandMeta
+import io.github.toberocat.improvedfactions.annotations.CommandMeta
 import org.bukkit.entity.Player
 
 @CommandMeta(

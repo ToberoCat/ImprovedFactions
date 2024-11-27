@@ -6,8 +6,8 @@ import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.invites.FactionInvite
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.utils.arguments.entity.InviteIdArgument
-import io.github.toberocat.improvedfactions.utils.command.CommandCategory
-import io.github.toberocat.improvedfactions.utils.command.CommandMeta
+import io.github.toberocat.improvedfactions.annotations.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.CommandMeta
 import io.github.toberocat.improvedfactions.utils.options.InFactionOption
 import io.github.toberocat.toberocore.command.PlayerSubCommand
 import io.github.toberocat.toberocore.command.arguments.Argument
