@@ -10,5 +10,4 @@ data class CommandProcessFunctionParameter(
     val simpleName: String,
     val type: String,
     val index: Int,
-    val isRequired: Boolean,
 )

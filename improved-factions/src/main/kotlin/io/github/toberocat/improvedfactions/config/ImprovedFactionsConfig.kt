@@ -17,7 +17,8 @@ class ImprovedFactionsConfig(
     var territoryDisplayLocation: EventDisplayLocation = EventDisplayLocation.TITLE,
     var defaultPlaceholders: Map<String, String> = emptyMap(),
     var allowedWorlds: Set<String> = emptySet(),
-    var hideWildernessTitle: Boolean = false
+    var hideWildernessTitle: Boolean = false,
+    var maxCommandSuggestions: Int = 10,
 ) : PluginConfig() {
 
     override fun reload(plugin: ImprovedFactionsPlugin, config: FileConfiguration) {
@@ -25,6 +26,7 @@ class ImprovedFactionsConfig(
             ?: EventDisplayLocation.TITLE
         defaultPlaceholders = config.generateDefaultPlaceholders()
         allowedWorlds = config.generateAllowedWorlds()
+        maxCommandSuggestions = config.getInt("max-command-suggestions", maxCommandSuggestions)
         hideWildernessTitle = config.getBoolean("factions.hide-wilderness-title", hideWildernessTitle)
     }
 

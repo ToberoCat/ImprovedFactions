@@ -33,10 +33,9 @@ class CommandVisitor(
             label = args["label"]?.toString() ?: "NoLabel",
             module = args["module"]?.toString() ?: "NoModule",
             responses = parseResponses((args["responses"] as? List<Any>) ?: emptyList()),
-            processFunctions = parseProcessFunctions(processFunctions),
+            processFunctions = parseProcessFunctions(classDeclaration.simpleName.asString(), processFunctions),
         )
 
-        logger.info(commandData.toString())
         val outputStream = createFile(commandData)
         CommandCodeGenerator(commandData).generateCode(outputStream)
     }
@@ -45,7 +44,7 @@ class CommandVisitor(
         return codeGenerator.createNewFile(
             dependencies = Dependencies.ALL_FILES,
             packageName = commandData.targetPackage,
-            fileName = "${commandData.targetName}Generated",
+            fileName = "${commandData.targetName}Processor",
         )
     }
 
@@ -56,11 +55,31 @@ class CommandVisitor(
                 key = responseArgs["key"] as String,
                 responseName = responseArgs["responseName"] as String,
             )
+        }.apply {
+            if (!this.any { it.responseName == "missingRequiredArgument" }) {
+                throw IllegalArgumentException("Command is missing a missingRequiredArgument response.")
+            }
         }
     }
 
-    private fun parseProcessFunctions(functions: List<KSFunctionDeclaration>) =
-        functions.mapNotNull { parseProcessFunction(it) }
+    private fun parseProcessFunctions(className: String, functions: List<KSFunctionDeclaration>) =
+        functions.mapNotNull { parseProcessFunction(it) }.apply {
+            if (this.isEmpty()) {
+                throw IllegalArgumentException("Command is missing a process function.")
+            }
+
+            // When the same sender class is used, the arguments must match. Only the length can differ.
+            val senderClassGroups: Map<String, List<CommandProcessFunction>> = this.groupBy { it.senderClass }
+            senderClassGroups.forEach { (_, functions) ->
+                val firstFunction = functions.first()
+                functions.forEach {
+                    if (it.parameters.size != firstFunction.parameters.size) {
+                        throw IllegalArgumentException("Command process functions must have the same amount of parameters. " +
+                                "${it.functionName} in command $className has ${it.parameters.size} parameters, but ${firstFunction.functionName} has ${firstFunction.parameters.size} parameters.")
+                    }
+                }
+            }
+        }
 
     private fun parseProcessFunction(function: KSFunctionDeclaration): CommandProcessFunction? {
         if (!function.simpleName.asString().contains(COMMAND_PROCESS_PREFIX)) {
@@ -72,10 +91,10 @@ class CommandVisitor(
             CommandProcessFunctionParameter(
                 simpleName = ksDeclaration.declaration.simpleName.asString(),
                 type = ksDeclaration.declaration.qualifiedName?.asString() ?: "",
-                isRequired = !ksDeclaration.isMarkedNullable,
                 index = function.parameters.indexOf(it) - 1,
             )
         }
+
         return CommandProcessFunction(
             senderClass = parameters.first().type,
             functionName = function.simpleName.asString(),
