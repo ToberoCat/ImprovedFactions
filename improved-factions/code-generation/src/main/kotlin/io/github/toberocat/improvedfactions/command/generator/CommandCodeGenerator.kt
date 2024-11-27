@@ -8,15 +8,18 @@ import java.io.BufferedWriter
 import java.io.OutputStream
 
 class CommandCodeGenerator(
-    private val commandData: CommandData
+    private val commandData: CommandData,
 ) {
     fun generateCode(outputStream: OutputStream) {
         outputStream.bufferedWriter().use { writer ->
-            writer.write("""
+            writer.write(
+                """
                 package ${commandData.targetPackage}
                 
                 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+                import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParser
                 import io.github.toberocat.improvedfactions.commands.executor.CommandExecutor
+                import io.github.toberocat.improvedfactions.commands.executor.DEFAULT_PARSERS
                 import org.bukkit.command.CommandSender
                 
                 open class ${commandData.targetName}Processor(
@@ -25,14 +28,22 @@ class CommandCodeGenerator(
                 ) : ${commandData.targetName}(), CommandProcessor {
                     override val label = "${commandData.label}"
                     
-                    override fun execute(sender: CommandSender, args: Array<String>): CommandProcessResult? {
-                         return when (sender) {
+                    override fun execute(sender: CommandSender, args: Array<String>): CommandProcessResult {
+                         return when {
                          ${functionCallCases()}
-                            else -> null
+                            else -> missingRequiredArgument()
                          }
                     }
                     
-            """.trimIndent())
+                    override fun tabComplete(sender: CommandSender, args: Array<String>): List<String> {
+                         val currentIndex = args.size
+                        val positionalArgumentParser = when (currentIndex) {
+                            
+                        }
+                    }
+                    
+            """.trimIndent()
+            )
 
             commandData.processFunctions.forEach { function ->
                 writer.write(generateCallProcessFunction(function))
@@ -45,10 +56,19 @@ class CommandCodeGenerator(
     }
 
     private fun generateCommandContextClass(writer: BufferedWriter) {
-        writer.write("""
+        writer.write(
+            """
             
-            open class ${commandData.targetName}Context {
-        """.trimIndent())
+            open class ${commandData.targetName}Context(val parsers: Map<Class<*>, ArgumentParser>) {
+                
+                constructor() : this(DEFAULT_PARSERS)
+                
+                fun <T> getArgumentParser(sender: CommandSender, clazz: Class<T>, arg: String): T {
+                    return parsers[clazz]?.parse(sender, arg) as? T ?: throw IllegalArgumentException("Unknown argument parser for ${"\$clazz"}")
+                }
+                
+        """.trimIndent()
+        )
 
         commandData.responses.forEach { response ->
             writer.write(generateResponseFunction(response))
@@ -58,7 +78,7 @@ class CommandCodeGenerator(
     }
 
     private fun generateResponseFunction(response: CommandResponse): String {
-        val key = when(response.key.isBlank()) {
+        val key = when (response.key.isBlank()) {
             false -> response.key
             true -> "${commandData.localizedCommandLabel}.${response.responseName.camlCaseToSnakeCase("-")}"
         }
@@ -74,7 +94,11 @@ class CommandCodeGenerator(
     private fun generateCallProcessFunction(function: CommandProcessFunction): String {
         return """
             
-            private fun ${function.functionName}Call(sender: ${function.senderClass}, args: Array<String>): CommandProcessResult? {
+            private fun ${function.functionName}Call(sender: ${function.senderClass}, args: Array<String>): CommandProcessResult {
+                if (args.size != ${function.parameters.size}) {
+                    return missingRequiredArgument()
+                }
+                
                 ${createParameterExtractors(function)}
                 return ${function.functionName}(sender, ${function.parameters.joinToString { it.simpleName }})
             }
@@ -85,7 +109,7 @@ class CommandCodeGenerator(
     private fun createParameterExtractors(function: CommandProcessFunction): String {
         return function.parameters.joinToString("\n") { parameter ->
             """
-                val ${parameter.simpleName} = executor.getArgumentParser(${parameter.type}::class.java, args[${parameter.index}])
+                val ${parameter.simpleName} = getArgumentParser(sender, ${parameter.type}::class.java, args[${parameter.index}])
             """.trimIndent()
         }
     }
@@ -93,7 +117,17 @@ class CommandCodeGenerator(
     private fun functionCallCases(): String {
         return commandData.processFunctions.joinToString("\n") { function ->
             """
-                is ${function.senderClass} -> return ${function.functionName}Call(sender, args)
+                sender is ${function.senderClass} && args.size == ${function.parameters.size} -> return ${function.functionName}Call(sender, args)
+            """.trimIndent()
+        }
+    }
+
+    private fun generateTabCompleteCases(): String {
+        return commandData.processFunctions.joinToString("\n") { function ->
+            """
+                ${function.parameters} -> {
+                    val ${function.parameters.joinToString { it.simpleName }} = ${function.parameters.joinToString { it.simpleName }}Parser.parse(sender, args[currentIndex])
+                }
             """.trimIndent()
         }
     }
