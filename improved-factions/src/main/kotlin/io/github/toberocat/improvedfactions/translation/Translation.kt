@@ -2,12 +2,15 @@ package io.github.toberocat.improvedfactions.translation
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.utils.toAudience
+import net.kyori.adventure.audience.Audience.toAudience
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.serializer.ComponentSerializer
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.OfflinePlayer
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import sun.security.util.LocalizedMessage.getLocalized
 import java.util.*
 
 
@@ -16,6 +19,13 @@ import java.util.*
  * @author Tobias Madlberger (Tobias)
  */
 typealias LocalizationKey = String
+
+fun CommandSender.sendLocalized(key: String, placeholders: Map<String, String> = emptyMap()) {
+    when (this) {
+        is Player -> sendLocalized(key, placeholders)
+        else -> sendMessage(Locale.ENGLISH.localizeUnformatted(key, placeholders))
+    }
+}
 
 fun OfflinePlayer.sendLocalized(key: String, placeholders: Map<String, String> = emptyMap()) {
     player?.sendLocalized(key, placeholders)

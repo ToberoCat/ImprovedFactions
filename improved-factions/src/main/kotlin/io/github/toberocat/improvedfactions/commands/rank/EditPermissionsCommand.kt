@@ -5,8 +5,8 @@ import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTrans
 import io.github.toberocat.improvedfactions.ranks.FactionRank
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.utils.arguments.entity.RankArgument
-import io.github.toberocat.improvedfactions.utils.command.CommandCategory
-import io.github.toberocat.improvedfactions.utils.command.CommandMeta
+import io.github.toberocat.improvedfactions.annotations.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.CommandMeta
 import io.github.toberocat.improvedfactions.utils.options.InFactionOption
 import io.github.toberocat.improvedfactions.utils.options.RankNameOption
 import io.github.toberocat.toberocore.command.PlayerSubCommand

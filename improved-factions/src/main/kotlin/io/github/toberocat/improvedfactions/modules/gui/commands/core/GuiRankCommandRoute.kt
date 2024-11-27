@@ -13,7 +13,7 @@ import io.github.toberocat.improvedfactions.modules.gui.actions.GuiEngineCommand
 import io.github.toberocat.improvedfactions.modules.gui.components.rank.FactionRankComponentBuilder
 import io.github.toberocat.improvedfactions.ranks.listRanks
 import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.utils.command.CommandMeta
+import io.github.toberocat.improvedfactions.annotations.CommandMeta
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 

@@ -1,8 +1,8 @@
 package io.github.toberocat.improvedfactions.commands.admin.zone
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.utils.command.CommandCategory
-import io.github.toberocat.improvedfactions.utils.command.CommandMeta
+import io.github.toberocat.improvedfactions.annotations.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.CommandMeta
 import io.github.toberocat.toberocore.command.CommandRoute
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
