@@ -1,3 +1,3 @@
 package io.github.toberocat.improvedfactions.commands.arguments
 
-class ArgumentParsingException : Exception()
+class ArgumentParsingException(override val message: String?) : Exception(message)

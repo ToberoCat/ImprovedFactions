@@ -10,6 +10,7 @@ services:
       VERSION: 1.21.3
       JVM_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
       DEBUG_EXEC: true
+      ENABLE_COMMAND_BLOCK: true
     volumes:
       - ./server:/data
     ports:

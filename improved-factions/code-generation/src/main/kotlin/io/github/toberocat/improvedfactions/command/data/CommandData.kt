@@ -11,5 +11,7 @@ data class CommandData(
     val responses: List<CommandResponse>,
     val processFunctions: List<CommandProcessFunction>
 ) {
-    val localizedCommandLabel = "$module.${label.camlCaseToSnakeCase(".")}.description"
+    val localizedCommandLabel = "$module.commands.${label.camlCaseToSnakeCase(".")}"
+    val descriptionKey = "$localizedCommandLabel.description"
+    val permission = "factions.commands.${label.camlCaseToSnakeCase(".")}"
 }

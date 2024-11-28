@@ -20,6 +20,11 @@ import java.util.*
  */
 typealias LocalizationKey = String
 
+fun CommandSender.resolveLocalization(key: String, placeholders: Map<String, String> = emptyMap()) = when (this) {
+    is Player -> getLocaleEnum().localizeUnformatted(key, placeholders)
+    else -> Locale.ENGLISH.localizeUnformatted(key, placeholders)
+}
+
 fun CommandSender.sendLocalized(key: String, placeholders: Map<String, String> = emptyMap()) {
     when (this) {
         is Player -> sendLocalized(key, placeholders)

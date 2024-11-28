@@ -41,7 +41,7 @@ class FactionCommandExecutor(plugin: ImprovedFactionsPlugin) {
         }
         executor.addChild(InfoCommand(plugin))
 
-        executor.addChild(CreateCommand(plugin))
+        //executor.addChild(CreateCommand(plugin))
         executor.addChild(DeleteCommand(plugin))
         executor.addChild(IconCommand(plugin))
         executor.addChild(RenameCommand(plugin))

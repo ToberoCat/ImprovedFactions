@@ -1,13 +1,12 @@
 package io.github.toberocat.improvedfactions.commands.executor
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.commands.TestCommandProcessor
-import org.bukkit.command.PluginCommand
+import io.github.toberocat.improvedfactions.commands.manage.CreateCommandProcessor
 
 class GeneratedFactionCommandExecutor(
     plugin: ImprovedFactionsPlugin,
 ) : CommandExecutor(plugin) {
     init {
-        registerCommandProcessor(TestCommandProcessor(plugin, this))
+        registerCommandProcessor(CreateCommandProcessor(plugin, this))
     }
 }

@@ -2,7 +2,7 @@
 # -------- { General Settings } --------
 #
 update-checker: true
-config-version: 19
+config-version: 20
 
 # Configure an mysql connection. If no connection was established, the plugin uses sqlite.
 # This allows to use this plugin without a mysql server
@@ -422,3 +422,7 @@ default-placeholders:
 
 # This option decides if what kind of notification the players will receive when a certain event happens (Teleport, Territory change, etc)
 event-display-location: "TITLE" # Options are: TITLE, CHAT, ACTIONBAR
+
+# The maximum amount of suggestions that will be displayed when a player types a command. If set to 0, the suggestions will be disabled
+# This may have a performance impact on servers
+max-command-suggestions: 10

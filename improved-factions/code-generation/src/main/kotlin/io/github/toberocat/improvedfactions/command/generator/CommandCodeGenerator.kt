@@ -1,10 +1,7 @@
 package io.github.toberocat.improvedfactions.command.generator
 
-import io.github.toberocat.improvedfactions.annotations.CommandResponse
 import io.github.toberocat.improvedfactions.command.data.CommandData
 import io.github.toberocat.improvedfactions.command.data.CommandProcessFunction
-import io.github.toberocat.improvedfactions.utils.camlCaseToSnakeCase
-import java.io.BufferedWriter
 import java.io.OutputStream
 
 class CommandCodeGenerator(
@@ -12,13 +9,16 @@ class CommandCodeGenerator(
 ) {
     fun generateCode(outputStream: OutputStream) {
         outputStream.bufferedWriter().use { writer ->
-            writer.write(
-                """
+            writer.write("""
                 package ${commandData.targetPackage}
                 
                 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
                 import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParser
                 import io.github.toberocat.improvedfactions.commands.executor.CommandExecutor
+                import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+                import io.github.toberocat.improvedfactions.annotations.Permission
+                import io.github.toberocat.improvedfactions.commands.CommandProcessor
+                import io.github.toberocat.improvedfactions.annotations.Localization
                 import io.github.toberocat.improvedfactions.commands.executor.DEFAULT_PARSERS
                 import org.bukkit.command.CommandSender
                 
@@ -36,10 +36,12 @@ class CommandCodeGenerator(
                     }
                     
                     override fun tabComplete(sender: CommandSender, args: Array<String>): List<String> {
-                         val currentIndex = args.size
-                        val positionalArgumentParser = when (currentIndex) {
-                            
+                        val currentIndex = 0.coerceAtLeast(args.size - 1)
+                        val positionalArgumentParser: ArgumentParser? = when(sender) {
+                            ${generateTabCompleteCases()}
+                            else -> null
                         }
+                        return positionalArgumentParser?.tabComplete(sender, currentIndex, args) ?: emptyList()
                     }
                     
             """.trimIndent()
@@ -51,44 +53,8 @@ class CommandCodeGenerator(
 
             writer.write("}")
 
-            generateCommandContextClass(writer)
+            CommandContextCodeGenerator(writer, commandData).generateCommandContextClass()
         }
-    }
-
-    private fun generateCommandContextClass(writer: BufferedWriter) {
-        writer.write(
-            """
-            
-            open class ${commandData.targetName}Context(val parsers: Map<Class<*>, ArgumentParser>) {
-                
-                constructor() : this(DEFAULT_PARSERS)
-                
-                fun <T> getArgumentParser(sender: CommandSender, clazz: Class<T>, arg: String): T {
-                    return parsers[clazz]?.parse(sender, arg) as? T ?: throw IllegalArgumentException("Unknown argument parser for ${"\$clazz"}")
-                }
-                
-        """.trimIndent()
-        )
-
-        commandData.responses.forEach { response ->
-            writer.write(generateResponseFunction(response))
-        }
-
-        writer.write("}")
-    }
-
-    private fun generateResponseFunction(response: CommandResponse): String {
-        val key = when (response.key.isBlank()) {
-            false -> response.key
-            true -> "${commandData.localizedCommandLabel}.${response.responseName.camlCaseToSnakeCase("-")}"
-        }
-
-        return """
-            protected fun ${response.responseName}(vararg args: Pair<String, String>): CommandProcessResult { 
-                return CommandProcessResult("$key", mapOf(*args))
-            }
-            
-        """.trimIndent()
     }
 
     private fun generateCallProcessFunction(function: CommandProcessFunction): String {
@@ -100,7 +66,7 @@ class CommandCodeGenerator(
                 }
                 
                 ${createParameterExtractors(function)}
-                return ${function.functionName}(sender, ${function.parameters.joinToString { it.simpleName }})
+                return ${function.functionName}(sender, ${function.parameters.joinToString { it.uniqueName }})
             }
             
         """.trimIndent()
@@ -109,7 +75,7 @@ class CommandCodeGenerator(
     private fun createParameterExtractors(function: CommandProcessFunction): String {
         return function.parameters.joinToString("\n") { parameter ->
             """
-                val ${parameter.simpleName} = getArgumentParser(sender, ${parameter.type}::class.java, args[${parameter.index}])
+                val ${parameter.uniqueName} = getArgumentParser(sender, ${parameter.type}::class.java, args[${parameter.index}])
             """.trimIndent()
         }
     }
@@ -125,9 +91,19 @@ class CommandCodeGenerator(
     private fun generateTabCompleteCases(): String {
         return commandData.processFunctions.joinToString("\n") { function ->
             """
-                ${function.parameters} -> {
-                    val ${function.parameters.joinToString { it.simpleName }} = ${function.parameters.joinToString { it.simpleName }}Parser.parse(sender, args[currentIndex])
+                is ${function.senderClass} -> when (currentIndex) {
+                    ${generateFunctionLevelTabCompleteCases(function)}
+                    else -> null
                 }
+                
+            """.trimIndent()
+        }
+    }
+
+    private fun generateFunctionLevelTabCompleteCases(function: CommandProcessFunction): String {
+        return function.parameters.joinToString("\n") { parameter ->
+            """
+                ${parameter.index} -> getArgumentParser(${parameter.type}::class.java)
             """.trimIndent()
         }
     }
