@@ -2,9 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="ImprovedFactions.documentation-generation" target="21" />
-      <module name="io.github.toberocat.improved-factions.ImprovedFactions.main~1" target="17" />
-      <module name="io.github.toberocat.improved-factions.ImprovedFactions.test~1" target="17" />
+      <module name="io.github.toberocat.improved-factions.ImprovedFactions.main~1" target="21" />
+      <module name="io.github.toberocat.improved-factions.ImprovedFactions.test~1" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>

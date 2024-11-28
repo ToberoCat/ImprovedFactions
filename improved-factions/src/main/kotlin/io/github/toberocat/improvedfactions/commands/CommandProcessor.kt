@@ -8,4 +8,6 @@ interface CommandProcessor {
     fun execute(sender: CommandSender, args: Array<String>): CommandProcessResult
 
     fun tabComplete(sender: CommandSender, args: Array<String>): List<String>
+
+    fun canExecute(sender: CommandSender, args: Array<String>) = true
 }

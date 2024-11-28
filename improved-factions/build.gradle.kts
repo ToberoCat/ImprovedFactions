@@ -1,3 +1,5 @@
+import java.nio.file.Files
+
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.devtools.ksp)
@@ -12,7 +14,6 @@ java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
 }
-
 
 repositories {
     mavenCentral()
@@ -119,4 +120,24 @@ publishing {
             from(components["java"])
         }
     }
+}
+
+val generateBuildConfig: Task by tasks.creating {
+    val outputDir = layout.buildDirectory.dir("generated/source/buildConfig/kotlin").get()
+    Files.createDirectories(outputDir.asFile.toPath())
+
+    val versionName = version.toString()
+
+    doLast {
+        val buildConfigFile = outputDir.file("BuildConfig.kt")
+        buildConfigFile.asFile.writeText("""
+            object BuildConfig {
+                const val VERSION = "$versionName"
+            }
+        """.trimIndent())
+    }
+}
+
+tasks.compileKotlin {
+    dependsOn(generateBuildConfig)
 }

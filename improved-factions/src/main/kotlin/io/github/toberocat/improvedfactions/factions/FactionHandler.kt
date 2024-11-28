@@ -1,11 +1,13 @@
 package io.github.toberocat.improvedfactions.factions
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.annotations.Localization
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.messages.MessageBroker
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.ranks.FactionRank
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
+import io.github.toberocat.improvedfactions.translation.LocalizedException
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.utils.sync
 import io.github.toberocat.toberocore.util.ItemBuilder
@@ -19,6 +21,8 @@ import java.util.*
  * @author Tobias Madlberger (Tobias)
  */
 object FactionHandler {
+    @Localization("factions.faction-already-exists")
+    @Localization("factions.already-in-faction")
     fun createFaction(ownerId: UUID, factionName: String, id: Int? = null): Faction {
         return loggedTransaction {
             val faction = Faction.new(id) {
