@@ -9,8 +9,8 @@ import io.github.toberocat.improvedfactions.user.FactionUsers
 import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.utils.arguments.FallbackRankArgument
 import io.github.toberocat.improvedfactions.utils.arguments.entity.RankArgument
-import io.github.toberocat.improvedfactions.annotations.CommandCategory
-import io.github.toberocat.improvedfactions.annotations.CommandMeta
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
 import io.github.toberocat.improvedfactions.utils.options.InFactionOption
 import io.github.toberocat.improvedfactions.utils.options.RankNameOption
 import io.github.toberocat.toberocore.command.PlayerSubCommand

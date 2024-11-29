@@ -9,7 +9,7 @@ import io.github.toberocat.improvedfactions.modules.power.commands.POWER_COMMAND
 import io.github.toberocat.improvedfactions.modules.power.commands.PowerCommand
 import io.github.toberocat.improvedfactions.modules.power.impl.FactionPowerRaidModuleHandleImpl
 import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.annotations.CommandMeta
+import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import org.bukkit.entity.Player
 

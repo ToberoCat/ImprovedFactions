@@ -9,7 +9,7 @@ import io.github.toberocat.improvedfactions.commands.rank.EditPermissionsCommand
 import io.github.toberocat.improvedfactions.database.DatabaseManager
 import io.github.toberocat.improvedfactions.modules.gui.components.permission.FactionPermissionComponentBuilder
 import io.github.toberocat.improvedfactions.ranks.FactionRank
-import io.github.toberocat.improvedfactions.annotations.CommandMeta
+import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
 import org.bukkit.entity.Player
 
 @CommandMeta(

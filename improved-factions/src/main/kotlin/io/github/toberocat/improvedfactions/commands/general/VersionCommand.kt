@@ -1,9 +1,9 @@
 package io.github.toberocat.improvedfactions.commands.general
 
 import BuildConfig
-import io.github.toberocat.improvedfactions.annotations.CommandCategory
-import io.github.toberocat.improvedfactions.annotations.CommandResponse
-import io.github.toberocat.improvedfactions.annotations.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import org.bukkit.command.CommandSender
 
 @GeneratedCommandMeta(

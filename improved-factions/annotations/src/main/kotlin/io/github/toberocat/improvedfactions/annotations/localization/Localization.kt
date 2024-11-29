@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedfactions.annotations
+package io.github.toberocat.improvedfactions.annotations.localization
 
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS, AnnotationTarget.PROPERTY, AnnotationTarget.VALUE_PARAMETER)
 @Repeatable

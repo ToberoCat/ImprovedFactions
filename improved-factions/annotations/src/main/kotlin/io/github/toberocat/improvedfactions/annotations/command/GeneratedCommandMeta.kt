@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedfactions.annotations
+package io.github.toberocat.improvedfactions.annotations.command
 
 
 @Target(AnnotationTarget.CLASS)

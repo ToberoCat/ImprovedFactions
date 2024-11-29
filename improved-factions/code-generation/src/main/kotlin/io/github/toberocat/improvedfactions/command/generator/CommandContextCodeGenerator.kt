@@ -1,89 +1,91 @@
 package io.github.toberocat.improvedfactions.command.generator
 
-import io.github.toberocat.improvedfactions.annotations.CommandResponse
 import io.github.toberocat.improvedfactions.command.data.CommandData
-import io.github.toberocat.improvedfactions.command.data.CommandProcessFunctionParameter
 import io.github.toberocat.improvedfactions.utils.camlCaseToSnakeCase
 import java.io.BufferedWriter
 
+
 class CommandContextCodeGenerator(
     private val writer: BufferedWriter,
-    private val commandData: CommandData,
+    private val commandData: CommandData
 ) {
     fun generateCommandContextClass() {
-        writer.write(
-            """
-            
-            abstract class ${commandData.targetName}Context(val parsers: Map<Class<*>, ArgumentParser>) : CommandProcessor {
-                
-                constructor() : this(DEFAULT_PARSERS)
-                
-                fun <T> getArgumentParser(sender: CommandSender, clazz: Class<T>, arg: String): T {
-                    return getArgumentParser(clazz)?.parse(sender, arg) as? T ?: throw IllegalArgumentException("Unknown argument parser for ${"\$clazz"}")
-                }
-                
-                fun getArgumentParser(clazz: Class<*>) = parsers[clazz]
-                
-                
-                @Permission("${commandData.permission}", byDefault = ${commandData.permissionsByDefault})
-                override fun canExecute(sender: CommandSender, args: Array<String>): Boolean {
-                    val supportedSender = when (sender) {
-                        ${generateSupportedSenders()}
-                        else -> false
-                    }
-                    if (!supportedSender) return false
-                    
-                    return sender.hasPermission("${commandData.permission}")
-                }
- 
-        """.trimIndent()
-        )
-
-        generateAbstractMethods()
-
-        commandData.responses.forEach { response ->
-            writer.write(generateResponseFunction(response))
-        }
-
-        writer.write("}")
+        writer.write(generateClassHeader())
+        writer.write(generateAbstractMethods())
+        writer.write(generateResponseFunctions())
+        writer.write("}\n")
     }
 
-    private fun generateResponseFunction(response: CommandResponse): String {
-        val key = when (response.key.isBlank()) {
-            false -> response.key
-            true -> "${commandData.localizedCommandLabel}.${response.responseName.camlCaseToSnakeCase("-")}"
-        }
-
+    private fun generateClassHeader(): String {
         return """
+        abstract class ${commandData.targetName}Context(
+            val parsers: Map<Class<*>, ArgumentParser> = DEFAULT_PARSERS
+        ) : CommandProcessor {
+
+            fun <T> parseArgument(sender: CommandSender, clazz: Class<T>, arg: String): T {
+                val parser = getArgumentParser(clazz) ?: throw IllegalArgumentException("Unknown parser for ${"\$clazz"}")
+                return parser.parse(sender, arg) as T
+            }
+            
+            fun getArgumentParser(clazz: Class<*>) = parsers[clazz]
+        
+            @Permission("${commandData.permission}", config = PermissionConfigurations.${commandData.permissionConfig})
+            override fun canExecute(sender: CommandSender, args: Array<String>): Boolean {
+                return isSupportedSender(sender) && sender.hasPermission("${commandData.permission}")
+            }
+
+            private fun isSupportedSender(sender: CommandSender): Boolean {
+                return when (sender) {
+                    ${generateSupportedSenderCases()}
+                    else -> false
+                }
+            }
+            
+            protected fun confirmAction(args: Array<String>): Boolean {
+                return if (${commandData.needsConfirmation}) {
+                    args.lastOrNull()?.equals("confirm", ignoreCase = true) ?: false
+                } else {
+                    true
+                }
+            }
+
+        """.trimIndent()
+    }
+
+    private fun generateSupportedSenderCases(): String {
+        return commandData.processFunctions
+            .map { "is ${it.senderClass} -> true" }
+            .distinct()
+            .joinToString("\n")
+    }
+
+    private fun generateAbstractMethods(): String {
+        val abstractMethods = commandData.processFunctions
+            .asSequence()
+            .flatMap { it.parameters }
+            .filter { it.isManual }
+            .map { "abstract fun ${it.variableName}Argument(): ArgumentParser" }
+            .distinct()
+            .joinToString("\n")
+
+        return if (abstractMethods.isNotEmpty()) {
+            "$abstractMethods\n"
+        } else {
+            ""
+        }
+    }
+
+    private fun generateResponseFunctions(): String {
+        return commandData.responses.joinToString("\n") { response ->
+            val key = response.key.ifBlank {
+                "${commandData.localizedCommandLabel}.${response.responseName.camlCaseToSnakeCase("-")}"
+            }
+            """
             @Localization("$key")
-            protected fun ${response.responseName}(vararg args: Pair<String, String>): CommandProcessResult { 
+            protected fun ${response.responseName}(vararg args: Pair<String, String>): CommandProcessResult {
                 return CommandProcessResult("$key", mapOf(*args))
             }
-            
-        """.trimIndent()
-    }
-
-    private fun generateAbstractMethods() {
-        commandData.processFunctions
-            .flatMap { function ->
-                function.parameters
-                    .filter { it.isManual }
-                    .map { it.variableName }
-            }
-            .distinct()
-            .forEach { variableName ->
-                writer.write("abstract fun ${variableName}Argument(): ArgumentParser\n")
-            }
-    }
-
-    private fun generateSupportedSenders(): String {
-        return commandData.processFunctions
-            .map { it.senderClass }
-            .distinct()
-            .joinToString("\n") {
-                """
-                    is $it -> return true
-                """.trimIndent()
-            }
+            """.trimIndent()
+        }
     }
 }

@@ -2,9 +2,8 @@ package io.github.toberocat.improvedfactions.localization.processor
 
 import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.KSAnnotated
-import io.github.toberocat.improvedfactions.annotations.Localization
+import io.github.toberocat.improvedfactions.annotations.localization.Localization
 import io.github.toberocat.improvedfactions.localization.visitor.LocalizationVisitor
-import kotlin.math.log
 
 class LocalizationProcessor(
     private val codeGenerator: CodeGenerator,

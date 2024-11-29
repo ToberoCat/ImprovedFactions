@@ -5,7 +5,7 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.commands.general.INFO_COMMAND_DESCRIPTION
 import io.github.toberocat.improvedfactions.commands.general.InfoCommand
 import io.github.toberocat.improvedfactions.factions.Faction
-import io.github.toberocat.improvedfactions.annotations.CommandMeta
+import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
 import org.bukkit.entity.Player
 
 @CommandMeta(

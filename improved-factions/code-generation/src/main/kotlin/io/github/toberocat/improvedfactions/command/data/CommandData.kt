@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.command.data
 
-import io.github.toberocat.improvedfactions.annotations.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.permission.PermissionConfigurations
 import io.github.toberocat.improvedfactions.utils.camlCaseToSnakeCase
 
 data class CommandData(
@@ -11,7 +12,7 @@ data class CommandData(
     val responses: List<CommandResponse>,
     val processFunctions: List<CommandProcessFunction>,
     val needsConfirmation: Boolean,
-    val permissionsByDefault: Boolean,
+    val permissionConfig: PermissionConfigurations
 ) {
     val localizedCommandLabel = "$module.commands.${label.camlCaseToSnakeCase(".")}"
     val descriptionKey = "$localizedCommandLabel.description"
