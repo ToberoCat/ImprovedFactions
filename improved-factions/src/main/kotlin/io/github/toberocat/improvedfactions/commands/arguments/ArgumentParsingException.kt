@@ -1,3 +1,5 @@
 package io.github.toberocat.improvedfactions.commands.arguments
 
-class ArgumentParsingException(override val message: String?) : Exception(message)
+import io.github.toberocat.improvedfactions.translation.LocalizedException
+
+class ArgumentParsingException(key: String, placeholders: Map<String, String> = emptyMap()) : LocalizedException(key, placeholders)

@@ -141,7 +141,7 @@ class CommandCodeGenerator(private val commandData: CommandData) {
 
         argumentTypesByIndex.forEach { (index, type) ->
             builder.appendLine("""
-                    $index -> getArgumentParser(${type}::class.java)?.tabComplete(sender, currentIndex, args) ?: emptyList()
+                    $index -> getArgumentParser(${type}::class.java)!!.tabComplete(sender, currentIndex, args) ?: emptyList()
             """.trimIndent())
         }
 

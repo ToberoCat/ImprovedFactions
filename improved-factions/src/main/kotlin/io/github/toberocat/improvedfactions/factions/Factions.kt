@@ -14,7 +14,7 @@ import org.jetbrains.exposed.dao.id.IntIdTable
 object Factions : IntIdTable("factions") {
     var maxNameLength = 36
     var maxSpacesInName = 5
-    var nameRegex = Regex("[a-zA-Z ]*")
+    var nameRegex = Regex("[a-zA-Z]*")
     var maxIconLength = 5000
 
     val name = varchar("name", maxNameLength)

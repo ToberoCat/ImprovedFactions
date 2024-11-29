@@ -14,7 +14,7 @@ data class CommandData(
     val needsConfirmation: Boolean,
     val permissionConfig: PermissionConfigurations
 ) {
-    val localizedCommandLabel = "$module.commands.${label.camlCaseToSnakeCase(".")}"
+    val localizedCommandLabel = "$module.commands.${label.camlCaseToSnakeCase("-")}"
     val descriptionKey = "$localizedCommandLabel.description"
-    val permission = "factions.commands.${label.camlCaseToSnakeCase(".")}"
+    val permission = "factions.commands.${label.camlCaseToSnakeCase("-")}"
 }

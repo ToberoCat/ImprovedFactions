@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender
 
 @Localization("base.arguments.string.usage")
 @Localization("base.arguments.string.description")
-class StringArgumentParser(
+open class StringArgumentParser(
     override val usage: String = "base.arguments.string.usage",
     override val description: String = "base.arguments.string.description",
 ) : ArgumentParser {
