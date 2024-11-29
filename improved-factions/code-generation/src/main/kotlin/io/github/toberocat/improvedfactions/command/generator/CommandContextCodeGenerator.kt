@@ -19,16 +19,9 @@ class CommandContextCodeGenerator(
     private fun generateClassHeader(): String {
         return """
         abstract class ${commandData.targetName}Context(
-            val parsers: Map<Class<*>, ArgumentParser> = DEFAULT_PARSERS
-        ) : CommandProcessor {
-
-            fun <T> parseArgument(sender: CommandSender, clazz: Class<T>, arg: String): T {
-                val parser = getArgumentParser(clazz) ?: throw IllegalArgumentException("Unknown parser for ${"\$clazz"}")
-                return parser.parse(sender, arg) as T
-            }
-            
-            fun getArgumentParser(clazz: Class<*>) = parsers[clazz]
-        
+            override val parsers: Map<Class<*>, ArgumentParser> = DEFAULT_PARSERS
+        ) : CommandProcessor, CommandContext {
+               
             @Permission("${commandData.permission}", config = PermissionConfigurations.${commandData.permissionConfig})
             override fun canExecute(sender: CommandSender, args: Array<String>): Boolean {
                 return isSupportedSender(sender) && sender.hasPermission("${commandData.permission}")

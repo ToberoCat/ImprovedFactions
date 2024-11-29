@@ -1,50 +1,49 @@
 package io.github.toberocat.improvedfactions.commands.admin.zone
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.claims.squareClaimAction
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import io.github.toberocat.improvedfactions.translation.sendLocalized
-import io.github.toberocat.improvedfactions.utils.arguments.ClaimRadiusArgument
 import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
-import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.annotations.command.PermissionConfig
+import io.github.toberocat.improvedfactions.annotations.permission.PermissionConfigurations
+import io.github.toberocat.improvedfactions.claims.squareClaimAction
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.commands.sendCommandResult
 import io.github.toberocat.improvedfactions.zone.ZoneHandler
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
 
-@CommandMeta(
-    description = "base.command.zone.unclaim.description",
-    category = CommandCategory.ADMIN_CATEGORY
+@PermissionConfig(config = PermissionConfigurations.OP_ONLY)
+@GeneratedCommandMeta(
+    label = "zone unclaim",
+    category = CommandCategory.ADMIN_CATEGORY,
+    module = "base",
+    responses = [
+        CommandResponse("zoneUnclaimed"),
+        CommandResponse("zoneUnclaimedRadius"),
+        CommandResponse("unclaimError")
+    ]
 )
-class ZoneUnclaimCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("unclaim") {
-    override fun options(): Options = Options.getFromConfig(plugin, label)
+abstract class ZoneUnclaimCommand : ZoneUnclaimCommandContext() {
 
-    override fun arguments() = arrayOf(
-        ClaimRadiusArgument()
-    )
+    fun processPlayer(executor: Player, radius: Int): CommandProcessResult {
+        return unclaimZone(executor, radius)
+    }
 
-    override fun handle(player: Player, args: Array<out String>): Boolean {
-        val squareRadius = parseArgs(player, args).get<Int>(0) ?: 0
-        val statistics = loggedTransaction {
-            squareClaimAction(
-                player.location.chunk,
-                squareRadius,
-                { ZoneHandler.unclaim(it) },
-                { player.sendLocalized(it.message ?: "base.command.zone.claim.error") })
-        }
+    private fun unclaimZone(player: Player, radius: Int?): CommandProcessResult {
+        val statistics = squareClaimAction(
+            player.location.chunk,
+            radius ?: 0,
+            { ZoneHandler.unclaim(it) },
+            { error -> error.message?.let { player.sendCommandResult(unclaimError("error" to it)) } }
+        )
 
-        if (squareRadius > 0) {
-            player.sendLocalized(
-                "base.command.zone.unclaimed-radius", mapOf(
-                    "radius" to squareRadius.toString(),
-                    "successful-claims" to statistics.successfulClaims.toString(),
-                    "total-claims" to statistics.totalClaims.toString()
-
-                )
+        return if (radius != null && radius > 0) {
+            zoneUnclaimedRadius(
+                "radius" to radius.toString(),
+                "successfulClaims" to statistics.successfulClaims.toString(),
+                "totalClaims" to statistics.totalClaims.toString()
             )
         } else {
-            player.sendLocalized("base.command.zone.unclaimed")
+            zoneUnclaimed()
         }
-        return true
     }
 }

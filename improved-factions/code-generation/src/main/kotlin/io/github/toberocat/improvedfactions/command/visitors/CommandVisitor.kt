@@ -46,6 +46,7 @@ class CommandVisitor(
 
         val responses = metaAnnotation.responses.toMutableList()
         val needsConfirmation = classDeclaration.hasAnnotation<CommandConfirmation>()
+        val hasNoArgsConstructor = classDeclaration.primaryConstructor?.parameters?.isEmpty() ?: false
         addDefaultResponses(responses, needsConfirmation)
 
         val commandData = CommandData(
@@ -54,9 +55,10 @@ class CommandVisitor(
             label = metaAnnotation.label,
             module = metaAnnotation.module,
             responses = responses,
-            processFunctions = processFunctions.mapNotNull { it.toCommandProcessFunction() }.toList(),
+            processFunctions = processFunctions.mapNotNull { it.toCommandProcessFunction(needsConfirmation) }.toList(),
             needsConfirmation = needsConfirmation,
-            permissionConfig = classDeclaration.getAnnotation<PermissionConfig>()?.config ?: PermissionConfigurations.ALL
+            permissionConfig = classDeclaration.getAnnotation<PermissionConfig>()?.config ?: PermissionConfigurations.ALL,
+            addPluginAsParameter = !hasNoArgsConstructor
         )
 
         return commandData
@@ -93,17 +95,23 @@ class CommandVisitor(
 
     private fun KSClassDeclaration.getProcessFunctions() =
         declarations.filterIsInstance<KSFunctionDeclaration>()
-            .filter { it.simpleName.asString().startsWith("process") }
+            .filter { it.simpleName.asString().startsWith(COMMAND_PROCESS_PREFIX) }
 
-    private fun KSFunctionDeclaration.toCommandProcessFunction(): CommandProcessFunction? {
+    private fun KSFunctionDeclaration.toCommandProcessFunction(needsConfirmation: Boolean): CommandProcessFunction? {
         val parameters = parameters.mapIndexed { index, param ->
             val type = param.type.resolve().declaration.qualifiedName?.asString() ?: return null
             val isManual = param.hasAnnotation<ManualArgument>()
+            val isRequired = !param.type.resolve().isMarkedNullable
+            if (needsConfirmation && !isRequired) {
+                logger.error("Function ${simpleName.asString()} has optional parameters and requires confirmation. This is not supported.")
+                return null
+            }
+
             CommandProcessFunctionParameter(
                 simpleName = param.name?.asString() ?: "arg$index",
                 variableName = param.name?.asString() ?: "arg$index",
                 type = type,
-                isRequired = !param.type.resolve().isMarkedNullable,
+                isRequired = isRequired,
                 isManual = isManual,
                 index = index - 1  // Exclude sender parameter
             )

@@ -6,16 +6,21 @@ import io.github.toberocat.improvedfactions.commands.CommandProcessor
 import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.bukkit.OfflinePlayerArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.bukkit.PlayerArgumentParser
+import io.github.toberocat.improvedfactions.commands.arguments.bukkit.WorldArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionArgumentParser
+import io.github.toberocat.improvedfactions.commands.arguments.faction.ZoneArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.BoolArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.IntArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.StringArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.enums.JoinTypeEnumArgumentParser
+import io.github.toberocat.improvedfactions.commands.sendCommandResult
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionJoinType
 import io.github.toberocat.improvedfactions.translation.LocalizedException
 import io.github.toberocat.improvedfactions.translation.sendLocalized
+import io.github.toberocat.improvedfactions.zone.Zone
 import org.bukkit.OfflinePlayer
+import org.bukkit.World
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabExecutor
@@ -29,10 +34,15 @@ val DEFAULT_PARSERS = mapOf<Class<*>, ArgumentParser>(
     Player::class.java to PlayerArgumentParser(),
     OfflinePlayer::class.java to OfflinePlayerArgumentParser(),
     Faction::class.java to FactionArgumentParser(),
-    FactionJoinType::class.java to JoinTypeEnumArgumentParser()
+    FactionJoinType::class.java to JoinTypeEnumArgumentParser(),
+    Zone::class.java to ZoneArgumentParser(),
+    World::class.java to WorldArgumentParser()
 )
 
 open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExecutor {
+
+    private val commandProcessors = mutableMapOf<String, CommandProcessor>()
+    private val tabCompletionTree = CompletionLevelNode()
 
     fun bindToPluginCommand(command: String) {
         val pluginCommand =
@@ -41,13 +51,13 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
         pluginCommand.setExecutor(this)
     }
 
-    private val commandProcessors = mutableMapOf<String, CommandProcessor>()
 
     fun registerCommandProcessor(processor: CommandProcessor) {
         if (commandProcessors.containsKey(processor.label)) {
             throw IllegalArgumentException("Command processor with label ${processor.label} already registered")
         }
 
+        tabCompletionTree.insert(processor)
         commandProcessors[processor.label] = processor
         commandProcessors.entries.sortedByDescending { it.key.split(" ").size }
     }
@@ -118,12 +128,12 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
         }
             .getOrNull() ?: return false
 
-        sender.sendLocalized(result.responseLocalizationKey, result.args)
+        sender.sendCommandResult(result)
         return true
     }
 
     private fun tabCompleteCommands(sender: CommandSender, args: Array<String>): List<String> {
-        return commandProcessors.filter { it.value.canExecute(sender, args) }.keys.toList()
+        return tabCompletionTree.getCompletions(args.toList())
     }
 
     private fun findProcessor(joinedCommand: String) =
