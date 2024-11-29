@@ -3,20 +3,19 @@ package io.github.toberocat.improvedfactions.command.visitors
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.Dependencies
 import com.google.devtools.ksp.processing.KSPLogger
-import com.google.devtools.ksp.symbol.KSAnnotation
-import com.google.devtools.ksp.symbol.KSClassDeclaration
-import com.google.devtools.ksp.symbol.KSFunctionDeclaration
-import com.google.devtools.ksp.symbol.KSVisitorVoid
-import io.github.toberocat.improvedfactions.annotations.CommandConfirmation
-import io.github.toberocat.improvedfactions.annotations.CommandResponse
-import io.github.toberocat.improvedfactions.annotations.GeneratedCommandMeta
-import io.github.toberocat.improvedfactions.annotations.ManualArgument
+import com.google.devtools.ksp.symbol.*
+import io.github.toberocat.improvedfactions.annotations.command.CommandConfirmation
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.annotations.command.ManualArgument
+import io.github.toberocat.improvedfactions.annotations.command.PermissionConfig
+import io.github.toberocat.improvedfactions.annotations.permission.PermissionConfigurations
 import io.github.toberocat.improvedfactions.command.data.CommandData
 import io.github.toberocat.improvedfactions.command.data.CommandProcessFunction
 import io.github.toberocat.improvedfactions.command.data.CommandProcessFunctionParameter
 import io.github.toberocat.improvedfactions.command.generator.CommandCodeGenerator
-import java.io.OutputStream
-import kotlin.reflect.KClass
+import io.github.toberocat.improvedfactions.utils.getAnnotation
+import io.github.toberocat.improvedfactions.utils.hasAnnotation
 
 const val COMMAND_PROCESS_PREFIX = "process"
 
@@ -24,54 +23,56 @@ class CommandVisitor(
     private val codeGenerator: CodeGenerator,
     private val logger: KSPLogger,
 ) : KSVisitorVoid() {
+
     val commandProcessors = mutableListOf<String>()
 
     override fun visitClassDeclaration(classDeclaration: KSClassDeclaration, data: Unit) {
-        val args = findCommandAnnotations(classDeclaration)
-        val processFunctions = findProcessFunctions(classDeclaration)
+        val commandData = extractCommandData(classDeclaration) ?: return
+        generateCommandProcessor(commandData)
+        commandProcessors.add("${commandData.targetPackage}.${commandData.targetName}Processor")
+    }
 
-        val className = classDeclaration.simpleName.asString()
-        val responses = parseResponses((args["responses"] as? List<Any>) ?: emptyList())
-        val functions = parseProcessFunctions(className, processFunctions)
-        val needsConfirmation = hasAnnotation(classDeclaration, CommandConfirmation::class)
+    private fun extractCommandData(classDeclaration: KSClassDeclaration): CommandData? {
+        val metaAnnotation = classDeclaration.getAnnotation<GeneratedCommandMeta>() ?: run {
+            logger.error("Class ${classDeclaration.simpleName.asString()} is missing @GeneratedCommandMeta annotation.")
+            return null
+        }
 
-        addMissingRequiredArgumentResponse(
-            hasAnnotation(classDeclaration, CommandConfirmation::class),
-            responses,
-        )
+        val processFunctions = classDeclaration.getProcessFunctions().toList()
+        if (processFunctions.isEmpty()) {
+            logger.error("Class ${classDeclaration.simpleName.asString()} has no process functions starting with 'process'.")
+            return null
+        }
+
+        val responses = metaAnnotation.responses.toMutableList()
+        val needsConfirmation = classDeclaration.hasAnnotation<CommandConfirmation>()
+        addDefaultResponses(responses, needsConfirmation)
 
         val commandData = CommandData(
             targetPackage = classDeclaration.packageName.asString(),
             targetName = classDeclaration.simpleName.asString(),
-            label = args["label"]?.toString() ?: "NoLabel",
-            module = args["module"]?.toString() ?: "NoModule",
+            label = metaAnnotation.label,
+            module = metaAnnotation.module,
             responses = responses,
-            processFunctions = functions,
+            processFunctions = processFunctions.mapNotNull { it.toCommandProcessFunction() }.toList(),
             needsConfirmation = needsConfirmation,
-            permissionsByDefault = findAnnotation(classDeclaration, CommandConfirmation::class)?.let {
-                it["permissionsByDefault"] as? Boolean ?: false
-            } ?: false,
+            permissionConfig = classDeclaration.getAnnotation<PermissionConfig>()?.config ?: PermissionConfigurations.ALL
         )
 
-        val outputStream = createFile(commandData)
+        return commandData
+    }
+
+    private fun generateCommandProcessor(commandData: CommandData) {
+        val outputStream = codeGenerator.createNewFile(
+            Dependencies.ALL_FILES,
+            commandData.targetPackage,
+            "${commandData.targetName}Processor"
+        )
         CommandCodeGenerator(commandData).generateCode(outputStream)
-
-        commandProcessors.add("${commandData.targetPackage}.${commandData.targetName}Processor")
     }
 
-    private fun createFile(commandData: CommandData): OutputStream {
-        return codeGenerator.createNewFile(
-            dependencies = Dependencies.ALL_FILES,
-            packageName = commandData.targetPackage,
-            fileName = "${commandData.targetName}Processor",
-        )
-    }
-
-    private fun addMissingRequiredArgumentResponse(
-        needsConfirmation: Boolean,
-        responses: MutableList<CommandResponse>,
-    ) {
-        if (!responses.any { it.responseName == "missingRequiredArgument" }) {
+    private fun addDefaultResponses(responses: MutableList<CommandResponse>, needsConfirmation: Boolean) {
+        if (responses.none { it.responseName == "missingRequiredArgument" }) {
             responses.add(
                 CommandResponse(
                     key = "",
@@ -80,7 +81,7 @@ class CommandVisitor(
             )
         }
 
-        if (needsConfirmation && !responses.any { it.responseName == "confirmationNeeded" }) {
+        if (needsConfirmation && responses.none { it.responseName == "confirmationNeeded" }) {
             responses.add(
                 CommandResponse(
                     key = "",
@@ -90,74 +91,27 @@ class CommandVisitor(
         }
     }
 
-    private fun parseResponses(responses: List<Any>): MutableList<CommandResponse> {
-        return responses.map { response ->
-            val responseArgs = extractAnnotationArguments(response as KSAnnotation)
-            CommandResponse(
-                key = responseArgs["key"] as String,
-                responseName = responseArgs["responseName"] as String,
-            )
-        }.toMutableList()
-    }
+    private fun KSClassDeclaration.getProcessFunctions() =
+        declarations.filterIsInstance<KSFunctionDeclaration>()
+            .filter { it.simpleName.asString().startsWith("process") }
 
-    private fun parseProcessFunctions(className: String, functions: List<KSFunctionDeclaration>) =
-        functions.mapNotNull { parseProcessFunction(it) }.apply {
-            if (this.isEmpty()) {
-                logger.error("Command $className is missing a process function.")
-            }
-
-            val senderClasses = this.map { it.senderClass }.distinct()
-            senderClasses.forEach { senderClass ->
-                if (this.count { senderClass == it.senderClass } > 1) {
-                    throw IllegalArgumentException("Command $className has multiple process functions with the same sender class ${senderClasses}.")
-                }
-            }
-        }
-
-    private fun parseProcessFunction(function: KSFunctionDeclaration): CommandProcessFunction? {
-        if (!function.simpleName.asString().contains(COMMAND_PROCESS_PREFIX)) {
-            return null
-        }
-
-        val parameters = function.parameters.map {
-            val ksDeclaration = it.type.resolve()
-            val annotation = it.annotations.find { a -> a.shortName.getShortName() == ManualArgument::class.simpleName }
+    private fun KSFunctionDeclaration.toCommandProcessFunction(): CommandProcessFunction? {
+        val parameters = parameters.mapIndexed { index, param ->
+            val type = param.type.resolve().declaration.qualifiedName?.asString() ?: return null
+            val isManual = param.hasAnnotation<ManualArgument>()
             CommandProcessFunctionParameter(
-                simpleName = ksDeclaration.declaration.simpleName.asString(),
-                type = ksDeclaration.declaration.qualifiedName?.asString() ?: "",
-                isRequired = !ksDeclaration.isMarkedNullable,
-                variableName = it.name?.asString() ?: "",
-                isManual = annotation != null,
-                index = function.parameters.indexOf(it) - 1,
+                simpleName = param.name?.asString() ?: "arg$index",
+                variableName = param.name?.asString() ?: "arg$index",
+                type = type,
+                isRequired = !param.type.resolve().isMarkedNullable,
+                isManual = isManual,
+                index = index - 1  // Exclude sender parameter
             )
         }
-
         return CommandProcessFunction(
-            senderClass = parameters.first().type,
-            functionName = function.simpleName.asString(),
-            parameters = parameters.drop(1),
+            senderClass = parameters.firstOrNull()?.type ?: return null,
+            functionName = simpleName.asString(),
+            parameters = parameters.drop(1)  // Exclude sender parameter
         )
     }
-
-    private fun extractAnnotationArguments(annotation: KSAnnotation): Map<String?, Any?> {
-        return annotation.arguments.associate { it.name?.asString() to it.value }
-    }
-
-    private fun hasAnnotation(annotation: KSClassDeclaration, name: KClass<*>) =
-        annotation.annotations.any { it.shortName.getShortName() == name.simpleName }
-
-    private fun findAnnotation(annotation: KSClassDeclaration, name: KClass<*>) =
-        annotation.annotations.find { it.shortName.getShortName() == name.simpleName }?.let {
-            extractAnnotationArguments(it)
-        }
-
-    private fun findCommandAnnotations(classDeclaration: KSClassDeclaration) =
-        findAnnotation(classDeclaration, GeneratedCommandMeta::class)
-            ?: throw IllegalArgumentException(
-                "Class ${classDeclaration.simpleName.asString()} is missing " +
-                        "${GeneratedCommandMeta::class.qualifiedName} annotation."
-            )
-
-    private fun findProcessFunctions(classDeclaration: KSClassDeclaration) =
-        classDeclaration.declarations.filterIsInstance<KSFunctionDeclaration>().toList()
 }

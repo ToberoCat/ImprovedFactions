@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedfactions.commands.arguments.bukkit
 
-import io.github.toberocat.improvedfactions.annotations.Localization
+import io.github.toberocat.improvedfactions.annotations.localization.Localization
 import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParsingException
 import org.bukkit.Bukkit

@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedfactions.commands
 
-import io.github.toberocat.improvedfactions.annotations.LocalizationKey
+import io.github.toberocat.improvedfactions.annotations.command.LocalizationKey
 
 data class CommandProcessResult(
     val responseLocalizationKey: LocalizationKey,

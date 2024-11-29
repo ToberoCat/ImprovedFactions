@@ -4,10 +4,9 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.translation.sendLocalized
-import io.github.toberocat.improvedfactions.utils.arguments.entity.FactionArgument
 import io.github.toberocat.improvedfactions.utils.arguments.entity.JoinableFactionArgument
-import io.github.toberocat.improvedfactions.annotations.CommandCategory
-import io.github.toberocat.improvedfactions.annotations.CommandMeta
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
 import io.github.toberocat.improvedfactions.utils.options.FactionExistOption
 import io.github.toberocat.improvedfactions.utils.options.InFactionOption
 import io.github.toberocat.improvedfactions.utils.options.addFactionNameOption

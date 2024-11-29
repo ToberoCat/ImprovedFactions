@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedfactions.commands.arguments.primitives
 
-import io.github.toberocat.improvedfactions.annotations.Localization
+import io.github.toberocat.improvedfactions.annotations.localization.Localization
 import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParser
 import io.github.toberocat.improvedfactions.translation.resolveLocalization
 import org.bukkit.command.CommandSender

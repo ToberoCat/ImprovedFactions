@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedfactions.commands.executor
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.annotations.Localization
+import io.github.toberocat.improvedfactions.annotations.localization.Localization
 import io.github.toberocat.improvedfactions.commands.CommandProcessor
 import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.bukkit.OfflinePlayerArgumentParser
@@ -9,7 +9,6 @@ import io.github.toberocat.improvedfactions.commands.arguments.bukkit.PlayerArgu
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.BoolArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.IntArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.StringArgumentParser
-import io.github.toberocat.improvedfactions.factions.LocalizedMessage
 import io.github.toberocat.improvedfactions.translation.LocalizedException
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import org.bukkit.OfflinePlayer

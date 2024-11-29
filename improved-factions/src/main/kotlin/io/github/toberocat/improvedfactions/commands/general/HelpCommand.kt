@@ -6,7 +6,7 @@ import io.github.toberocat.improvedfactions.translation.getUnformattedLocalized
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.utils.arguments.StringArgument
 import io.github.toberocat.improvedfactions.utils.async
-import io.github.toberocat.improvedfactions.annotations.CommandMeta
+import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
 import io.github.toberocat.improvedfactions.utils.getMeta
 import io.github.toberocat.improvedfactions.utils.toAudience
 import io.github.toberocat.toberocore.command.Command

@@ -1,8 +1,10 @@
 package io.github.toberocat.improvedfactions.commands.manage
 
-import io.github.toberocat.improvedfactions.annotations.*
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandConfirmation
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
@@ -10,7 +12,6 @@ import org.bukkit.entity.Player
 
 
 @CommandConfirmation
-@PermissionDefault(true)
 @GeneratedCommandMeta(
     label = "delete",
     category = CommandCategory.MANAGE_CATEGORY,
@@ -39,10 +40,7 @@ abstract class DeleteCommand : DeleteCommandContext() {
             return notFactionOwner()
         }
 
-        loggedTransaction {
-            faction.delete()
-        }
-
+        faction.delete()
         return deletedFaction("faction" to faction.name)
     }
 }

@@ -3,7 +3,7 @@ package io.github.toberocat.improvedfactions.localization.visitor
 import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.symbol.*
-import io.github.toberocat.improvedfactions.annotations.Localization
+import io.github.toberocat.improvedfactions.annotations.localization.Localization
 
 class LocalizationVisitor(
     private val logger: KSPLogger,

@@ -10,7 +10,7 @@ import io.github.toberocat.improvedfactions.modules.relations.RelationsModule.en
 import io.github.toberocat.improvedfactions.ranks.listRanks
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.utils.arguments.OptionalFactionArgument
-import io.github.toberocat.improvedfactions.annotations.CommandMeta
+import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
 import io.github.toberocat.improvedfactions.utils.options.FactionExistOption
 import io.github.toberocat.improvedfactions.utils.options.addFactionNameOption
 import io.github.toberocat.toberocore.command.PlayerSubCommand
