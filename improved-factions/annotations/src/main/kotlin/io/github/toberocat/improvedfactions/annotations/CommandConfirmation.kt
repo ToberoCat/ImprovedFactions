@@ -1,0 +1,3 @@
+package io.github.toberocat.improvedfactions.annotations
+
+annotation class CommandConfirmation

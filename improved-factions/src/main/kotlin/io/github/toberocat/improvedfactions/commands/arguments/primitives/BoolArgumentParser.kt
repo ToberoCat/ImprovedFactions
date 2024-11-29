@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender
 @Localization("base.arguments.bool.usage")
 @Localization("base.arguments.bool.description")
 @Localization("base.arguments.bool.error")
-class BoolArgumentParser(
+open class BoolArgumentParser(
     override val usage: String = "base.arguments.bool.usage",
     override val description: String = "base.arguments.bool.description",
 ) : ArgumentParser {

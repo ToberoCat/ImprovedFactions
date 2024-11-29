@@ -9,7 +9,8 @@ class CommandCodeGenerator(
 ) {
     fun generateCode(outputStream: OutputStream) {
         outputStream.bufferedWriter().use { writer ->
-            writer.write("""
+            writer.write(
+                """
                 package ${commandData.targetPackage}
                 
                 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
@@ -57,14 +58,18 @@ class CommandCodeGenerator(
         }
     }
 
+    private fun getArgumentCount(function: CommandProcessFunction): Int {
+        return when (commandData.needsConfirmation) {
+            true -> function.parameters.size + 1
+            false -> function.parameters.size
+        }
+    }
+
     private fun generateCallProcessFunction(function: CommandProcessFunction): String {
         return """
             
             private fun ${function.functionName}Call(sender: ${function.senderClass}, args: Array<String>): CommandProcessResult {
-                if (args.size != ${function.parameters.size}) {
-                    return missingRequiredArgument()
-                }
-                
+                ${checkIfConfirmation()}
                 ${createParameterExtractors(function)}
                 return ${function.functionName}(sender, ${function.parameters.joinToString { it.uniqueName }})
             }
@@ -83,7 +88,7 @@ class CommandCodeGenerator(
     private fun functionCallCases(): String {
         return commandData.processFunctions.joinToString("\n") { function ->
             """
-                sender is ${function.senderClass} && args.size == ${function.parameters.size} -> return ${function.functionName}Call(sender, args)
+                sender is ${function.senderClass} && args.size == ${getArgumentCount(function)} -> return ${function.functionName}Call(sender, args)
             """.trimIndent()
         }
     }
@@ -105,6 +110,17 @@ class CommandCodeGenerator(
             """
                 ${parameter.index} -> getArgumentParser(${parameter.type}::class.java)
             """.trimIndent()
+        }
+    }
+
+    private fun checkIfConfirmation(): String {
+        return when (commandData.needsConfirmation) {
+            true -> """
+                if (args.last() != "confirm") {
+                    return confirmationNeeded("command" to label)
+                }
+            """.trimIndent()
+            false -> ""
         }
     }
 }
