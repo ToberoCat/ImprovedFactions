@@ -24,7 +24,8 @@ class CommandContextCodeGenerator(
                 
                 fun getArgumentParser(clazz: Class<*>) = parsers[clazz]
                 
-                @Permission("${commandData.permission}")
+                
+                @Permission("${commandData.permission}", byDefault = ${commandData.permissionsByDefault})
                 override fun canExecute(sender: CommandSender, args: Array<String>): Boolean {
                     val supportedSender = when (sender) {
                         ${generateSupportedSenders()}

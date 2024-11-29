@@ -1,9 +1,6 @@
 package io.github.toberocat.improvedfactions.command.processor
 
-import com.google.devtools.ksp.processing.CodeGenerator
-import com.google.devtools.ksp.processing.KSPLogger
-import com.google.devtools.ksp.processing.Resolver
-import com.google.devtools.ksp.processing.SymbolProcessor
+import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import io.github.toberocat.improvedfactions.annotations.GeneratedCommandMeta
@@ -14,7 +11,7 @@ class CommandProcessor(
     private val logger: KSPLogger,
     private val options: Map<String, String>,
 ) : SymbolProcessor {
-
+    private val collectedCommandProcessors = mutableListOf<String>()
     override fun process(resolver: Resolver): List<KSAnnotated> {
         val symbols = resolver.getSymbolsWithAnnotation(GeneratedCommandMeta::class.qualifiedName!!)
 
@@ -22,7 +19,30 @@ class CommandProcessor(
 
         val visitor = CommandVisitor(codeGenerator, logger)
         annotatedDeclarations.forEach { it.accept(visitor, Unit) }
+        collectedCommandProcessors.addAll(visitor.commandProcessors)
 
         return emptyList()
+    }
+
+    override fun finish() {
+        val file = codeGenerator.createNewFile(
+            dependencies = Dependencies.ALL_FILES,
+            packageName = "io.github.toberocat.improvedfactions.commands.processor",
+            fileName = "FactionCommandProcessors",
+        )
+        file.bufferedWriter().use { writer ->
+            writer.write(
+                """
+                package io.github.toberocat.improvedfactions.commands.processor
+
+                import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+                import io.github.toberocat.improvedfactions.commands.executor.CommandExecutor
+                    
+                fun getFactionCommandProcessors(plugin: ImprovedFactionsPlugin, executor: CommandExecutor) = listOf(
+                    ${collectedCommandProcessors.joinToString(",\n") { "$it(plugin, executor)" }}
+                )
+                """.trimIndent()
+            )
+        }
     }
 }

@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedfactions.commands.general
 
+import BuildConfig
 import io.github.toberocat.improvedfactions.annotations.CommandCategory
 import io.github.toberocat.improvedfactions.annotations.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.GeneratedCommandMeta
@@ -10,7 +11,6 @@ import org.bukkit.command.CommandSender
     module = "base",
     responses = [
         CommandResponse("pluginVersion"),
-    CommandResponse("missingRequiredArgument"),
     ],
     category = CommandCategory.GENERAL_CATEGORY
 )

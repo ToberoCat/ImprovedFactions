@@ -23,7 +23,6 @@ import org.bukkit.entity.Player
     module = "base",
     responses = [
         CommandResponse("createdFaction"),
-        CommandResponse("missingRequiredArgument"),
         CommandResponse("factionAlreadyExists"),
         CommandResponse("alreadyInFaction"),
         CommandResponse("invalidName"),

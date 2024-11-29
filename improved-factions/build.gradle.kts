@@ -72,7 +72,6 @@ dependencies {
 
     // KSP
     ksp(project(":code-generation"))
-    ksp(project(":documentation-generation"))
 }
 
 tasks.named<Copy>("processResources") {
@@ -109,6 +108,7 @@ kotlin {
 
     sourceSets.main {
         kotlin.srcDir("build/generated/ksp/main/kotlin")
+        kotlin.srcDir("build/generated/source/buildConfig/kotlin")
     }
     sourceSets.test {
         kotlin.srcDir("build/generated/ksp/test/kotlin")

@@ -9,7 +9,6 @@ plugins {
 }
 
 rootProject.name = "ImprovedFactions"
-include("documentation-generation")
 include("improved-factions")
 include("annotations")
 include("code-generation")
