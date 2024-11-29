@@ -12,4 +12,7 @@ data class CommandProcessFunctionParameter(
     val index: Int,
 ) {
     val uniqueName = "${simpleName}${UUID.randomUUID().toString().replace("-", "")}"
+
+    fun createVariableKey(commandData: CommandData) =
+        "${commandData.localizedCommandLabel}.arguments.${variableName}.usage"
 }

@@ -1,31 +1,36 @@
 package io.github.toberocat.improvedfactions.commands.admin
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
-import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
-import io.github.toberocat.toberocore.command.SubCommand
-import io.github.toberocat.toberocore.command.arguments.Argument
-import io.github.toberocat.toberocore.command.options.Options
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.annotations.command.PermissionConfig
+import io.github.toberocat.improvedfactions.annotations.permission.PermissionConfigurations
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import java.util.ResourceBundle
 import org.bukkit.command.CommandSender
-import java.util.*
 
-@CommandMeta(
-    description = "base.command.reload.description",
-    category = CommandCategory.ADMIN_CATEGORY
+@PermissionConfig(config = PermissionConfigurations.OP_ONLY)
+@GeneratedCommandMeta(
+    label = "reload",
+    category = CommandCategory.ADMIN_CATEGORY,
+    module = "base",
+    responses = [
+        CommandResponse("reloadCompleted"),
+        CommandResponse("reloadFailed")
+    ]
 )
-class ReloadCommand(private val plugin: ImprovedFactionsPlugin) : SubCommand("reload") {
-    override fun options(): Options = Options.getFromConfig(plugin, label)
+abstract class ReloadCommand(private val plugin: ImprovedFactionsPlugin) : ReloadCommandContext() {
 
-    override fun arguments(): Array<Argument<*>> = emptyArray()
+    fun process(sender: CommandSender): CommandProcessResult {
+        return try {
+            plugin.reloadConfig()
+            plugin.loadConfig()
+            ResourceBundle.clearCache()
 
-    override fun handleCommand(sender: CommandSender, args: Array<out String>): Boolean {
-        sender.sendMessage("Plugin reload scheduled...")
-
-        plugin.reloadConfig()
-        plugin.loadConfig()
-        ResourceBundle.clearCache()
-
-        sender.sendMessage("Plugin has been reloaded")
-        return true
+            reloadCompleted()
+        } catch (e: Exception) {
+            reloadFailed("error" to (e.message ?: "Unknown error"))
+        }
     }
 }

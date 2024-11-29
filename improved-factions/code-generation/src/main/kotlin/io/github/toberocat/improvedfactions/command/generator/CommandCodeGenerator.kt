@@ -2,6 +2,7 @@ package io.github.toberocat.improvedfactions.command.generator
 
 import io.github.toberocat.improvedfactions.command.data.CommandData
 import io.github.toberocat.improvedfactions.command.data.CommandProcessFunction
+import io.github.toberocat.improvedfactions.command.data.CommandProcessFunctionParameter
 import java.io.OutputStream
 
 
@@ -20,6 +21,8 @@ class CommandCodeGenerator(private val commandData: CommandData) {
     }
 
     private fun generateHeader(): String {
+        val constructorArgs = if (commandData.addPluginAsParameter) "plugin" else ""
+
         return """
         package ${commandData.targetPackage}
 
@@ -28,17 +31,19 @@ class CommandCodeGenerator(private val commandData: CommandData) {
         import io.github.toberocat.improvedfactions.commands.executor.CommandExecutor
         import io.github.toberocat.improvedfactions.commands.CommandProcessResult
         import io.github.toberocat.improvedfactions.commands.CommandProcessor
+        import io.github.toberocat.improvedfactions.commands.CommandContext
         import io.github.toberocat.improvedfactions.annotations.localization.Localization
         import io.github.toberocat.improvedfactions.annotations.permission.Permission
         import io.github.toberocat.improvedfactions.annotations.permission.PermissionConfigurations
         import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
         import io.github.toberocat.improvedfactions.commands.executor.DEFAULT_PARSERS
+        import io.github.toberocat.improvedfactions.commands.arguments.ParsingContext
         import org.bukkit.command.CommandSender
 
         open class ${commandData.targetName}Processor(
             protected val plugin: ImprovedFactionsPlugin,
             private val executor: CommandExecutor
-        ) : ${commandData.targetName}(), CommandProcessor {
+        ) : ${commandData.targetName}($constructorArgs), CommandProcessor {
             override val label = "${commandData.label}"
 
         """.trimIndent()
@@ -46,7 +51,7 @@ class CommandCodeGenerator(private val commandData: CommandData) {
 
     private fun generateExecuteMethod(): String {
         val cases = commandData.processFunctions.joinToString("\n") { function ->
-            "sender is ${function.senderClass} && args.size == ${function.totalArgumentCount(commandData.needsConfirmation)} -> ${function.functionName}Call(sender, args)"
+            "sender is ${function.senderClass} -> ${function.functionName}Call(sender, args)"
         }
 
         val confirmationCheck = if (commandData.needsConfirmation) {
@@ -78,9 +83,11 @@ class CommandCodeGenerator(private val commandData: CommandData) {
 
         return """
             override fun tabComplete(sender: CommandSender, args: Array<String>): List<String> {
-                return when (sender) {
-                    $cases
-                    else -> emptyList()
+                return loggedTransaction { 
+                    when (sender) {
+                        $cases
+                        else -> emptyList()
+                    }
                 }
             }
 
@@ -95,13 +102,28 @@ class CommandCodeGenerator(private val commandData: CommandData) {
 
     private fun generateProcessFunction(function: CommandProcessFunction): String {
         val parameterExtraction = function.parameters.joinToString("\n") { parameter ->
-            "val ${parameter.uniqueName} = parseArgument(sender, ${parameter.type}::class.java, args[${parameter.index}])"
+            val typeCast = when {
+                parameter.isRequired -> "as ${parameter.type}"
+                else -> "as? ${parameter.type}"
+            }
+
+            "val ${parameter.uniqueName} = ${getArgumentParserCode(parameter)}!!.parse(sender, ${parameter.index}, args) $typeCast"
         }
+
+        val argumentSizeCheck = """
+            if (args.size < ${function.getMinParametersCount(commandData.needsConfirmation)} || args.size > ${
+            function.getMaxParametersCount(commandData.needsConfirmation)
+        }) {
+                return missingRequiredArgument()
+            }
+            """.trimIndent()
+
 
         val parameterNames = function.parameters.joinToString(", ") { it.uniqueName }
 
         return """
             private fun ${function.functionName}Call(sender: ${function.senderClass}, args: Array<String>): CommandProcessResult {
+                $argumentSizeCheck
                 $parameterExtraction
                 return loggedTransaction { ${function.functionName}(sender, $parameterNames) }
             }
@@ -112,6 +134,17 @@ class CommandCodeGenerator(private val commandData: CommandData) {
     private fun generateHandleTabCompletionMethod(): String {
         val builder = StringBuilder()
 
+        val argumentTypesByIndex = mutableMapOf<Int, CommandProcessFunctionParameter>()
+
+        commandData.processFunctions.forEach { function ->
+            function.parameters.forEach { parameter ->
+                if (!argumentTypesByIndex.containsKey(parameter.index)) {
+                    argumentTypesByIndex[parameter.index] = parameter
+                }
+            }
+        }
+
+
         val confirmationTabComplete = if (commandData.needsConfirmation) {
             """
             if (currentIndex == parameterCount) return listOf("confirm")
@@ -120,37 +153,48 @@ class CommandCodeGenerator(private val commandData: CommandData) {
             ""
         }
 
-        builder.appendLine("""
+        val localizationAnnotations = argumentTypesByIndex.values.map { param ->
+            """@Localization("${param.createVariableKey(commandData)}")"""
+        }.joinToString("\n")
+
+        builder.appendLine(
+            """
+            $localizationAnnotations
             private fun handleTabCompletion(sender: CommandSender, args: Array<String>, parameterCount: Int): List<String> {
                 val currentIndex = args.size - 1
                 $confirmationTabComplete
                 if (currentIndex >= parameterCount) return emptyList()
         
                 return when (currentIndex) {
-        """.trimIndent())
+        """.trimIndent()
+        )
 
-        val argumentTypesByIndex = mutableMapOf<Int, String>()
+        argumentTypesByIndex.forEach { (index, param) ->
+            val parsingContext = """ParsingContext(sender, args, currentIndex, "${param.createVariableKey(commandData)}")"""
 
-        commandData.processFunctions.forEach { function ->
-            function.parameters.forEach { parameter ->
-                if (!argumentTypesByIndex.containsKey(parameter.index)) {
-                    argumentTypesByIndex[parameter.index] = parameter.type
-                }
-            }
+            builder.appendLine(
+                """
+                    $index -> ${getArgumentParserCode(param)}!!.tabComplete(${parsingContext})
+            """.trimIndent()
+            )
         }
 
-        argumentTypesByIndex.forEach { (index, type) ->
-            builder.appendLine("""
-                    $index -> getArgumentParser(${type}::class.java)!!.tabComplete(sender, currentIndex, args) ?: emptyList()
-            """.trimIndent())
-        }
-
-        builder.appendLine("""
+        builder.appendLine(
+            """
                     else -> emptyList()
                 }
             }
-        """.trimIndent())
+        """.trimIndent()
+        )
 
         return builder.toString()
+    }
+
+    private fun getArgumentParserCode(parameter: CommandProcessFunctionParameter): String {
+        if (parameter.isManual) {
+            return "${parameter.variableName}Argument"
+        }
+
+        return "getArgumentParser(${parameter.type}::class.java)"
     }
 }

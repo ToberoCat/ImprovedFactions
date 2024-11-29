@@ -1,18 +1,18 @@
-package io.github.toberocat.improvedfactions.commands.arguments.primitives
+package io.github.toberocat.improvedfactions.commands.arguments.faction
 
 import io.github.toberocat.improvedfactions.annotations.localization.Localization
 import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParsingException
 import io.github.toberocat.improvedfactions.commands.arguments.ParsingContext
+import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import org.bukkit.command.CommandSender
 
-@Localization("base.arguments.bool.description")
-@Localization("base.arguments.bool.error")
-open class BoolArgumentParser(
-    override val description: String = "base.arguments.bool.description",
+@Localization("base.arguments.zone.description")
+class ZoneArgumentParser(
+    override val description: String = "base.arguments.zone.description",
 ) : ArgumentParser {
     override fun parse(sender: CommandSender, arg: String, args: Array<String>) =
-        arg.toBooleanStrictOrNull() ?: throw ArgumentParsingException("base.arguments.bool.error")
+        ZoneHandler.getZone(arg) ?: throw ArgumentParsingException("Zone $arg not found.")
 
-    override fun tabComplete(pCtx: ParsingContext) = listOf("true", "false")
+    override fun tabComplete(pCtx: ParsingContext) = ZoneHandler.getZones().toList()
 }

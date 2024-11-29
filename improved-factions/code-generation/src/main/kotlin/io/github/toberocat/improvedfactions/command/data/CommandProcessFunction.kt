@@ -5,7 +5,13 @@ data class CommandProcessFunction(
     val functionName: String,
     val parameters: List<CommandProcessFunctionParameter>
 ) {
-    fun totalArgumentCount(needsConfirmation: Boolean = false): Int {
+    fun requiredParametersCount() = parameters.count { it.isRequired }
+
+    fun getMinParametersCount(needsConfirmation: Boolean = false): Int {
+        return requiredParametersCount() + if (needsConfirmation) 1 else 0
+    }
+
+    fun getMaxParametersCount(needsConfirmation: Boolean = false): Int {
         return parameters.size + if (needsConfirmation) 1 else 0
     }
 }
