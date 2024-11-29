@@ -6,9 +6,13 @@ import io.github.toberocat.improvedfactions.commands.CommandProcessor
 import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.bukkit.OfflinePlayerArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.bukkit.PlayerArgumentParser
+import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.BoolArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.IntArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.StringArgumentParser
+import io.github.toberocat.improvedfactions.commands.arguments.primitives.enums.JoinTypeEnumArgumentParser
+import io.github.toberocat.improvedfactions.factions.Faction
+import io.github.toberocat.improvedfactions.factions.FactionJoinType
 import io.github.toberocat.improvedfactions.translation.LocalizedException
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import org.bukkit.OfflinePlayer
@@ -16,6 +20,7 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabExecutor
 import org.bukkit.entity.Player
+import org.jetbrains.exposed.sql.JoinType
 
 val DEFAULT_PARSERS = mapOf<Class<*>, ArgumentParser>(
     String::class.java to StringArgumentParser(),
@@ -23,6 +28,8 @@ val DEFAULT_PARSERS = mapOf<Class<*>, ArgumentParser>(
     Boolean::class.java to BoolArgumentParser(),
     Player::class.java to PlayerArgumentParser(),
     OfflinePlayer::class.java to OfflinePlayerArgumentParser(),
+    Faction::class.java to FactionArgumentParser(),
+    FactionJoinType::class.java to JoinTypeEnumArgumentParser()
 )
 
 open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExecutor {

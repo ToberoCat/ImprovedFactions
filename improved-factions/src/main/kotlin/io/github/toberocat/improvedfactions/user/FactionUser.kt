@@ -56,5 +56,7 @@ class FactionUser(id: EntityID<Int>) : IntEntity(id) {
         ) == 1L
     }
 
+    fun isFactionOwner() = faction()?.owner == uniqueId
+
     fun rank(): FactionRank = FactionRank.findById(assignedRank) ?: FactionRankHandler.guestRank
 }

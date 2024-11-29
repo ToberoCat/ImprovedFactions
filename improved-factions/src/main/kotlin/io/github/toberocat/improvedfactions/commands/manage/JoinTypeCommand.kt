@@ -1,43 +1,46 @@
 package io.github.toberocat.improvedfactions.commands.manage
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.factions.FactionJoinType
 import io.github.toberocat.improvedfactions.permissions.Permissions
-import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.utils.arguments.EnumArgument
-import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
-import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.FactionPermissionOption
-import io.github.toberocat.improvedfactions.utils.options.InFactionOption
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.options.Options
+import org.bukkit.OfflinePlayer
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-@CommandMeta(
-    description = "base.command.joinMode.description",
-    category = CommandCategory.MANAGE_CATEGORY
+@GeneratedCommandMeta(
+    label = "joinMode",
+    category = CommandCategory.MANAGE_CATEGORY,
+    module = "base",
+    responses = [
+        CommandResponse("joinModeChanged"),
+        CommandResponse("invalidJoinType"),
+        CommandResponse("notInFaction"),
+        CommandResponse("noPermission"),
+    ]
 )
-class JoinTypeCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("joinMode") {
-    override fun options() = Options.getFromConfig(plugin, label) { options, _ ->
-        options
-            .cmdOpt(InFactionOption(true))
-            .cmdOpt(FactionPermissionOption(Permissions.SET_JOIN_TYPE))
+abstract class JoinTypeCommand : JoinTypeCommandContext() {
+    fun process(player: Player, joinType: FactionJoinType): CommandProcessResult {
+        return setJoinType(player, joinType)
     }
 
-    override fun arguments() = arrayOf(
-        EnumArgument(FactionJoinType::class.java, "base.command.args.joinMode")
-    )
+    fun process(sender: CommandSender, target: OfflinePlayer, joinType: FactionJoinType): CommandProcessResult {
+        return setJoinType(target, joinType)
+    }
 
-    override fun handle(player: Player, args: Array<String>): Boolean {
-        val joinType = parseArgs(player, args).get<FactionJoinType>(0) ?: return false
-        loggedTransaction {
-            val faction = player.factionUser().faction() ?: return@loggedTransaction false
-            faction.factionJoinType = joinType
+    private fun setJoinType(player: OfflinePlayer, joinType: FactionJoinType): CommandProcessResult {
+        val factionUser = player.factionUser()
+        val faction = factionUser.faction()
+            ?: return notInFaction()
+
+        if (!factionUser.hasPermission(Permissions.SET_JOIN_TYPE)) {
+            return noPermission()
         }
 
-        player.sendLocalized("base.command.joinMode.changed", mapOf("mode" to joinType.name.lowercase()))
-        return true
+        faction.factionJoinType = joinType
+        return joinModeChanged("mode" to joinType.name.lowercase())
     }
 }

@@ -43,8 +43,9 @@ class CommandProcessor(
 
         import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
         import io.github.toberocat.improvedfactions.commands.executor.CommandExecutor
+        import io.github.toberocat.improvedfactions.commands.CommandProcessor
 
-        fun getFactionCommandProcessors(plugin: ImprovedFactionsPlugin, executor: CommandExecutor) = listOf(
+        fun getFactionCommandProcessors(plugin: ImprovedFactionsPlugin, executor: CommandExecutor) = listOf<CommandProcessor>(
             $processors
         )
         """.trimIndent()

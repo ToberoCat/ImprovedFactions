@@ -44,7 +44,7 @@ abstract class CreateCommand : CreateCommandContext() {
             return alreadyInFaction()
         }
 
-        if (Factions.nameRegex.matches(name)) {
+        if (!Factions.nameRegex.matches(name)) {
             return invalidName()
         }
 
