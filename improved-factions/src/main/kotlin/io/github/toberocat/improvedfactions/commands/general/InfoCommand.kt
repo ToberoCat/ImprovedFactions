@@ -1,6 +1,10 @@
 package io.github.toberocat.improvedfactions.commands.general
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.commands.sendCommandResult
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
@@ -9,58 +13,53 @@ import io.github.toberocat.improvedfactions.modules.relations.RelationsModule.al
 import io.github.toberocat.improvedfactions.modules.relations.RelationsModule.enemies
 import io.github.toberocat.improvedfactions.ranks.listRanks
 import io.github.toberocat.improvedfactions.translation.sendLocalized
-import io.github.toberocat.improvedfactions.utils.arguments.OptionalFactionArgument
-import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.FactionExistOption
-import io.github.toberocat.improvedfactions.utils.options.addFactionNameOption
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.arguments.Argument
-import io.github.toberocat.toberocore.command.options.Options
+import io.github.toberocat.improvedfactions.user.factionUser
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-const val INFO_COMMAND_DESCRIPTION = "base.command.info.description"
-
-@CommandMeta(
-    description = INFO_COMMAND_DESCRIPTION
+@GeneratedCommandMeta(
+    label = "info",
+    category = CommandCategory.GENERAL_CATEGORY,
+    module = "base",
+    responses = [
+        CommandResponse("infoHeader"),
+        CommandResponse("infoDetail"),
+        CommandResponse("noFactionFound")
+    ]
 )
-open class InfoCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("info") {
-    override fun options(): Options = Options.getFromConfig(plugin, "info") { options, _ ->
-        options.addFactionNameOption(0)
-            .cmdOpt(FactionExistOption(0, true))
+abstract class InfoCommand : InfoCommandContext() {
+
+    open fun process(sender: Player, faction: Faction): CommandProcessResult {
+        val actualFaction = sender.factionUser().faction() ?: faction
+        return sendInfo(sender, actualFaction)
     }
 
-    override fun arguments(): Array<Argument<*>> = arrayOf(
-        OptionalFactionArgument()
-    )
+    fun process(sender: CommandSender, faction: Faction) = sendInfo(sender, faction)
 
-    override fun handle(player: Player, args: Array<String>): Boolean {
-        val faction = parseArgs(player, args).get<Faction>(0) ?: return false
-        player.sendLocalized("base.command.info.header", mapOf(
-            "faction" to faction.name
-        ))
+    private fun sendInfo(sender: CommandSender, faction: Faction): CommandProcessResult {
+        sender.sendCommandResult(infoHeader("faction" to faction.name))
 
-        loggedTransaction {
-            player.showDetails("Members", faction.members().count().toString(), "/f members")
-            player.showDetails("Ranks", faction.listRanks().count().toString(), "/f rank")
-            player.showDetails("Claims", faction.claims().count().toString(), "/f map")
-            player.showDetails("Join Type", faction.factionJoinType.name.lowercase())
-            if (PowerRaidsModule.powerRaidModule().isEnabled) {
-                player.showDetails("Power", faction.accumulatedPower.toString(), "/f power")
-            }
-            if (RelationsModule.isEnabled) {
-                player.showDetails("Allies", faction.allies().count().toString(), "/f allies")
-                player.showDetails("Enemies", faction.enemies().count().toString(), "/f enemies")
-            }
+        sender.sendCommandResult("Members", faction.members().count().toString(), "/f members")
+        sender.sendCommandResult("Ranks", faction.listRanks().count().toString(), "/f rank")
+        sender.sendCommandResult("Claims", faction.claims().count().toString(), "/f map")
+
+        if (PowerRaidsModule.powerRaidModule().isEnabled) {
+            sender.sendCommandResult("Power", faction.accumulatedPower.toString(), "/f power")
+        }
+        if (RelationsModule.isEnabled) {
+            sender.sendCommandResult("Allies", faction.allies().count().toString(), "/f allies")
+            sender.sendCommandResult("Enemies", faction.enemies().count().toString(), "/f enemies")
         }
 
-        return true
+        return showDetails("Join Type", faction.factionJoinType.name.lowercase())
     }
 
-    private fun Player.showDetails(key: String, value: String, cmd: String = "") {
-        sendLocalized("base.command.info.detail", mapOf(
-            "cmd" to cmd,
-            "key" to key,
-            "value" to value
-        ))
-    }
+    private fun CommandSender.sendCommandResult(key: String, value: String, cmd: String = "") =
+        sendCommandResult(showDetails(key, value, cmd))
+
+    private fun showDetails(key: String, value: String, cmd: String = "") = infoDetail(
+        "cmd" to cmd,
+        "key" to key,
+        "value" to value
+    )
 }

@@ -32,7 +32,6 @@ class FactionCommandExecutor(plugin: ImprovedFactionsPlugin) {
             else
                 exception.message?.let { sender.sendLocalized(it, exception.placeholders) }
         }
-        executor.addChild(InfoCommand(plugin))
 
 
         executor.addChild(RankCommandRoute(plugin))
@@ -49,8 +48,6 @@ class FactionCommandExecutor(plugin: ImprovedFactionsPlugin) {
         executor.addChild(ListInvitesCommand(plugin))
         executor.addChild(InviteAcceptCommand(plugin))
         executor.addChild(InviteDiscardCommand(plugin))
-
-        executor.addChild(ListFactionsCommand(plugin))
 
         plugin.moduleManager.addModuleCommands(executor)
 

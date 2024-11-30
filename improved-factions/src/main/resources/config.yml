@@ -39,7 +39,6 @@ modules:
 factions:
   max-rank-name-length: 50
   rank-name-regex: "[a-zA-Z]*" # The regex a rank name has to match. Spaces are supported but strongly discouraged
-  max-spaces-in-name: 5
   # Unit is minutes
   invites-expire-in: 5
   name-regex: "[a-zA-Z]*" # The regex a faction name has to match. Spaces are supported but strongly discouraged

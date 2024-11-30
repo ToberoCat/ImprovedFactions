@@ -16,8 +16,4 @@ class ClaimRadiusArgument : IntegerArgument("[radius]", "base.command.args.claim
         }
         return number
     }
-
-    companion object {
-        var MAX_RADIUS = 10
-    }
 }

@@ -4,7 +4,7 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.database.DatabaseManager
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
-import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.modules.Module
 import io.github.toberocat.improvedfactions.modules.home.commands.HomeSetCommand
 import io.github.toberocat.improvedfactions.modules.home.commands.TeleportHomeCommand
 import io.github.toberocat.improvedfactions.modules.home.data.FactionHomes
@@ -17,7 +17,7 @@ import io.github.toberocat.toberocore.command.CommandExecutor
 import org.bukkit.Location
 import org.bukkit.entity.Player
 
-object HomeModule : BaseModule {
+object HomeModule : Module {
     const val MODULE_NAME = "home"
     override val moduleName = MODULE_NAME
     override var isEnabled = false

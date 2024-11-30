@@ -25,9 +25,6 @@ class DatabaseConnector(private val plugin: ImprovedFactionsPlugin) {
             verboseLogging = true
         }
         initializeDatabase()
-        loggedTransaction {
-            ImprovedFactionsPlugin.instance.moduleManager.initializeModuleDatabase()
-        }
         return database
     }
 

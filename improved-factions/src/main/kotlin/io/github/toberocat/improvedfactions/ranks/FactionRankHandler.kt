@@ -7,7 +7,8 @@ import io.github.toberocat.improvedfactions.user.noFactionId
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import org.jetbrains.exposed.sql.SizedIterable
 import org.jetbrains.exposed.sql.and
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction 
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 
 fun Faction.listRanks(): SizedIterable<FactionRank> = FactionRank.find { FactionRanks.factionId eq id.value }
 
@@ -16,17 +17,16 @@ fun Faction.anyRank(name: String): FactionRank? =
 
 
 object FactionRankHandler {
-    var guestRankName = "Guest"
-    var guestRankId = 0
+    var guestRankId: Int = 0
     lateinit var guestRank: FactionRank
 
     fun createRank(
         factionId: Int, rankName: String, priority: Int, allowedPermissions: Collection<String>
     ): FactionRank {
-        if (rankName.length > FactionRanks.maxRankNameLength) throw CommandException(
+        if (rankName.length > BaseModule.config.maxRankNameLength) throw CommandException(
             "base.exceptions.rank-name-exceeds-limit", emptyMap()
         )
-        if (!FactionRanks.rankNameRegex.matches(rankName))
+        if (!BaseModule.config.rankNameRegex.matches(rankName))
             throw CommandException("base.exceptions.rank-name-not-matching", emptyMap())
 
         return loggedTransaction {
@@ -49,8 +49,8 @@ object FactionRankHandler {
 
     fun initRanks() {
         loggedTransaction {
-            guestRank = FactionRank.find { FactionRanks.name eq guestRankName }.firstOrNull() ?: createRank(
-                noFactionId, guestRankName, -1, emptyList()
+            guestRank = FactionRank.find { FactionRanks.name eq BaseModule.config.guestRankName }.firstOrNull() ?: createRank(
+                noFactionId, BaseModule.config.guestRankName, -1, emptyList()
             )
             guestRankId = guestRank.id.value
 
