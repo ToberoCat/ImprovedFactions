@@ -2,6 +2,7 @@ package io.github.toberocat.improvedfactions.factions
 
 import dev.s7a.base64.Base64ItemStack
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.annotations.localization.Localization
 import io.github.toberocat.improvedfactions.claims.*
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.exceptions.*
@@ -13,9 +14,11 @@ import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.chat.ChatModule.resetChatMode
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.powerRaidModule
 import io.github.toberocat.improvedfactions.modules.relations.RelationsModule
+import io.github.toberocat.improvedfactions.ranks.FactionRank
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
 import io.github.toberocat.improvedfactions.ranks.listRanks
 import io.github.toberocat.improvedfactions.translation.LocalizationKey
+import io.github.toberocat.improvedfactions.translation.LocalizedException
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.FactionUser
 import io.github.toberocat.improvedfactions.user.FactionUsers
@@ -26,6 +29,7 @@ import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.util.ItemUtils
 import io.github.toberocat.toberocore.util.MathUtils
 import kotlinx.datetime.*
+import kotlinx.datetime.TimeZone
 import org.bukkit.Bukkit
 import org.bukkit.Chunk
 import org.bukkit.Material
@@ -340,4 +344,9 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         user.player()?.resetChatMode()
         powerRaidModule().powerModuleHandle.memberLeave(this)
     }
+
+    @Localization("base.exceptions.rank-not-found")
+    fun getDefaultRank() = FactionRank.findById(defaultRank) ?: throw LocalizedException(
+        "base.exceptions.rank-not-found", emptyMap()
+    )
 }

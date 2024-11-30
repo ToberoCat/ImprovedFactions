@@ -44,10 +44,7 @@ class FactionCommandExecutor(plugin: ImprovedFactionsPlugin) {
         executor.addChild(MembersCommand(plugin))
         executor.addChild(TransferOwnershipCommand(plugin))
 
-        executor.addChild(InviteCommand(plugin))
         executor.addChild(ListInvitesCommand(plugin))
-        executor.addChild(InviteAcceptCommand(plugin))
-        executor.addChild(InviteDiscardCommand(plugin))
 
         executor.addChild(HelpCommand(plugin, executor))
         executor.addChild(GenerateWikiSourcesCommand(plugin, executor))

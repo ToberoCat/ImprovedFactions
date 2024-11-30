@@ -8,6 +8,7 @@ import io.github.toberocat.improvedfactions.commands.arguments.bukkit.OfflinePla
 import io.github.toberocat.improvedfactions.commands.arguments.bukkit.PlayerArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.bukkit.WorldArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionArgumentParser
+import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionInviteArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.faction.ZoneArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.BoolArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.IntArgumentParser
@@ -16,6 +17,7 @@ import io.github.toberocat.improvedfactions.commands.arguments.primitives.enums.
 import io.github.toberocat.improvedfactions.commands.sendCommandResult
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionJoinType
+import io.github.toberocat.improvedfactions.invites.FactionInvite
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.translation.LocalizedException
 import io.github.toberocat.improvedfactions.translation.sendLocalized
@@ -36,7 +38,8 @@ val DEFAULT_PARSERS = mapOf<Class<*>, ArgumentParser>(
     Faction::class.java to FactionArgumentParser(),
     FactionJoinType::class.java to JoinTypeEnumArgumentParser(),
     Zone::class.java to ZoneArgumentParser(),
-    World::class.java to WorldArgumentParser()
+    World::class.java to WorldArgumentParser(),
+    FactionInvite::class.java to FactionInviteArgumentParser()
 )
 
 open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExecutor {
