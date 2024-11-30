@@ -7,6 +7,7 @@ import io.github.toberocat.improvedfactions.utils.offline.KnownOfflinePlayer
 import io.github.toberocat.improvedfactions.utils.offline.KnownOfflinePlayers
 import io.github.toberocat.toberocore.command.SubCommand
 import net.kyori.adventure.audience.Audience
+import net.kyori.adventure.text.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
@@ -38,6 +39,8 @@ fun String.getOfflinePlayerByName() = loggedTransaction {
     }
 }
 
+fun TextComponent.appendIf(condition: Boolean, component: () -> TextComponent): TextComponent =
+    if (condition) append(component) else this
 
 fun String.camlCaseToSnakeCase(separator: String = "_") =
     replace(Regex("([a-z])([A-Z]+)"), "$1${separator}$2").lowercase()

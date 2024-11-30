@@ -67,9 +67,11 @@ class CommandCodeGenerator(private val commandData: CommandData) {
         return """
             override fun execute(sender: CommandSender, args: Array<String>): CommandProcessResult {
                 $confirmationCheck
-                return when {
-                    $cases
-                    else -> missingRequiredArgument()
+                return loggedTransaction { 
+                    when {
+                        $cases
+                        else -> missingRequiredArgument()
+                    }
                 }
             }
 
@@ -125,7 +127,7 @@ class CommandCodeGenerator(private val commandData: CommandData) {
             private fun ${function.functionName}Call(sender: ${function.senderClass}, args: Array<String>): CommandProcessResult {
                 $argumentSizeCheck
                 $parameterExtraction
-                return loggedTransaction { ${function.functionName}(sender, $parameterNames) }
+                return ${function.functionName}(sender, $parameterNames)
             }
 
         """.trimIndent()
@@ -192,7 +194,7 @@ class CommandCodeGenerator(private val commandData: CommandData) {
 
     private fun getArgumentParserCode(parameter: CommandProcessFunctionParameter): String {
         if (parameter.isManual) {
-            return "${parameter.variableName}Argument"
+            return "${parameter.variableName}Argument()"
         }
 
         return "getArgumentParser(${parameter.type}::class.java)"

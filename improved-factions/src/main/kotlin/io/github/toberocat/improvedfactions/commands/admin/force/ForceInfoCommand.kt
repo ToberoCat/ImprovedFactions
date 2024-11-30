@@ -1,62 +1,47 @@
 package io.github.toberocat.improvedfactions.commands.admin.force
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import io.github.toberocat.improvedfactions.translation.sendLocalized
-import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.utils.arguments.OfflinePlayerArgument
 import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
-import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.PlayerNameOption
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.arguments.Argument
-import io.github.toberocat.toberocore.command.options.ArgLengthOption
-import io.github.toberocat.toberocore.command.options.Options
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.annotations.command.PermissionConfig
+import io.github.toberocat.improvedfactions.annotations.permission.PermissionConfigurations
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.commands.sendCommandResult
+import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.OfflinePlayer
-import org.bukkit.entity.Player
+import org.bukkit.command.CommandSender
 
-@CommandMeta(
-    description = "base.command.force.info.description",
+@PermissionConfig(config = PermissionConfigurations.OP_ONLY)
+@GeneratedCommandMeta(
+    label = "admin playerInfo",
+    category = CommandCategory.ADMIN_CATEGORY,
     module = "core",
-    category = CommandCategory.ADMIN_CATEGORY
+    responses = [
+        CommandResponse("factionInfoHeader"),
+        CommandResponse("factionInfoDetail")
+    ]
 )
-class ForceInfoCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("info") {
-    override fun options(): Options = Options.getFromConfig(plugin, label) { options, _ ->
-        options.cmdOpt(PlayerNameOption(0))
-            .cmdOpt(ArgLengthOption(1))
+abstract class ForceInfoCommand : ForceInfoCommandContext() {
+
+    fun processConsole(sender: CommandSender, target: OfflinePlayer): CommandProcessResult {
+        return printInfo(sender, target)
     }
 
-    override fun arguments(): Array<Argument<*>> = arrayOf(
-        OfflinePlayerArgument()
-    )
+    private fun printInfo(sender: CommandSender, target: OfflinePlayer): CommandProcessResult {
+        sender.sendCommandResult(factionInfoHeader("player" to (target.name ?: "Unknown")))
 
-    override fun handle(player: Player, args: Array<String>): Boolean {
-        val arguments = parseArgs(player, args)
-        val target = arguments.get<OfflinePlayer>(0) ?: return false
-
-        player.sendLocalized(
-            "base.command.force.info.header", mapOf(
-                "player" to (target.name ?: "Unknown")
-            )
-        )
-
-        loggedTransaction {
-            player.showDetails(
+        sender.sendCommandResult(
+            details(
                 "Faction",
                 target.factionUser().faction()?.name ?: "No Faction",
                 "/f info ${target.factionUser().faction()?.name}"
             )
-            player.showDetails("Rank", target.factionUser().rank().name, "")
-        }
-        return true
+        )
+        return details("Rank", target.factionUser().rank().name, "")
     }
 
-    private fun Player.showDetails(key: String, value: String, cmd: String = "") {
-        sendLocalized(
-            "base.command.force.info.detail", mapOf(
-                "key" to key,
-                "value" to value
-            )
-        )
-    }
+    private fun details(key: String, value: String, cmd: String = "") = factionInfoDetail(
+        "key" to key,
+        "value" to value
+    )
 }

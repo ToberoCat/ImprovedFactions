@@ -5,7 +5,6 @@ import com.jeff_media.updatechecker.UpdateChecker
 import com.jeff_media.updatechecker.UserAgentBuilder
 import io.github.toberocat.improvedfactions.claims.clustering.detector.ClaimClusterDetector
 import io.github.toberocat.improvedfactions.claims.clustering.query.DatabaseClaimQueryProvider
-import io.github.toberocat.improvedfactions.commands.claim.FactionMap
 import io.github.toberocat.improvedfactions.commands.executor.GeneratedFactionCommandExecutor
 import io.github.toberocat.improvedfactions.config.ImprovedFactionsConfig
 import io.github.toberocat.improvedfactions.database.DatabaseConnector
@@ -144,8 +143,6 @@ open class ImprovedFactionsPlugin : JavaPlugin() {
         ParticleAnimation.tickSpeed = config.getLong("performance.decorative-particles.tick-speed", 1)
 
         ClaimRadiusArgument.MAX_RADIUS = config.getInt("factions.max-claim-radius", 10)
-        FactionMap.MAP_WIDTH = config.getInt("factions.map-width", FactionMap.MAP_WIDTH)
-        FactionMap.MAP_HEIGHT = config.getInt("factions.map-height", FactionMap.MAP_HEIGHT)
 
         config.getConfigurationSection("zones")?.getKeys(false)?.let {
             it.forEach { zone ->

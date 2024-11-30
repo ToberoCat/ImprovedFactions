@@ -1,63 +1,67 @@
 package io.github.toberocat.improvedfactions.commands.claim
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.claims.ClaimStatistics
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.commands.sendCommandResult
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.exceptions.FactionDoesntHaveThisClaimException
 import io.github.toberocat.improvedfactions.exceptions.NotInFactionException
 import io.github.toberocat.improvedfactions.permissions.Permissions
-import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.utils.arguments.ClaimRadiusArgument
-import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
-import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.FactionPermissionOption
-import io.github.toberocat.improvedfactions.utils.options.InFactionOption
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
 
-@CommandMeta(
-    description = "base.command.unclaim.description",
-    category = CommandCategory.CLAIM_CATEGORY
+@GeneratedCommandMeta(
+    label = "unclaim",
+    category = CommandCategory.CLAIM_CATEGORY,
+    module = "base",
+    responses = [
+        CommandResponse("unclaimed"),
+        CommandResponse("unclaimedRadius"),
+        CommandResponse("unclaimError"),
+        CommandResponse("notInFaction"),
+        CommandResponse("noPermission")
+    ]
 )
-class UnclaimCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("unclaim") {
-    override fun options(): Options = Options.getFromConfig(plugin, "unclaim") { options, _ ->
-        options.cmdOpt(InFactionOption(true))
-            .cmdOpt(FactionPermissionOption(Permissions.MANAGE_CLAIMS))
-    }
+abstract class UnclaimCommand : UnclaimCommandContext() {
 
-    override fun arguments() = arrayOf(
-        ClaimRadiusArgument()
-    )
+    fun process(player: Player, radius: Int?): CommandProcessResult {
+        val factionUser = player.factionUser()
+        if (!factionUser.isInFaction()) {
+            return notInFaction()
+        }
 
-    override fun handle(player: Player, args: Array<String>): Boolean {
-        val squareRadius = parseArgs(player, args).get<Int>(0) ?: 0
+        if (!factionUser.hasPermission(Permissions.MANAGE_CLAIMS)) {
+            return noPermission()
+        }
 
+        val squareRadius = radius ?: 0
         var statistics = ClaimStatistics(0, 0)
         loggedTransaction {
-            val faction = player.factionUser().faction() ?: throw NotInFactionException()
+            val faction = factionUser.faction() ?: throw NotInFactionException()
             statistics = faction.unclaimSquare(player.location.chunk, squareRadius) { e ->
                 if (squareRadius == 0) {
                     throw e
                 }
 
                 if (e is FactionDoesntHaveThisClaimException) {
-                    e.message?.let { player.sendLocalized(it, e.placeholders) }
+                    e.message?.let {
+                        player.sendCommandResult(unclaimError("error" to it))
+                    }
                 }
             }
         }
 
-        if (squareRadius > 0) {
-            player.sendLocalized("base.command.unclaim.unclaimed-radius", mapOf(
+        return when {
+            squareRadius > 0 -> unclaimedRadius(
                 "radius" to squareRadius.toString(),
                 "successful-claims" to statistics.successfulClaims.toString(),
                 "total-claims" to statistics.totalClaims.toString()
+            )
 
-            ))
-        } else {
-            player.sendLocalized("base.command.unclaim.unclaimed")
+            else -> unclaimed()
         }
-        return true
     }
 }

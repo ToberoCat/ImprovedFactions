@@ -3,6 +3,7 @@ package io.github.toberocat.improvedfactions.config
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.utils.FileUtils
+import io.github.toberocat.improvedfactions.utils.arguments.ClaimRadiusArgument
 import io.github.toberocat.improvedfactions.utils.getEnum
 import org.bukkit.Bukkit
 import org.bukkit.configuration.MemorySection
@@ -19,6 +20,8 @@ class ImprovedFactionsConfig(
     var allowedWorlds: Set<String> = emptySet(),
     var hideWildernessTitle: Boolean = false,
     var maxCommandSuggestions: Int = 10,
+    var mapWidth: Int = 20,
+    var mapHeight: Int = 10,
 ) : PluginConfig() {
 
     override fun reload(plugin: ImprovedFactionsPlugin, config: FileConfiguration) {
@@ -28,6 +31,8 @@ class ImprovedFactionsConfig(
         allowedWorlds = config.generateAllowedWorlds()
         maxCommandSuggestions = config.getInt("max-command-suggestions", maxCommandSuggestions)
         hideWildernessTitle = config.getBoolean("factions.hide-wilderness-title", hideWildernessTitle)
+        mapWidth = config.getInt("factions.map-width", mapWidth)
+        mapHeight = config.getInt("factions.map-height", mapHeight)
     }
 
     private fun FileConfiguration.generateDefaultPlaceholders() =
@@ -79,7 +84,7 @@ class ImprovedFactionsConfig(
 
         fun updateConfig(
             previousValueTree: Map<String, Any>,
-            plugin: ImprovedFactionsPlugin
+            plugin: ImprovedFactionsPlugin,
         ) {
             previousValueTree.forEach { plugin.config.set(it.key, it.value) }
             plugin.logger.info("${previousValueTree.size} values have been restored from the old config.")
