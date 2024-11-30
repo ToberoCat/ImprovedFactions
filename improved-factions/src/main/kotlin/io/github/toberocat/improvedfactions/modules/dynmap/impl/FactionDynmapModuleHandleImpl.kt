@@ -9,6 +9,7 @@ import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosi
 import io.github.toberocat.improvedfactions.claims.clustering.position.WorldPosition
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionHandler
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapColorConfig
 import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapModuleConfig
 import io.github.toberocat.improvedfactions.modules.dynmap.handles.FactionDynmapModuleHandle
@@ -79,7 +80,7 @@ class FactionDynmapModuleHandleImpl(
                 generatedColor = generateColor()
                 name = this.name
                 labelTransformer = {
-                    plugin.papiTransformer(owner.toOfflinePlayer(), it)
+                    BaseModule.integrations.papiIntegration.replacePlaceholders(owner.toOfflinePlayer(), it)
                         .replace("%faction_name%", name)
                 }
             }

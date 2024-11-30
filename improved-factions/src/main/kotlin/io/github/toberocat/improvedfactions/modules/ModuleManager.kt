@@ -6,7 +6,6 @@ import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.chat.ChatModule
 import io.github.toberocat.improvedfactions.modules.claimparticle.ClaimParticleModule
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
-import io.github.toberocat.improvedfactions.modules.gui.GuiModule
 import io.github.toberocat.improvedfactions.modules.home.HomeModule
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.modules.relations.RelationsModule

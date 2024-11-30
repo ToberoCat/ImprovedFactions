@@ -9,7 +9,6 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
 import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
 import io.github.toberocat.improvedfactions.utils.options.FactionExistOption
 import io.github.toberocat.improvedfactions.utils.options.InFactionOption
-import io.github.toberocat.improvedfactions.utils.options.addFactionNameOption
 import io.github.toberocat.toberocore.command.PlayerSubCommand
 import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.options.ArgLengthOption
@@ -28,7 +27,7 @@ import org.bukkit.entity.Player
 class JoinCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("join") {
     override fun options(): Options = Options.getFromConfig(plugin, "join") { options, _ ->
         options.cmdOpt(InFactionOption(false))
-            .addFactionNameOption(0)
+            //.addFactionNameOption(0)
             .cmdOpt(ArgLengthOption(1))
             .cmdOpt(FactionExistOption(0, true))
     }

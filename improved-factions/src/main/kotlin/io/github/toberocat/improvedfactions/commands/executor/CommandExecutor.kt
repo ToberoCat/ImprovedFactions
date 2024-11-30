@@ -16,6 +16,7 @@ import io.github.toberocat.improvedfactions.commands.arguments.primitives.enums.
 import io.github.toberocat.improvedfactions.commands.sendCommandResult
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionJoinType
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.translation.LocalizedException
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.zone.Zone
@@ -25,7 +26,6 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabExecutor
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.JoinType
 
 val DEFAULT_PARSERS = mapOf<Class<*>, ArgumentParser>(
     String::class.java to StringArgumentParser(),
@@ -68,7 +68,7 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
         label: String,
         originalArgs: Array<String>,
     ): List<String> {
-        if (plugin.improvedFactionsConfig.maxCommandSuggestions == 0) {
+        if (BaseModule.config.maxCommandSuggestions == 0) {
             return emptyList()
         }
 
@@ -87,7 +87,7 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
 
         val rawResults = processor.tabComplete(sender, argsArray)
         val filteredResults = rawResults.filter { it.startsWith(originalArgs.last(), ignoreCase = true) }
-        val limitedResults = filteredResults.take(plugin.improvedFactionsConfig.maxCommandSuggestions)
+        val limitedResults = filteredResults.take(BaseModule.config.maxCommandSuggestions)
         return limitedResults
     }
 
@@ -120,8 +120,10 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
             if (it is LocalizedException) {
                 sender.sendLocalized(it.key, it.placeholders)
             } else {
-                plugin.logger.warning("The command ${processor.label} used a non localized exception - This is the outdated way of handling exceptions." +
-                        " Exception Class: ${it.javaClass.name}. In the future, please use LocalizedException. In the meantime, this exception will be printed to the console.")
+                plugin.logger.warning(
+                    "The command ${processor.label} used a non localized exception - This is the outdated way of handling exceptions." +
+                            " Exception Class: ${it.javaClass.name}. In the future, please use LocalizedException. In the meantime, this exception will be printed to the console."
+                )
                 it.printStackTrace()
                 sender.sendMessage(it.message ?: "An error occurred")
             }

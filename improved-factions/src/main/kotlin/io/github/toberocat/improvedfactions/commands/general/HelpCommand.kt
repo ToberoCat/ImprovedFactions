@@ -5,7 +5,6 @@ import io.github.toberocat.improvedfactions.translation.getLocalized
 import io.github.toberocat.improvedfactions.translation.getUnformattedLocalized
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.utils.arguments.StringArgument
-import io.github.toberocat.improvedfactions.utils.async
 import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
 import io.github.toberocat.improvedfactions.utils.getMeta
 import io.github.toberocat.improvedfactions.utils.toAudience
@@ -22,7 +21,7 @@ import org.bukkit.entity.Player
     description = "base.command.help.description"
 )
 class HelpCommand(
-    private val plugin: ImprovedFactionsPlugin, private val executor: CommandExecutor
+    private val plugin: ImprovedFactionsPlugin, private val executor: CommandExecutor,
 ) : PlayerSubCommand("help") {
 
     private val categoryIndex: MutableMap<String, MutableList<String>> = HashMap()
@@ -91,25 +90,24 @@ class HelpCommand(
     }
 
     private fun printCommandDetails(player: Player, subCommand: SubCommand) {
-        async {
-            val meta = subCommand.getMeta() ?: return@async
-            val baseCommand = subCommand.permission.replace(".", " ")
-            val args = subCommand.args.joinToString(" ") {
-                "<hover:show_text:'${player.getUnformattedLocalized(it.descriptionKey())}'>" +
-                        "<${if (it.usage().startsWith("<")) "aqua" else "gold"}>${it.usage()}</hover>"
-            }
-
-            val rawArgs = subCommand.args.joinToString(" ") { it.usage() }
-
-            val usage = "/$baseCommand $args".trim()
-            val cmd = "/$baseCommand $rawArgs".trim()
-            player.sendLocalized(
-                "base.command.help.command-details", mapOf(
-                    "usage" to usage, "description" to player.getUnformattedLocalized(meta.description),
-                    "cmd" to cmd
-                )
-            )
+        val meta = subCommand.getMeta() ?: return
+        val baseCommand = subCommand.permission.replace(".", " ")
+        val args = subCommand.args.joinToString(" ") {
+            "<hover:show_text:'${player.getUnformattedLocalized(it.descriptionKey())}'>" +
+                    "<${if (it.usage().startsWith("<")) "aqua" else "gold"}>${it.usage()}</hover>"
         }
+
+        val rawArgs = subCommand.args.joinToString(" ") { it.usage() }
+
+        val usage = "/$baseCommand $args".trim()
+        val cmd = "/$baseCommand $rawArgs".trim()
+        player.sendLocalized(
+            "base.command.help.command-details", mapOf(
+                "usage" to usage, "description" to player.getUnformattedLocalized(meta.description),
+                "cmd" to cmd
+            )
+        )
+
     }
 
     private fun printCategoryDetails(player: Player, category: String) {

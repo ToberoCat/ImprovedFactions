@@ -8,7 +8,6 @@ import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.ranks.FactionRank
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
 import io.github.toberocat.improvedfactions.translation.sendLocalized
-import io.github.toberocat.improvedfactions.utils.sync
 import io.github.toberocat.toberocore.util.ItemBuilder
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -64,7 +63,7 @@ object FactionHandler {
     fun createListenersFor(faction: Faction) {
         MessageBroker.listenLocalized(faction.id.value) { message ->
             val members = loggedTransaction { faction.members().mapNotNull { Bukkit.getPlayer(it.uniqueId) } }
-            sync { members.forEach { it.sendLocalized(message.key, message.placeholders) } }
+            members.forEach { it.sendLocalized(message.key, message.placeholders) }
         }
     }
 

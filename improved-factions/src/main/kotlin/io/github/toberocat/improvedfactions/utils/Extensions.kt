@@ -3,6 +3,7 @@ package io.github.toberocat.improvedfactions.utils
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.utils.offline.KnownOfflinePlayer
 import io.github.toberocat.improvedfactions.utils.offline.KnownOfflinePlayers
 import io.github.toberocat.toberocore.command.SubCommand
@@ -17,7 +18,7 @@ import kotlin.reflect.full.findAnnotations
 
 inline fun <T, R> T.compute(computeBlock: (T) -> R) = computeBlock(this)
 
-fun Player.toAudience(): Audience = ImprovedFactionsPlugin.instance.adventure.player(this)
+fun Player.toAudience(): Audience = BaseModule.adventure.player(this)
 
 fun UUID.toOfflinePlayer(): OfflinePlayer = Bukkit.getOfflinePlayer(this)
 

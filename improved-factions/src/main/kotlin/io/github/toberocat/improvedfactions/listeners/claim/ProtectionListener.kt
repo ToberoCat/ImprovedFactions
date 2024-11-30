@@ -1,11 +1,11 @@
 package io.github.toberocat.improvedfactions.listeners.claim
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.clustering.cluster.FactionCluster
 import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.managers.ByPassManager
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.user.noFactionId
@@ -20,7 +20,7 @@ abstract class ProtectionListener(
     protected val zoneType: String,
     private val sendMessage: Boolean = true
 ) : Listener {
-    private val claimClusters = ImprovedFactionsPlugin.instance.claimChunkClusters
+    private val claimClusters = BaseModule.claimChunkClusters
     abstract fun namespace(): String
 
     protected fun protectChunk(event: Cancellable, entity: Entity?, player: Player) =
