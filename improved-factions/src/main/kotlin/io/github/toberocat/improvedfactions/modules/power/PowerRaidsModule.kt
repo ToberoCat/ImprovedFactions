@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedfactions.modules.power
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.modules.Module
 import io.github.toberocat.improvedfactions.modules.power.commands.PowerCommand
 import io.github.toberocat.improvedfactions.modules.power.commands.SiegeCommand
 import io.github.toberocat.improvedfactions.modules.power.config.PowerManagementConfig
@@ -13,7 +13,7 @@ import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.toberocore.command.CommandExecutor
 import org.bukkit.OfflinePlayer
 
-class PowerRaidsModule : BaseModule {
+class PowerRaidsModule : Module {
     override val moduleName = MODULE_NAME
     override var isEnabled = false
 

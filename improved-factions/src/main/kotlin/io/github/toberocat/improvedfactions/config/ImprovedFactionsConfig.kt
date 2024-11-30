@@ -1,11 +1,10 @@
 package io.github.toberocat.improvedfactions.config
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.claims.FactionClaims
-import io.github.toberocat.improvedfactions.utils.FileUtils
-import io.github.toberocat.improvedfactions.utils.arguments.ClaimRadiusArgument
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.modules.base.BaseModule.config
 import io.github.toberocat.improvedfactions.utils.getEnum
-import org.bukkit.Bukkit
+import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import org.bukkit.configuration.MemorySection
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
@@ -22,17 +21,54 @@ class ImprovedFactionsConfig(
     var maxCommandSuggestions: Int = 10,
     var mapWidth: Int = 20,
     var mapHeight: Int = 10,
+    var maxNameLength: Int = 36,
+    var factionNameRegex: Regex = Regex("[a-zA-Z]*"),
+    var maxFactionIconLength: Int = 5000,
+    var inviteExpiresInMinutes: Int = 5,
+    var maxRankNameLength: Int = 50,
+    var rankNameRegex: Regex = Regex("[a-zA-Z]*"),
+    var guestRankName: String = "Guest",
+    var hideDecorativeParticles: Boolean = false,
+    var particleTickSpeed: Long = 1,
+    var maxClaimRadius: Int = 10,
 ) : PluginConfig() {
 
     override fun reload(plugin: ImprovedFactionsPlugin, config: FileConfiguration) {
         territoryDisplayLocation = config.getEnum<EventDisplayLocation>("event-display-location")
-            ?: EventDisplayLocation.TITLE
+            ?: territoryDisplayLocation
         defaultPlaceholders = config.generateDefaultPlaceholders()
         allowedWorlds = config.generateAllowedWorlds()
         maxCommandSuggestions = config.getInt("max-command-suggestions", maxCommandSuggestions)
         hideWildernessTitle = config.getBoolean("factions.hide-wilderness-title", hideWildernessTitle)
         mapWidth = config.getInt("factions.map-width", mapWidth)
         mapHeight = config.getInt("factions.map-height", mapHeight)
+        maxNameLength = config.getInt("factions.unsafe.max-name-length", maxNameLength)
+        maxFactionIconLength = config.getInt("factions.unsafe.max-icon-length", maxFactionIconLength)
+        factionNameRegex = Regex(config.getString("factions.name-regex") ?: "[a-zA-Z]*")
+        inviteExpiresInMinutes = config.getInt("factions.invites-expire-in", inviteExpiresInMinutes)
+        maxRankNameLength = config.getInt("factions.max-rank-name-length", maxRankNameLength)
+        rankNameRegex = Regex(config.getString("factions.rank-name-regex") ?: "[a-zA-Z ]*")
+        guestRankName = config.getString("factions.unsafe.guest-rank-name") ?: guestRankName
+        hideDecorativeParticles = config.getBoolean("performance.decorative-particles.hidden", hideDecorativeParticles)
+        particleTickSpeed = config.getLong("performance.decorative-particles.tick-speed", particleTickSpeed)
+        maxClaimRadius = config.getInt("factions.max-claim-radius", maxClaimRadius)
+
+        getZones(plugin, config)
+    }
+
+    private fun getZones(plugin: ImprovedFactionsPlugin, config: FileConfiguration) {
+        config.getConfigurationSection("zones")?.getKeys(false)?.let {
+            it.forEach { zone ->
+                val section = config.getConfigurationSection("zones.$zone")
+                if (section == null) {
+                    BaseModule.logger.warning("Invalid formatted zone $zone found in config")
+                    return@forEach
+                }
+                ZoneHandler.createZone(plugin, zone, section)
+            }
+        }
+
+        ZoneHandler.defaultZoneCheck(plugin)
     }
 
     private fun FileConfiguration.generateDefaultPlaceholders() =

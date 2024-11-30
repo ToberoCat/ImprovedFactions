@@ -1,36 +1,42 @@
 package io.github.toberocat.improvedfactions.commands.general
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.commands.sendCommandResult
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.translation.sendLocalized
-import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.arguments.Argument
-import io.github.toberocat.toberocore.command.options.Options
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-@CommandMeta(
-    description = "base.command.list.description"
+@GeneratedCommandMeta(
+    label = "list",
+    category = CommandCategory.GENERAL_CATEGORY,
+    module = "base",
+    responses = [
+        CommandResponse("listHeader"),
+        CommandResponse("listFaction"),
+        CommandResponse("noFactions")
+    ]
 )
-class ListFactionsCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("list") {
-    override fun options(): Options = Options.getFromConfig(plugin, label)
+abstract class ListFactionsCommand : ListFactionsCommandContext() {
 
-    override fun arguments(): Array<Argument<*>> = arrayOf()
+    fun process(sender: CommandSender): CommandProcessResult {
+        sender.sendCommandResult(listHeader())
 
-    override fun handle(player: Player, args: Array<String>): Boolean {
-        player.sendLocalized("base.command.list.header", mapOf())
-
-        loggedTransaction {
-            FactionHandler.getFactions().forEach { faction ->
-                player.sendLocalized("base.command.list.faction", mapOf(
-                    "name" to faction.name,
-                    "power" to faction.accumulatedPower.toString(),
-                    "members" to faction.members().count().toString()
-                ))
-            }
+        val factions = FactionHandler.getFactions().map { faction ->
+            listFaction(
+                "name" to faction.name,
+                "power" to faction.accumulatedPower.toString(),
+                "members" to faction.members().count().toString()
+            )
         }
 
-        return true
+        if (factions.isEmpty()) return noFactions()
+
+        factions.dropLast(1).forEach { sender.sendCommandResult(it) }
+        return  factions.last()
     }
 }

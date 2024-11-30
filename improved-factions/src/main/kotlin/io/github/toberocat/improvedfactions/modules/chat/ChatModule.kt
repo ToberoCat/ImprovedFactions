@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedfactions.modules.chat
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.modules.Module
 import io.github.toberocat.improvedfactions.modules.chat.commands.ChatCommand
 import io.github.toberocat.improvedfactions.modules.chat.commands.ChatSpyCommand
 import io.github.toberocat.improvedfactions.modules.chat.config.ChatModuleConfig
@@ -12,7 +12,7 @@ import io.github.toberocat.improvedfactions.modules.chat.listener.ChatListener
 import io.github.toberocat.toberocore.command.CommandExecutor
 import org.bukkit.entity.Player
 
-object ChatModule : BaseModule {
+object ChatModule : Module {
     const val MODULE_NAME = "chat"
     override val moduleName = MODULE_NAME
     override var isEnabled = false

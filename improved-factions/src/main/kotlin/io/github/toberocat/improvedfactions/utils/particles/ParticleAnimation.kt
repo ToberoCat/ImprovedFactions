@@ -26,9 +26,4 @@ abstract class ParticleAnimation(protected val plugin: ImprovedFactionsPlugin,
     }
 
     abstract fun nextTick(completed: Double)
-
-    companion object {
-        var hideDecorativeParticles: Boolean = false
-        var tickSpeed: Long = 1
-    }
 }

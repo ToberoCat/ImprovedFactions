@@ -3,7 +3,7 @@ package io.github.toberocat.improvedfactions.modules.relations
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.database.DatabaseManager
 import io.github.toberocat.improvedfactions.factions.Faction
-import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.modules.Module
 import io.github.toberocat.improvedfactions.modules.relations.commands.*
 import io.github.toberocat.improvedfactions.modules.relations.database.FactionAllyInvites
 import io.github.toberocat.improvedfactions.modules.relations.database.FactionRelations
@@ -12,7 +12,7 @@ import io.github.toberocat.improvedfactions.modules.relations.handles.RelationsM
 import io.github.toberocat.improvedfactions.modules.relations.impl.RelationsModuleHandleImpl
 import io.github.toberocat.toberocore.command.CommandExecutor
 
-object RelationsModule : BaseModule {
+object RelationsModule : Module {
     const val MODULE_NAME = "relations"
     override val moduleName = MODULE_NAME
     override var isEnabled = false

@@ -5,7 +5,7 @@ import io.github.toberocat.guiengine.function.FunctionProcessor
 import io.github.toberocat.guiengine.utils.logger.PluginLogger
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.commands.rank.CreateRankCommand
-import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.modules.Module
 import io.github.toberocat.improvedfactions.modules.gui.actions.GuiEngineCommandMapperAction
 import io.github.toberocat.improvedfactions.modules.gui.commands.core.GuiInfoCommand
 import io.github.toberocat.improvedfactions.modules.gui.commands.core.GuiListInvitesCommand
@@ -27,7 +27,7 @@ import io.github.toberocat.improvedfactions.modules.power.impl.FactionPowerRaidM
 import io.github.toberocat.toberocore.command.CommandExecutor
 import org.bukkit.Bukkit
 
-class GuiModule : BaseModule {
+class GuiModule : Module {
     override val moduleName = MODULE_NAME
     override var isEnabled = false
 

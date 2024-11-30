@@ -11,8 +11,6 @@ import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.kotlin.datetime.datetime
 
 object FactionInvites : IntIdTable("faction_invites") {
-    var inviteExpiresInMinutes = 5
-
     val inviterId = integer("inviter_id")
     val invitedId = integer("invited_id")
     val factionId = integer("faction_id")
