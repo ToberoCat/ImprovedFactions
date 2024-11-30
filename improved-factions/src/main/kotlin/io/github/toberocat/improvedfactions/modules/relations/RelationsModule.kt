@@ -1,7 +1,9 @@
 package io.github.toberocat.improvedfactions.modules.relations
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.commands.processor.relationsCommandProcessors
 import io.github.toberocat.improvedfactions.database.DatabaseManager
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.modules.Module
 import io.github.toberocat.improvedfactions.modules.relations.commands.*
@@ -24,20 +26,17 @@ object RelationsModule : Module {
         relationsModuleHandle = RelationsModuleHandleImpl()
     }
 
-    override fun addCommands(plugin: ImprovedFactionsPlugin, executor: CommandExecutor) {
-        executor.addChild(AlliesCommand(plugin))
-        executor.addChild(EnemiesCommand(plugin))
-        executor.addChild(AllyCommand(plugin))
-        executor.addChild(WarCommand(plugin))
-        executor.addChild(AllyAcceptCommand(plugin))
-    }
+    override fun getCommandProcessors(plugin: ImprovedFactionsPlugin) =
+        relationsCommandProcessors(plugin)
 
     override fun onLoadDatabase(plugin: ImprovedFactionsPlugin) {
-        DatabaseManager.createTables(
-            FactionRelations,
-            FactionAllyInvites
-        )
-        FactionAllyInvites.scheduleInviteExpirations()
+        loggedTransaction {
+            DatabaseManager.createTables(
+                FactionRelations,
+                FactionAllyInvites
+            )
+            FactionAllyInvites.scheduleInviteExpirations()
+        }
     }
 
     fun deleteFactionRelations(factionId: Int) {
@@ -48,7 +47,11 @@ object RelationsModule : Module {
 
     fun Faction.allies() = relationsModuleHandle.getAlliedFactions(id.value)
     fun Faction.enemies() = relationsModuleHandle.getEnemyFactions(id.value)
-    fun Faction.inviteToAlliance(targetFaction: Faction) = relationsModuleHandle.inviteToAlliance(id.value, targetFaction.id.value)
-    fun Faction.acceptAllyInvite(targetFaction: Faction) = relationsModuleHandle.acceptAlliance(id.value, targetFaction.id.value)
+    fun Faction.inviteToAlliance(targetFaction: Faction) =
+        relationsModuleHandle.inviteToAlliance(id.value, targetFaction.id.value)
+
+    fun Faction.acceptAllyInvite(targetFaction: Faction) =
+        relationsModuleHandle.acceptAlliance(id.value, targetFaction.id.value)
+
     fun Faction.declareWar(targetFaction: Faction) = relationsModuleHandle.declareWar(id.value, targetFaction.id.value)
 }

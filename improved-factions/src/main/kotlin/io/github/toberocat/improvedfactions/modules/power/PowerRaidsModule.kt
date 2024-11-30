@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.modules.power
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.commands.processor.powerRaidsCommandProcessors
 import io.github.toberocat.improvedfactions.modules.Module
 import io.github.toberocat.improvedfactions.modules.power.commands.PowerCommand
 import io.github.toberocat.improvedfactions.modules.power.commands.SiegeCommand
@@ -13,7 +14,8 @@ import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.toberocore.command.CommandExecutor
 import org.bukkit.OfflinePlayer
 
-class PowerRaidsModule : Module {
+object PowerRaidsModule : Module {
+    const val MODULE_NAME = "power-raids"
     override val moduleName = MODULE_NAME
     override var isEnabled = false
 
@@ -32,10 +34,8 @@ class PowerRaidsModule : Module {
         powerModuleHandle.reloadConfig(plugin)
     }
 
-    override fun addCommands(plugin: ImprovedFactionsPlugin, executor: CommandExecutor) {
-        executor.addChild(PowerCommand(plugin, powerModuleHandle as FactionPowerRaidModuleHandleImpl))
-        executor.addChild(SiegeCommand(plugin, powerModuleHandle as FactionPowerRaidModuleHandleImpl))
-    }
+    override fun getCommandProcessors(plugin: ImprovedFactionsPlugin) =
+        powerRaidsCommandProcessors(plugin)
 
     override fun onPapiPlaceholder(placeholders: HashMap<String, (player: OfflinePlayer) -> String?>) {
         placeholders["power"] = { it.factionUser().faction()?.accumulatedPower?.toString() }
@@ -50,9 +50,7 @@ class PowerRaidsModule : Module {
         }
     }
 
-    companion object {
-        const val MODULE_NAME = "power-raids"
-        fun powerRaidModule() = ImprovedFactionsPlugin.instance.moduleManager.getModule<PowerRaidsModule>(MODULE_NAME)
-        fun powerRaidsPair() = MODULE_NAME to PowerRaidsModule()
-    }
+    fun powerRaidModule() = ImprovedFactionsPlugin.instance.moduleManager.getModule<PowerRaidsModule>(MODULE_NAME)
+    fun powerRaidsPair() = MODULE_NAME to this
+
 }

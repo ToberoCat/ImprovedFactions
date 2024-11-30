@@ -24,12 +24,12 @@ class CommandVisitor(
     private val logger: KSPLogger,
 ) : KSVisitorVoid() {
 
-    val commandProcessors = mutableListOf<String>()
+    val commandProcessors = mutableListOf<CommandData>()
 
     override fun visitClassDeclaration(classDeclaration: KSClassDeclaration, data: Unit) {
         val commandData = extractCommandData(classDeclaration) ?: return
         generateCommandProcessor(commandData)
-        commandProcessors.add("${commandData.targetPackage}.${commandData.targetName}Processor")
+        commandProcessors.add(commandData)
     }
 
     private fun extractCommandData(classDeclaration: KSClassDeclaration): CommandData? {

@@ -5,7 +5,7 @@ import io.github.toberocat.improvedfactions.claims.FactionClaim
 import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
-import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Companion.powerRaidModule
+import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.powerRaidModule
 import io.github.toberocat.improvedfactions.translation.getLocaleEnum
 import io.github.toberocat.improvedfactions.translation.localize
 import io.github.toberocat.improvedfactions.translation.sendLocalized

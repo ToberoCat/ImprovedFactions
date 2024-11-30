@@ -12,7 +12,7 @@ import org.bukkit.command.CommandSender
 
 @PermissionConfig(config = PermissionConfigurations.OP_ONLY)
 @GeneratedCommandMeta(
-    label = "reload",
+    label = "admin reload",
     category = CommandCategory.ADMIN_CATEGORY,
     module = "base",
     responses = [
@@ -25,6 +25,7 @@ abstract class ReloadCommand(private val plugin: ImprovedFactionsPlugin) : Reloa
     fun process(sender: CommandSender): CommandProcessResult {
         return try {
             plugin.reloadConfig()
+            plugin.moduleManager.reloadModuleConfigs()
             ResourceBundle.clearCache()
 
             reloadCompleted()

@@ -15,7 +15,7 @@ import org.bukkit.command.CommandSender
 @GeneratedCommandMeta(
     label = "admin playerInfo",
     category = CommandCategory.ADMIN_CATEGORY,
-    module = "core",
+    module = "base",
     responses = [
         CommandResponse("factionInfoHeader"),
         CommandResponse("factionInfoDetail")

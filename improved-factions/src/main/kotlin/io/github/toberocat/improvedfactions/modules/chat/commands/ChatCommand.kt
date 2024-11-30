@@ -1,43 +1,32 @@
 package io.github.toberocat.improvedfactions.modules.chat.commands
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.modules.chat.ChatModule
-import io.github.toberocat.improvedfactions.modules.chat.ChatModule.sendFactionChat
 import io.github.toberocat.improvedfactions.modules.chat.ChatModule.toggleChatMode
 import io.github.toberocat.improvedfactions.modules.chat.handles.ChatModuleHandle
-import io.github.toberocat.improvedfactions.translation.sendLocalized
-import io.github.toberocat.improvedfactions.utils.arguments.StringArgument
-import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.InFactionOption
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.arguments.Argument
-import io.github.toberocat.toberocore.command.options.Options
+import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.entity.Player
 
-@CommandMeta(
-    description = "chat.commands.chat.description",
-    module = ChatModule.MODULE_NAME
+@GeneratedCommandMeta(
+    label = "chat",
+    category = CommandCategory.COMMUNICATION_CATEGORY,
+    module = ChatModule.MODULE_NAME,
+    responses = [
+        CommandResponse("chatModeToggled"),
+        CommandResponse("noFaction")
+    ]
 )
-class ChatCommand(
-    private val chatModuleHandle: ChatModuleHandle,
-    private val plugin: ImprovedFactionsPlugin
-) : PlayerSubCommand("chat") {
-    override fun options(): Options = Options.getFromConfig(plugin, label) { options, _ ->
-        options.cmdOpt(InFactionOption(true))
-    }
+abstract class ChatCommand : ChatCommandContext() {
 
-    override fun arguments(): Array<Argument<*>> = arrayOf(
-        StringArgument("[message]", "chat.commands.arg.chat-message")
-    )
-
-    override fun handle(player: Player, args: Array<String>): Boolean {
-        if (args.isNotEmpty()) {
-            player.sendFactionChat(args.joinToString(" "))
-            return true
+    fun process(player: Player): CommandProcessResult {
+        if (!player.factionUser().isInFaction()) {
+            return noFaction()
         }
 
         val nextMode = player.toggleChatMode()
-        player.sendLocalized("chat.commands.chat.toggled-${nextMode.name.lowercase()}")
-        return true
+        return chatModeToggled("mode" to nextMode.name.lowercase())
     }
 }

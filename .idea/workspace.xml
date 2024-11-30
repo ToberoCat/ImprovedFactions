@@ -4,33 +4,47 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad9c7d4c-34f8-4c4a-9806-e72e98556779" name="Changes" comment="base module is now actually a module;&#10;Removed gui module - Will have a comeback later down the line">
-      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/integrations/Integrations.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/integrations/papi/PapiIntegration.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="ad9c7d4c-34f8-4c4a-9806-e72e98556779" name="Changes" comment="Refactoring done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/annotations/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/command/CommandMeta.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/annotations/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/command/CommandMeta.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command/generator/CommandCodeGenerator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command/generator/CommandCodeGenerator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command/processor/CommandProcessor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command/processor/CommandProcessor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command/visitors/CommandVisitor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command/visitors/CommandVisitor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/utils/Utils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/utils/Utils.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/ImprovedFactionsPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/ImprovedFactionsPlugin.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/claims/FactionClaim.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/claims/FactionClaim.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/claims/FactionClaimHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/claims/FactionClaimHandler.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/claims/clustering/ClusterExtension.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/claims/clustering/ClusterExtension.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/claims/overclaim/ClaimSiegeManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/claims/overclaim/ClaimSiegeManager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/admin/ReloadCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/admin/ReloadCommand.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/claim/ClaimCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/claim/ClaimCommand.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/claim/FactionMapCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/claim/FactionMapCommand.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/executor/CommandExecutor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/executor/CommandExecutor.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/general/HelpCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/general/HelpCommand.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/manage/CreateCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/manage/CreateCommand.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/manage/RenameCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/manage/RenameCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/admin/force/ForceClaimCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/admin/force/ForceClaimCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/admin/force/ForceInfoCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/admin/force/ForceInfoCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/admin/force/ForceLeaveCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/admin/force/ForceLeaveCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/admin/force/ForceUnclaimCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/admin/force/ForceUnclaimCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/executor/FactionCommandExecutor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/executor/FactionCommandExecutor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/executor/GeneratedFactionCommandExecutor.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/factions/Faction.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/factions/Faction.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/factions/FactionHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/factions/FactionHandler.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ProtectionListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/ProtectionListener.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/move/MoveListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/move/MoveListener.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/messages/MessageBroker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/messages/MessageBroker.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/Module.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/Module.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/ModuleManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/ModuleManager.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/base/BaseModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/base/BaseModule.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/papi/PapiExpansion.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/integrations/papi/PapiExpansion.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/utils/arguments/ClaimRadiusArgument.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/utils/particles/ParticleAnimation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/utils/particles/ParticleAnimation.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/chat/ChatModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/chat/ChatModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/chat/commands/ChatCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/chat/commands/ChatCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/chat/commands/ChatSpyCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/chat/commands/ChatSpyCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/home/HomeModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/home/HomeModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/home/commands/HomeSetCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/home/commands/HomeSetCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/home/commands/TeleportHomeCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/home/commands/TeleportHomeCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/PowerRaidsModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/PowerRaidsModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/commands/PowerAddCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/commands/PowerAddCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/commands/PowerCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/commands/PowerCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/commands/PowerSetCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/commands/PowerSetCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/commands/SiegeCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/commands/SiegeCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/handles/DummyHandles.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/handles/DummyHandles.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/handles/FactionPowerRaidModuleHandle.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/handles/FactionPowerRaidModuleHandle.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/impl/FactionPowerRaidModuleHandleImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/impl/FactionPowerRaidModuleHandleImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/relations/RelationsModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/relations/RelationsModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/relations/commands/AlliesCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/relations/commands/AlliesCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/relations/commands/AllyAcceptCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/relations/commands/AllyAcceptCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/relations/commands/AllyCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/relations/commands/AllyCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/relations/commands/EnemiesCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/relations/commands/EnemiesCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/wilderness/WildernessModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/wilderness/WildernessModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/wilderness/commands/WildernessCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/wilderness/commands/WildernessCommand.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -339,7 +353,7 @@
       <workItem from="1732964006041" duration="321000" />
       <workItem from="1732964384528" duration="651000" />
       <workItem from="1732993126892" duration="6902000" />
-      <workItem from="1733002549020" duration="1067000" />
+      <workItem from="1733002549020" duration="5306000" />
     </task>
     <task id="LOCAL-00001" summary="Migrated to gradle instead of maven">
       <option name="closed" value="true" />
@@ -429,7 +443,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733001717926</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Refactoring done">
+      <option name="closed" value="true" />
+      <created>1733003828252</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1733003828252</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -462,7 +484,8 @@
     <MESSAGE value="Create Command migrated to new system" />
     <MESSAGE value="more commands migrated" />
     <MESSAGE value="base module is now actually a module;&#10;Removed gui module - Will have a comeback later down the line" />
-    <option name="LAST_COMMIT_MESSAGE" value="base module is now actually a module;&#10;Removed gui module - Will have a comeback later down the line" />
+    <MESSAGE value="Refactoring done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring done" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

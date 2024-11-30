@@ -1,49 +1,44 @@
 package io.github.toberocat.improvedfactions.modules.relations.commands
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import io.github.toberocat.improvedfactions.factions.FactionHandler
-import io.github.toberocat.improvedfactions.modules.relations.RelationsModule.enemies
-import io.github.toberocat.improvedfactions.translation.sendLocalized
-import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
-import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.InFactionOption
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.arguments.Argument
-import io.github.toberocat.toberocore.command.options.ArgLengthOption
-import io.github.toberocat.toberocore.command.options.Options
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.commands.sendCommandResult
+import io.github.toberocat.improvedfactions.factions.FactionHandler
+import io.github.toberocat.improvedfactions.modules.relations.RelationsModule
+import io.github.toberocat.improvedfactions.modules.relations.RelationsModule.enemies
+import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.entity.Player
 
-@CommandMeta(
-    description = "base.command.enemies.description",
-    module = "relations",
-    category = CommandCategory.RELATIONS_CATEGORY
+@GeneratedCommandMeta(
+    label = "enemies",
+    category = CommandCategory.RELATIONS_CATEGORY,
+    module = RelationsModule.MODULE_NAME,
+    responses = [
+        CommandResponse("enemiesHeader"),
+        CommandResponse("noEnemies"),
+        CommandResponse("enemyDetail"),
+        CommandResponse("notInFaction")
+    ]
 )
-class EnemiesCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("enemies") {
-    override fun options(): Options = Options.getFromConfig(plugin, label) { options, _ ->
-        options
-            .cmdOpt(InFactionOption(true))
-            .cmdOpt(ArgLengthOption(0))
-    }
+abstract class EnemiesCommand : EnemiesCommandContext() {
 
-    override fun arguments(): Array<Argument<*>> = arrayOf()
+    fun process(player: Player): CommandProcessResult {
+        val faction = player.factionUser().faction() ?: return notInFaction()
 
-    override fun handle(player: Player, args: Array<String>) = loggedTransaction {
-        val faction = player.factionUser().faction() ?: return@loggedTransaction false
-        player.sendLocalized("relations.command.enemies.header")
         val enemies = faction.enemies()
         if (enemies.isEmpty()) {
-            player.sendLocalized("relations.command.enemies.no-enemies")
-            return@loggedTransaction true
+            return noEnemies()
         }
-        enemies.forEach {
-            player.sendLocalized(
-                "relations.command.enemies.detail", mapOf(
-                    "name" to (FactionHandler.getFaction(it)?.name ?: "Unknown")
-                )
-            )
+
+        val details = enemies.map { enemyId ->
+            val enemyName = FactionHandler.getFaction(enemyId)?.name ?: "Unknown"
+            enemyDetail("name" to enemyName)
         }
-        return@loggedTransaction true
+
+        player.sendCommandResult(enemiesHeader())
+        details.dropLast(1).forEach { player.sendCommandResult(it) }
+        return details.last()
     }
 }

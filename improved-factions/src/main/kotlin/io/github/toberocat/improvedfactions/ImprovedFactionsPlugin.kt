@@ -26,15 +26,11 @@ open class ImprovedFactionsPlugin : JavaPlugin() {
         instance = this
         moduleManager = ModuleManager(this)
         moduleManager.enableModules()
+        moduleManager.registerCommands()
     }
 
     override fun onDisable() {
         moduleManager.disableModules()
-    }
-
-    override fun reloadConfig() {
-        super.reloadConfig()
-        moduleManager.reloadModuleConfigs()
     }
 
     fun registerListeners(vararg listeners: Listener) {

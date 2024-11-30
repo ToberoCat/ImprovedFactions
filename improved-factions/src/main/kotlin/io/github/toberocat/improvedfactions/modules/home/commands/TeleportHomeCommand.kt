@@ -1,37 +1,43 @@
 package io.github.toberocat.improvedfactions.modules.home.commands
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.modules.home.HomeModule
 import io.github.toberocat.improvedfactions.modules.home.HomeModule.teleportToFactionHome
 import io.github.toberocat.improvedfactions.permissions.Permissions
-import io.github.toberocat.improvedfactions.translation.sendLocalized
-import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
-import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.FactionPermissionOption
-import io.github.toberocat.improvedfactions.utils.options.InFactionOption
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.arguments.Argument
-import io.github.toberocat.toberocore.command.options.Options
+import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.entity.Player
 
-@CommandMeta(
+@GeneratedCommandMeta(
+    label = "home",
     category = CommandCategory.GENERAL_CATEGORY,
-    description = "home.commands.teleport-home.description",
-    module = HomeModule.MODULE_NAME
+    module = HomeModule.MODULE_NAME,
+    responses = [
+        CommandResponse("teleportHomeSuccess"),
+        CommandResponse("teleportHomeFailed"),
+        CommandResponse("notInFaction"),
+        CommandResponse("noPermission")
+    ]
 )
-class TeleportHomeCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("home") {
-    override fun options(): Options = Options.getFromConfig(plugin, label) { options, _ ->
-        options.cmdOpt(InFactionOption(true))
-            .cmdOpt(FactionPermissionOption(Permissions.HOME))
-    }
+abstract class TeleportHomeCommand : TeleportHomeCommandContext() {
 
-    override fun arguments() = emptyArray<Argument<*>>()
-    override fun handle(player: Player, args: Array<String>): Boolean {
-        val success = player.teleportToFactionHome() ?: false
-        if (!success) {
-            player.sendLocalized("home.commands.teleport-home.failed")
+    fun process(player: Player): CommandProcessResult {
+        val factionUser = player.factionUser()
+        if (!factionUser.isInFaction()) {
+            return notInFaction()
         }
 
-        return true
+        if (!factionUser.hasPermission(Permissions.HOME)) {
+            return noPermission()
+        }
+
+        val success = player.teleportToFactionHome() ?: false
+        return if (success) {
+            teleportHomeSuccess()
+        } else {
+            teleportHomeFailed()
+        }
     }
 }

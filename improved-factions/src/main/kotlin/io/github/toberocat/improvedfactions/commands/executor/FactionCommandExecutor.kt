@@ -49,8 +49,6 @@ class FactionCommandExecutor(plugin: ImprovedFactionsPlugin) {
         executor.addChild(InviteAcceptCommand(plugin))
         executor.addChild(InviteDiscardCommand(plugin))
 
-        plugin.moduleManager.addModuleCommands(executor)
-
         executor.addChild(HelpCommand(plugin, executor))
         executor.addChild(GenerateWikiSourcesCommand(plugin, executor))
 
