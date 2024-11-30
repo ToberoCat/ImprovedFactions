@@ -13,7 +13,6 @@ import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.utils.arguments.ClaimRadiusArgument
 import io.github.toberocat.improvedfactions.utils.options.FactionPermissionOption
 import io.github.toberocat.improvedfactions.utils.options.InFactionOption
 import io.github.toberocat.toberocore.command.options.Options

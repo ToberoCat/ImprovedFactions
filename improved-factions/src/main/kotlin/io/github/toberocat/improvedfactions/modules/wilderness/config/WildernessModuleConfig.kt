@@ -11,6 +11,7 @@ import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.configuration.file.FileConfiguration
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import java.lang.Math.round
 import java.util.concurrent.TimeUnit
 import kotlin.math.cos
@@ -38,7 +39,7 @@ class WildernessModuleConfig(
     private val configPath = "factions.wilderness"
 
     override fun reload(plugin: ImprovedFactionsPlugin, config: FileConfiguration) {
-        pluginConfig = plugin.improvedFactionsConfig
+        pluginConfig = BaseModule.config
 
         cooldown = config.getLong("$configPath.cooldown-value", cooldown)
         timeUnit = TimeUnit.valueOf(config.getString("$configPath.cooldown-unit", timeUnit.name)!!)

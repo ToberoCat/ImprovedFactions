@@ -7,6 +7,7 @@ import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.factions.Factions
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
@@ -44,12 +45,12 @@ abstract class CreateCommand : CreateCommandContext() {
             return alreadyInFaction()
         }
 
-        if (!Factions.nameRegex.matches(name)) {
+        if (!BaseModule.config.factionNameRegex.matches(name)) {
             return invalidName()
         }
 
-        if (name.length > Factions.maxNameLength) {
-            return nameTooLong("max" to Factions.maxNameLength.toString())
+        if (name.length > BaseModule.config.maxNameLength) {
+            return nameTooLong("max" to BaseModule.config.maxNameLength.toString())
         }
 
         val faction: Faction = FactionHandler.createFaction(owner.uniqueId, name)

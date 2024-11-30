@@ -11,6 +11,7 @@ import io.github.toberocat.improvedfactions.factions.ban.FactionBans
 import io.github.toberocat.improvedfactions.invites.FactionInvite
 import io.github.toberocat.improvedfactions.invites.FactionInvites
 import io.github.toberocat.improvedfactions.messages.MessageBroker
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.chat.ChatModule.resetChatMode
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.Companion.powerRaidModule
 import io.github.toberocat.improvedfactions.modules.relations.RelationsModule
@@ -94,14 +95,14 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         }
         set(value) {
             val base64 = Base64ItemStack.encode(value)
-            if (base64.length > Factions.maxIconLength) throw CommandException(
+            if (base64.length > BaseModule.config.maxFactionIconLength) throw CommandException(
                 "base.exceptions.icon.invalid-icon", emptyMap()
             )
             base64Icon = base64
         }
 
     override fun delete() {
-        ImprovedFactionsPlugin.instance.claimChunkClusters.removeFactionClusters(this)
+        BaseModule.claimChunkClusters.removeFactionClusters(this)
         listRanks().forEach { it.delete() }
         claims().forEach {
             it.factionId = noFactionId
@@ -146,7 +147,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
             )
         )
 
-        ImprovedFactionsPlugin.instance.claimChunkClusters.markFactionClusterForUpdate(this)
+        BaseModule.claimChunkClusters.markFactionClusterForUpdate(this)
         localAccumulatedPower = actualNewAccumulatedPower
     }
 
@@ -210,7 +211,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         Bukkit.getScheduler().runTaskLater(
             ImprovedFactionsPlugin.instance,
             Runnable { loggedTransaction { invite.delete() } },
-            FactionInvites.inviteExpiresInMinutes * 60 * 20L
+            BaseModule.config.inviteExpiresInMinutes * 60 * 20L
         )
 
         broadcast(
@@ -244,7 +245,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         }
 
         factionClaim.factionId = factionId
-        ImprovedFactionsPlugin.instance.claimChunkClusters.insertFactionPosition(
+        BaseModule.claimChunkClusters.insertFactionPosition(
             factionClaim,
             id.value
         )
@@ -272,7 +273,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         val claim = chunk.getFactionClaim()
         if (claim == null || claim.factionId != id.value) throw FactionDoesntHaveThisClaimException()
         claim.factionId = noFactionId
-        ImprovedFactionsPlugin.instance.claimChunkClusters.removePosition(claim)
+        BaseModule.claimChunkClusters.removePosition(claim)
         if (announce) {
             broadcast(
                 "base.faction.chunk-unclaimed", mapOf(

@@ -8,6 +8,7 @@ import io.github.toberocat.improvedfactions.listeners.claim.ClaimProtectionListe
 import org.bukkit.Chunk
 import org.bukkit.configuration.ConfigurationSection
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 
 object ZoneHandler {
     const val FACTION_ZONE_TYPE = "default"
@@ -53,7 +54,7 @@ object ZoneHandler {
     fun unclaim(chunk: Chunk) {
         chunk.getFactionClaim()?.let {
             it.zoneType = FACTION_ZONE_TYPE
-            ImprovedFactionsPlugin.instance.claimChunkClusters.removePosition(it)
+            BaseModule.claimChunkClusters.removePosition(it)
         }
     }
 }

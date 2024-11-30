@@ -10,16 +10,16 @@ import io.github.toberocat.improvedfactions.claims.clustering.query.DatabaseClai
 import io.github.toberocat.improvedfactions.commands.executor.GeneratedFactionCommandExecutor
 import io.github.toberocat.improvedfactions.config.ImprovedFactionsConfig
 import io.github.toberocat.improvedfactions.database.DatabaseConnector
+import io.github.toberocat.improvedfactions.integrations.Integrations
 import io.github.toberocat.improvedfactions.listeners.PlayerJoinListener
 import io.github.toberocat.improvedfactions.listeners.move.MoveListener
 import io.github.toberocat.improvedfactions.modules.Module
-import io.github.toberocat.improvedfactions.papi.PapiExpansion
+import io.github.toberocat.improvedfactions.integrations.papi.PapiExpansion
 import io.github.toberocat.improvedfactions.translation.updateLanguages
 import io.github.toberocat.improvedfactions.utils.BStatsCollector
 import io.github.toberocat.improvedfactions.utils.FileUtils
 import io.github.toberocat.toberocore.command.CommandExecutor
 import net.kyori.adventure.platform.bukkit.BukkitAudiences
-import org.bukkit.event.Listener
 import org.jetbrains.exposed.sql.Database
 import java.util.logging.Logger
 
@@ -34,6 +34,7 @@ object BaseModule : Module {
     lateinit var claimChunkClusters: ClaimClusterDetector
     lateinit var logger: Logger
     lateinit var plugin: ImprovedFactionsPlugin
+    lateinit var integrations: Integrations
 
     override fun onEnable(plugin: ImprovedFactionsPlugin) {
         this.plugin = plugin
@@ -47,15 +48,18 @@ object BaseModule : Module {
 
         copyFolders()
 
-        registerListeners(
-            MoveListener(plugin),
+        plugin.registerListeners(
+            MoveListener(),
             PlayerJoinListener()
         )
 
-        registerPapi()
+        integrations = Integrations(plugin)
+        integrations.loadIntegrations()
 
         updateLanguages(plugin)
     }
+
+    override fun shouldEnable(plugin: ImprovedFactionsPlugin) = true
 
     override fun onEverythingEnabled(plugin: ImprovedFactionsPlugin) {
         claimChunkClusters.detectClusters()
@@ -93,18 +97,6 @@ object BaseModule : Module {
 
     private fun copyFolders() {
         FileUtils.copyAll(plugin, "languages")
-    }
-
-    private fun registerPapi() {
-        if (plugin.server.pluginManager.isPluginEnabled("PlaceholderAPI")) {
-            PapiExpansion(config).register()
-            //papiTransformer = { player, input -> PlaceholderAPI.setPlaceholders(player, input) } ToDo
-            logger.info("Loaded improved factions papi extension")
-            return
-        }
-
-        //papiTransformer = { _, input -> input } ToDo
-        logger.info("Papi not found. Skipping Papi registration")
     }
 
     override fun reloadConfig(plugin: ImprovedFactionsPlugin) {

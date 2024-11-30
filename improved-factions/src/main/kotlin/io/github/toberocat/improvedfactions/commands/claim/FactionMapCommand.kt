@@ -8,6 +8,7 @@ import io.github.toberocat.improvedfactions.claims.FactionClaim
 import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.translation.getLocalized
 import io.github.toberocat.improvedfactions.utils.appendIf
 import io.github.toberocat.improvedfactions.utils.toAudience
@@ -28,10 +29,10 @@ import org.jetbrains.exposed.sql.and
         CommandResponse("noClaimsNearby")
     ]
 )
-abstract class FactionMapCommand(private val plugin: ImprovedFactionsPlugin) : FactionMapCommandContext() {
+abstract class FactionMapCommand : FactionMapCommandContext() {
 
-    val width get() = plugin.improvedFactionsConfig.mapWidth
-    val height get() = plugin.improvedFactionsConfig.mapHeight
+    val width get() = BaseModule.config.mapWidth
+    val height get() = BaseModule.config.mapHeight
 
     fun process(player: Player): CommandProcessResult {
         val claims = getAffectedClaims(player)

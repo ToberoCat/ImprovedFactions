@@ -1,4 +1,4 @@
-package io.github.toberocat.improvedfactions.papi
+package io.github.toberocat.improvedfactions.integrations.papi
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.config.ImprovedFactionsConfig

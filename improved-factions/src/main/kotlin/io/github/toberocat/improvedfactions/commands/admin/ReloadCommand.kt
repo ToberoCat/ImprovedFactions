@@ -25,7 +25,6 @@ abstract class ReloadCommand(private val plugin: ImprovedFactionsPlugin) : Reloa
     fun process(sender: CommandSender): CommandProcessResult {
         return try {
             plugin.reloadConfig()
-            plugin.loadConfig()
             ResourceBundle.clearCache()
 
             reloadCompleted()

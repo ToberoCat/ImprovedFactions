@@ -3,6 +3,7 @@ package io.github.toberocat.improvedfactions.zone
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.FactionClaim
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.user.noFactionId
 import org.bukkit.Chunk
@@ -22,7 +23,7 @@ data class Zone(val type: String,
         }
 
         claim.zoneType = type
-        ImprovedFactionsPlugin.instance.claimChunkClusters.insertZonePosition(claim, type)
+        BaseModule.claimChunkClusters.insertZonePosition(claim, type)
         return claim
     }
 }

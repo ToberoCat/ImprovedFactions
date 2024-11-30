@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.claims
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import org.bukkit.Chunk
 import org.bukkit.Location
@@ -19,7 +20,7 @@ fun getFactionClaim(x: Int, z: Int, worldName: String) = FactionClaim.find {
             (FactionClaims.world eq worldName)
 }.firstOrNull()
 
-fun canClaimInWorld(world: String): Boolean = world in ImprovedFactionsPlugin.instance.improvedFactionsConfig.allowedWorlds
+fun canClaimInWorld(world: String): Boolean = world in BaseModule.config.allowedWorlds
 
 fun squareClaimAction(
     centerChunk: Chunk,

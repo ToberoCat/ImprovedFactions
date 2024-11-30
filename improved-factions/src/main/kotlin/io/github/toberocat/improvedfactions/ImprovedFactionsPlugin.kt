@@ -32,6 +32,11 @@ open class ImprovedFactionsPlugin : JavaPlugin() {
         moduleManager.disableModules()
     }
 
+    override fun reloadConfig() {
+        super.reloadConfig()
+        moduleManager.reloadModuleConfigs()
+    }
+
     fun registerListeners(vararg listeners: Listener) {
         listeners.forEach { plugin.server.pluginManager.registerEvents(it, plugin) }
     }

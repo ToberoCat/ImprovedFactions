@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.utils
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.translation.LocalizationKey
 import io.github.toberocat.improvedfactions.translation.getLocalized
 import io.github.toberocat.improvedfactions.translation.sendLocalized
@@ -60,7 +61,7 @@ class PlayerTeleporter(
         }
 
         val leftSeconds = ceil((standStillMs - (current - startTime)) / 1000.0).toInt()
-        val displayLocation = plugin.improvedFactionsConfig.territoryDisplayLocation
+        val displayLocation = BaseModule.config.territoryDisplayLocation
         displayLocation.display(player, titleKey, subtitleKey, mapOf("time" to leftSeconds.toString()))
 
         val distance = player.location.distanceSquared(startedLocation)

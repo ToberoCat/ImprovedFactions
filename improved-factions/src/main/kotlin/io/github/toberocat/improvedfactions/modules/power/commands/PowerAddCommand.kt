@@ -1,6 +1,8 @@
 package io.github.toberocat.improvedfactions.modules.power.commands
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionHandler
@@ -10,9 +12,6 @@ import io.github.toberocat.improvedfactions.modules.power.PowerType
 import io.github.toberocat.improvedfactions.utils.arguments.EnumArgument
 import io.github.toberocat.improvedfactions.utils.arguments.PowerArgument
 import io.github.toberocat.improvedfactions.utils.arguments.entity.FactionArgument
-import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
-import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.addFactionNameOption
 import io.github.toberocat.toberocore.command.SubCommand
 import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.exceptions.CommandException
@@ -29,7 +28,7 @@ class PowerAddCommand(
     private val plugin: ImprovedFactionsPlugin
 ) : SubCommand("add") {
     override fun options() = Options.getFromConfig(plugin, label) { options, _ ->
-        options.addFactionNameOption(2)
+        //options.addFactionNameOption(2)
     }
     override fun arguments() = arrayOf<Argument<*>>(
         EnumArgument(PowerType::class.java, "base.command.args.power-type"),

@@ -13,6 +13,7 @@ import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommand
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.factions.Factions
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.utils.options.*
 import io.github.toberocat.toberocore.command.PlayerSubCommand
 import io.github.toberocat.toberocore.command.arguments.Argument
@@ -56,12 +57,12 @@ abstract class RenameCommand : RenameCommandContext() {
             return noPermission()
         }
 
-        if (!Factions.nameRegex.matches(newName)) {
+        if (!BaseModule.config.factionNameRegex.matches(newName)) {
             return invalidName()
         }
 
-        if (newName.length > Factions.maxNameLength) {
-            return nameTooLong("max" to Factions.maxNameLength.toString())
+        if (newName.length > BaseModule.config.maxNameLength) {
+            return nameTooLong("max" to BaseModule.config.maxNameLength.toString())
         }
 
         if (FactionHandler.getFaction(newName) != null) {
