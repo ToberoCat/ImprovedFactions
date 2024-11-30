@@ -41,8 +41,7 @@ class CommandCodeGenerator(private val commandData: CommandData) {
         import org.bukkit.command.CommandSender
 
         open class ${commandData.targetName}Processor(
-            protected val plugin: ImprovedFactionsPlugin,
-            private val executor: CommandExecutor
+            protected val plugin: ImprovedFactionsPlugin
         ) : ${commandData.targetName}($constructorArgs), CommandProcessor {
             override val label = "${commandData.label}"
 

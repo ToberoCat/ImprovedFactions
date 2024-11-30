@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.modules
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.commands.CommandProcessor
 import io.github.toberocat.toberocore.command.CommandExecutor
 import org.bukkit.OfflinePlayer
 
@@ -12,7 +13,7 @@ interface Module {
     fun onEverythingEnabled(plugin: ImprovedFactionsPlugin) {}
     fun onDisable(plugin: ImprovedFactionsPlugin) {}
     fun reloadConfig(plugin: ImprovedFactionsPlugin) {}
-    fun addCommands(plugin: ImprovedFactionsPlugin, executor: CommandExecutor) {}
+    fun getCommandProcessors(plugin: ImprovedFactionsPlugin): List<CommandProcessor> = emptyList()
     fun onLoadDatabase(plugin: ImprovedFactionsPlugin) {}
     fun onPapiPlaceholder(placeholders: HashMap<String, (player: OfflinePlayer) -> String?>) {}
 

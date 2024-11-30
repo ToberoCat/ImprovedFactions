@@ -15,7 +15,7 @@ import org.bukkit.command.CommandSender
 @GeneratedCommandMeta(
     label = "admin leave",
     category = CommandCategory.GENERAL_CATEGORY,
-    module = "core",
+    module = "base",
     responses = [
         CommandResponse("forceLeaveSuccess"),
         CommandResponse("factionNotFound"),

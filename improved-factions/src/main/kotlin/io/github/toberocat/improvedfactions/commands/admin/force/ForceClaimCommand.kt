@@ -16,7 +16,7 @@ import org.bukkit.entity.Player
 @GeneratedCommandMeta(
     label = "admin claim",
     category = CommandCategory.GENERAL_CATEGORY,
-    module = "core",
+    module = "base",
     responses = [
         CommandResponse("factionClaimed"),
         CommandResponse("claimError"),

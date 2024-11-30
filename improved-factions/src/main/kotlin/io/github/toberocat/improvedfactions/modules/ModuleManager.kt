@@ -2,6 +2,7 @@ package io.github.toberocat.improvedfactions.modules
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin.Companion.instance
+import io.github.toberocat.improvedfactions.commands.executor.CommandExecutor
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.chat.ChatModule
 import io.github.toberocat.improvedfactions.modules.claimparticle.ClaimParticleModule
@@ -10,7 +11,6 @@ import io.github.toberocat.improvedfactions.modules.home.HomeModule
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.modules.relations.RelationsModule
 import io.github.toberocat.improvedfactions.modules.wilderness.WildernessModule
-import io.github.toberocat.toberocore.command.CommandExecutor
 import org.bukkit.OfflinePlayer
 
 class ModuleManager(private val plugin: ImprovedFactionsPlugin) {
@@ -30,10 +30,6 @@ class ModuleManager(private val plugin: ImprovedFactionsPlugin) {
         activeModules = modules.filter { it.value.shouldEnable(instance) }
     }
 
-    fun addModuleCommands(executor: CommandExecutor) {
-        activeModules.forEach { (_, module) -> module.addCommands(plugin, executor) }
-    }
-
     fun reloadModuleConfigs() = modules.values.forEach { it.reloadConfig(plugin) }
 
     fun enableModules() {
@@ -46,6 +42,13 @@ class ModuleManager(private val plugin: ImprovedFactionsPlugin) {
         }
 
         activeModules.forEach { (_, module) -> module.onEverythingEnabled(plugin) }
+    }
+
+    fun registerCommands() {
+        val processors = activeModules.flatMap { it.value.getCommandProcessors(plugin) }
+        val executor = CommandExecutor(plugin)
+        executor.bindToPluginCommand("factions")
+        processors.forEach { executor.registerCommandProcessor(it) }
     }
 
     fun disableModules() {

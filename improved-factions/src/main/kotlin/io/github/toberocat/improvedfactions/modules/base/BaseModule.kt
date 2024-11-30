@@ -7,18 +7,16 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.SPIGOT_RESOURCE_ID
 import io.github.toberocat.improvedfactions.claims.clustering.detector.ClaimClusterDetector
 import io.github.toberocat.improvedfactions.claims.clustering.query.DatabaseClaimQueryProvider
-import io.github.toberocat.improvedfactions.commands.executor.GeneratedFactionCommandExecutor
+import io.github.toberocat.improvedfactions.commands.processor.baseCommandProcessors
 import io.github.toberocat.improvedfactions.config.ImprovedFactionsConfig
 import io.github.toberocat.improvedfactions.database.DatabaseConnector
 import io.github.toberocat.improvedfactions.integrations.Integrations
 import io.github.toberocat.improvedfactions.listeners.PlayerJoinListener
 import io.github.toberocat.improvedfactions.listeners.move.MoveListener
 import io.github.toberocat.improvedfactions.modules.Module
-import io.github.toberocat.improvedfactions.integrations.papi.PapiExpansion
 import io.github.toberocat.improvedfactions.translation.updateLanguages
 import io.github.toberocat.improvedfactions.utils.BStatsCollector
 import io.github.toberocat.improvedfactions.utils.FileUtils
-import io.github.toberocat.toberocore.command.CommandExecutor
 import net.kyori.adventure.platform.bukkit.BukkitAudiences
 import org.jetbrains.exposed.sql.Database
 import java.util.logging.Logger
@@ -42,6 +40,7 @@ object BaseModule : Module {
 
         adventure = BukkitAudiences.create(plugin)
         claimChunkClusters = ClaimClusterDetector(DatabaseClaimQueryProvider())
+        config = ImprovedFactionsConfig.createConfig(plugin)
 
         BStatsCollector(plugin)
         checkForUpdate()
@@ -100,13 +99,11 @@ object BaseModule : Module {
     }
 
     override fun reloadConfig(plugin: ImprovedFactionsPlugin) {
-        config = ImprovedFactionsConfig.createConfig(plugin)
         config.reload(plugin, plugin.config)
     }
 
-    override fun addCommands(plugin: ImprovedFactionsPlugin, executor: CommandExecutor) {
-        GeneratedFactionCommandExecutor(BaseModule.plugin).bindToPluginCommand("factions")
-    }
+    override fun getCommandProcessors(plugin: ImprovedFactionsPlugin) =
+        baseCommandProcessors(plugin)
 
     fun basePair() = MODULE_NAME to this
 }
