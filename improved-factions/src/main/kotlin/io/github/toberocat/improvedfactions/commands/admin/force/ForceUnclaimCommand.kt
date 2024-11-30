@@ -1,38 +1,47 @@
 package io.github.toberocat.improvedfactions.commands.admin.force
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import io.github.toberocat.improvedfactions.factions.Faction
-import io.github.toberocat.improvedfactions.translation.sendLocalized
-import io.github.toberocat.improvedfactions.utils.arguments.entity.FactionArgument
 import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
-import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.addFactionNameOption
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.arguments.Argument
-import io.github.toberocat.toberocore.command.options.Options
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.annotations.command.PermissionConfig
+import io.github.toberocat.improvedfactions.annotations.permission.PermissionConfigurations
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.factions.Faction
+import org.bukkit.Location
+import org.bukkit.World
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-@CommandMeta(
-    description = "base.command.force.unclaim.description",
-    category = CommandCategory.ADMIN_CATEGORY
+@PermissionConfig(config = PermissionConfigurations.OP_ONLY)
+@GeneratedCommandMeta(
+    label = "admin unclaim",
+    category = CommandCategory.ADMIN_CATEGORY,
+    module = "core",
+    responses = [
+        CommandResponse("factionUnclaimed"),
+        CommandResponse("unclaimError"),
+        CommandResponse("factionNotFound"),
+        CommandResponse("noPermission")
+    ]
 )
-class ForceUnclaimCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("unclaim") {
-    override fun options(): Options = Options.getFromConfig(plugin, label) { options, _ ->
-        options
-            .addFactionNameOption(0)
+abstract class ForceUnclaimCommand : ForceUnclaimCommandContext() {
+
+    fun processPlayer(sender: Player, faction: Faction) =
+        unclaimFaction(faction, sender.location)
+
+    fun processConsole(
+        sender: CommandSender,
+        faction: Faction,
+        world: World,
+        blockX: Int,
+        blockZ: Int,
+    ): CommandProcessResult {
+        val location = world.getBlockAt(blockX, 0, blockZ).location
+        return unclaimFaction(faction, location)
     }
 
-    override fun arguments(): Array<Argument<*>> = arrayOf(
-        FactionArgument()
-    )
-
-    override fun handle(player: Player, args: Array<String>): Boolean {
-        val parsedArgs = parseArgs(player, args)
-        val faction = parsedArgs.get<Faction>(0) ?: return false
-
-        loggedTransaction { faction.unclaim(player.location.chunk) }
-        player.sendLocalized("base.command.force.unclaim.unclaimed")
-        return true
+    private fun unclaimFaction(faction: Faction, location: Location): CommandProcessResult {
+        faction.unclaim(location.chunk)
+        return factionUnclaimed("faction" to faction.name)
     }
 }

@@ -1,11 +1,6 @@
 package io.github.toberocat.improvedfactions.commands.executor
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.commands.admin.ByPassCommand
-import io.github.toberocat.improvedfactions.commands.admin.ReloadCommand
-import io.github.toberocat.improvedfactions.commands.admin.force.ForceCommandRoute
-import io.github.toberocat.improvedfactions.commands.claim.ClaimCommand
-import io.github.toberocat.improvedfactions.commands.claim.FactionMap
 import io.github.toberocat.improvedfactions.commands.claim.UnclaimCommand
 import io.github.toberocat.improvedfactions.commands.general.GenerateWikiSourcesCommand
 import io.github.toberocat.improvedfactions.commands.general.HelpCommand
@@ -15,7 +10,6 @@ import io.github.toberocat.improvedfactions.commands.invite.InviteAcceptCommand
 import io.github.toberocat.improvedfactions.commands.invite.InviteCommand
 import io.github.toberocat.improvedfactions.commands.invite.InviteDiscardCommand
 import io.github.toberocat.improvedfactions.commands.invite.ListInvitesCommand
-import io.github.toberocat.improvedfactions.commands.manage.*
 import io.github.toberocat.improvedfactions.commands.member.*
 import io.github.toberocat.improvedfactions.commands.rank.RankCommandRoute
 import io.github.toberocat.improvedfactions.translation.localizeUnformatted
@@ -51,17 +45,12 @@ class FactionCommandExecutor(plugin: ImprovedFactionsPlugin) {
         executor.addChild(MembersCommand(plugin))
         executor.addChild(TransferOwnershipCommand(plugin))
 
-        executor.addChild(ClaimCommand(plugin))
-        executor.addChild(UnclaimCommand(plugin))
-        executor.addChild(FactionMap(plugin))
-
         executor.addChild(InviteCommand(plugin))
         executor.addChild(ListInvitesCommand(plugin))
         executor.addChild(InviteAcceptCommand(plugin))
         executor.addChild(InviteDiscardCommand(plugin))
 
         executor.addChild(ListFactionsCommand(plugin))
-        executor.addChild(ForceCommandRoute(plugin))
 
         plugin.moduleManager.addModuleCommands(executor)
 
