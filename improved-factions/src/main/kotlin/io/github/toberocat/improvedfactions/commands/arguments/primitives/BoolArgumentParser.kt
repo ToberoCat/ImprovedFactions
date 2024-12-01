@@ -6,11 +6,8 @@ import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParsingEx
 import io.github.toberocat.improvedfactions.commands.arguments.ParsingContext
 import org.bukkit.command.CommandSender
 
-@Localization("base.arguments.bool.description")
 @Localization("base.arguments.bool.error")
-open class BoolArgumentParser(
-    override val description: String = "base.arguments.bool.description",
-) : ArgumentParser {
+open class BoolArgumentParser : ArgumentParser {
     override fun parse(sender: CommandSender, arg: String, args: Array<String>) =
         arg.toBooleanStrictOrNull() ?: throw ArgumentParsingException("base.arguments.bool.error")
 

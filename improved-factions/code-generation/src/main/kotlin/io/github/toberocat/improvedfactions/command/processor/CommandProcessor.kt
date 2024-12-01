@@ -4,7 +4,8 @@ import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
-import io.github.toberocat.improvedfactions.command.data.CommandData
+import io.github.toberocat.improvedfactions.command.generator.CommandDocumentationGenerator
+import io.github.toberocat.improvedfactions.commands.data.CommandData
 import io.github.toberocat.improvedfactions.command.visitors.CommandVisitor
 import io.github.toberocat.improvedfactions.utils.convertToCamelCase
 
@@ -36,6 +37,8 @@ class CommandProcessor(
         file.bufferedWriter().use { writer ->
             writer.write(generateProcessorList())
         }
+
+        CommandDocumentationGenerator(codeGenerator, collectedCommandProcessors).generateDocumentation()
     }
 
     private fun generateProcessorList(): String {

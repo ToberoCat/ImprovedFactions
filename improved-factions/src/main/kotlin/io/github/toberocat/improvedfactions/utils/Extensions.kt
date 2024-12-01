@@ -3,6 +3,8 @@ package io.github.toberocat.improvedfactions.utils
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.commands.CommandProcessor
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.utils.offline.KnownOfflinePlayer
 import io.github.toberocat.improvedfactions.utils.offline.KnownOfflinePlayers
@@ -23,6 +25,9 @@ fun Player.toAudience(): Audience = BaseModule.adventure.player(this)
 fun UUID.toOfflinePlayer(): OfflinePlayer = Bukkit.getOfflinePlayer(this)
 
 fun SubCommand.getMeta(): CommandMeta? = this::class.findAnnotations(CommandMeta::class).firstOrNull()
+
+fun CommandProcessor.getMeta(): GeneratedCommandMeta? = this::class.findAnnotations(GeneratedCommandMeta::class).firstOrNull()
+
 
 fun String.hasOfflinePlayerByName() = loggedTransaction {
     KnownOfflinePlayer.count(KnownOfflinePlayers.name eq this@hasOfflinePlayerByName) > 0

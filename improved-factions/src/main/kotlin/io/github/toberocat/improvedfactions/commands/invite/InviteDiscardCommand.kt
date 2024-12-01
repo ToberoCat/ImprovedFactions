@@ -6,12 +6,13 @@ import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommand
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.invites.FactionInvite
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import org.bukkit.entity.Player
 
 @GeneratedCommandMeta(
     label = "invitediscard",
     category = CommandCategory.INVITE_CATEGORY,
-    module = "core",
+    module = BaseModule.MODULE_NAME,
     responses = [
         CommandResponse("inviteDiscarded"),
         CommandResponse("invalidInvite")

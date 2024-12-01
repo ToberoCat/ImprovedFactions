@@ -1,7 +1,8 @@
 package io.github.toberocat.improvedfactions.command.generator
 
-import io.github.toberocat.improvedfactions.command.data.CommandData
+import io.github.toberocat.improvedfactions.commands.data.CommandData
 import io.github.toberocat.improvedfactions.utils.camlCaseToSnakeCase
+import io.github.toberocat.improvedfactions.utils.localization
 import java.io.BufferedWriter
 
 
@@ -70,9 +71,7 @@ class CommandContextCodeGenerator(
 
     private fun generateResponseFunctions(): String {
         return commandData.responses.joinToString("\n") { response ->
-            val key = response.key.ifBlank {
-                "${commandData.localizedCommandLabel}.${response.responseName.camlCaseToSnakeCase("-")}"
-            }
+            val key = response.localization(commandData)
             """
             @Localization("$key")
             protected fun ${response.responseName}(vararg args: Pair<String, String>): CommandProcessResult {

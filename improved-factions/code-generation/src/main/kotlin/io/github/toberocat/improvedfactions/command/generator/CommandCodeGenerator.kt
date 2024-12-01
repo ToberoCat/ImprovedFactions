@@ -1,8 +1,8 @@
 package io.github.toberocat.improvedfactions.command.generator
 
-import io.github.toberocat.improvedfactions.command.data.CommandData
-import io.github.toberocat.improvedfactions.command.data.CommandProcessFunction
-import io.github.toberocat.improvedfactions.command.data.CommandProcessFunctionParameter
+import io.github.toberocat.improvedfactions.commands.data.CommandData
+import io.github.toberocat.improvedfactions.commands.data.CommandProcessFunction
+import io.github.toberocat.improvedfactions.commands.data.CommandProcessFunctionParameter
 import java.io.OutputStream
 
 
@@ -11,6 +11,7 @@ class CommandCodeGenerator(private val commandData: CommandData) {
     fun generateCode(outputStream: OutputStream) {
         outputStream.bufferedWriter().use { writer ->
             writer.write(generateHeader())
+            writer.write(generateCommandDataGetter())
             writer.write(generateExecuteMethod())
             writer.write(generateTabCompleteMethod())
             writer.write(generateProcessFunctions())
@@ -38,6 +39,10 @@ class CommandCodeGenerator(private val commandData: CommandData) {
         import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
         import io.github.toberocat.improvedfactions.commands.executor.DEFAULT_PARSERS
         import io.github.toberocat.improvedfactions.commands.arguments.ParsingContext
+        import io.github.toberocat.improvedfactions.commands.data.CommandData
+        import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+        import io.github.toberocat.improvedfactions.commands.data.CommandProcessFunction
+        import io.github.toberocat.improvedfactions.commands.data.CommandProcessFunctionParameter
         import org.bukkit.command.CommandSender
 
         open class ${commandData.targetName}Processor(
@@ -132,6 +137,13 @@ class CommandCodeGenerator(private val commandData: CommandData) {
         """.trimIndent()
     }
 
+    private fun generateCommandDataGetter(): String {
+        return """
+                override val commandData = $commandData
+                    
+        """.trimIndent()
+    }
+
     private fun generateHandleTabCompletionMethod(): String {
         val builder = StringBuilder()
 
@@ -154,9 +166,11 @@ class CommandCodeGenerator(private val commandData: CommandData) {
             ""
         }
 
-        val localizationAnnotations = argumentTypesByIndex.values.map { param ->
-            """@Localization("${param.createVariableKey(commandData)}")"""
-        }.joinToString("\n")
+        val localizationAnnotations = argumentTypesByIndex.values.joinToString("\n") { param ->
+            """@Localization("${param.getUsage(commandData)}")
+               @Localization("${param.getDescription(commandData)}")
+            """.trimIndent()
+        }
 
         builder.appendLine(
             """
@@ -171,7 +185,8 @@ class CommandCodeGenerator(private val commandData: CommandData) {
         )
 
         argumentTypesByIndex.forEach { (index, param) ->
-            val parsingContext = """ParsingContext(sender, args, currentIndex, "${param.createVariableKey(commandData)}")"""
+            val parsingContext =
+                """ParsingContext(sender, args, currentIndex, "${param.getUsage(commandData)}")"""
 
             builder.appendLine(
                 """

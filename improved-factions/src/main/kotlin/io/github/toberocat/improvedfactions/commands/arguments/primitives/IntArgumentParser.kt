@@ -7,11 +7,8 @@ import io.github.toberocat.improvedfactions.commands.arguments.ParsingContext
 import io.github.toberocat.improvedfactions.translation.resolveLocalization
 import org.bukkit.command.CommandSender
 
-@Localization("base.arguments.int.description")
 @Localization("base.arguments.int.error")
-class IntArgumentParser(
-    override val description: String = "base.arguments.int.description",
-) : ArgumentParser {
+class IntArgumentParser : ArgumentParser {
     override fun parse(sender: CommandSender, arg: String, args: Array<String>) =
         arg.toIntOrNull() ?: throw ArgumentParsingException("base.arguments.int.error")
 

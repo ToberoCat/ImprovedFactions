@@ -10,9 +10,9 @@ import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommand
 import io.github.toberocat.improvedfactions.annotations.command.ManualArgument
 import io.github.toberocat.improvedfactions.annotations.command.PermissionConfig
 import io.github.toberocat.improvedfactions.annotations.permission.PermissionConfigurations
-import io.github.toberocat.improvedfactions.command.data.CommandData
-import io.github.toberocat.improvedfactions.command.data.CommandProcessFunction
-import io.github.toberocat.improvedfactions.command.data.CommandProcessFunctionParameter
+import io.github.toberocat.improvedfactions.commands.data.CommandData
+import io.github.toberocat.improvedfactions.commands.data.CommandProcessFunction
+import io.github.toberocat.improvedfactions.commands.data.CommandProcessFunctionParameter
 import io.github.toberocat.improvedfactions.command.generator.CommandCodeGenerator
 import io.github.toberocat.improvedfactions.utils.getAnnotation
 import io.github.toberocat.improvedfactions.utils.hasAnnotation
@@ -54,6 +54,7 @@ class CommandVisitor(
             targetName = classDeclaration.simpleName.asString(),
             label = metaAnnotation.label,
             module = metaAnnotation.module,
+            category = metaAnnotation.category,
             responses = responses,
             processFunctions = processFunctions.mapNotNull { it.toCommandProcessFunction(needsConfirmation) }.toList(),
             needsConfirmation = needsConfirmation,

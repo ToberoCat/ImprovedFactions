@@ -9,10 +9,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 @Localization("base.arguments.player.description")
-@Localization("base.arguments.player.error")
-class PlayerArgumentParser(
-    override val description: String = "base.arguments.player.description",
-) : ArgumentParser {
+class PlayerArgumentParser : ArgumentParser {
 
     override fun parse(sender: CommandSender, arg: String, args: Array<String>): Player =
         Bukkit.getPlayer(arg) ?: throw ArgumentParsingException("base.arguments.player.error")

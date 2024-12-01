@@ -7,10 +7,7 @@ import io.github.toberocat.improvedfactions.commands.arguments.ParsingContext
 import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import org.bukkit.command.CommandSender
 
-@Localization("base.arguments.zone.description")
-class ZoneArgumentParser(
-    override val description: String = "base.arguments.zone.description",
-) : ArgumentParser {
+class ZoneArgumentParser : ArgumentParser {
     override fun parse(sender: CommandSender, arg: String, args: Array<String>) =
         ZoneHandler.getZone(arg) ?: throw ArgumentParsingException("Zone $arg not found.")
 

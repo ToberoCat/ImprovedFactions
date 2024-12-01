@@ -3,8 +3,6 @@ package io.github.toberocat.improvedfactions.commands.arguments
 import org.bukkit.command.CommandSender
 
 interface ArgumentParser {
-    val description: String
-
     fun parse(sender: CommandSender, idx: Int, args: Array<String>): Any? {
         if (idx >= args.size) return null
 

@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedfactions
 
+import io.github.toberocat.improvedfactions.commands.executor.CommandExecutor
 import io.github.toberocat.improvedfactions.modules.ModuleManager
 import io.github.toberocat.improvedfactions.modules.base.BaseModule.plugin
 import org.bukkit.event.Listener
@@ -15,6 +16,7 @@ const val SPIGOT_RESOURCE_ID = 95617
 open class ImprovedFactionsPlugin : JavaPlugin() {
 
     lateinit var moduleManager: ModuleManager
+    lateinit var executor: CommandExecutor
 
     companion object {
         lateinit var instance: ImprovedFactionsPlugin
@@ -26,7 +28,7 @@ open class ImprovedFactionsPlugin : JavaPlugin() {
         instance = this
         moduleManager = ModuleManager(this)
         moduleManager.enableModules()
-        moduleManager.registerCommands()
+        executor = moduleManager.registerCommands()
     }
 
     override fun onDisable() {

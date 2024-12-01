@@ -1,119 +1,101 @@
 package io.github.toberocat.improvedfactions.commands.general
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.translation.getLocalized
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.commands.CommandProcessor
+import io.github.toberocat.improvedfactions.commands.executor.CommandExecutor
+import io.github.toberocat.improvedfactions.commands.sendCommandResult
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.translation.getUnformattedLocalized
-import io.github.toberocat.improvedfactions.translation.sendLocalized
-import io.github.toberocat.improvedfactions.utils.arguments.StringArgument
-import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
 import io.github.toberocat.improvedfactions.utils.getMeta
-import io.github.toberocat.improvedfactions.utils.toAudience
-import io.github.toberocat.toberocore.command.Command
-import io.github.toberocat.toberocore.command.CommandExecutor
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.SubCommand
-import io.github.toberocat.toberocore.command.arguments.Argument
-import io.github.toberocat.toberocore.command.exceptions.CommandException
-import io.github.toberocat.toberocore.command.options.Options
-import org.bukkit.entity.Player
+import org.bukkit.command.CommandSender
 
-@CommandMeta(
-    description = "base.command.help.description"
+@GeneratedCommandMeta(
+    label = "help",
+    category = CommandCategory.GENERAL_CATEGORY,
+    module = BaseModule.MODULE_NAME,
+    responses = [
+        CommandResponse("helpHeader"),
+        CommandResponse("helpCategoryOverview"),
+        CommandResponse("helpCommandDetails"),
+        CommandResponse("helpCommandNotFound"),
+        CommandResponse("helpSuccess")
+    ]
 )
-class HelpCommand(
-    private val plugin: ImprovedFactionsPlugin, private val executor: CommandExecutor,
-) : PlayerSubCommand("help") {
+abstract class HelpCommand : HelpCommandContext() {
 
     private val categoryIndex: MutableMap<String, MutableList<String>> = HashMap()
-    private val commandMetaIndex: MutableMap<String, SubCommand> = HashMap()
-    private val commands: MutableMap<String, MutableList<SubCommand>> = HashMap()
+    lateinit var commands: Map<String, CommandProcessor>
 
-    init {
-        indexCommand(executor)
-    }
-
-    private fun indexCommand(command: Command): Unit = command.children.forEach { (label, subCommand) ->
-        val meta = subCommand.getMeta()
-        if (meta == null) {
-            plugin.logger.warning(
-                "Command $label sub command of ${command.label} has a no command meta " + "attached to it. The command will still work, but it will be excluded from the help menu"
-            )
-            return@forEach
+    fun initialize(executor: CommandExecutor) {
+        commands = executor.commandProcessors
+        commands.forEach { (commandLabel, processor) ->
+            val category = processor.commandData.category
+            categoryIndex.computeIfAbsent(category) { ArrayList() }.add(commandLabel)
         }
-
-        val labels = categoryIndex[meta.category] ?: mutableListOf()
-        labels.add(subCommand.permission)
-        categoryIndex[meta.category] = labels
-
-        commandMetaIndex[subCommand.permission] = subCommand
-        commands.computeIfAbsent(subCommand.label) { mutableListOf() }.add(subCommand)
-        indexCommand(subCommand)
     }
 
-    override fun options(): Options = Options.getFromConfig(plugin, label)
 
-    override fun arguments(): Array<Argument<*>> = arrayOf(
-        StringArgument("[command]", "base.command.args.help")
-    )
-
-    override fun handle(player: Player, args: Array<out String>): Boolean {
-        val command = parseArgs(player, args).get<String>(0)
+    fun process(sender: CommandSender, command: String?): CommandProcessResult {
         if (command == null) {
-            printCategoryOverview(player)
-            return true
+            printCategoryOverview(sender)
+            return helpSuccess()
         }
 
-        when {
-            command.startsWith("category:") ->
-                printCategoryDetails(player, command.replace("category:", ""))
+        return when {
+            command.startsWith("category:") -> {
+                val category = command.removePrefix("category:")
+                printCategoryDetails(sender, category)
+                helpSuccess()
+            }
 
-            else -> (commands[command] ?: throw CommandException(
-                "base.command.help.command-not-found",
-                emptyMap()
-            )).forEach {
-                printCommandDetails(player, it)
+            else -> {
+                val processor = commands[command] ?: return helpCommandNotFound("command" to command)
+                printCommandDetails(sender, processor)
+                helpSuccess()
             }
         }
-        return true
     }
 
-    private fun printCategoryOverview(player: Player) {
-        val audience = player.toAudience()
-        audience.sendMessage(player.getLocalized("base.command.help.header"))
-        for (category in categoryIndex.keys) audience.sendMessage(
-            player.getLocalized(
-                "base.command.help.category-overview", mapOf(
-                    "category-name" to player.getUnformattedLocalized(category), "category-id" to category
+    private fun printCategoryOverview(sender: CommandSender) {
+        sender.sendCommandResult(helpHeader())
+        categoryIndex.keys.forEach { category ->
+            sender.sendCommandResult(
+                helpCategoryOverview(
+                    "category-name" to sender.getUnformattedLocalized(category),
+                    "category-id" to category
                 )
             )
-        )
+        }
     }
 
-    private fun printCommandDetails(player: Player, subCommand: SubCommand) {
-        val meta = subCommand.getMeta() ?: return
-        val baseCommand = subCommand.permission.replace(".", " ")
-        val args = subCommand.args.joinToString(" ") {
-            "<hover:show_text:'${player.getUnformattedLocalized(it.descriptionKey())}'>" +
-                    "<${if (it.usage().startsWith("<")) "aqua" else "gold"}>${it.usage()}</hover>"
+    private fun printCommandDetails(sender: CommandSender, processor: CommandProcessor) {
+        val commandData = processor.commandData
+        val baseCommand = commandData.label
+        val function = commandData.processFunctions.firstOrNull { it.senderClass == sender::class.java.simpleName } ?: return
+        val args = function.parameters.joinToString(" ") {
+            val usage = sender.getUnformattedLocalized(it.getUsage(commandData))
+            val description = sender.getUnformattedLocalized(it.getDescription(commandData))
+            "<hover:show_text:'${description}'>" +
+                    "<${if (usage.startsWith("<")) "aqua" else "gold"}>${usage}</hover>"
         }
-
-        val rawArgs = subCommand.args.joinToString(" ") { it.usage() }
-
+        val rawArgs =function.parameters.joinToString(" ") { sender.getUnformattedLocalized(it.getUsage(commandData)) }
         val usage = "/$baseCommand $args".trim()
         val cmd = "/$baseCommand $rawArgs".trim()
-        player.sendLocalized(
-            "base.command.help.command-details", mapOf(
-                "usage" to usage, "description" to player.getUnformattedLocalized(meta.description),
+
+        sender.sendCommandResult(
+            helpCommandDetails(
+                "usage" to usage,
+                "description" to sender.getUnformattedLocalized(commandData.descriptionKey),
                 "cmd" to cmd
             )
         )
-
     }
 
-    private fun printCategoryDetails(player: Player, category: String) {
-        player.sendLocalized("base.command.help.header")
-        categoryIndex[category]?.mapNotNull {
-            commandMetaIndex[it]
-        }?.forEach { printCommandDetails(player, it) }
+    private fun printCategoryDetails(sender: CommandSender, category: String) {
+        sender.sendCommandResult(helpHeader())
+        categoryIndex[category]?.mapNotNull { commands[it] }?.forEach { printCommandDetails(sender, it) }
     }
 }
