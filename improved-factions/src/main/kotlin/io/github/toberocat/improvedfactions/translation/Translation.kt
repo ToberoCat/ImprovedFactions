@@ -54,8 +54,13 @@ fun Player.getLocaleEnum(): Locale {
     return locale
 }
 
-fun Player.getUnformattedLocalized(key: String, placeholders: Map<String, String> = emptyMap()) =
-    getLocaleEnum().localizeUnformatted(key, placeholders)
+fun CommandSender.getUnformattedLocalized(key: String, placeholders: Map<String, String> = emptyMap()): String {
+    val locale = when (this) {
+        is Player -> getLocaleEnum()
+        else -> Locale.ENGLISH
+    }
+    return locale.localizeUnformatted(key, placeholders)
+}
 
 fun Locale.localize(key: LocalizationKey, placeholders: Map<String, String>): Component =
     MiniMessage.miniMessage().deserialize(localizeUnformatted(key, placeholders))

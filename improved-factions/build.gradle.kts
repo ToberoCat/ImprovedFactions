@@ -27,7 +27,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":annotations"))
+    implementation(project(":shared"))
 
     // Spigot API
     compileOnly(libs.spigot.api)

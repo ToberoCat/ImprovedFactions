@@ -10,5 +10,5 @@ plugins {
 
 rootProject.name = "ImprovedFactions"
 include("improved-factions")
-include("annotations")
+include("shared")
 include("code-generation")

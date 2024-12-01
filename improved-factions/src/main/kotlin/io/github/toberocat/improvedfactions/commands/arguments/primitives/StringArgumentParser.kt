@@ -7,9 +7,7 @@ import io.github.toberocat.improvedfactions.translation.resolveLocalization
 import org.bukkit.command.CommandSender
 
 @Localization("base.arguments.string.description")
-open class StringArgumentParser(
-    override val description: String = "base.arguments.string.description",
-) : ArgumentParser {
+open class StringArgumentParser : ArgumentParser {
     override fun parse(sender: CommandSender, arg: String, args: Array<String>) = arg
 
     override fun tabComplete(pCtx: ParsingContext): List<String> =

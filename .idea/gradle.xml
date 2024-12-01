@@ -9,9 +9,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/improved-factions" />
-            <option value="$PROJECT_DIR$/improved-factions/annotations" />
             <option value="$PROJECT_DIR$/improved-factions/code-generation" />
             <option value="$PROJECT_DIR$/improved-factions/improved-factions" />
+            <option value="$PROJECT_DIR$/improved-factions/shared" />
           </set>
         </option>
       </GradleProjectSettings>

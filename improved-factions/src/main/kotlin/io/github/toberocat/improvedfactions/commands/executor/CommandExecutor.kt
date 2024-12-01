@@ -50,7 +50,7 @@ val DEFAULT_PARSERS = mapOf<Class<*>, ArgumentParser>(
 
 open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExecutor {
 
-    private val commandProcessors = mutableMapOf<String, CommandProcessor>()
+    val commandProcessors = mutableMapOf<String, CommandProcessor>()
     private val tabCompletionTree = CompletionLevelNode()
 
     fun bindToPluginCommand(command: String) {

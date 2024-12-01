@@ -3,6 +3,7 @@ package io.github.toberocat.improvedfactions.modules
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin.Companion.instance
 import io.github.toberocat.improvedfactions.commands.executor.CommandExecutor
+import io.github.toberocat.improvedfactions.commands.general.HelpCommandProcessor
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.chat.ChatModule
 import io.github.toberocat.improvedfactions.modules.claimparticle.ClaimParticleModule
@@ -44,11 +45,17 @@ class ModuleManager(private val plugin: ImprovedFactionsPlugin) {
         activeModules.forEach { (_, module) -> module.onEverythingEnabled(plugin) }
     }
 
-    fun registerCommands() {
+    fun registerCommands(): CommandExecutor {
         val processors = activeModules.flatMap { it.value.getCommandProcessors(plugin) }
         val executor = CommandExecutor(plugin)
         executor.bindToPluginCommand("factions")
         processors.forEach { executor.registerCommandProcessor(it) }
+        processors
+            .find { it is HelpCommandProcessor }!!
+            .let { it as HelpCommandProcessor }
+            .initialize(executor)
+
+        return executor
     }
 
     fun disableModules() {
