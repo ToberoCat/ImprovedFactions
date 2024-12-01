@@ -1,47 +1,50 @@
 package io.github.toberocat.improvedfactions.commands.rank
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
-import io.github.toberocat.improvedfactions.translation.sendLocalized
-import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.utils.arguments.PriorityArgument
-import io.github.toberocat.improvedfactions.utils.arguments.RankNameInputArgument
 import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
-import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.InFactionOption
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.arguments.Argument
-import io.github.toberocat.toberocore.command.options.ArgLengthOption
-import io.github.toberocat.toberocore.command.options.Options
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.permissions.Permissions
+import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
+import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.entity.Player
 
-@CommandMeta(
+@GeneratedCommandMeta(
+    label = "rank create",
     category = CommandCategory.PERMISSION_CATEGORY,
-    description = "base.command.rank.create.description"
+    module = BaseModule.MODULE_NAME,
+    responses = [
+        CommandResponse("rankCreated"),
+        CommandResponse("notInFaction"),
+        CommandResponse("invalidPriority"),
+        CommandResponse("invalidRankName"),
+        CommandResponse("noPermission")
+    ]
 )
-class CreateRankCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("create") {
+abstract class CreateRankCommand : CreateRankCommandContext() {
 
-    override fun options(): Options =
-        Options.getFromConfig(plugin, label)
-            .cmdOpt(InFactionOption(true))
-            .cmdOpt(ArgLengthOption(2))
-
-
-    override fun arguments(): Array<Argument<*>> = arrayOf(
-        RankNameInputArgument(),
-        PriorityArgument()
-    )
-
-    override fun handle(player: Player, args: Array<out String>): Boolean {
-        val arguments = parseArgs(player, args)
-        val rank = arguments.get<String>(0) ?: return false
-        val priority = arguments.get<Int>(1) ?: return false
-        loggedTransaction {
-            val faction = player.factionUser().faction() ?: return@loggedTransaction
-            FactionRankHandler.createRank(faction.id.value, rank, priority, emptyList())
+    fun process(player: Player, rankName: String, priority: Int): CommandProcessResult {
+        val user = player.factionUser()
+        if (!user.hasPermission(Permissions.MANAGE_PERMISSIONS)) {
+            return noPermission()
         }
-        player.sendLocalized("base.command.rank.create.created")
-        return true
+
+        val faction = user.faction() ?: return notInFaction()
+
+        if (rankName.isBlank() || !BaseModule.config.rankNameRegex.matches(rankName)) {
+            return invalidRankName()
+        }
+
+        if (priority < 0) {
+            return invalidPriority("priority" to priority.toString())
+        }
+
+        FactionRankHandler.createRank(faction.id.value, rankName, priority, emptyList())
+        return rankCreated(
+            "rankName" to rankName,
+            "priority" to priority.toString()
+        )
     }
 }
