@@ -9,16 +9,20 @@ import io.github.toberocat.improvedfactions.commands.arguments.bukkit.PlayerArgu
 import io.github.toberocat.improvedfactions.commands.arguments.bukkit.WorldArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionInviteArgumentParser
+import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionRankArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.faction.ZoneArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.BoolArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.IntArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.StringArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.enums.JoinTypeEnumArgumentParser
+import io.github.toberocat.improvedfactions.commands.arguments.primitives.enums.PowerTypeArgumentParser
 import io.github.toberocat.improvedfactions.commands.sendCommandResult
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionJoinType
 import io.github.toberocat.improvedfactions.invites.FactionInvite
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.modules.power.PowerType
+import io.github.toberocat.improvedfactions.ranks.FactionRank
 import io.github.toberocat.improvedfactions.translation.LocalizedException
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.zone.Zone
@@ -39,7 +43,9 @@ val DEFAULT_PARSERS = mapOf<Class<*>, ArgumentParser>(
     FactionJoinType::class.java to JoinTypeEnumArgumentParser(),
     Zone::class.java to ZoneArgumentParser(),
     World::class.java to WorldArgumentParser(),
-    FactionInvite::class.java to FactionInviteArgumentParser()
+    FactionInvite::class.java to FactionInviteArgumentParser(),
+    FactionRank::class.java to FactionRankArgumentParser(),
+    PowerType::class.java to PowerTypeArgumentParser()
 )
 
 open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExecutor {

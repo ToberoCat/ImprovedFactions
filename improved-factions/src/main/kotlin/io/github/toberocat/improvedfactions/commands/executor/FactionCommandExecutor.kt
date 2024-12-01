@@ -36,16 +36,6 @@ class FactionCommandExecutor(plugin: ImprovedFactionsPlugin) {
 
         executor.addChild(RankCommandRoute(plugin))
 
-        executor.addChild(JoinCommand(plugin))
-        executor.addChild(LeaveCommand(plugin))
-        executor.addChild(KickCommand(plugin))
-        executor.addChild(BanCommand(plugin))
-        executor.addChild(UnBanCommand(plugin))
-        executor.addChild(MembersCommand(plugin))
-        executor.addChild(TransferOwnershipCommand(plugin))
-
-        executor.addChild(ListInvitesCommand(plugin))
-
         executor.addChild(HelpCommand(plugin, executor))
         executor.addChild(GenerateWikiSourcesCommand(plugin, executor))
 

@@ -1,56 +1,52 @@
 package io.github.toberocat.improvedfactions.commands.member
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import io.github.toberocat.improvedfactions.translation.sendLocalized
-import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
-import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.InFactionOption
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.arguments.Argument
-import io.github.toberocat.toberocore.command.options.ArgLengthOption
-import io.github.toberocat.toberocore.command.options.Options
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.commands.sendCommandResult
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import java.text.SimpleDateFormat
 
-const val MEMBERS_COMMAND_DESCRIPTION = "base.command.members.description"
-const val MEMBERS_COMMAND_CATEGORY = CommandCategory.MEMBER_CATEGORY
-
-@CommandMeta(
-    description = MEMBERS_COMMAND_DESCRIPTION,
-    category = MEMBERS_COMMAND_CATEGORY
+@GeneratedCommandMeta(
+    label = "members",
+    category = CommandCategory.MEMBER_CATEGORY,
+    module = BaseModule.MODULE_NAME,
+    responses = [
+        CommandResponse("membersHeader"),
+        CommandResponse("memberDetail"),
+        CommandResponse("notInFaction")
+    ]
 )
-open class MembersCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("members") {
+abstract class MembersCommand : MembersCommandContext() {
     private val dateFormat = SimpleDateFormat("dd/MM/yyyy")
 
-    override fun options(): Options = Options.getFromConfig(plugin, label) { options, _ ->
-        options.cmdOpt(InFactionOption(true))
-            .cmdOpt(ArgLengthOption(0))
-    }
+    fun process(player: Player): CommandProcessResult {
+        val faction = player.factionUser().faction()
+            ?: return notInFaction()
 
-    override fun arguments(): Array<Argument<*>> = emptyArray()
+        player.sendCommandResult(membersHeader())
 
-    override fun handle(player: Player, args: Array<String>): Boolean {
-        player.sendLocalized("base.command.members.header")
-
-        loggedTransaction {
-            player.factionUser().faction()?.members()?.forEach {
-                val offlinePlayer = it.offlinePlayer()
-                player.sendLocalized(
-                    "base.command.members.detail", mapOf(
-                        "name" to (offlinePlayer.name ?: "Unknown"),
-                        "lastSeen" to getLastSeen(offlinePlayer),
-                        "rank" to it.rank().name
-                    )
+        val details = loggedTransaction {
+            faction.members().map { member ->
+                val offlinePlayer = member.offlinePlayer()
+                memberDetail(
+                    "name" to (offlinePlayer.name ?: "Unknown"),
+                    "lastSeen" to getLastSeen(offlinePlayer),
+                    "rank" to member.rank().name
                 )
             }
         }
-        return true
+
+        details.dropLast(1).forEach { player.sendCommandResult(it) }
+        return details.lastOrNull() ?: membersHeader()
     }
 
-    protected fun getLastSeen(member: OfflinePlayer) = when {
+    private fun getLastSeen(member: OfflinePlayer): String = when {
         member.isOnline -> "§aOnline"
         else -> "§e${dateFormat.format(member.lastPlayed)}"
     }

@@ -296,7 +296,10 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         if (owner == user.uniqueId) throw PlayerIsOwnerLeaveException()
         if (isBanned(user))
             throw CommandException("base.exceptions.already-banned", emptyMap())
-        unsetUserData(user)
+
+        if (user.factionId == id.value) {
+            unsetUserData(user)
+        }
 
         val f = this
         FactionBan.new {

@@ -5,6 +5,8 @@ import com.jeff_media.updatechecker.UpdateChecker
 import com.jeff_media.updatechecker.UserAgentBuilder
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.SPIGOT_RESOURCE_ID
+import io.github.toberocat.improvedfactions.annotations.permission.Permission
+import io.github.toberocat.improvedfactions.annotations.permission.PermissionConfigurations
 import io.github.toberocat.improvedfactions.claims.clustering.detector.ClaimClusterDetector
 import io.github.toberocat.improvedfactions.claims.clustering.query.DatabaseClaimQueryProvider
 import io.github.toberocat.improvedfactions.commands.processor.baseCommandProcessors
@@ -72,6 +74,7 @@ object BaseModule : Module {
         adventure.close()
     }
 
+    @Permission("factions.updatechecker", config = PermissionConfigurations.OP_ONLY)
     private fun checkForUpdate() {
         if (!plugin.config.getBoolean("update-checker")) return
 

@@ -1,56 +1,54 @@
 package io.github.toberocat.improvedfactions.commands.rank
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.commands.sendCommandResult
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.ranks.listRanks
-import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
-import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.FactionPermissionOption
-import io.github.toberocat.improvedfactions.utils.options.InFactionOption
-import io.github.toberocat.toberocore.command.CommandRoute
-import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.entity.Player
 
-const val RANK_COMMAND_DESCRIPTION = "base.command.rank.description"
-const val RANK_COMMAND_CATEGORY = CommandCategory.PERMISSION_CATEGORY
-
-
-@CommandMeta(
-    description = RANK_COMMAND_DESCRIPTION,
-    category = RANK_COMMAND_CATEGORY
+@GeneratedCommandMeta(
+    label = "rank",
+    category = CommandCategory.PERMISSION_CATEGORY,
+    module = BaseModule.MODULE_NAME,
+    responses = [
+        CommandResponse("rankHeader"),
+        CommandResponse("rankOverview"),
+        CommandResponse("notInFaction"),
+        CommandResponse("noPermission"),
+        CommandResponse("ranksListed")
+    ]
 )
-open class RankCommandRoute(plugin: ImprovedFactionsPlugin) : CommandRoute("rank", plugin) {
-    init {
-        addChild(CreateRankCommand(plugin))
-        addChild(AssignRankCommand(plugin))
-        addChild(DeleteRankCommand(plugin))
-        addChild(SetPermissionCommand(plugin))
-        addChild(DefaultRankCommand(plugin))
-        addChild(EditPermissionsCommand(plugin))
-    }
+abstract class RankCommandRoute : RankCommandRouteContext() {
 
-    override fun options(): Options = super.options()
-        .cmdOpt(FactionPermissionOption(Permissions.MANAGE_PERMISSIONS))
-        .cmdOpt(InFactionOption(true))
+    fun process(player: Player): CommandProcessResult {
+        val user = player.factionUser()
+        val faction = user.faction() ?: return notInFaction()
 
-    override fun handle(player: Player, args: Array<String>): Boolean {
-        player.sendLocalized("base.command.rank.header")
-        loggedTransaction {
-            val user = player.factionUser()
-            user.faction()
-                ?.listRanks()
-                ?.filter { user.canManage(it) }
-                ?.forEach {
-                    player.sendLocalized("base.command.rank.rank-overview", mapOf(
+        if (!user.hasPermission(Permissions.MANAGE_PERMISSIONS)) {
+            return noPermission()
+        }
+
+        player.sendCommandResult(rankHeader())
+
+        val ranks = loggedTransaction {
+            faction.listRanks()
+                .filter { user.canManage(it) }
+                .map {
+                    rankOverview(
                         "name" to it.name,
                         "priority" to it.priority.toString(),
                         "countAssignedUsers" to it.countAssignedUsers().toString()
-                    ))
+                    )
                 }
         }
-        return true
+
+        ranks.forEach { player.sendCommandResult(it) }
+        return ranksListed()
     }
 }
