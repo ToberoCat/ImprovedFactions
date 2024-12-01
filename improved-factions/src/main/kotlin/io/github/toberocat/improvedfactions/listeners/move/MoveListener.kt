@@ -1,16 +1,17 @@
 package io.github.toberocat.improvedfactions.listeners.move
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.utils.toAudience
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerMoveEvent
 
-class MoveListener(plugin: ImprovedFactionsPlugin) : Listener {
-    private val territoryListener = TerritoryTitle(plugin.improvedFactionsConfig)
+class MoveListener : Listener {
+    private val territoryListener = TerritoryTitle(BaseModule.config)
     private val raidableBossBar = RaidableBossBar()
+
     @EventHandler
     fun playerMove(event: PlayerMoveEvent) {
         val to = event.to?.chunk

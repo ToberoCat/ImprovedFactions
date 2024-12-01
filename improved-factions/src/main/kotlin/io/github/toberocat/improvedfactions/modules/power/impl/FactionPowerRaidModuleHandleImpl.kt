@@ -4,7 +4,6 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.claims.FactionClaim
 import io.github.toberocat.improvedfactions.claims.clustering.cluster.Cluster
 import io.github.toberocat.improvedfactions.claims.clustering.cluster.FactionCluster
-import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.exceptions.NotEnoughPowerForClaimException
 import io.github.toberocat.improvedfactions.factions.Faction
@@ -101,23 +100,23 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
         }
     }
 
-    fun getNextClaimCost(faction: Faction) =
+    override fun getNextClaimCost(faction: Faction) =
         floor(config.baseClaimPowerCost * config.claimPowerCostGrowth.pow(faction.claims().count().toInt())).toInt()
 
-    fun getPowerAccumulated(activeAccumulation: Double, negativAccumulation: Double) =
-        config.baseAccumulation + max(activeAccumulation - negativAccumulation, 0.0)
+    override fun getPowerAccumulated(activeAccumulation: Double, inactiveAccumulation: Double) =
+        config.baseAccumulation + max(activeAccumulation - inactiveAccumulation, 0.0)
 
     private fun getPowerAccumulated(faction: Faction) =
         getPowerAccumulated(getActivePowerAccumulation(faction), getInactivePowerAccumulation(faction))
 
-    fun getActivePowerAccumulation(faction: Faction) =
+    override fun getActivePowerAccumulation(faction: Faction) =
         (1 + faction.countActiveMembers(config.accumulationTickDelay) / faction.members().count().toDouble()).pow(
             config.activeAccumulationExponent
         ) * config.accumulationMultiplier
 
 
-    fun getClaimMaintenanceCost(faction: Faction) = getClaimMaintenanceCost(faction.claims().count())
-    fun getInactivePowerAccumulation(faction: Faction) =
+    override fun getClaimMaintenanceCost(faction: Faction) = getClaimMaintenanceCost(faction.claims().count())
+    override fun getInactivePowerAccumulation(faction: Faction) =
         faction.countInactiveMembers(config.inactiveMilliseconds) * config.inactiveAccumulationMultiplier * config.accumulationMultiplier
 
     private fun calculatePowerChange(members: Long) = config.baseMemberConstant * (1f / members)

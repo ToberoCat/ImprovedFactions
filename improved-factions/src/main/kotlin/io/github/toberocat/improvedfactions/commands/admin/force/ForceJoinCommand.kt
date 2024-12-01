@@ -1,65 +1,68 @@
 package io.github.toberocat.improvedfactions.commands.admin.force
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.annotations.command.*
+import io.github.toberocat.improvedfactions.annotations.localization.Localization
+import io.github.toberocat.improvedfactions.annotations.permission.PermissionConfigurations
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParser
+import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParsingException
+import io.github.toberocat.improvedfactions.commands.arguments.ParsingContext
 import io.github.toberocat.improvedfactions.factions.Faction
+import io.github.toberocat.improvedfactions.ranks.FactionRank
+import io.github.toberocat.improvedfactions.ranks.anyRank
 import io.github.toberocat.improvedfactions.ranks.listRanks
-import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.utils.arguments.OfflinePlayerArgument
-import io.github.toberocat.improvedfactions.utils.arguments.entity.FactionArgument
-import io.github.toberocat.improvedfactions.utils.command.CommandCategory
-import io.github.toberocat.improvedfactions.utils.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.PlayerNameOption
-import io.github.toberocat.improvedfactions.utils.options.addFactionNameOption
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.arguments.Argument
-import io.github.toberocat.toberocore.command.exceptions.CommandException
-import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.OfflinePlayer
-import org.bukkit.entity.Player
+import org.bukkit.command.CommandSender
 
-@CommandMeta(
-    description = "base.command.force.join.description",
-    category = CommandCategory.ADMIN_CATEGORY
+@PermissionConfig(config = PermissionConfigurations.OP_ONLY)
+@GeneratedCommandMeta(
+    label = "admin join",
+    category = CommandCategory.ADMIN_CATEGORY,
+    module = "base",
+    responses = [
+        CommandResponse("success"),
+        CommandResponse("playerAlreadyInFaction")
+    ]
 )
-class ForceJoinCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("join") {
-    override fun options(): Options = Options.getFromConfig(plugin, "force.join") { options, _ ->
-        options
-            .cmdOpt(PlayerNameOption(0))
-            .addFactionNameOption(1)
-    }
+abstract class ForceJoinCommand : ForceJoinCommandContext() {
 
-    override fun arguments(): Array<Argument<*>> = arrayOf(
-        OfflinePlayerArgument(),
-        FactionArgument()
-    )
+    fun processSender(
+        sender: CommandSender,
+        faction: Faction,
+        target: OfflinePlayer,
+        @ManualArgument rank: FactionRank,
+    ) =
+        forceJoin(target, faction, rank)
 
-    override fun handle(player: Player, args: Array<String>): Boolean {
-        val parsedArgs = parseArgs(player, args)
-        val faction = parsedArgs.get<Faction>(1) ?: return false
-        val playerToJoin = parsedArgs.get<OfflinePlayer>(0) ?: return false
+    override fun rankArgument(): ArgumentParser {
+        val factionParser = getArgumentParser(Faction::class.java)
+            ?: throw IllegalStateException("Faction parser not found")
+        return object : ArgumentParser {
+            @Localization("base.arguments.factionRank.description")
+            override val description: String = "base.arguments.factionRank.description"
 
-        loggedTransaction {
-            val user = player.factionUser()
-            if (user.factionId == faction.id.value) {
-                player.sendLocalized("base.command.force.join.already-member")
-                return@loggedTransaction true
+            override fun parse(sender: CommandSender, arg: String, args: Array<String>): Any {
+                val faction = factionParser.parse(sender, args[0], args) as Faction
+                return faction.anyRank(arg) ?: throw ArgumentParsingException("base.arguments.factionRank.error")
             }
 
-            try {
-                if (user.isInFaction()) {
-                    user.faction()?.leave(player.uniqueId)
-                }
-
-                faction.join(playerToJoin.uniqueId, faction.listRanks().lastOrNull()?.id?.value ?: faction.defaultRank)
-                player.sendLocalized("base.command.force.join.success")
-                playerToJoin.sendLocalized("base.command.force.join.player-joined", mapOf("faction" to faction.name))
-            } catch (e: CommandException) {
-                player.sendLocalized("base.command.force.join.error", e.placeholders)
-                throw CommandException(e.message, e.placeholders)
+            override fun tabComplete(pCtx: ParsingContext): List<String> {
+                val faction = factionParser.parse(pCtx.sender, pCtx.args[0], pCtx.args) as Faction
+                return faction.listRanks().map { it.name }
             }
         }
-        return true
+    }
+
+    private fun forceJoin(target: OfflinePlayer, faction: Faction, rank: FactionRank): CommandProcessResult {
+        val user = target.factionUser()
+
+        if (user.isInFaction()) {
+            return playerAlreadyInFaction()
+        }
+
+        faction.join(target.uniqueId, rank.factionId)
+
+        return success("player" to (target.name ?: "No Name"), "faction" to faction.name)
     }
 }

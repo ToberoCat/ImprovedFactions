@@ -1,41 +1,46 @@
 package io.github.toberocat.improvedfactions.commands.manage
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import io.github.toberocat.improvedfactions.translation.sendLocalized
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandConfirmation
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.utils.command.CommandCategory
-import io.github.toberocat.improvedfactions.utils.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.InFactionOption
-import io.github.toberocat.improvedfactions.utils.options.IsFactionOwnerOption
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.arguments.Argument
-import io.github.toberocat.toberocore.command.options.ConfirmOption
-import io.github.toberocat.toberocore.command.options.Options
+import org.bukkit.OfflinePlayer
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-/**
- * Created: 05.08.2023
- * @author Tobias Madlberger (Tobias)
- */
 
-@CommandMeta(
-    description = "base.command.delete.description",
-    category = CommandCategory.MANAGE_CATEGORY
+@CommandConfirmation
+@GeneratedCommandMeta(
+    label = "delete",
+    category = CommandCategory.MANAGE_CATEGORY,
+    module = "base",
+    responses = [
+        CommandResponse("deletedFaction"),
+        CommandResponse("notInFaction"),
+        CommandResponse("notFactionOwner"),
+    ]
 )
-class DeleteCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("delete") {
-    override fun options(): Options = Options.getFromConfig(plugin, "delete") { options, _ ->
-        options.cmdOpt(ConfirmOption()).cmdOpt(InFactionOption(true)).cmdOpt(IsFactionOwnerOption())
+abstract class DeleteCommand : DeleteCommandContext() {
+
+    fun process(player: Player): CommandProcessResult {
+        return deleteFaction(player)
     }
 
-    override fun arguments(): Array<Argument<*>> = emptyArray()
+    fun process(sender: CommandSender, target: OfflinePlayer): CommandProcessResult {
+        return deleteFaction(target)
+    }
 
-    override fun handle(player: Player, args: Array<out String>): Boolean {
-        loggedTransaction {
-            player.factionUser().faction()?.delete()
+    private fun deleteFaction(player: OfflinePlayer): CommandProcessResult {
+        val faction = player.factionUser().faction()
+            ?: return notInFaction()
+
+        if (!player.factionUser().faction()?.owner?.equals(player.uniqueId)!!) {
+            return notFactionOwner()
         }
 
-        player.sendLocalized("base.command.delete.deleted")
-        return true
+        faction.delete()
+        return deletedFaction("faction" to faction.name)
     }
 }

@@ -1,45 +1,31 @@
 package io.github.toberocat.improvedfactions.commands.invite
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.invites.FactionInvite
-import io.github.toberocat.improvedfactions.translation.sendLocalized
-import io.github.toberocat.improvedfactions.utils.arguments.entity.InviteIdArgument
-import io.github.toberocat.improvedfactions.utils.command.CommandCategory
-import io.github.toberocat.improvedfactions.utils.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.InFactionOption
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.arguments.Argument
-import io.github.toberocat.toberocore.command.exceptions.CommandException
-import io.github.toberocat.toberocore.command.options.ArgLengthOption
-import io.github.toberocat.toberocore.command.options.Options
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import org.bukkit.entity.Player
 
-@CommandMeta(
-    description = "base.command.inviteaccept.description",
-    category = CommandCategory.INVITE_CATEGORY
+@GeneratedCommandMeta(
+    label = "inviteaccept",
+    category = CommandCategory.INVITE_CATEGORY,
+    module = BaseModule.MODULE_NAME,
+    responses = [
+        CommandResponse("inviteAccepted"),
+        CommandResponse("factionDeleted"),
+    ]
 )
-class InviteAcceptCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("inviteaccept") {
-    override fun options(): Options = Options.getFromConfig(plugin, "inviteaccept") { options, _ ->
-        options.cmdOpt(InFactionOption(false))
-            .cmdOpt(ArgLengthOption(1))
-    }
+abstract class InviteAcceptCommand : InviteAcceptCommandContext() {
 
-    override fun arguments(): Array<Argument<*>> = arrayOf(
-        InviteIdArgument()
-    )
+    fun process(player: Player, invite: FactionInvite): CommandProcessResult {
+        val faction = Faction.findById(invite.factionId) ?: return factionDeleted()
 
-    override fun handle(player: Player, args: Array<out String>): Boolean {
-        val invite = parseArgs(player, args).get<FactionInvite>(0) ?: return false
-        loggedTransaction {
-            val faction = Faction.findById(invite.factionId)
-                ?: throw CommandException("base.command.inviteaccept.faction-deleted", emptyMap())
-            invite.delete()
-            faction.join(player.uniqueId, invite.rankId)
-        }
+        invite.delete()
+        faction.join(player.uniqueId, invite.rankId)
 
-        player.sendLocalized("base.command.inviteaccept.joined")
-        return true
+        return inviteAccepted("factionName" to (Faction.findById(invite.factionId)?.name ?: "Unknown"))
     }
 }

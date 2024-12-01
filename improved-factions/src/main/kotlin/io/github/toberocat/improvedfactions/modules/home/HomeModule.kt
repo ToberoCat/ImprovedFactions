@@ -1,10 +1,11 @@
 package io.github.toberocat.improvedfactions.modules.home
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.commands.processor.homeCommandProcessors
 import io.github.toberocat.improvedfactions.database.DatabaseManager
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
-import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.modules.Module
 import io.github.toberocat.improvedfactions.modules.home.commands.HomeSetCommand
 import io.github.toberocat.improvedfactions.modules.home.commands.TeleportHomeCommand
 import io.github.toberocat.improvedfactions.modules.home.data.FactionHomes
@@ -17,7 +18,7 @@ import io.github.toberocat.toberocore.command.CommandExecutor
 import org.bukkit.Location
 import org.bukkit.entity.Player
 
-object HomeModule : BaseModule {
+object HomeModule : Module {
     const val MODULE_NAME = "home"
     override val moduleName = MODULE_NAME
     override var isEnabled = false
@@ -29,13 +30,11 @@ object HomeModule : BaseModule {
     }
 
     override fun onLoadDatabase(plugin: ImprovedFactionsPlugin) {
-        DatabaseManager.createTables(FactionHomes)
+        loggedTransaction { DatabaseManager.createTables(FactionHomes) }
     }
 
-    override fun addCommands(plugin: ImprovedFactionsPlugin, executor: CommandExecutor) {
-        executor.addChild(HomeSetCommand(plugin))
-        executor.addChild(TeleportHomeCommand(plugin))
-    }
+    override fun getCommandProcessors(plugin: ImprovedFactionsPlugin) =
+        homeCommandProcessors(plugin)
 
     fun Faction.getHome() = homeModuleHandle.getHome(this@getHome)
     fun Faction.setHome(location: Location) = homeModuleHandle.setHome(this@setHome, location)

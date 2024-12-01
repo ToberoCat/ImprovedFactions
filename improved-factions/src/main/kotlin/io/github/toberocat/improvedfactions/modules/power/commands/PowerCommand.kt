@@ -1,87 +1,73 @@
 package io.github.toberocat.improvedfactions.modules.power.commands
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.commands.sendCommandResult
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.modules.power.impl.FactionPowerRaidModuleHandleImpl
 import io.github.toberocat.improvedfactions.permissions.Permissions
-import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.utils.command.CommandCategory
-import io.github.toberocat.improvedfactions.utils.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.FactionPermissionOption
-import io.github.toberocat.improvedfactions.utils.options.InFactionOption
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.arguments.Argument
-import io.github.toberocat.toberocore.command.exceptions.CommandException
-import io.github.toberocat.toberocore.command.options.Options
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import kotlin.math.round
 
-const val POWER_COMMAND_DESCRIPTION = "base.command.power.description"
-const val POWER_COMMAND_CATEGORY = CommandCategory.POWER_CATEGORY
-const val POWER_COMMAND_MODULE = PowerRaidsModule.MODULE_NAME
-
-@CommandMeta(
-    description = POWER_COMMAND_DESCRIPTION,
-    category = POWER_COMMAND_CATEGORY,
-    module = POWER_COMMAND_MODULE
+@GeneratedCommandMeta(
+    label = "power",
+    category = CommandCategory.POWER_CATEGORY,
+    module = PowerRaidsModule.MODULE_NAME,
+    responses = [
+        CommandResponse("powerHeader"),
+        CommandResponse("powerDetail"),
+        CommandResponse("notInFaction"),
+        CommandResponse("noPermission")
+    ]
 )
-open class PowerCommand(
-    private val plugin: ImprovedFactionsPlugin,
-    protected val powerHandle: FactionPowerRaidModuleHandleImpl
-) : PlayerSubCommand("power") {
+abstract class PowerCommand : PowerCommandContext() {
 
-    init {
-        addChild(PowerSetCommand(plugin))
-        addChild(PowerAddCommand(plugin))
-    }
-
-    override fun options() = Options.getFromConfig(plugin, label) { options, _ ->
-        options
-            .cmdOpt(InFactionOption(true))
-            .cmdOpt(FactionPermissionOption(Permissions.VIEW_POWER))
-    }
-
-    override fun arguments() = arrayOf<Argument<*>>()
-
-    override fun handle(player: Player, args: Array<out String>): Boolean {
-        player.sendLocalized("base.command.power.header")
-
-        loggedTransaction {
-            val faction = player.factionUser().faction() ?: throw CommandException(
-                "power.command.power.faction-needed", emptyMap()
-            )
-            val activeAccumulation = powerHandle.getActivePowerAccumulation(faction)
-            val inactiveAccumulation = powerHandle.getInactivePowerAccumulation(faction)
-            val claimKeep = powerHandle.getClaimMaintenanceCost(faction)
-            val currentlyAccumulated = powerHandle.getPowerAccumulated(
-                activeAccumulation,
-                inactiveAccumulation
-            )
-            val nextClaimCost = powerHandle.getNextClaimCost(faction)
-
-
-            player.showDetails("Power", stringify(faction.accumulatedPower.toDouble()))
-            player.showDetails("Max Power", stringify(faction.maxPower.toDouble()))
-            player.showDetails("Active Accumulation", stringify(activeAccumulation))
-            player.showDetails("Inactive Accumulation", stringify(inactiveAccumulation))
-            player.showDetails("Claim Keep", stringify(claimKeep))
-            player.showDetails("Current Accumulation", stringify(currentlyAccumulated))
-            player.showDetails("Next Claim Cost", stringify(nextClaimCost.toDouble()))
+    fun process(player: Player): CommandProcessResult {
+        val factionUser = player.factionUser()
+        if (!factionUser.isInFaction()) {
+            return notInFaction()
         }
-        return true
+
+        if (!factionUser.hasPermission(Permissions.VIEW_POWER)) {
+            return noPermission()
+        }
+
+        val faction = factionUser.faction() ?: return notInFaction()
+        return showPowerInfo(player, faction)
     }
 
-    private fun Player.showDetails(key: String, value: String, cmd: String = "") {
-        sendLocalized(
-            "base.command.power.detail", mapOf(
-                "cmd" to cmd,
-                "key" to key,
-                "value" to value
-            )
-        )
+    fun process(sender: CommandSender, faction: Faction) = showPowerInfo(sender, faction)
+
+    private fun showPowerInfo(sender: CommandSender, faction: Faction): CommandProcessResult {
+        sender.sendCommandResult(powerHeader())
+
+        val activeAccumulation = PowerRaidsModule.powerModuleHandle.getActivePowerAccumulation(faction)
+        val inactiveAccumulation = PowerRaidsModule.powerModuleHandle.getInactivePowerAccumulation(faction)
+        val claimKeep = PowerRaidsModule.powerModuleHandle.getClaimMaintenanceCost(faction)
+        val currentlyAccumulated = PowerRaidsModule.powerModuleHandle.getPowerAccumulated(activeAccumulation, inactiveAccumulation)
+        val nextClaimCost = PowerRaidsModule.powerModuleHandle.getNextClaimCost(faction)
+
+        sender.sendCommandResult(details("Power", stringify(faction.accumulatedPower.toDouble())))
+        sender.sendCommandResult(details("Max Power", stringify(faction.maxPower.toDouble())))
+        sender.sendCommandResult(details("Active Accumulation", stringify(activeAccumulation)))
+        sender.sendCommandResult(details("Inactive Accumulation", stringify(inactiveAccumulation)))
+        sender.sendCommandResult(details("Claim Keep", stringify(claimKeep)))
+        sender.sendCommandResult(details("Current Accumulation", stringify(currentlyAccumulated)))
+
+        return details("Next Claim Cost", stringify(nextClaimCost.toDouble()))
     }
 
-    protected fun stringify(value: Double) = (round(value * 100) / 100).toString()
+    private fun details(key: String, value: String, cmd: String = "") = powerDetail(
+        "cmd" to cmd,
+        "key" to key,
+        "value" to value
+    )
+
+    private fun stringify(value: Double) = (round(value * 100) / 100).toString()
 }

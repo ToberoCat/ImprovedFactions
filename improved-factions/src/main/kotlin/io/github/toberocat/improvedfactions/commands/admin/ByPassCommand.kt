@@ -1,42 +1,46 @@
 package io.github.toberocat.improvedfactions.commands.admin
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.annotations.command.PermissionConfig
+import io.github.toberocat.improvedfactions.annotations.permission.PermissionConfigurations
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.managers.ByPassManager
-import io.github.toberocat.improvedfactions.translation.sendLocalized
-import io.github.toberocat.improvedfactions.utils.arguments.OptionalPlayerArgument
-import io.github.toberocat.improvedfactions.utils.command.CommandCategory
-import io.github.toberocat.improvedfactions.utils.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.PlayerNameOption
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.arguments.Argument
-import io.github.toberocat.toberocore.command.options.Options
+import io.github.toberocat.improvedfactions.permissions.Permissions
+import io.github.toberocat.improvedfactions.user.factionUser
+import org.bukkit.OfflinePlayer
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-@CommandMeta(
+@PermissionConfig(config = PermissionConfigurations.OP_ONLY)
+@GeneratedCommandMeta(
+    label = "admin bypass",
     category = CommandCategory.ADMIN_CATEGORY,
-    description = "base.commands.bypass.description"
+    module = "base",
+    responses = [
+        CommandResponse("bypassAdded"),
+        CommandResponse("bypassRemoved"),
+        CommandResponse("playerNotFound")
+    ]
 )
-class ByPassCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("bypass") {
-    override fun options(): Options = Options.getFromConfig(plugin, label) { options, _ ->
-        options.cmdOpt(PlayerNameOption(0))
+abstract class ByPassCommand : ByPassCommandContext() {
+
+    fun processPlayer(executor: Player, target: Player?): CommandProcessResult {
+        val actualTarget = target ?: executor
+        return bypass(actualTarget)
     }
 
-    override fun arguments(): Array<Argument<*>> = arrayOf(
-        OptionalPlayerArgument()
-    )
-    override fun handle(executor: Player, args: Array<out String>): Boolean {
-        val target = parseArgs(executor, args).get<Player>(0) ?: return false
-        val targetId = target.uniqueId
-        when (ByPassManager.isBypassing(targetId)) {
-            true -> {
-                ByPassManager.removeBypass(targetId)
-                executor.sendLocalized("base.commands.bypass.remove-bypass")
-            }
-            false -> {
-                ByPassManager.addBypass(targetId)
-                executor.sendLocalized("base.commands.bypass.add-bypass")
-            }
+    fun process(sender: CommandSender, target: Player) = bypass(target)
+
+    private fun bypass(player: Player): CommandProcessResult {
+        val targetId = player.uniqueId
+        return if (ByPassManager.isBypassing(targetId)) {
+            ByPassManager.removeBypass(targetId)
+            bypassRemoved("player" to player.name)
+        } else {
+            ByPassManager.addBypass(targetId)
+            bypassAdded("player" to player.name)
         }
-        return true
     }
 }

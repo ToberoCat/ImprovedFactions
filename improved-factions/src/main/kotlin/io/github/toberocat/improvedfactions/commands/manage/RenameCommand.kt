@@ -6,40 +6,73 @@ import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.utils.arguments.FactionNameInputArgument
-import io.github.toberocat.improvedfactions.utils.command.CommandCategory
-import io.github.toberocat.improvedfactions.utils.command.CommandMeta
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.factions.FactionHandler
+import io.github.toberocat.improvedfactions.factions.Factions
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.utils.options.*
 import io.github.toberocat.toberocore.command.PlayerSubCommand
 import io.github.toberocat.toberocore.command.arguments.Argument
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.command.options.ArgLengthOption
 import io.github.toberocat.toberocore.command.options.Options
+import org.bukkit.OfflinePlayer
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 
-@CommandMeta(
-    description = "base.command.rename.description",
-    category = CommandCategory.MANAGE_CATEGORY
+@GeneratedCommandMeta(
+    label = "rename",
+    category = CommandCategory.MANAGE_CATEGORY,
+    module = "base",
+    responses = [
+        CommandResponse("renamedFaction"),
+        CommandResponse("factionNeeded"),
+        CommandResponse("notFactionOwner"),
+        CommandResponse("noPermission"),
+        CommandResponse("invalidName"),
+        CommandResponse("nameTooLong"),
+        CommandResponse("factionNameExists")
+    ]
 )
-class RenameCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("rename") {
-    override fun options(): Options = Options.getFromConfig(plugin, label) { options, _ ->
-        options.cmdOpt(InFactionOption(true)).cmdOpt(IsFactionOwnerOption()).addFactionNameOption(0).cmdOpt(ArgLengthOption(1))
-            .cmdOpt(FactionExistOption(0, false))
-            .cmdOpt(FactionPermissionOption(Permissions.RENAME_FACTION))
-    }
+abstract class RenameCommand : RenameCommandContext() {
 
-    override fun arguments(): Array<Argument<*>> = arrayOf(
-        FactionNameInputArgument()
-    )
+    fun process(player: Player, newName: String) = setFactionName(player, newName)
 
-    override fun handle(player: Player, args: Array<out String>): Boolean {
-        loggedTransaction {
-            val faction = player.factionUser().faction() ?: throw CommandException(
-                "base.command.rename.faction-needed", emptyMap()
-            )
-            faction.name = args[0]
+    fun process(sender: CommandSender, target: OfflinePlayer, newName: String) = setFactionName(target, newName)
+
+    private fun setFactionName(player: OfflinePlayer, newName: String): CommandProcessResult {
+        val factionUser = player.factionUser()
+        val faction = factionUser.faction() ?: return factionNeeded()
+
+        if (!factionUser.isFactionOwner()) {
+            return notFactionOwner()
         }
-        player.sendLocalized("base.command.rename.renamed")
-        return true
+
+        if (!factionUser.hasPermission(Permissions.RENAME_FACTION)) {
+            return noPermission()
+        }
+
+        if (!BaseModule.config.factionNameRegex.matches(newName)) {
+            return invalidName()
+        }
+
+        if (newName.length > BaseModule.config.maxNameLength) {
+            return nameTooLong("max" to BaseModule.config.maxNameLength.toString())
+        }
+
+        if (FactionHandler.getFaction(newName) != null) {
+            return factionNameExists()
+        }
+
+        loggedTransaction {
+            faction.name = newName
+        }
+
+        return renamedFaction("faction" to faction.name)
     }
 }

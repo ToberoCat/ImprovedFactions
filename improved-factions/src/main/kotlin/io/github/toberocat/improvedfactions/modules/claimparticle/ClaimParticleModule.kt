@@ -1,11 +1,11 @@
 package io.github.toberocat.improvedfactions.modules.claimparticle
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.modules.Module
 import io.github.toberocat.improvedfactions.modules.claimparticle.config.ClaimParticleModuleConfig
 import io.github.toberocat.improvedfactions.modules.claimparticle.handles.RenderParticlesTask
 
-class ClaimParticleModule : BaseModule {
+class ClaimParticleModule : Module {
     override val moduleName = MODULE_NAME
     override var isEnabled = false
 

@@ -13,4 +13,9 @@ interface FactionPowerRaidModuleHandle {
     fun claimChunk(chunk: Chunk, faction: Faction)
     fun calculateUnprotectedChunks(cluster: Cluster): Set<FactionClaim>
     fun reloadConfig(plugin: ImprovedFactionsPlugin)
+    fun getActivePowerAccumulation(faction: Faction): Double
+    fun getInactivePowerAccumulation(faction: Faction): Double
+    fun getClaimMaintenanceCost(faction: Faction): Double
+    fun getPowerAccumulated(activeAccumulation: Double, inactiveAccumulation: Double): Double
+    fun getNextClaimCost(faction: Faction): Int
 }

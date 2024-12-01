@@ -1,5 +1,6 @@
 [versions]
-kotlin-version = "2.0.10"
+kotlin-version = "2.0.21"
+ksp-version = "2.0.21-1.0.25"
 spigot-version = "1.18.1-R0.1-SNAPSHOT"
 exposed-version = "0.51.1"
 jackson-version = "2.16.0"
@@ -52,5 +53,7 @@ mockbukkit = { module = "com.github.seeseemelk:MockBukkit-v1.20", version.ref = 
 snakeyaml = { module = "org.yaml:snakeyaml", version.ref = "snakeyaml-version" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson-version" }
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-classic-version" }
+
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-version" }
+devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp-version" }

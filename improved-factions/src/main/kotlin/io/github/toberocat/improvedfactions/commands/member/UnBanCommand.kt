@@ -1,43 +1,42 @@
 package io.github.toberocat.improvedfactions.commands.member
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.commands.sendCommandResult
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.ban.FactionBan
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.permissions.Permissions
-import io.github.toberocat.improvedfactions.translation.sendLocalized
-import io.github.toberocat.improvedfactions.utils.arguments.entity.FactionBannedArgument
-import io.github.toberocat.improvedfactions.utils.command.CommandCategory
-import io.github.toberocat.improvedfactions.utils.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.FactionPermissionOption
-import io.github.toberocat.improvedfactions.utils.options.InFactionOption
-import io.github.toberocat.improvedfactions.utils.options.PlayerNameOption
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.arguments.Argument
-import io.github.toberocat.toberocore.command.options.ArgLengthOption
-import io.github.toberocat.toberocore.command.options.Options
+import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.entity.Player
 
-@CommandMeta(
-    description = "base.command.unban.description",
-    category = CommandCategory.MEMBER_CATEGORY
+@GeneratedCommandMeta(
+    label = "unban",
+    category = CommandCategory.MEMBER_CATEGORY,
+    module = BaseModule.MODULE_NAME,
+    responses = [
+        CommandResponse("unbannedTarget"),
+        CommandResponse("banNotFound"),
+        CommandResponse("notInFaction"),
+        CommandResponse("noPermission")
+    ]
 )
-class UnBanCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("unban") {
-    override fun options(): Options = Options.getFromConfig(plugin, label) { options, _ ->
-        options
-            .cmdOpt(InFactionOption(true))
-            .cmdOpt(PlayerNameOption(0))
-            .cmdOpt(FactionPermissionOption(Permissions.MANAGE_BANS))
-            .cmdOpt(ArgLengthOption(1))
-    }
+abstract class UnBanCommand : UnBanCommandContext() {
 
-    override fun arguments(): Array<Argument<*>> = arrayOf(
-        FactionBannedArgument()
-    )
+    fun process(player: Player, ban: FactionBan): CommandProcessResult {
+        if (!player.factionUser().isInFaction()) {
+            return notInFaction()
+        }
 
-    override fun handle(player: Player, args: Array<out String>): Boolean {
-        val ban = parseArgs(player, args).get<FactionBan>(0) ?: return false
-        loggedTransaction { ban.delete() }
-        player.sendLocalized("base.command.unban.unbanned-target")
-        return true
+        if (!player.factionUser().hasPermission(Permissions.MANAGE_BANS)) {
+            return noPermission()
+        }
+
+        val existingBan = FactionBan.findById(ban.id) ?: return banNotFound()
+        existingBan.delete()
+
+        return unbannedTarget("targetName" to (existingBan.user.offlinePlayer().name ?: "Unknown"))
     }
 }

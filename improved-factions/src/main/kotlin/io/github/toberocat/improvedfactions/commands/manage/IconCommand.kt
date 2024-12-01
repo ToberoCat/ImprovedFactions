@@ -1,44 +1,55 @@
 package io.github.toberocat.improvedfactions.commands.manage
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.permissions.Permissions
-import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.utils.command.CommandCategory
-import io.github.toberocat.improvedfactions.utils.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.FactionPermissionOption
-import io.github.toberocat.improvedfactions.utils.options.InFactionOption
-import io.github.toberocat.improvedfactions.utils.options.IsFactionOwnerOption
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.arguments.Argument
-import io.github.toberocat.toberocore.command.exceptions.CommandException
-import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.Material
+import org.bukkit.OfflinePlayer
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-@CommandMeta(
-    description = "base.command.icon.description",
-    category = CommandCategory.MANAGE_CATEGORY
+@GeneratedCommandMeta(
+    label = "icon",
+    category = CommandCategory.MANAGE_CATEGORY,
+    module = "base",
+    responses = [
+        CommandResponse("setIconSuccess"),
+        CommandResponse("invalidIcon"),
+        CommandResponse("factionNeeded"),
+        CommandResponse("notFactionOwner"),
+        CommandResponse("noPermission")
+    ]
 )
-class IconCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("icon") {
-    override fun options(): Options = Options.getFromConfig(plugin, "icon") { options, _ ->
-        options.cmdOpt(InFactionOption(true)).cmdOpt(IsFactionOwnerOption())
-            .cmdOpt(FactionPermissionOption(Permissions.SET_ICON))
-    }
+abstract class IconCommand : IconCommandContext() {
 
-    override fun arguments(): Array<Argument<*>> = emptyArray()
+    fun process(player: Player) = setIcon(player)
 
-    override fun handle(player: Player, args: Array<out String>): Boolean {
+    fun process(sender: CommandSender, target: Player) = setIcon(target)
+
+    private fun setIcon(player: Player): CommandProcessResult {
         val item = player.inventory.itemInMainHand.clone()
-        if (item.type == Material.AIR) throw CommandException("base.command.icon.invalid-icon", emptyMap())
 
-        loggedTransaction {
-            val faction =
-                player.factionUser().faction() ?: throw CommandException("base.command.icon.faction-needed", emptyMap())
-            faction.icon = item
+        if (item.type == Material.AIR) {
+            return invalidIcon()
         }
-        player.sendLocalized("base.command.icon.set-icon", emptyMap())
-        return true
+
+        val factionUser = player.factionUser()
+        val faction =factionUser.faction()
+            ?: return factionNeeded()
+
+        if (!factionUser.isFactionOwner()) {
+            return notFactionOwner()
+        }
+
+        if (factionUser.hasPermission(Permissions.SET_ICON)) {
+            return noPermission()
+        }
+
+        faction.icon = item
+        return setIconSuccess("faction" to faction.name)
     }
 }

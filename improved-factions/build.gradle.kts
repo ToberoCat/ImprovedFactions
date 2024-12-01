@@ -1,5 +1,8 @@
+import java.nio.file.Files
+
 plugins {
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.devtools.ksp)
     id("maven-publish")
     id("io.github.goooler.shadow") version "8.1.8"
 }
@@ -24,6 +27,8 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":shared"))
+
     // Spigot API
     compileOnly(libs.spigot.api)
 
@@ -64,6 +69,9 @@ dependencies {
     testImplementation(libs.snakeyaml)
     testImplementation(libs.gson)
     testImplementation(libs.logback.classic)
+
+    // KSP
+    ksp(project(":code-generation"))
 }
 
 tasks.named<Copy>("processResources") {
@@ -96,6 +104,14 @@ tasks {
 
 kotlin {
     jvmToolchain(21)
+
+    sourceSets.main {
+        kotlin.srcDir("build/generated/ksp/main/kotlin")
+        kotlin.srcDir("build/generated/source/buildConfig/kotlin")
+    }
+    sourceSets.test {
+        kotlin.srcDir("build/generated/ksp/test/kotlin")
+    }
 }
 
 publishing {
@@ -104,4 +120,24 @@ publishing {
             from(components["java"])
         }
     }
+}
+
+val generateBuildConfig: Task by tasks.creating {
+    val outputDir = layout.buildDirectory.dir("generated/source/buildConfig/kotlin").get()
+    Files.createDirectories(outputDir.asFile.toPath())
+
+    val versionName = version.toString()
+
+    doLast {
+        val buildConfigFile = outputDir.file("BuildConfig.kt")
+        buildConfigFile.asFile.writeText("""
+            object BuildConfig {
+                const val VERSION = "$versionName"
+            }
+        """.trimIndent())
+    }
+}
+
+tasks.compileKotlin {
+    dependsOn(generateBuildConfig)
 }

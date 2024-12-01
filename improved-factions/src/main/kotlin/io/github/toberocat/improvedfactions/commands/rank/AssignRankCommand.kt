@@ -1,49 +1,45 @@
 package io.github.toberocat.improvedfactions.commands.rank
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
+import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
+import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.ranks.FactionRank
-import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.utils.arguments.OfflinePlayerArgument
-import io.github.toberocat.improvedfactions.utils.arguments.entity.RankArgument
-import io.github.toberocat.improvedfactions.utils.command.CommandCategory
-import io.github.toberocat.improvedfactions.utils.command.CommandMeta
-import io.github.toberocat.improvedfactions.utils.options.InFactionOption
-import io.github.toberocat.improvedfactions.utils.options.PlayerNameOption
-import io.github.toberocat.improvedfactions.utils.options.RankNameOption
-import io.github.toberocat.toberocore.command.PlayerSubCommand
-import io.github.toberocat.toberocore.command.arguments.Argument
-import io.github.toberocat.toberocore.command.options.ArgLengthOption
-import io.github.toberocat.toberocore.command.options.Options
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 
-@CommandMeta(
-    description = "base.command.rank.assign.description",
-    category = CommandCategory.PERMISSION_CATEGORY
+@GeneratedCommandMeta(
+    label = "rank assign",
+    category = CommandCategory.PERMISSION_CATEGORY,
+    module = BaseModule.MODULE_NAME,
+    responses = [
+        CommandResponse("rankAssigned"),
+        CommandResponse("notInFaction"),
+        CommandResponse("notInSameFaction"),
+        CommandResponse("noPermission"),
+    ]
 )
-class AssignRankCommand(private val plugin: ImprovedFactionsPlugin) : PlayerSubCommand("assign") {
-    override fun options(): Options = Options.getFromConfig(plugin, label)
-        .cmdOpt(InFactionOption(true))
-        .cmdOpt(PlayerNameOption(0))
-        .cmdOpt(RankNameOption(1))
-        .cmdOpt(ArgLengthOption(2))
+abstract class AssignRankCommand : AssignRankCommandContext() {
 
-    override fun arguments(): Array<Argument<*>> = arrayOf(
-        OfflinePlayerArgument(),
-        RankArgument()
-    )
+    fun process(player: Player, target: OfflinePlayer, rank: FactionRank): CommandProcessResult {
+        if (!player.factionUser().isInFaction())
+            return notInFaction()
 
-    override fun handle(player: Player, args: Array<out String>): Boolean {
-        val arguments = parseArgs(player, args)
-        val target = arguments.get<OfflinePlayer>(0) ?: return false
-        val rank = arguments.get<FactionRank>(1) ?: return false
+        if (!player.factionUser().hasPermission(Permissions.MANAGE_PERMISSIONS))
+            return noPermission()
 
-        loggedTransaction {
-            target.factionUser().assignedRank = rank.id.value
-        }
-        player.sendLocalized("base.command.rank.assign.assigned", emptyMap())
-        return true
+        val targetUser = target.factionUser()
+        if (targetUser.faction() != player.factionUser().faction())
+            return notInSameFaction()
+
+        targetUser.assignedRank = rank.id.value
+
+        return rankAssigned(
+            "playerName" to (target.name ?: "Unknown"),
+            "rankName" to rank.name
+        )
     }
 }
