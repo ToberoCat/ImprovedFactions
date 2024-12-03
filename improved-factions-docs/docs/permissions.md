@@ -1,7 +1,5 @@
 # Permissions (Last updated: 2.2.0-beta)
 
-Find the original permissions in the [plugin.yml](../improved-factions-base/src/main/resources/plugin.yml) file.
-
 ## Table
 
 | Permission                              | Default |
