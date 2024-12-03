@@ -45,6 +45,7 @@ class CommandCodeGenerator(private val commandData: CommandData) {
         import io.github.toberocat.improvedfactions.commands.data.CommandProcessFunctionParameter
         import org.bukkit.command.CommandSender
 
+        @Localization("${commandData.descriptionKey}")
         open class ${commandData.targetName}Processor(
             protected val plugin: ImprovedFactionsPlugin
         ) : ${commandData.targetName}($constructorArgs), CommandProcessor {

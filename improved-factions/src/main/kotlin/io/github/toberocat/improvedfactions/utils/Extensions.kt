@@ -1,10 +1,10 @@
 package io.github.toberocat.improvedfactions.utils
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessor
+import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.utils.offline.KnownOfflinePlayer
 import io.github.toberocat.improvedfactions.utils.offline.KnownOfflinePlayers
@@ -16,7 +16,9 @@ import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import java.util.*
+import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotations
+import kotlin.reflect.full.isSubclassOf
 
 inline fun <T, R> T.compute(computeBlock: (T) -> R) = computeBlock(this)
 
@@ -26,7 +28,8 @@ fun UUID.toOfflinePlayer(): OfflinePlayer = Bukkit.getOfflinePlayer(this)
 
 fun SubCommand.getMeta(): CommandMeta? = this::class.findAnnotations(CommandMeta::class).firstOrNull()
 
-fun CommandProcessor.getMeta(): GeneratedCommandMeta? = this::class.findAnnotations(GeneratedCommandMeta::class).firstOrNull()
+fun CommandProcessor.getMeta(): GeneratedCommandMeta? =
+    this::class.findAnnotations(GeneratedCommandMeta::class).firstOrNull()
 
 
 fun String.hasOfflinePlayerByName() = loggedTransaction {
@@ -48,5 +51,9 @@ fun String.getOfflinePlayerByName() = loggedTransaction {
 fun TextComponent.appendIf(condition: Boolean, component: () -> TextComponent): TextComponent =
     if (condition) append(component) else this
 
-fun String.camlCaseToSnakeCase(separator: String = "_") =
-    replace(Regex("([a-z])([A-Z]+)"), "$1${separator}$2").lowercase()
+fun KClass<*>.isSubtype(className: String) = try {
+    val targetClass = Class.forName(className).kotlin
+    isSubclassOf(targetClass)
+} catch (e: ClassNotFoundException) {
+    false
+}

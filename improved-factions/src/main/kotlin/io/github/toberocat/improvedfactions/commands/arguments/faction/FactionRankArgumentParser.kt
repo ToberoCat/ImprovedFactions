@@ -18,7 +18,7 @@ class FactionRankArgumentParser : ArgumentParser {
         return user.faction()?.anyRank(arg) ?: throw ArgumentParsingException("base.arguments.faction-rank.not-found")
     }
 
-    override fun tabComplete(pCtx: ParsingContext): List<String> {
+    override fun rawTabComplete(pCtx: ParsingContext): List<String> {
         val user = pCtx.player()?.factionUser() ?: return emptyList()
         return user.faction()
             ?.listRanks()

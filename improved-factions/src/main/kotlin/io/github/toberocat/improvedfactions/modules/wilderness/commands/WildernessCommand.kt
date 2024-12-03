@@ -6,11 +6,8 @@ import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommand
 import io.github.toberocat.improvedfactions.annotations.localization.Localization
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.commands.sendCommandResult
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.wilderness.WildernessModule
-import io.github.toberocat.improvedfactions.modules.wilderness.config.WildernessModuleConfig
-import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.utils.PlayerTeleporter
 import io.github.toberocat.improvedfactions.utils.options.limit.PlayerUsageLimits
 import io.github.toberocat.toberocore.util.CooldownManager

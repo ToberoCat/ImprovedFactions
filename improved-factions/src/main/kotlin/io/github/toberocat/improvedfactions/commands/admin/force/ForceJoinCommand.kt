@@ -45,7 +45,7 @@ abstract class ForceJoinCommand : ForceJoinCommandContext() {
                 return faction.anyRank(arg) ?: throw ArgumentParsingException("base.arguments.factionRank.error")
             }
 
-            override fun tabComplete(pCtx: ParsingContext): List<String> {
+            override fun rawTabComplete(pCtx: ParsingContext): List<String> {
                 val faction = factionParser.parse(pCtx.sender, pCtx.args[0], pCtx.args) as Faction
                 return faction.listRanks().map { it.name }
             }

@@ -11,5 +11,9 @@ interface ArgumentParser {
 
     fun parse(sender: CommandSender, arg: String, args: Array<String>): Any
 
-    fun tabComplete(pCtx: ParsingContext): List<String>
+
+    fun tabComplete(pCtx: ParsingContext) =
+        rawTabComplete(pCtx).ifEmpty { listOf(pCtx.resolveVariableName()) }
+
+    fun rawTabComplete(pCtx: ParsingContext): List<String>
 }

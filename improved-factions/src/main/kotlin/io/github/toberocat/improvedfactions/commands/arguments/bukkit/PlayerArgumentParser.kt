@@ -14,6 +14,6 @@ class PlayerArgumentParser : ArgumentParser {
     override fun parse(sender: CommandSender, arg: String, args: Array<String>): Player =
         Bukkit.getPlayer(arg) ?: throw ArgumentParsingException("base.arguments.player.error")
 
-    override fun tabComplete(pCtx: ParsingContext) =
+    override fun rawTabComplete(pCtx: ParsingContext) =
         Bukkit.getOnlinePlayers().mapNotNull { it.name }
 }

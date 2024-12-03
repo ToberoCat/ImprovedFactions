@@ -18,6 +18,13 @@ data class CompletionLevelNode(
         if (args.isEmpty()) return children.keys.toList()
 
         val nextNode = children[args[0]] ?: return children.keys.toList()
-        return nextNode.getCompletions(args.drop(1))
+
+        if (args.size == 1 && children.keys.count { it.startsWith(args[0]) } > 0)
+            return children.keys.filter { it.startsWith(args[0]) }
+        return nextNode.getPerNodeCompletions(args)
+    }
+
+    private fun getPerNodeCompletions(args: List<String>): List<String> {
+        return getCompletions(args.drop(1))
     }
 }
