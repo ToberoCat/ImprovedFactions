@@ -28,7 +28,7 @@ class FactionInviteArgumentParser : ArgumentParser {
         return invite
     }
 
-    override fun tabComplete(pCtx: ParsingContext) = (pCtx.sender as? Player)
+    override fun rawTabComplete(pCtx: ParsingContext) = (pCtx.sender as? Player)
         ?.factionUser()
         ?.invites()
         ?.mapNotNull { FactionHandler.getFaction(it.factionId)?.name }

@@ -1,6 +1,5 @@
 package io.github.toberocat.improvedfactions.commands.arguments.faction
 
-import io.github.toberocat.improvedfactions.annotations.localization.Localization
 import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParsingException
 import io.github.toberocat.improvedfactions.commands.arguments.ParsingContext
@@ -13,6 +12,6 @@ class FactionArgumentParser : ArgumentParser {
         return FactionHandler.getFaction(arg) ?: throw ArgumentParsingException("base.arguments.faction.error")
     }
 
-    override fun tabComplete(pCtx: ParsingContext) =
+    override fun rawTabComplete(pCtx: ParsingContext) =
         FactionHandler.getFactions().map { it.name }
 }

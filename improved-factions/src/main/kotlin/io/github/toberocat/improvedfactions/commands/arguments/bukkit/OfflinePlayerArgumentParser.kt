@@ -15,6 +15,6 @@ class OfflinePlayerArgumentParser : ArgumentParser {
     override fun parse(sender: CommandSender, arg: String, args: Array<String>): OfflinePlayer =
         arg.getOfflinePlayerByName() ?: throw ArgumentParsingException("base.arguments.player.error")
 
-    override fun tabComplete(pCtx: ParsingContext) =
+    override fun rawTabComplete(pCtx: ParsingContext) =
         Bukkit.getOfflinePlayers().mapNotNull { it.name }
 }

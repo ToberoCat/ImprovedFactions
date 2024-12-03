@@ -11,7 +11,7 @@ import org.bukkit.entity.Player
 
 @GeneratedCommandMeta(
     label = "spy",
-    category = CommandCategory.GENERAL_CATEGORY,
+    category = CommandCategory.ADMIN_CATEGORY,
     module = ChatModule.MODULE_NAME,
     responses = [
         CommandResponse("spyEnabled"),

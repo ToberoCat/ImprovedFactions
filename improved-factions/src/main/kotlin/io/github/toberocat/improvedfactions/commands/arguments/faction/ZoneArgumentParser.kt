@@ -11,5 +11,5 @@ class ZoneArgumentParser : ArgumentParser {
     override fun parse(sender: CommandSender, arg: String, args: Array<String>) =
         ZoneHandler.getZone(arg) ?: throw ArgumentParsingException("Zone $arg not found.")
 
-    override fun tabComplete(pCtx: ParsingContext) = ZoneHandler.getZones().toList()
+    override fun rawTabComplete(pCtx: ParsingContext) =  ZoneHandler.getZones().toList()
 }

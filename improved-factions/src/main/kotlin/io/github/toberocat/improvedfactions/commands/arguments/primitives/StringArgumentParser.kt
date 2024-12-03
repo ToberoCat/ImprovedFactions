@@ -10,6 +10,5 @@ import org.bukkit.command.CommandSender
 open class StringArgumentParser : ArgumentParser {
     override fun parse(sender: CommandSender, arg: String, args: Array<String>) = arg
 
-    override fun tabComplete(pCtx: ParsingContext): List<String> =
-        listOf(pCtx.resolveVariableName())
+    override fun rawTabComplete(pCtx: ParsingContext) = emptyList<String>()
 }

@@ -12,5 +12,5 @@ class WorldArgumentParser : ArgumentParser {
     override fun parse(sender: CommandSender, arg: String, args: Array<String>): World =
         Bukkit.getWorld(arg) ?: throw ArgumentParsingException("base.arguments.world.error")
 
-    override fun tabComplete(pCtx: ParsingContext) = Bukkit.getWorlds().map { it.name }
+    override fun rawTabComplete(pCtx: ParsingContext) = Bukkit.getWorlds().map { it.name }
 }
