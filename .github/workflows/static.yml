@@ -43,7 +43,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.1.3
         with:
           branch: gh-pages
-          folder: build/WebGL/WebGL
+          folder: ./improved-factions-docs/build
           commit-message: Deploy
           single-commit: true
           token: ${{ secrets.TOKEN }}
