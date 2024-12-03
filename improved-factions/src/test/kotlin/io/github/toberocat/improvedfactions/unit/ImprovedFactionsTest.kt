@@ -6,6 +6,7 @@ import be.seeseemelk.mockbukkit.WorldMock
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionHandler
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import org.bukkit.Material
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.AfterEach
@@ -26,7 +27,6 @@ open class ImprovedFactionsTest {
 
     @AfterEach
     fun tearDown() {
-        plugin.adventure.close()
         MockBukkit.unmock()
     }
 
@@ -34,7 +34,7 @@ open class ImprovedFactionsTest {
 
     fun testWorld(name: String? = null) = WorldMock(Material.DIRT, 3).also {
         if (name != null) it.name = name
-        plugin.improvedFactionsConfig.allowedWorlds += it.name
+        BaseModule.config.allowedWorlds += it.name
     }
 
     fun testFaction(owner: UUID = UUID.randomUUID(), id: Int? = null, vararg members: UUID): Faction {

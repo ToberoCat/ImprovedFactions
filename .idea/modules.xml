@@ -3,13 +3,17 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ImprovedFactions.iml" filepath="$PROJECT_DIR$/.idea/ImprovedFactions.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/documentation-generation/ImprovedFactions.documentation-generation.iml" filepath="$PROJECT_DIR$/.idea/modules/documentation-generation/ImprovedFactions.documentation-generation.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/documentation-generation/ImprovedFactions.documentation-generation.main.iml" filepath="$PROJECT_DIR$/.idea/modules/documentation-generation/ImprovedFactions.documentation-generation.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/documentation-generation/ImprovedFactions.documentation-generation.test.iml" filepath="$PROJECT_DIR$/.idea/modules/documentation-generation/ImprovedFactions.documentation-generation.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/code-generation/ImprovedFactions.code-generation.iml" filepath="$PROJECT_DIR$/.idea/modules/code-generation/ImprovedFactions.code-generation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/code-generation/ImprovedFactions.code-generation.main.iml" filepath="$PROJECT_DIR$/.idea/modules/code-generation/ImprovedFactions.code-generation.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/code-generation/ImprovedFactions.code-generation.test.iml" filepath="$PROJECT_DIR$/.idea/modules/code-generation/ImprovedFactions.code-generation.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/improved-factions/ImprovedFactions.improved-factions.iml" filepath="$PROJECT_DIR$/.idea/modules/improved-factions/ImprovedFactions.improved-factions.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/ImprovedFactions.shared.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/ImprovedFactions.shared.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/ImprovedFactions.shared.main.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/ImprovedFactions.shared.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/ImprovedFactions.shared.test.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/ImprovedFactions.shared.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.main.iml" filepath="$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.main~1.iml" filepath="$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.main~1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.main~2.iml" filepath="$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.main~2.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.test.iml" filepath="$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.test~1.iml" filepath="$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.test~1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.test~2.iml" filepath="$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.test~2.iml" />
     </modules>
   </component>
 </project>
