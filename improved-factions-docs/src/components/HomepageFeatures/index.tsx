@@ -32,23 +32,21 @@ const FeatureList: FeatureItem[] = [
         title: 'Key Features 🚀',
         Img: require('@site/static/img/features.png').default,
         description: (
-            <>
-                <ul>
-                    <li>Modern GUIs</li>
-                    <li>Extremely customizable</li>
-                    <li>PAPI support</li>
-                    <li>Easily enable or disable features</li>
-                    <li>Dynmap support</li>
-                    <li>Advanced power system</li>
-                    <li>Player customizable factions</li>
-                    <li>Custom permission management</li>
-                    <li>Advanced claim system (raids, etc.)</li>
-                    <li>Integrated wilderness</li>
-                    <li>Fully translatable</li>
-                    <li>Permissions</li>
-                    <li>And much more!</li>
-                </ul>
-            </>
+            <div style={{ textAlign: 'center' }}>
+                    <p>Modern GUIs</p>
+                    <p>Extremely customizable</p>
+                    <p>PAPI support</p>
+                    <p>Easily enable or disable features</p>
+                    <p>Dynmap support</p>
+                    <p>Advanced power system</p>
+                    <p>Player customizable factions</p>
+                    <p>Custom permission management</p>
+                    <p>Advanced claim system (raids, etc.)</p>
+                    <p>Integrated wilderness</p>
+                    <p>Fully translatable</p>
+                    <p>Permissions</p>
+                    <p>And much more!</p>
+            </div>
         ),
     },
     {
