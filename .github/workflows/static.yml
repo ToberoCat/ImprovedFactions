@@ -9,7 +9,7 @@ on:
     # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
 jobs:
   build:
-    name: Build Docusaurus
+    name: Build & Deploy Docusaurus
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -33,12 +33,6 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./improved-factions-docs/build
-
-  deploy:
-    name: Deploy to GitHub Pages
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.3
         with:
