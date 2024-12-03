@@ -7,11 +7,13 @@ on:
       - docs
     # Review gh actions docs if you want to further define triggers, paths, etc
     # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
-
 jobs:
   build:
     name: Build Docusaurus
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'frontend'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -22,16 +24,14 @@ jobs:
           cache: yarn
 
       - name: Install dependencies
-        working-directory: ./improved-factions-docs
         run: yarn install --frozen-lockfile
       - name: Build website
-        working-directory: ./improved-factions-docs
         run: yarn build
 
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./improved-factions-docs/build
+          path: build
 
   deploy:
     name: Deploy to GitHub Pages
