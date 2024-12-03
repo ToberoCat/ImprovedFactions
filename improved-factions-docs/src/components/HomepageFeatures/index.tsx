@@ -33,7 +33,6 @@ const FeatureList: FeatureItem[] = [
         Img: require('@site/static/img/features.png').default,
         description: (
             <div style={{ textAlign: 'center' }}>
-                    <p>Modern GUIs</p>
                     <p>Extremely customizable</p>
                     <p>PAPI support</p>
                     <p>Easily enable or disable features</p>
