@@ -4,6 +4,7 @@ import be.seeseemelk.mockbukkit.entity.PlayerMock
 import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.unit.ImprovedFactionsTest
 import io.github.toberocat.improvedfactions.user.factionUser
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
@@ -35,13 +36,15 @@ class CreateCommandTest : ImprovedFactionsTest() {
     fun `fail if in faction`(onlineMode: Boolean) {
         server.onlineMode = onlineMode
 
-        assertFalse(player1.factionUser().isInFaction())
-        assertTrue(server.dispatchCommand(player1, "f create TestFaction"))
-        assertTrue(player1.factionUser().isInFaction())
+        transaction {
+            assertFalse(player1.factionUser().isInFaction())
+            assertTrue(server.dispatchCommand(player1, "f create TestFaction"))
+            assertTrue(player1.factionUser().isInFaction())
 
-        assertTrue(server.dispatchCommand(player1, "f create FailMe"))
-        assertTrue(player1.factionUser().isInFaction())
-        assertTrue(FactionHandler.getFactions().count() == 1L)
+            assertTrue(server.dispatchCommand(player1, "f create FailMe"))
+            assertTrue(player1.factionUser().isInFaction())
+            assertTrue(FactionHandler.getFactions().count() == 1L)
+        }
     }
 
     @ParameterizedTest

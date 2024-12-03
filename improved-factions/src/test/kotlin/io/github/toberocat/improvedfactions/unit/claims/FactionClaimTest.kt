@@ -1,6 +1,7 @@
 package io.github.toberocat.improvedfactions.unit.claims
 
 import io.github.toberocat.improvedfactions.exceptions.CantClaimThisChunkException
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.unit.ImprovedFactionsTest
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.Test
@@ -23,7 +24,7 @@ class FactionClaimTest : ImprovedFactionsTest() {
         val world = testWorld()
         val chunk = world.getChunkAt(0, 0)
 
-        plugin.improvedFactionsConfig.allowedWorlds = setOf("other-world")
+        BaseModule.config.allowedWorlds = setOf("other-world")
         transaction { assertThrows<CantClaimThisChunkException> { faction.claim(chunk) } }
     }
 }

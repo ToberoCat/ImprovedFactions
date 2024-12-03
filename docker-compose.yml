@@ -1,4 +1,5 @@
 version: '3'
+
 services:
   mcserver:
     image: itzg/minecraft-server:java21-alpine
