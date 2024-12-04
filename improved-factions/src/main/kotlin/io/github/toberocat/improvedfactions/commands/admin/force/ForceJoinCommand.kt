@@ -39,15 +39,13 @@ abstract class ForceJoinCommand : ForceJoinCommandContext() {
         val factionParser = getArgumentParser(Faction::class.java)
             ?: throw IllegalStateException("Faction parser not found")
         return object : ArgumentParser {
-            @Localization("base.arguments.factionRank.description")
-            override val description: String = "base.arguments.factionRank.description"
 
             override fun parse(sender: CommandSender, arg: String, args: Array<String>): Any {
                 val faction = factionParser.parse(sender, args[0], args) as Faction
                 return faction.anyRank(arg) ?: throw ArgumentParsingException("base.arguments.factionRank.error")
             }
 
-            override fun tabComplete(pCtx: ParsingContext): List<String> {
+            override fun rawTabComplete(pCtx: ParsingContext): List<String> {
                 val faction = factionParser.parse(pCtx.sender, pCtx.args[0], pCtx.args) as Faction
                 return faction.listRanks().map { it.name }
             }

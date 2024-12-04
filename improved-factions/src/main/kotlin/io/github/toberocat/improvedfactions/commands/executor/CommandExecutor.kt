@@ -50,7 +50,7 @@ val DEFAULT_PARSERS = mapOf<Class<*>, ArgumentParser>(
 
 open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExecutor {
 
-    val commandProcessors = mutableMapOf<String, CommandProcessor>()
+    var commandProcessors = mapOf<String, CommandProcessor>()
     private val tabCompletionTree = CompletionLevelNode()
 
     fun bindToPluginCommand(command: String) {
@@ -66,9 +66,14 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
             throw IllegalArgumentException("Command processor with label ${processor.label} already registered")
         }
 
+        val newProcessors = commandProcessors.toMutableMap()
         tabCompletionTree.insert(processor)
-        commandProcessors[processor.label] = processor
-        commandProcessors.entries.sortedByDescending { it.key.split(" ").size }
+        newProcessors[processor.label] = processor
+        commandProcessors = newProcessors.entries.sortedWith(
+            compareByDescending<Map.Entry<String, CommandProcessor>> {
+                it.key.split(" ").size
+            }.thenByDescending { it.key.split(" ").last().length }
+        ).associate { it.toPair() }
     }
 
     override fun onTabComplete(
@@ -82,8 +87,9 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
         }
 
         val joinedCommand = createJoinedCommand(originalArgs)
-        val processor = findProcessor(joinedCommand)
-        if (processor == null) {
+        val processor = findProcessor(joinedCommand) ?: return tabCompleteCommands(sender, originalArgs)
+
+        if (isProcessorAmbiguous(joinedCommand)) {
             return tabCompleteCommands(sender, originalArgs)
         }
 
@@ -147,8 +153,12 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
         return tabCompletionTree.getCompletions(args.toList())
     }
 
+    private fun isProcessorAmbiguous(joinedCommand: String) = getPossibleProcessors(joinedCommand) > 1
+
+    private fun getPossibleProcessors(arg: String) = commandProcessors.entries.count { it.key.contains(arg) }
+
     private fun findProcessor(joinedCommand: String) =
-        commandProcessors.entries.firstOrNull { joinedCommand.contains(it.key) }?.value
+        commandProcessors.entries.firstOrNull { joinedCommand.startsWith(it.key) }?.value
 
     private fun createJoinedCommand(args: Array<String>): String = args.joinToString(" ")
 }

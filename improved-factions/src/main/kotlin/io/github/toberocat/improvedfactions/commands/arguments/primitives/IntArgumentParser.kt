@@ -12,6 +12,5 @@ class IntArgumentParser : ArgumentParser {
     override fun parse(sender: CommandSender, arg: String, args: Array<String>) =
         arg.toIntOrNull() ?: throw ArgumentParsingException("base.arguments.int.error")
 
-    override fun tabComplete(pCtx: ParsingContext): List<String> =
-        listOf(pCtx.resolveVariableName())
+    override fun rawTabComplete(pCtx: ParsingContext) = emptyList<String>()
 }

@@ -4,58 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad9c7d4c-34f8-4c4a-9806-e72e98556779" name="Changes" comment="Help command migrated and wiki gets automatically generated">
-      <change afterPath="$PROJECT_DIR$/improved-factions/shared/src/main/kotlin/io/github/toberocat/improvedfactions/utils/AnnotationExtension.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/improved-factions/shared/src/main/kotlin/io/github/toberocat/improvedfactions/utils/StringExtensions.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="ad9c7d4c-34f8-4c4a-9806-e72e98556779" name="Changes" comment="Added some missing translation keys by ai">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_08_09_24,_16_59_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_08_09_24__16_59__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_09_24,_17_14_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_09_24__17_14__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/annotations/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/shared/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/annotations/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/command/CommandConfirmation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/shared/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/command/CommandConfirmation.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/annotations/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/command/CommandMeta.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/shared/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/command/CommandMeta.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/annotations/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/command/CommandResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/shared/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/command/CommandResponse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/annotations/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/command/GeneratedCommandMeta.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/shared/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/command/GeneratedCommandMeta.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/annotations/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/command/ManualArgument.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/shared/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/command/ManualArgument.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/annotations/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/command/PermissionConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/shared/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/command/PermissionConfig.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/annotations/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/localization/Localization.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/shared/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/localization/Localization.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/annotations/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/permission/Permission.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/shared/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/permission/Permission.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/annotations/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/permission/PermissionConfigurations.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/shared/src/main/kotlin/io/github/toberocat/improvedfactions/annotations/permission/PermissionConfigurations.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/code-generation/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/code-generation/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command/data/CommandData.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/shared/src/main/kotlin/io/github/toberocat/improvedfactions/commands/data/CommandData.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command/data/CommandProcessFunction.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/shared/src/main/kotlin/io/github/toberocat/improvedfactions/commands/data/CommandProcessFunction.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command/data/CommandProcessFunctionParameter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/shared/src/main/kotlin/io/github/toberocat/improvedfactions/commands/data/CommandProcessFunctionParameter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command/generator/CommandCodeGenerator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command/generator/CommandCodeGenerator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command/generator/CommandContextCodeGenerator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command/generator/CommandContextCodeGenerator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command/generator/CommandDocumentationGenerator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command/generator/CommandDocumentationGenerator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command/processor/CommandProcessor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command/processor/CommandProcessor.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command/visitors/CommandVisitor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command/visitors/CommandVisitor.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/utils/Utils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/utils/Utils.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/settings.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/ImprovedFactionsPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/ImprovedFactionsPlugin.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/CommandProcessor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/CommandProcessor.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/ArgumentParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/ArgumentParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/bukkit/OfflinePlayerArgumentParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/bukkit/OfflinePlayerArgumentParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/bukkit/PlayerArgumentParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/bukkit/PlayerArgumentParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/bukkit/WorldArgumentParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/bukkit/WorldArgumentParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/faction/FactionArgumentParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/faction/FactionArgumentParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/faction/FactionInviteArgumentParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/faction/FactionInviteArgumentParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/faction/FactionRankArgumentParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/faction/FactionRankArgumentParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/faction/ZoneArgumentParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/faction/ZoneArgumentParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/primitives/BoolArgumentParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/primitives/BoolArgumentParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/primitives/EnumArgumentParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/primitives/EnumArgumentParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/primitives/IntArgumentParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/primitives/IntArgumentParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/primitives/StringArgumentParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/primitives/StringArgumentParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/primitives/enums/JoinTypeEnumArgumentParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/primitives/enums/JoinTypeEnumArgumentParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/primitives/enums/PowerTypeArgumentParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/arguments/primitives/enums/PowerTypeArgumentParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/executor/CommandExecutor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/executor/CommandExecutor.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/executor/FactionCommandExecutor.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/general/HelpCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/general/HelpCommand.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/invite/InviteDiscardCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/invite/InviteDiscardCommand.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/ModuleManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/ModuleManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/translation/Translation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/translation/Translation.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/utils/Extensions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/utils/Extensions.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/resources/languages/messages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/resources/languages/messages_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/GeneralPvPListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/listeners/claim/GeneralPvPListener.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,12 +54,6 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="ImprovedFactions" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="ImprovedFactions" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="verification" type="c8890929:TasksNode$1" />
               </path>
             </expand>
@@ -107,19 +66,18 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="IF Command" />
         <option value="Kotlin Interface" />
         <option value="Kotlin Object" />
         <option value="Kotlin Enum" />
-        <option value="Kotlin Annotation" />
         <option value="Kotlin Class" />
+        <option value="IF Command" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="wilderness-title-disable" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -167,93 +125,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Docker.Start Server.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build Plugin Without Tests .executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build Plugin.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build improved-factions.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.HomeCommandTest.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Test Plugin.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.TitleTest.Test title on enter.executor&quot;: &quot;Debug&quot;,
-    &quot;Gradle.improved-factions [build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.improved-factions [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.improved-factions [test].executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.Whole project.executor&quot;: &quot;Run&quot;,
-    &quot;Remote JVM Debug.Debug Server.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;new-command-handling-system&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/tobias/Downloads/ImprovedFactions/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.language.Kotlin.scripting&quot;,
-    &quot;settings.editor.splitter.proportion&quot;: &quot;0.25428858&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Docker.Start Server.executor": "Run",
+    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
+    "Gradle.Build Plugin.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.HomeCommandTest.executor": "Run",
+    "Gradle.Test Plugin.executor": "Run",
+    "Gradle.TitleTest.Test title on enter.executor": "Debug",
+    "Gradle.improved-factions [build].executor": "Run",
+    "Gradle.improved-factions [test].executor": "Run",
+    "Remote JVM Debug.Debug Server.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "database.data.extractors.current.export.id": "SQL Updates",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/tobias/Downloads/ImprovedFactions",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "fileTemplates",
+    "settings.editor.splitter.proportion": "0.25428858",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command" />
-      <recent name="$PROJECT_DIR$/improved-factions/annotations/src/main/kotlin/io/github/toberocat/improvedfactions/annotations" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/general" />
-      <recent name="$PROJECT_DIR$/improved-factions/documentation-generation/src/main/kotlin/io/github/toberocat/improvedfactions/processors/command" />
-    </key>
-    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
-      <recent name="io.github.toberocat.improvedfactions.integrations" />
-      <recent name="io.github.toberocat.improvedfactions.modules" />
-      <recent name="io.github.toberocat.improvedfactions.command.data" />
-      <recent name="io.github.toberocat.improvedfactions.command.generator.visitors" />
-      <recent name="io.github.toberocat.improvedfactions.commands.executor" />
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Build Plugin Without Tests ">
-    <configuration name="Build Plugin Without Tests " type="GradleRunConfiguration" factoryName="Gradle">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/improved-factions" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="-x test --stacktrace" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="build" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <EXTENSION ID="com.intellij.execution.ExternalSystemRunConfigurationJavaExtension">
-        <extension name="net.ashald.envfile">
-          <option name="IS_ENABLED" value="false" />
-          <option name="IS_SUBST" value="false" />
-          <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
-          <option name="IS_IGNORE_MISSING_FILES" value="false" />
-          <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-          <ENTRIES>
-            <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
-          </ENTRIES>
-        </extension>
-      </EXTENSION>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Docker.Start Server">
     <configuration name="TitleTest.Test title on enter" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -278,38 +184,6 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="improved-factions [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/improved-factions" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="clean" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="Whole project" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -319,17 +193,12 @@
     <list>
       <item itemvalue="Docker.Start Server" />
       <item itemvalue="Gradle.Build Plugin" />
-      <item itemvalue="Gradle.Build Plugin Without Tests " />
       <item itemvalue="Gradle.Test Plugin" />
-      <item itemvalue="Gradle.improved-factions [clean]" />
       <item itemvalue="Gradle.TitleTest.Test title on enter" />
-      <item itemvalue="JUnit.Whole project" />
       <item itemvalue="Remote JVM Debug.Debug Server" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.improved-factions [clean]" />
-        <item itemvalue="JUnit.Whole project" />
         <item itemvalue="Gradle.TitleTest.Test title on enter" />
       </list>
     </recent_temporary>
@@ -352,21 +221,10 @@
       <updated>1725804426022</updated>
       <workItem from="1725804428962" duration="2666000" />
       <workItem from="1725898664176" duration="7290000" />
-      <workItem from="1732717896047" duration="947000" />
-      <workItem from="1732725638616" duration="17364000" />
-      <workItem from="1732743019915" duration="88000" />
-      <workItem from="1732779272146" duration="2107000" />
-      <workItem from="1732782795128" duration="2419000" />
-      <workItem from="1732803106134" duration="11727000" />
-      <workItem from="1732816823841" duration="191000" />
-      <workItem from="1732890206038" duration="60000" />
-      <workItem from="1732959517617" duration="18000" />
-      <workItem from="1732964006041" duration="321000" />
-      <workItem from="1732964384528" duration="651000" />
-      <workItem from="1732993126892" duration="6902000" />
-      <workItem from="1733002549020" duration="6765000" />
-      <workItem from="1733045019234" duration="10414000" />
-      <workItem from="1733056348006" duration="3498000" />
+      <workItem from="1733077250008" duration="1916000" />
+      <workItem from="1733121743134" duration="12000" />
+      <workItem from="1733154018527" duration="3631000" />
+      <workItem from="1733239269888" duration="302000" />
     </task>
     <task id="LOCAL-00001" summary="Migrated to gradle instead of maven">
       <option name="closed" value="true" />
@@ -424,71 +282,7 @@
       <option name="project" value="LOCAL" />
       <updated>1725812498150</updated>
     </task>
-    <task id="LOCAL-00008" summary="Reworked the old command system in favor of support for console commands.&#10;&#10;A command will now be described by an annotation. Ksp will generate the corresponding boilderplate code.&#10;This allows for very small command files while supporting for multiple command sender types, besides the player.&#10;Additionally, code generation automatically updates the wiki files, so that they'll never be outdated">
-      <option name="closed" value="true" />
-      <created>1732738408455</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1732738408455</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Started with more performant tab complete">
-      <option name="closed" value="true" />
-      <created>1732743094063</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1732743094063</updated>
-    </task>
-    <task id="LOCAL-00010" summary="more commands migrated">
-      <option name="closed" value="true" />
-      <created>1732998876912</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1732998876912</updated>
-    </task>
-    <task id="LOCAL-00011" summary="base module is now actually a module;&#10;Removed gui module - Will have a comeback later down the line">
-      <option name="closed" value="true" />
-      <created>1733001717926</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1733001717926</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Refactoring done">
-      <option name="closed" value="true" />
-      <created>1733003828252</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1733003828252</updated>
-    </task>
-    <task id="LOCAL-00013" summary="migrated all modules">
-      <option name="closed" value="true" />
-      <created>1733008125460</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1733008125460</updated>
-    </task>
-    <task id="LOCAL-00014" summary="did a few invite commands">
-      <option name="closed" value="true" />
-      <created>1733009307827</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1733009307827</updated>
-    </task>
-    <task id="LOCAL-00015" summary="ALl commands migrated">
-      <option name="closed" value="true" />
-      <created>1733050220821</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1733050220821</updated>
-    </task>
-    <option name="localTasksCounter" value="16" />
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -516,17 +310,18 @@
     <MESSAGE value="Fchat Logs to console" />
     <MESSAGE value="Chat spy command" />
     <MESSAGE value="Added config option to hide wilderness title" />
-    <MESSAGE value="Reworked the old command system in favor of support for console commands.&#10;&#10;A command will now be described by an annotation. Ksp will generate the corresponding boilderplate code.&#10;This allows for very small command files while supporting for multiple command sender types, besides the player.&#10;Additionally, code generation automatically updates the wiki files, so that they'll never be outdated" />
-    <MESSAGE value="Started with more performant tab complete" />
-    <MESSAGE value="Create Command migrated to new system" />
-    <MESSAGE value="more commands migrated" />
-    <MESSAGE value="base module is now actually a module;&#10;Removed gui module - Will have a comeback later down the line" />
-    <MESSAGE value="Refactoring done" />
-    <MESSAGE value="migrated all modules" />
-    <MESSAGE value="did a few invite commands" />
-    <MESSAGE value="ALl commands migrated" />
-    <MESSAGE value="Help command migrated and wiki gets automatically generated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Help command migrated and wiki gets automatically generated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added config option to hide wilderness title" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/ImprovedFactionsPlugin.kt</url>
+          <line>31</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

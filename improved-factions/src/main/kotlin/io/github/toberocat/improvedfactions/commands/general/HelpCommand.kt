@@ -10,6 +10,7 @@ import io.github.toberocat.improvedfactions.commands.sendCommandResult
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.translation.getUnformattedLocalized
 import io.github.toberocat.improvedfactions.utils.getMeta
+import io.github.toberocat.improvedfactions.utils.isSubtype
 import org.bukkit.command.CommandSender
 
 @GeneratedCommandMeta(
@@ -32,7 +33,8 @@ abstract class HelpCommand : HelpCommandContext() {
     fun initialize(executor: CommandExecutor) {
         commands = executor.commandProcessors
         commands.forEach { (commandLabel, processor) ->
-            val category = processor.commandData.category
+            val categoryLocale = processor.commandData.category
+            val category = categoryLocale.substringAfterLast(".")
             categoryIndex.computeIfAbsent(category) { ArrayList() }.add(commandLabel)
         }
     }
@@ -44,15 +46,20 @@ abstract class HelpCommand : HelpCommandContext() {
             return helpSuccess()
         }
 
+        val processor = commands[command]
+
         return when {
-            command.startsWith("category:") -> {
-                val category = command.removePrefix("category:")
+            processor == null || command.startsWith("c:") -> {
+                val category = command.removePrefix("c:")
+                if (!categoryIndex.containsKey(category)) {
+                    return helpCommandNotFound()
+                }
+
                 printCategoryDetails(sender, category)
                 helpSuccess()
             }
 
             else -> {
-                val processor = commands[command] ?: return helpCommandNotFound("command" to command)
                 printCommandDetails(sender, processor)
                 helpSuccess()
             }
@@ -65,7 +72,7 @@ abstract class HelpCommand : HelpCommandContext() {
             sender.sendCommandResult(
                 helpCategoryOverview(
                     "category-name" to sender.getUnformattedLocalized(category),
-                    "category-id" to category
+                    "category-id" to "c:$category"
                 )
             )
         }
@@ -74,14 +81,15 @@ abstract class HelpCommand : HelpCommandContext() {
     private fun printCommandDetails(sender: CommandSender, processor: CommandProcessor) {
         val commandData = processor.commandData
         val baseCommand = commandData.label
-        val function = commandData.processFunctions.firstOrNull { it.senderClass == sender::class.java.simpleName } ?: return
+        val function =
+            commandData.processFunctions.firstOrNull { sender::class.isSubtype(it.senderClass) } ?: return
         val args = function.parameters.joinToString(" ") {
             val usage = sender.getUnformattedLocalized(it.getUsage(commandData))
             val description = sender.getUnformattedLocalized(it.getDescription(commandData))
             "<hover:show_text:'${description}'>" +
                     "<${if (usage.startsWith("<")) "aqua" else "gold"}>${usage}</hover>"
         }
-        val rawArgs =function.parameters.joinToString(" ") { sender.getUnformattedLocalized(it.getUsage(commandData)) }
+        val rawArgs = function.parameters.joinToString(" ") { sender.getUnformattedLocalized(it.getUsage(commandData)) }
         val usage = "/$baseCommand $args".trim()
         val cmd = "/$baseCommand $rawArgs".trim()
 
@@ -96,6 +104,8 @@ abstract class HelpCommand : HelpCommandContext() {
 
     private fun printCategoryDetails(sender: CommandSender, category: String) {
         sender.sendCommandResult(helpHeader())
-        categoryIndex[category]?.mapNotNull { commands[it] }?.forEach { printCommandDetails(sender, it) }
+        val commands = categoryIndex[category]?.mapNotNull { commands[it] } ?: return
+
+        commands.forEach { printCommandDetails(sender, it) }
     }
 }

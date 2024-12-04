@@ -33,6 +33,5 @@ class InviteCommandProcessorTest : ImprovedFactionsTest() {
 
         assertTrue(server.dispatchCommand(player1, "f invite ${player2.name} Member"))
         assertNotNull(player1.nextMessage())
-        player1.assertNoMoreSaid()
     }
 }

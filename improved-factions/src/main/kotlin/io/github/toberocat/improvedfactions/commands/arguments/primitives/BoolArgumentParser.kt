@@ -11,5 +11,5 @@ open class BoolArgumentParser : ArgumentParser {
     override fun parse(sender: CommandSender, arg: String, args: Array<String>) =
         arg.toBooleanStrictOrNull() ?: throw ArgumentParsingException("base.arguments.bool.error")
 
-    override fun tabComplete(pCtx: ParsingContext) = listOf("true", "false")
+    override fun rawTabComplete(pCtx: ParsingContext) = listOf("true", "false")
 }

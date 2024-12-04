@@ -15,6 +15,6 @@ class GeneralPvPListener(zoneType: String) : ProtectionListener(zoneType) {
             || event.entity.location.getFactionClaim()?.zoneType != zoneType
             || event.damager !is Player
         ) return@loggedTransaction
-        event.isCancelled = true
+        protectChunk(event, event.entity, event.damager as Player)
     }
 }

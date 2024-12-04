@@ -22,20 +22,22 @@ object FactionHandler {
     @Localization("factions.faction-already-exists")
     @Localization("factions.already-in-faction")
     fun createFaction(ownerId: UUID, factionName: String, id: Int? = null): Faction {
-        val faction = Faction.new(id) {
-            owner = ownerId
-            localName = factionName
-            icon = ItemBuilder().title("§e$factionName").material(Material.WOODEN_SWORD)
-                .create(ImprovedFactionsPlugin.instance)
+        return loggedTransaction {
+            val faction = Faction.new(id) {
+                owner = ownerId
+                localName = factionName
+                icon = ItemBuilder().title("§e$factionName").material(Material.WOODEN_SWORD)
+                    .create(ImprovedFactionsPlugin.instance)
+            }
+            createListenersFor(faction)
+
+            val ranks = createDefaultRanks(faction.id.value)
+
+            faction.defaultRank = ranks.firstOrNull()?.id?.value ?: FactionRankHandler.guestRankId
+            faction.join(ownerId, ranks.lastOrNull()?.id?.value ?: FactionRankHandler.guestRankId)
+            faction.setAccumulatedPower(faction.maxPower, PowerAccumulationChangeReason.PASSIVE_ENERGY_ACCUMULATION)
+            return@loggedTransaction faction
         }
-        createListenersFor(faction)
-
-        val ranks = createDefaultRanks(faction.id.value)
-
-        faction.defaultRank = ranks.firstOrNull()?.id?.value ?: FactionRankHandler.guestRankId
-        faction.join(ownerId, ranks.lastOrNull()?.id?.value ?: FactionRankHandler.guestRankId)
-        faction.setAccumulatedPower(faction.maxPower, PowerAccumulationChangeReason.PASSIVE_ENERGY_ACCUMULATION)
-        return faction
     }
 
     fun generateColor(id: Int) = Integer.parseInt(
