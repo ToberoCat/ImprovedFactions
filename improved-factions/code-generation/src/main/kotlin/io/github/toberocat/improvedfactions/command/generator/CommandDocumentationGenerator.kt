@@ -39,7 +39,7 @@ class CommandDocumentationGenerator(
     }
 
     private fun getLocalization(key: String): String {
-        return properties.getProperty(key, key)
+        return properties.getProperty(key, key).replace("|", "\\|")
     }
 
     private fun generateCommandDocumentation(command: CommandData) {
