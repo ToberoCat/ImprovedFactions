@@ -115,6 +115,10 @@ kotlin {
     }
 }
 
+ksp {
+    arg("languageFolder", "$projectDir/src/main/resources/languages")
+}
+
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
