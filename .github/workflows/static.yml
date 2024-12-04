@@ -23,6 +23,9 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
       - name: Build the project
         working-directory: ./improved-factions
         run: ./gradlew build
