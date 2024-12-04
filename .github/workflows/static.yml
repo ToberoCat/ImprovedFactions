@@ -24,6 +24,7 @@ jobs:
           cache: gradle
 
       - name: Make gradlew executable
+        working-directory: ./improved-factions
         run: chmod +x ./gradlew
 
       - name: Build the project
