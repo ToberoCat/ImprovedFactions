@@ -29,7 +29,6 @@ engaging factions experience that is sure to keep players coming back for more.
 
 #### Features
 
-- Modern guis
 - Extremly customizable
 - Papi support
 - Easily enable or disable features
