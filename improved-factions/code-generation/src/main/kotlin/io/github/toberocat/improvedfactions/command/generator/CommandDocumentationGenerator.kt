@@ -2,20 +2,44 @@ package io.github.toberocat.improvedfactions.command.generator
 
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.Dependencies
+import com.google.devtools.ksp.processing.KSPLogger
 import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.commands.data.CommandData
 import io.github.toberocat.improvedfactions.commands.data.CommandProcessFunction
 import io.github.toberocat.improvedfactions.commands.data.CommandProcessFunctionParameter
 import io.github.toberocat.improvedfactions.utils.localization
+import java.io.File
+import java.util.*
 
 class CommandDocumentationGenerator(
     private val codeGenerator: CodeGenerator,
     private val commands: List<CommandData>,
+    private val logger: KSPLogger,
+    private val languageFolder: File
 ) {
+    val properties = getPropertiesFile()
+
     fun generateDocumentation() {
         commands.forEach { command ->
             generateCommandDocumentation(command)
         }
+    }
+
+    private fun getPropertiesFile(): Properties {
+        val propertiesFileName = "messages_en.properties"
+        val properties = Properties()
+        val file = File(languageFolder, propertiesFileName)
+        if (!file.exists()) {
+            logger.error("Localization file $propertiesFileName not found.")
+            return properties
+        }
+
+        file.inputStream().use { properties.load(it) }
+        return properties
+    }
+
+    private fun getLocalization(key: String): String {
+        return properties.getProperty(key, key)
     }
 
     private fun generateCommandDocumentation(command: CommandData) {
@@ -27,25 +51,18 @@ class CommandDocumentationGenerator(
             extensionName = "md"
         )
         outputStream.bufferedWriter().use { writer ->
-            // Front Matter
             writer.write("---\n")
             writer.write("id: ${command.label}\n")
             writer.write("title: ${command.label.capitalize()}\n")
+            writer.write("sidebar_label: ${command.label.capitalize()}\n")
             writer.write("---\n\n")
 
-            // Main Heading
             writer.write("# ${command.label.capitalize()}\n\n")
 
-            // Note on Localization Placeholders
-            writer.write("> **Note:** Localization keys are placeholders and should be replaced with actual values from your localization files.\n\n")
-
-            // Description Section
             writer.write("## Description\n\n")
-            writer.write("`")
-            writer.write(getCommandDescription(command))
-            writer.write("`\n\n")
+            writer.write(getLocalization(getCommandDescription(command)))
+            writer.write("\n\n")
 
-            // Usage Section
             writer.write("## Usage\n\n")
             command.processFunctions.forEach { function ->
                 writer.write("### For ${function.simpleSenderName()} ${getSenderIcon(function.simpleSenderName())}\n\n")
@@ -54,7 +71,6 @@ class CommandDocumentationGenerator(
                 writer.write("\n```\n\n")
             }
 
-            // Parameters Section
             writer.write("## Parameters\n\n")
             command.processFunctions.forEach { function ->
                 if (function.parameters.isNotEmpty()) {
@@ -78,11 +94,9 @@ class CommandDocumentationGenerator(
                 }
             }
 
-            // Permissions Section
             writer.write("## Permissions\n\n")
             writer.write("🔒 **Permission Required:** `${command.permission}`\n\n")
 
-            // Responses Section
             writer.write("## Responses\n\n")
             if (command.responses.isNotEmpty()) {
                 writer.write("| Response Code             | Description                                         |\n")
@@ -101,10 +115,6 @@ class CommandDocumentationGenerator(
             } else {
                 writer.write("This command has no specific responses.\n\n")
             }
-
-            // Closing Notes
-            writer.write("---\n")
-            writer.write("**Remember**: Replace localization keys with actual text from your localization files for meaningful descriptions.\n")
         }
     }
 
@@ -117,11 +127,8 @@ class CommandDocumentationGenerator(
         sb.append("/").append(command.label)
         function.parameters.forEach { param ->
             sb.append(" ")
-            if (param.isRequired) {
-                sb.append("<${param.simpleName}>")
-            } else {
-                sb.append("[${param.simpleName}]")
-            }
+            val name = getLocalization(param.getUsage(command))
+            sb.append("${name}")
         }
         if (command.needsConfirmation) {
             sb.append(" [confirm]")
@@ -130,11 +137,11 @@ class CommandDocumentationGenerator(
     }
 
     private fun getParameterDescription(commandData: CommandData, param: CommandProcessFunctionParameter): String {
-        return param.getDescription(commandData)
+        return getLocalization(param.getDescription(commandData))
     }
 
     private fun getResponseDescription(commandData: CommandData, response: CommandResponse): String {
-        return response.localization(commandData)
+        return getLocalization(response.localization(commandData))
     }
 
     private fun getSenderIcon(senderName: String): String {

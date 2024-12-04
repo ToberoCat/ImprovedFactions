@@ -8,6 +8,7 @@ import io.github.toberocat.improvedfactions.command.generator.CommandDocumentati
 import io.github.toberocat.improvedfactions.commands.data.CommandData
 import io.github.toberocat.improvedfactions.command.visitors.CommandVisitor
 import io.github.toberocat.improvedfactions.utils.convertToCamelCase
+import java.io.File
 
 class CommandProcessor(
     private val codeGenerator: CodeGenerator,
@@ -38,7 +39,13 @@ class CommandProcessor(
             writer.write(generateProcessorList())
         }
 
-        CommandDocumentationGenerator(codeGenerator, collectedCommandProcessors).generateDocumentation()
+        val languageFolder = File(options["languageFolder"]!!)
+        CommandDocumentationGenerator(
+            codeGenerator,
+            collectedCommandProcessors,
+            logger,
+            languageFolder,
+        ).generateDocumentation()
     }
 
     private fun generateProcessorList(): String {
