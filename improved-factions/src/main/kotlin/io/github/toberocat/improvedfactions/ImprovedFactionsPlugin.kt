@@ -3,6 +3,7 @@ package io.github.toberocat.improvedfactions
 import io.github.toberocat.improvedfactions.commands.executor.CommandExecutor
 import io.github.toberocat.improvedfactions.modules.ModuleManager
 import io.github.toberocat.improvedfactions.modules.base.BaseModule.plugin
+import io.github.toberocat.improvedfactions.utils.CliPrinter
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -24,6 +25,8 @@ open class ImprovedFactionsPlugin : JavaPlugin() {
     }
 
     override fun onEnable() {
+        val cliPrinter = CliPrinter(logger)
+        cliPrinter.logHeading()
         saveDefaultConfig()
         instance = this
         moduleManager = ModuleManager(this)
