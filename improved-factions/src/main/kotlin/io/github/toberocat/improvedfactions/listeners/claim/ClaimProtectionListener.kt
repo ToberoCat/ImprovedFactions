@@ -4,6 +4,7 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.entity.AbstractVillager
 import org.bukkit.entity.Animals
+import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.Boss
 import org.bukkit.entity.Golem
 import org.bukkit.entity.Monster
@@ -18,14 +19,18 @@ class ClaimProtectionListener(
         register(ClaimBlockPlaceListener(zoneType))
         register(ClaimBlockBreakListener(zoneType))
         register(ClaimBlockInteractListener(zoneType))
+        register(ClaimBucketListener(zoneType))
+        register(ClaimTramplingListener(zoneType))
+
         register(ClaimEntityInteractionListener(zoneType))
         register(ClaimEntityBreakHangingListener(zoneType))
         register(ClaimEntitySpawnedByEggListener(zoneType))
+        register(ClaimArmorStandManipulateListener(zoneType))
         register(ClaimVehicleBreakListener(zoneType))
+
         register(ClaimTntListener(zoneType))
         register(ClaimFullTntListener(zoneType))
-        register(ClaimBucketListener(zoneType))
-        register(ClaimTramplingListener(zoneType))
+
         register(ClaimEndCrystalListener(zoneType))
 
         register(GeneralPvPListener(zoneType))
@@ -40,6 +45,7 @@ class ClaimProtectionListener(
         register(ClaimPlayerDamageEntityListener("golem", Golem::class, zoneType))
         register(ClaimPlayerDamageEntityListener("monster", Monster::class, zoneType))
         register(ClaimPlayerDamageEntityListener("boss", Boss::class, zoneType))
+        register(ClaimPlayerDamageEntityListener("armor-stand", ArmorStand::class, zoneType))
 
         register(ClaimEntityDamagePlayerListener("golem", Golem::class, zoneType))
         register(ClaimEntityDamagePlayerListener("monster", Monster::class, zoneType))
