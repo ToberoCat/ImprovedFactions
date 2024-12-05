@@ -10,8 +10,8 @@ abstract class PluginConfig {
     abstract fun reload(plugin: ImprovedFactionsPlugin, config: FileConfiguration)
 
     protected fun FileConfiguration.generateAllowedWorlds() = computeAllowedWorlds(
-        getStringList("whitelisted").toSet(),
-        getStringList("blacklisted").toSet()
+        getStringList("whitelisted-worlds").toSet(),
+        getStringList("blacklisted-worlds").toSet()
     )
 
     protected fun computeAllowedWorlds(whitelist: Set<String>, blacklist: Set<String>) = when (whitelist.isEmpty()) {
