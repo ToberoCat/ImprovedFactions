@@ -23,6 +23,7 @@ class ClaimProtectionListener(
         register(ClaimEntitySpawnedByEggListener(zoneType))
         register(ClaimVehicleBreakListener(zoneType))
         register(ClaimTntListener(zoneType))
+        register(ClaimFullTntListener(zoneType))
         register(ClaimBucketListener(zoneType))
         register(ClaimTramplingListener(zoneType))
         register(ClaimEndCrystalListener(zoneType))

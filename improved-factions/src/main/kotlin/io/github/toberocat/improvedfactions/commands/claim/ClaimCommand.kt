@@ -7,6 +7,8 @@ import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.commands.sendCommandResult
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.permissions.Permissions
+import io.github.toberocat.improvedfactions.translation.getUnformattedLocalized
+import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.entity.Player
 
@@ -17,7 +19,6 @@ import org.bukkit.entity.Player
     responses = [
         CommandResponse("claimed"),
         CommandResponse("claimedRadius"),
-        CommandResponse("claimError"),
         CommandResponse("notInFaction"),
         CommandResponse("noPermission")
     ]
@@ -25,7 +26,7 @@ import org.bukkit.entity.Player
 abstract class ClaimCommand : ClaimCommandContext() {
     fun process(player: Player, radius: Int?) = claim(player, radius)
 
-    fun claim(player: Player, radius: Int?): CommandProcessResult {
+    fun claim(player: Player, radius: Int?): CommandProcessResult? {
         val factionUser = player.factionUser()
         if (!factionUser.isInFaction()) {
             return notInFaction()
@@ -37,13 +38,14 @@ abstract class ClaimCommand : ClaimCommandContext() {
 
         val squareRadius = radius ?: 0
         val faction = factionUser.faction() as Faction
+        var errorCount = 0
         val statistics = faction.claimSquare(player.location.chunk, squareRadius) { e ->
-            e.message?.let {
-                player.sendCommandResult(claimError("error" to it))
-            }
+            player.sendLocalized(e.message, e.placeholders)
+            errorCount++
         }
 
         return when {
+            errorCount > 0 -> null
             squareRadius > 0 -> claimedRadius(
                 "radius" to squareRadius.toString(),
                 "successful-claims" to statistics.successfulClaims.toString(),
