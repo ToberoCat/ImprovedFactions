@@ -10,6 +10,7 @@ import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTrans
 import io.github.toberocat.improvedfactions.exceptions.FactionDoesntHaveThisClaimException
 import io.github.toberocat.improvedfactions.exceptions.NotInFactionException
 import io.github.toberocat.improvedfactions.permissions.Permissions
+import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.entity.Player
 
@@ -20,7 +21,6 @@ import org.bukkit.entity.Player
     responses = [
         CommandResponse("unclaimed"),
         CommandResponse("unclaimedRadius"),
-        CommandResponse("unclaimError"),
         CommandResponse("notInFaction"),
         CommandResponse("noPermission")
     ]
@@ -42,15 +42,7 @@ abstract class UnclaimCommand : UnclaimCommandContext() {
         loggedTransaction {
             val faction = factionUser.faction() ?: throw NotInFactionException()
             statistics = faction.unclaimSquare(player.location.chunk, squareRadius) { e ->
-                if (squareRadius == 0) {
-                    throw e
-                }
-
-                if (e is FactionDoesntHaveThisClaimException) {
-                    e.message?.let {
-                        player.sendCommandResult(unclaimError("error" to it))
-                    }
-                }
+                player.sendLocalized(e.message, e.placeholders)
             }
         }
 

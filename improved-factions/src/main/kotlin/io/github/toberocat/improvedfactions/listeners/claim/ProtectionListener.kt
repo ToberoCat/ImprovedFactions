@@ -60,22 +60,24 @@ abstract class ProtectionListener(
             else -> player.sendLocalized("base.claim.protected")
         }
     }
+
     fun protectChunk(event: Cancellable, chunk: Chunk?) = loggedTransaction {
+        if (!shouldProtect(chunk))
+            return@loggedTransaction
+
+        event.isCancelled = true
+    }
+
+    fun shouldProtect(chunk: Chunk?): Boolean {
         val claim = chunk?.getFactionClaim()
         val claimZone = claim?.zone()
         if (claim?.zoneType != zoneType || claimZone?.protectAlways == false && claim.factionId == noFactionId)
-            return@loggedTransaction
+            return false
 
         val isRaidable = ChunkPosition(chunk.x, chunk.z, claim.world).getFactionClaim()
             ?.let { claimClusters.getCluster(it) }
             ?.let { it.findAdditionalType() as? FactionCluster }?.isUnprotected(chunk.x, chunk.z, chunk.world.name)
             ?: false
-        if (isRaidable)
-            return@loggedTransaction
-
-        event.isCancelled = true
-        if (!sendMessage) {
-            return@loggedTransaction
-        }
+        return !isRaidable
     }
 }

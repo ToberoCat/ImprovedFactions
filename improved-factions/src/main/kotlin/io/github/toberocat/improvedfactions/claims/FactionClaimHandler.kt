@@ -2,6 +2,7 @@ package io.github.toberocat.improvedfactions.claims
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.translation.LocalizedException
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import org.bukkit.Chunk
 import org.bukkit.Location
@@ -26,7 +27,7 @@ fun squareClaimAction(
     centerChunk: Chunk,
     squareRadius: Int,
     action: (chunk: Chunk) -> Unit,
-    handleError: (e: CommandException) -> Unit
+    handleError: (e: LocalizedException) -> Unit
 ): ClaimStatistics {
     var successfulClaims = 0
     var totalClaims = 0
@@ -40,7 +41,7 @@ fun squareClaimAction(
                 totalClaims++
                 action(chunk)
                 successfulClaims++
-            } catch (e: CommandException) {
+            } catch (e: LocalizedException) {
                 handleError(e)
             }
         }

@@ -2,7 +2,7 @@
 # -------- { General Settings } --------
 #
 update-checker: true
-config-version: 20
+config-version: ${buildIncrement}
 
 # Configure an mysql connection. If no connection was established, the plugin uses sqlite.
 # This allows to use this plugin without a mysql server
@@ -279,7 +279,8 @@ zones:
       minecart-damage: true # Prevent minecarts being destroyed in a claim
       block-place: true # Prevent placing blocks in a claim
       entity-spawned-by-egg: true # Prevent spawning entities using spawn eggs in a claim
-      explosions: false # Prevent explosions to occur in a claim
+      outside-explosions: true # Prevent explosions to damage blocks inside a claim if the explosion originated from outside the claim
+      all-explosions: false # Prevent all explosions to occur in a claim
       block-break: true # Prevent breaking blocks in a claim
       block-interaction: true # Prevent interacting with blocks in a claim
       entity-interaction: true # Prevent interacting with entities in a claim
@@ -312,7 +313,8 @@ zones:
       minecart-damage: true # Prevent minecarts being destroyed in a claim
       block-place: true # Prevent placing blocks in a claim
       entity-spawned-by-egg: true # Prevent spawning entities using spawn eggs in a claim
-      explosions: true # Prevent explosions to occur in a claim
+      outside-explosions: true # Prevent explosions to damage blocks inside a claim if the explosion originated from outside the claim
+      all-explosions: true # Prevent all explosions to occur in a claim
       block-break: true # Prevent breaking blocks in a claim
       block-interaction: true # Prevent interacting with blocks in a claim
       entity-interaction: true # Prevent interacting with entities in a claim
@@ -347,7 +349,8 @@ zones:
       minecart-damage: true # Prevent minecarts being destroyed in a claim
       block-place: true # Prevent placing blocks in a claim
       entity-spawned-by-egg: false # Prevent spawning entities using spawn eggs in a claim
-      explosions: false # Prevent explosions to occur in a claim
+      outside-explosions: true # Prevent explosions to damage blocks inside a claim if the explosion originated from outside the claim
+      all-explosions: true # Prevent all explosions to occur in a claim
       block-break: true # Prevent breaking blocks in a claim
       block-interaction: true # Prevent interacting with blocks in a claim
       entity-interaction: true # Prevent interacting with entities in a claim
@@ -381,7 +384,8 @@ zones:
       minecart-damage: false # Prevent minecarts being destroyed in a claim
       block-place: false # Prevent placing blocks in a claim
       entity-spawned-by-egg: false # Prevent spawning entities using spawn eggs in a claim
-      explosions: false # Prevent explosions to occur in a claim
+      outside-explosions: false # Prevent explosions to damage blocks inside a claim if the explosion originated from outside the claim
+      all-explosions: false # Prevent all explosions to occur in a claim
       block-break: false # Prevent breaking blocks in a claim
       block-interaction: false # Prevent interacting with blocks in a claim
       entity-interaction: false # Prevent interacting with entities in a claim

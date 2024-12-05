@@ -70,7 +70,7 @@ class CommandCodeGenerator(private val commandData: CommandData) {
         }
 
         return """
-            override fun execute(sender: CommandSender, args: Array<String>): CommandProcessResult {
+            override fun execute(sender: CommandSender, args: Array<String>): CommandProcessResult? {
                 $confirmationCheck
                 return loggedTransaction { 
                     when {
@@ -129,7 +129,7 @@ class CommandCodeGenerator(private val commandData: CommandData) {
         val parameterNames = function.parameters.joinToString(", ") { it.uniqueName }
 
         return """
-            private fun ${function.functionName}Call(sender: ${function.senderClass}, args: Array<String>): CommandProcessResult {
+            private fun ${function.functionName}Call(sender: ${function.senderClass}, args: Array<String>): CommandProcessResult? {
                 $argumentSizeCheck
                 $parameterExtraction
                 return ${function.functionName}(sender, $parameterNames)
