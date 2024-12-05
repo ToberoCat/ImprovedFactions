@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedfactions.listeners.claim
 
+import io.github.toberocat.improvedfactions.annotations.localization.Localization
 import io.github.toberocat.improvedfactions.claims.clustering.cluster.FactionCluster
 import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
@@ -27,37 +28,41 @@ abstract class ProtectionListener(
         protectChunk(event, entity?.location?.chunk, player)
 
 
-    protected fun protectChunk(event: Cancellable, block: Block?, player: Player) {
-        if (ByPassManager.isBypassing(player.uniqueId)) return
+    protected fun protectChunk(event: Cancellable, block: Block?, player: Player) =
         protectChunk(event, block?.chunk, player)
-    }
 
-    private fun protectChunk(event: Cancellable, chunk: Chunk?, player: Player) = loggedTransaction {
-        val claim = chunk?.getFactionClaim()
-        val claimZone = claim?.zone()
-        if (claim?.zoneType != zoneType || claimZone?.protectAlways == false && claim.factionId == noFactionId)
-            return@loggedTransaction
+    @Localization("base.claim.protected")
+    @Localization("base.zone.protected")
+    private fun protectChunk(event: Cancellable, chunk: Chunk?, player: Player) {
+        if (ByPassManager.isBypassing(player.uniqueId)) return
 
-        val claimedFaction = claim.factionId
-        val playerFaction = player.factionUser().factionId
-        if (claimedFaction == playerFaction && playerFaction != noFactionId)
-            return@loggedTransaction
+        loggedTransaction {
+            val claim = chunk?.getFactionClaim()
+            val claimZone = claim?.zone()
+            if (claim?.zoneType != zoneType || claimZone?.protectAlways == false && claim.factionId == noFactionId)
+                return@loggedTransaction
 
-        val isRaidable = ChunkPosition(chunk.x, chunk.z, claim.world).getFactionClaim()
-            ?.let { claimClusters.getCluster(it) }
-            ?.let { it.findAdditionalType() as? FactionCluster }?.isUnprotected(chunk.x, chunk.z, chunk.world.name)
-            ?: false
-        if (isRaidable)
-            return@loggedTransaction
+            val claimedFaction = claim.factionId
+            val playerFaction = player.factionUser().factionId
+            if (claimedFaction == playerFaction && playerFaction != noFactionId)
+                return@loggedTransaction
 
-        event.isCancelled = true
-        if (!sendMessage) {
-            return@loggedTransaction
-        }
+            val isRaidable = ChunkPosition(chunk.x, chunk.z, claim.world).getFactionClaim()
+                ?.let { claimClusters.getCluster(it) }
+                ?.let { it.findAdditionalType() as? FactionCluster }?.isUnprotected(chunk.x, chunk.z, chunk.world.name)
+                ?: false
+            if (isRaidable)
+                return@loggedTransaction
 
-        when (claimZone?.protectAlways) {
-            true -> player.sendLocalized("base.zone.protected")
-            else -> player.sendLocalized("base.claim.protected")
+            event.isCancelled = true
+            if (!sendMessage) {
+                return@loggedTransaction
+            }
+
+            when (claimZone?.protectAlways) {
+                true -> player.sendLocalized("base.zone.protected")
+                else -> player.sendLocalized("base.claim.protected")
+            }
         }
     }
 
