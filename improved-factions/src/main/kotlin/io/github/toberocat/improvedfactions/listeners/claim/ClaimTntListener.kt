@@ -10,19 +10,20 @@ import org.bukkit.event.entity.EntityExplodeEvent
 class ClaimTntListener(zoneType: String) : ProtectionListener(zoneType) {
 
 
-    override fun namespace(): String = "explosions"
+    override fun namespace(): String = "outside-explosions"
 
 
     @EventHandler
-    fun onTNTExplode(event: EntityExplodeEvent) {
+    fun onTntExplode(event: EntityExplodeEvent) {
         loggedTransaction {
             val sourceFaction = event.entity.location.getFactionClaim()?.factionId ?: noFactionId
 
             val iterator = event.blockList().iterator()
             while (iterator.hasNext()) {
                 val block = iterator.next()
-                val targetFaction = block.getFactionClaim()?.factionId ?: continue
-                if (targetFaction != sourceFaction) iterator.remove()
+                val claim = block.getFactionClaim() ?: continue
+                if (claim.zoneType != zoneType) continue
+                if (claim.factionId != sourceFaction) iterator.remove()
             }
         }
     }

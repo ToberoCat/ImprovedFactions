@@ -227,7 +227,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
     fun claimSquare(
         centerChunk: Chunk,
         squareRadius: Int,
-        handleError: (e: CommandException) -> Unit,
+        handleError: (e: LocalizedException) -> Unit,
     ): ClaimStatistics =
         squareClaimAction(centerChunk, squareRadius, { claim(it, announce = false) }, handleError)
 
@@ -265,7 +265,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
     fun isBanned(user: FactionUser): Boolean =
         FactionBan.count(FactionBans.user eq user.id and (FactionBans.faction eq id)) != 0L
 
-    fun unclaimSquare(chunk: Chunk, squareRadius: Int, handleError: (e: CommandException) -> Unit) =
+    fun unclaimSquare(chunk: Chunk, squareRadius: Int, handleError: (e: LocalizedException) -> Unit) =
         squareClaimAction(chunk, squareRadius, { unclaim(it, announce = false) }, handleError)
 
     @Throws(FactionDoesntHaveThisClaimException::class)

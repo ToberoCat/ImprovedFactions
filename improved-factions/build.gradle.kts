@@ -1,4 +1,5 @@
 import java.nio.file.Files
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
@@ -7,8 +8,24 @@ plugins {
     id("io.github.goooler.shadow") version "8.1.8"
 }
 
+val versionPropsFile = file("version.properties")
+val versionProps = Properties()
+
+if (versionPropsFile.exists()) {
+    versionProps.load(versionPropsFile.inputStream())
+}
+
+val buildIncrement = (versionProps["buildIncrement"]?.toString()?.toInt() ?: 1) + 1
+val versionName = versionProps["versionName"]!!.toString()
+
+versionProps["buildIncrement"] = buildIncrement.toString()
+versionProps["versionName"] = versionName
+
+versionProps.store(versionPropsFile.outputStream(), null)
+
+
 group = "io.github.toberocat.improved-factions"
-version = "2.3.0"
+version = versionName
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -137,7 +154,9 @@ val generateBuildConfig: Task by tasks.creating {
         val buildConfigFile = outputDir.file("BuildConfig.kt")
         buildConfigFile.asFile.writeText("""
             object BuildConfig {
-                const val VERSION = "$versionName"
+                const val VERSION_NAME = "$versionName"
+                const val BUILD_INCREMENT = $buildIncrement
+                const val VERSION = "$versionName.$buildIncrement"
             }
         """.trimIndent())
     }
@@ -145,4 +164,10 @@ val generateBuildConfig: Task by tasks.creating {
 
 tasks.compileKotlin {
     dependsOn(generateBuildConfig)
+}
+
+tasks.processResources {
+    filesMatching("**/*.yml") {
+        expand("buildIncrement" to buildIncrement)
+    }
 }

@@ -142,8 +142,7 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
                 it.printStackTrace()
                 sender.sendMessage(it.message ?: "An error occurred")
             }
-        }
-            .getOrNull() ?: return false
+        }.getOrNull() ?: return false
 
         sender.sendCommandResult(result)
         return true
