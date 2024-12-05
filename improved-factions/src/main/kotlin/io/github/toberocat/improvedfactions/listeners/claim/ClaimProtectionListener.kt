@@ -26,6 +26,7 @@ class ClaimProtectionListener(
         register(ClaimEntityBreakHangingListener(zoneType))
         register(ClaimEntitySpawnedByEggListener(zoneType))
         register(ClaimArmorStandManipulateListener(zoneType))
+        register(ClaimProjectileListener(zoneType))
         register(ClaimVehicleBreakListener(zoneType))
 
         register(ClaimTntListener(zoneType))
