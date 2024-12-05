@@ -261,31 +261,46 @@ zones:
 
     # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
     protection:
+      # Player damage entity protection
       player-damage-animal: true # Prevent animals from being damaged in a claim by a player
       player-damage-villager: true # Prevent villagers from being damaged in a claim by a player
       player-damage-golem: false # Prevent damage to Iron Golems in a claim by a player
+      player-damage-armor-stand: true # Prevent damage to armor stands in a claim by a player
+
+      # Entity damage player protection
       golem-damage-player: false # Prevent damage to players by Iron Golems in a claim
       player-damage-monster: false # Prevent damage to monsters in a claim by a player
       monster-damage-player: false # Prevent damage to players by monsters in a claim
       player-damage-boss: false # Prevent damage to bosses in a claim by a player
       boss-damage-player: false # Prevent damage to players by bosses in a claim
-      trampling: false # Prevent farmland from being trampled in a claim
-      bucket-usage: false # Prevent using buckets in a claim
-      mob-spawn: false # Prevent mobs from spawning in a claim
-      mob-destruction: false # Prevent mobs from destroying blocks in a claim
-      creeper-explosion: false # Prevent creeper explosions in a claim
-      general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
-      in-faction-pvp: true # Prevent PvP between faction members in a claim
-      minecart-damage: true # Prevent minecarts being destroyed in a claim
+
+      # Block protection
       block-place: true # Prevent placing blocks in a claim
-      entity-spawned-by-egg: true # Prevent spawning entities using spawn eggs in a claim
-      outside-explosions: true # Prevent explosions to damage blocks inside a claim if the explosion originated from outside the claim
-      all-explosions: false # Prevent all explosions to occur in a claim
       block-break: true # Prevent breaking blocks in a claim
       block-interaction: true # Prevent interacting with blocks in a claim
+      trampling: false # Prevent farmland from being trampled in a claim
+      bucket-usage: false # Prevent using buckets in a claim
+
+      # Entity protection
+      mob-destruction: false # Prevent mobs from destroying blocks in a claim
+      mob-spawn: false # Prevent mobs from spawning in a claim
+      entity-spawned-by-egg: true # Prevent spawning entities using spawn eggs in a claim
       entity-interaction: true # Prevent interacting with entities in a claim
       entity-break-hanging: true # Prevent breaking hanging entities (like paintings or itemframes) in a claim
       entity-place: true # Prevent placing entities in a claim
+      armor-stand-manipulate: true # Prevent armor stands from being manipulated in a claim (equipping armor, etc)
+
+      # Pvp protection
+      general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
+      in-faction-pvp: true # Prevent PvP between faction members in a claim
+
+      # Explosion protection
+      creeper-explosion: false # Prevent creeper explosions in a claim
+      outside-explosions: true # Prevent explosions to damage blocks inside a claim if the explosion originated from outside the claim
+      all-explosions: false # Prevent all explosions to occur in a claim
+
+      # Other protections
+      minecart-damage: true # Prevent minecarts being destroyed in a claim
   safezone:
     announce-title: true # True will allow this zone to send titles to the player - Faction claims and no faction claims
     allow-claiming: false # Set to true will allow factions to claim their chunks in these regions
@@ -295,20 +310,26 @@ zones:
     map-color: "00FFFF" # The color the tile will have on the faction map
     # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
     protection:
+      # Player damage entity protection
       player-damage-animal: true # Prevent animals from being damaged in a claim by a player
       player-damage-villager: true # Prevent villagers from being damaged in a claim by a player
       player-damage-golem: true # Prevent damage to Iron Golems in a claim by a player
+      player-damage-armor-stand: true # Prevent damage to armor stands in a claim by a player
+
+      # Entity damage player protection
       golem-damage-player: true # Prevent damage to players by Iron Golems in a claim
       player-damage-monster: true # Prevent damage to monsters in a claim by a player
       monster-damage-player: true # Prevent damage to players by monsters in a claim
       player-damage-boss: true # Prevent damage to bosses in a claim by a player
       boss-damage-player: true # Prevent damage to players by bosses in a claim
+
       trampling: true # Prevent farmland from being trampled in a claim
       bucket-usage: true # Prevent using buckets in a claim
       mob-spawn: true # Prevent mobs from spawning in a claim
       mob-destruction: true # Prevent mobs from destroying blocks in a claim
       creeper-explosion: true # Prevent creeper explosions in a claim
       general-pvp: true # Prevent general PvP in a claims. This means any sort of pvp
+      armor-stand-manipulate: true # Prevent armor stands from being manipulated in a claim (equipping armor, etc)
       in-faction-pvp: true # Prevent PvP between faction members in a claim
       minecart-damage: true # Prevent minecarts being destroyed in a claim
       block-place: true # Prevent placing blocks in a claim
@@ -330,14 +351,19 @@ zones:
 
     # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
     protection:
+      # Player damage entity protection
       player-damage-animal: false # Prevent animals from being damaged in a claim by a player
       player-damage-villager: false # Prevent villagers from being damaged in a claim by a player
       player-damage-golem: false # Prevent damage to Iron Golems in a claim by a player
+      player-damage-armor-stand: true # Prevent damage to armor stands in a claim by a player
+
+      # Entity damage player protection
       golem-damage-player: false # Prevent damage to players by Iron Golems in a claim
       player-damage-monster: false # Prevent damage to monsters in a claim by a player
       monster-damage-player: false # Prevent damage to players by monsters in a claim
       player-damage-boss: false # Prevent damage to bosses in a claim by a player
       boss-damage-player: false # Prevent damage to players by bosses in a claim
+
       trampling: true # Prevent farmland from being trampled in a claim
       bucket-usage: true # Prevent using buckets in a claim
       mob-spawn: false # Prevent mobs from spawning in a claim
@@ -351,6 +377,7 @@ zones:
       entity-spawned-by-egg: false # Prevent spawning entities using spawn eggs in a claim
       outside-explosions: true # Prevent explosions to damage blocks inside a claim if the explosion originated from outside the claim
       all-explosions: true # Prevent all explosions to occur in a claim
+      armor-stand-manipulate: true # Prevent armor stands from being manipulated in a claim (equipping armor, etc)
       block-break: true # Prevent breaking blocks in a claim
       block-interaction: true # Prevent interacting with blocks in a claim
       entity-interaction: true # Prevent interacting with entities in a claim
@@ -365,14 +392,19 @@ zones:
     map-color: "AAAAAA" # The color the tile will have on the faction map
     # Protection rules - Define how chunks should get protected. They only apply for people not owning the chunk (Except always-protect) has been set to true
     protection:
+      # Player damage entity protection
       player-damage-animal: false # Prevent animals from being damaged in a claim by a player
       player-damage-villager: false # Prevent villagers from being damaged in a claim by a player
       player-damage-golem: false # Prevent damage to Iron Golems in a claim by a player
+      player-damage-armor-stand: false # Prevent damage to armor stands in a claim by a player
+
+      # Entity damage player protection
       golem-damage-player: false # Prevent damage to players by Iron Golems in a claim
       player-damage-monster: false # Prevent damage to monsters in a claim by a player
       monster-damage-player: false # Prevent damage to players by monsters in a claim
       player-damage-boss: false # Prevent damage to bosses in a claim by a player
       boss-damage-player: false # Prevent damage to players by bosses in a claim
+
       trampling: false # Prevent farmland from being trampled in a claim
       bucket-usage: false # Prevent using buckets in a claim
       mob-spawn: false # Prevent mobs from spawning in a claim
@@ -386,6 +418,7 @@ zones:
       entity-spawned-by-egg: false # Prevent spawning entities using spawn eggs in a claim
       outside-explosions: false # Prevent explosions to damage blocks inside a claim if the explosion originated from outside the claim
       all-explosions: false # Prevent all explosions to occur in a claim
+      armor-stand-manipulate: false # Prevent armor stands from being manipulated in a claim (equipping armor, etc)
       block-break: false # Prevent breaking blocks in a claim
       block-interaction: false # Prevent interacting with blocks in a claim
       entity-interaction: false # Prevent interacting with entities in a claim
