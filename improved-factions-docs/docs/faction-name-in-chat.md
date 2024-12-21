@@ -1,48 +1,47 @@
-# This is a AI export from teh discrod chat - This might contain invalid instructions or not existing commands. Check yourself until I've time to read and correct this guide
-
-### **Guide: Adding Faction Names to Player Chat Messages**
+# Adding Faction Names to Player Chat Messages
 
 This guide explains how to display a player's faction name in chat using Improved Factions, PlaceholderAPI (PAPI), and a
 chat formatting plugin.
 
----
+## Requirements
 
-### **Requirements**
+1. [Improved Factions](https://modrinth.com/plugin/improved-factions)
+2. PlaceholderAPI (PAPI) ([Download from SpigotMC](https://www.spigotmc.org/resources/placeholderapi.6245/))
+3. A chat formatting plugin (e.g., EssentialsX or LPC Chat Formatter):
+    - EssentialsX users require
+      ChatInjector ([Download from SpigotMC](https://www.spigotmc.org/resources/chatinjector-1-13.81201/)) to use
+      placeholders.
 
-1. **Improved Factions** (Plugin link: [Improved Factions GitHub](https://github.com/ToberoCat/ImprovedFactions))
-2. **PlaceholderAPI (PAPI)** ([Download from SpigotMC](https://www.spigotmc.org/resources/placeholderapi.6245/))
-3. A **chat formatting plugin** (e.g., EssentialsX or LPC Chat Formatter):
-    - EssentialsX users require **ChatInjector
-      ** ([Download from SpigotMC](https://www.spigotmc.org/resources/chatinjector-1-13.81201/)) to use placeholders.
+## Steps
 
----
-
-### **Steps**
-
-#### **1. Install the Plugins**
+### 1. Install the Plugins
 
 - Download and add **Improved Factions**, **PAPI**, and a chat formatter (e.g., EssentialsX or LPC) to your server’s
   `plugins` folder.
 - Start your server to generate configuration files.
 
-#### **2. Add PlaceholderAPI Placeholders**
+### 2. Add PlaceholderAPI Placeholders
 
 - Improved Factions supports placeholders like `%faction_name%`, `%faction_rank%`, and others.
-- Check that PlaceholderAPI and Improved Factions integrate correctly. Use the command `/papi list` to confirm.
+- The placeholders should be automatically registered by improved factions - Check the server log, as Improved Factions
+  will print a message saying that placeholders have been enabled.
 
-#### **3. Update Chat Formatting**
+### 3. Configure Chat Formatting
 
-##### **EssentialsX (With ChatInjector)**
+#### EssentialsX (With ChatInjector)
+
+> Essentials doesnt support placeholders out of the box, so a separate injector has to be used. The chosen injector
+> uses {} instead of %
 
 1. Locate and open `Essentials/config.yml`.
 2. Find the `format:` key.
 3. Update it using `{}` for placeholders (specific to EssentialsX + ChatInjector):
    ```yaml
-   format: "{displayname} [{faction_name}] >> {message}"
+   format: "{DISPLAYNAME} [{faction_name}] >> {MESSAGE}"
    ```
 4. Restart the server.
 
-##### **LPC Chat Formatter**
+#### LPC Chat Formatter
 
 1. Install LPC ([Download from SpigotMC](https://www.spigotmc.org/resources/lpc-chat-formatter-1-7-10-1-20.68965/)).
 2. Update LPC’s configuration file to use `%` placeholders directly:
@@ -52,23 +51,18 @@ chat formatting plugin.
    ```
 3. Save and restart the server.
 
----
-
-### **4. Handling Factionless Players**
+## 4. Handling Factionless Players
 
 By default, placeholders like `%faction_name%` may display nothing for factionless players. To fix this:
 
-- Use the configuration option `default-value` for placeholders in the Improved Factions config.
+- Use the configuration option `default-placeholder` for placeholders in the Improved Factions config.
 - Example:
    ```yaml
-   placeholders:
-     default-values:
-       faction_name: "No Faction"
+   default-placeholders:
+    name: "No Faction"
    ```
 
----
-
-### **5. Add Colors**
+## 5. Add Colors
 
 - Add color codes to your format using `&` (or `§`).
 - Example (green faction names):
@@ -76,16 +70,12 @@ By default, placeholders like `%faction_name%` may display nothing for factionle
    format: "{displayname} [&a{faction_name}&r] >> {message}"
    ```
 
----
-
-### **6. Test Your Setup**
+## 6. Test Your Setup
 
 - Join a faction in-game (`/f create <name>`) and check the chat formatting.
 - For factionless players, confirm the default value appears.
 
----
-
-### **Troubleshooting**
+## **Troubleshooting**
 
 - **Placeholder not showing:** Verify PAPI is installed and placeholders are loaded (`/papi parse me %faction_name%`).
 - **Factionless issue:** Ensure `default-values` are set in the configuration file.
