@@ -28,8 +28,8 @@ group = "io.github.toberocat.improved-factions"
 version = versionName
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 repositories {
@@ -120,7 +120,7 @@ tasks {
 }
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(17)
 
     sourceSets.main {
         kotlin.srcDir("build/generated/ksp/main/kotlin")
