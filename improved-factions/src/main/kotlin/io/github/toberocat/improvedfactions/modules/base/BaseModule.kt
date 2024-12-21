@@ -55,8 +55,6 @@ object BaseModule : Module {
         )
 
         integrations = Integrations(plugin)
-        integrations.loadIntegrations()
-
         updateLanguages(plugin)
     }
 
@@ -64,6 +62,7 @@ object BaseModule : Module {
 
     override fun onEverythingEnabled(plugin: ImprovedFactionsPlugin) {
         claimChunkClusters.detectClusters()
+        integrations.loadIntegrations()
     }
 
     override fun onLoadDatabase(plugin: ImprovedFactionsPlugin) {
