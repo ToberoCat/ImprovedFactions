@@ -124,11 +124,11 @@ class CommandDocumentationGenerator(
 
     private fun getUsage(command: CommandData, function: CommandProcessFunction): String {
         val sb = StringBuilder()
-        sb.append("/").append(command.label)
+        sb.append("/factions ").append(command.label)
         function.parameters.forEach { param ->
             sb.append(" ")
             val name = getLocalization(param.getUsage(command))
-            sb.append("${name}")
+            sb.append(name)
         }
         if (command.needsConfirmation) {
             sb.append(" [confirm]")
