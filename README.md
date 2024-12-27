@@ -4,7 +4,6 @@
 
 <div align="center">
 
-[![ToberoCat - ImprovedFactions](https://img.shields.io/static/v1?label=ToberoCat&message=ImprovedFactions&color=%23FEDD58&logo=github)](https://github.com/ToberoCat/ImprovedFactions_new "Go to GitHub repo")
 [![stars - ImprovedFactions](https://img.shields.io/github/stars/ToberoCat/ImprovedFactions_new?style=social)](https://github.com/ToberoCat/ImprovedFactions_new)
 [![forks - ImprovedFactions](https://img.shields.io/github/forks/ToberoCat/ImprovedFactions_new?style=social)](https://github.com/ToberoCat/ImprovedFactions_new)
 [![GitHub release](https://img.shields.io/github/release/ToberoCat/ImprovedFactions_new?include_prereleases=&sort=semver&color=%23FEDD58)](https://github.com/ToberoCat/ImprovedFactions_new/releases/)
@@ -22,7 +21,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)
-- [Documentation](https://github.com/ToberoCat/ImprovedFactions/tree/main/docs)
+- [Documentation](https://toberocat.github.io/ImprovedFactions/docs/commands/base/admin%20bypass)
 - [Contributing](#contributing)
 - [Support](#support)
 - [License](#license)
@@ -64,7 +63,7 @@ The main configuration file is located at `plugins/ImprovedFactions/config.yml`.
 - Power systems
 - And much more!
 
-Detailed configuration instructions can be found in our [wiki](https://github.com/ToberoCat/ImprovedFactions/tree/main/docs).
+Detailed configuration instructions can be found in our [wiki](https://toberocat.github.io/ImprovedFactions/docs/modules/power-raids).
 
 ## Contributing
 
