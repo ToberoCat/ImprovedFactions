@@ -5,6 +5,7 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.factions.Faction
+import io.github.toberocat.improvedfactions.factions.FactionJoinType
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.entity.Player
@@ -16,6 +17,7 @@ import org.bukkit.entity.Player
     responses = [
         CommandResponse("joinedFaction"),
         CommandResponse("factionNotFound"),
+        CommandResponse("factionNotOpen"),
         CommandResponse("alreadyInFaction")
     ]
 )
@@ -29,6 +31,10 @@ abstract class JoinCommand : JoinCommandContext() {
         val factionUser = player.factionUser()
         if (factionUser.isInFaction()) {
             return alreadyInFaction()
+        }
+
+        if (faction.factionJoinType != FactionJoinType.OPEN) {
+            return factionNotOpen()
         }
 
         faction.join(player.uniqueId, faction.defaultRank)

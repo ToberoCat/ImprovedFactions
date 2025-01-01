@@ -86,6 +86,9 @@ object BaseModule : Module {
 
         @PapiPlaceholder("rank", MODULE_NAME, "The rank of the player in the faction")
         placeholders["rank"] = { it.factionUser().rank().name }
+
+        @PapiPlaceholder("join_mode", MODULE_NAME, "The join mode of the faction")
+        placeholders["join_mode"] = { it.factionUser().faction()?.factionJoinType?.toString() }
     }
 
     @Permission("factions.updatechecker", config = PermissionConfigurations.OP_ONLY)

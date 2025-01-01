@@ -60,11 +60,11 @@ fun KClass<*>.isSubtype(className: String) = try {
 
 
 fun Long.toCountdownTime(): String {
-    if (this < 0) return "Any moment now"
+    if (this < 0) return "00:00:00"
 
-    val seconds = this % 60
-    val minutes = (this / 60) % 60
-    val hours = (this / 3600) % 24
+    val seconds = this / 1000 % 60
+    val minutes = this / (1000 * 60) % 60
+    val hours = this / (1000 * 60 * 60)
 
-    return "${if (hours > 0) "$hours:" else ""}${if (minutes > 0) "$minutes:" else ""}$seconds"
+    return "%02d:%02d:%02d".format(hours, minutes, seconds)
 }
