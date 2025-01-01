@@ -30,7 +30,13 @@ open class ImprovedFactionsTest {
         MockBukkit.unmock()
     }
 
-    fun createTestPlayer() = server.addPlayer().also { it.isOp = true }
+    fun createTestPlayer(name: String? = null) = server.addPlayer().also {
+        it.isOp = true
+
+        if (name != null) {
+            it.name = name
+        }
+    }
 
     fun testWorld(name: String? = null) = WorldMock(Material.DIRT, 3).also {
         if (name != null) it.name = name
