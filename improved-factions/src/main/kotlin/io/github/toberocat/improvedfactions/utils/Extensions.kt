@@ -57,3 +57,14 @@ fun KClass<*>.isSubtype(className: String) = try {
 } catch (e: ClassNotFoundException) {
     false
 }
+
+
+fun Long.toCountdownTime(): String {
+    if (this < 0) return "Any moment now"
+
+    val seconds = this % 60
+    val minutes = (this / 60) % 60
+    val hours = (this / 3600) % 24
+
+    return "${if (hours > 0) "$hours:" else ""}${if (minutes > 0) "$minutes:" else ""}$seconds"
+}
