@@ -45,6 +45,8 @@ object RelationsModule : Module {
 
     fun relationsModulePair() = moduleName to this
 
+    fun Faction.isAllied(targetFactionId: Int) = relationsModuleHandle.isAllied(id.value, targetFactionId)
+    fun Faction.isEnemy(targetFactionId: Int) = relationsModuleHandle.isEnemy(id.value, targetFactionId)
     fun Faction.allies() = relationsModuleHandle.getAlliedFactions(id.value)
     fun Faction.enemies() = relationsModuleHandle.getEnemyFactions(id.value)
     fun Faction.inviteToAlliance(targetFaction: Faction) =

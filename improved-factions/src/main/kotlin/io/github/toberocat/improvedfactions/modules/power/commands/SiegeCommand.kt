@@ -8,6 +8,8 @@ import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.modules.power.impl.FactionPowerRaidModuleHandleImpl
+import io.github.toberocat.improvedfactions.modules.relations.RelationsModule
+import io.github.toberocat.improvedfactions.modules.relations.RelationsModule.isEnemy
 import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.user.noFactionId
 import org.bukkit.entity.Player
@@ -19,6 +21,8 @@ import org.bukkit.entity.Player
     responses = [
         CommandResponse("notInClaim"),
         CommandResponse("ownClaim"),
+        CommandResponse("claimNotRaidable"),
+        CommandResponse("factionsNotEnemies"),
         CommandResponse("siegeStarted")
     ]
 )
@@ -31,6 +35,14 @@ abstract class SiegeCommand: SiegeCommandContext() {
         }
         if (claim.factionId == player.factionUser().factionId) {
             return ownClaim()
+        }
+
+        if (claim.isRaidable() == false) {
+            return claimNotRaidable()
+        }
+
+        if (RelationsModule.isEnabled && player.factionUser().faction()?.isEnemy(claim.factionId) == false) {
+            return factionsNotEnemies()
         }
 
         claim.siegeManager.startSiege(player)
