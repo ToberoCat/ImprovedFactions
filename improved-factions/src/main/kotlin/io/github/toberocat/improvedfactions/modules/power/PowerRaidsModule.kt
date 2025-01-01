@@ -51,19 +51,22 @@ object PowerRaidsModule : Module {
         handle: FactionPowerRaidModuleHandleImpl,
         placeholders: HashMap<String, (player: OfflinePlayer) -> String?>
     ) {
-        @PapiPlaceholder("active_accumulation")
+        @PapiPlaceholder("next_power_gain", "The power that will be gained on the next power gain")
+        placeholders["next_power_gain"] =
+            { player -> player.factionUser().faction()?.let { handle.getPowerAccumulated(it).toString() } }
+        @PapiPlaceholder("active_accumulation", "The power that is currently being accumulated by your active members")
         placeholders["active_accumulation"] =
             { player -> player.factionUser().faction()?.let { handle.getActivePowerAccumulation(it).toString() } }
 
-        @PapiPlaceholder("inactive_accumulation")
+        @PapiPlaceholder("inactive_accumulation", "The power that you currently lose due to inactive members")
         placeholders["inactive_accumulation"] =
             { player -> player.factionUser().faction()?.let { handle.getInactivePowerAccumulation(it).toString() } }
 
-        @PapiPlaceholder("claim_upkeep_cost")
+        @PapiPlaceholder("claim_upkeep_cost", "The cost of maintaining your claims")
         placeholders["claim_upkeep_cost"] =
             { player -> player.factionUser().faction()?.let { handle.getClaimMaintenanceCost(it).toString() } }
 
-        @PapiPlaceholder("next_claim_cost")
+        @PapiPlaceholder("next_claim_cost", "The cost of claiming the next chunk")
         placeholders["next_claim_cost"] =
             { player -> player.factionUser().faction()?.let { handle.getNextClaimCost(it).toString() } }
     }

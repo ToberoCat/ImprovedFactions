@@ -78,13 +78,13 @@ object BaseModule : Module {
     }
 
     override fun onPapiPlaceholder(placeholders: HashMap<String, (player: OfflinePlayer) -> String?>) {
-        @PapiPlaceholder("owner")
+        @PapiPlaceholder("owner", "The owner of the faction")
         placeholders["owner"] = { it.factionUser().faction()?.owner?.toOfflinePlayer()?.name }
 
-        @PapiPlaceholder("name")
+        @PapiPlaceholder("name", "The name of the faction")
         placeholders["name"] = { it.factionUser().faction()?.name }
 
-        @PapiPlaceholder("rank")
+        @PapiPlaceholder("rank", "The rank of the player in the faction")
         placeholders["rank"] = { it.factionUser().rank().name }
     }
 

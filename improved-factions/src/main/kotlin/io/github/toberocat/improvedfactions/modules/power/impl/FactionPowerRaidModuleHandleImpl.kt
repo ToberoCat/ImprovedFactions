@@ -106,7 +106,7 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
     override fun getPowerAccumulated(activeAccumulation: Double, inactiveAccumulation: Double) =
         config.baseAccumulation + max(activeAccumulation - inactiveAccumulation, 0.0)
 
-    private fun getPowerAccumulated(faction: Faction) =
+    fun getPowerAccumulated(faction: Faction) =
         getPowerAccumulated(getActivePowerAccumulation(faction), getInactivePowerAccumulation(faction))
 
     override fun getActivePowerAccumulation(faction: Faction) =
