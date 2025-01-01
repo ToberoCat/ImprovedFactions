@@ -33,7 +33,7 @@ abstract class ZoneUnclaimCommand : ZoneUnclaimCommandContext() {
             player.location.chunk,
             radius ?: 0,
             { ZoneHandler.unclaim(it) },
-            { error -> error.message?.let { player.sendCommandResult(unclaimError("error" to it)) } }
+            { error -> player.sendCommandResult(unclaimError("error" to error.key)) }
         )
 
         return if (radius != null && radius > 0) {
