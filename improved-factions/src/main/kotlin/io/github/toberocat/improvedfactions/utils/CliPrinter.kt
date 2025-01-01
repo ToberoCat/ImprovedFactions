@@ -25,6 +25,7 @@ Server Information:
 - Server Version: $serverVersion
 - Bukkit Version: $bukkitVersion
 - Plugin Version: $pluginVersion
+- Online Mode: ${if (Bukkit.getOnlineMode()) "Online" else "Offline"}
 
 ======================================================================================================================================
             """.trimEnd()
