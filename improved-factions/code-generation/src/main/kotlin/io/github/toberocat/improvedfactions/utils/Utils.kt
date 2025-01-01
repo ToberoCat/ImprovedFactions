@@ -26,3 +26,5 @@ inline fun <reified T : Annotation> KSAnnotated.getAnnotations(): Sequence<T> {
 inline fun <reified T : Annotation> KSAnnotated.hasAnnotation(): Boolean {
     return annotations.any { it.shortName.asString() == T::class.simpleName }
 }
+
+fun String.capitalize() = replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }

@@ -1,13 +1,14 @@
 package io.github.toberocat.improvedfactions.command.generator
 
 import com.google.devtools.ksp.processing.CodeGenerator
-import com.google.devtools.ksp.processing.Dependencies
 import com.google.devtools.ksp.processing.KSPLogger
 import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.commands.data.CommandData
 import io.github.toberocat.improvedfactions.commands.data.CommandProcessFunction
 import io.github.toberocat.improvedfactions.commands.data.CommandProcessFunctionParameter
 import io.github.toberocat.improvedfactions.localization.LocalizationReader
+import io.github.toberocat.improvedfactions.utils.capitalize
+import io.github.toberocat.improvedfactions.utils.writeDocumentation
 import io.github.toberocat.improvedfactions.utils.localization
 import java.io.File
 
@@ -27,24 +28,21 @@ class CommandDocumentationGenerator(
 
     private fun generateCommandDocumentation(command: CommandData) {
         val fileName = command.label.replace(" ", "_")
-        val outputStream = codeGenerator.createNewFile(
-            dependencies = Dependencies.ALL_FILES,
-            packageName = "docs.commands.${command.module}",
-            fileName = fileName,
-            extensionName = "md"
-        )
-        outputStream.bufferedWriter().use { writer ->
-            writer.write("---\n")
-            writer.write("id: ${command.label}\n")
-            writer.write("title: ${command.label.capitalize()}\n")
-            writer.write("sidebar_label: ${command.label.capitalize()}\n")
-            writer.write("---\n\n")
-
+        val tagsByLabel = command.label.split(" ")
+            .map { it.capitalize() }
+            .toTypedArray()
+        codeGenerator.writeDocumentation(
+            file = "commands/${command.module}/$fileName",
+            tags = arrayOf(command.module.capitalize(), *tagsByLabel),
+        ) { writer ->
             writer.write("# ${command.label.capitalize()}\n\n")
+
+            writer.write("> Module: ${command.module.capitalize()}\n\n")
 
             writer.write("## Description\n\n")
             writer.write(localizationReader.getLocalization(getCommandDescription(command)))
             writer.write("\n\n")
+
 
             writer.write("## Usage\n\n")
             command.processFunctions.forEach { function ->

@@ -20,7 +20,7 @@ data class CommandData(
 ) {
     val localizedCommandLabel = "$module.commands.${label.labelToSnakeCase("-")}"
     val descriptionKey = "$localizedCommandLabel.description"
-    val permission = "factions.commands.${label.labelToSnakeCase("-")}"
+    val permission = "factions.commands.${label.labelToSnakeCase(".")}"
 
     override fun toString(): String {
         return """CommandData(

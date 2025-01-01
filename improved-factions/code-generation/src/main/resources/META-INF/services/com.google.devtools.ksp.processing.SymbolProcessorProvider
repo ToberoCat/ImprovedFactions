@@ -1,2 +1,3 @@
 io.github.toberocat.improvedfactions.command.processor.CommandProcessorProvider
 io.github.toberocat.improvedfactions.localization.processor.LocalizationProcessorProvider
+io.github.toberocat.improvedfactions.permission.processor.PermissionProcessorProvider
