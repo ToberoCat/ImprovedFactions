@@ -134,6 +134,7 @@ kotlin {
 
 ksp {
     arg("languageFolder", "$projectDir/src/main/resources/languages")
+    arg("plugin.yml", "$projectDir/src/main/resources/plugin.yml")
 }
 
 publishing {

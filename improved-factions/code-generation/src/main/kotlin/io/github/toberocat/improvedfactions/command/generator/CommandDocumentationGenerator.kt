@@ -1,23 +1,24 @@
 package io.github.toberocat.improvedfactions.command.generator
 
 import com.google.devtools.ksp.processing.CodeGenerator
-import com.google.devtools.ksp.processing.Dependencies
 import com.google.devtools.ksp.processing.KSPLogger
 import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.commands.data.CommandData
 import io.github.toberocat.improvedfactions.commands.data.CommandProcessFunction
 import io.github.toberocat.improvedfactions.commands.data.CommandProcessFunctionParameter
+import io.github.toberocat.improvedfactions.localization.LocalizationReader
+import io.github.toberocat.improvedfactions.utils.capitalize
+import io.github.toberocat.improvedfactions.utils.writeDocumentation
 import io.github.toberocat.improvedfactions.utils.localization
 import java.io.File
-import java.util.*
 
 class CommandDocumentationGenerator(
     private val codeGenerator: CodeGenerator,
     private val commands: List<CommandData>,
-    private val logger: KSPLogger,
-    private val languageFolder: File
+    logger: KSPLogger,
+    languageFolder: File,
 ) {
-    val properties = getPropertiesFile()
+    private val localizationReader = LocalizationReader(languageFolder, logger)
 
     fun generateDocumentation() {
         commands.forEach { command ->
@@ -25,43 +26,23 @@ class CommandDocumentationGenerator(
         }
     }
 
-    private fun getPropertiesFile(): Properties {
-        val propertiesFileName = "messages_en.properties"
-        val properties = Properties()
-        val file = File(languageFolder, propertiesFileName)
-        if (!file.exists()) {
-            logger.error("Localization file $propertiesFileName not found.")
-            return properties
-        }
-
-        file.inputStream().use { properties.load(it) }
-        return properties
-    }
-
-    private fun getLocalization(key: String): String {
-        return properties.getProperty(key, key).replace("|", "\\|")
-    }
-
     private fun generateCommandDocumentation(command: CommandData) {
         val fileName = command.label.replace(" ", "_")
-        val outputStream = codeGenerator.createNewFile(
-            dependencies = Dependencies.ALL_FILES,
-            packageName = "docs.commands.${command.module}",
-            fileName = fileName,
-            extensionName = "md"
-        )
-        outputStream.bufferedWriter().use { writer ->
-            writer.write("---\n")
-            writer.write("id: ${command.label}\n")
-            writer.write("title: ${command.label.capitalize()}\n")
-            writer.write("sidebar_label: ${command.label.capitalize()}\n")
-            writer.write("---\n\n")
-
+        val tagsByLabel = command.label.split(" ")
+            .map { it.capitalize() }
+            .toTypedArray()
+        codeGenerator.writeDocumentation(
+            file = "commands/${command.module}/$fileName",
+            tags = arrayOf(command.module.capitalize(), *tagsByLabel),
+        ) { writer ->
             writer.write("# ${command.label.capitalize()}\n\n")
 
+            writer.write("> Module: ${command.module.capitalize()}\n\n")
+
             writer.write("## Description\n\n")
-            writer.write(getLocalization(getCommandDescription(command)))
+            writer.write(localizationReader.getLocalization(getCommandDescription(command)))
             writer.write("\n\n")
+
 
             writer.write("## Usage\n\n")
             command.processFunctions.forEach { function ->
@@ -127,7 +108,7 @@ class CommandDocumentationGenerator(
         sb.append("/factions ").append(command.label)
         function.parameters.forEach { param ->
             sb.append(" ")
-            val name = getLocalization(param.getUsage(command))
+            val name = localizationReader.getLocalization(param.getUsage(command))
             sb.append(name)
         }
         if (command.needsConfirmation) {
@@ -137,11 +118,11 @@ class CommandDocumentationGenerator(
     }
 
     private fun getParameterDescription(commandData: CommandData, param: CommandProcessFunctionParameter): String {
-        return getLocalization(param.getDescription(commandData))
+        return localizationReader.getLocalization(param.getDescription(commandData))
     }
 
     private fun getResponseDescription(commandData: CommandData, response: CommandResponse): String {
-        return getLocalization(response.localization(commandData))
+        return localizationReader.getLocalization(response.localization(commandData))
     }
 
     private fun getSenderIcon(senderName: String): String {

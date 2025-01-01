@@ -7,104 +7,174 @@ author: Tobero
 commands:
   factions:
     aliases: [ "f", "fac", "faction" ]
-permissions:
-  factions.updatechecker:
+
+permissions: 
+  factions.updatechecker: 
     default: op
-  factions:
+  factions.commands.join: 
     default: true
-  factions.info:
+  factions.commands.transferowner: 
     default: true
-  factions.create:
+  factions.commands.unban: 
     default: true
-  factions.join:
+  factions.commands.members: 
     default: true
-  factions.delete:
+  factions.commands.leave: 
     default: true
-  factions.icon:
+  factions.commands.kick: 
     default: true
-  factions.invite:
+  factions.commands.ban: 
     default: true
-  factions.invites:
+  factions.commands.list: 
     default: true
-  factions.invitediscard:
+  factions.commands.help: 
     default: true
-  factions.inviteaccept:
+  factions.commands.version: 
     default: true
-  factions.siege:
+  factions.commands.info: 
     default: true
-  factions.leave:
-    default: true
-  factions.rename:
-    default: true
-  factions.claim:
-    default: true
-  factions.unclaim:
-    default: true
-  factions.help:
-    default: true
-  factions.rank:
-    default: true
-  factions.rank.assign:
-    default: true
-  factions.rank.create:
-    default: true
-  factions.rank.default:
-    default: true
-  factions.rank.delete:
-    default: true
-  factions.rank.edit:
-    default: true
-  factions.rank.set:
-    default: true
-  factions.kick:
-    default: true
-  factions.ban:
-    default: true
-  factions.unban:
-    default: true
-  factions.members:
-    default: true
-  factions.transferowner:
-    default: true
-  factions.power:
-    default: true
-  factions.wilderness:
-    default: true
-  factions.home:
-    default: true
-  factions.sethome:
-    default: true
-  factions.chat:
-    default: true
-  factions.map:
-    default: true
-  factions.zone:
+  factions.commands.zone.unclaim: 
     default: op
-  factions.bypass:
+  factions.commands.zone.claim: 
     default: op
-  factions.force:
+  factions.commands.admin.unclaim: 
     default: op
-  factions.force.join:
+  factions.commands.admin.playerinfo: 
     default: op
-  factions.force.leave:
+  factions.commands.admin.leave: 
     default: op
-  factions.force.claim:
+  factions.commands.admin.claim: 
     default: op
-  factions.force.info:
+  factions.commands.admin.join: 
     default: op
-  factions.force.unclaim:
+  factions.commands.admin.disband: 
     default: op
-  factions.zone.claim:
+  factions.commands.admin.reload: 
     default: op
-  factions.zone.unclaim:
+  factions.commands.admin.bypass: 
     default: op
-  factions.reload:
+  factions.commands.invitediscard: 
+    default: true
+  factions.commands.inviteaccept: 
+    default: true
+  factions.commands.invite: 
+    default: true
+  factions.commands.invites: 
+    default: true
+  factions.commands.joinmode: 
+    default: true
+  factions.commands.delete: 
+    default: true
+  factions.commands.icon: 
+    default: true
+  factions.commands.create: 
+    default: true
+  factions.commands.rename: 
+    default: true
+  factions.commands.rank.default: 
+    default: true
+  factions.commands.rank.delete: 
+    default: true
+  factions.commands.rank.create: 
+    default: true
+  factions.commands.rank: 
+    default: true
+  factions.commands.rank.edit: 
+    default: true
+  factions.commands.rank.assign: 
+    default: true
+  factions.commands.rank.set: 
+    default: true
+  factions.commands.unclaim: 
+    default: true
+  factions.commands.claim: 
+    default: true
+  factions.commands.map: 
+    default: true
+  factions.commands.power.add: 
+    default: true
+  factions.commands.power: 
+    default: true
+  factions.commands.siege: 
+    default: true
+  factions.commands.power.set: 
+    default: true
+  factions.commands.home: 
+    default: true
+  factions.commands.sethome: 
+    default: true
+  factions.commands.wilderness: 
+    default: true
+  factions.commands.allyaccept: 
+    default: true
+  factions.commands.ally: 
+    default: true
+  factions.commands.war: 
+    default: true
+  factions.commands.enemies: 
+    default: true
+  factions.commands.allies: 
+    default: true
+  factions.commands.chat: 
+    default: true
+  factions.commands.spy: 
+    default: true
+  factions.*: 
     default: op
-  factions.spy:
-    default: op
-  factions.power.set:
-    default: op
-  factions.bypass.usage-limits.*:
-    default: op
-  factions.bypass.usage-limits.wilderness:
-    default: op
+    children: 
+      factions.updatechecker: true
+      factions.commands.join: true
+      factions.commands.transferowner: true
+      factions.commands.unban: true
+      factions.commands.members: true
+      factions.commands.leave: true
+      factions.commands.kick: true
+      factions.commands.ban: true
+      factions.commands.list: true
+      factions.commands.help: true
+      factions.commands.version: true
+      factions.commands.info: true
+      factions.commands.zone.unclaim: true
+      factions.commands.zone.claim: true
+      factions.commands.admin.unclaim: true
+      factions.commands.admin.playerinfo: true
+      factions.commands.admin.leave: true
+      factions.commands.admin.claim: true
+      factions.commands.admin.join: true
+      factions.commands.admin.disband: true
+      factions.commands.admin.reload: true
+      factions.commands.admin.bypass: true
+      factions.commands.invitediscard: true
+      factions.commands.inviteaccept: true
+      factions.commands.invite: true
+      factions.commands.invites: true
+      factions.commands.joinmode: true
+      factions.commands.delete: true
+      factions.commands.icon: true
+      factions.commands.create: true
+      factions.commands.rename: true
+      factions.commands.rank.default: true
+      factions.commands.rank.delete: true
+      factions.commands.rank.create: true
+      factions.commands.rank: true
+      factions.commands.rank.edit: true
+      factions.commands.rank.assign: true
+      factions.commands.rank.set: true
+      factions.commands.unclaim: true
+      factions.commands.claim: true
+      factions.commands.map: true
+      factions.commands.power.add: true
+      factions.commands.power: true
+      factions.commands.siege: true
+      factions.commands.power.set: true
+      factions.commands.home: true
+      factions.commands.sethome: true
+      factions.commands.wilderness: true
+      factions.commands.allyaccept: true
+      factions.commands.ally: true
+      factions.commands.war: true
+      factions.commands.enemies: true
+      factions.commands.allies: true
+      factions.commands.chat: true
+      factions.commands.spy: true
+
