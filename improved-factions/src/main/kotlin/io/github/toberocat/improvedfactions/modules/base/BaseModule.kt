@@ -5,6 +5,7 @@ import com.jeff_media.updatechecker.UpdateChecker
 import com.jeff_media.updatechecker.UserAgentBuilder
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.SPIGOT_RESOURCE_ID
+import io.github.toberocat.improvedfactions.annotations.papi.PapiPlaceholder
 import io.github.toberocat.improvedfactions.annotations.permission.Permission
 import io.github.toberocat.improvedfactions.annotations.permission.PermissionConfigurations
 import io.github.toberocat.improvedfactions.claims.clustering.detector.ClaimClusterDetector
@@ -17,9 +18,12 @@ import io.github.toberocat.improvedfactions.listeners.PlayerJoinListener
 import io.github.toberocat.improvedfactions.listeners.move.MoveListener
 import io.github.toberocat.improvedfactions.modules.Module
 import io.github.toberocat.improvedfactions.translation.updateLanguages
+import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.utils.BStatsCollector
 import io.github.toberocat.improvedfactions.utils.FileUtils
+import io.github.toberocat.improvedfactions.utils.toOfflinePlayer
 import net.kyori.adventure.platform.bukkit.BukkitAudiences
+import org.bukkit.OfflinePlayer
 import org.jetbrains.exposed.sql.Database
 import java.util.logging.Logger
 
@@ -71,6 +75,17 @@ object BaseModule : Module {
 
     override fun onDisable(plugin: ImprovedFactionsPlugin) {
         adventure.close()
+    }
+
+    override fun onPapiPlaceholder(placeholders: HashMap<String, (player: OfflinePlayer) -> String?>) {
+        @PapiPlaceholder("owner")
+        placeholders["owner"] = { it.factionUser().faction()?.owner?.toOfflinePlayer()?.name }
+
+        @PapiPlaceholder("name")
+        placeholders["name"] = { it.factionUser().faction()?.name }
+
+        @PapiPlaceholder("rank")
+        placeholders["rank"] = { it.factionUser().rank().name }
     }
 
     @Permission("factions.updatechecker", config = PermissionConfigurations.OP_ONLY)

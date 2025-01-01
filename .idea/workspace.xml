@@ -4,24 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad9c7d4c-34f8-4c4a-9806-e72e98556779" name="Changes" comment="Added online mode to header">
-      <change afterPath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/integration/commands/invite/InviteAcceptCommandTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_12_24,_16_28_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_12_24__16_28__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_11_24,_21_09_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_11_24__21_09__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_01_12_24,_14_56_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_01_12_24__14_56__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/integration/commands/invite/InviteCommandProcessorTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/integration/commands/invite/InviteCommandProcessorTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/unit/ImprovedFactionsTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/unit/ImprovedFactionsTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/version.properties" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/version.properties" afterDir="false" />
-    </list>
+    <list default="true" id="ad9c7d4c-34f8-4c4a-9806-e72e98556779" name="Changes" comment="Added online mode to header" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -141,49 +124,49 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Docker.Start Server.executor": "Run",
-    "Docker.docker-compose.yml.mcserver: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
-    "Gradle.Build Plugin - No Tests.executor": "Run",
-    "Gradle.Build Plugin Without Tests .executor": "Run",
-    "Gradle.Build Plugin.executor": "Run",
-    "Gradle.Build improved-factions.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.HomeCommandTest.executor": "Run",
-    "Gradle.InviteAcceptCommandTest.test if can accept invite with _ in name.executor": "Run",
-    "Gradle.InviteCommandProcessorTest.executor": "Run",
-    "Gradle.InviteCommandProcessorTest.test if can invite player with _.executor": "Run",
-    "Gradle.InviteCommandProcessorTest.test if can invite player.executor": "Run",
-    "Gradle.Test Plugin.executor": "Run",
-    "Gradle.TitleTest.Test title on enter.executor": "Debug",
-    "Gradle.improved-factions [build].executor": "Run",
-    "Gradle.improved-factions [clean].executor": "Run",
-    "Gradle.improved-factions [test].executor": "Run",
-    "JUnit.Whole project.executor": "Run",
-    "Remote JVM Debug.Debug Server.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "dev",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/tobias/Downloads/ImprovedFactions/server/plugins",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "settings.editor.splitter.proportion": "0.25428858",
-    "show.migrate.to.gradle.popup": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.Start Server.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.mcserver: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build Plugin - No Tests.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build Plugin Without Tests .executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build Plugin.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build improved-factions.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.HomeCommandTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.InviteAcceptCommandTest.test if can accept invite with _ in name.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.InviteCommandProcessorTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.InviteCommandProcessorTest.test if can invite player with _.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.InviteCommandProcessorTest.test if can invite player.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Test Plugin.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TitleTest.Test title on enter.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.improved-factions [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.improved-factions [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.improved-factions [test].executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.Whole project.executor&quot;: &quot;Run&quot;,
+    &quot;Remote JVM Debug.Debug Server.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/tobias/Downloads/ImprovedFactions/server/plugins&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.splitter.proportion&quot;: &quot;0.25428858&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/server/plugins" />
