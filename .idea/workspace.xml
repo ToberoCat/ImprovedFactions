@@ -4,7 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad9c7d4c-34f8-4c4a-9806-e72e98556779" name="Changes" comment="Help command migrated and wiki gets automatically generated" />
+    <list default="true" id="ad9c7d4c-34f8-4c4a-9806-e72e98556779" name="Changes" comment="Added online mode to header">
+      <change afterPath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/integration/commands/invite/InviteAcceptCommandTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_12_24,_16_28_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_12_24__16_28__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_11_24,_21_09_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_11_24__21_09__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_01_12_24,_14_56_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_01_12_24__14_56__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/integration/commands/invite/InviteCommandProcessorTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/integration/commands/invite/InviteCommandProcessorTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/unit/ImprovedFactionsTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/unit/ImprovedFactionsTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/version.properties" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/version.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -65,13 +82,19 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Tobias Madlberger &lt;tobias.madlberger@htlstp.at&gt;" />
+      </list>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="add-online-mode-to-header" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
+    <option name="SIGN_OFF_COMMIT" value="true" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -88,7 +111,7 @@
   </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/ToberoCat/ImprovedFactions&quot;,
+    &quot;url&quot;: &quot;git@github.com:ToberoCat/ImprovedFactions.git&quot;,
     &quot;accountId&quot;: &quot;4d680c3f-ea1a-4edc-a6b9-348f20b21afb&quot;
   },
   &quot;recentNewPullRequestHead&quot;: {
@@ -105,6 +128,9 @@
   <component name="KotlinScriptingSettings">
     <option name="suppressDefinitionsCheck" value="true" />
   </component>
+  <component name="LLMProjectSettings">
+    <option name="turned_on" value="false" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 6
@@ -118,12 +144,18 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Docker.Start Server.executor": "Run",
+    "Docker.docker-compose.yml.mcserver: Compose Deployment.executor": "Run",
     "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
+    "Gradle.Build Plugin - No Tests.executor": "Run",
     "Gradle.Build Plugin Without Tests .executor": "Run",
     "Gradle.Build Plugin.executor": "Run",
     "Gradle.Build improved-factions.executor": "Run",
     "Gradle.Download Sources.executor": "Run",
     "Gradle.HomeCommandTest.executor": "Run",
+    "Gradle.InviteAcceptCommandTest.test if can accept invite with _ in name.executor": "Run",
+    "Gradle.InviteCommandProcessorTest.executor": "Run",
+    "Gradle.InviteCommandProcessorTest.test if can invite player with _.executor": "Run",
+    "Gradle.InviteCommandProcessorTest.test if can invite player.executor": "Run",
     "Gradle.Test Plugin.executor": "Run",
     "Gradle.TitleTest.Test title on enter.executor": "Debug",
     "Gradle.improved-factions [build].executor": "Run",
@@ -134,9 +166,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "dev",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/tobias/Downloads/ImprovedFactions/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command",
+    "last_opened_file_path": "/home/tobias/Downloads/ImprovedFactions/server/plugins",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -145,13 +178,15 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.language.Kotlin.scripting",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "settings.editor.splitter.proportion": "0.25428858",
+    "show.migrate.to.gradle.popup": "false",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/server/plugins" />
       <recent name="$PROJECT_DIR$/improved-factions/code-generation/src/main/kotlin/io/github/toberocat/improvedfactions/command" />
       <recent name="$PROJECT_DIR$/improved-factions/annotations/src/main/kotlin/io/github/toberocat/improvedfactions/annotations" />
     </key>
@@ -167,42 +202,8 @@
       <recent name="io.github.toberocat.improvedfactions.commands.executor" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Build Plugin Without Tests ">
-    <configuration name="Build Plugin Without Tests " type="GradleRunConfiguration" factoryName="Gradle">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/improved-factions" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="-x test --stacktrace" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="build" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <EXTENSION ID="com.intellij.execution.ExternalSystemRunConfigurationJavaExtension">
-        <extension name="net.ashald.envfile">
-          <option name="IS_ENABLED" value="false" />
-          <option name="IS_SUBST" value="false" />
-          <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
-          <option name="IS_IGNORE_MISSING_FILES" value="false" />
-          <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-          <ENTRIES>
-            <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
-          </ENTRIES>
-        </extension>
-      </EXTENSION>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="TitleTest.Test title on enter" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.InviteAcceptCommandTest.test if can accept invite with _ in name">
+    <configuration name="InviteAcceptCommandTest.test if can accept invite with _ in name" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/improved-factions" />
@@ -215,7 +216,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;io.github.toberocat.improvedfactions.integration.listeners.TitleTest.Test title on enter&quot;" />
+            <option value="&quot;io.github.toberocat.improvedfactions.integration.commands.invite.InviteAcceptCommandTest.test if can accept invite with _ in name&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -226,26 +227,76 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="improved-factions [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="InviteCommandProcessorTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/improved-factions" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="clean" />
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;io.github.toberocat.improvedfactions.integration.commands.invite.InviteCommandProcessorTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="InviteCommandProcessorTest.test if can invite player with _" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/improved-factions" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;io.github.toberocat.improvedfactions.integration.commands.invite.InviteCommandProcessorTest.test if can invite player with _&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="InviteCommandProcessorTest.test if can invite player" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/improved-factions" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;io.github.toberocat.improvedfactions.integration.commands.invite.InviteCommandProcessorTest.test if can invite player&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
     <configuration name="Whole project" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
@@ -266,27 +317,31 @@
     </configuration>
     <list>
       <item itemvalue="Docker.Start Server" />
+      <item itemvalue="Gradle.Build Plugin - No Tests" />
       <item itemvalue="Gradle.Build Plugin" />
-      <item itemvalue="Gradle.Build Plugin Without Tests " />
       <item itemvalue="Gradle.Test Plugin" />
-      <item itemvalue="Gradle.improved-factions [clean]" />
-      <item itemvalue="Gradle.TitleTest.Test title on enter" />
+      <item itemvalue="Gradle.InviteAcceptCommandTest.test if can accept invite with _ in name" />
+      <item itemvalue="Gradle.InviteCommandProcessorTest" />
+      <item itemvalue="Gradle.InviteCommandProcessorTest.test if can invite player" />
+      <item itemvalue="Gradle.InviteCommandProcessorTest.test if can invite player with _" />
       <item itemvalue="JUnit.Whole project" />
       <item itemvalue="Remote JVM Debug.Debug Server" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.improved-factions [clean]" />
+        <item itemvalue="Gradle.InviteAcceptCommandTest.test if can accept invite with _ in name" />
+        <item itemvalue="Gradle.InviteCommandProcessorTest.test if can invite player with _" />
+        <item itemvalue="Gradle.InviteCommandProcessorTest.test if can invite player" />
+        <item itemvalue="Gradle.InviteCommandProcessorTest" />
         <item itemvalue="JUnit.Whole project" />
-        <item itemvalue="Gradle.TitleTest.Test title on enter" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
-        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.145" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.145" />
       </set>
     </attachedChunks>
   </component>
@@ -315,6 +370,17 @@
       <workItem from="1733002549020" duration="6765000" />
       <workItem from="1733045019234" duration="10414000" />
       <workItem from="1733056348006" duration="3498000" />
+      <workItem from="1734332291808" duration="19000" />
+      <workItem from="1734446645099" duration="649000" />
+      <workItem from="1734771698474" duration="95000" />
+      <workItem from="1734771803365" duration="1670000" />
+      <workItem from="1734789609605" duration="2643000" />
+      <workItem from="1734794307941" duration="1484000" />
+      <workItem from="1734796096618" duration="613000" />
+      <workItem from="1734944788444" duration="22000" />
+      <workItem from="1735290452228" duration="655000" />
+      <workItem from="1735291157886" duration="75000" />
+      <workItem from="1735737691043" duration="3769000" />
     </task>
     <task id="LOCAL-00001" summary="Migrated to gradle instead of maven">
       <option name="closed" value="true" />
@@ -436,7 +502,63 @@
       <option name="project" value="LOCAL" />
       <updated>1733050220821</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Add guide for displaying faction names in chat&#10;&#10;This commit introduces a new documentation file explaining how to configure Improved Factions, PlaceholderAPI, and chat formatting plugins to show faction names in player chat messages. It includes step-by-step instructions, placeholder handling for factionless players, color formatting, and troubleshooting tips.">
+      <option name="closed" value="true" />
+      <created>1734772131347</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1734772131347</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Fix and polish faction name chat guide documentation&#10;&#10;Improved formatting, streamlined section titles, and adjusted instructions for clarity and accuracy. Renamed incorrect config keys, updated placeholder usage examples, and added troubleshooting advice.">
+      <option name="closed" value="true" />
+      <created>1734773289353</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1734773289353</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Downgrade Java version compatibility to 17.&#10;&#10;This change modifies the source and target Java compatibility from version 21 to 17 and updates the Kotlin JVM toolchain to match. The build increment has also been updated in version.properties while retaining the version name.">
+      <option name="closed" value="true" />
+      <created>1734773446791</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1734773446791</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Fix command usage prefix and simplify string interpolation&#10;&#10;Updated the command usage to include the &quot;/factions&quot; prefix for clarity. Simplified the string interpolation to enhance code readability and maintain consistency.">
+      <option name="closed" value="true" />
+      <created>1734789940896</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1734789940896</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Fixed papi load order">
+      <option name="closed" value="true" />
+      <created>1734796559939</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1734796559939</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Added disband command">
+      <option name="closed" value="true" />
+      <created>1734796658838</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1734796658838</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Added online mode to header">
+      <option name="closed" value="true" />
+      <created>1735740567403</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1735740567403</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -474,7 +596,25 @@
     <MESSAGE value="did a few invite commands" />
     <MESSAGE value="ALl commands migrated" />
     <MESSAGE value="Help command migrated and wiki gets automatically generated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Help command migrated and wiki gets automatically generated" />
+    <MESSAGE value="Add guide for displaying faction names in chat&#10;&#10;This commit introduces a new documentation file explaining how to configure Improved Factions, PlaceholderAPI, and chat formatting plugins to show faction names in player chat messages. It includes step-by-step instructions, placeholder handling for factionless players, color formatting, and troubleshooting tips." />
+    <MESSAGE value="Fix and polish faction name chat guide documentation&#10;&#10;Improved formatting, streamlined section titles, and adjusted instructions for clarity and accuracy. Renamed incorrect config keys, updated placeholder usage examples, and added troubleshooting advice." />
+    <MESSAGE value="Downgrade Java version compatibility to 17.&#10;&#10;This change modifies the source and target Java compatibility from version 21 to 17 and updates the Kotlin JVM toolchain to match. The build increment has also been updated in version.properties while retaining the version name." />
+    <MESSAGE value="Fix command usage prefix and simplify string interpolation&#10;&#10;Updated the command usage to include the &quot;/factions&quot; prefix for clarity. Simplified the string interpolation to enhance code readability and maintain consistency." />
+    <MESSAGE value="Fixed papi load order" />
+    <MESSAGE value="Added disband command" />
+    <MESSAGE value="Added online mode to header" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added online mode to header" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/improved-factions/build/generated/ksp/main/kotlin/io/github/toberocat/improvedfactions/commands/invite/InviteCommandProcessor.kt</url>
+          <line>58</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

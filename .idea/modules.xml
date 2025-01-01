@@ -12,8 +12,10 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/ImprovedFactions.shared.test.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/ImprovedFactions.shared.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.main.iml" filepath="$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.main~2.iml" filepath="$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.main~2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.main~3.iml" filepath="$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.main~3.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.test.iml" filepath="$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.test~2.iml" filepath="$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.test~2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.test~3.iml" filepath="$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.test~3.iml" />
     </modules>
   </component>
 </project>

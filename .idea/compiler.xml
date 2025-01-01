@@ -2,6 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="improved-factions.ImprovedFactions.code-generation.main" target="22" />
+      <module name="improved-factions.ImprovedFactions.code-generation.test" target="22" />
       <module name="ImprovedFactions.code-generation" target="21" />
       <module name="ImprovedFactions.code-generation.main" target="21" />
       <module name="ImprovedFactions.code-generation.test" target="21" />
