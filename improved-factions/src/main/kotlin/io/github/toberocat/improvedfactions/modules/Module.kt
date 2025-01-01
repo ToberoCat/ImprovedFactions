@@ -15,7 +15,7 @@ interface Module {
     fun reloadConfig(plugin: ImprovedFactionsPlugin) {}
     fun getCommandProcessors(plugin: ImprovedFactionsPlugin): List<CommandProcessor> = emptyList()
     fun onLoadDatabase(plugin: ImprovedFactionsPlugin) {}
-    fun onPapiPlaceholder(placeholders: HashMap<String, (player: OfflinePlayer) -> String?>) {}
+    fun onPlaceholder(placeholders: HashMap<String, (player: OfflinePlayer) -> String?>) {}
 
     fun shouldEnable(plugin: ImprovedFactionsPlugin) = plugin.config.getBoolean("modules.$moduleName")
 

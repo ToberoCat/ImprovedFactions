@@ -2,6 +2,7 @@ package io.github.toberocat.improvedfactions.modules.dynmap
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.modules.Module
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.dynmap.config.DynmapModuleConfig
 import io.github.toberocat.improvedfactions.modules.dynmap.handles.DummyFactionDynmapModuleHandles
 import io.github.toberocat.improvedfactions.modules.dynmap.handles.FactionDynmapModuleHandle
@@ -28,6 +29,11 @@ class DynmapModule : Module {
             }
         )
     }
+
+    override fun onEverythingEnabled(plugin: ImprovedFactionsPlugin) {
+        dynmapModuleHandle.onInitialClusterLoad(BaseModule.claimChunkClusters.clusters)
+    }
+
 
     override fun reloadConfig(plugin: ImprovedFactionsPlugin) {
         config.reload(plugin.config)

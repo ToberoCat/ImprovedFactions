@@ -40,7 +40,7 @@ abstract class ClaimCommand : ClaimCommandContext() {
         val faction = factionUser.faction() as Faction
         var errorCount = 0
         val statistics = faction.claimSquare(player.location.chunk, squareRadius) { e ->
-            player.sendLocalized(e.message, e.placeholders)
+            player.sendLocalized(e.key, e.placeholders)
             errorCount++
         }
 

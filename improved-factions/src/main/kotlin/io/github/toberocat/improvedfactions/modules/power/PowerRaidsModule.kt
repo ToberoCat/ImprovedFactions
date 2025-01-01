@@ -36,7 +36,7 @@ object PowerRaidsModule : Module {
     override fun getCommandProcessors(plugin: ImprovedFactionsPlugin) =
         powerRaidsCommandProcessors(plugin)
 
-    override fun onPapiPlaceholder(placeholders: HashMap<String, (player: OfflinePlayer) -> String?>) {
+    override fun onPlaceholder(placeholders: HashMap<String, (player: OfflinePlayer) -> String?>) {
         @PapiPlaceholder("power", MODULE_NAME, "The power of your faction")
         placeholders["power"] = { it.factionUser().faction()?.accumulatedPower?.toString() }
 

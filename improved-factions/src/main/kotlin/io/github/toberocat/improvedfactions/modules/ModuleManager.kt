@@ -67,7 +67,7 @@ class ModuleManager(private val plugin: ImprovedFactionsPlugin) {
 
 
     fun loadPapiPlaceholders(placeholders: HashMap<String, (player: OfflinePlayer) -> String?>) =
-        activeModules.forEach { (_, module) -> module.onPapiPlaceholder(placeholders) }
+        activeModules.forEach { (_, module) -> module.onPlaceholder(placeholders) }
 
     inline fun <reified T> getModule(moduleName: String) = modules[moduleName] as? T ?: throw IllegalStateException()
 }

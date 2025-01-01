@@ -5,9 +5,6 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.claims.ClaimStatistics
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
-import io.github.toberocat.improvedfactions.commands.sendCommandResult
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import io.github.toberocat.improvedfactions.exceptions.FactionDoesntHaveThisClaimException
 import io.github.toberocat.improvedfactions.exceptions.NotInFactionException
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.translation.sendLocalized
@@ -37,23 +34,20 @@ abstract class UnclaimCommand : UnclaimCommandContext() {
             return noPermission()
         }
 
-        val squareRadius = radius ?: 0
-        var statistics = ClaimStatistics(0, 0)
-        loggedTransaction {
-            val faction = factionUser.faction() ?: throw NotInFactionException()
-            statistics = faction.unclaimSquare(player.location.chunk, squareRadius) { e ->
-                player.sendLocalized(e.message, e.placeholders)
-            }
+        val faction = factionUser.faction() ?: throw NotInFactionException()
+        if (radius == null) {
+            faction.unclaim(player.location.chunk)
+            return unclaimed()
         }
 
-        return when {
-            squareRadius > 0 -> unclaimedRadius(
-                "radius" to squareRadius.toString(),
-                "successful-claims" to statistics.successfulClaims.toString(),
-                "total-claims" to statistics.totalClaims.toString()
-            )
-
-            else -> unclaimed()
+        val statistics = faction.unclaimSquare(player.location.chunk, radius) { e ->
+            player.sendLocalized(e.key, e.placeholders)
         }
+
+        return unclaimedRadius(
+            "radius" to radius.toString(),
+            "successful-claims" to statistics.successfulClaims.toString(),
+            "total-claims" to statistics.totalClaims.toString()
+        )
     }
 }

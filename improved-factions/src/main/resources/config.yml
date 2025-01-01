@@ -144,7 +144,7 @@ factions:
     # Placeholders that work without papi: %faction_name%
     info-windows:
       # This is the default window a player will see when clicking on a faction's area on the dynmap. It allows html, css as well as js. This can be overridden by the values below
-      __default__: "<p style=\"font-weight:700;text-align:center\">%faction_name%</p><hr><div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:10px\"><span>Owner: </span><span style=\"font-weight:700\">%faction_owner%</span></div><div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:10px\"><span>Max Power: </span><span style=\"font-weight:700\">%faction_maxPower%</span></div>"
+      __default__: "<p style=\"font-weight:700;text-align:center\">%faction_name%</p><hr><div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:10px\"><span>Owner: </span><span style=\"font-weight:700\">%faction_owner%</span></div><div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:10px\"><span>Max Power: </span><span style=\"font-weight:700\">%faction_max_power%</span></div>"
       safezone: "<div class=\"infowindow\"><span style=\"font-weight:bold\">Safezone</span></div>"
       warzone: "<div class=\"infowindow\"><span style=\"font-weight:bold\">Warzone</span></div>"
       unmanaged: "<div class=\"infowindow\"><span style=\"font-weight:bold\">Unmanaged</span></div>"
@@ -460,7 +460,7 @@ default-placeholders:
   owner: "" # The default value for %faction_owner%
   rank: "Loner" # The default value for %faction_rank%
   power: "0" # The default value for %faction_power%
-  maxPower: "0" # The default value for %faction_maxPower%
+  max_power: "0" # The default value for %faction_max_power%
 
 # This option decides if what kind of notification the players will receive when a certain event happens (Teleport, Territory change, etc)
 event-display-location: "TITLE" # Options are: TITLE, CHAT, ACTIONBAR
