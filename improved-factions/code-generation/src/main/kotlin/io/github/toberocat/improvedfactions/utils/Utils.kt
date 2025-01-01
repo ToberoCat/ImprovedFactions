@@ -6,9 +6,18 @@ import com.google.devtools.ksp.getAnnotationsByType
 import com.google.devtools.ksp.symbol.KSAnnotated
 
 @OptIn(KspExperimental::class)
-inline fun <reified T : Annotation> KSAnnotated.getAnnotation(): T? {
+inline fun <reified T : Annotation> KSAnnotated.findAnnotation(): T? {
     return try {
         getAnnotationsByType(T::class).firstOrNull()
+    } catch (e: KSTypeNotPresentException) {
+        null
+    }
+}
+
+@OptIn(KspExperimental::class)
+inline fun <reified T : Annotation> KSAnnotated.findAnnotations(): Sequence<T>? {
+    return try {
+        getAnnotationsByType(T::class)
     } catch (e: KSTypeNotPresentException) {
         null
     }

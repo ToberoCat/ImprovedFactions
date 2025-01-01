@@ -14,7 +14,7 @@ import io.github.toberocat.improvedfactions.commands.data.CommandData
 import io.github.toberocat.improvedfactions.commands.data.CommandProcessFunction
 import io.github.toberocat.improvedfactions.commands.data.CommandProcessFunctionParameter
 import io.github.toberocat.improvedfactions.command.generator.CommandCodeGenerator
-import io.github.toberocat.improvedfactions.utils.getAnnotation
+import io.github.toberocat.improvedfactions.utils.findAnnotation
 import io.github.toberocat.improvedfactions.utils.hasAnnotation
 
 const val COMMAND_PROCESS_PREFIX = "process"
@@ -33,7 +33,7 @@ class CommandVisitor(
     }
 
     private fun extractCommandData(classDeclaration: KSClassDeclaration): CommandData? {
-        val metaAnnotation = classDeclaration.getAnnotation<GeneratedCommandMeta>() ?: run {
+        val metaAnnotation = classDeclaration.findAnnotation<GeneratedCommandMeta>() ?: run {
             logger.error("Class ${classDeclaration.simpleName.asString()} is missing @GeneratedCommandMeta annotation.")
             return null
         }
@@ -58,7 +58,7 @@ class CommandVisitor(
             responses = responses,
             processFunctions = processFunctions.mapNotNull { it.toCommandProcessFunction(needsConfirmation) }.toList(),
             needsConfirmation = needsConfirmation,
-            permissionConfig = classDeclaration.getAnnotation<PermissionConfig>()?.config ?: PermissionConfigurations.ALL,
+            permissionConfig = classDeclaration.findAnnotation<PermissionConfig>()?.config ?: PermissionConfigurations.ALL,
             addPluginAsParameter = !hasNoArgsConstructor
         )
 
