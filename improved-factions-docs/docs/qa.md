@@ -1,4 +1,6 @@
-# Disclaimer
+# QA (Discord export)
+
+## Disclaimer
 
 This document provides a collection of solutions to common issues and frequently asked questions regarding the Improved
 Factions plugin. The content has been sourced from the support [Discord server](https://discord.com/invite/VmSbFNZejz),

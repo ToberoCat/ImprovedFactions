@@ -1,4 +1,4 @@
-### Getting Started with **Improved Factions**
+# Getting Started with **Improved Factions**
 
 Welcome to the **Improved Factions** plugin! This guide will help you set up the plugin on your Minecraft server and get
 started with customizing your factions experience.
