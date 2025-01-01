@@ -33,7 +33,7 @@ class CommandDocumentationGenerator(
             .toTypedArray()
         codeGenerator.writeDocumentation(
             file = "commands/${command.module}/$fileName",
-            tags = arrayOf(command.module.capitalize(), *tagsByLabel),
+            tags = arrayOf(command.module.capitalize(), localizationReader.getLocalization(command.category), *tagsByLabel),
         ) { writer ->
             writer.write("# ${command.label.capitalize()}\n\n")
 
