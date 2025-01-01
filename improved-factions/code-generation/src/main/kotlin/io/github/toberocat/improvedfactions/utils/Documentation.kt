@@ -22,7 +22,6 @@ fun CodeGenerator.writeDocumentation(
 
     outputStream.bufferedWriter().use { writer ->
         writer.write("---\n")
-        writer.write("id: $file\n")
         title?.let { writer.write("title: ${it}\n") }
         description?.let { writer.write("description: ${it}\n") }
         tags?.let { writer.write("keywords: ${it.joinToString(", ", "[", "]")}\n") }
