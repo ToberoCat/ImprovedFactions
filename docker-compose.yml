@@ -8,7 +8,7 @@ services:
       TYPE: PAPER
       MEMORYSIZE: 2G
       EULA: TRUE
-      VERSION: 1.21.3
+      VERSION: 1.21.1
       JVM_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
       DEBUG_EXEC: true
       ENABLE_COMMAND_BLOCK: true
