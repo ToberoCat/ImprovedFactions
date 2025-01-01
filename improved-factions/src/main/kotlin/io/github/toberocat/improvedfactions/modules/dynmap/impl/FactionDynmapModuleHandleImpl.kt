@@ -34,6 +34,7 @@ class FactionDynmapModuleHandleImpl(
     )
 
     private val clusterPolylineMarkers = mutableMapOf<UUID, MutableSet<String>>()
+    private val clusterAreaMarkers = mutableMapOf<UUID, MutableSet<String>>()
 
     private fun createFactionMarker(api: DynmapCommonAPI): MarkerSet {
         val markerApi = api.markerAPI
@@ -100,6 +101,7 @@ class FactionDynmapModuleHandleImpl(
         }
 
         clusterPolylineMarkers[cluster.id.value]?.forEach { set.findPolyLineMarker(it)?.deleteMarker() }
+        clusterAreaMarkers[cluster.id.value]?.forEach { set.findAreaMarker(it)?.deleteMarker() }
         cluster.getOuterNodes().forEachIndexed { index, worldPositions ->
             val markerId = "${cluster.id}-$index"
             clusterPolylineMarkers.computeIfAbsent(cluster.id.value) { mutableSetOf() }.add(markerId)
@@ -111,12 +113,17 @@ class FactionDynmapModuleHandleImpl(
             )
         }
 
-        cluster.getClaims().forEach { addAreaMarker(name, it, generatedColor, labelTransformer) }
+        cluster.getClaims().forEach {
+            val markerId = addAreaMarker(name, it, generatedColor, labelTransformer)
+            clusterAreaMarkers.computeIfAbsent(cluster.id.value) { mutableSetOf() }.add(markerId)
+        }
     }
 
     override fun clusterRemove(cluster: Cluster) {
         clusterPolylineMarkers[cluster.id.value]?.forEach { set.findPolyLineMarker(it)?.deleteMarker() }
+        clusterAreaMarkers[cluster.id.value]?.forEach { set.findAreaMarker(it)?.deleteMarker() }
         clusterPolylineMarkers.remove(cluster.id.value)
+        clusterAreaMarkers.remove(cluster.id.value)
     }
 
     override fun removeClaim(position: FactionClaim) {
@@ -140,7 +147,7 @@ class FactionDynmapModuleHandleImpl(
         position: FactionClaim,
         color: Int? = null,
         transformer: (input: String) -> String,
-    ) {
+    ): String {
         val worldX = position.chunkX * 16.0
         val worldZ = position.chunkZ * 16.0
         val label = transformer(config.infoWindows[name] ?: config.infoWindows["__default__"] ?: name)
@@ -153,13 +160,14 @@ class FactionDynmapModuleHandleImpl(
             doubleArrayOf(worldX, worldX + 16),
             doubleArrayOf(worldZ, worldZ + 16),
             false
-        ) ?: return
+        ) ?: return markerId
 
 
         getColor(name, color)?.let { colorConfig ->
             marker.setFillStyle(colorConfig.opacity, colorConfig.color)
             marker.setLineStyle(0, 0.0, colorConfig.color)
         }
+        return markerId
     }
 
     private fun addPolylineMarker(

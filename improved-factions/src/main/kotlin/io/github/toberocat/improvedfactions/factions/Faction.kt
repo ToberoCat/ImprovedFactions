@@ -13,6 +13,7 @@ import io.github.toberocat.improvedfactions.messages.MessageBroker
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.chat.ChatModule.resetChatMode
 import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
+import io.github.toberocat.improvedfactions.modules.home.HomeModule.getHome
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.powerRaidModule
 import io.github.toberocat.improvedfactions.modules.relations.RelationsModule
 import io.github.toberocat.improvedfactions.ranks.FactionRank
@@ -274,6 +275,9 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
     fun unclaim(chunk: Chunk, announce: Boolean = true) {
         val claim = chunk.getFactionClaim()
         if (claim == null || claim.factionId != id.value) throw FactionDoesntHaveThisClaimException()
+        val homeLocation = claim.faction()?.getHome()
+        if (homeLocation != null && homeLocation.chunk == chunk) throw ClaimHasHomeException()
+
         claim.factionId = noFactionId
         BaseModule.claimChunkClusters.removePosition(claim)
         if (announce) {

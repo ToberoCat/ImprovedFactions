@@ -6,7 +6,9 @@ services:
     container_name: mcserver
     environment:
       TYPE: PAPER
-      MEMORYSIZE: 4G
+      MEMORY: 2G
+      INIT_MEMORY: 2G
+      MAX_MEMORY: 4G
       EULA: TRUE
       VERSION: 1.21.1
       JVM_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
