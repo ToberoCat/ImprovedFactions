@@ -15,10 +15,14 @@ import org.bukkit.Bukkit
 import org.bukkit.Chunk
 import kotlin.math.*
 
+const val TICKS_TO_MS = 50
+
 class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig) : FactionPowerRaidModuleHandle {
 
     private var accumulateTaskId: Int = 0
     private var claimKeepCostTaskId: Int = 1
+    private var lastAccumulationMs = System.currentTimeMillis()
+    private var lastClaimKeepCostMs = System.currentTimeMillis()
 
     override fun memberJoin(faction: Faction) {
         faction.setMaxPower(faction.maxPower + ceil(calculatePowerChange(faction.members().count())).toInt())
@@ -30,8 +34,7 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
 
     override fun claimChunk(chunk: Chunk, faction: Faction) {
         val cost = getNextClaimCost(faction)
-        if (cost > faction.accumulatedPower)
-            throw NotEnoughPowerForClaimException(chunk)
+        if (cost > faction.accumulatedPower) throw NotEnoughPowerForClaimException(chunk)
         faction.setAccumulatedPower(faction.accumulatedPower - cost, PowerAccumulationChangeReason.CHUNK_CLAIMED)
     }
 
@@ -62,10 +65,12 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
         )
 
         val positions = cluster.getClaims()
-        return distancePercentages
-            .mapIndexedNotNull { index, element -> if (element * claimPowerCost >= threshold) positions[index] else null }
+        return distancePercentages.mapIndexedNotNull { index, element -> if (element * claimPowerCost >= threshold) positions[index] else null }
             .toSet()
     }
+
+    fun nextAccumulationCycleTime() = lastAccumulationMs + config.accumulationTickDelay * TICKS_TO_MS
+    fun nextClaimKeepCostCycleTime() = lastClaimKeepCostMs + config.accumulationTickDelay * TICKS_TO_MS
 
     override fun reloadConfig(plugin: ImprovedFactionsPlugin) {
         Bukkit.getScheduler().cancelTask(accumulateTaskId)
@@ -73,8 +78,7 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
 
         accumulateTaskId = Bukkit.getScheduler()
             .runTaskTimer(plugin, ::accumulateAll, config.accumulationTickDelay, config.accumulationTickDelay).taskId
-        claimKeepCostTaskId = Bukkit.getScheduler()
-            .runTaskTimer(
+        claimKeepCostTaskId = Bukkit.getScheduler().runTaskTimer(
                 plugin,
                 ::claimKeepCostsCollector,
                 config.accumulationTickDelay + config.accumulationTickDelay / 2,
@@ -83,15 +87,16 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
     }
 
     private fun claimKeepCostsCollector() = loggedTransaction {
+        lastClaimKeepCostMs = System.currentTimeMillis()
         Faction.all().forEach {
             it.setAccumulatedPower(
-                it.accumulatedPower - getClaimMaintenanceCost(it).toInt(),
-                PowerAccumulationChangeReason.CHUNK_KEEP_COST
+                it.accumulatedPower - getClaimMaintenanceCost(it).toInt(), PowerAccumulationChangeReason.CHUNK_KEEP_COST
             )
         }
     }
 
     private fun accumulateAll() = loggedTransaction {
+        lastAccumulationMs = System.currentTimeMillis()
         Faction.all().forEach {
             it.setAccumulatedPower(
                 it.accumulatedPower + getPowerAccumulated(it).toInt(),
@@ -106,7 +111,7 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
     override fun getPowerAccumulated(activeAccumulation: Double, inactiveAccumulation: Double) =
         config.baseAccumulation + max(activeAccumulation - inactiveAccumulation, 0.0)
 
-    private fun getPowerAccumulated(faction: Faction) =
+    fun getPowerAccumulated(faction: Faction) =
         getPowerAccumulated(getActivePowerAccumulation(faction), getInactivePowerAccumulation(faction))
 
     override fun getActivePowerAccumulation(faction: Faction) =
@@ -123,8 +128,7 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
     private fun getClaimMaintenanceCost(claims: Long) = claims * config.claimPowerKeep
     fun playerDie(faction: Faction) {
         faction.setAccumulatedPower(
-            faction.accumulatedPower - config.playerDeathCost,
-            PowerAccumulationChangeReason.PLAYER_DEATH
+            faction.accumulatedPower - config.playerDeathCost, PowerAccumulationChangeReason.PLAYER_DEATH
         )
     }
 }

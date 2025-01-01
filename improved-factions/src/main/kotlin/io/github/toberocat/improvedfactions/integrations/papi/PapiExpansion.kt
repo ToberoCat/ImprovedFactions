@@ -20,10 +20,6 @@ class PapiExpansion(private val pluginConfig: ImprovedFactionsConfig) : Placehol
     private val placeholders = HashMap<String, (player: OfflinePlayer) -> String?>()
 
     init {
-        placeholders["owner"] = { it.factionUser().faction()?.owner?.toOfflinePlayer()?.name }
-        placeholders["name"] = { it.factionUser().faction()?.name }
-        placeholders["rank"] = { it.factionUser().rank().name }
-
         ImprovedFactionsPlugin.instance.moduleManager.loadPapiPlaceholders(placeholders)
     }
 
