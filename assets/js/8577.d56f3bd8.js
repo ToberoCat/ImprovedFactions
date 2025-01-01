@@ -1,0 +1,1 @@
+(self.webpackChunkimproved_factions=self.webpackChunkimproved_factions||[]).push([[8577],{549:(s,e,c)=>{"use strict";c.d(e,{A:()=>i});var a=c(8291);const i=a},5741:()=>{}}]);

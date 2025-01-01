@@ -1,0 +1,1628 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-qa" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.6.3">
+<title data-rh="true">QA (Discord export) | Improved Factions Docs</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://toberocat.github.io/ImprovedFactions/img/improved-factions-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://toberocat.github.io/ImprovedFactions/img/improved-factions-social-card.jpg"><meta data-rh="true" property="og:url" content="https://toberocat.github.io/ImprovedFactions/docs/qa"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="QA (Discord export) | Improved Factions Docs"><meta data-rh="true" name="description" content="Some information is outdated - If something doesn&#x27;t work or is not in enough detail, feel free to contact us over the"><meta data-rh="true" property="og:description" content="Some information is outdated - If something doesn&#x27;t work or is not in enough detail, feel free to contact us over the"><link data-rh="true" rel="icon" href="/ImprovedFactions/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://toberocat.github.io/ImprovedFactions/docs/qa"><link data-rh="true" rel="alternate" href="https://toberocat.github.io/ImprovedFactions/docs/qa" hreflang="en"><link data-rh="true" rel="alternate" href="https://toberocat.github.io/ImprovedFactions/docs/qa" hreflang="x-default"><link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<script async src="https://www.googletagmanager.com/gtag/js?id=GTM-WS4FNRJW"></script>
+<script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","GTM-WS4FNRJW",{anonymize_ip:!0})</script><link rel="stylesheet" href="/ImprovedFactions/assets/css/styles.01ee42e1.css">
+<script src="/ImprovedFactions/assets/js/runtime~main.fc535396.js" defer="defer"></script>
+<script src="/ImprovedFactions/assets/js/main.3c656b6f.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/ImprovedFactions/"><div class="navbar__logo"><img src="/ImprovedFactions/img/logo.png" alt="Improved Factions Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/ImprovedFactions/img/logo.png" alt="Improved Factions Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Improved Factions</b></a><a class="navbar__item navbar__link" href="/ImprovedFactions/docs/getting-started">Getting Started</a><a class="navbar__item navbar__link" href="/ImprovedFactions/docs/commands/base/create">Commands</a><div class="navbar__item dropdown dropdown--hoverable"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">Modules</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/ImprovedFactions/docs/Modules/power-raids">Power &amp; Raids</a></li></ul></div><div class="navbar__item dropdown dropdown--hoverable"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">Admin Resources</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/ImprovedFactions/docs/permissions">Permissions</a></li><li><a class="dropdown__link" href="/ImprovedFactions/docs/placeholders">Papi Placeholders</a></li></ul></div><div class="navbar__item dropdown dropdown--hoverable"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">Community</a><ul class="dropdown__menu"><li><a href="https://github.com/ToberoCat/ImprovedFactions" target="_blank" rel="noopener noreferrer" class="dropdown__link">Github<svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li><a href="https://discord.com/invite/VmSbFNZejz" target="_blank" rel="noopener noreferrer" class="dropdown__link">Discord<svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li><a href="https://chatgpt.com/g/g-tvLQ5jbIz-improved-factions-assistant" target="_blank" rel="noopener noreferrer" class="dropdown__link">AI Assisant<svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li><a href="https://modrinth.com/plugin/improved-factions" target="_blank" rel="noopener noreferrer" class="dropdown__link">Plugin Modrinth Page<svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li><a href="https://www.spigotmc.org/resources/improved-factions.95617" target="_blank" rel="noopener noreferrer" class="dropdown__link">Plugin Spigot Page<svg width="12" height="12" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/ImprovedFactions/docs/qa">Q&amp;A</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/ToberoCat/ImprovedFactions" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live="polite" aria-pressed="false"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search"><span aria-label="expand searchbar" role="button" class="search-icon" tabindex="0"></span><input id="search_input_react" type="search" placeholder="Loading..." aria-label="Search" class="navbar__search-input search-bar" disabled=""></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/ImprovedFactions/docs/Guides/faction-name-in-chat">Guides</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/ImprovedFactions/docs/Modules/power-raids">Modules</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/ImprovedFactions/docs/commands/base/admin_bypass">commands</a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/ImprovedFactions/docs/getting-started">Getting Started</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/ImprovedFactions/docs/permissions">Permissions</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/ImprovedFactions/docs/placeholders">Placeholders</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/ImprovedFactions/docs/qa">QA (Discord export)</a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/ImprovedFactions/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">QA (Discord export)</span><meta itemprop="position" content="1"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>QA (Discord export)</h1></header>
+<blockquote>
+<p>Some information is outdated - If something doesn&#x27;t work or is not in enough detail, feel free to contact us over the
+discord server</p>
+</blockquote>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="disclaimer">Disclaimer<a href="#disclaimer" class="hash-link" aria-label="Direct link to Disclaimer" title="Direct link to Disclaimer">​</a></h2>
+<blockquote>
+<p><strong>Note:</strong> As the raw export would&#x27;ve been too much for someone to look though it manually, AI has been utilized to
+generate this easier to read and use export. Therefore, make sure to not blindly follow the given instructions</p>
+</blockquote>
+<p>This document provides a collection of solutions to common issues and frequently asked questions regarding the Improved
+Factions plugin. The content has been sourced from the support <a href="https://discord.com/invite/VmSbFNZejz" target="_blank" rel="noopener noreferrer">Discord server</a>,
+and I’d like to thank everyone who helps with answering questions and troubleshooting on a daily basis.</p>
+<p>Please note that this export may contain similar or duplicate solutions, as it hasn’t been thoroughly filtered
+(essentially, it&#x27;s a bulk export from the <a href="https://discord.com/invite/VmSbFNZejz" target="_blank" rel="noopener noreferrer">Discord server</a>).</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="finding-a-solution">Finding a Solution<a href="#finding-a-solution" class="hash-link" aria-label="Direct link to Finding a Solution" title="Direct link to Finding a Solution">​</a></h2>
+<p>To locate a solution, it&#x27;s recommended to use your browser’s search function (usually <code>Ctrl + F</code>) and search for
+keywords related to your issue. If you&#x27;re unable to find what you&#x27;re looking for, feel free to reach out on
+the <a href="https://discord.com/invite/VmSbFNZejz" target="_blank" rel="noopener noreferrer">Discord server</a>.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="questions-and-answers">Questions and Answers<a href="#questions-and-answers" class="hash-link" aria-label="Direct link to Questions and Answers" title="Direct link to Questions and Answers">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="error-confirmation-is-required-to-execute-this-command"><strong>Error: Confirmation is required to execute this command</strong><a href="#error-confirmation-is-required-to-execute-this-command" class="hash-link" aria-label="Direct link to error-confirmation-is-required-to-execute-this-command" title="Direct link to error-confirmation-is-required-to-execute-this-command">​</a></h3>
+<p><strong>Problem:</strong> User encountered an error when trying to delete a faction, thinking it was a permission issue.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The user was informed that the error is not related to permissions but is a safety confirmation to prevent accidental
+deletion.</li>
+<li>The correct command to delete a faction is <code>/f delete confirm</code>.</li>
+</ul>
+<p><strong>Key takeaway:</strong> When deleting factions, use the full command to confirm your intention.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="disabling-particles-in-the-game"><strong>Disabling Particles in the Game</strong><a href="#disabling-particles-in-the-game" class="hash-link" aria-label="Direct link to disabling-particles-in-the-game" title="Direct link to disabling-particles-in-the-game">​</a></h3>
+<p><strong>Problem:</strong> User wanted to disable particles.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Particles can be disabled by turning off the claim particle module in the configuration file.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Disable particles by modifying the appropriate module in the configuration file.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="viewing-faction-information"><strong>Viewing Faction Information</strong><a href="#viewing-faction-information" class="hash-link" aria-label="Direct link to viewing-faction-information" title="Direct link to viewing-faction-information">​</a></h3>
+<p><strong>Problem:</strong> User wanted to view information about their own faction or other factions.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The following commands were provided:<!-- -->
+<ul>
+<li><code>/f info</code> shows your own faction&#x27;s information.</li>
+<li><code>/f info &lt;faction&gt;</code> shows another faction&#x27;s information.</li>
+<li><code>/f list</code> lists all factions on the server.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use these commands to access faction information directly from the chat.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="text-based-faction-information"><strong>Text-Based Faction Information</strong><a href="#text-based-faction-information" class="hash-link" aria-label="Direct link to text-based-faction-information" title="Direct link to text-based-faction-information">​</a></h3>
+<p><strong>Problem:</strong> User wanted faction information in text format rather than a GUI.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The GUI can be replaced with text-based versions by disabling the GUI module entirely.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Disabling the GUI module will allow text-based faction information instead of the graphical version.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="ally-and-enemy-system-development"><strong>Ally and Enemy System Development</strong><a href="#ally-and-enemy-system-development" class="hash-link" aria-label="Direct link to ally-and-enemy-system-development" title="Direct link to ally-and-enemy-system-development">​</a></h3>
+<p><strong>Problem:</strong> User couldn&#x27;t find the ally and enemy system in the current version.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The ally and enemy system is still under development and not fully functional in version 2.3.0-dev.</li>
+</ul>
+<p><strong>Key takeaway:</strong> The faction&#x27;s ally and enemy system is still a work in progress in the current development build.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="running-the-plugin-on-a-server-with-java-17"><strong>Running the Plugin on a Server with Java 17</strong><a href="#running-the-plugin-on-a-server-with-java-17" class="hash-link" aria-label="Direct link to running-the-plugin-on-a-server-with-java-17" title="Direct link to running-the-plugin-on-a-server-with-java-17">​</a></h3>
+<p><strong>Problem:</strong> User couldn&#x27;t load a plugin due to a Java version mismatch (plugin required Java 21, but their server was
+running Java 17).</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The developer provided a Java 17-compatible build of the plugin to resolve the issue.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Ensure your server’s Java version matches the plugin requirements or request a compatible version from
+the developer.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="displaying-player-names-instead-of-numbers"><strong>Displaying Player Names Instead of Numbers</strong><a href="#displaying-player-names-instead-of-numbers" class="hash-link" aria-label="Direct link to displaying-player-names-instead-of-numbers" title="Direct link to displaying-player-names-instead-of-numbers">​</a></h3>
+<p><strong>Problem:</strong> User wanted to display the names of faction participants instead of just showing the number of
+participants.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>This feature is not available in the current version, but users can submit a feature request on GitHub for future
+versions.</li>
+</ul>
+<p><strong>Key takeaway:</strong> If a feature isn&#x27;t available, it can be requested for future releases on the project’s GitHub page.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="why-is-the-owner-stored-as-blob-in-the-database"><strong>Why is the Owner Stored as BLOB in the Database?</strong><a href="#why-is-the-owner-stored-as-blob-in-the-database" class="hash-link" aria-label="Direct link to why-is-the-owner-stored-as-blob-in-the-database" title="Direct link to why-is-the-owner-stored-as-blob-in-the-database">​</a></h3>
+<p><strong>Problem:</strong> User noticed that the owner of a faction is stored as BLOB data in their MySQL database and found it
+difficult to work with when displaying faction owners on their website.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The owner is stored as a UUID, not a BLOB. The issue lies in how the OR mapper handles storage across different
+databases.</li>
+<li>On SQLite, it stores the UUID as <code>var(36)</code>, while MySQL stores it as a <code>BINARY(16)</code> for efficiency.</li>
+<li>To retrieve the UUID in a readable format, use <code>SELECT HEX(owner) AS owner FROM table_name;</code>.</li>
+<li>After converting the UUID to a string, use the Mojang API to get the player&#x27;s name and other details.</li>
+</ul>
+<p><strong>Key takeaway:</strong> For databases like MySQL that store UUIDs as <code>BINARY(16)</code>, use <code>HEX()</code> to convert them back to a
+readable format and then fetch player information via the Mojang API.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="why-use-an-external-sql-database-instead-of-sqlite"><strong>Why Use an External SQL Database Instead of SQLite?</strong><a href="#why-use-an-external-sql-database-instead-of-sqlite" class="hash-link" aria-label="Direct link to why-use-an-external-sql-database-instead-of-sqlite" title="Direct link to why-use-an-external-sql-database-instead-of-sqlite">​</a></h3>
+<p><strong>Problem:</strong> User asked if there is a benefit to using an external SQL database over SQLite.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>External SQL databases, like MySQL, are recommended if you are running multiple servers and need faction data to sync
+across them.</li>
+<li>For a single server, SQLite is usually sufficient.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use an external SQL database when managing multiple servers for data synchronization, but SQLite works
+well for most single-server setups.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-can-i-prevent-faction-leaders-from-customizing-ranks"><strong>How Can I Prevent Faction Leaders from Customizing Ranks?</strong><a href="#how-can-i-prevent-faction-leaders-from-customizing-ranks" class="hash-link" aria-label="Direct link to how-can-i-prevent-faction-leaders-from-customizing-ranks" title="Direct link to how-can-i-prevent-faction-leaders-from-customizing-ranks">​</a></h3>
+<p><strong>Problem:</strong> User wanted to prevent faction leaders from creating custom ranks and enforce the same ranks for all
+factions.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Use a permissions manager to disable rank editing in the game. This ensures the default ranks are applied universally
+and cannot be modified by faction leaders.</li>
+<li>The documentation for configuring permissions can be
+found <a href="https://github.com/ToberoCat/ImprovedFactions/blob/main/docs/permissions.md" target="_blank" rel="noopener noreferrer">here</a>.</li>
+</ul>
+<p><strong>Key takeaway:</strong> To enforce uniform ranks, disable rank customization using a permissions manager.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-can-i-limit-the-number-of-characters-in-a-faction-name"><strong>How Can I Limit the Number of Characters in a Faction Name?</strong><a href="#how-can-i-limit-the-number-of-characters-in-a-faction-name" class="hash-link" aria-label="Direct link to how-can-i-limit-the-number-of-characters-in-a-faction-name" title="Direct link to how-can-i-limit-the-number-of-characters-in-a-faction-name">​</a></h3>
+<p><strong>Problem:</strong> User wanted to set a limit on how many characters can be used in a faction name.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The maximum length for a faction name can be set in the configuration file. Look for <code>max-name-length</code> in the config
+and set the desired limit.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Configure the maximum faction name length by adjusting the <code>max-name-length</code> setting in the
+configuration file.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="disabling-land-claim-functionality-for-factions"><strong>Disabling Land Claim Functionality for Factions</strong><a href="#disabling-land-claim-functionality-for-factions" class="hash-link" aria-label="Direct link to disabling-land-claim-functionality-for-factions" title="Direct link to disabling-land-claim-functionality-for-factions">​</a></h3>
+<p><strong>Problem:</strong> User wanted to disable the land claim feature and replace it with an economy-based claim system.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>You can disable the land claiming feature by adjusting permissions. However, disabling this feature means factions
+won&#x27;t be able to claim land using the default system.</li>
+<li>The alternative system, like an economy-based claim, would need to be implemented separately.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Disable land claiming through permissions, but keep in mind that this removes the ability for factions
+to claim land unless an alternative system is implemented.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="using-placeholder-api-papi-with-improved-factions"><strong>Using Placeholder API (PAPI) with Improved Factions</strong><a href="#using-placeholder-api-papi-with-improved-factions" class="hash-link" aria-label="Direct link to using-placeholder-api-papi-with-improved-factions" title="Direct link to using-placeholder-api-papi-with-improved-factions">​</a></h3>
+<p><strong>Problem:</strong> User couldn’t see Improved Factions in the Placeholder API (PAPI) and assumed they had to manually add it.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Improved Factions automatically integrates with PAPI if it is detected. There&#x27;s no need to manually install it like
+other plugins.</li>
+<li>If it&#x27;s not working, restarting the server and waiting for the plugin to initialize might resolve the issue.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Improved Factions integrates with PAPI automatically, and restarting the server can resolve detection
+issues.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="handling-faction-chunk-clustering-with-papi"><strong>Handling Faction Chunk Clustering with PAPI</strong><a href="#handling-faction-chunk-clustering-with-papi" class="hash-link" aria-label="Direct link to handling-faction-chunk-clustering-with-papi" title="Direct link to handling-faction-chunk-clustering-with-papi">​</a></h3>
+<p><strong>Problem:</strong> User was experiencing delays with PAPI loading due to faction chunk clustering.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>This is an issue with faction chunk clustering, not PAPI itself. Updating to the latest development build should
+provide better logging and faster processing.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Update to the latest development build to improve performance and logging during faction chunk
+clustering when using PAPI.</p>
+<ul>
+<li>
+<p><strong>Plans for Pl3xMap Support</strong>
+<strong>Problem:</strong> User asked if Pl3xMap would be supported by the plugin.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The developer hadn&#x27;t planned it initially but mentioned it should be simple to implement, similar to Dynmap
+support, and agreed to add it in the future when time permits.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Pl3xMap support will be implemented, but the plugin already supports Dynmap.</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p><strong>How to Rename a Faction</strong>
+<strong>Problem:</strong> User wanted to know if they could rename a faction.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The command <code>/f rename</code> allows users to rename their faction.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use <code>/f rename</code> to rename your faction.</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p><strong>Disabling Overclaiming and Raiding</strong>
+<strong>Problem:</strong> User wanted to disable all overclaiming and raiding while keeping chunk claiming.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Disabling the power system will turn off raids and claiming limits. However, once disabled, there is no max claim
+limit.</li>
+<li>Alternatively, by disabling claim costs and player death penalties, claims can become unraidable.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Disabling the power system removes overclaiming and raiding but also disables claim limits.</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p><strong>Max Claim Limit without Power System</strong>
+<strong>Problem:</strong> User wanted to set a max claim limit when the power system is disabled.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>There&#x27;s no way to set a claim limit if the power system is turned off. Claims will be unlimited.</li>
+</ul>
+<p><strong>Key takeaway:</strong> No max claim limit exists if the power system is disabled.</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p><strong>Blacklisting a World from Claims</strong>
+<strong>Problem:</strong> User wanted to blacklist a specific world from being claimed.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The correct syntax is:<!-- -->
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">blacklisted-worlds:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  - twilightforest</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use the folder name of the world in the config to blacklist it.</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p><strong>Economy-Based Power for Factions</strong>
+<strong>Problem:</strong> User wanted to know if power could be bought with in-game currency.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Not natively supported, but users can use external plugins to add power with the command
+<code>/factions power add &lt;powertype&gt; &lt;power&gt; &lt;faction&gt;</code>.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Power can be added via external plugins and commands but is not natively tied to an economy.</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p><strong>Dynmap Accessibility for Players</strong>
+<strong>Problem:</strong> User wanted to allow all players to access Dynmap.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Players can access the Dynmap by typing <code>&lt;your server url&gt;:&lt;port set in the Dynmap config&gt;</code> in their browser.</li>
+<li>Make sure the port is forwarded correctly.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Dynmap can be accessed via a browser using the server URL and port number.</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p><strong>Offline Mode Player Detection</strong>
+<strong>Problem:</strong> User reported that offline mode players were not properly detected by the plugin.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The plugin has issues with offline mode players. Compatibility issues may exist, and further development might be
+needed for better offline mode support.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Offline mode player detection is problematic, and development may be needed for full compatibility.</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p><strong>Improved Factions Compatibility with GeyserMC</strong>
+<strong>Problem:</strong> User wanted to know if the plugin is compatible with GeyserMC.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Improved Factions works with GeyserMC, but the invite menu has a known bug. Bedrock-specific menus are under
+development by other developers.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Improved Factions works with GeyserMC, but some menu features may have issues.</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p><strong>PlaceholderAPI Issues</strong>
+<strong>Problem:</strong> User had trouble displaying faction placeholders with PlaceholderAPI (PAPI).</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The issue was a problem with placeholder parsing in the plugin. The developer identified the bug and planned to
+fix it in a future update.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Placeholder issues with PAPI will be resolved in future updates; parsing errors may exist in certain
+builds.</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p><strong>War Mechanics Between Factions</strong>
+<strong>Problem:</strong> User wanted to know if the plugin supports war mechanics between enemy factions.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The plugin does not currently support declaring war. A siege occurs when a faction loses power and others can
+claim their land.</li>
+</ul>
+<p><strong>Key takeaway:</strong> There is no formal war declaration yet, but sieges happen when factions lose power.</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p><strong>Changing Plugin Language to Spanish</strong>
+<strong>Problem:</strong> User wanted to change the plugin language to Spanish but encountered issues.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The <code>.lang</code> files are outdated for version 2.x.x. To add Spanish, create a new file in the language folder with
+the correct language code. The plugin will use the player’s game language settings to show translated messages.</li>
+</ul>
+<p><strong>Key takeaway:</strong> For version 2.x.x, create a new language file, and the plugin will adjust based on players&#x27; language
+settings.</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p><strong>Language File Issues</strong>
+<strong>Problem:</strong> User added the Spanish language file but saw some messages were not translated.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The issue occurred because certain messages were missing from the Spanish translation file.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Ensure all required translations are present in the language file to avoid missing messages.</p>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="pl3xmap-support"><strong>Pl3xmap Support</strong><a href="#pl3xmap-support" class="hash-link" aria-label="Direct link to pl3xmap-support" title="Direct link to pl3xmap-support">​</a></h3>
+<p><strong>Problem:</strong> User asked if Pl3xmap will be supported by the plugin.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The developer mentioned that while it’s not currently supported, adding support for Pl3xmap should be similar to the
+existing Dynmap implementation and can be done in the future.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Pl3xmap support is not available yet, but it may be added in future updates similar to Dynmap.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="renaming-a-faction"><strong>Renaming a Faction</strong><a href="#renaming-a-faction" class="hash-link" aria-label="Direct link to renaming-a-faction" title="Direct link to renaming-a-faction">​</a></h3>
+<p><strong>Problem:</strong> User wanted to rename a faction.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The command <code>/f rename</code> allows you to rename a faction.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use the <code>/f rename</code> command to change a faction’s name.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="disabling-overclaiming-and-raiding"><strong>Disabling Overclaiming and Raiding</strong><a href="#disabling-overclaiming-and-raiding" class="hash-link" aria-label="Direct link to disabling-overclaiming-and-raiding" title="Direct link to disabling-overclaiming-and-raiding">​</a></h3>
+<p><strong>Problem:</strong> User wanted to disable all overclaiming and raiding features and use the plugin solely for chunk claiming.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Disabling the power system also disables raiding and claim limits.</li>
+<li>The user can turn off these features by adjusting the config settings like <code>base-claim-power-cost</code> and
+<code>player-death-cost</code>.</li>
+</ul>
+<p><strong>Key takeaway:</strong> To disable overclaiming and raiding, adjust the power system in the configuration settings.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="setting-max-claim-limits-without-power-system"><strong>Setting Max Claim Limits without Power System</strong><a href="#setting-max-claim-limits-without-power-system" class="hash-link" aria-label="Direct link to setting-max-claim-limits-without-power-system" title="Direct link to setting-max-claim-limits-without-power-system">​</a></h3>
+<p><strong>Problem:</strong> User wanted to set a maximum claim limit after disabling the power system.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Disabling the power system removes the claim limit. There is no native way to limit claims without the power system.</li>
+</ul>
+<p><strong>Key takeaway:</strong> There is no claim limit without the power system, but using the power system allows for limits.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="world-blacklisting-for-claiming"><strong>World Blacklisting for Claiming</strong><a href="#world-blacklisting-for-claiming" class="hash-link" aria-label="Direct link to world-blacklisting-for-claiming" title="Direct link to world-blacklisting-for-claiming">​</a></h3>
+<p><strong>Problem:</strong> User wanted to blacklist a specific world from being claimed.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The correct way to blacklist a world is by adding the folder name of the world in the config under
+<code>blacklisted-worlds</code> like this:<!-- -->
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">blacklisted-worlds:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  - twilightforest</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use the world folder name to blacklist worlds from claiming in the configuration file.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="supporting-economies-in-faction-claims"><strong>Supporting Economies in Faction Claims</strong><a href="#supporting-economies-in-faction-claims" class="hash-link" aria-label="Direct link to supporting-economies-in-faction-claims" title="Direct link to supporting-economies-in-faction-claims">​</a></h3>
+<p><strong>Problem:</strong> User wanted to allow factions to &quot;buy&quot; power through an economy system.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>This is not natively supported, but you can use another plugin to run commands like
+<code>/factions power add &lt;powertype&gt; &lt;power&gt; &lt;faction&gt;</code> to integrate it with an economy system.</li>
+</ul>
+<p><strong>Key takeaway:</strong> While not natively supported, you can combine other plugins to implement economy-based power
+purchasing.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="disabling-overclaiming-in-the-power-system"><strong>Disabling Overclaiming in the Power System</strong><a href="#disabling-overclaiming-in-the-power-system" class="hash-link" aria-label="Direct link to disabling-overclaiming-in-the-power-system" title="Direct link to disabling-overclaiming-in-the-power-system">​</a></h3>
+<p><strong>Problem:</strong> User wanted to disable overclaiming while keeping claims unraidable.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>To disable overclaiming, set <code>claim-power-keep</code> and <code>player-death-cost</code> to 0 in the config. This will prevent claims
+from being raided by ensuring factions always have enough power.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Adjust <code>claim-power-keep</code> and <code>player-death-cost</code> to 0 to prevent raiding and ensure claims remain
+secure.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="dynmap-access-for-players"><strong>Dynmap Access for Players</strong><a href="#dynmap-access-for-players" class="hash-link" aria-label="Direct link to dynmap-access-for-players" title="Direct link to dynmap-access-for-players">​</a></h3>
+<p><strong>Problem:</strong> User wanted to know how to allow players to use Dynmap.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Provide players with the server URL and port as configured in Dynmap. Example:<!-- -->
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">&lt;Your server URL&gt;:&lt;port&gt;</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+</li>
+<li>Ensure that port forwarding is enabled.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Share the server URL and Dynmap port with players, and ensure the port is forwarded.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="offline-mode-players-not-detected"><strong>Offline Mode Players Not Detected</strong><a href="#offline-mode-players-not-detected" class="hash-link" aria-label="Direct link to offline-mode-players-not-detected" title="Direct link to offline-mode-players-not-detected">​</a></h3>
+<p><strong>Problem:</strong> User reported that offline mode players are not being detected by the plugin, preventing invites.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Offline mode detection for players may not be fully supported in the current version of the plugin. It’s a known
+issue.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Offline mode support may have issues with player detection in the current plugin version.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="geysermc-compatibility"><strong>GeyserMC Compatibility</strong><a href="#geysermc-compatibility" class="hash-link" aria-label="Direct link to geysermc-compatibility" title="Direct link to geysermc-compatibility">​</a></h3>
+<p><strong>Problem:</strong> User wanted to know if the plugin is compatible with GeyserMC (Bedrock proxy).</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The plugin is compatible with GeyserMC, but there may be bugs with menus, particularly the invite menu.</li>
+</ul>
+<p><strong>Key takeaway:</strong> The plugin works with GeyserMC, though menu-related bugs may occur.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="faction-placeholder-not-working"><strong>Faction Placeholder Not Working</strong><a href="#faction-placeholder-not-working" class="hash-link" aria-label="Direct link to faction-placeholder-not-working" title="Direct link to faction-placeholder-not-working">​</a></h3>
+<p><strong>Problem:</strong> User reported that faction placeholders were not displaying correctly despite having PlaceholderAPI (PAPI)
+installed.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The developer acknowledged that it was a bug with the plugin&#x27;s placeholder parsing and promised to fix it.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Placeholder issues are a known bug and are expected to be fixed in future updates.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="war-mechanics-between-factions"><strong>War Mechanics Between Factions</strong><a href="#war-mechanics-between-factions" class="hash-link" aria-label="Direct link to war-mechanics-between-factions" title="Direct link to war-mechanics-between-factions">​</a></h3>
+<p><strong>Problem:</strong> User asked if the plugin includes war mechanics between factions.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The plugin doesn’t currently support declaring war, but &quot;sieges&quot; allow other factions to claim chunks from a faction
+with insufficient power.</li>
+</ul>
+<p><strong>Key takeaway:</strong> The plugin uses a siege system where factions with low power lose territory but doesn’t support formal
+declarations of war.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="spanish-language-support"><strong>Spanish Language Support</strong><a href="#spanish-language-support" class="hash-link" aria-label="Direct link to spanish-language-support" title="Direct link to spanish-language-support">​</a></h3>
+<p><strong>Problem:</strong> User wanted to apply the Spanish language to the plugin.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The plugin uses the player&#x27;s game language settings. To apply Spanish, create a new file in the language folder with
+the correct language code. The plugin will use these translations if the player’s game is set to Spanish.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Players’ game language settings determine the language used by the plugin, and translations are
+applied automatically based on the language files.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="people-can-break-blocks-in-safezones-and-warzones"><strong>People Can Break Blocks in Safezones and Warzones</strong><a href="#people-can-break-blocks-in-safezones-and-warzones" class="hash-link" aria-label="Direct link to people-can-break-blocks-in-safezones-and-warzones" title="Direct link to people-can-break-blocks-in-safezones-and-warzones">​</a></h3>
+<p><strong>Problem:</strong> Some players are able to break blocks in safezones and warzones, while others cannot. This issue persists
+even across different plugin versions.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The issue could be related to plugin configurations or interference from other plugins. It was suggested to ensure the
+zone settings in the configuration are correct and to confirm that other plugins aren’t causing interference.</li>
+<li>One possible fix is using the latest version or switching database types (e.g., from SQLite to H2 or MySQL) to see if
+the issue persists.</li>
+<li>Check for the setting <code>allow-claiming</code> in the zones section of the configuration and ensure it’s set to <code>false</code> for
+safezones and warzones.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Verify that zone configurations are correct, and check if database type or plugin interference could
+be causing the issue.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="faction-menus-allowing-item-removal"><strong>Faction Menus Allowing Item Removal</strong><a href="#faction-menus-allowing-item-removal" class="hash-link" aria-label="Direct link to faction-menus-allowing-item-removal" title="Direct link to faction-menus-allowing-item-removal">​</a></h3>
+<p><strong>Problem:</strong> Players were able to remove items from faction menus, which shouldn’t be possible.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>This may be a bug in the specific version of the plugin being used. Downgrading to a more stable version or updating
+to the latest one might resolve the issue.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Test different plugin versions and report bugs for fixes if items can be removed from menus.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="players-can-join-any-faction"><strong>Players Can Join Any Faction</strong><a href="#players-can-join-any-faction" class="hash-link" aria-label="Direct link to players-can-join-any-faction" title="Direct link to players-can-join-any-faction">​</a></h3>
+<p><strong>Problem:</strong> In some plugin versions, players were able to join any faction without restriction.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>This is intended behavior if the <code>/f join</code> command is used. To prevent this, adjust permissions using a plugin like
+LuckPerms to restrict who can use the <code>/f join</code> command.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use a permission manager like LuckPerms to restrict faction joining if necessary.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="database-related-issues"><strong>Database-Related Issues</strong><a href="#database-related-issues" class="hash-link" aria-label="Direct link to database-related-issues" title="Direct link to database-related-issues">​</a></h3>
+<p><strong>Problem:</strong> Players experienced issues with zone protections and other functionality that could be related to the
+database.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Switching from SQLite to H2 or MySQL was suggested as a way to test if database performance or configuration issues
+were causing the problems.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Test different database options (e.g., H2, MySQL) to see if they improve performance or resolve
+issues.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="faction-chat-formatting-with-essentials"><strong>Faction Chat Formatting with Essentials</strong><a href="#faction-chat-formatting-with-essentials" class="hash-link" aria-label="Direct link to faction-chat-formatting-with-essentials" title="Direct link to faction-chat-formatting-with-essentials">​</a></h3>
+<p><strong>Problem:</strong> User struggled to format the chat to show faction names using Essentials and PlaceholderAPI (PAPI), with
+placeholders not displaying correctly.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Essentials doesn’t natively support PAPI placeholders, so using ChatInjector was recommended to enable the
+placeholders.</li>
+<li>The correct format should include <code>%%</code> for placeholders, but if that doesn’t work, using ChatInjector will fix it.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use ChatInjector with Essentials to enable PAPI placeholders for chat formatting.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="safezone-and-warzone-claiming-issues"><strong>Safezone and Warzone Claiming Issues</strong><a href="#safezone-and-warzone-claiming-issues" class="hash-link" aria-label="Direct link to safezone-and-warzone-claiming-issues" title="Direct link to safezone-and-warzone-claiming-issues">​</a></h3>
+<p><strong>Problem:</strong> Players were able to claim or modify blocks in safezones and warzones if they weren’t in a faction, causing
+issues with land protection.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Ensure that claiming is disabled in the safezone and warzone configurations. This can be controlled with the
+<code>allow-claiming</code> option in the config.</li>
+<li>If players are still able to claim, it could indicate a misconfiguration or a bug in the version being used.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Double-check the <code>allow-claiming</code> setting in the zone configuration to prevent claims in safezones and
+warzones.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="using-chatinjector-with-placeholderapi"><strong>Using ChatInjector with PlaceholderAPI</strong><a href="#using-chatinjector-with-placeholderapi" class="hash-link" aria-label="Direct link to using-chatinjector-with-placeholderapi" title="Direct link to using-chatinjector-with-placeholderapi">​</a></h3>
+<p><strong>Problem:</strong> Placeholders for factions were not working properly in Essentials chat formatting, breaking the display.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>ChatInjector is required to enable PlaceholderAPI placeholders in Essentials chat formatting. Following the guide and
+adding ChatInjector will resolve the issue.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use ChatInjector to enable PAPI placeholders in Essentials chat formatting.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="updating-minecraft-and-plugin-versions"><strong>Updating Minecraft and Plugin Versions</strong><a href="#updating-minecraft-and-plugin-versions" class="hash-link" aria-label="Direct link to updating-minecraft-and-plugin-versions" title="Direct link to updating-minecraft-and-plugin-versions">​</a></h3>
+<p><strong>Problem:</strong> Issues persisted across multiple versions of the plugin, and the user was unsure which version of Minecraft
+or the plugin to use.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The user was advised to update to the latest Minecraft version and use version latest version of the plugin, while
+also ensuring that the configuration file matches the updated version’s requirements.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Keep both Minecraft and the plugin updated, and ensure the config file is updated accordingly to avoid
+compatibility issues.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="plugin-and-mod-compatibility"><strong>Plugin and Mod Compatibility</strong><a href="#plugin-and-mod-compatibility" class="hash-link" aria-label="Direct link to plugin-and-mod-compatibility" title="Direct link to plugin-and-mod-compatibility">​</a></h3>
+<p><strong>Problem:</strong> User asked if the plugin protects modded blocks and whether additional plugins are needed.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The plugin protects modded blocks as long as they trigger the standard Minecraft block break and place events. Extra
+plugins, like Dynmap, GUIEngine, or WorldGuard, may enhance features but aren’t required.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Modded blocks are protected by default, but additional plugins may offer extra features.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="error-when-enabling-improvedfactions"><strong>Error When Enabling ImprovedFactions</strong><a href="#error-when-enabling-improvedfactions" class="hash-link" aria-label="Direct link to error-when-enabling-improvedfactions" title="Direct link to error-when-enabling-improvedfactions">​</a></h3>
+<p><strong>Problem:</strong> The plugin fails to enable with an error message related to MySQL or SQLite.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The plugin defaults to SQLite if it cannot connect to the MySQL database. Ensure that your MySQL credentials are
+correct in the <code>config.yml</code> file.</li>
+<li>If you’re using a host like PebbleHost, verify the database name, username, and password. If there are issues with
+MySQL, try switching to SQLite or H2 by changing the <code>database</code> field in the configuration.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Double-check database configurations and switch between MySQL, SQLite, or H2 if needed.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="lag-when-using-commands"><strong>Lag When Using Commands</strong><a href="#lag-when-using-commands" class="hash-link" aria-label="Direct link to lag-when-using-commands" title="Direct link to lag-when-using-commands">​</a></h3>
+<p><strong>Problem:</strong> Commands such as <code>/f help</code> cause the server to lag or freeze, with high server latency reported.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>High latency may be related to database performance. Switching from MySQL to SQLite or H2 may resolve latency issues.</li>
+<li>If the issue persists, reducing the load from other plugins or optimizing the server&#x27;s performance could help.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Try different database setups (SQLite, H2, MySQL) and optimize server performance to reduce lag during
+command execution.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="faction-commands-not-responding"><strong>Faction Commands Not Responding</strong><a href="#faction-commands-not-responding" class="hash-link" aria-label="Direct link to faction-commands-not-responding" title="Direct link to faction-commands-not-responding">​</a></h3>
+<p><strong>Problem:</strong> The <code>/f help</code> or other faction commands do not respond, or the server freezes when trying to execute them.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Ensure that the plugin is fully installed with all dependencies (such as GUIEngine).</li>
+<li>Check the console logs for any specific errors related to the plugin and try running the command after reducing the
+server load by disabling unnecessary plugins.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Ensure all dependencies are installed and review server logs for potential errors.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="mysql-access-denied"><strong>MySQL Access Denied</strong><a href="#mysql-access-denied" class="hash-link" aria-label="Direct link to mysql-access-denied" title="Direct link to mysql-access-denied">​</a></h3>
+<p><strong>Problem:</strong> Users receive an &quot;Access denied for user&quot; error when trying to connect to the MySQL database.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Ensure that the database name and credentials in the <code>config.yml</code> match those provided by your hosting service.</li>
+<li>If your hosting service prepends a string (e.g., <code>customer_724101_</code>) to your database name, make sure this is
+reflected in the configuration.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Verify that the MySQL credentials and database name match the information provided by your hosting
+service.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="placeholder-api-papi-and-gui-engine-issues"><strong>Placeholder API (PAPI) and GUI Engine Issues</strong><a href="#placeholder-api-papi-and-gui-engine-issues" class="hash-link" aria-label="Direct link to placeholder-api-papi-and-gui-engine-issues" title="Direct link to placeholder-api-papi-and-gui-engine-issues">​</a></h3>
+<p><strong>Problem:</strong> On-screen GUIs like walking into claimed areas or the <code>/f wilderness</code> command do not appear despite having
+PlaceholderAPI and GUIEngine installed.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Ensure that the <code>config.yml</code> is correctly set up and that no settings are hiding the GUIs. Some settings in the config
+may hide notifications.</li>
+<li>If using an unsupported game version, check for updates to the libraries or plugin to ensure compatibility.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Verify that the config doesn’t accidentally hide GUIs, and ensure compatibility with your game
+version.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="faction-claim-issues"><strong>Faction Claim Issues</strong><a href="#faction-claim-issues" class="hash-link" aria-label="Direct link to faction-claim-issues" title="Direct link to faction-claim-issues">​</a></h3>
+<p><strong>Problem:</strong> Players in a faction other than the owner cannot use the <code>/f claim</code> command, leading to errors.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>This issue may be related to how claims are grouped into clusters. If the cluster detection is failing, the plugin
+might not recognize the correct claim group for a faction.</li>
+<li>The developer is aware of the issue and is working on a fix.</li>
+</ul>
+<p><strong>Key takeaway:</strong> If players in a faction are unable to claim land, it may be related to claim cluster management, and a
+fix may be needed from the developer.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="permission-issues-with-faction-commands"><strong>Permission Issues with Faction Commands</strong><a href="#permission-issues-with-faction-commands" class="hash-link" aria-label="Direct link to permission-issues-with-faction-commands" title="Direct link to permission-issues-with-faction-commands">​</a></h3>
+<p><strong>Problem:</strong> Players cannot use <code>/f home</code> or <code>/f wilderness</code> unless they are OP, and permissions don’t seem to be
+applied correctly.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Permissions for these commands need to be explicitly set using a permissions manager like LuckPerms. The correct
+permissions are <code>factions.wilderness</code> and <code>factions.home</code>.</li>
+<li>Ensure that the permissions are set for the correct group and that any changes take effect after a restart or
+reloading the permissions.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Set the correct permissions in your permission manager to allow players to use faction-related
+commands.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="adding-players-to-factions-manually"><strong>Adding Players to Factions Manually</strong><a href="#adding-players-to-factions-manually" class="hash-link" aria-label="Direct link to adding-players-to-factions-manually" title="Direct link to adding-players-to-factions-manually">​</a></h3>
+<p><strong>Problem:</strong> Users wanted to manually add players to a faction and limit the number of factions.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>There is currently no built-in way to manually add players to a faction or limit the number of factions. However, you
+can request these features on GitHub as feature requests for future updates.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Manual faction management features can be requested but are not currently available.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="faction-invite-tab-completion-error"><strong>Faction Invite Tab Completion Error</strong><a href="#faction-invite-tab-completion-error" class="hash-link" aria-label="Direct link to faction-invite-tab-completion-error" title="Direct link to faction-invite-tab-completion-error">​</a></h3>
+<p><strong>Problem:</strong> When using <code>/f invite</code>, typing each character causes an internal error, and sometimes the player isn’t
+recognized.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>As a workaround, use <code>/f join &lt;faction&gt;</code> to manually join factions without requiring an invite.</li>
+<li>The developer is aware of the issue and will work on fixing the tab completion and invite recognition.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use <code>/f join &lt;faction&gt;</code> as a temporary fix for faction invites while the issue is being addressed.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-to-get-custom-player-heads-in-gui"><strong>How to Get Custom Player Heads in GUI</strong><a href="#how-to-get-custom-player-heads-in-gui" class="hash-link" aria-label="Direct link to how-to-get-custom-player-heads-in-gui" title="Direct link to how-to-get-custom-player-heads-in-gui">​</a></h3>
+<p><strong>Problem:</strong> User wanted to use custom heads in a GUI but encountered errors when using &quot;head-texture&quot;.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>You need to use the actual head texture ID, which is a long string containing numbers and letters. These can be found
+online through sites that provide player head textures or by using a plugin that retrieves them.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Ensure you&#x27;re using a valid head texture ID when adding custom heads to a GUI.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-to-use-luckperms-for-permissions-in-improved-factions"><strong>How to Use LuckPerms for Permissions in Improved Factions</strong><a href="#how-to-use-luckperms-for-permissions-in-improved-factions" class="hash-link" aria-label="Direct link to how-to-use-luckperms-for-permissions-in-improved-factions" title="Direct link to how-to-use-luckperms-for-permissions-in-improved-factions">​</a></h3>
+<p><strong>Problem:</strong> User was new to hosting and unsure how permissions worked with Improved Factions.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Use a permissions manager like LuckPerms to manage permissions for factions. You can assign permissions such as
+<code>factions.wilderness</code> or <code>factions.home</code> using LuckPerms commands or the web editor.</li>
+</ul>
+<p><strong>Key takeaway:</strong> LuckPerms is the recommended plugin for managing permissions with Improved Factions.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="error-when-running-f-invite-with-tab-completion"><strong>Error When Running <code>/f invite</code> with Tab Completion</strong><a href="#error-when-running-f-invite-with-tab-completion" class="hash-link" aria-label="Direct link to error-when-running-f-invite-with-tab-completion" title="Direct link to error-when-running-f-invite-with-tab-completion">​</a></h3>
+<p><strong>Problem:</strong> The <code>/f invite</code> command causes errors when using tab completion, and some players aren’t recognized.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>As a temporary workaround, use <code>/f join &lt;faction&gt;</code> instead of relying on the invite system.</li>
+<li>The developer is aware of this issue and a fix is in progress.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use <code>/f join &lt;faction&gt;</code> as a workaround until the invite tab completion issue is resolved.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="error-when-inviting-friend-to-faction-the-provided-argument-do-not-fit-the-requirements"><strong>Error When Inviting Friend to Faction: &quot;The provided argument do not fit the requirements&quot;</strong><a href="#error-when-inviting-friend-to-faction-the-provided-argument-do-not-fit-the-requirements" class="hash-link" aria-label="Direct link to error-when-inviting-friend-to-faction-the-provided-argument-do-not-fit-the-requirements" title="Direct link to error-when-inviting-friend-to-faction-the-provided-argument-do-not-fit-the-requirements">​</a></h3>
+<p><strong>Problem:</strong> User encountered an error when trying to invite a friend to the faction.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>In version 2.x, the command requires both the player’s name and their rank. Example: <code>/f invite &lt;player&gt; &lt;rank&gt;</code>.</li>
+<li>If your friend is having issues accepting the invite, they can use the <code>/f invites</code> command to open a GUI where they
+can accept the invite without worrying about command arguments.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Ensure the invite command includes both the player name and rank, or use the GUI to avoid argument
+issues.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="the-provided-arguments-dont-fit-error-in-f-inviteaccept-command"><strong>&quot;The provided arguments don&#x27;t fit&quot; Error in <code>/f inviteaccept</code> Command</strong><a href="#the-provided-arguments-dont-fit-error-in-f-inviteaccept-command" class="hash-link" aria-label="Direct link to the-provided-arguments-dont-fit-error-in-f-inviteaccept-command" title="Direct link to the-provided-arguments-dont-fit-error-in-f-inviteaccept-command">​</a></h3>
+<p><strong>Problem:</strong> A player encountered an error while using <code>/f inviteaccept</code> with arguments like <code>FACTIONNAME</code>.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Instead of typing the faction name, use <code>/f invites</code> to access the GUI for accepting invites. This simplifies the
+process and avoids argument-related errors.</li>
+<li>Alternatively, review the help command <code>/f help inviteaccept</code> for the correct syntax if you prefer using commands.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use the GUI for accepting faction invites to avoid argument issues.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="making-a-faction-private"><strong>Making a Faction Private</strong><a href="#making-a-faction-private" class="hash-link" aria-label="Direct link to making-a-faction-private" title="Direct link to making-a-faction-private">​</a></h3>
+<p><strong>Problem:</strong> User couldn’t find a way to make a faction private.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>This feature was available in previous versions, but is not yet supported in version 2.x. If absolutely necessary, you
+can manually set this in the database.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Faction privacy settings are not currently available in version 2.x, but can be adjusted via the
+database.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="papi-placeholders-not-working"><strong>PAPI Placeholders Not Working</strong><a href="#papi-placeholders-not-working" class="hash-link" aria-label="Direct link to papi-placeholders-not-working" title="Direct link to papi-placeholders-not-working">​</a></h3>
+<p><strong>Problem:</strong> User reported that the <code>%faction_name%</code> placeholder from PlaceholderAPI (PAPI) was not returning the
+correct value.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Ensure that both PAPI and Improved Factions are up to date.</li>
+<li>If placeholders still don’t work, check if the PAPI extension for Improved Factions has been registered in the
+console (e.g., <code>[ImprovedFactions] Loaded improved factions papi extension</code>).</li>
+<li>You may also need a chat injector plugin to display placeholders in chat,
+like <a href="https://www.spigotmc.org/resources/chatinjector-1-13.81201/" target="_blank" rel="noopener noreferrer">ChatInjector</a>.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Ensure the PAPI extension is registered, and use a chat injector to display placeholders in chat.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-to-check-rank-for-inviting-players"><strong>How to Check Rank for Inviting Players</strong><a href="#how-to-check-rank-for-inviting-players" class="hash-link" aria-label="Direct link to how-to-check-rank-for-inviting-players" title="Direct link to how-to-check-rank-for-inviting-players">​</a></h3>
+<p><strong>Problem:</strong> User was unsure how to invite someone to their faction due to rank confusion.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The rank for the invite should be specified in the command. If unsure, check the rank structure or use the GUI to
+manage invitations more easily.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Include both player name and rank in the invite command, or use the GUI for a simpler approach.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="permissions-for-faction-commands-not-working"><strong>Permissions for Faction Commands Not Working</strong><a href="#permissions-for-faction-commands-not-working" class="hash-link" aria-label="Direct link to permissions-for-faction-commands-not-working" title="Direct link to permissions-for-faction-commands-not-working">​</a></h3>
+<p><strong>Problem:</strong> Some users could not use <code>/f home</code> or other faction commands, and permissions didn’t seem to apply
+correctly.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Use a permissions manager like LuckPerms to assign the appropriate permissions (e.g., <code>factions.home</code> or
+<code>factions.wilderness</code>).</li>
+<li>If the permissions aren’t taking effect, ensure the correct syntax and reload the permissions setup.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use a permission manager and double-check your permission setup for faction commands.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-to-use-placeholders-in-chat"><strong>How to Use Placeholders in Chat</strong><a href="#how-to-use-placeholders-in-chat" class="hash-link" aria-label="Direct link to how-to-use-placeholders-in-chat" title="Direct link to how-to-use-placeholders-in-chat">​</a></h3>
+<p><strong>Problem:</strong> User tried to use placeholders (e.g., <code>%faction_name%</code>) in chat, but it didn’t work even with VaultChat and
+ChatInjector.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Check if the placeholders are registered with PAPI (<code>[ImprovedFactions] Loaded improved factions papi extension</code>).</li>
+<li>Ensure that both Improved Factions and PlaceholderAPI are up to date. The use of a chat injector plugin (
+like <a href="https://www.spigotmc.org/resources/chatinjector-1-13.81201/" target="_blank" rel="noopener noreferrer">ChatInjector</a>) may be required for placeholders to
+work in chat.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Ensure the PAPI extension is loaded, and use a chat injector to enable placeholders in chat.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="error-in-faction-claiming"><strong>Error in Faction Claiming</strong><a href="#error-in-faction-claiming" class="hash-link" aria-label="Direct link to error-in-faction-claiming" title="Direct link to error-in-faction-claiming">​</a></h3>
+<p><strong>Problem:</strong> Some faction members were unable to use <code>/f claim</code>, receiving an error.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>This issue could be related to how claim clusters are handled within factions. Ensure that the player is in the
+correct faction and that there are no overlapping claim permissions.</li>
+<li>If the error persists, it may be a bug that requires further investigation by the plugin developer.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Check faction claim settings and consult with the developer if the issue persists.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="squaremap--pl3xmap-support"><strong>Squaremap / Pl3xMap Support</strong><a href="#squaremap--pl3xmap-support" class="hash-link" aria-label="Direct link to squaremap--pl3xmap-support" title="Direct link to squaremap--pl3xmap-support">​</a></h3>
+<p><strong>Problem:</strong> User inquired about the status of Squaremap or Pl3xMap support in Improved Factions.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>As of now, there are no immediate plans to update the plugin to support Squaremap or Pl3xMap. The developer is focused
+on fixing known bugs before considering new map support.</li>
+</ul>
+<p><strong>Key takeaway:</strong> No current support for Squaremap or Pl3xMap, but it may be revisited after bug fixes.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-to-delete-factions"><strong>How to Delete Factions</strong><a href="#how-to-delete-factions" class="hash-link" aria-label="Direct link to how-to-delete-factions" title="Direct link to how-to-delete-factions">​</a></h3>
+<p><strong>Problem:</strong> User wanted to know how to delete a faction.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Use the command <code>/f delete confirm</code> to delete a faction.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use <code>/f delete confirm</code> to delete a faction.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="disabling-pvp-between-faction-members-not-working"><strong>Disabling PvP Between Faction Members Not Working</strong><a href="#disabling-pvp-between-faction-members-not-working" class="hash-link" aria-label="Direct link to disabling-pvp-between-faction-members-not-working" title="Direct link to disabling-pvp-between-faction-members-not-working">​</a></h3>
+<p><strong>Problem:</strong> User reported that setting PvP between faction members to disabled in the config doesn&#x27;t work.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The developer is aware of the issue and has requested a bug ticket be created for investigation.</li>
+</ul>
+<p><strong>Key takeaway:</strong> If disabling PvP between faction members isn&#x27;t working, submit a bug ticket for review.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="allowing-interaction-with-specific-items-in-private-claims"><strong>Allowing Interaction with Specific Items in Private Claims</strong><a href="#allowing-interaction-with-specific-items-in-private-claims" class="hash-link" aria-label="Direct link to allowing-interaction-with-specific-items-in-private-claims" title="Direct link to allowing-interaction-with-specific-items-in-private-claims">​</a></h3>
+<p><strong>Problem:</strong> User wanted to allow interactions with specific items (e.g., enchantment tables) in private claims.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>This feature is not supported yet. If needed for zones like safezones, use WorldGuard&#x27;s unmanaged zones to handle
+specific interactions.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Currently, there is no direct support for allowing specific interactions in private claims within
+Improved Factions.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="folia-compatibility"><strong>Folia Compatibility</strong><a href="#folia-compatibility" class="hash-link" aria-label="Direct link to folia-compatibility" title="Direct link to folia-compatibility">​</a></h3>
+<p><strong>Problem:</strong> User asked whether Improved Factions or similar plugins support the Folia server fork.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Improved Factions has not been explicitly tested with Folia, but since Folia is a fork of Paper, it may be compatible.
+However, Folia introduces significant multithreading changes, so compatibility is not guaranteed.</li>
+<li>The developer is considering adding support for Folia, though it may take some time.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Folia compatibility is not confirmed, but support may be added in the future.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="faq-from-chat-logs">FAQ from Chat Logs<a href="#faq-from-chat-logs" class="hash-link" aria-label="Direct link to FAQ from Chat Logs" title="Direct link to FAQ from Chat Logs">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="setting-up-server-areas-on-the-map-warzones-safezones"><strong>Setting Up Server Areas on the Map (Warzones, Safezones)</strong><a href="#setting-up-server-areas-on-the-map-warzones-safezones" class="hash-link" aria-label="Direct link to setting-up-server-areas-on-the-map-warzones-safezones" title="Direct link to setting-up-server-areas-on-the-map-warzones-safezones">​</a></h3>
+<p><strong>Problem:</strong> User wanted to know if they could set up different server areas, such as warzones or safezones, using
+Improved Factions.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Yes, you can set up different zones using the command <code>/f zone claim &lt;zoneType&gt;</code>. For example, to claim a safezone,
+you can use <code>/f zone claim safezone</code>.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use the <code>/f zone claim &lt;zoneType&gt;</code> command to define server areas like warzones and safezones.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="preventing-creeper-explosions-in-claimed-plots"><strong>Preventing Creeper Explosions in Claimed Plots</strong><a href="#preventing-creeper-explosions-in-claimed-plots" class="hash-link" aria-label="Direct link to preventing-creeper-explosions-in-claimed-plots" title="Direct link to preventing-creeper-explosions-in-claimed-plots">​</a></h3>
+<p><strong>Problem:</strong> User wanted to prevent creeper explosions in claimed plots.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The plugin does not natively support this, but you can manage explosions using another plugin like WorldGuard in
+unmanaged zones.</li>
+<li>The developer has since added an option to prevent creeper explosions, which will be available in the next build.</li>
+</ul>
+<p><strong>Key takeaway:</strong> The plugin will soon have a setting to prevent creeper explosions in claimed areas.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="invalid-component-in-faction-gui"><strong>Invalid Component in Faction GUI</strong><a href="#invalid-component-in-faction-gui" class="hash-link" aria-label="Direct link to invalid-component-in-faction-gui" title="Direct link to invalid-component-in-faction-gui">​</a></h3>
+<p><strong>Problem:</strong> Server logs showed errors about an invalid component in the faction GUI, such as <code>faction-detail-page.gui</code>
+and <code>rank-detail.gui</code>.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>These errors can be ignored. The issue comes from custom placeholders in the GUI, but it doesn’t affect functionality.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Ignore these &quot;invalid component&quot; errors; they don&#x27;t impact server operation.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="crash-when-using-factions-wilderness-command"><strong>Crash When Using <code>/factions wilderness</code> Command</strong><a href="#crash-when-using-factions-wilderness-command" class="hash-link" aria-label="Direct link to crash-when-using-factions-wilderness-command" title="Direct link to crash-when-using-factions-wilderness-command">​</a></h3>
+<p><strong>Problem:</strong> The server crashed when using the <code>/factions wilderness</code> command.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>This is a known issue that has been fixed in the latest development version of the plugin. The stable version may
+still contain this bug.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use the latest development version to resolve the <code>/factions wilderness</code> crash issue.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-to-read-the-owners-uuid-stored-as-blob-in-the-database"><strong>How to Read the Owner&#x27;s UUID Stored as BLOB in the Database</strong><a href="#how-to-read-the-owners-uuid-stored-as-blob-in-the-database" class="hash-link" aria-label="Direct link to how-to-read-the-owners-uuid-stored-as-blob-in-the-database" title="Direct link to how-to-read-the-owners-uuid-stored-as-blob-in-the-database">​</a></h3>
+<p><strong>Problem:</strong> User noticed that the faction owner&#x27;s UUID is stored as a BLOB in the database and wanted to know how to
+display this on their website.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The UUID is stored in a BLOB format, and you can convert it to a readable format using a SQL query such as
+<code>SELECT HEX(owner) AS owner FROM table_name;</code>. This will return the UUID in a usable format for display.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Convert the BLOB data to a readable UUID using <code>SELECT HEX(owner)</code> for web display.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="disabling-the-wilderness-command"><strong>Disabling the Wilderness Command</strong><a href="#disabling-the-wilderness-command" class="hash-link" aria-label="Direct link to disabling-the-wilderness-command" title="Direct link to disabling-the-wilderness-command">​</a></h3>
+<p><strong>Problem:</strong> User wanted to disable the <code>/factions wilderness</code> command.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Go to the <code>config.yml</code> file and disable the wilderness module under the modules section.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Disable the wilderness module in <code>config.yml</code> to remove the <code>/factions wilderness</code> command.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="plot-protection-using-worldguard-with-improved-factions"><strong>Plot Protection: Using WorldGuard with Improved Factions</strong><a href="#plot-protection-using-worldguard-with-improved-factions" class="hash-link" aria-label="Direct link to plot-protection-using-worldguard-with-improved-factions" title="Direct link to plot-protection-using-worldguard-with-improved-factions">​</a></h3>
+<p><strong>Problem:</strong> User asked about linking WorldGuard with Improved Factions for managing plot protection.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>You can create unmanaged zones with Improved Factions that prevent faction claiming, and then use WorldGuard to manage
+the plot protection for those areas.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use unmanaged zones in Improved Factions along with WorldGuard to manage protection in specific areas.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="invalid-entity-error-when-using-faction-commands"><strong>Invalid Entity Error When Using Faction Commands</strong><a href="#invalid-entity-error-when-using-faction-commands" class="hash-link" aria-label="Direct link to invalid-entity-error-when-using-faction-commands" title="Direct link to invalid-entity-error-when-using-faction-commands">​</a></h3>
+<p><strong>Problem:</strong> A user encountered an issue where the <code>/faction force join</code> and <code>/f join &lt;faction&gt;</code> commands result in an
+error saying &quot;Invalid entity&quot; or &quot;The provided argument is not valid.&quot;</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Ensure that the player is not already in a faction.</li>
+<li>As a workaround, use <code>/f invite &lt;player&gt; &lt;rank&gt;</code> to invite the player manually.</li>
+<li>If the issue persists, you may need to force-leave the player from any faction (although this feature is currently
+missing from the plugin).</li>
+<li>The plugin is missing some admin commands, such as <code>/f force leave</code> and <code>/f force info</code>, which would provide more
+control over factions.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use manual invites as a workaround for the invalid entity issue, and watch for updates with new admin
+commands.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="issue-with-faction-wilderness-command"><strong>Issue with Faction Wilderness Command</strong><a href="#issue-with-faction-wilderness-command" class="hash-link" aria-label="Direct link to issue-with-faction-wilderness-command" title="Direct link to issue-with-faction-wilderness-command">​</a></h3>
+<p><strong>Problem:</strong> The <code>/f wilderness</code> command fails to find a valid position in the wilderness and doesn&#x27;t work as expected.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>This is a known issue and is being tracked on GitHub. Users are advised to use the latest development build for
+potential fixes or workarounds. The bug is being investigated, and updates will be shared on the issue page.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Check GitHub for updates on the <code>/f wilderness</code> issue and ensure you&#x27;re using the latest development
+build.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="safezone-not-protecting-players-from-mob-damage"><strong>Safezone Not Protecting Players from Mob Damage</strong><a href="#safezone-not-protecting-players-from-mob-damage" class="hash-link" aria-label="Direct link to safezone-not-protecting-players-from-mob-damage" title="Direct link to safezone-not-protecting-players-from-mob-damage">​</a></h3>
+<p><strong>Problem:</strong> Players in the safezone are still taking damage from mobs, even though the config option
+<code>monster-damage-player</code> is set to true.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Verify that players are correctly positioned within the safezone.</li>
+<li>Double-check the world configurations to ensure the safezone is properly set up.</li>
+<li>If the problem persists, updating to the latest development build might resolve the issue.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Ensure correct zone setup and update to the latest version if the safezone is not protecting players
+as intended.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="clustering-and-faction-border-issues"><strong>Clustering and Faction Border Issues</strong><a href="#clustering-and-faction-border-issues" class="hash-link" aria-label="Direct link to clustering-and-faction-border-issues" title="Direct link to clustering-and-faction-border-issues">​</a></h3>
+<p><strong>Problem:</strong> Faction borders aren&#x27;t combining properly, leading to visual and functional issues with claims.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>This is due to clustering bugs in the development build. Clusters are computed lazily to save resources, but the
+feature is still being optimized.</li>
+</ul>
+<p><strong>Key takeaway:</strong> The issue is being worked on, and downgrading to a stable version might help in the interim.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="chat-logs-and-f-chat-visibility"><strong>Chat Logs and /f Chat Visibility</strong><a href="#chat-logs-and-f-chat-visibility" class="hash-link" aria-label="Direct link to chat-logs-and-f-chat-visibility" title="Direct link to chat-logs-and-f-chat-visibility">​</a></h3>
+<p><strong>Problem:</strong> Faction chat messages sent using <code>/f chat</code> are not visible in the server console.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>This is a requested feature. Future versions of the plugin will include the ability for faction chat logs to appear in
+the console for better moderation.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Watch for updates that include faction chat logs in the console.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="sql-and-cross-server-sync"><strong>SQL and Cross-Server Sync</strong><a href="#sql-and-cross-server-sync" class="hash-link" aria-label="Direct link to sql-and-cross-server-sync" title="Direct link to sql-and-cross-server-sync">​</a></h3>
+<p><strong>Problem:</strong> The user wanted to sync claims and faction data across multiple servers using MySQL.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The plugin supports MySQL but has not been fully tested for cross-server syncing. Features like MongoDB and Redis are
+not supported at this time, but may be added in the future.</li>
+</ul>
+<p><strong>Key takeaway:</strong> MySQL is supported, but syncing across multiple servers is still experimental.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="faction-home-command-causing-issues"><strong>Faction Home Command Causing Issues</strong><a href="#faction-home-command-causing-issues" class="hash-link" aria-label="Direct link to faction-home-command-causing-issues" title="Direct link to faction-home-command-causing-issues">​</a></h3>
+<p><strong>Problem:</strong> The <code>/f home</code> command causes players to &quot;rubber-band&quot; back to the faction home and experience issues when
+teleporting.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>The developer is aware of this bug and has released a fix in the latest development build. Users experiencing this
+issue should update to the latest development version.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Update to the latest development build to resolve issues with the <code>/f home</code> command.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="faction-claim-permissions-for-public-zones"><strong>Faction Claim Permissions for Public Zones</strong><a href="#faction-claim-permissions-for-public-zones" class="hash-link" aria-label="Direct link to faction-claim-permissions-for-public-zones" title="Direct link to faction-claim-permissions-for-public-zones">​</a></h3>
+<p><strong>Problem:</strong> Users wanted to create public zones where anyone can interact with buttons or chests, but not place or
+break blocks.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>This feature is planned and will allow per-chunk permissions for more granular control. Users will be able to
+configure claim permissions to allow or restrict interactions.</li>
+</ul>
+<p><strong>Key takeaway:</strong> A feature to configure per-chunk permissions is planned and will enable public zones with restricted
+building rights.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="fabric-support"><strong>Fabric Support</strong><a href="#fabric-support" class="hash-link" aria-label="Direct link to fabric-support" title="Direct link to fabric-support">​</a></h3>
+<p><strong>Question:</strong> Is there any plan to adapt the ImprovedFactions plugin for Fabric?</p>
+<p><strong>Response:</strong></p>
+<ul>
+<li>The ImprovedFactions plugin is built for the Bukkit environment, which is incompatible with Fabric or Forge. However,
+there are mods that emulate the Bukkit environment, allowing you to run Bukkit/Spigot plugins on Forge. That said,
+support for Fabric is not planned, and running the plugin on Fabric may result in unstable behavior.</li>
+</ul>
+<p><strong>Key takeaway:</strong> No plans to adapt ImprovedFactions for Fabric, and using emulation may lead to instability.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="getting-an-error-with-f-wilderness"><strong>Getting an Error with <code>/f wilderness</code></strong><a href="#getting-an-error-with-f-wilderness" class="hash-link" aria-label="Direct link to getting-an-error-with-f-wilderness" title="Direct link to getting-an-error-with-f-wilderness">​</a></h3>
+<p><strong>Problem:</strong> The <code>/f wilderness</code> command results in an internal error or fails to find valid locations in the
+wilderness.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Update to the latest development build, as this command has undergone fixes. If the issue persists, it is recommended
+to check the configurations to ensure the wilderness is set up correctly, and make sure the world is included in the
+list of whitelisted worlds for factions.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use the latest dev build and ensure correct world configuration for wilderness functionality.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="max-faction-members-and-power-gain"><strong>Max Faction Members and Power Gain</strong><a href="#max-faction-members-and-power-gain" class="hash-link" aria-label="Direct link to max-faction-members-and-power-gain" title="Direct link to max-faction-members-and-power-gain">​</a></h3>
+<p><strong>Question:</strong> Is there a way to set a maximum number of faction members? How much power does a player gain per hour?</p>
+<p><strong>Response:</strong></p>
+<ul>
+<li>There is currently no limit for faction members in the configuration. The default power gain is 10 power per hour for
+each online player. If two players are online, they will collectively gain 20 power per hour, and so on.</li>
+</ul>
+<p><strong>Key takeaway:</strong> No member limit, and power gain is configurable based on the number of players online.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="issues-with-safezone-and-warzone"><strong>Issues with SafeZone and WarZone</strong><a href="#issues-with-safezone-and-warzone" class="hash-link" aria-label="Direct link to issues-with-safezone-and-warzone" title="Direct link to issues-with-safezone-and-warzone">​</a></h3>
+<p><strong>Problem:</strong> Monsters are still dealing damage to players in SafeZone, even though the configuration is set to prevent
+this.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Double-check the safezone configuration to ensure it is correctly applied. Additionally, there have been discussions
+about improving features like mob spawning and protection, so it&#x27;s worth keeping an eye on future updates that may
+address this.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Ensure proper configuration of SafeZones and look for future updates with expanded protection
+features.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="clustering-warnings-on-server-boot"><strong>Clustering Warnings on Server Boot</strong><a href="#clustering-warnings-on-server-boot" class="hash-link" aria-label="Direct link to clustering-warnings-on-server-boot" title="Direct link to clustering-warnings-on-server-boot">​</a></h3>
+<p><strong>Problem:</strong> Warnings about clustering issues appear on server boot, indicating that chunks cannot be clustered.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>These warnings can be safely ignored. They are informational messages indicating that the server found chunk data
+assigned to a zone without a faction claim, which is expected behavior.</li>
+</ul>
+<p><strong>Key takeaway:</strong> The clustering warnings can be ignored, as they do not affect gameplay.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="faction-guis-not-working"><strong>Faction GUIs Not Working</strong><a href="#faction-guis-not-working" class="hash-link" aria-label="Direct link to faction-guis-not-working" title="Direct link to faction-guis-not-working">​</a></h3>
+<p><strong>Problem:</strong> Clicking buttons like &quot;Back&quot; or &quot;Create New Rank&quot; in GUIs does nothing.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>GUIs are currently a broken feature, and it&#x27;s recommended to avoid using them until further notice. Instead, use the
+corresponding commands for any actions you need to perform.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Avoid using GUIs for now and rely on commands.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="syncing-factions-data-across-servers-using-mysql"><strong>Syncing Factions Data Across Servers Using MySQL</strong><a href="#syncing-factions-data-across-servers-using-mysql" class="hash-link" aria-label="Direct link to syncing-factions-data-across-servers-using-mysql" title="Direct link to syncing-factions-data-across-servers-using-mysql">​</a></h3>
+<p><strong>Question:</strong> Can faction and claim data be synced across servers using MySQL?</p>
+<p><strong>Response:</strong></p>
+<ul>
+<li>While the plugin supports MySQL, syncing between multiple servers has not been fully tested. In theory, it may work if
+servers are properly set up to access the same database, but there&#x27;s no official support for cross-server syncing via
+Redis or MongoDB at this time.</li>
+</ul>
+<p><strong>Key takeaway:</strong> MySQL syncing is experimental; official support for Redis or MongoDB may come in the future.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="admin-commands-for-improvedfactions"><strong>Admin Commands for ImprovedFactions</strong><a href="#admin-commands-for-improvedfactions" class="hash-link" aria-label="Direct link to admin-commands-for-improvedfactions" title="Direct link to admin-commands-for-improvedfactions">​</a></h3>
+<p><strong>Missing Commands:</strong> Users have reported missing admin commands, such as:</p>
+<ul>
+<li><code>/f force leave</code> to forcibly remove a player from a faction.</li>
+<li><code>/f force info</code> to get detailed information about a player&#x27;s faction.</li>
+</ul>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>These commands are being considered for future updates. For now, admins may need to manually manage factions through
+workarounds, such as using invites or ownership transfers.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Admin commands for detailed control over factions are in development.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="task-23444667-for-improvedfactions-v220-generated-an-exception"><strong>Task #23444667 for ImprovedFactions v2.2.0 Generated an Exception</strong><a href="#task-23444667-for-improvedfactions-v220-generated-an-exception" class="hash-link" aria-label="Direct link to task-23444667-for-improvedfactions-v220-generated-an-exception" title="Direct link to task-23444667-for-improvedfactions-v220-generated-an-exception">​</a></h3>
+<p><strong>Issue:</strong>
+The server console shows repeated warnings of a <code>java.lang.IllegalStateException</code> relating to tasks not being scheduled
+correctly.</p>
+<p><strong>Possible Solution:</strong></p>
+<ol>
+<li><strong>Restart the Server:</strong> As a temporary fix, restart the server.</li>
+<li><strong>Update to Latest Dev Build:</strong> Upgrade to the latest 2.2.1-dev build, as this may include fixes for issues related
+to task scheduling.</li>
+<li><strong>Report the Issue on GitHub:</strong> If the issue persists, report it on
+the <a href="https://github.com/ToberoCat/ImprovedFactions" target="_blank" rel="noopener noreferrer">ImprovedFactions GitHub repository</a> to get further assistance
+from the developer.</li>
+</ol>
+<p><strong>Key takeaway:</strong> Update to the latest version and report on GitHub if necessary.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="power-management--claiming-issues"><strong>Power Management &amp; Claiming Issues</strong><a href="#power-management--claiming-issues" class="hash-link" aria-label="Direct link to power-management--claiming-issues" title="Direct link to power-management--claiming-issues">​</a></h3>
+<p><strong>Issue:</strong> The plugin uses power to control the number of claims a faction can make, but there are issues where claims
+aren’t registering or power isn’t deducted.</p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li><strong>Op Bypass:</strong> Operators have bypass permissions for claim limits. Test claims without OP status to ensure the
+feature works properly for regular players.</li>
+<li><strong>Power Configuration:</strong> Adjust the power-related settings in the <code>config.yml</code>. To limit faction claims, set the
+power accumulation rate to 0 and adjust <code>base-claim-power-cost</code> as needed.</li>
+<li><strong>Configuration Reset:</strong> If power is not deducted during claims, try resetting the power management section in the
+config to default values and test again.</li>
+</ol>
+<p><strong>Key takeaway:</strong> OPs bypass power limits. Test without OP status and adjust power settings in the config.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="players-unable-to-claim-land"><strong>Players Unable to Claim Land</strong><a href="#players-unable-to-claim-land" class="hash-link" aria-label="Direct link to players-unable-to-claim-land" title="Direct link to players-unable-to-claim-land">​</a></h3>
+<p><strong>Issue:</strong> Players cannot claim land even though they have the necessary power, and a message says, &quot;You can’t claim
+chunk at x y z.&quot;</p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li><strong>Check Claim Permissions:</strong> Ensure players have the appropriate faction rank and permissions to claim land.</li>
+<li><strong>World Configuration:</strong> Verify that the world where they are trying to claim land is not blacklisted. Check the
+<code>whitelisted-worlds</code> or <code>blacklisted-worlds</code> settings in <code>config.yml</code> to ensure the correct worlds are configured.</li>
+<li><strong>Zone Limitations:</strong> Claims cannot be made in special zones like SafeZone or WarZone. Make sure they are not
+attempting to claim land in these protected areas.</li>
+</ol>
+<p><strong>Key takeaway:</strong> Ensure claim permissions are set, the world is properly configured, and they are not in a restricted
+zone.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="faction-power-issues-with-skript"><strong>Faction Power Issues with Skript</strong><a href="#faction-power-issues-with-skript" class="hash-link" aria-label="Direct link to faction-power-issues-with-skript" title="Direct link to faction-power-issues-with-skript">​</a></h3>
+<p><strong>Question:</strong> Is it possible to integrate Skript with ImprovedFactions to get or set faction power?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Skript Reflect:</strong> Use Skript reflect to execute commands like setting or retrieving faction power.</li>
+<li><strong>Commands in Skript:</strong> You can use commands to manage faction power via Skript. For example, run <code>/f power</code> or
+<code>/f setpower</code> commands from a Skript event.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use Skript reflect for managing faction power via commands.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="safezone--pvp-issues"><strong>SafeZone &amp; PvP Issues</strong><a href="#safezone--pvp-issues" class="hash-link" aria-label="Direct link to safezone--pvp-issues" title="Direct link to safezone--pvp-issues">​</a></h3>
+<p><strong>Issue:</strong> Players are becoming protected from PvP even outside faction claims.</p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li><strong>Check Zone Settings:</strong> PvP settings are managed in the <code>zones</code> section of the <code>config.yml</code>. Verify that SafeZone
+and WarZone PvP rules are configured correctly.</li>
+<li><strong>Disable Plugin for Debugging:</strong> Temporarily disable the ImprovedFactions plugin to verify whether it’s causing the
+PvP protection issue.</li>
+</ol>
+<p><strong>Key takeaway:</strong> Review the <code>zones</code> section in the config file for PvP settings.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="general-bug-fixes--feature-requests"><strong>General Bug Fixes &amp; Feature Requests</strong><a href="#general-bug-fixes--feature-requests" class="hash-link" aria-label="Direct link to general-bug-fixes--feature-requests" title="Direct link to general-bug-fixes--feature-requests">​</a></h3>
+<ul>
+<li><strong>Faction Deletion &amp; PvP Issues:</strong> When a faction is deleted, PvP in the formerly claimed zone might still be blocked.
+This is a known bug and will be fixed in upcoming updates.</li>
+<li><strong>Faction Power &amp; Claims:</strong> Claims may load in unusual ways if players run out of power mid-claim. The system
+sometimes creates incomplete strips, which may need fixing in future updates.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Known bugs are being addressed in future updates; watch for patches related to PvP and claim
+management.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="enabling-wild-or-f-wilderness-command"><strong>Enabling /wild or /f wilderness Command</strong><a href="#enabling-wild-or-f-wilderness-command" class="hash-link" aria-label="Direct link to enabling-wild-or-f-wilderness-command" title="Direct link to enabling-wild-or-f-wilderness-command">​</a></h3>
+<p><strong>Question:</strong> How do I enable the /wild or /f wilderness command?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Default Enabled:</strong> The <code>/f wilderness</code> command is enabled by default. Use <code>/f wilderness</code> to teleport players to a
+random location in the wilderness.</li>
+<li><strong>Config Check:</strong> Ensure the wilderness module is set to <code>true</code> in the <code>config.yml</code> under the <code>modules</code> section.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Wilderness should be enabled by default, but check the <code>config.yml</code> if you encounter issues.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="overclaiming-and-sieging"><strong>Overclaiming and Sieging</strong><a href="#overclaiming-and-sieging" class="hash-link" aria-label="Direct link to overclaiming-and-sieging" title="Direct link to overclaiming-and-sieging">​</a></h3>
+<p><strong>Question:</strong> Is overclaiming the same as sieging in ImprovedFactions?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Overclaiming:</strong> Overclaiming occurs when a faction runs out of power and another faction takes their land.</li>
+<li><strong>Sieging:</strong> A siege starts automatically when a faction tries to overclaim land. No specific command is needed for
+this, and it is based on power differences.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Sieging is the automatic process triggered when overclaiming occurs due to power imbalance.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="error-with-f-wilderness-command"><strong>Error with /f wilderness Command</strong><a href="#error-with-f-wilderness-command" class="hash-link" aria-label="Direct link to error-with-f-wilderness-command" title="Direct link to error-with-f-wilderness-command">​</a></h3>
+<p><strong>Issue:</strong> Getting an error when using the <code>/f wilderness</code> command.</p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li><strong>Update to Latest Version:</strong> Make sure you are using the latest dev build of the plugin, as this error is commonly
+fixed in newer versions.</li>
+<li><strong>World Configuration:</strong> Verify that the world you are trying to use the command in is not blacklisted in the
+<code>config.yml</code>.</li>
+</ol>
+<p><strong>Key takeaway:</strong> Update to the latest build and check the world configuration to resolve wilderness command errors.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="faction-power-settings"><strong>Faction Power Settings</strong><a href="#faction-power-settings" class="hash-link" aria-label="Direct link to faction-power-settings" title="Direct link to faction-power-settings">​</a></h3>
+<p><strong>Question:</strong> How is faction power used, and can I customize it?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Power Usage:</strong> Power is used to claim chunks, and it accumulates over time. By default, power is deducted every
+hour.</li>
+<li><strong>Customization:</strong> You can modify the power gain and deduction rates in the <code>power-management</code> section of the
+<code>config.yml</code>. Set <code>claim-power-cost-growth</code> and <code>base-claim-power-cost</code> to control how much power is required per
+claim.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Power gain and usage can be customized in the <code>power-management</code> section of the config.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-to-enable-modules-in-improvedfactions"><strong>How to Enable Modules in ImprovedFactions</strong><a href="#how-to-enable-modules-in-improvedfactions" class="hash-link" aria-label="Direct link to how-to-enable-modules-in-improvedfactions" title="Direct link to how-to-enable-modules-in-improvedfactions">​</a></h3>
+<p><strong>Question:</strong> How do I enable specific modules like SafeZone or WarZone in the config?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Modules Section:</strong> In the <code>config.yml</code>, find the <code>modules</code> section and set any module (e.g., SafeZone, WarZone) to
+<code>true</code> to enable it.</li>
+<li><strong>Reload Server:</strong> After enabling a module, either reload the plugin or restart the server for changes to take effect.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Enable modules in the <code>config.yml</code> under the <code>modules</code> section, and remember to reload your server.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="faction-claim-limits"><strong>Faction Claim Limits</strong><a href="#faction-claim-limits" class="hash-link" aria-label="Direct link to faction-claim-limits" title="Direct link to faction-claim-limits">​</a></h3>
+<p><strong>Question:</strong> Can I set a limit on the number of chunks a faction can claim without using power?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Power Management:</strong> You cannot fully disable the power system, but you can adjust the power gain and set limits on
+how much land can be claimed through the <code>claim-power-cost-growth</code> and <code>base-claim-power-cost</code> settings in the config.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use the <code>power-management</code> settings in the config to adjust claim limits and power costs.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="migrating-from-factions3-to-improvedfactions"><strong>Migrating from Factions3 to ImprovedFactions</strong><a href="#migrating-from-factions3-to-improvedfactions" class="hash-link" aria-label="Direct link to migrating-from-factions3-to-improvedfactions" title="Direct link to migrating-from-factions3-to-improvedfactions">​</a></h3>
+<p><strong>Question:</strong> Is it possible to migrate factions from Factions3 to ImprovedFactions?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Manual Migration via MySQL:</strong> If Factions3 uses MySQL, you can write a migration script to move data over to
+ImprovedFactions. First, create a faction in ImprovedFactions and compare the database structures. Then, align the old
+data with the new system using your script.</li>
+<li><strong>No Ready-made Solution:</strong> Unfortunately, there is no ready-made migration tool, so manual migration or a custom
+script is necessary.</li>
+</ul>
+<p><strong>Key takeaway:</strong> You can migrate using MySQL and a custom script to align Factions3 data with ImprovedFactions.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="switching-to-protection-only-play-style"><strong>Switching to Protection-Only Play Style</strong><a href="#switching-to-protection-only-play-style" class="hash-link" aria-label="Direct link to switching-to-protection-only-play-style" title="Direct link to switching-to-protection-only-play-style">​</a></h3>
+<p><strong>Question:</strong> Can I disable the combat features and use ImprovedFactions just for protection?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Disable Combat in Config:</strong> ImprovedFactions allows you to turn off combat features in the config, making it
+suitable for protection-only servers. Look for the combat-related settings in the config file and disable them.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Yes, you can configure ImprovedFactions to be protection-only by disabling combat features in the
+config.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="choosing-between-improvedfactions-and-towny"><strong>Choosing Between ImprovedFactions and Towny</strong><a href="#choosing-between-improvedfactions-and-towny" class="hash-link" aria-label="Direct link to choosing-between-improvedfactions-and-towny" title="Direct link to choosing-between-improvedfactions-and-towny">​</a></h3>
+<p><strong>Question:</strong> Is Towny a better option for protection, and how difficult is the conversion?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Towny for Protection:</strong> If your focus is primarily on land protection, Towny might be a better fit as it was
+designed with that in mind.</li>
+<li><strong>Migration Difficulty:</strong> Converting from Factions3 to Towny might be more complex than switching to ImprovedFactions,
+as there are no direct migration tools available for either plugin.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Towny is a strong alternative for protection-focused servers, but converting from Factions3 may be
+challenging.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="add-the-faction-name-to-player-in-chat"><strong>Add the Faction Name to Player in Chat</strong><a href="#add-the-faction-name-to-player-in-chat" class="hash-link" aria-label="Direct link to add-the-faction-name-to-player-in-chat" title="Direct link to add-the-faction-name-to-player-in-chat">​</a></h3>
+<p><strong>Question:</strong> How can I display the faction name next to a player’s name in chat using ImprovedFactions and Essentials?</p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li><strong>Required Plugins:</strong></li>
+</ol>
+<ul>
+<li><strong>ImprovedFactions</strong> for faction placeholders.</li>
+<li><strong>PlaceHolderAPI</strong>: Download from <a href="https://www.spigotmc.org/resources/placeholderapi.6245/" target="_blank" rel="noopener noreferrer">SpigotMC</a>.</li>
+<li>A chat formatting plugin like <strong>Essentials</strong>, <strong>ChatInjector</strong>, or <strong>LPC Chat Formatter</strong>.</li>
+</ul>
+<ol start="2">
+<li><strong>Using Essentials &amp; ChatInjector:</strong></li>
+</ol>
+<ul>
+<li><strong>Step 1:</strong> After installing the required plugins, locate the <code>Essentials</code> folder in your server&#x27;s <code>plugins</code>
+directory.</li>
+<li><strong>Step 2:</strong> Open the <code>config.yml</code> file and find the line <code>format:</code> that defines how chat messages are displayed.</li>
+<li><strong>Step 3:</strong> Install <strong>ChatInjector</strong> from <a href="https://www.spigotmc.org/resources/chatinjector-1-13.81201/" target="_blank" rel="noopener noreferrer">SpigotMC</a>.
+Essentials doesn’t natively support PlaceHolderAPI placeholders.</li>
+<li><strong>Step 4:</strong> Edit the <code>format:</code> line by adding the faction name placeholder.<!-- -->
+<ul>
+<li>Example format: <code>format: &#x27;{faction_name} {displayname}: {message}&#x27;</code></li>
+<li>If not using Essentials, placeholders would follow the <code>%faction_name%</code> format.</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li><strong>Handling Factionless Players:</strong></li>
+</ol>
+<ul>
+<li>In the latest versions, the plugin allows setting a default value for factionless players so that it doesn&#x27;t display a
+blank or placeholder.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use PlaceHolderAPI and ChatInjector for Essentials, and customize chat formatting with the correct
+placeholders.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-to-delete-other-players-factions-as-an-admin"><strong>How to Delete Other Players&#x27; Factions as an Admin</strong><a href="#how-to-delete-other-players-factions-as-an-admin" class="hash-link" aria-label="Direct link to how-to-delete-other-players-factions-as-an-admin" title="Direct link to how-to-delete-other-players-factions-as-an-admin">​</a></h3>
+<p><strong>Question:</strong> Is it possible for an admin to delete a faction owned by another player?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Command:</strong> Use <code>/f disband &lt;faction&gt;</code> to disband and delete a player&#x27;s faction.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Admins can delete any faction using the <code>/f disband</code> command.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-does-overclaim-work"><strong>How Does Overclaim Work?</strong><a href="#how-does-overclaim-work" class="hash-link" aria-label="Direct link to how-does-overclaim-work" title="Direct link to how-does-overclaim-work">​</a></h3>
+<p><strong>Question:</strong> How does the overclaim system function in ImprovedFactions?</p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li><strong>Power Management:</strong> Factions need sufficient power to maintain claims. If a faction&#x27;s power falls below the
+required amount for their claims, the outer chunks near wilderness will become raidable first.</li>
+<li><strong>Sieging:</strong> Another faction can initiate a siege by entering these raidable chunks. If the defending faction does
+not repel the siege, the chunk can be overclaimed by the attacking faction.</li>
+</ol>
+<p><strong>Key takeaway:</strong> Overclaiming begins when a faction cannot maintain its claims due to low power. Chunks near the
+wilderness become vulnerable to siege.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="faction-gui-issues-with-f-invite"><strong>Faction GUI Issues with /f Invite</strong><a href="#faction-gui-issues-with-f-invite" class="hash-link" aria-label="Direct link to faction-gui-issues-with-f-invite" title="Direct link to faction-gui-issues-with-f-invite">​</a></h3>
+<p><strong>Issue:</strong> When using the GUI interface, players are unable to accept invitations with <code>/f invite</code>.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Workaround:</strong> Disable the GUI interface temporarily, as it may cause issues with the <code>/f invite</code> command.
+Invitations can still be managed through manual commands.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Temporarily disable the GUI interface if players experience issues accepting faction invites.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="hostile-mob-spawns-in-claims"><strong>Hostile Mob Spawns in Claims</strong><a href="#hostile-mob-spawns-in-claims" class="hash-link" aria-label="Direct link to hostile-mob-spawns-in-claims" title="Direct link to hostile-mob-spawns-in-claims">​</a></h3>
+<p><strong>Question:</strong> Can I disable hostile mob spawning in faction claims?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Config Option:</strong> Currently, the plugin does not provide an option to prevent mob spawns directly. However, you can
+disable player damage from mobs in specific zones via the <code>config.yml</code> file under the <code>zones</code> section.</li>
+</ul>
+<p><strong>Key takeaway:</strong> While you can&#x27;t disable mob spawns directly, you can stop mobs from dealing damage in certain zones.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="increasing-power-accumulation-rate"><strong>Increasing Power Accumulation Rate</strong><a href="#increasing-power-accumulation-rate" class="hash-link" aria-label="Direct link to increasing-power-accumulation-rate" title="Direct link to increasing-power-accumulation-rate">​</a></h3>
+<p><strong>Question:</strong> How do I increase the amount of power players gain per hour?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Config Settings:</strong> In <code>config.yml</code> under the power module, adjust the following settings:<!-- -->
+<ul>
+<li><strong>accumulation-rate:</strong> Defines how often power is accumulated. You can adjust the time unit (e.g., HOURS, MINUTES)
+and value (e.g., 1 for every hour).</li>
+<li><strong>accumulation-multiplier:</strong> Controls how much power is gained in each cycle.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Key takeaway:</strong> Adjust the <code>accumulation-rate</code> and <code>accumulation-multiplier</code> in the config to control how often and
+how much power players gain.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="factionless-placeholder-in-chat"><strong>Factionless Placeholder in Chat</strong><a href="#factionless-placeholder-in-chat" class="hash-link" aria-label="Direct link to factionless-placeholder-in-chat" title="Direct link to factionless-placeholder-in-chat">​</a></h3>
+<p><strong>Issue:</strong> When a player without a faction sends a message, the faction placeholder shows as empty in chat.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Fix:</strong> ImprovedFactions added support for default values when a player has no faction. Update to the latest version
+and set a default faction name or message for factionless players.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Ensure you&#x27;re using the latest version of ImprovedFactions to customize placeholder behavior for
+factionless players in chat.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="disabling-combat-features-for-protection-only-play-style"><strong>Disabling Combat Features for Protection-Only Play Style</strong><a href="#disabling-combat-features-for-protection-only-play-style" class="hash-link" aria-label="Direct link to disabling-combat-features-for-protection-only-play-style" title="Direct link to disabling-combat-features-for-protection-only-play-style">​</a></h3>
+<p><strong>Question:</strong> Can I disable combat features in ImprovedFactions to focus only on protection?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Config Settings:</strong> Combat-related features can be disabled in the <code>config.yml</code>. This allows for a protection-focused
+experience where factions are used solely for land claiming and defense.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Disable combat-related features in the configuration for a protection-only server setup.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="unable-to-use-basic-faction-commands"><strong>Unable to Use Basic Faction Commands</strong><a href="#unable-to-use-basic-faction-commands" class="hash-link" aria-label="Direct link to unable-to-use-basic-faction-commands" title="Direct link to unable-to-use-basic-faction-commands">​</a></h3>
+<p><strong>Issue:</strong> Players are unable to use most <code>/f</code> commands in-game except for <code>/f info</code> or <code>/f help</code>. The error message
+states: &quot;The provided arguments do not fit the requirements.&quot;</p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li><strong>Check Version Compatibility:</strong> Ensure that you&#x27;re using the latest stable or dev version of the ImprovedFactions
+plugin. Some older versions may not fully support newer Minecraft builds.</li>
+<li><strong>Update Plugin:</strong> If you&#x27;re on an outdated version, update the plugin to the latest version (e.g., 2.2.0-stable).</li>
+<li><strong>Faction Name Restrictions:</strong> When using commands like <code>/f create</code>, ensure the faction name contains only alphabetic
+characters (a-z) with no special characters, spaces, or numbers. Consider using underscores (_) instead of spaces.</li>
+</ol>
+<p><strong>Key takeaway:</strong> Update to the latest plugin version and ensure proper naming conventions for factions to resolve
+command errors.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="error-when-deleting-a-faction"><strong>Error when Deleting a Faction</strong><a href="#error-when-deleting-a-faction" class="hash-link" aria-label="Direct link to error-when-deleting-a-faction" title="Direct link to error-when-deleting-a-faction">​</a></h3>
+<p><strong>Issue:</strong> An error appears when trying to delete a faction, and the deletion doesn’t go through.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Command Confirmation:</strong> When deleting a faction, use the <code>/f delete confirm</code> command to confirm the deletion.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use <code>/f delete confirm</code> to properly delete a faction.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="faction-members-unable-to-use-f-home"><strong>Faction Members Unable to Use /f Home</strong><a href="#faction-members-unable-to-use-f-home" class="hash-link" aria-label="Direct link to faction-members-unable-to-use-f-home" title="Direct link to faction-members-unable-to-use-f-home">​</a></h3>
+<p><strong>Issue:</strong> Faction members cannot use the <code>/f home</code> command even after being given access by the faction owner.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Temporary Fix:</strong> There’s currently a known bug with home permissions. To fix it temporarily, ensure faction members
+have the <strong>set home</strong> permission. This workaround will allow them to use <code>/f home</code>.</li>
+<li><strong>Upcoming Fix:</strong> This issue will be resolved in upcoming plugin builds.</li>
+</ul>
+<p><strong>Key takeaway:</strong> For now, give members the set home permission until the bug is fixed in a future build.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="plugin-update-notifications"><strong>Plugin Update Notifications</strong><a href="#plugin-update-notifications" class="hash-link" aria-label="Direct link to plugin-update-notifications" title="Direct link to plugin-update-notifications">​</a></h3>
+<p><strong>Issue:</strong> You receive notifications about a new plugin update on server startup.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Dev Builds:</strong> Dev builds are available that may fix existing issues, but these are not always marked as stable.
+Check the plugin’s GitHub page or development channel for the latest updates and fixes.</li>
+</ul>
+<p><strong>Key takeaway:</strong> You can download the latest dev builds for new fixes, but stable builds may still be in development.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-to-disable-set-home-and-home-commands"><strong>How to Disable &quot;Set Home&quot; and &quot;Home&quot; Commands</strong><a href="#how-to-disable-set-home-and-home-commands" class="hash-link" aria-label="Direct link to how-to-disable-set-home-and-home-commands" title="Direct link to how-to-disable-set-home-and-home-commands">​</a></h3>
+<p><strong>Question:</strong> How do I disable the <code>/f home</code> and <code>/f sethome</code> commands in ImprovedFactions?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Disable Home Module:</strong> To disable the home and sethome functionality, navigate to the <code>config.yml</code> file of the
+plugin and disable the <strong>home module</strong> by setting it to <code>false</code>.</li>
+</ul>
+<p><strong>Key takeaway:</strong> You can turn off home-related commands by disabling the home module in the configuration file.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="permissions-list-for-improvedfactions"><strong>Permissions List for ImprovedFactions</strong><a href="#permissions-list-for-improvedfactions" class="hash-link" aria-label="Direct link to permissions-list-for-improvedfactions" title="Direct link to permissions-list-for-improvedfactions">​</a></h3>
+<p><strong>Question:</strong> Where can I find the permissions list for ImprovedFactions?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Use LuckPerms:</strong> While there isn&#x27;t a detailed list available online, you can see all permissions as you type them in
+LuckPerms. Permissions for ImprovedFactions typically begin with <strong><code>faction.</code></strong>.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Use LuckPerms to access the full list of permissions dynamically.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="declaring-wars-and-forming-alliances"><strong>Declaring Wars and Forming Alliances</strong><a href="#declaring-wars-and-forming-alliances" class="hash-link" aria-label="Direct link to declaring-wars-and-forming-alliances" title="Direct link to declaring-wars-and-forming-alliances">​</a></h3>
+<p><strong>Question:</strong> Can I declare wars, make peace, or form alliances between factions?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Alliance Module:</strong> The <strong>alliance module</strong> is in development and will soon allow alliances between factions.</li>
+<li><strong>War and Peace Commands:</strong> Commands for declaring war and making peace are planned to be added in future updates.</li>
+</ul>
+<p><strong>Key takeaway:</strong> The alliance system and war/peace features are under development and will be added in future releases.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="error-when-deleting-a-faction-1"><strong>Error When Deleting a Faction</strong><a href="#error-when-deleting-a-faction-1" class="hash-link" aria-label="Direct link to error-when-deleting-a-faction-1" title="Direct link to error-when-deleting-a-faction-1">​</a></h3>
+<p><strong>Issue:</strong> An error message appears when trying to delete a faction.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Command Confirmation:</strong> Use the <code>/f delete confirm</code> command to properly delete the faction.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Always use <code>/f delete confirm</code> to delete factions.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="unable-to-use-f-home-for-faction-members"><strong>Unable to Use /f Home for Faction Members</strong><a href="#unable-to-use-f-home-for-faction-members" class="hash-link" aria-label="Direct link to unable-to-use-f-home-for-faction-members" title="Direct link to unable-to-use-f-home-for-faction-members">​</a></h3>
+<p><strong>Issue:</strong> Faction members cannot use the <code>/f home</code> command, but the owner can.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Permission Issue:</strong> Ensure that faction members have the <strong>home teleport</strong> permission. If the issue persists, the
+set home and teleport home permissions may be mixed up.</li>
+<li><strong>Temporary Fix:</strong> Assign faction members the <strong>set home</strong> permission as a temporary solution. This issue is fixed in
+newer builds.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Ensure that members have the correct permissions for home commands or use the temporary workaround.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="regex-for-faction-names"><strong>Regex for Faction Names</strong><a href="#regex-for-faction-names" class="hash-link" aria-label="Direct link to regex-for-faction-names" title="Direct link to regex-for-faction-names">​</a></h3>
+<p><strong>Question:</strong> How do I allow faction names with words like &quot;Empire&quot; or &quot;Republic&quot;?</p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li><strong>Modify Regex in Config:</strong> You can modify the faction name regex in the <code>config.yml</code>. Change it to allow spaces or
+other characters by updating the regex pattern to <code>[a-zA-Z0-9&#x27;&#x27;-]*</code>. However, spaces are not recommended; use <code>-</code> or
+<code>_</code> instead.</li>
+</ol>
+<p><strong>Key takeaway:</strong> Adjust the regex in the configuration file to allow more flexible naming conventions.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="overclaiming-when-a-faction-is-offline"><strong>Overclaiming When a Faction is Offline</strong><a href="#overclaiming-when-a-faction-is-offline" class="hash-link" aria-label="Direct link to overclaiming-when-a-faction-is-offline" title="Direct link to overclaiming-when-a-faction-is-offline">​</a></h3>
+<p><strong>Question:</strong> Can players overclaim a faction when the faction is offline or if only one player is online?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Overclaiming While Offline:</strong> Yes, players can overclaim a faction even when it is offline. Overclaiming is
+determined by the faction&#x27;s power and land claims, not the online status of the members.</li>
+<li><strong>Single Player Online:</strong> The number of online players does not affect overclaiming. If a faction’s power is too low
+to maintain its claims, other players can overclaim the land.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Overclaiming is based on power and land balance, not the online status of faction members.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="disabling-siege-overclaiming"><strong>Disabling Siege Overclaiming</strong><a href="#disabling-siege-overclaiming" class="hash-link" aria-label="Direct link to disabling-siege-overclaiming" title="Direct link to disabling-siege-overclaiming">​</a></h3>
+<p><strong>Question:</strong> Is it possible to disable overclaiming through siege mechanics but still allow overclaiming when a faction
+has more land than power?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Disable Siege Overclaiming:</strong> You can turn off siege-based overclaiming by modifying the config to disable this
+feature while keeping power-based overclaiming active.</li>
+<li><strong>Config Settings:</strong> Ensure the config for siege overclaiming is set to false while allowing power and land management
+overclaiming to remain enabled.</li>
+</ul>
+<p><strong>Key takeaway:</strong> You can disable siege overclaiming without affecting power-based overclaim mechanics.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="inactive-player-time-and-power-accumulation"><strong>Inactive Player Time and Power Accumulation</strong><a href="#inactive-player-time-and-power-accumulation" class="hash-link" aria-label="Direct link to inactive-player-time-and-power-accumulation" title="Direct link to inactive-player-time-and-power-accumulation">​</a></h3>
+<p><strong>Question:</strong> How is inactive player time calculated for power accumulation, and what unit is used for this?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Config Settings:</strong> The time unit for inactive player status can be configured in the <code>config.yml</code>. The default value
+often measures inactivity in days.</li>
+<li><strong>Power Formula:</strong> Ensure that the time threshold in the config is set correctly for how long a player must be
+inactive before affecting faction power accumulation.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Inactivity is usually measured in days, and correct configuration of inactive time is essential for
+accurate power accumulation.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="basic-commands-not-working"><strong>Basic Commands Not Working</strong><a href="#basic-commands-not-working" class="hash-link" aria-label="Direct link to basic-commands-not-working" title="Direct link to basic-commands-not-working">​</a></h3>
+<p><strong>Issue:</strong> Players can’t use basic faction commands like /f create on Paper 1.20.1.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Version Compatibility:</strong> Ensure you are using the correct version of the plugin. Version 2.2.0 or later is
+recommended for compatibility with Minecraft 1.20.1.</li>
+<li><strong>Allowed Characters in Faction Names:</strong> Faction names only support alphanumeric characters (A-Z, 0-9) by default. No
+special characters or spaces are allowed unless modified in the config.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Update to the latest plugin version and check character restrictions in faction names.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="fix-for-f-home-command"><strong>Fix for /f home Command</strong><a href="#fix-for-f-home-command" class="hash-link" aria-label="Direct link to fix-for-f-home-command" title="Direct link to fix-for-f-home-command">​</a></h3>
+<p><strong>Issue:</strong> Faction members can&#x27;t use the /f home command even after being given the permission.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Permissions Fix:</strong> Currently, the /f home permissions are bugged. A workaround is to temporarily give faction
+members the set home permission, which will also grant access to the /f home command.</li>
+<li><strong>Future Fix:</strong> This issue is fixed in newer builds, but it might still occur in certain versions.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Assign set home permission to faction members as a temporary fix until a stable update is available.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="error-while-inviting-someone-to-a-faction"><strong>Error While Inviting Someone to a Faction</strong><a href="#error-while-inviting-someone-to-a-faction" class="hash-link" aria-label="Direct link to error-while-inviting-someone-to-a-faction" title="Direct link to error-while-inviting-someone-to-a-faction">​</a></h3>
+<p><strong>Issue:</strong> Receiving an error message when inviting a player to a faction, with the error indicating an unhandled
+exception related to the command execution.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Issue with Colorized Player Names:</strong> This error may be caused if player names are colorized or include special
+characters. Ensure player names do not contain unsupported characters.</li>
+<li><strong>Alternative Fix:</strong> Use the provided updated version of the plugin, which has addressed this issue.</li>
+<li><strong>Workaround for GUI Issues:</strong> If the GUI is malfunctioning, you can bypass the issue using the command
+<code>/f inviteaccept &lt;player&gt;</code> to manually accept faction invitations.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Ensure player names follow standard formatting, and use alternative commands to work around GUI issues
+if necessary.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="cannot-accept-faction-invite-via-gui"><strong>Cannot Accept Faction Invite via GUI</strong><a href="#cannot-accept-faction-invite-via-gui" class="hash-link" aria-label="Direct link to cannot-accept-faction-invite-via-gui" title="Direct link to cannot-accept-faction-invite-via-gui">​</a></h3>
+<p><strong>Issue:</strong> A player cannot accept a faction invite through the GUI, with the interface being empty or not responding
+correctly.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Use the Command Alternative:</strong> If the GUI for accepting invites is bugged, the player can use the command
+<code>/f inviteaccept &lt;player&gt;</code> to join the faction manually.</li>
+<li><strong>Check Console for Errors:</strong> If the GUI continues to malfunction, check the server console for errors such as
+“invalid component” or missing faction data.</li>
+</ul>
+<p><strong>Key takeaway:</strong> If the GUI is malfunctioning, use the command alternative to accept invites and check the console for
+potential plugin issues.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="fix-for-set-home-and-home-commands"><strong>Fix for &quot;Set Home&quot; and &quot;Home&quot; Commands</strong><a href="#fix-for-set-home-and-home-commands" class="hash-link" aria-label="Direct link to fix-for-set-home-and-home-commands" title="Direct link to fix-for-set-home-and-home-commands">​</a></h3>
+<p><strong>Issue:</strong> Faction members are unable to use the <code>/f home</code> command, even after being given the necessary permissions.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Temporary Workaround:</strong> A temporary fix is to give faction members the &quot;set home&quot; permission, which will also allow
+them to use the <code>/f home</code> command.</li>
+<li><strong>Future Fix:</strong> This issue is planned to be resolved in newer versions of the plugin.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Granting the &quot;set home&quot; permission to faction members serves as a workaround for the broken <code>/f home</code>
+permission system.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="inviting-players-to-a-faction---gui-bug"><strong>Inviting Players to a Faction - GUI Bug</strong><a href="#inviting-players-to-a-faction---gui-bug" class="hash-link" aria-label="Direct link to inviting-players-to-a-faction---gui-bug" title="Direct link to inviting-players-to-a-faction---gui-bug">​</a></h3>
+<p><strong>Issue:</strong> The invite GUI is empty, showing only &quot;back&quot; and &quot;next&quot; buttons, but no actionable options to accept the
+faction invite.</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Command-Based Invite Acceptance:</strong> Use the <code>/f inviteaccept &lt;player&gt;</code> command as an alternative to the GUI.</li>
+<li><strong>Server Console Check:</strong> Check the console for any errors related to GUI components or missing data that might be
+causing the issue. Consider updating or fixing GUI Engine if necessary.</li>
+</ul>
+<p><strong>Key takeaway:</strong> If the invite GUI is not functioning properly, use command-based invites and check the console for
+error logs to troubleshoot.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="peaceful-factions--pvp-protection"><strong>Peaceful Factions &amp; PvP Protection</strong><a href="#peaceful-factions--pvp-protection" class="hash-link" aria-label="Direct link to peaceful-factions--pvp-protection" title="Direct link to peaceful-factions--pvp-protection">​</a></h3>
+<p><strong>Question:</strong> Can peaceful factions avoid PvP and base destruction, but still participate in collaboration with combat
+factions?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Peaceful Factions:</strong> You can configure the plugin to allow factions to remain peaceful, avoiding PvP and base
+destruction. This is managed by adjusting the power loss on death and raid settings in the config file.</li>
+<li><strong>Customizable Playstyles:</strong> You can control whether factions can engage in wars or stay neutral, ensuring they are
+protected from raids and PvP if they prefer a non-combat playstyle.</li>
+</ul>
+<p><strong>Key takeaway:</strong> The plugin allows flexible settings for peaceful factions to avoid PvP and destruction while still
+participating in server activities.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="power-system-overview"><strong>Power System Overview</strong><a href="#power-system-overview" class="hash-link" aria-label="Direct link to power-system-overview" title="Direct link to power-system-overview">​</a></h3>
+<p><strong>Question:</strong> How does the power system work, and how do faction members gain or lose power?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Gaining Power:</strong> Faction members gain power through playtime. The more time spent online, the more power is
+accumulated.</li>
+<li><strong>Losing Power:</strong> Power is lost when players die. This affects the faction&#x27;s overall power and their ability to
+maintain claimed land.</li>
+<li><strong>Wars &amp; Power:</strong> Currently, there is no mechanic to directly add or subtract power based on winning or losing wars,
+but this is a planned feature for future versions of the plugin.</li>
+</ul>
+<p><strong>Key takeaway:</strong> Power is primarily gained through playtime and lost upon death. Future updates may introduce power
+changes based on war outcomes.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="configuring-faction-power-for-wars"><strong>Configuring Faction Power for Wars</strong><a href="#configuring-faction-power-for-wars" class="hash-link" aria-label="Direct link to configuring-faction-power-for-wars" title="Direct link to configuring-faction-power-for-wars">​</a></h3>
+<p><strong>Question:</strong> Is it possible to configure wars to affect faction power?</p>
+<p><strong>Solution:</strong></p>
+<ul>
+<li><strong>Current Status:</strong> There is no built-in functionality for wars to directly affect faction power in the current
+version (v2.0.0+), but this feature was present in earlier versions and is planned for future releases.</li>
+<li><strong>Upcoming Feature:</strong> You can follow development progress or suggest new features on the plugin’s GitHub project
+board .</li>
+</ul>
+<p><strong>Key takeaway:</strong> While this feature is not available in the current version, it is planned for future updates.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="setting-up-permissions-for-improvedfactions-using-luckperms"><strong>Setting Up Permissions for ImprovedFactions Using LuckPerms</strong><a href="#setting-up-permissions-for-improvedfactions-using-luckperms" class="hash-link" aria-label="Direct link to setting-up-permissions-for-improvedfactions-using-luckperms" title="Direct link to setting-up-permissions-for-improvedfactions-using-luckperms">​</a></h3>
+<p><strong>Step-by-Step Guide:</strong></p>
+<ol>
+<li><strong>Install LuckPerms:</strong></li>
+</ol>
+<ul>
+<li>First, download and install LuckPerms from <a href="https://www.spigotmc.org/resources/luckperms.28140/" target="_blank" rel="noopener noreferrer">here</a>.</li>
+<li>Ensure it’s added to your server&#x27;s plugins folder and then restart your server.</li>
+</ul>
+<ol start="2">
+<li><strong>Open LuckPerms Editor:</strong></li>
+</ol>
+<ul>
+<li>In your server, type <code>/lp editor</code> (requires admin or OP permissions).</li>
+<li>A link will be provided in chat. Click it to open the LuckPerms web editor.</li>
+</ul>
+<ol start="3">
+<li><strong>Select a Group:</strong></li>
+</ol>
+<ul>
+<li>In the LuckPerms editor, select the group you want to edit (e.g., default for all players, or specific groups like
+Admin or Moderator).</li>
+</ul>
+<ol start="4">
+<li><strong>Adding Permissions:</strong></li>
+</ol>
+<ul>
+<li>
+<p>For ImprovedFactions, you can add these permissions:</p>
+<ul>
+<li><strong>Basic Commands for Players:</strong> <code>faction.commands.*</code></li>
+</ul>
+</li>
+<li>
+<p>To restrict certain commands, like admin commands, you can <strong>deny</strong> the following:</p>
+<ul>
+<li><code>faction.commands.zone</code></li>
+<li><code>faction.commands.admin</code></li>
+<li><code>faction.commands.plugin</code></li>
+<li><code>faction.commands.config</code></li>
+<li><code>faction.commands.extension</code></li>
+</ul>
+</li>
+<li>
+<p>In the editor:</p>
+<ul>
+<li>Use the large red field to input permissions (e.g., <code>faction.commands.*</code>).</li>
+<li>In the smaller field next to it, choose &quot;true&quot; to allow, or &quot;false&quot; to deny.</li>
+</ul>
+</li>
+</ul>
+<ol start="5">
+<li><strong>Apply and Save Changes:</strong></li>
+</ol>
+<ul>
+<li>Once you have configured the necessary permissions, press the <strong>green Apply button</strong> at the top of the editor.</li>
+<li>This will give you a command to paste back into your Minecraft server to apply the changes.</li>
+</ul>
+<ol start="6">
+<li><strong>Test Permissions:</strong></li>
+</ol>
+<ul>
+<li>Players should now be able to use the ImprovedFactions plugin based on the permissions you&#x27;ve set up.</li>
+</ul>
+<p>By following these steps, your server should now have ImprovedFactions permissions configured correctly for your
+players.</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/ToberoCat/ImprovedFactions/tree/dev/improved-factions-docs/docs/qa.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/ImprovedFactions/docs/placeholders"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Placeholders</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#disclaimer" class="table-of-contents__link toc-highlight">Disclaimer</a></li><li><a href="#finding-a-solution" class="table-of-contents__link toc-highlight">Finding a Solution</a></li><li><a href="#questions-and-answers" class="table-of-contents__link toc-highlight">Questions and Answers</a><ul><li><a href="#error-confirmation-is-required-to-execute-this-command" class="table-of-contents__link toc-highlight"><strong>Error: Confirmation is required to execute this command</strong></a></li><li><a href="#disabling-particles-in-the-game" class="table-of-contents__link toc-highlight"><strong>Disabling Particles in the Game</strong></a></li><li><a href="#viewing-faction-information" class="table-of-contents__link toc-highlight"><strong>Viewing Faction Information</strong></a></li><li><a href="#text-based-faction-information" class="table-of-contents__link toc-highlight"><strong>Text-Based Faction Information</strong></a></li><li><a href="#ally-and-enemy-system-development" class="table-of-contents__link toc-highlight"><strong>Ally and Enemy System Development</strong></a></li><li><a href="#running-the-plugin-on-a-server-with-java-17" class="table-of-contents__link toc-highlight"><strong>Running the Plugin on a Server with Java 17</strong></a></li><li><a href="#displaying-player-names-instead-of-numbers" class="table-of-contents__link toc-highlight"><strong>Displaying Player Names Instead of Numbers</strong></a></li><li><a href="#why-is-the-owner-stored-as-blob-in-the-database" class="table-of-contents__link toc-highlight"><strong>Why is the Owner Stored as BLOB in the Database?</strong></a></li><li><a href="#why-use-an-external-sql-database-instead-of-sqlite" class="table-of-contents__link toc-highlight"><strong>Why Use an External SQL Database Instead of SQLite?</strong></a></li><li><a href="#how-can-i-prevent-faction-leaders-from-customizing-ranks" class="table-of-contents__link toc-highlight"><strong>How Can I Prevent Faction Leaders from Customizing Ranks?</strong></a></li><li><a href="#how-can-i-limit-the-number-of-characters-in-a-faction-name" class="table-of-contents__link toc-highlight"><strong>How Can I Limit the Number of Characters in a Faction Name?</strong></a></li><li><a href="#disabling-land-claim-functionality-for-factions" class="table-of-contents__link toc-highlight"><strong>Disabling Land Claim Functionality for Factions</strong></a></li><li><a href="#using-placeholder-api-papi-with-improved-factions" class="table-of-contents__link toc-highlight"><strong>Using Placeholder API (PAPI) with Improved Factions</strong></a></li><li><a href="#handling-faction-chunk-clustering-with-papi" class="table-of-contents__link toc-highlight"><strong>Handling Faction Chunk Clustering with PAPI</strong></a></li><li><a href="#pl3xmap-support" class="table-of-contents__link toc-highlight"><strong>Pl3xmap Support</strong></a></li><li><a href="#renaming-a-faction" class="table-of-contents__link toc-highlight"><strong>Renaming a Faction</strong></a></li><li><a href="#disabling-overclaiming-and-raiding" class="table-of-contents__link toc-highlight"><strong>Disabling Overclaiming and Raiding</strong></a></li><li><a href="#setting-max-claim-limits-without-power-system" class="table-of-contents__link toc-highlight"><strong>Setting Max Claim Limits without Power System</strong></a></li><li><a href="#world-blacklisting-for-claiming" class="table-of-contents__link toc-highlight"><strong>World Blacklisting for Claiming</strong></a></li><li><a href="#supporting-economies-in-faction-claims" class="table-of-contents__link toc-highlight"><strong>Supporting Economies in Faction Claims</strong></a></li><li><a href="#disabling-overclaiming-in-the-power-system" class="table-of-contents__link toc-highlight"><strong>Disabling Overclaiming in the Power System</strong></a></li><li><a href="#dynmap-access-for-players" class="table-of-contents__link toc-highlight"><strong>Dynmap Access for Players</strong></a></li><li><a href="#offline-mode-players-not-detected" class="table-of-contents__link toc-highlight"><strong>Offline Mode Players Not Detected</strong></a></li><li><a href="#geysermc-compatibility" class="table-of-contents__link toc-highlight"><strong>GeyserMC Compatibility</strong></a></li><li><a href="#faction-placeholder-not-working" class="table-of-contents__link toc-highlight"><strong>Faction Placeholder Not Working</strong></a></li><li><a href="#war-mechanics-between-factions" class="table-of-contents__link toc-highlight"><strong>War Mechanics Between Factions</strong></a></li><li><a href="#spanish-language-support" class="table-of-contents__link toc-highlight"><strong>Spanish Language Support</strong></a></li><li><a href="#people-can-break-blocks-in-safezones-and-warzones" class="table-of-contents__link toc-highlight"><strong>People Can Break Blocks in Safezones and Warzones</strong></a></li><li><a href="#faction-menus-allowing-item-removal" class="table-of-contents__link toc-highlight"><strong>Faction Menus Allowing Item Removal</strong></a></li><li><a href="#players-can-join-any-faction" class="table-of-contents__link toc-highlight"><strong>Players Can Join Any Faction</strong></a></li><li><a href="#database-related-issues" class="table-of-contents__link toc-highlight"><strong>Database-Related Issues</strong></a></li><li><a href="#faction-chat-formatting-with-essentials" class="table-of-contents__link toc-highlight"><strong>Faction Chat Formatting with Essentials</strong></a></li><li><a href="#safezone-and-warzone-claiming-issues" class="table-of-contents__link toc-highlight"><strong>Safezone and Warzone Claiming Issues</strong></a></li><li><a href="#using-chatinjector-with-placeholderapi" class="table-of-contents__link toc-highlight"><strong>Using ChatInjector with PlaceholderAPI</strong></a></li><li><a href="#updating-minecraft-and-plugin-versions" class="table-of-contents__link toc-highlight"><strong>Updating Minecraft and Plugin Versions</strong></a></li><li><a href="#plugin-and-mod-compatibility" class="table-of-contents__link toc-highlight"><strong>Plugin and Mod Compatibility</strong></a></li><li><a href="#error-when-enabling-improvedfactions" class="table-of-contents__link toc-highlight"><strong>Error When Enabling ImprovedFactions</strong></a></li><li><a href="#lag-when-using-commands" class="table-of-contents__link toc-highlight"><strong>Lag When Using Commands</strong></a></li><li><a href="#faction-commands-not-responding" class="table-of-contents__link toc-highlight"><strong>Faction Commands Not Responding</strong></a></li><li><a href="#mysql-access-denied" class="table-of-contents__link toc-highlight"><strong>MySQL Access Denied</strong></a></li><li><a href="#placeholder-api-papi-and-gui-engine-issues" class="table-of-contents__link toc-highlight"><strong>Placeholder API (PAPI) and GUI Engine Issues</strong></a></li><li><a href="#faction-claim-issues" class="table-of-contents__link toc-highlight"><strong>Faction Claim Issues</strong></a></li><li><a href="#permission-issues-with-faction-commands" class="table-of-contents__link toc-highlight"><strong>Permission Issues with Faction Commands</strong></a></li><li><a href="#adding-players-to-factions-manually" class="table-of-contents__link toc-highlight"><strong>Adding Players to Factions Manually</strong></a></li><li><a href="#faction-invite-tab-completion-error" class="table-of-contents__link toc-highlight"><strong>Faction Invite Tab Completion Error</strong></a></li><li><a href="#how-to-get-custom-player-heads-in-gui" class="table-of-contents__link toc-highlight"><strong>How to Get Custom Player Heads in GUI</strong></a></li><li><a href="#how-to-use-luckperms-for-permissions-in-improved-factions" class="table-of-contents__link toc-highlight"><strong>How to Use LuckPerms for Permissions in Improved Factions</strong></a></li><li><a href="#error-when-running-f-invite-with-tab-completion" class="table-of-contents__link toc-highlight"><strong>Error When Running <code>/f invite</code> with Tab Completion</strong></a></li><li><a href="#error-when-inviting-friend-to-faction-the-provided-argument-do-not-fit-the-requirements" class="table-of-contents__link toc-highlight"><strong>Error When Inviting Friend to Faction: &quot;The provided argument do not fit the requirements&quot;</strong></a></li><li><a href="#the-provided-arguments-dont-fit-error-in-f-inviteaccept-command" class="table-of-contents__link toc-highlight"><strong>&quot;The provided arguments don&#39;t fit&quot; Error in <code>/f inviteaccept</code> Command</strong></a></li><li><a href="#making-a-faction-private" class="table-of-contents__link toc-highlight"><strong>Making a Faction Private</strong></a></li><li><a href="#papi-placeholders-not-working" class="table-of-contents__link toc-highlight"><strong>PAPI Placeholders Not Working</strong></a></li><li><a href="#how-to-check-rank-for-inviting-players" class="table-of-contents__link toc-highlight"><strong>How to Check Rank for Inviting Players</strong></a></li><li><a href="#permissions-for-faction-commands-not-working" class="table-of-contents__link toc-highlight"><strong>Permissions for Faction Commands Not Working</strong></a></li><li><a href="#how-to-use-placeholders-in-chat" class="table-of-contents__link toc-highlight"><strong>How to Use Placeholders in Chat</strong></a></li><li><a href="#error-in-faction-claiming" class="table-of-contents__link toc-highlight"><strong>Error in Faction Claiming</strong></a></li><li><a href="#squaremap--pl3xmap-support" class="table-of-contents__link toc-highlight"><strong>Squaremap / Pl3xMap Support</strong></a></li><li><a href="#how-to-delete-factions" class="table-of-contents__link toc-highlight"><strong>How to Delete Factions</strong></a></li><li><a href="#disabling-pvp-between-faction-members-not-working" class="table-of-contents__link toc-highlight"><strong>Disabling PvP Between Faction Members Not Working</strong></a></li><li><a href="#allowing-interaction-with-specific-items-in-private-claims" class="table-of-contents__link toc-highlight"><strong>Allowing Interaction with Specific Items in Private Claims</strong></a></li><li><a href="#folia-compatibility" class="table-of-contents__link toc-highlight"><strong>Folia Compatibility</strong></a></li></ul></li><li><a href="#faq-from-chat-logs" class="table-of-contents__link toc-highlight">FAQ from Chat Logs</a><ul><li><a href="#setting-up-server-areas-on-the-map-warzones-safezones" class="table-of-contents__link toc-highlight"><strong>Setting Up Server Areas on the Map (Warzones, Safezones)</strong></a></li><li><a href="#preventing-creeper-explosions-in-claimed-plots" class="table-of-contents__link toc-highlight"><strong>Preventing Creeper Explosions in Claimed Plots</strong></a></li><li><a href="#invalid-component-in-faction-gui" class="table-of-contents__link toc-highlight"><strong>Invalid Component in Faction GUI</strong></a></li><li><a href="#crash-when-using-factions-wilderness-command" class="table-of-contents__link toc-highlight"><strong>Crash When Using <code>/factions wilderness</code> Command</strong></a></li><li><a href="#how-to-read-the-owners-uuid-stored-as-blob-in-the-database" class="table-of-contents__link toc-highlight"><strong>How to Read the Owner&#39;s UUID Stored as BLOB in the Database</strong></a></li><li><a href="#disabling-the-wilderness-command" class="table-of-contents__link toc-highlight"><strong>Disabling the Wilderness Command</strong></a></li><li><a href="#plot-protection-using-worldguard-with-improved-factions" class="table-of-contents__link toc-highlight"><strong>Plot Protection: Using WorldGuard with Improved Factions</strong></a></li><li><a href="#invalid-entity-error-when-using-faction-commands" class="table-of-contents__link toc-highlight"><strong>Invalid Entity Error When Using Faction Commands</strong></a></li><li><a href="#issue-with-faction-wilderness-command" class="table-of-contents__link toc-highlight"><strong>Issue with Faction Wilderness Command</strong></a></li><li><a href="#safezone-not-protecting-players-from-mob-damage" class="table-of-contents__link toc-highlight"><strong>Safezone Not Protecting Players from Mob Damage</strong></a></li><li><a href="#clustering-and-faction-border-issues" class="table-of-contents__link toc-highlight"><strong>Clustering and Faction Border Issues</strong></a></li><li><a href="#chat-logs-and-f-chat-visibility" class="table-of-contents__link toc-highlight"><strong>Chat Logs and /f Chat Visibility</strong></a></li><li><a href="#sql-and-cross-server-sync" class="table-of-contents__link toc-highlight"><strong>SQL and Cross-Server Sync</strong></a></li><li><a href="#faction-home-command-causing-issues" class="table-of-contents__link toc-highlight"><strong>Faction Home Command Causing Issues</strong></a></li><li><a href="#faction-claim-permissions-for-public-zones" class="table-of-contents__link toc-highlight"><strong>Faction Claim Permissions for Public Zones</strong></a></li><li><a href="#fabric-support" class="table-of-contents__link toc-highlight"><strong>Fabric Support</strong></a></li><li><a href="#getting-an-error-with-f-wilderness" class="table-of-contents__link toc-highlight"><strong>Getting an Error with <code>/f wilderness</code></strong></a></li><li><a href="#max-faction-members-and-power-gain" class="table-of-contents__link toc-highlight"><strong>Max Faction Members and Power Gain</strong></a></li><li><a href="#issues-with-safezone-and-warzone" class="table-of-contents__link toc-highlight"><strong>Issues with SafeZone and WarZone</strong></a></li><li><a href="#clustering-warnings-on-server-boot" class="table-of-contents__link toc-highlight"><strong>Clustering Warnings on Server Boot</strong></a></li><li><a href="#faction-guis-not-working" class="table-of-contents__link toc-highlight"><strong>Faction GUIs Not Working</strong></a></li><li><a href="#syncing-factions-data-across-servers-using-mysql" class="table-of-contents__link toc-highlight"><strong>Syncing Factions Data Across Servers Using MySQL</strong></a></li><li><a href="#admin-commands-for-improvedfactions" class="table-of-contents__link toc-highlight"><strong>Admin Commands for ImprovedFactions</strong></a></li><li><a href="#task-23444667-for-improvedfactions-v220-generated-an-exception" class="table-of-contents__link toc-highlight"><strong>Task #23444667 for ImprovedFactions v2.2.0 Generated an Exception</strong></a></li><li><a href="#power-management--claiming-issues" class="table-of-contents__link toc-highlight"><strong>Power Management &amp; Claiming Issues</strong></a></li><li><a href="#players-unable-to-claim-land" class="table-of-contents__link toc-highlight"><strong>Players Unable to Claim Land</strong></a></li><li><a href="#faction-power-issues-with-skript" class="table-of-contents__link toc-highlight"><strong>Faction Power Issues with Skript</strong></a></li><li><a href="#safezone--pvp-issues" class="table-of-contents__link toc-highlight"><strong>SafeZone &amp; PvP Issues</strong></a></li><li><a href="#general-bug-fixes--feature-requests" class="table-of-contents__link toc-highlight"><strong>General Bug Fixes &amp; Feature Requests</strong></a></li><li><a href="#enabling-wild-or-f-wilderness-command" class="table-of-contents__link toc-highlight"><strong>Enabling /wild or /f wilderness Command</strong></a></li><li><a href="#overclaiming-and-sieging" class="table-of-contents__link toc-highlight"><strong>Overclaiming and Sieging</strong></a></li><li><a href="#error-with-f-wilderness-command" class="table-of-contents__link toc-highlight"><strong>Error with /f wilderness Command</strong></a></li><li><a href="#faction-power-settings" class="table-of-contents__link toc-highlight"><strong>Faction Power Settings</strong></a></li><li><a href="#how-to-enable-modules-in-improvedfactions" class="table-of-contents__link toc-highlight"><strong>How to Enable Modules in ImprovedFactions</strong></a></li><li><a href="#faction-claim-limits" class="table-of-contents__link toc-highlight"><strong>Faction Claim Limits</strong></a></li><li><a href="#migrating-from-factions3-to-improvedfactions" class="table-of-contents__link toc-highlight"><strong>Migrating from Factions3 to ImprovedFactions</strong></a></li><li><a href="#switching-to-protection-only-play-style" class="table-of-contents__link toc-highlight"><strong>Switching to Protection-Only Play Style</strong></a></li><li><a href="#choosing-between-improvedfactions-and-towny" class="table-of-contents__link toc-highlight"><strong>Choosing Between ImprovedFactions and Towny</strong></a></li><li><a href="#add-the-faction-name-to-player-in-chat" class="table-of-contents__link toc-highlight"><strong>Add the Faction Name to Player in Chat</strong></a></li><li><a href="#how-to-delete-other-players-factions-as-an-admin" class="table-of-contents__link toc-highlight"><strong>How to Delete Other Players&#39; Factions as an Admin</strong></a></li><li><a href="#how-does-overclaim-work" class="table-of-contents__link toc-highlight"><strong>How Does Overclaim Work?</strong></a></li><li><a href="#faction-gui-issues-with-f-invite" class="table-of-contents__link toc-highlight"><strong>Faction GUI Issues with /f Invite</strong></a></li><li><a href="#hostile-mob-spawns-in-claims" class="table-of-contents__link toc-highlight"><strong>Hostile Mob Spawns in Claims</strong></a></li><li><a href="#increasing-power-accumulation-rate" class="table-of-contents__link toc-highlight"><strong>Increasing Power Accumulation Rate</strong></a></li><li><a href="#factionless-placeholder-in-chat" class="table-of-contents__link toc-highlight"><strong>Factionless Placeholder in Chat</strong></a></li><li><a href="#disabling-combat-features-for-protection-only-play-style" class="table-of-contents__link toc-highlight"><strong>Disabling Combat Features for Protection-Only Play Style</strong></a></li><li><a href="#unable-to-use-basic-faction-commands" class="table-of-contents__link toc-highlight"><strong>Unable to Use Basic Faction Commands</strong></a></li><li><a href="#error-when-deleting-a-faction" class="table-of-contents__link toc-highlight"><strong>Error when Deleting a Faction</strong></a></li><li><a href="#faction-members-unable-to-use-f-home" class="table-of-contents__link toc-highlight"><strong>Faction Members Unable to Use /f Home</strong></a></li><li><a href="#plugin-update-notifications" class="table-of-contents__link toc-highlight"><strong>Plugin Update Notifications</strong></a></li><li><a href="#how-to-disable-set-home-and-home-commands" class="table-of-contents__link toc-highlight"><strong>How to Disable &quot;Set Home&quot; and &quot;Home&quot; Commands</strong></a></li><li><a href="#permissions-list-for-improvedfactions" class="table-of-contents__link toc-highlight"><strong>Permissions List for ImprovedFactions</strong></a></li><li><a href="#declaring-wars-and-forming-alliances" class="table-of-contents__link toc-highlight"><strong>Declaring Wars and Forming Alliances</strong></a></li><li><a href="#error-when-deleting-a-faction-1" class="table-of-contents__link toc-highlight"><strong>Error When Deleting a Faction</strong></a></li><li><a href="#unable-to-use-f-home-for-faction-members" class="table-of-contents__link toc-highlight"><strong>Unable to Use /f Home for Faction Members</strong></a></li><li><a href="#regex-for-faction-names" class="table-of-contents__link toc-highlight"><strong>Regex for Faction Names</strong></a></li><li><a href="#overclaiming-when-a-faction-is-offline" class="table-of-contents__link toc-highlight"><strong>Overclaiming When a Faction is Offline</strong></a></li><li><a href="#disabling-siege-overclaiming" class="table-of-contents__link toc-highlight"><strong>Disabling Siege Overclaiming</strong></a></li><li><a href="#inactive-player-time-and-power-accumulation" class="table-of-contents__link toc-highlight"><strong>Inactive Player Time and Power Accumulation</strong></a></li><li><a href="#basic-commands-not-working" class="table-of-contents__link toc-highlight"><strong>Basic Commands Not Working</strong></a></li><li><a href="#fix-for-f-home-command" class="table-of-contents__link toc-highlight"><strong>Fix for /f home Command</strong></a></li><li><a href="#error-while-inviting-someone-to-a-faction" class="table-of-contents__link toc-highlight"><strong>Error While Inviting Someone to a Faction</strong></a></li><li><a href="#cannot-accept-faction-invite-via-gui" class="table-of-contents__link toc-highlight"><strong>Cannot Accept Faction Invite via GUI</strong></a></li><li><a href="#fix-for-set-home-and-home-commands" class="table-of-contents__link toc-highlight"><strong>Fix for &quot;Set Home&quot; and &quot;Home&quot; Commands</strong></a></li><li><a href="#inviting-players-to-a-faction---gui-bug" class="table-of-contents__link toc-highlight"><strong>Inviting Players to a Faction - GUI Bug</strong></a></li><li><a href="#peaceful-factions--pvp-protection" class="table-of-contents__link toc-highlight"><strong>Peaceful Factions &amp; PvP Protection</strong></a></li><li><a href="#power-system-overview" class="table-of-contents__link toc-highlight"><strong>Power System Overview</strong></a></li><li><a href="#configuring-faction-power-for-wars" class="table-of-contents__link toc-highlight"><strong>Configuring Faction Power for Wars</strong></a></li><li><a href="#setting-up-permissions-for-improvedfactions-using-luckperms" class="table-of-contents__link toc-highlight"><strong>Setting Up Permissions for ImprovedFactions Using LuckPerms</strong></a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/ImprovedFactions/docs/getting-started">Getting Started</a></li><li class="footer__item"><a class="footer__link-item" href="/ImprovedFactions/docs/commands/base/create">Commands</a></li></ul></div><div class="col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://discord.com/invite/VmSbFNZejz" target="_blank" rel="noopener noreferrer" class="footer__link-item">Discord<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://github.com/ToberoCat/ImprovedFactions" target="_blank" rel="noopener noreferrer" class="footer__link-item">Github<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/ToberoCat/ImprovedFactions" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Tobias Madlberger. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>
