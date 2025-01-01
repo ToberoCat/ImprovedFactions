@@ -12,6 +12,7 @@ import io.github.toberocat.improvedfactions.invites.FactionInvite
 import io.github.toberocat.improvedfactions.messages.MessageBroker
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.chat.ChatModule.resetChatMode
+import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.powerRaidModule
 import io.github.toberocat.improvedfactions.modules.relations.RelationsModule
 import io.github.toberocat.improvedfactions.ranks.FactionRank
@@ -103,6 +104,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
 
     override fun delete() {
         BaseModule.claimChunkClusters.removeFactionClusters(this)
+        DynmapModule.dynmapModule().dynmapModuleHandle.removeHome(this)
         listRanks().forEach { it.delete() }
         claims().forEach {
             it.factionId = noFactionId

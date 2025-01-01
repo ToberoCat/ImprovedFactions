@@ -6,8 +6,10 @@ import io.github.toberocat.improvedfactions.factions.Faction
 import org.bukkit.Location
 
 class DummyFactionDynmapModuleHandles : FactionDynmapModuleHandle {
+    override fun onInitialClusterLoad(clusters: List<Cluster>) = Unit
     override fun factionHomeChange(faction: Faction, homeLocation: Location) = Unit
     override fun clusterChange(cluster: Cluster) = Unit
     override fun clusterRemove(cluster: Cluster) = Unit
     override fun removeClaim(position: FactionClaim) = Unit
+    override fun removeHome(faction: Faction) = Unit
 }

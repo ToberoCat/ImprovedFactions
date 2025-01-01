@@ -2,28 +2,33 @@ package io.github.toberocat.improvedfactions.integrations
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.integrations.papi.PapiExpansion
-import io.github.toberocat.improvedfactions.integrations.papi.PapiIntegration
-import io.github.toberocat.improvedfactions.modules.base.BaseModule.config
+import io.github.toberocat.improvedfactions.integrations.papi.PlaceholderIntegration
+import io.github.toberocat.improvedfactions.integrations.papi.PlaceholderParser
 import io.github.toberocat.improvedfactions.modules.base.BaseModule.logger
 import org.bukkit.OfflinePlayer
 
 class Integrations(private val plugin: ImprovedFactionsPlugin) {
-    lateinit var papiIntegration: PapiIntegration
+    lateinit var placeholderParser: PlaceholderParser
 
     fun loadIntegrations() {
-        papiIntegration = loadPapiIntegration()
+        placeholderParser = loadPlaceholderParser()
     }
 
-    private fun loadPapiIntegration(): PapiIntegration {
+    private fun loadPlaceholderParser(): PlaceholderParser {
         if (plugin.server.pluginManager.isPluginEnabled("PlaceholderAPI")) {
-            PapiExpansion(config).register()
             logger.info("Loaded improved factions papi extension")
-            return PapiIntegration.create()
+            return PapiExpansion().also { it.register() }
         }
 
-        logger.info("Papi not found. Skipping Papi registration")
-        return object : PapiIntegration {
-            override fun replacePlaceholders(player: OfflinePlayer, value: String) = value
+        logger.info("Papi not found. Skipping Papi registration. Using internal placeholder parser.")
+        return object : PlaceholderParser {
+            override fun replacePlaceholders(player: OfflinePlayer, value: String): String {
+                val regex = Regex("%faction_([a-zA-Z0-9_]+)%")
+                return regex.replace(value) { matchResult ->
+                    val key = matchResult.groupValues[1]
+                    PlaceholderIntegration.parsePlaceholder(player, key) ?: matchResult.value
+                }
+            }
         }
     }
 }

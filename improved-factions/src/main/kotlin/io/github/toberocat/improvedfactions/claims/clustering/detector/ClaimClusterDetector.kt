@@ -15,7 +15,6 @@ import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.util.*
-import kotlin.concurrent.thread
 
 // TODO: The clusting is still not working properly.
 class ClaimClusterDetector(

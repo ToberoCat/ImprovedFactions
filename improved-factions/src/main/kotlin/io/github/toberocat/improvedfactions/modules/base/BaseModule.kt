@@ -77,7 +77,7 @@ object BaseModule : Module {
         adventure.close()
     }
 
-    override fun onPapiPlaceholder(placeholders: HashMap<String, (player: OfflinePlayer) -> String?>) {
+    override fun onPlaceholder(placeholders: HashMap<String, (player: OfflinePlayer) -> String?>) {
         @PapiPlaceholder("owner", MODULE_NAME, "The owner of the faction")
         placeholders["owner"] = { it.factionUser().faction()?.owner?.toOfflinePlayer()?.name }
 

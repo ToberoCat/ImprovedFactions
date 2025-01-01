@@ -1,5 +1,6 @@
 package io.github.toberocat.improvedfactions
 
+import BuildConfig
 import io.github.toberocat.improvedfactions.commands.executor.CommandExecutor
 import io.github.toberocat.improvedfactions.modules.ModuleManager
 import io.github.toberocat.improvedfactions.modules.base.BaseModule.plugin
@@ -35,6 +36,7 @@ open class ImprovedFactionsPlugin : JavaPlugin() {
     }
 
     override fun onDisable() {
+        logger.info("ImprovedFactions v${BuildConfig.VERSION_NAME} build ${BuildConfig.BUILD_INCREMENT} by Tobero (Tobias Madlberger) is disabling.")
         moduleManager.disableModules()
     }
 
