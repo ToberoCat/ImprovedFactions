@@ -43,6 +43,10 @@ const config: Config = {
           editUrl:
             'https://github.com/ToberoCat/ImprovedFactions',
         },
+        gtag: {
+          trackingID: 'GTM-WS4FNRJW',
+          anonymizeIP: true,
+        },
         // blog: {
         //   showReadingTime: true,
         //   feedOptions: {

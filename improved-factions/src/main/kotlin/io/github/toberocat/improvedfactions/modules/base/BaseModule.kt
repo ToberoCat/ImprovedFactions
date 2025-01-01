@@ -77,17 +77,14 @@ object BaseModule : Module {
         adventure.close()
     }
 
+    @PapiPlaceholder("owner", MODULE_NAME, "The owner of the faction")
+    @PapiPlaceholder("name", MODULE_NAME, "The name of the faction")
+    @PapiPlaceholder("rank", MODULE_NAME, "The rank of the player in the faction")
+    @PapiPlaceholder("join_mode", MODULE_NAME, "The join mode of the faction")
     override fun onPapiPlaceholder(placeholders: HashMap<String, (player: OfflinePlayer) -> String?>) {
-        @PapiPlaceholder("owner", MODULE_NAME, "The owner of the faction")
         placeholders["owner"] = { it.factionUser().faction()?.owner?.toOfflinePlayer()?.name }
-
-        @PapiPlaceholder("name", MODULE_NAME, "The name of the faction")
         placeholders["name"] = { it.factionUser().faction()?.name }
-
-        @PapiPlaceholder("rank", MODULE_NAME, "The rank of the player in the faction")
         placeholders["rank"] = { it.factionUser().rank().name }
-
-        @PapiPlaceholder("join_mode", MODULE_NAME, "The join mode of the faction")
         placeholders["join_mode"] = { it.factionUser().faction()?.factionJoinType?.toString() }
     }
 
