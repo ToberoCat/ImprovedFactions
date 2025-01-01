@@ -41,7 +41,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/ToberoCat/ImprovedFactions',
+            'https://github.com/ToberoCat/ImprovedFactions/tree/dev/improved-factions-docs',
         },
         gtag: {
           trackingID: 'GTM-WS4FNRJW',
@@ -80,12 +80,74 @@ const config: Config = {
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'commandsSidebar',
+          to: 'docs/getting-started',
+          label: 'Getting Started',
           position: 'left',
-          label: 'Commands',
         },
-        // {to: '/blog', label: 'Blog', position: 'left'},
+        {
+          to: 'docs/commands/base/create',
+          label: 'Commands',
+          position: 'left',
+        },
+        {
+          type: 'dropdown',
+          label: 'Modules',
+          position: 'left',
+          items: [
+            {
+              to: 'docs/Modules/power-raids',
+              label: 'Power & Raids',
+            },
+          ],
+        },
+        {
+          type: 'dropdown',
+          label: 'Admin Resources',
+          position: 'left',
+          items: [
+            {
+              to: 'docs/permissions',
+              label: 'Permissions',
+            },
+            {
+              to: 'docs/placeholders',
+              label: 'Papi Placeholders',
+            },
+          ],
+        },
+        {
+          type: 'dropdown',
+          label: 'Community',
+          position: 'left',
+          items: [
+
+            {
+              label: 'Github',
+              href: 'https://github.com/ToberoCat/ImprovedFactions',
+            },
+            {
+              label: 'Discord',
+              href: 'https://discord.com/invite/VmSbFNZejz',
+            },
+            {
+              label: 'AI Assisant',
+              href: 'https://chatgpt.com/g/g-tvLQ5jbIz-improved-factions-assistant'
+            },
+            {
+              label: 'Plugin Modrinth Page',
+              href: 'https://modrinth.com/plugin/improved-factions',
+            },
+            {
+              label: 'Plugin Spigot Page',
+              href: 'https://www.spigotmc.org/resources/improved-factions.95617'
+            }
+          ],
+        },
+        {
+          to: 'docs/qa',
+          label: 'Q&A',
+          position: 'left',
+        },
         {
           href: 'https://github.com/ToberoCat/ImprovedFactions',
           label: 'GitHub',
@@ -102,6 +164,10 @@ const config: Config = {
             {
               label: 'Getting Started',
               to: '/docs/getting-started',
+            },
+            {
+              label: 'Commands',
+              to: '/docs/commands',
             },
           ],
         },

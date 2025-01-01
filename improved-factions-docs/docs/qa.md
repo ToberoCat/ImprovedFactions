@@ -1,10 +1,16 @@
 # QA (Discord export)
 
+> Some information is outdated - If something doesn't work or is not in enough detail, feel free to contact us over the
+> discord server
+
 ## Disclaimer
+
+> **Note:** As the raw export would've been too much for someone to look though it manually, AI has been utilized to
+> generate this easier to read and use export. Therefore, make sure to not blindly follow the given instructions
 
 This document provides a collection of solutions to common issues and frequently asked questions regarding the Improved
 Factions plugin. The content has been sourced from the support [Discord server](https://discord.com/invite/VmSbFNZejz),
-and I’d like to extend my gratitude to everyone who helps with answering questions and troubleshooting on a daily basis.
+and I’d like to thank everyone who helps with answering questions and troubleshooting on a daily basis.
 
 Please note that this export may contain similar or duplicate solutions, as it hasn’t been thoroughly filtered
 (essentially, it's a bulk export from the [Discord server](https://discord.com/invite/VmSbFNZejz)).
@@ -28,18 +34,6 @@ the [Discord server](https://discord.com/invite/VmSbFNZejz).
 - The correct command to delete a faction is `/f delete confirm`.
 
 **Key takeaway:** When deleting factions, use the full command to confirm your intention.
-
----
-
-### **How to Open the Faction Ranks Menu**
-
-**Problem:** User asked how to open a specific faction-related menu.
-
-**Solution:**
-
-- The ranks menu can be accessed by installing the `guiengine` plugin and typing `/f ranks` in the chat.
-
-**Key takeaway:** Ensure `guiengine` is installed to access the ranks menu via `/f ranks`.
 
 ---
 
@@ -67,19 +61,6 @@ the [Discord server](https://discord.com/invite/VmSbFNZejz).
     - `/f list` lists all factions on the server.
 
 **Key takeaway:** Use these commands to access faction information directly from the chat.
-
----
-
-### **GUI Navigation Issues**
-
-**Problem:** User was confused about the back and forward navigation in the GUI.
-
-**Solution:**
-
-- The back and forward buttons are designed to navigate between pages in the GUI but not to return to the previous GUI.
-- If needed, the `.gui` files in the plugin can be modified to adjust the GUI behavior.
-
-**Key takeaway:** Customize GUI behavior by modifying the `.gui` files if the default navigation is not suitable.
 
 ---
 
@@ -281,17 +262,6 @@ clustering when using PAPI.
 
 ---
 
-- **Installing GUI Engine for Commands**
-  **Problem:** User wanted to know if they needed command aliases for the GUI engine.
-
-  **Solution:**
-    - The GUI engine is optional and adds GUI interfaces for commands. Without it, commands will be used through the
-      chat.
-
-  **Key takeaway:** GUI engine is optional; without it, commands are handled via chat.
-
----
-
 - **Blacklisting a World from Claims**
   **Problem:** User wanted to blacklist a specific world from being claimed.
 
@@ -441,19 +411,6 @@ clustering when using PAPI.
 - Disabling the power system removes the claim limit. There is no native way to limit claims without the power system.
 
 **Key takeaway:** There is no claim limit without the power system, but using the power system allows for limits.
-
----
-
-### **Installing GUI Engine**
-
-**Problem:** User asked if they need command aliases when installing the GUI engine.
-
-**Solution:**
-
-- The GUI engine is optional. If not installed, the plugin will use chat-based commands. Installing it switches some
-  commands to GUI-based interactions.
-
-**Key takeaway:** The GUI engine is optional and replaces some chat commands with GUI-based interactions if installed.
 
 ---
 
@@ -727,22 +684,6 @@ compatibility issues.
 
 ---
 
-### **People Can Break Blocks in Safezones and Warzones**
-
-**Problem:** Some players are able to break blocks in safezones and warzones while others cannot, even with no changes
-to the configuration.
-
-**Solution:**
-
-- Ensure that the zone protection settings are correctly configured. The zones should be configured to prevent any block
-  breaking regardless of the player's faction status.
-- Check if other plugins are interfering with the zone settings or if there is a lag issue due to database
-  misconfigurations.
-
-**Key takeaway:** Verify zone protection settings and check for potential plugin interference or database lag.
-
----
-
 ### **Lag When Using Commands**
 
 **Problem:** Commands such as `/f help` cause the server to lag or freeze, with high server latency reported.
@@ -869,19 +810,6 @@ recognized.
   online through sites that provide player head textures or by using a plugin that retrieves them.
 
 **Key takeaway:** Ensure you're using a valid head texture ID when adding custom heads to a GUI.
-
----
-
-### **Improved Factions Plugin Shows as Red in `/plugins` Command**
-
-**Problem:** The Improved Factions plugin shows up as red in the plugin list, indicating it isn’t working.
-
-**Solution:**
-
-- Check the server console for errors, especially for missing dependencies. Often, the issue is due to not having the
-  required `GuiEngine` plugin installed. Download it from [Modrinth](https://modrinth.com/plugin/guiengine).
-
-**Key takeaway:** Make sure `GuiEngine` is installed, as it is a dependency of Improved Factions.
 
 ---
 
@@ -1026,17 +954,6 @@ ChatInjector.
 - If the error persists, it may be a bug that requires further investigation by the plugin developer.
 
 **Key takeaway:** Check faction claim settings and consult with the developer if the issue persists.
-
-### **Can Improved Factions Work Without a GUI?**
-
-**Problem:** User asked if Improved Factions can function without a graphical user interface (GUI).
-
-**Solution:**
-
-- Yes, Improved Factions works without the GUI. The plugin does not rely on the GUI to function. The GUI only enhances
-  the experience but is not required.
-
-**Key takeaway:** Improved Factions can be used entirely through commands, without needing the GUI.
 
 ---
 
@@ -1573,20 +1490,6 @@ management.
   claim.
 
 **Key takeaway:** Power gain and usage can be customized in the `power-management` section of the config.
-
----
-
-### **GUI Issues in ImprovedFactions**
-
-**Issue:** Some GUIs, like the "Back" button or the "Create New Rank" button, are not working.
-
-**Solution:**
-
-- **Use Commands Instead:** GUIs are currently not fully functional, and it’s recommended to use commands for actions
-  like creating ranks or navigating.
-- **Disable GUI:** You can disable the GUI in the config if it’s causing issues and rely on command-based management.
-
-**Key takeaway:** GUIs may not work as expected; use commands as an alternative.
 
 ---
 

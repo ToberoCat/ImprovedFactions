@@ -2,18 +2,20 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="improved-factions.ImprovedFactions.code-generation.main" target="22" />
-      <module name="improved-factions.ImprovedFactions.code-generation.test" target="22" />
+      <module name="improved-factions.ImprovedFactions.code-generation.main~1" target="22" />
+      <module name="improved-factions.ImprovedFactions.code-generation.test~1" target="22" />
       <module name="ImprovedFactions.code-generation" target="21" />
       <module name="ImprovedFactions.code-generation.main" target="21" />
       <module name="ImprovedFactions.code-generation.test" target="21" />
       <module name="ImprovedFactions.shared" target="17" />
       <module name="ImprovedFactions.shared.main" target="17" />
       <module name="ImprovedFactions.shared.test" target="17" />
-      <module name="io.github.toberocat.improved-factions.ImprovedFactions.main~1" target="17" />
       <module name="io.github.toberocat.improved-factions.ImprovedFactions.main~2" target="21" />
-      <module name="io.github.toberocat.improved-factions.ImprovedFactions.test~1" target="17" />
+      <module name="io.github.toberocat.improved-factions.ImprovedFactions.main~3" target="17" />
+      <module name="io.github.toberocat.improved-factions.ImprovedFactions.main~4" target="21" />
       <module name="io.github.toberocat.improved-factions.ImprovedFactions.test~2" target="21" />
+      <module name="io.github.toberocat.improved-factions.ImprovedFactions.test~3" target="17" />
+      <module name="io.github.toberocat.improved-factions.ImprovedFactions.test~4" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>
