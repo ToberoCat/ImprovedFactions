@@ -18,7 +18,7 @@
 ## Table of Contents
 - [About](#about)
 - [Features](#features)
-- [Documentation](https://toberocat.github.io/ImprovedFactions/docs)
+- [Getting started](#getting-started)
 - [Contributing](#contributing)
 - [Support](#support)
 - [License](#license)
@@ -34,6 +34,9 @@ ImprovedFactions is a lightweight and high-performance Minecraft faction plugin.
 - **Customizable**: Extensive configuration options to tailor the faction experience to your server's needs.
 - **Minecraft Integration**: Unique features downloadable directly through Minecraft for seamless user experience.
 - **Regular Updates**: Continual improvements and new features to keep your faction gameplay fresh and exciting.
+
+## Getting started
+Install instructions can be found [here](https://toberocat.github.io/ImprovedFactions/docs/getting-started)
 
 ## Contributing
 
