@@ -18,10 +18,7 @@
 ## Table of Contents
 - [About](#about)
 - [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Configuration](#configuration)
-- [Documentation](https://toberocat.github.io/ImprovedFactions/docs/commands/base/admin%20bypass)
+- [Documentation](https://toberocat.github.io/ImprovedFactions/docs)
 - [Contributing](#contributing)
 - [Support](#support)
 - [License](#license)
@@ -37,33 +34,6 @@ ImprovedFactions is a lightweight and high-performance Minecraft faction plugin.
 - **Customizable**: Extensive configuration options to tailor the faction experience to your server's needs.
 - **Minecraft Integration**: Unique features downloadable directly through Minecraft for seamless user experience.
 - **Regular Updates**: Continual improvements and new features to keep your faction gameplay fresh and exciting.
-
-## Installation
-
-1. Download the latest version of ImprovedFactions from the [Spigot page](https://www.spigotmc.org/resources/improved-factions.95617) or [GitHub releases](https://github.com/ToberoCat/ImprovedFactions_new/releases/).
-2. Place the downloaded `.jar` file in your server's `plugins` folder.
-3. Restart your server.
-4. The plugin will generate default configuration files, which you can then customize.
-
-## Usage
-
-- `/f help` - View all available faction commands
-- `/f create <name>` - Create a new faction
-- `/f join <faction>` - Join an existing faction
-- `/f claim` - Claim land for your faction
-
-For a full list of commands and their usage, please refer to our [documentation](#documentation).
-
-## Configuration
-
-The main configuration file is located at `plugins/ImprovedFactions/config.yml`. Here you can adjust various settings such as:
-
-- Faction creation costs
-- Claim limits
-- Power systems
-- And much more!
-
-Detailed configuration instructions can be found in our [wiki](https://toberocat.github.io/ImprovedFactions/docs/modules/power-raids).
 
 ## Contributing
 
