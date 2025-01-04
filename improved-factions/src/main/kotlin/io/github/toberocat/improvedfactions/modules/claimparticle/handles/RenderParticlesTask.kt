@@ -38,13 +38,6 @@ class RenderParticlesTask(private val config: ClaimParticleModuleConfig) : Bukki
     }
 
     private fun renderParticlesToPlayer(player: Player, baseColor: Color, location: Location) {
-        val f = Math.random()
-        val color = when {
-            f < 0.2 -> Color.WHITE
-            f < 0.4 -> Color.BLACK
-            else -> baseColor
-        }
-
         if (player.world != location.world) {
             return
         }
@@ -55,7 +48,7 @@ class RenderParticlesTask(private val config: ClaimParticleModuleConfig) : Bukki
         }
 
         val dust = Particle.DustOptions(
-            color, MathUtils.clamp(
+            baseColor, MathUtils.clamp(
                 distance - config.particleSizeBias,
                 config.minParticleSize,
                 config.maxParticleSize
