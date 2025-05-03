@@ -1,1 +1,5 @@
 blank_issues_enabled: false
+contact_links:
+  - name: Questions and support
+    url: https://discord.gg/VmSbFNZejz
+    about: Discord
