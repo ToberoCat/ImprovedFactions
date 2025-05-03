@@ -17,6 +17,12 @@ body:
     validations:
       required: true
 
+  - type: textarea
+    attributes:
+      label: Log
+    validations:
+      required: true
+
   - type: input
     id: pluginVersion
     attributes:
