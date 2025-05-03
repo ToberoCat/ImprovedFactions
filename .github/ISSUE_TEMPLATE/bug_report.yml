@@ -1,0 +1,32 @@
+name: Bug Report
+description: "Create a report to help us improve"
+title: '[Bug] '
+labels: ["bug"]
+body:
+  - type: textarea
+    attributes:
+      label: Description
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: Steps To Reproduce
+      placeholder: |
+          1. 
+    validations:
+      required: true
+
+  - type: input
+    id: pluginVersion
+    attributes:
+      label: Plugin version
+    validations:
+      required: true
+
+  - type: input
+    id: serverVersion
+    attributes:
+      label: Server version
+    validations:
+      required: true
