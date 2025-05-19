@@ -42,12 +42,7 @@ class PlayerTeleporter(
 
         teleportAnimation.playAnimation()
 
-        val displayLocation = BaseModule.config.territoryDisplayLocation
-        if (displayLocation == EventDisplayLocation.ACTIONBAR ||
-            displayLocation == EventDisplayLocation.CHAT
-        ) {
-            displayLocation.display(player, titleKey, null)
-        }
+        displayLocationHandler(player, titleKey, null)
 
         runTaskTimer(plugin, 0, 20)
     }
