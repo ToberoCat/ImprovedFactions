@@ -11,8 +11,8 @@ object CommandCategory {
     const val ADMIN_CATEGORY = "base.command.category.admin"
     const val PERMISSION_CATEGORY = "base.command.category.permissions"
     const val POWER_CATEGORY = "power.command.category.power"
-    const val RELATIONS_CATEGORY = "relations.command.category"
-    const val COMMUNICATION_CATEGORY = "chat.command.category"
+    const val RELATIONS_CATEGORY = "relations.command.category.relations"
+    const val COMMUNICATION_CATEGORY = "chat.command.category.chat"
 }
 
 @Target(AnnotationTarget.CLASS)

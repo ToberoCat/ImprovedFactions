@@ -10,7 +10,7 @@ import io.github.toberocat.improvedfactions.translation.sendLocalized
 import org.bukkit.entity.Player
 
 @GeneratedCommandMeta(
-    label = "spy",
+    label = "admin spy",
     category = CommandCategory.ADMIN_CATEGORY,
     module = ChatModule.MODULE_NAME,
     responses = [

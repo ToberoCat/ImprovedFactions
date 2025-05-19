@@ -13,7 +13,7 @@ import org.bukkit.entity.Player
 
 @PermissionConfig(config = PermissionConfigurations.OP_ONLY)
 @GeneratedCommandMeta(
-    label = "zone unclaim",
+    label = "admin zone unclaim",
     category = CommandCategory.ADMIN_CATEGORY,
     module = "base",
     responses = [

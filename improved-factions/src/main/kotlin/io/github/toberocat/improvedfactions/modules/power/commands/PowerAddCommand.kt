@@ -14,7 +14,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 @GeneratedCommandMeta(
-    label = "power add",
+    label = "admin power add",
     category = CommandCategory.ADMIN_CATEGORY,
     module = PowerRaidsModule.MODULE_NAME,
     responses = [

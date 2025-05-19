@@ -33,9 +33,9 @@ permissions:
     default: true
   factions.commands.info: 
     default: true
-  factions.commands.zone.unclaim: 
+  factions.commands.admin.zone.unclaim: 
     default: op
-  factions.commands.zone.claim: 
+  factions.commands.admin.zone.claim: 
     default: op
   factions.commands.admin.unclaim: 
     default: op
@@ -91,13 +91,13 @@ permissions:
     default: true
   factions.commands.map: 
     default: true
-  factions.commands.power.add: 
+  factions.commands.admin.power.add: 
     default: true
   factions.commands.power: 
     default: true
   factions.commands.siege: 
     default: true
-  factions.commands.power.set: 
+  factions.commands.admin.power.set: 
     default: true
   factions.commands.home: 
     default: true
@@ -117,7 +117,7 @@ permissions:
     default: true
   factions.commands.chat: 
     default: true
-  factions.commands.spy: 
+  factions.commands.admin.spy: 
     default: true
   factions.*: 
     default: op
@@ -134,8 +134,8 @@ permissions:
       factions.commands.help: true
       factions.commands.version: true
       factions.commands.info: true
-      factions.commands.zone.unclaim: true
-      factions.commands.zone.claim: true
+      factions.commands.admin.zone.unclaim: true
+      factions.commands.admin.zone.claim: true
       factions.commands.admin.unclaim: true
       factions.commands.admin.playerinfo: true
       factions.commands.admin.leave: true
@@ -163,10 +163,10 @@ permissions:
       factions.commands.unclaim: true
       factions.commands.claim: true
       factions.commands.map: true
-      factions.commands.power.add: true
+      factions.commands.admin.power.add: true
       factions.commands.power: true
       factions.commands.siege: true
-      factions.commands.power.set: true
+      factions.commands.admin.power.set: true
       factions.commands.home: true
       factions.commands.sethome: true
       factions.commands.wilderness: true
@@ -176,5 +176,5 @@ permissions:
       factions.commands.enemies: true
       factions.commands.allies: true
       factions.commands.chat: true
-      factions.commands.spy: true
+      factions.commands.admin.spy: true
 

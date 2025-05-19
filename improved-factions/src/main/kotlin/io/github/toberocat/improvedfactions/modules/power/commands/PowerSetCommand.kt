@@ -12,7 +12,7 @@ import io.github.toberocat.improvedfactions.modules.power.PowerType
 import org.bukkit.command.CommandSender
 
 @GeneratedCommandMeta(
-    label = "power set",
+    label = "admin power set",
     category = CommandCategory.ADMIN_CATEGORY,
     module = PowerRaidsModule.MODULE_NAME,
     responses = [
