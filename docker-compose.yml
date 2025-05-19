@@ -2,7 +2,7 @@ version: '3'
 
 services:
   mcserver:
-    image: itzg/minecraft-server:latest
+    image: itzg/minecraft-server:java21-alpine
     container_name: mcserver
     environment:
       TYPE: PAPER
