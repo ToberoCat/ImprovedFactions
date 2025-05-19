@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.devtools.ksp)
     id("maven-publish")
     id("io.github.goooler.shadow") version "8.1.8"
+    id("com.github.ben-manes.versions") version "0.52.0"
 }
 
 val versionPropsFile = file("version.properties")

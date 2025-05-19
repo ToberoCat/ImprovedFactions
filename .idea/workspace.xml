@@ -5,14 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad9c7d4c-34f8-4c4a-9806-e72e98556779" name="Changes" comment="Added online mode to header">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/io.github.toberocat.improved-factions.ImprovedFactions.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Start_Server.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Start_Server.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/commands/SiegeCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/power/commands/SiegeCommand.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/relations/RelationsModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/modules/relations/RelationsModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/gradle/libs.versions.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/general/HelpCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/commands/general/HelpCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/resources/languages/messages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/resources/languages/messages_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/version.properties" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/version.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DarkyenusTimeTracker">
+    <option name="totalTimeSeconds" value="2883" />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/improved-factions">
@@ -23,6 +35,9 @@
     <system id="GRADLE">
       <state>
         <task path="$PROJECT_DIR$/improved-factions">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$/improved-factions/improved-factions">
           <activation />
         </task>
         <projects_view>
@@ -47,7 +62,7 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="ImprovedFactions" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="verification" type="c8890929:TasksNode$1" />
+                <item name="help" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -76,7 +91,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="add-online-mode-to-header" />
+        <entry key="$PROJECT_DIR$" value="dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -123,7 +138,6 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2ln8LXTJEKgmpQZ8v9bYLdFx6df" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -147,6 +161,7 @@
     "Gradle.TitleTest.Test title on enter.executor": "Debug",
     "Gradle.improved-factions [build].executor": "Run",
     "Gradle.improved-factions [clean].executor": "Run",
+    "Gradle.improved-factions [dependencyUpdates].executor": "Run",
     "Gradle.improved-factions [test].executor": "Run",
     "JUnit.Whole project.executor": "Run",
     "Remote JVM Debug.Debug Server.executor": "Debug",
@@ -154,7 +169,8 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "relations-module",
+    "git-widget-placeholder": "v1.21.5-support",
+    "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/tobias/Downloads/ImprovedFactions/server/plugins",
     "node.js.detected.package.eslint": "true",
@@ -190,7 +206,7 @@
       <recent name="io.github.toberocat.improvedfactions.commands.executor" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.InviteAcceptCommandTest.test if can accept invite with _ in name">
+  <component name="RunManager" selected="Gradle.Build Plugin - No Tests">
     <configuration name="InviteAcceptCommandTest.test if can accept invite with _ in name" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -205,30 +221,6 @@
             <option value=":test" />
             <option value="--tests" />
             <option value="&quot;io.github.toberocat.improvedfactions.integration.commands.invite.InviteAcceptCommandTest.test if can accept invite with _ in name&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="InviteCommandProcessorTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/improved-factions" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;io.github.toberocat.improvedfactions.integration.commands.invite.InviteCommandProcessorTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -263,49 +255,48 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="InviteCommandProcessorTest.test if can invite player" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="improved-factions [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/improved-factions" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;io.github.toberocat.improvedfactions.integration.commands.invite.InviteCommandProcessorTest.test if can invite player&quot;" />
+            <option value="clean" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
+      <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="Whole project" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="ImprovedFactions" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="ImprovedFactions" />
-      <option name="filePath" />
+    <configuration name="improved-factions [dependencyUpdates]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/improved-factions" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="dependencyUpdates" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
@@ -314,33 +305,41 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="docker-compose.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Docker.Start Server" />
+      <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
       <item itemvalue="Gradle.Build Plugin - No Tests" />
       <item itemvalue="Gradle.Build Plugin" />
       <item itemvalue="Gradle.Test Plugin" />
+      <item itemvalue="Gradle.improved-factions [clean]" />
+      <item itemvalue="Gradle.improved-factions [dependencyUpdates]" />
       <item itemvalue="Gradle.InviteAcceptCommandTest.test if can accept invite with _ in name" />
-      <item itemvalue="Gradle.InviteCommandProcessorTest" />
-      <item itemvalue="Gradle.InviteCommandProcessorTest.test if can invite player" />
       <item itemvalue="Gradle.InviteCommandProcessorTest.test if can invite player with _" />
-      <item itemvalue="JUnit.Whole project" />
       <item itemvalue="Remote JVM Debug.Debug Server" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.improved-factions [clean]" />
+        <item itemvalue="Gradle.improved-factions [dependencyUpdates]" />
+        <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
         <item itemvalue="Gradle.InviteAcceptCommandTest.test if can accept invite with _ in name" />
         <item itemvalue="Gradle.InviteCommandProcessorTest.test if can invite player with _" />
-        <item itemvalue="Gradle.InviteCommandProcessorTest.test if can invite player" />
-        <item itemvalue="Gradle.InviteCommandProcessorTest" />
-        <item itemvalue="JUnit.Whole project" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.145" />
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.145" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
       </set>
     </attachedChunks>
   </component>
@@ -380,6 +379,7 @@
       <workItem from="1735290452228" duration="655000" />
       <workItem from="1735291157886" duration="75000" />
       <workItem from="1735737691043" duration="3769000" />
+      <workItem from="1747673436375" duration="3119000" />
     </task>
     <task id="LOCAL-00001" summary="Migrated to gradle instead of maven">
       <option name="closed" value="true" />
