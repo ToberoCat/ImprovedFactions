@@ -9,7 +9,6 @@ import io.github.toberocat.improvedfactions.commands.executor.CommandExecutor
 import io.github.toberocat.improvedfactions.commands.sendCommandResult
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.translation.getUnformattedLocalized
-import io.github.toberocat.improvedfactions.utils.getMeta
 import io.github.toberocat.improvedfactions.utils.isSubtype
 import org.bukkit.command.CommandSender
 
@@ -28,6 +27,7 @@ import org.bukkit.command.CommandSender
 abstract class HelpCommand : HelpCommandContext() {
 
     private val categoryIndex: MutableMap<String, MutableList<String>> = HashMap()
+    private val categoryLocaleIndex: MutableMap<String, String> = HashMap()
     lateinit var commands: Map<String, CommandProcessor>
 
     fun initialize(executor: CommandExecutor) {
@@ -36,6 +36,7 @@ abstract class HelpCommand : HelpCommandContext() {
             val categoryLocale = processor.commandData.category
             val category = categoryLocale.substringAfterLast(".")
             categoryIndex.computeIfAbsent(category) { ArrayList() }.add(commandLabel)
+            categoryLocaleIndex[category] = categoryLocale
         }
     }
 
@@ -69,9 +70,10 @@ abstract class HelpCommand : HelpCommandContext() {
     private fun printCategoryOverview(sender: CommandSender) {
         sender.sendCommandResult(helpHeader())
         categoryIndex.keys.forEach { category ->
+            val categoryLocale = categoryLocaleIndex[category] ?: category
             sender.sendCommandResult(
                 helpCategoryOverview(
-                    "category-name" to sender.getUnformattedLocalized(category),
+                    "category-name" to sender.getUnformattedLocalized(categoryLocale),
                     "category-id" to "c:$category"
                 )
             )
