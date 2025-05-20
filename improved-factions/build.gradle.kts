@@ -1,11 +1,11 @@
 import java.nio.file.Files
-import java.util.Properties
+import java.util.*
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.devtools.ksp)
     id("maven-publish")
-    id("io.github.goooler.shadow") version "8.1.8"
+    id("com.gradleup.shadow") version "9.0.0-beta13"
     id("com.github.ben-manes.versions") version "0.52.0"
 }
 
@@ -29,8 +29,8 @@ group = "io.github.toberocat.improved-factions"
 version = versionName
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 repositories {
@@ -72,7 +72,6 @@ dependencies {
     implementation(libs.adventure.text.minimessage)
     implementation(libs.adventure.text.serializer.legacy)
     implementation(libs.kyori.adventure.platform.bukkit)
-    implementation(libs.base64.itemstack)
     implementation(libs.bstats.bukkit)
 
     // Provided dependencies
@@ -98,22 +97,31 @@ tasks.named<Copy>("processResources") {
     }
 }
 
-tasks {
-
-    shadowJar {
-        archiveFileName.set("${project.name}-${project.version}.jar")
-        if (System.getenv("CI") == null) {
-            destinationDirectory.set(file("../server/plugins"))
-        }
-        relocate("com.fasterxml.jackson", "io.github.toberocat.relocated.jackson")
-        relocate("net.kyori", "io.github.toberocat.relocated.kyori")
-        relocate("dev.s7a", "io.github.toberocat.relocated.base64itemstack")
-        relocate("org.bstats", "io.github.toberocat.relocated.bstats")
-        relocate("com.jeff_media", "io.github.toberocat.relocated.jeff_media")
+tasks.shadowJar {
+    archiveFileName.set("${project.name}-${project.version}.jar")
+    if (System.getenv("CI") == null) {
+        destinationDirectory.set(file("../server/plugins"))
     }
+    relocate("com.fasterxml.jackson", "io.github.toberocat.relocated.jackson")
+    relocate("net.kyori", "io.github.toberocat.relocated.kyori")
+    relocate("dev.s7a", "io.github.toberocat.relocated.base64itemstack")
+    relocate("org.bstats", "io.github.toberocat.relocated.bstats")
+    relocate("com.jeff_media.updatechecker", "io.github.toberocat.relocated.updatechecker")
+}
 
+tasks {
     build {
         dependsOn(shadowJar)
+    }
+
+    compileKotlin {
+        dependsOn(generateBuildConfig)
+    }
+
+    processResources {
+        filesMatching("**/*.yml") {
+            expand("buildIncrement" to buildIncrement)
+        }
     }
 
     test {
@@ -122,7 +130,7 @@ tasks {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(21)
 
     sourceSets.main {
         kotlin.srcDir("build/generated/ksp/main/kotlin")
@@ -154,22 +162,14 @@ val generateBuildConfig: Task by tasks.creating {
 
     doLast {
         val buildConfigFile = outputDir.file("BuildConfig.kt")
-        buildConfigFile.asFile.writeText("""
+        buildConfigFile.asFile.writeText(
+            """
             object BuildConfig {
                 const val VERSION_NAME = "$versionName"
                 const val BUILD_INCREMENT = $buildIncrement
                 const val VERSION = "$versionName.$buildIncrement"
             }
-        """.trimIndent())
-    }
-}
-
-tasks.compileKotlin {
-    dependsOn(generateBuildConfig)
-}
-
-tasks.processResources {
-    filesMatching("**/*.yml") {
-        expand("buildIncrement" to buildIncrement)
+        """.trimIndent()
+        )
     }
 }

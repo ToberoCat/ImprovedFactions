@@ -1,6 +1,5 @@
 package io.github.toberocat.improvedfactions.factions
 
-import dev.s7a.base64.Base64ItemStack
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.annotations.localization.Localization
 import io.github.toberocat.improvedfactions.claims.*
@@ -26,6 +25,7 @@ import io.github.toberocat.improvedfactions.user.FactionUser
 import io.github.toberocat.improvedfactions.user.FactionUsers
 import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.user.noFactionId
+import io.github.toberocat.improvedfactions.utils.Base64Item
 import io.github.toberocat.improvedfactions.utils.toOfflinePlayer
 import io.github.toberocat.toberocore.command.exceptions.CommandException
 import io.github.toberocat.toberocore.util.ItemUtils
@@ -91,12 +91,12 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
 
     var icon: ItemStack
         get() {
-            val item = Base64ItemStack.decode(base64Icon) ?: ItemStack(Material.GRASS_BLOCK)
+            val item = base64Icon?.let { Base64Item.decode(it) } ?: ItemStack(Material.GRASS_BLOCK)
             ItemUtils.editMeta(item) { it.setDisplayName("§e${localName}") }
             return item
         }
         set(value) {
-            val base64 = Base64ItemStack.encode(value)
+            val base64 = runCatching { Base64Item.encode(value) }.getOrNull() ?: return
             if (base64.length > BaseModule.config.maxFactionIconLength) throw CommandException(
                 "base.exceptions.icon.invalid-icon", emptyMap()
             )

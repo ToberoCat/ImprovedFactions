@@ -13,11 +13,10 @@ guiengine-version = "6c00296e4c"
 adventure-text-minimessages-version = "4.21.0"
 adventure-text-serializer-legacy-version = "4.21.0"
 kyori-adventure-platform-bukkit-version = "4.4.0"
-base64-itemstack-version = "1.0.0"
 bstats-bukkit-version = "3.1.0"
 placeholder-api-version = "2.11.6"
 dynmap-api-version = "3.7-beta-6"
-mockbukkit-version = "3.80.0"
+mockbukkit-version = "4.49.0"
 snakeyaml-version = "2.4"
 gson-version = "2.13.1"
 logback-classic-version = "1.5.18"
@@ -45,11 +44,10 @@ guiengine = { module = "com.github.ToberoCat:GuiEngine", version.ref = "guiengin
 adventure-text-minimessage = { module = "net.kyori:adventure-text-minimessage", version.ref = "adventure-text-minimessages-version" }
 adventure-text-serializer-legacy = { module = "net.kyori:adventure-text-serializer-legacy", version.ref = "adventure-text-serializer-legacy-version" }
 kyori-adventure-platform-bukkit = { module = "net.kyori:adventure-platform-bukkit", version.ref = "kyori-adventure-platform-bukkit-version" }
-base64-itemstack = { module = "dev.s7a:base64-itemstack", version.ref = "base64-itemstack-version" }
 bstats-bukkit = { module = "org.bstats:bstats-bukkit", version.ref = "bstats-bukkit-version" }
 placeholderapi = { module = "me.clip:placeholderapi", version.ref = "placeholder-api-version" }
 dynmap-api = { module = "us.dynmap:DynmapCoreAPI", version.ref = "dynmap-api-version" }
-mockbukkit = { module = "com.github.seeseemelk:MockBukkit-v1.20", version.ref = "mockbukkit-version" }
+mockbukkit = { module = "org.mockbukkit.mockbukkit:mockbukkit-v1.21", version.ref = "mockbukkit-version" }
 snakeyaml = { module = "org.yaml:snakeyaml", version.ref = "snakeyaml-version" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson-version" }
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-classic-version" }

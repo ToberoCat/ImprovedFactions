@@ -1,9 +1,5 @@
-package io.github.toberocat.improvedfactions.unit
+package io.github.toberocat.improvedfactions
 
-import be.seeseemelk.mockbukkit.MockBukkit
-import be.seeseemelk.mockbukkit.ServerMock
-import be.seeseemelk.mockbukkit.WorldMock
-import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
@@ -11,8 +7,10 @@ import org.bukkit.Material
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
-import java.util.*
-
+import org.mockbukkit.mockbukkit.MockBukkit
+import org.mockbukkit.mockbukkit.ServerMock
+import org.mockbukkit.mockbukkit.world.WorldMock
+import java.util.UUID
 
 open class ImprovedFactionsTest {
     protected lateinit var server: ServerMock

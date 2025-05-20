@@ -1,8 +1,8 @@
 package io.github.toberocat.improvedfactions.integration.commands.home
 
-import be.seeseemelk.mockbukkit.entity.PlayerMock
+import org.mockbukkit.mockbukkit.entity.PlayerMock
 import io.github.toberocat.improvedfactions.factions.Faction
-import io.github.toberocat.improvedfactions.unit.ImprovedFactionsTest
+import io.github.toberocat.improvedfactions.ImprovedFactionsTest
 import org.bukkit.Chunk
 import org.bukkit.World
 import org.junit.jupiter.api.BeforeEach

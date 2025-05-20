@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad9c7d4c-34f8-4c4a-9806-e72e98556779" name="Changes" comment="updated dependencies to work for v1.21.5" />
+    <list default="true" id="ad9c7d4c-34f8-4c4a-9806-e72e98556779" name="Changes" comment="updated dependencies to work for v1.21.5">
+      <change beforePath="$PROJECT_DIR$/improved-factions/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/gradle/libs.versions.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/config/EventDisplayLocation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/config/EventDisplayLocation.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/utils/PlayerTeleporter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/main/kotlin/io/github/toberocat/improvedfactions/utils/PlayerTeleporter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/integration/commands/create/CreateCommandTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/integration/commands/create/CreateCommandTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/integration/commands/home/HomeCommandProcessorTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/integration/commands/home/HomeCommandProcessorTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/integration/commands/invite/InviteAcceptCommandTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/integration/commands/invite/InviteAcceptCommandTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/integration/commands/invite/InviteCommandProcessorTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/integration/commands/invite/InviteCommandProcessorTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/unit/ImprovedFactionsTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/src/test/kotlin/io/github/toberocat/improvedfactions/unit/ImprovedFactionsTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/improved-factions/version.properties" beforeDir="false" afterPath="$PROJECT_DIR$/improved-factions/version.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -156,7 +167,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "teleport-time-messages",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/tobias/Downloads/ImprovedFactions/server/plugins",
@@ -367,6 +378,7 @@
       <workItem from="1735291157886" duration="75000" />
       <workItem from="1735737691043" duration="3769000" />
       <workItem from="1747673436375" duration="3442000" />
+      <workItem from="1747736359874" duration="4000" />
     </task>
     <task id="LOCAL-00001" summary="Migrated to gradle instead of maven">
       <option name="closed" value="true" />

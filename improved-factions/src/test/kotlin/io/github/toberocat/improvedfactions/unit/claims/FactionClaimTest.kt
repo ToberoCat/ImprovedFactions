@@ -2,7 +2,7 @@ package io.github.toberocat.improvedfactions.unit.claims
 
 import io.github.toberocat.improvedfactions.exceptions.CantClaimThisChunkException
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
-import io.github.toberocat.improvedfactions.unit.ImprovedFactionsTest
+import io.github.toberocat.improvedfactions.ImprovedFactionsTest
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow

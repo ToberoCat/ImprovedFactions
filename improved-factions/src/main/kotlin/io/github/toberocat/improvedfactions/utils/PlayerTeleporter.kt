@@ -20,6 +20,7 @@ class PlayerTeleporter(
     private val subtitleKey: LocalizationKey,
     private val onTeleport: () -> Unit,
     private val standStillMs: Long = 5000,
+    private val playAnimation: Boolean = true,
 ) : BukkitRunnable() {
     private val audience = player.toAudience()
     private val startedLocation = player.location
@@ -40,9 +41,16 @@ class PlayerTeleporter(
             )
         )
 
-        teleportAnimation.playAnimation()
+        if (playAnimation) {
+            teleportAnimation.playAnimation()
+        }
 
-        displayLocationHandler(player, titleKey, null)
+        val displayLocation = BaseModule.config.territoryDisplayLocation
+        if (displayLocation == EventDisplayLocation.ACTIONBAR ||
+            displayLocation == EventDisplayLocation.CHAT
+        ) {
+            displayLocation.display(player, titleKey, null)
+        }
 
         runTaskTimer(plugin, 0, 20)
     }
@@ -65,21 +73,12 @@ class PlayerTeleporter(
         val leftSeconds = ceil((standStillMs - (current - startTime)) / 1000.0).toInt()
         val displayLocation = BaseModule.config.territoryDisplayLocation
 
-        when (displayLocation) {
-            EventDisplayLocation.ACTIONBAR, EventDisplayLocation.CHAT -> displayLocation.display(
-                player,
-                subtitleKey,
-                null,
-                mapOf("time" to leftSeconds.toString())
-            )
-
-            else -> displayLocation.display(
-                player,
-                titleKey,
-                subtitleKey,
-                mapOf("time" to leftSeconds.toString())
-            )
-        }
+        displayLocation.displayLocationHandler(
+            player,
+            titleKey,
+            subtitleKey,
+            mapOf("time" to leftSeconds.toString())
+        )
 
         val distance = player.location.distanceSquared(startedLocation)
         if (distance > 0.01) {

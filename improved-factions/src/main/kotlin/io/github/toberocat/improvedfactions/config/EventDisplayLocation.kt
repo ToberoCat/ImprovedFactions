@@ -51,4 +51,27 @@ enum class EventDisplayLocation {
         subMessage: LocalizationKey?,
         placeholders: Map<String, String> = emptyMap()
     )
+
+    fun displayLocationHandler(
+        player: Player,
+        mainMessage: LocalizationKey,
+        subMessage: LocalizationKey?,
+        placeholders: Map<String, String> = emptyMap()
+    ) {
+        when (this) {
+            ACTIONBAR, CHAT -> display(
+                player,
+                subMessage!!,
+                null,
+                placeholders
+            )
+
+            else -> display(
+                player,
+                mainMessage,
+                subMessage,
+                placeholders
+            )
+        }
+    }
 }

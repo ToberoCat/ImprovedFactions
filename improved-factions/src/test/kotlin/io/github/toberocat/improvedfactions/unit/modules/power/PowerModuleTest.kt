@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedfactions.unit.modules.power
 
 import io.github.toberocat.improvedfactions.factions.PowerAccumulationChangeReason
-import io.github.toberocat.improvedfactions.unit.ImprovedFactionsTest
+import io.github.toberocat.improvedfactions.ImprovedFactionsTest
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.Test
 

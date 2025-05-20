@@ -2,7 +2,7 @@ package io.github.toberocat.improvedfactions.unit.config
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.config.PluginConfig
-import io.github.toberocat.improvedfactions.unit.ImprovedFactionsTest
+import io.github.toberocat.improvedfactions.ImprovedFactionsTest
 import org.bukkit.configuration.file.FileConfiguration
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals

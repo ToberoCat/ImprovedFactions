@@ -1,8 +1,8 @@
 package io.github.toberocat.improvedfactions.integration.commands.invite
 
-import be.seeseemelk.mockbukkit.entity.PlayerMock
+import org.mockbukkit.mockbukkit.entity.PlayerMock
 import io.github.toberocat.improvedfactions.factions.Faction
-import io.github.toberocat.improvedfactions.unit.ImprovedFactionsTest
+import io.github.toberocat.improvedfactions.ImprovedFactionsTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource

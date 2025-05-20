@@ -1,6 +1,6 @@
 package io.github.toberocat.improvedfactions.unit.utils.options.limit
 
-import io.github.toberocat.improvedfactions.unit.ImprovedFactionsTest
+import io.github.toberocat.improvedfactions.ImprovedFactionsTest
 import io.github.toberocat.improvedfactions.utils.options.limit.PlayerUsageLimit
 import io.github.toberocat.improvedfactions.utils.options.limit.PlayerUsageLimits
 import org.jetbrains.exposed.sql.transactions.transaction

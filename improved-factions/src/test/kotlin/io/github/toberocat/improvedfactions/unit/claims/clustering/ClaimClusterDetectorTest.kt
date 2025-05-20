@@ -6,7 +6,7 @@ import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosi
 import io.github.toberocat.improvedfactions.claims.clustering.position.WorldPosition
 import io.github.toberocat.improvedfactions.claims.clustering.query.ClaimQueryProvider
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
-import io.github.toberocat.improvedfactions.unit.ImprovedFactionsTest
+import io.github.toberocat.improvedfactions.ImprovedFactionsTest
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test

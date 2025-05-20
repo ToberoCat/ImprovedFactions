@@ -93,22 +93,26 @@ object BaseModule : Module {
         if (!plugin.config.getBoolean("update-checker")) return
 
         logger.info("Checking for updates...")
-        UpdateChecker(plugin, UpdateCheckSource.SPIGOT, SPIGOT_RESOURCE_ID.toString())
-            .setDownloadLink(SPIGOT_RESOURCE_ID)
-            .setDonationLink("https://www.paypal.com/donate/?hosted_button_id=BGB6QWR886Q6Y")
-            .setChangelogLink(SPIGOT_RESOURCE_ID)
-            .setNotifyOpsOnJoin(true)
-            .setColoredConsoleOutput(false)
-            .setSupportLink("https://discord.com/invite/yJYyNRfk39")
-            .setNotifyByPermissionOnJoin("factions.updatechecker")
-            .setUserAgent(
-                UserAgentBuilder()
-                    .addServerVersion()
-                    .addBukkitVersion()
-                    .addPluginNameAndVersion()
-            )
-            .checkEveryXHours(24.0)
-            .checkNow()
+        runCatching {
+            UpdateChecker(plugin, UpdateCheckSource.SPIGOT, SPIGOT_RESOURCE_ID.toString())
+                .setDownloadLink(SPIGOT_RESOURCE_ID)
+                .setDonationLink("https://www.paypal.com/donate/?hosted_button_id=BGB6QWR886Q6Y")
+                .setChangelogLink(SPIGOT_RESOURCE_ID)
+                .setNotifyOpsOnJoin(true)
+                .setColoredConsoleOutput(false)
+                .setSupportLink("https://discord.com/invite/yJYyNRfk39")
+                .setNotifyByPermissionOnJoin("factions.updatechecker")
+                .setUserAgent(
+                    UserAgentBuilder()
+                        .addServerVersion()
+                        .addBukkitVersion()
+                        .addPluginNameAndVersion()
+                )
+                .checkEveryXHours(24.0)
+                .checkNow()
+        }.onFailure { e -> 
+            logger.warning("Failed to check for updates... ${e.message}")
+        }
     }
 
     private fun copyFolders() {

@@ -1,13 +1,13 @@
 package io.github.toberocat.improvedfactions.integration.commands.create
 
-import be.seeseemelk.mockbukkit.entity.PlayerMock
 import io.github.toberocat.improvedfactions.factions.FactionHandler
-import io.github.toberocat.improvedfactions.unit.ImprovedFactionsTest
+import io.github.toberocat.improvedfactions.ImprovedFactionsTest
 import io.github.toberocat.improvedfactions.user.factionUser
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
+import org.mockbukkit.mockbukkit.entity.PlayerMock
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
