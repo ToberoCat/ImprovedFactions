@@ -40,8 +40,8 @@ enum class EventDisplayLocation {
             subMessage: LocalizationKey?,
             placeholders: Map<String, String>
         ) {
-            player.sendLocalized(mainMessage, placeholders)
-            subMessage?.let { player.sendLocalized(subMessage, placeholders) }
+            player.sendLocalized(mainMessage, placeholders, true)
+            subMessage?.let { player.sendLocalized(subMessage, placeholders, true) }
         }
     };
 
