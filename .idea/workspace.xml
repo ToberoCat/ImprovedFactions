@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad9c7d4c-34f8-4c4a-9806-e72e98556779" name="Changes" comment="Fixed Mysql connection problem with uuid.">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="ad9c7d4c-34f8-4c4a-9806-e72e98556779" name="Changes" comment="Fixed Mysql connection problem with uuid." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -208,7 +205,7 @@
       <workItem from="1752681990641" duration="1544000" />
       <workItem from="1752683545024" duration="6712000" />
       <workItem from="1752692914493" duration="1944000" />
-      <workItem from="1752696164433" duration="31000" />
+      <workItem from="1752696164433" duration="354000" />
     </task>
     <task id="LOCAL-00001" summary="Migrated to gradle instead of maven">
       <option name="closed" value="true" />
@@ -274,7 +271,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752693363726</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Fixed Mysql connection problem with uuid.">
+      <option name="closed" value="true" />
+      <created>1752696488502</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1752696488502</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
