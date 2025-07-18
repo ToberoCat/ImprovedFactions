@@ -6,5 +6,6 @@ import java.util.*
 
 object FactionClusters : IntIdTable("faction_clusters") {
     val faction = reference("faction", Factions)
-    val parentClusterId = uuid("parent_cluster").default(UUID.randomUUID())
+    // val parentClusterId = uuid("parent_cluster").default(UUID.randomUUID()) // <-- This is previous version
+    val parentClusterId = uuid("parent_cluster").clientDefault { UUID.randomUUID() } // <-- Mysql Fix
 }
