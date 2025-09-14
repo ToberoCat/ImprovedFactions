@@ -92,8 +92,8 @@ abstract class HelpCommand : HelpCommandContext() {
                     "<${if (usage.startsWith("<")) "aqua" else "gold"}>${usage}</hover>"
         }
         val rawArgs = function.parameters.joinToString(" ") { sender.getUnformattedLocalized(it.getUsage(commandData)) }
-        val usage = "/$baseCommand $args".trim()
-        val cmd = "/$baseCommand $rawArgs".trim()
+        val usage = "/factions $baseCommand $args".trim()
+        val cmd = "/factions $baseCommand $rawArgs".trim()
 
         sender.sendCommandResult(
             helpCommandDetails(
