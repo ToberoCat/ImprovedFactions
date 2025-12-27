@@ -84,7 +84,7 @@ object PowerRaidsModule : Module {
         placeholders: HashMap<String, (player: OfflinePlayer) -> String?>
     ) {
         placeholders["next_power_gain"] =
-            { player -> player.factionUser().faction()?.let { handle.getPowerAccumulated(it).toString() } }
+            { player -> player.factionUser().faction()?.let { String.format("%.2f", handle.getPowerAccumulated(it)) } }
         placeholders["active_accumulation"] =
             { player -> player.factionUser().faction()?.let { handle.getActivePowerAccumulation(it).toString() } }
         placeholders["inactive_accumulation"] =
