@@ -1,7 +1,7 @@
 name: Deploy to GitHub Pages
 
 permissions:
-  contents: read
+  contents: write
 
 on:
   push:
@@ -43,7 +43,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 24
           cache-dependency-path: './improved-factions-docs/package-lock.json'
           cache: npm
 

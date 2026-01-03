@@ -14,7 +14,7 @@ class LocalizationReader(private val languageFolder: File, private val logger: K
     fun getExistingLocalizationKeys() = properties.keys.map { it.toString() }
 
     private fun getPropertiesFile(): Properties {
-        val propertiesFileName = "messages_en.properties"
+        val propertiesFileName = "messages_en_US.properties"
         val properties = Properties()
         val file = File(languageFolder, propertiesFileName)
         if (!file.exists()) {

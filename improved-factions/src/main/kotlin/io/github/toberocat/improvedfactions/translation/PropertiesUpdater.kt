@@ -9,7 +9,7 @@ import java.util.Properties
 fun updateLanguages(plugin: ImprovedFactionsPlugin) {
     plugin.logger.info("Updating language files...")
     File(plugin.dataFolder, "languages").listFiles()?.forEach { file ->
-        PropertiesUpdater("languages/messages_en.properties", file.absolutePath)
+        PropertiesUpdater("languages/messages_en_US.properties", file.absolutePath)
             .updatePropertiesFile()
             ?.let { plugin.logger.info("Updated language file ${file.nameWithoutExtension}. $it") }
     }
