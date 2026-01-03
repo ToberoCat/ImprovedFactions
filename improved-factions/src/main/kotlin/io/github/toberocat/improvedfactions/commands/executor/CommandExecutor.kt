@@ -10,6 +10,7 @@ import io.github.toberocat.improvedfactions.commands.arguments.bukkit.WorldArgum
 import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionInviteArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionRankArgumentParser
+import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionUserArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.faction.ZoneArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.BoolArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.IntArgumentParser
@@ -24,6 +25,7 @@ import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.power.PowerType
 import io.github.toberocat.improvedfactions.ranks.FactionRank
 import io.github.toberocat.improvedfactions.translation.LocalizedException
+import io.github.toberocat.improvedfactions.user.FactionUser
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.zone.Zone
 import org.bukkit.OfflinePlayer
@@ -45,7 +47,8 @@ val DEFAULT_PARSERS = mapOf<Class<*>, ArgumentParser>(
     World::class.java to WorldArgumentParser(),
     FactionInvite::class.java to FactionInviteArgumentParser(),
     FactionRank::class.java to FactionRankArgumentParser(),
-    PowerType::class.java to PowerTypeArgumentParser()
+    PowerType::class.java to PowerTypeArgumentParser(),
+    FactionUser::class.java to FactionUserArgumentParser()
 )
 
 open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExecutor {
