@@ -53,6 +53,10 @@ class RelationsModuleHandleImpl : RelationsModuleHandle {
             "relations.exceptions.already-enemy",
             emptyMap()
         )
+
+        // Clean up expired invites before checking for existing ones
+        cleanupExpiredInvites(factionId, targetFactionId)
+
         if (FactionAllyInvite.find {
                 (FactionAllyInvites.sourceFaction eq factionId and (FactionAllyInvites.targetFaction eq targetFactionId)) or
                         (FactionAllyInvites.sourceFaction eq targetFactionId and (FactionAllyInvites.targetFaction eq factionId))
@@ -213,5 +217,13 @@ class RelationsModuleHandleImpl : RelationsModuleHandle {
             .forEach { it.delete() }
         FactionRelation.find { FactionRelations.sourceFaction eq factionId or (FactionRelations.targetFaction eq factionId) }
             .forEach { it.delete() }
+    }
+
+    private fun cleanupExpiredInvites(factionId: Int, targetFactionId: Int) {
+        val now = Clock.System.now().toLocalDateTime(TimeZone.UTC)
+        FactionAllyInvite.find {
+            ((FactionAllyInvites.sourceFaction eq factionId and (FactionAllyInvites.targetFaction eq targetFactionId)) or
+                    (FactionAllyInvites.sourceFaction eq targetFactionId and (FactionAllyInvites.targetFaction eq factionId)))
+        }.filter { it.expirationDate < now }.forEach { it.delete() }
     }
 }
