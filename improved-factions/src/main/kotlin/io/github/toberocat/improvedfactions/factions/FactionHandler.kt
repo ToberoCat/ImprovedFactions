@@ -79,7 +79,7 @@ object FactionHandler {
             return listOf(
                 FactionRankHandler.createRank(
                     factionId, "Member", 1,
-                    setOf(Permissions.SEND_INVITES)
+                    setOf(Permissions.SEND_INVITES, Permissions.VIEW_POWER, Permissions.HOME)
                 ),
                 FactionRankHandler.createRank(
                     factionId, "Owner", 1000,
