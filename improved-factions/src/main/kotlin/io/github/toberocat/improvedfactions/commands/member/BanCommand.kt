@@ -5,6 +5,7 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.exceptions.PlayerNotInFactionException
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.user.factionUser
@@ -35,7 +36,14 @@ abstract class BanCommand : BanCommandContext() {
             return noPermission()
         }
 
-        faction.ban(target.factionUser())
+        val targetFactionUser = target.factionUser()
+
+        // SECURITY FIX: Validate target is in executor's faction
+        if (targetFactionUser.factionId != faction.id.value) {
+            throw PlayerNotInFactionException()
+        }
+
+        faction.ban(targetFactionUser)
         return bannedTarget("target" to (target.name ?: "Unknown"))
     }
 }

@@ -34,6 +34,11 @@ abstract class KickCommand : KickCommandContext() {
             return noPermission()
         }
 
+        // SECURITY FIX: Validate target is in executor's faction
+        if (target.factionId != faction.id.value) {
+            return invalidMember()
+        }
+
         faction.kick(target.uniqueId)
         return kickedPlayer("playerName" to (target.offlinePlayer().name ?: "Unknown"))
     }
