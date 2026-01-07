@@ -7,6 +7,7 @@ import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.bukkit.OfflinePlayerArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.bukkit.PlayerArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.bukkit.WorldArgumentParser
+import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionBanArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionBanArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionInviteArgumentParser
@@ -29,6 +30,7 @@ import io.github.toberocat.improvedfactions.ranks.FactionRank
 import io.github.toberocat.improvedfactions.translation.LocalizedException
 import io.github.toberocat.improvedfactions.user.FactionUser
 import io.github.toberocat.improvedfactions.translation.sendLocalized
+import io.github.toberocat.toberocore.util.PlaceholderException
 import io.github.toberocat.improvedfactions.zone.Zone
 import org.bukkit.OfflinePlayer
 import org.bukkit.World
@@ -44,6 +46,7 @@ val DEFAULT_PARSERS = mapOf<Class<*>, ArgumentParser>(
     Player::class.java to PlayerArgumentParser(),
     OfflinePlayer::class.java to OfflinePlayerArgumentParser(),
     Faction::class.java to FactionArgumentParser(),
+    FactionBan::class.java to FactionBanArgumentParser(),
     FactionJoinType::class.java to JoinTypeEnumArgumentParser(),
     Zone::class.java to ZoneArgumentParser(),
     World::class.java to WorldArgumentParser(),
@@ -140,6 +143,13 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
         }.onFailure {
             if (it is LocalizedException) {
                 sender.sendLocalized(it.key, it.placeholders)
+            } else if (it is PlaceholderException) {
+                val key = it.message
+                if (key != null) {
+                    sender.sendLocalized(key, it.placeholders)
+                } else {
+                    sender.sendMessage("An error occurred")
+                }
             } else {
                 plugin.logger.warning(
                     "The command ${processor.label} used a non localized exception - This is the outdated way of handling exceptions." +

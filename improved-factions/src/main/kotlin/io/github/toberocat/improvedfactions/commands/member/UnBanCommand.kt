@@ -26,15 +26,19 @@ import org.bukkit.entity.Player
 abstract class UnBanCommand : UnBanCommandContext() {
 
     fun process(player: Player, ban: FactionBan): CommandProcessResult {
-        if (!player.factionUser().isInFaction()) {
+        val factionUser = player.factionUser()
+        if (!factionUser.isInFaction()) {
             return notInFaction()
         }
 
-        if (!player.factionUser().hasPermission(Permissions.MANAGE_BANS)) {
+        if (!factionUser.hasPermission(Permissions.MANAGE_BANS)) {
             return noPermission()
         }
 
         val existingBan = FactionBan.findById(ban.id) ?: return banNotFound()
+        if (existingBan.faction.id.value != factionUser.factionId) {
+            return banNotFound()
+        }
         existingBan.delete()
 
         return unbannedTarget("targetName" to (existingBan.user.offlinePlayer().name ?: "Unknown"))

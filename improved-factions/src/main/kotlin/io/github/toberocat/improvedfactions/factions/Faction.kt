@@ -314,8 +314,8 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         if (isBanned(user))
             throw CommandException("base.exceptions.already-banned", emptyMap())
 
-        // DEFENSIVE: Only allow banning players who are in this faction or no faction
-        if (user.factionId != id.value && user.factionId != noFactionId) {
+        // DEFENSIVE: Only allow banning players who are in this faction
+        if (user.factionId != id.value) {
             throw CommandException("base.exceptions.player-not-in-faction", emptyMap())
         }
 
