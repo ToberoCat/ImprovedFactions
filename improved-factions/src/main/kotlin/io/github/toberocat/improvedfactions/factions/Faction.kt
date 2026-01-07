@@ -320,6 +320,10 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         }
 
         if (user.factionId == id.value) {
+            user.player()?.sendLocalized(
+                "base.faction.you-were-banned",
+                mapOf("faction" to name)
+            )
             unsetUserData(user)
         }
 
