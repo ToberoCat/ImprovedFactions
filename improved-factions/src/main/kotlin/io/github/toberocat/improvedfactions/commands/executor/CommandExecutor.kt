@@ -7,7 +7,6 @@ import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.bukkit.OfflinePlayerArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.bukkit.PlayerArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.bukkit.WorldArgumentParser
-import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionBanArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionBanArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionInviteArgumentParser
@@ -53,7 +52,6 @@ val DEFAULT_PARSERS = mapOf<Class<*>, ArgumentParser>(
     FactionInvite::class.java to FactionInviteArgumentParser(),
     FactionRank::class.java to FactionRankArgumentParser(),
     PowerType::class.java to PowerTypeArgumentParser(),
-    FactionBan::class.java to FactionBanArgumentParser(),
     FactionUser::class.java to FactionUserArgumentParser()
 )
 
