@@ -1,13 +1,13 @@
 package io.github.toberocat.improvedfactions.permission.generator
 
 import com.google.devtools.ksp.processing.KSPLogger
-import io.github.toberocat.improvedfactions.annotations.permission.Permission
+import io.github.toberocat.improvedfactions.permission.visitor.PermissionData
 import java.io.File
 import java.nio.file.Files
 
 class PermissionPluginYmlGenerator(
     private val logger: KSPLogger,
-    private val permissions: List<Permission>
+    private val permissions: List<PermissionData>
 ) {
 
     fun appendYmlToPluginYml(pluginYmlFile: File) {
@@ -45,7 +45,7 @@ class PermissionPluginYmlGenerator(
         }
     }
 
-    private fun buildYaml(permissions: List<Permission>): String {
+    private fun buildYaml(permissions: List<PermissionData>): String {
         val root = PermissionNode("permissions")
 
         for (permission in permissions) {

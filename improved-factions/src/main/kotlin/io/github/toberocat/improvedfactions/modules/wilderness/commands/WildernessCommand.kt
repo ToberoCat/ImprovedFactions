@@ -56,10 +56,10 @@ abstract class WildernessCommand : WildernessCommandContext() {
     }
 
     private fun teleport(location: Location, player: Player) {
-        if (WildernessModule.config.gainResistance && !player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE)) {
+        if (WildernessModule.config.gainResistance && !player.hasPotionEffect(PotionEffectType.RESISTANCE)) {
             player.addPotionEffect(
                 PotionEffect(
-                    PotionEffectType.DAMAGE_RESISTANCE,
+                    PotionEffectType.RESISTANCE,
                     WildernessModule.config.resistanceDuration * 20,
                     WildernessModule.config.resistanceAmplifier,
                     false,

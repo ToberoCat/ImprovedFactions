@@ -45,7 +45,7 @@ abstract class IconCommand : IconCommandContext() {
             return notFactionOwner()
         }
 
-        if (factionUser.hasPermission(Permissions.SET_ICON)) {
+        if (!factionUser.hasPermission(Permissions.SET_ICON)) {
             return noPermission()
         }
 

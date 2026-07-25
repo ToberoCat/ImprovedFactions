@@ -19,8 +19,8 @@ const val TICKS_TO_MS = 50
 
 class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig) : FactionPowerRaidModuleHandle {
 
-    private var accumulateTaskId: Int = 0
-    private var claimKeepCostTaskId: Int = 1
+    private var accumulateTaskId: Int? = null
+    private var claimKeepCostTaskId: Int? = null
     private var lastAccumulationMs = System.currentTimeMillis()
     private var lastClaimKeepCostMs = System.currentTimeMillis()
 
@@ -73,8 +73,8 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
     fun nextClaimKeepCostCycleTime() = lastClaimKeepCostMs + config.accumulationTickDelay * TICKS_TO_MS
 
     override fun reloadConfig(plugin: ImprovedFactionsPlugin) {
-        Bukkit.getScheduler().cancelTask(accumulateTaskId)
-        Bukkit.getScheduler().cancelTask(claimKeepCostTaskId)
+        accumulateTaskId?.let(Bukkit.getScheduler()::cancelTask)
+        claimKeepCostTaskId?.let(Bukkit.getScheduler()::cancelTask)
 
         accumulateTaskId = Bukkit.getScheduler()
             .runTaskTimer(plugin, ::accumulateAll, config.accumulationTickDelay, config.accumulationTickDelay).taskId
@@ -115,9 +115,11 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
         getPowerAccumulated(getActivePowerAccumulation(faction), getInactivePowerAccumulation(faction))
 
     override fun getActivePowerAccumulation(faction: Faction) =
-        (1 + faction.countActiveMembers(config.accumulationTickDelay) / faction.members().count().toDouble()).pow(
-            config.activeAccumulationExponent
-        ) * config.accumulationMultiplier
+        faction.members().count().takeIf { it > 0 }?.let { memberCount ->
+            (1 + faction.countActiveMembers(config.accumulationTickDelay) / memberCount.toDouble()).pow(
+                config.activeAccumulationExponent
+            ) * config.accumulationMultiplier
+        } ?: 0.0
 
 
     override fun getClaimMaintenanceCost(faction: Faction) = getClaimMaintenanceCost(faction.claims().count())

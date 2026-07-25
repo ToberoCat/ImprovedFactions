@@ -7,6 +7,7 @@ import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.KSAnnotated
 import io.github.toberocat.improvedfactions.annotations.papi.PapiPlaceholder
 import io.github.toberocat.improvedfactions.placeholder.generator.PlaceholderDocumentationGenerator
+import io.github.toberocat.improvedfactions.placeholder.visitor.PlaceholderData
 import io.github.toberocat.improvedfactions.placeholder.visitor.PlaceholderVisitor
 
 class PlaceholderProcessor(
@@ -14,7 +15,7 @@ class PlaceholderProcessor(
     private val logger: KSPLogger,
 ) : SymbolProcessor {
 
-    private val placeholders = mutableListOf<PapiPlaceholder>()
+    private val placeholders = mutableListOf<PlaceholderData>()
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
         val symbols = resolver.getSymbolsWithAnnotation(PapiPlaceholder::class.qualifiedName!!)

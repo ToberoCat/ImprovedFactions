@@ -31,7 +31,7 @@ abstract class SetPermissionCommand : SetPermissionCommandContext() {
             return notInFaction()
         }
 
-        if (player.factionUser().hasPermission(Permissions.MANAGE_PERMISSIONS)) {
+        if (!player.factionUser().hasPermission(Permissions.MANAGE_PERMISSIONS)) {
             return noPermission()
         }
 

@@ -1,4 +1,3 @@
-import com.google.devtools.ksp.gradle.KspTask
 import java.nio.file.Files
 import java.util.*
 
@@ -6,7 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.devtools.ksp)
     id("maven-publish")
-    id("com.gradleup.shadow") version "9.0.0-beta13"
+    id("com.gradleup.shadow") version "9.6.1"
     id("com.github.ben-manes.versions") version "0.52.0"
     id("org.jetbrains.dokka") version "2.1.0"
 }
@@ -18,26 +17,20 @@ if (versionPropsFile.exists()) {
     versionProps.load(versionPropsFile.inputStream())
 }
 
-val buildIncrement = (versionProps["buildIncrement"]?.toString()?.toInt() ?: 1) + 1
+val buildIncrement = versionProps["buildIncrement"]?.toString()?.toInt() ?: 1
 val versionName = versionProps["versionName"]!!.toString()
-
-versionProps["buildIncrement"] = buildIncrement.toString()
-versionProps["versionName"] = versionName
-
-versionProps.store(versionPropsFile.outputStream(), null)
 
 
 group = "io.github.toberocat.improved-factions"
 version = versionName
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 repositories {
     mavenCentral()
-    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://jitpack.io")
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     maven("https://maven.paulem.net/releases/")
@@ -49,8 +42,8 @@ repositories {
 dependencies {
     implementation(project(":shared"))
 
-    // Spigot API
-    compileOnly(libs.spigot.api)
+    // Paper API
+    compileOnly(libs.paper.api)
 
     // Exposed ORM
     implementation(libs.exposed.core)
@@ -73,7 +66,6 @@ dependencies {
     compileOnly(libs.guiengine)
     implementation(libs.adventure.text.minimessage)
     implementation(libs.adventure.text.serializer.legacy)
-    implementation(libs.kyori.adventure.platform.bukkit)
     implementation(libs.bstats.bukkit)
 
     // Provided dependencies
@@ -99,7 +91,7 @@ tasks.named<Copy>("processResources") {
     }
 }
 
-tasks.withType<KspTask>().configureEach {
+tasks.matching { it.name.startsWith("ksp") }.configureEach {
     dependsOn(generateBuildConfig)
 }
 
@@ -115,9 +107,6 @@ dokka {
 
 tasks.shadowJar {
     archiveFileName.set("${project.name}-${project.version}.jar")
-    if (System.getenv("CI") == null && System.getenv("JITPACK") == null) {
-        destinationDirectory.set(file("../server/plugins"))
-    }
     relocate("com.fasterxml.jackson", "io.github.toberocat.relocated.jackson")
     relocate("net.kyori", "io.github.toberocat.relocated.kyori")
     relocate("dev.s7a", "io.github.toberocat.relocated.base64itemstack")
@@ -131,6 +120,10 @@ tasks.shadowJar {
 }
 
 tasks {
+    jar {
+        enabled = false
+    }
+
     build {
         dependsOn(shadowJar)
     }
@@ -151,7 +144,7 @@ tasks {
 }
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(25)
 
     sourceSets.main {
         kotlin.srcDir("build/generated/ksp/main/kotlin")

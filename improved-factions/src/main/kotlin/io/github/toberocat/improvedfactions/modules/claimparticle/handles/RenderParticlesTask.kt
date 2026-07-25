@@ -56,7 +56,7 @@ class RenderParticlesTask(private val config: ClaimParticleModuleConfig) : Bukki
         )
 
         player.spawnParticle(
-            Particle.REDSTONE,
+            Particle.DUST,
             location,
             config.particleCount,
             config.particleSpread,
