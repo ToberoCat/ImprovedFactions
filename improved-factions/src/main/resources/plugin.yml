@@ -1,7 +1,7 @@
 name: ImprovedFactions
 version: '${version}'
 main: io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-api-version: '26.2'
+api-version: '1.21.11'
 softdepend: [ PlaceholderAPI, dynmap, GuiEngine ]
 author: Tobero
 commands:

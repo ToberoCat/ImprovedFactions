@@ -1,5 +1,6 @@
 import java.nio.file.Files
 import java.util.*
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
@@ -25,8 +26,8 @@ group = "io.github.toberocat.improved-factions"
 version = versionName
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_25
-    targetCompatibility = JavaVersion.VERSION_25
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 repositories {
@@ -145,6 +146,7 @@ tasks {
 
 kotlin {
     jvmToolchain(25)
+    compilerOptions.jvmTarget.set(JvmTarget.JVM_21)
 
     sourceSets.main {
         kotlin.srcDir("build/generated/ksp/main/kotlin")

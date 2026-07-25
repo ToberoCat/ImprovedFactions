@@ -1,7 +1,7 @@
 [versions]
 kotlin-version = "2.3.20"
 ksp-version = "2.3.9"
-paper-version = "26.2.build.+"
+paper-version = "1.21.11-R0.1-SNAPSHOT"
 exposed-version = "0.61.0"
 jackson-version = "2.19.0"
 kotlinx-datetime-version = "0.6.2"
