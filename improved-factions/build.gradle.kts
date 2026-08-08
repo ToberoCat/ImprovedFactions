@@ -122,7 +122,6 @@ tasks.shadowJar {
         destinationDirectory.set(file("../server/plugins"))
     }
     relocate("com.fasterxml.jackson", "io.github.toberocat.relocated.jackson")
-    relocate("net.kyori", "io.github.toberocat.relocated.kyori")
     relocate("dev.s7a", "io.github.toberocat.relocated.base64itemstack")
     relocate("org.bstats", "io.github.toberocat.relocated.bstats")
     relocate("com.jeff_media.updatechecker", "io.github.toberocat.relocated.updatechecker")
