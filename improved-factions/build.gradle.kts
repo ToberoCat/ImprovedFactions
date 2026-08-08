@@ -116,6 +116,7 @@ dokka {
 }
 
 tasks.shadowJar {
+    configurations = listOf(project.configurations.runtimeClasspath.get())
     archiveFileName.set("${project.name}-${project.version}.jar")
     if (System.getenv("CI") == null && System.getenv("JITPACK") == null) {
         destinationDirectory.set(file("../server/plugins"))
