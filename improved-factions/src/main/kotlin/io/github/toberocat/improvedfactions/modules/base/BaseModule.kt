@@ -85,8 +85,10 @@ object BaseModule : Module {
     @PapiPlaceholder("name", MODULE_NAME, "The name of the faction")
     @PapiPlaceholder("rank", MODULE_NAME, "The rank of the player in the faction")
     @PapiPlaceholder("join_mode", MODULE_NAME, "The join mode of the faction")
+    @PapiPlaceholder("members_total", MODULE_NAME, "The total number of members in the faction")
+    @PapiPlaceholder("members_online", MODULE_NAME, "The number of online members in the faction")
     override fun onPlaceholder(placeholders: HashMap<String, (player: OfflinePlayer) -> String?>) {
-        listOf("owner", "name", "rank", "join_mode").forEach { key ->
+        listOf("owner", "name", "rank", "join_mode", "members_total", "members_online").forEach { key ->
             placeholders[key] = { PlaceholderIntegration.parsePlaceholder(it, key) }
         }
     }
