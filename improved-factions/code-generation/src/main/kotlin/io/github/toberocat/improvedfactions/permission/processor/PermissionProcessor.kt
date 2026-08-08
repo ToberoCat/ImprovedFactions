@@ -7,6 +7,7 @@ import io.github.toberocat.improvedfactions.annotations.permission.PermissionCon
 import io.github.toberocat.improvedfactions.permission.generator.PermissionDocumentationGenerator
 import io.github.toberocat.improvedfactions.permission.generator.PermissionPluginYmlGenerator
 import io.github.toberocat.improvedfactions.permission.visitor.PermissionVisitor
+import io.github.toberocat.improvedfactions.permission.visitor.PermissionData
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -17,7 +18,7 @@ class PermissionProcessor(
     private val logger: KSPLogger,
     private val pluginYmlFile: File
 ) : SymbolProcessor {
-    private val permissions = mutableListOf<Permission>()
+    private val permissions = mutableListOf<PermissionData>()
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
         val symbols = resolver.getSymbolsWithAnnotation(Permission::class.qualifiedName!!)
@@ -34,10 +35,8 @@ class PermissionProcessor(
     }
 
     override fun finish() {
-        PermissionPluginYmlGenerator(logger, permissions).appendYmlToPluginYml(pluginYmlFile)
-
         // Add factions.* permission for documentation generation
-        permissions.add(Permission("factions.*", PermissionConfigurations.OP_ONLY))
+        permissions.add(PermissionData("factions.*", PermissionConfigurations.OP_ONLY))
         PermissionDocumentationGenerator(logger, codeGenerator, permissions).createPermissionsMd()
     }
 }

@@ -34,7 +34,7 @@ data class PowerManagementConfig(
         inactiveAccumulationMultiplier =
             config.getUnsignedDouble("$configPath.accumulation-inactive-multiplier", inactiveAccumulationMultiplier)
         accumulationMultiplier = config.getUnsignedDouble("$configPath.accumulation-multiplier", accumulationMultiplier)
-        inactiveMilliseconds = (config.getEnum<TimeUnit>("$configPath.inactive.unit") ?: TimeUnit.DAYS).toSeconds(
+        inactiveMilliseconds = (config.getEnum<TimeUnit>("$configPath.inactive.unit") ?: TimeUnit.DAYS).toMillis(
             abs(
                 config.getLong("$configPath.inactive.value", 1)
             )

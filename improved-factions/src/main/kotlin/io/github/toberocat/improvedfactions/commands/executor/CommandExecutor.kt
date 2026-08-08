@@ -86,7 +86,8 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
             return emptyList()
         }
 
-        val joinedCommand = createJoinedCommand(originalArgs)
+        val effectiveArgs = resolveAliases(originalArgs)
+        val joinedCommand = createJoinedCommand(effectiveArgs)
         val processor = findProcessor(joinedCommand) ?: return tabCompleteCommands(sender, originalArgs)
 
         if (isProcessorAmbiguous(joinedCommand)) {
@@ -97,7 +98,7 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
             return emptyList()
         }
 
-        val leftArgs = joinedCommand.replace(processor.label, "").trimStart()
+        val leftArgs = joinedCommand.substring(processor.label.length).trimStart()
         val argsArray = leftArgs.split(" ").toTypedArray()
 
         val rawResults = processor.tabComplete(sender, argsArray)
@@ -114,7 +115,8 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
         label: String,
         originalArgs: Array<String>,
     ): Boolean {
-        val joinedCommand = createJoinedCommand(originalArgs)
+        val effectiveArgs = resolveAliases(originalArgs)
+        val joinedCommand = createJoinedCommand(effectiveArgs)
         val processor = findProcessor(joinedCommand)
         if (processor == null) {
             sender.sendLocalized("base.commands.unknown-command")
@@ -126,7 +128,7 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
             return false
         }
 
-        val leftArgs = joinedCommand.replace(processor.label, "").trim()
+        val leftArgs = joinedCommand.substring(processor.label.length).trim()
         val args = leftArgs.split(" ").filter { it.isNotBlank() }.toTypedArray()
 
         val result = runCatching {
@@ -154,10 +156,24 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
 
     private fun isProcessorAmbiguous(joinedCommand: String) = getPossibleProcessors(joinedCommand) > 1
 
-    private fun getPossibleProcessors(arg: String) = commandProcessors.entries.count { it.key.contains(arg) }
+    private fun getPossibleProcessors(arg: String): Int {
+        val normalized = arg.lowercase()
+        return commandProcessors.keys.count { it == normalized || it.startsWith("$normalized ") }
+    }
 
-    private fun findProcessor(joinedCommand: String) =
-        commandProcessors.entries.firstOrNull { joinedCommand.startsWith(it.key) }?.value
+    private fun findProcessor(joinedCommand: String): CommandProcessor? {
+        val normalized = joinedCommand.lowercase()
+        return commandProcessors.entries.firstOrNull {
+            normalized == it.key || normalized.startsWith("${it.key} ")
+        }?.value
+    }
 
     private fun createJoinedCommand(args: Array<String>): String = args.joinToString(" ")
+
+    private fun resolveAliases(args: Array<String>): Array<String> =
+        if (args.size == 1 && args[0].equals("admin", ignoreCase = true)) {
+            arrayOf("help", "c:admin")
+        } else {
+            args
+        }
 }
