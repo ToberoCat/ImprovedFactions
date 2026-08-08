@@ -4,11 +4,10 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
 import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import io.github.toberocat.improvedfactions.exceptions.PlayerNotInFactionException
+import io.github.toberocat.improvedfactions.commands.respondAfter
+import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.permissions.Permissions
-import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 
@@ -25,25 +24,25 @@ import org.bukkit.entity.Player
 )
 abstract class BanCommand : BanCommandContext() {
 
-    fun process(player: Player, target: OfflinePlayer): CommandProcessResult {
+    fun process(player: Player, target: OfflinePlayer): CommandProcessResult? {
         if (target == player) {
             return cantBanSelf()
         }
 
-        val faction = player.factionUser().faction() ?: return notInFaction()
+        val user = player.cachedUser()
+        val faction = user.faction() ?: return notInFaction()
 
-        if (!player.factionUser().hasPermission(Permissions.MANAGE_BANS)) {
+        if (!user.hasPermission(Permissions.MANAGE_BANS)) {
             return noPermission()
         }
 
-        val targetFactionUser = target.factionUser()
-
-        // SECURITY FIX: Validate target is in executor's faction
-        if (targetFactionUser.factionId != faction.id.value) {
-            throw PlayerNotInFactionException()
+        if (target.cachedUser().factionId != faction.id) {
+            return notInFaction()
         }
 
-        faction.ban(targetFactionUser)
-        return bannedTarget("target" to (target.name ?: "Unknown"))
+        val targetName = target.name ?: "Unknown"
+        return player.respondAfter(GameStateCommands.banUser(faction.id, target.uniqueId)) {
+            bannedTarget("target" to targetName)
+        }
     }
 }

@@ -4,9 +4,7 @@ import io.github.toberocat.improvedfactions.annotations.localization.Localizatio
 import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParsingException
 import io.github.toberocat.improvedfactions.commands.arguments.ParsingContext
-import io.github.toberocat.improvedfactions.ranks.anyRank
-import io.github.toberocat.improvedfactions.ranks.listRanks
-import io.github.toberocat.improvedfactions.user.factionUser
+import io.github.toberocat.improvedfactions.database.storage.*
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
@@ -14,15 +12,13 @@ import org.bukkit.entity.Player
 @Localization("base.arguments.faction-rank.not-found")
 class FactionRankArgumentParser : ArgumentParser {
     override fun parse(sender: CommandSender, arg: String, args: Array<String>): Any {
-        val user = (sender as? Player)?.factionUser() ?: throw ArgumentParsingException("base.arguments.shared.not-player")
-        return user.faction()?.anyRank(arg) ?: throw ArgumentParsingException("base.arguments.faction-rank.not-found")
+        val user = (sender as? Player)?.cachedUser() ?: throw ArgumentParsingException("base.arguments.shared.not-player")
+        return StorageManager.cache.ranks(user.factionId).firstOrNull { it.name.equals(arg, ignoreCase = true) }
+            ?: throw ArgumentParsingException("base.arguments.faction-rank.not-found")
     }
 
     override fun rawTabComplete(pCtx: ParsingContext): List<String> {
-        val user = pCtx.player()?.factionUser() ?: return emptyList()
-        return user.faction()
-            ?.listRanks()
-            ?.filter { user.canManage(it) }
-            ?.map { it.name } ?: emptyList()
+        val user = pCtx.player()?.cachedUser() ?: return emptyList()
+        return StorageManager.cache.ranks(user.factionId).filter(user::canManage).map { it.name }
     }
 }

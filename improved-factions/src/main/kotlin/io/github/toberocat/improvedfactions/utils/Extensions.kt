@@ -4,16 +4,14 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.annotations.command.CommandMeta
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessor
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import io.github.toberocat.improvedfactions.utils.offline.KnownOfflinePlayer
-import io.github.toberocat.improvedfactions.utils.offline.KnownOfflinePlayers
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.toberocore.command.SubCommand
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import java.util.*
 import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotations
@@ -21,7 +19,7 @@ import kotlin.reflect.full.isSubclassOf
 
 inline fun <T, R> T.compute(computeBlock: (T) -> R) = computeBlock(this)
 
-fun Player.toAudience(): Audience = this
+fun Player.toAudience(): Audience = BaseModule.adventure.player(this)
 
 fun UUID.toOfflinePlayer(): OfflinePlayer = Bukkit.getOfflinePlayer(this)
 
@@ -31,14 +29,13 @@ fun CommandProcessor.getMeta(): GeneratedCommandMeta? =
     this::class.findAnnotations(GeneratedCommandMeta::class).firstOrNull()
 
 
-fun String.hasOfflinePlayerByName() = loggedTransaction {
-    KnownOfflinePlayer.count(KnownOfflinePlayers.name eq this@hasOfflinePlayerByName) > 0
-}
+fun String.hasOfflinePlayerByName() = StorageManager.cache.snapshot()?.playerNames.orEmpty().values
+    .any { it.equals(this, ignoreCase = true) }
 
-fun String.getOfflinePlayerByName() = loggedTransaction {
-    val knownPlayerUUID = KnownOfflinePlayer.find { KnownOfflinePlayers.name eq this@getOfflinePlayerByName }
-        .firstOrNull()?.id?.value;
-    return@loggedTransaction if (knownPlayerUUID?.let { Bukkit.getOfflinePlayer(it).name } != null) {
+fun String.getOfflinePlayerByName(): OfflinePlayer? {
+    val knownPlayerUUID = StorageManager.cache.snapshot()?.playerNames.orEmpty().entries
+        .firstOrNull { it.value.equals(this, ignoreCase = true) }?.key
+    return if (knownPlayerUUID?.let { Bukkit.getOfflinePlayer(it).name } != null) {
         ImprovedFactionsPlugin.instance.logger.fine("[OfflinePlayers] KnownPlayerUUID found.")
         Bukkit.getOfflinePlayer(knownPlayerUUID);
     } else { /* Fallback to Bukkit API if provided UUID is incorrect thus returning null. */

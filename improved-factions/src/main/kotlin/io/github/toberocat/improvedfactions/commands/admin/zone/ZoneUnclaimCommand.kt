@@ -5,9 +5,9 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.annotations.command.PermissionConfig
 import io.github.toberocat.improvedfactions.annotations.permission.PermissionConfigurations
-import io.github.toberocat.improvedfactions.claims.squareClaimAction
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
-import io.github.toberocat.improvedfactions.commands.sendCommandResult
+import io.github.toberocat.improvedfactions.commands.respondAfter
+import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import org.bukkit.entity.Player
 
@@ -24,26 +24,25 @@ import org.bukkit.entity.Player
 )
 abstract class ZoneUnclaimCommand : ZoneUnclaimCommandContext() {
 
-    fun processPlayer(executor: Player, radius: Int): CommandProcessResult {
+    fun processPlayer(executor: Player, radius: Int): CommandProcessResult? {
         return unclaimZone(executor, radius)
     }
 
-    private fun unclaimZone(player: Player, radius: Int?): CommandProcessResult {
-        val statistics = squareClaimAction(
-            player.location.chunk,
-            radius ?: 0,
-            { ZoneHandler.unclaim(it) },
-            { error -> player.sendCommandResult(unclaimError("error" to error.key)) }
-        )
-
-        return if (radius != null && radius > 0) {
+    private fun unclaimZone(player: Player, radius: Int?): CommandProcessResult? {
+        val center = player.location.chunk
+        val distance = radius ?: 0
+        val keys = buildList {
+            for (x in center.x - distance..center.x + distance)
+                for (z in center.z - distance..center.z + distance) add(ClaimKey(center.world.name, x, z))
+        }
+        return player.respondAfter(GameStateCommands.setZone(keys, ZoneHandler.FACTION_ZONE_TYPE)) { changed -> if (radius != null && radius > 0) {
             zoneUnclaimedRadius(
                 "radius" to radius.toString(),
-                "successfulClaims" to statistics.successfulClaims.toString(),
-                "totalClaims" to statistics.totalClaims.toString()
+                "successfulClaims" to changed.toString(),
+                "totalClaims" to keys.size.toString()
             )
         } else {
             zoneUnclaimed()
-        }
+        } }
     }
 }

@@ -4,11 +4,14 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
 import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
-import io.github.toberocat.improvedfactions.factions.Faction
+import io.github.toberocat.improvedfactions.commands.cancelledCommandResult
+import io.github.toberocat.improvedfactions.commands.respondAfter
+import io.github.toberocat.improvedfactions.api.events.FactionJoinEvent
+import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.factions.FactionJoinType
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
-import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.entity.Player
+import org.bukkit.Bukkit
 
 @GeneratedCommandMeta(
     label = "join",
@@ -23,21 +26,26 @@ import org.bukkit.entity.Player
 )
 abstract class JoinCommand : JoinCommandContext() {
 
-    fun process(player: Player, faction: Faction?): CommandProcessResult {
+    fun process(player: Player, faction: FactionSnapshot?): CommandProcessResult? {
         if (faction == null) {
             return factionNotFound()
         }
 
-        val factionUser = player.factionUser()
+        val factionUser = player.cachedUser()
         if (factionUser.isInFaction()) {
             return alreadyInFaction()
         }
 
-        if (faction.factionJoinType != FactionJoinType.OPEN) {
+        if (faction.joinType != FactionJoinType.OPEN.toString()) {
             return factionNotOpen()
         }
 
-        faction.join(player.uniqueId, faction.defaultRank)
-        return joinedFaction("factionName" to faction.name)
+        val event = FactionJoinEvent(faction, factionUser)
+        Bukkit.getPluginManager().callEvent(event)
+        if (event.isCancelled) return cancelledCommandResult()
+
+        return player.respondAfter(GameStateCommands.setUserFaction(player.uniqueId, faction.id, faction.defaultRankId)) {
+            joinedFaction("factionName" to faction.name)
+        }
     }
 }

@@ -1,35 +1,37 @@
 package io.github.toberocat.improvedfactions.unit.modules.home
 
-import io.github.toberocat.improvedfactions.claims.FactionClaims
-import io.github.toberocat.improvedfactions.modules.home.HomeModule.setHome
 import io.github.toberocat.improvedfactions.ImprovedFactionsTest
-import io.github.toberocat.improvedfactions.translation.LocalizedException
-import io.github.toberocat.toberocore.command.exceptions.CommandException
-import org.bukkit.Location
-import org.jetbrains.exposed.sql.transactions.transaction
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertDoesNotThrow
-import org.junit.jupiter.api.assertThrows
+import kotlin.test.*
 
 class HomeModuleTest : ImprovedFactionsTest() {
     @Test
     fun `test home creation in claim`() {
+        val player = createTestPlayer()
         val world = testWorld()
         val chunk = world.getChunkAt(0, 0)
+        val faction = testFaction(player.uniqueId)
+        player.location = chunk.getBlock(8, 8, 8).location
 
-        val faction = testFaction()
-        transaction {
-            faction.claim(chunk)
-            assertDoesNotThrow { faction.setHome(chunk.getBlock(0, 0, 0).location) }
-        }
+        assertTrue(server.dispatchCommand(player, "f claim"))
+        awaitStorage()
+        assertTrue(server.dispatchCommand(player, "f sethome"))
+        awaitStorage()
+
+        assertNotNull(StorageManager.cache.home(faction.id))
     }
 
     @Test
     fun `no homes allowed outside of claimed regions`() {
-        val faction = testFaction()
+        val player = createTestPlayer()
         val world = testWorld()
-        transaction {
-            assertThrows<LocalizedException> { faction.setHome(Location(world, 0.0, 0.0, 0.0)) }
-        }
+        val faction = testFaction(player.uniqueId)
+        player.location = world.getBlockAt(0, 64, 0).location
+
+        assertTrue(server.dispatchCommand(player, "f sethome"))
+        awaitStorage()
+
+        assertNull(StorageManager.cache.home(faction.id))
     }
 }

@@ -4,12 +4,10 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
 import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import io.github.toberocat.improvedfactions.factions.Faction
+import io.github.toberocat.improvedfactions.commands.respondAfter
+import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.modules.relations.RelationsModule
-import io.github.toberocat.improvedfactions.modules.relations.RelationsModule.acceptAllyInvite
 import io.github.toberocat.improvedfactions.permissions.Permissions
-import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.entity.Player
 
 @GeneratedCommandMeta(
@@ -24,17 +22,17 @@ import org.bukkit.entity.Player
 )
 abstract class AllyAcceptCommand : AllyAcceptCommandContext() {
 
-    fun process(player: Player, targetFaction: Faction): CommandProcessResult {
-        val faction = player.factionUser().faction() ?: return notInFaction()
+    fun process(player: Player, targetFaction: FactionSnapshot): CommandProcessResult? {
+        val user = player.cachedUser()
+        val faction = user.faction() ?: return notInFaction()
 
-        if (!player.factionUser().hasPermission(Permissions.MANAGE_RELATION)) {
+        if (!user.hasPermission(Permissions.MANAGE_RELATION)) {
             return noPermission()
         }
 
-        loggedTransaction {
-            faction.acceptAllyInvite(targetFaction)
+        require(StorageManager.cache.allyInvite(faction.id, targetFaction.id) != null) { "No alliance invite" }
+        return player.respondAfter(GameStateCommands.acceptAllyInvite(faction.id, targetFaction.id)) {
+            allyAcceptSuccess("factionName" to targetFaction.name)
         }
-
-        return allyAcceptSuccess("factionName" to targetFaction.name)
     }
 }

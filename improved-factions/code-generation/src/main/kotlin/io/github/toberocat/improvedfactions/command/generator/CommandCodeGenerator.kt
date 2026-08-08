@@ -36,7 +36,6 @@ class CommandCodeGenerator(private val commandData: CommandData) {
         import io.github.toberocat.improvedfactions.annotations.localization.Localization
         import io.github.toberocat.improvedfactions.annotations.permission.Permission
         import io.github.toberocat.improvedfactions.annotations.permission.PermissionConfigurations
-        import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
         import io.github.toberocat.improvedfactions.commands.executor.DEFAULT_PARSERS
         import io.github.toberocat.improvedfactions.commands.arguments.ParsingContext
         import io.github.toberocat.improvedfactions.commands.data.CommandData
@@ -72,11 +71,9 @@ class CommandCodeGenerator(private val commandData: CommandData) {
         return """
             override fun execute(sender: CommandSender, args: Array<String>): CommandProcessResult? {
                 $confirmationCheck
-                return loggedTransaction { 
-                    when {
-                        $cases
-                        else -> missingRequiredArgument()
-                    }
+                return when {
+                    $cases
+                    else -> missingRequiredArgument()
                 }
             }
 
@@ -90,11 +87,9 @@ class CommandCodeGenerator(private val commandData: CommandData) {
 
         return """
             override fun tabComplete(sender: CommandSender, args: Array<String>): List<String> {
-                return loggedTransaction { 
-                    when (sender) {
-                        $cases
-                        else -> emptyList()
-                    }
+                return when (sender) {
+                    $cases
+                    else -> emptyList()
                 }
             }
 

@@ -4,10 +4,9 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
 import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
-import io.github.toberocat.improvedfactions.claims.FactionClaim
-import io.github.toberocat.improvedfactions.claims.FactionClaims
+import io.github.toberocat.improvedfactions.database.storage.ClaimSnapshot
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.translation.getLocalized
 import io.github.toberocat.improvedfactions.utils.appendIf
@@ -18,7 +17,6 @@ import net.kyori.adventure.text.event.HoverEvent
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
 import org.bukkit.entity.Player
-import org.jetbrains.exposed.sql.and
 
 @GeneratedCommandMeta(
     label = "map",
@@ -77,19 +75,19 @@ abstract class FactionMapCommand : FactionMapCommandContext() {
         return mapRendered()
     }
 
-    private fun createClaimComponent(player: Player, claim: FactionClaim): TextComponent {
-        return if (claim.isClaimed()) {
-            claim.faction()?.let {
-                val color = TextColor.color(it.generateColor())
+    private fun createClaimComponent(player: Player, claim: ClaimSnapshot): TextComponent {
+        return if (claim.factionId != io.github.toberocat.improvedfactions.user.noFactionId) {
+            StorageManager.cache.faction(claim.factionId)?.let {
+                val color = TextColor.color(io.github.toberocat.improvedfactions.factions.FactionHandler.generateColor(it.id))
                 val hoverComponent = Component.text(it.name)
                     .color(color)
-                    .appendIf(claim.isRaidable() == true) {
+                    .appendIf(claim.isRaidable) {
                         Component.text(" (Raidable)").color(NamedTextColor.RED)
                     }
                 Component.text("#").color(color).hoverEvent(hoverComponent)
             } ?: Component.text("-").color(NamedTextColor.GRAY)
         } else {
-            claim.zone()?.let {
+            io.github.toberocat.improvedfactions.zone.ZoneHandler.getZone(claim.zoneType)?.let {
                 Component.text("/")
                     .color(TextColor.color(it.mapColor))
                     .hoverEvent(HoverEvent.showText(player.getLocalized(it.noFactionTitle)))
@@ -97,20 +95,11 @@ abstract class FactionMapCommand : FactionMapCommandContext() {
         }
     }
 
-    private fun getAffectedClaims(player: Player): Map<Long, FactionClaim> {
-        val lowerZ = player.location.chunk.z - width
-        val upperZ = player.location.chunk.z + width
-        val lowerX = player.location.chunk.x - height
-        val upperX = player.location.chunk.x + height
-
-        return loggedTransaction {
-            FactionClaim.find {
-                FactionClaims.chunkZ greaterEq lowerZ and
-                        (FactionClaims.chunkZ lessEq upperZ) and
-                        (FactionClaims.chunkX greaterEq lowerX) and
-                        (FactionClaims.chunkX lessEq upperX)
-            }.associateBy { getCombined(it.chunkX, it.chunkZ) }
-        }
+    private fun getAffectedClaims(player: Player): Map<Long, ClaimSnapshot> {
+        val chunk = player.location.chunk
+        return StorageManager.cache.claimsNear(player.world.name, chunk.x, chunk.z, maxOf(width, height))
+            .filter { kotlin.math.abs(it.key.chunkX - chunk.x) <= height && kotlin.math.abs(it.key.chunkZ - chunk.z) <= width }
+            .associateBy { getCombined(it.key.chunkX, it.key.chunkZ) }
     }
 
     private fun getCombined(x: Int, z: Int): Long = x.toLong() shl 32 or (z.toLong() and 0xFFFFFFFFL)

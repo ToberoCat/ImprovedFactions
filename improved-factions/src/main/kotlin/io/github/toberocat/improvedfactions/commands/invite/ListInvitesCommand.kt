@@ -5,12 +5,8 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.commands.sendCommandResult
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import io.github.toberocat.improvedfactions.factions.Faction
-import io.github.toberocat.improvedfactions.invites.invites
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
-import io.github.toberocat.improvedfactions.ranks.FactionRank
-import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.entity.Player
 
 @GeneratedCommandMeta(
@@ -27,24 +23,23 @@ import org.bukkit.entity.Player
 abstract class ListInvitesCommand : ListInvitesCommandContext() {
 
     fun process(player: Player): CommandProcessResult {
-        val invited = player.factionUser()
-        val invites = invited.invites()
+        val invites = StorageManager.cache.invites(player.uniqueId)
 
-        if (invites.empty()) {
+        if (invites.isEmpty()) {
             return noInvites()
         }
 
         player.sendCommandResult(invitesHeader())
 
         invites.forEach { invite ->
-            val faction = Faction.findById(invite.factionId) ?: return@forEach
-            val rank = FactionRank.findById(invite.rankId) ?: return@forEach
+            val faction = StorageManager.cache.faction(invite.factionId) ?: return@forEach
+            val rank = StorageManager.cache.rank(invite.rankId) ?: return@forEach
             player.sendCommandResult(
                 inviteDetail(
                     "faction" to faction.name,
                     "rank" to rank.name,
-                    "expires" to invite.expiresInFormatted(),
-                    "id" to invite.id.value.toString()
+                    "expires" to java.time.Duration.ofMillis(invite.expiresAtEpochMillis - System.currentTimeMillis()).toString(),
+                    "id" to invite.id.toString()
                 )
             )
         }

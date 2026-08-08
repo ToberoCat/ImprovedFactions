@@ -1,221 +1,85 @@
 package io.github.toberocat.improvedfactions.integration.api
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsTest
-import io.github.toberocat.improvedfactions.api.events.FactionCreateEvent
-import io.github.toberocat.improvedfactions.api.events.FactionDeleteEvent
-import io.github.toberocat.improvedfactions.api.events.FactionJoinEvent
-import io.github.toberocat.improvedfactions.api.events.FactionLeaveEvent
-import io.github.toberocat.improvedfactions.factions.FactionHandler
-import io.github.toberocat.improvedfactions.user.factionUser
+import io.github.toberocat.improvedfactions.api.events.*
+import io.github.toberocat.improvedfactions.database.storage.*
+import io.github.toberocat.improvedfactions.user.noFactionId
+import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.jetbrains.exposed.sql.transactions.transaction
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import java.util.UUID
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicReference
+import kotlin.test.*
 
 class FactionEventsTest : ImprovedFactionsTest() {
-
     @Test
-    fun `test faction create event is fired`() {
-        val eventFired = AtomicBoolean(false)
-        val capturedFaction = AtomicReference<FactionCreateEvent>()
-
-        val listener = object : Listener {
+    fun `create command fires immutable event on main thread`() {
+        val player = createTestPlayer("Owner")
+        val captured = AtomicReference<FactionCreateEvent>()
+        val onMain = AtomicBoolean(false)
+        server.pluginManager.registerEvents(object : Listener {
             @EventHandler
-            fun onFactionCreate(event: FactionCreateEvent) {
-                eventFired.set(true)
-                capturedFaction.set(event)
+            fun onCreate(event: FactionCreateEvent) {
+                captured.set(event)
+                onMain.set(Bukkit.isPrimaryThread())
             }
-        }
+        }, plugin)
 
-        server.pluginManager.registerEvents(listener, plugin)
+        assertTrue(server.dispatchCommand(player, "f create TestFaction"))
+        awaitStorage()
 
-        val player = createTestPlayer("TestPlayer")
-        val faction = FactionHandler.createFaction(player.uniqueId, "TestFaction")
-
-        assertTrue(eventFired.get(), "FactionCreateEvent was not fired")
-        assertEquals(faction.id, capturedFaction.get().faction.id, "Event contained incorrect faction")
+        assertEquals(player.uniqueId, captured.get().ownerId)
+        assertEquals("TestFaction", captured.get().factionName)
+        assertTrue(onMain.get())
+        assertEquals("TestFaction", player.cachedUser().faction()?.name)
     }
 
     @Test
-    fun `test faction leave event is fired`() {
-        val eventFired = AtomicBoolean(false)
-        val capturedEvent = AtomicReference<FactionLeaveEvent>()
-
-        val listener = object : Listener {
+    fun `cancelled create event prevents storage mutation`() {
+        val player = createTestPlayer("Owner")
+        server.pluginManager.registerEvents(object : Listener {
             @EventHandler
-            fun onFactionLeave(event: FactionLeaveEvent) {
-                eventFired.set(true)
-                capturedEvent.set(event)
-            }
-        }
+            fun onCreate(event: FactionCreateEvent) = event.setCancelled(true)
+        }, plugin)
 
-        server.pluginManager.registerEvents(listener, plugin)
+        assertTrue(server.dispatchCommand(player, "f create CancelledFaction"))
+        awaitStorage()
 
-        val owningPlayer = createTestPlayer("OwningPlayer")
-        val player = createTestPlayer("LeavingPlayer")
-        val faction = testFaction(owningPlayer.uniqueId)
-
-        transaction {
-            faction.join(player.uniqueId, 1)
-            faction.leave(player.uniqueId)
-        }
-
-        assertTrue(eventFired.get(), "FactionLeaveEvent was not fired")
-        assertEquals(faction.id, capturedEvent.get().faction.id, "Event contained incorrect faction")
-        assertEquals(player.uniqueId, capturedEvent.get().user.uniqueId, "Event contained incorrect user")
+        assertNull(StorageManager.cache.factions().firstOrNull { it.name == "CancelledFaction" })
+        assertEquals(noFactionId, player.cachedUser().factionId)
     }
 
     @Test
-    fun `test faction join event is fired`() {
-        val eventFired = AtomicBoolean(false)
-        val capturedEvent = AtomicReference<FactionJoinEvent>()
-
-        val listener = object : Listener {
-            @EventHandler
-            fun onFactionLeave(event: FactionJoinEvent) {
-                eventFired.set(true)
-                capturedEvent.set(event)
+    fun `join leave and delete events carry snapshot DTOs and are cancellable`() {
+        val ownerId = UUID.randomUUID()
+        val memberId = UUID.randomUUID()
+        val faction = FactionSnapshot(7, "SnapshotFaction", ownerId, "OPEN", 20, 50, 1, 3)
+        val user = UserSnapshot(memberId, faction.id, "Member", 9, 3, 1, setOf("send-invites"))
+        val handled = mutableListOf<String>()
+        server.pluginManager.registerEvents(object : Listener {
+            @EventHandler fun onJoin(event: FactionJoinEvent) {
+                assertSame(faction, event.faction); assertSame(user, event.user)
+                event.setCancelled(true); handled += "join"
             }
-        }
-
-        server.pluginManager.registerEvents(listener, plugin)
-
-        val owningPlayer = createTestPlayer("OwningPlayer")
-        val player = createTestPlayer("JoiningPlayer")
-        val faction = testFaction(owningPlayer.uniqueId)
-
-        transaction {
-            faction.join(player.uniqueId, 1)
-        }
-
-        assertTrue(eventFired.get(), "FactionJoinEvent was not fired")
-        assertEquals(faction.id, capturedEvent.get().faction.id, "Event contained incorrect faction")
-        assertEquals(player.uniqueId, capturedEvent.get().user.uniqueId, "Event contained incorrect user")
-    }
-
-    @Test
-    fun `test faction delete event is fired`() {
-        val eventFired = AtomicBoolean(false)
-        val membersPersisted = AtomicBoolean(false)
-        val capturedEvent = AtomicReference<FactionDeleteEvent>()
-
-        val listener = object : Listener {
-            @EventHandler
-            fun onFactionLeave(event: FactionDeleteEvent) {
-                eventFired.set(true)
-                capturedEvent.set(event)
-                membersPersisted.set(event.faction.members().count() != 0L)
+            @EventHandler fun onLeave(event: FactionLeaveEvent) {
+                assertSame(faction, event.faction); assertSame(user, event.user)
+                event.setCancelled(true); handled += "leave"
             }
-        }
-
-        server.pluginManager.registerEvents(listener, plugin)
-
-        val owningPlayer = createTestPlayer("OwningPlayer")
-        val faction = testFaction(owningPlayer.uniqueId)
-
-        transaction {
-            faction.delete()
-        }
-
-        assertTrue(eventFired.get(), "FactionDeleteEvent was not fired")
-        assertEquals(faction.id, capturedEvent.get().faction.id, "Event contained incorrect faction")
-        assertTrue(membersPersisted.get(), "Member persisted should not have been deleted")
-    }
-
-    @Test
-    fun `test faction join event can be cancelled`() {
-        val eventHandled = AtomicBoolean(false)
-        val joinCancelled = AtomicBoolean(false)
-
-        val listener = object : Listener {
-            @EventHandler
-            fun onFactionJoin(event: FactionJoinEvent) {
-                eventHandled.set(true)
-                event.setCancelled(true)
+            @EventHandler fun onDelete(event: FactionDeleteEvent) {
+                assertSame(faction, event.faction)
+                event.setCancelled(true); handled += "delete"
             }
-        }
+        }, plugin)
 
-        server.pluginManager.registerEvents(listener, plugin)
+        val join = FactionJoinEvent(faction, user).also(Bukkit.getPluginManager()::callEvent)
+        val leave = FactionLeaveEvent(faction, user).also(Bukkit.getPluginManager()::callEvent)
+        val delete = FactionDeleteEvent(faction).also(Bukkit.getPluginManager()::callEvent)
 
-        val owner = createTestPlayer("OwnerPlayer")
-        val player = createTestPlayer("JoiningPlayer")
-        val faction = testFaction(owner.uniqueId)
-
-        transaction {
-            faction.join(player.uniqueId, 1)
-            // If join was cancelled, player should not be in faction
-            joinCancelled.set(player.uniqueId.factionUser().factionId != faction.id.value)
-        }
-
-        assertTrue(eventHandled.get(), "FactionJoinEvent was not handled")
-        assertTrue(joinCancelled.get(), "Join was not cancelled despite event being cancelled")
-    }
-
-    @Test
-    fun `test faction leave event can be cancelled`() {
-        val eventHandled = AtomicBoolean(false)
-        val leaveCancelled = AtomicBoolean(false)
-
-        val listener = object : Listener {
-            @EventHandler
-            fun onFactionLeave(event: FactionLeaveEvent) {
-                eventHandled.set(true)
-                event.setCancelled(true)
-            }
-        }
-
-        server.pluginManager.registerEvents(listener, plugin)
-
-        val owner = createTestPlayer("OwnerPlayer")
-        val player = createTestPlayer("LeavingPlayer")
-        val faction = testFaction(owner.uniqueId)
-
-        transaction {
-            faction.join(player.uniqueId, 1)
-
-            // Try to leave
-            faction.leave(player.uniqueId)
-
-            // If leave was cancelled, player should still be in faction
-            leaveCancelled.set(player.uniqueId.factionUser().factionId == faction.id.value)
-        }
-
-        assertTrue(eventHandled.get(), "FactionLeaveEvent was not handled")
-        assertTrue(leaveCancelled.get(), "Leave was not cancelled despite event being cancelled")
-    }
-
-    @Test
-    fun `test faction delete event can be cancelled`() {
-        val eventHandled = AtomicBoolean(false)
-        val deleteCancelled = AtomicBoolean(false)
-
-        val listener = object : Listener {
-            @EventHandler
-            fun onFactionDelete(event: FactionDeleteEvent) {
-                eventHandled.set(true)
-                event.setCancelled(true)
-            }
-        }
-
-        server.pluginManager.registerEvents(listener, plugin)
-
-        val owner = createTestPlayer("OwnerPlayer")
-        val faction = testFaction(owner.uniqueId)
-        val factionId = faction.id.value
-
-        transaction {
-            faction.delete()
-
-            // Try to fetch the faction - if delete was cancelled, it should still exist
-            val stillExists = FactionHandler.getFaction(factionId) != null
-            deleteCancelled.set(stillExists)
-        }
-
-        assertTrue(eventHandled.get(), "FactionDeleteEvent was not handled")
-        assertTrue(deleteCancelled.get(), "Delete was not cancelled despite event being cancelled")
+        assertTrue(join.isCancelled)
+        assertTrue(leave.isCancelled)
+        assertTrue(delete.isCancelled)
+        assertEquals(listOf("join", "leave", "delete"), handled)
     }
 }

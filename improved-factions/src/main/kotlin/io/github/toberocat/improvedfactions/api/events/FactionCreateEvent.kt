@@ -1,14 +1,14 @@
 package io.github.toberocat.improvedfactions.api.events
 
-import io.github.toberocat.improvedfactions.factions.Faction
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
+import java.util.UUID
 
 /**
  * Fired when a new faction is created.
  */
-class FactionCreateEvent(val faction: Faction) : Event(), Cancellable {
+class FactionCreateEvent(val ownerId: UUID, val factionName: String) : Event(), Cancellable {
     private var isCancelled = false
 
     override fun getHandlers(): HandlerList = handlerList

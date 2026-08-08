@@ -1,23 +1,13 @@
 package io.github.toberocat.improvedfactions.database
 
-import io.github.toberocat.improvedfactions.claims.FactionClaims
-import io.github.toberocat.improvedfactions.claims.clustering.cluster.Clusters
-import io.github.toberocat.improvedfactions.claims.clustering.cluster.FactionClusters
-import io.github.toberocat.improvedfactions.claims.clustering.cluster.ZoneClusters
 import io.github.toberocat.improvedfactions.factions.Factions
-import io.github.toberocat.improvedfactions.factions.ban.FactionBans
 import io.github.toberocat.improvedfactions.invites.FactionInvites
-import io.github.toberocat.improvedfactions.permissions.FactionPermissions
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
-import io.github.toberocat.improvedfactions.ranks.FactionRanks
-import io.github.toberocat.improvedfactions.user.FactionUsers
-import io.github.toberocat.improvedfactions.utils.offline.KnownOfflinePlayers
-import io.github.toberocat.improvedfactions.utils.options.limit.PlayerUsageLimits
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.Transaction
-import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.jetbrains.exposed.sql.vendors.SQLiteDialect
+import org.jetbrains.exposed.sql.statements.StatementInterceptor
+import org.jetbrains.exposed.sql.transactions.TransactionManager
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
 
 object DatabaseManager {
 
@@ -31,33 +21,21 @@ object DatabaseManager {
         statement()
     }
 
-    fun initializeDatabase() {
-        loggedTransaction {
-            createTables(
-                FactionUsers,
-                FactionClaims,
-                FactionPermissions,
-                FactionBans,
-                PlayerUsageLimits,
-                Factions,
-                FactionRanks,
-                FactionInvites,
-                KnownOfflinePlayers,
-                Clusters,
-                FactionClusters,
-                ZoneClusters
-            )
-
-            Factions.handleQueues()
-            FactionRankHandler.initRanks()
-            FactionInvites.scheduleInviteExpirations()
+    fun refreshStorageCacheAfterCommit() {
+        val transaction = TransactionManager.currentOrNull() ?: run {
+            StorageManager.invalidateAndRefresh()
+            return
         }
+        transaction.registerInterceptor(object : StatementInterceptor {
+            override fun afterCommit(transaction: Transaction) {
+                StorageManager.invalidateAndRefresh()
+            }
+        })
     }
 
-    fun createTables(vararg tables: Table) =
-        if (TransactionManager.currentOrNull()?.db?.dialect is SQLiteDialect) {
-            SchemaUtils.create(*tables)
-        } else {
-            SchemaUtils.createMissingTablesAndColumns(*tables, withLogs = verboseLogging)
+    fun initializeDatabase() {
+        loggedTransaction {
+            FactionRankHandler.initRanks()
         }
+    }
 }

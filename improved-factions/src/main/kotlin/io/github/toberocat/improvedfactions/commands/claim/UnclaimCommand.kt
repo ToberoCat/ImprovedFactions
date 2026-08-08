@@ -3,12 +3,10 @@ package io.github.toberocat.improvedfactions.commands.claim
 import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
 import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
-import io.github.toberocat.improvedfactions.claims.ClaimStatistics
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
-import io.github.toberocat.improvedfactions.exceptions.NotInFactionException
+import io.github.toberocat.improvedfactions.commands.respondAfter
+import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.permissions.Permissions
-import io.github.toberocat.improvedfactions.translation.sendLocalized
-import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.entity.Player
 
 @GeneratedCommandMeta(
@@ -24,8 +22,8 @@ import org.bukkit.entity.Player
 )
 abstract class UnclaimCommand : UnclaimCommandContext() {
 
-    fun process(player: Player, radius: Int?): CommandProcessResult {
-        val factionUser = player.factionUser()
+    fun process(player: Player, radius: Int?): CommandProcessResult? {
+        val factionUser = player.cachedUser()
         if (!factionUser.isInFaction()) {
             return notInFaction()
         }
@@ -34,20 +32,19 @@ abstract class UnclaimCommand : UnclaimCommandContext() {
             return noPermission()
         }
 
-        val faction = factionUser.faction() ?: throw NotInFactionException()
-        if (radius == null) {
-            faction.unclaim(player.location.chunk)
-            return unclaimed()
+        val faction = factionUser.faction() ?: return notInFaction()
+        val squareRadius = radius ?: 0
+        val center = player.location.chunk
+        val keys = buildList {
+            for (x in center.x - squareRadius..center.x + squareRadius)
+                for (z in center.z - squareRadius..center.z + squareRadius)
+                    add(ClaimKey(center.world.name, x, z))
         }
-
-        val statistics = faction.unclaimSquare(player.location.chunk, radius) { e ->
-            player.sendLocalized(e.key, e.placeholders)
+        if (keys.any { StorageManager.cache.claim(it)?.factionId != faction.id }) return unclaimed()
+        return player.respondAfter(GameStateCommands.unclaimAll(keys, faction.id)) { count ->
+            if (radius == null) unclaimed() else unclaimedRadius(
+                "radius" to radius.toString(), "successful-claims" to count.toString(), "total-claims" to keys.size.toString()
+            )
         }
-
-        return unclaimedRadius(
-            "radius" to radius.toString(),
-            "successful-claims" to statistics.successfulClaims.toString(),
-            "total-claims" to statistics.totalClaims.toString()
-        )
     }
 }

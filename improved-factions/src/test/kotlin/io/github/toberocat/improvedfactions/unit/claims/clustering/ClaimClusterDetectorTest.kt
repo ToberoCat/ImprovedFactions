@@ -420,7 +420,7 @@ class ClaimDetectorTest : ImprovedFactionsTest() {
 
     private fun factionClaim(x: Int, y: Int, world: String, id: Int): FactionClaim {
         return transaction {
-            testFaction(id = id)
+            testLegacyFaction(id = id)
             getFactionClaim(x, y, world) ?: FactionClaim.new {
                 chunkX = x
                 chunkZ = y
@@ -435,7 +435,7 @@ class ClaimDetectorTest : ImprovedFactionsTest() {
         return transaction { factionClaim(c.x, c.y, c.world, id) }
     }
 
-    inner class DummyClaimQueryProvider(positions: List<Pair<ChunkPosition, Int>>) : ClaimQueryProvider {
+    private inner class DummyClaimQueryProvider(positions: List<Pair<ChunkPosition, Int>>) : ClaimQueryProvider {
         private val positionsOnly = positions.map { it.first }
         private val factionClaims = transaction {
             positions.map { (chunk, id) -> factionClaim(chunk.x, chunk.y, chunk.world, id) to id }

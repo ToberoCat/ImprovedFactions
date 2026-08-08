@@ -8,7 +8,7 @@ import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import kotlin.time.Duration
 
-class FactionInvite(id: EntityID<Int>) : IntEntity(id) {
+internal class FactionInvite(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<FactionInvite>(FactionInvites)
 
     var inviterId by FactionInvites.inviterId

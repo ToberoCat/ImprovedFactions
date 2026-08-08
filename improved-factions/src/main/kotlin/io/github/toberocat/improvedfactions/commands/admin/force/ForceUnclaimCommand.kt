@@ -6,7 +6,10 @@ import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommand
 import io.github.toberocat.improvedfactions.annotations.command.PermissionConfig
 import io.github.toberocat.improvedfactions.annotations.permission.PermissionConfigurations
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
-import io.github.toberocat.improvedfactions.factions.Faction
+import io.github.toberocat.improvedfactions.commands.respondAfter
+import io.github.toberocat.improvedfactions.database.storage.FactionSnapshot
+import io.github.toberocat.improvedfactions.database.storage.GameStateCommands
+import io.github.toberocat.improvedfactions.database.storage.claimKey
 import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.command.CommandSender
@@ -26,22 +29,22 @@ import org.bukkit.entity.Player
 )
 abstract class ForceUnclaimCommand : ForceUnclaimCommandContext() {
 
-    fun processPlayer(sender: Player, faction: Faction) =
-        unclaimFaction(faction, sender.location)
+    fun processPlayer(sender: Player, faction: FactionSnapshot) =
+        unclaimFaction(sender, faction, sender.location)
 
     fun processConsole(
         sender: CommandSender,
-        faction: Faction,
+        faction: FactionSnapshot,
         world: World,
         blockX: Int,
         blockZ: Int,
-    ): CommandProcessResult {
+    ): CommandProcessResult? {
         val location = world.getBlockAt(blockX, 0, blockZ).location
-        return unclaimFaction(faction, location)
+        return unclaimFaction(sender, faction, location)
     }
 
-    private fun unclaimFaction(faction: Faction, location: Location): CommandProcessResult {
-        faction.unclaim(location.chunk)
-        return factionUnclaimed("faction" to faction.name)
-    }
+    private fun unclaimFaction(sender: CommandSender, faction: FactionSnapshot, location: Location): CommandProcessResult? =
+        sender.respondAfter(GameStateCommands.unclaim(location.claimKey())) {
+            factionUnclaimed("faction" to faction.name)
+        }
 }

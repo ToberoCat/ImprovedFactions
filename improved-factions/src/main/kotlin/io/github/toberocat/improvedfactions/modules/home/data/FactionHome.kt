@@ -4,7 +4,7 @@ import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 
-class FactionHome(id: EntityID<Int>) : IntEntity(id) {
+internal class FactionHome(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<FactionHome>(FactionHomes)
 
     var x by FactionHomes.x

@@ -4,19 +4,31 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.modules.Module
 import io.github.toberocat.improvedfactions.modules.claimparticle.config.ClaimParticleModuleConfig
 import io.github.toberocat.improvedfactions.modules.claimparticle.handles.RenderParticlesTask
+import org.bukkit.scheduler.BukkitTask
 
 class ClaimParticleModule : Module {
     override val moduleName = MODULE_NAME
     override var isEnabled = false
 
     val config = ClaimParticleModuleConfig()
+    internal var renderParticlesTask: BukkitTask? = null
 
     override fun onEnable(plugin: ImprovedFactionsPlugin) {
-        RenderParticlesTask(config).runTaskTimer(plugin, config.particleSpawnInterval, config.particleSpawnInterval)
+        reloadConfig(plugin)
+        renderParticlesTask = RenderParticlesTask(config).runTaskTimer(
+            plugin,
+            config.particleSpawnInterval,
+            config.particleSpawnInterval
+        )
     }
 
     override fun reloadConfig(plugin: ImprovedFactionsPlugin) {
         config.reload(plugin.config)
+    }
+
+    override fun onDisable(plugin: ImprovedFactionsPlugin) {
+        renderParticlesTask?.cancel()
+        renderParticlesTask = null
     }
 
     companion object {

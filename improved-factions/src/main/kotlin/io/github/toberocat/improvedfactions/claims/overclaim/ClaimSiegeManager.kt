@@ -1,24 +1,25 @@
 package io.github.toberocat.improvedfactions.claims.overclaim
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.claims.FactionClaim
 import io.github.toberocat.improvedfactions.claims.clustering.position.ChunkPosition
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import io.github.toberocat.improvedfactions.factions.Faction
+import io.github.toberocat.improvedfactions.database.storage.ClaimKey
+import io.github.toberocat.improvedfactions.database.storage.ClaimSnapshot
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
+import io.github.toberocat.improvedfactions.database.storage.GameStateCommands
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.powerRaidModule
 import io.github.toberocat.improvedfactions.translation.getLocaleEnum
 import io.github.toberocat.improvedfactions.translation.localize
 import io.github.toberocat.improvedfactions.translation.sendLocalized
-import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.utils.toAudience
 import io.github.toberocat.toberocore.util.MathUtils
 import net.kyori.adventure.bossbar.BossBar
 import net.kyori.adventure.text.Component
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitTask
 import java.util.*
 
-class ClaimSiegeManager(private val claim: FactionClaim) {
+class ClaimSiegeManager(private val claimKey: ClaimKey, private val claimedFactionId: Int) {
     private val config = powerRaidModule().config
     private val translatedBossBars = mutableMapOf<Locale, BossBar>()
     private val players = mutableSetOf<UUID>()
@@ -29,21 +30,33 @@ class ClaimSiegeManager(private val claim: FactionClaim) {
     companion object {
         private val siegeManagers = mutableMapOf<ChunkPosition, ClaimSiegeManager>()
 
-        fun getManager(claim: FactionClaim): ClaimSiegeManager {
-            return siegeManagers.computeIfAbsent(ChunkPosition(claim.chunkX, claim.chunkZ, claim.world)) {
-                ClaimSiegeManager(
-                    claim
-                )
+        fun getManager(claim: ClaimSnapshot): ClaimSiegeManager {
+            val position = ChunkPosition(claim.key.chunkX, claim.key.chunkZ, claim.key.world)
+            return siegeManagers.compute(position) { _, existing ->
+                existing?.takeIf { it.claimedFactionId == claim.factionId }
+                    ?: ClaimSiegeManager(claim.key, claim.factionId)
             }
+                ?: error("Unable to create siege manager")
         }
 
-        fun remove(claim: FactionClaim) = siegeManagers.remove(ChunkPosition(claim.chunkX, claim.chunkZ, claim.world))
+        fun remove(key: ClaimKey) = siegeManagers.remove(ChunkPosition(key.chunkX, key.chunkZ, key.world))
+
+        private fun broadcastToFactions(
+            factionIds: List<Int>,
+            key: String,
+            placeholders: Map<String, String>
+        ) {
+            factionIds.flatMap(StorageManager.cache::factionMembers)
+                .distinct()
+                .mapNotNull(Bukkit::getPlayer)
+                .forEach { it.sendLocalized(key, placeholders) }
+        }
     }
 
     fun enterClaimCombat(player: Player) {
         if (player.uniqueId in players)
             return
-        if (players.isEmpty() && player.factionUser().factionId == claim.factionId)
+        if (players.isEmpty() && playerFactionId(player.uniqueId) == claimedFactionId)
             return
         if (players.isEmpty()) {
             player.sendLocalized("power.siege.start")
@@ -56,7 +69,7 @@ class ClaimSiegeManager(private val claim: FactionClaim) {
     fun startSiege(player: Player) {
         if (player.uniqueId in players)
             return
-        if (players.isEmpty() && player.factionUser().factionId == claim.factionId)
+        if (players.isEmpty() && playerFactionId(player.uniqueId) == claimedFactionId)
             return
         if (players.isNotEmpty()) {
             player.sendLocalized("power.siege.already-started")
@@ -72,8 +85,8 @@ class ClaimSiegeManager(private val claim: FactionClaim) {
 
         siegeProgressSpeed -= if (isIntruder(player)) config.siegeBreachProgress else -config.siegeResistanceProgress
 
-        if (player.factionUser().factionId != claim.factionId &&
-            players.filter { it.factionUser().factionId != claim.factionId }.size == 1) {
+        if (playerFactionId(player.uniqueId) != claimedFactionId &&
+            players.count { playerFactionId(it) != claimedFactionId } == 1) {
             siegeProgressSpeed = -config.siegeClaimRecoverySpeed
             hideAllBossBars()
         }
@@ -93,9 +106,9 @@ class ClaimSiegeManager(private val claim: FactionClaim) {
             locale.localize(
                 "base.boss-bars.siege", mapOf(
                     "participants" to players.size.toString(),
-                    "x" to claim.chunkX.toString(),
-                    "z" to claim.chunkZ.toString(),
-                    "world" to claim.world
+                    "x" to claimKey.chunkX.toString(),
+                    "z" to claimKey.chunkZ.toString(),
+                    "world" to claimKey.world
                 )
             )
         )
@@ -103,7 +116,9 @@ class ClaimSiegeManager(private val claim: FactionClaim) {
         bossBar.color(if (siegeProgressSpeed > 0) BossBar.Color.RED else BossBar.Color.GREEN)
     }
 
-    private fun isIntruder(player: Player) = player.factionUser().factionId != claim.factionId
+    private fun isIntruder(player: Player) = playerFactionId(player.uniqueId) != claimedFactionId
+
+    private fun playerFactionId(playerId: UUID) = StorageManager.cache.user(playerId)?.factionId ?: -1
 
     private fun startSiegeTask() {
         if (task != null)
@@ -132,17 +147,20 @@ class ClaimSiegeManager(private val claim: FactionClaim) {
         println("stop siege task")
         task?.cancel()
         task = null
-        remove(claim)
+        remove(claimKey)
     }
 
-    private fun getAssociatedFactions() = loggedTransaction {
+    private fun getAssociatedFactionIds(): List<Int> =
         players
-            .map { it.factionUser().factionId }
+            .map(::playerFactionId)
             .toMutableList()
-            .also { it.add(claim.factionId) }
+            .also { it.add(claimedFactionId) }
             .distinct()
-            .mapNotNull { Faction.findById(it) }
-    }
+
+    private fun associatedOnlinePlayers(): List<Player> = getAssociatedFactionIds()
+        .flatMap(StorageManager.cache::factionMembers)
+        .distinct()
+        .mapNotNull(Bukkit::getPlayer)
 
     fun resetState() {
         hideAllBossBars()
@@ -150,63 +168,55 @@ class ClaimSiegeManager(private val claim: FactionClaim) {
         players.clear()
     }
 
-    private fun hideAllBossBars() = loggedTransaction {
-        getAssociatedFactions()
-            .flatMap { it.members().mapNotNull { user -> user.player() } }
-            .forEach { it.toAudience().hideBossBar(getBossBar(it)) }
-    }
+    private fun hideAllBossBars() = associatedOnlinePlayers()
+        .forEach { it.toAudience().hideBossBar(getBossBar(it)) }
 
     // Events
     private fun handleSiegeVictory() {
         stopSiegeTask()
-        getAssociatedFactions()
-            .forEach {
-                it.broadcast(
-                    "power.siege.unclaimed", mapOf(
-                        "x" to claim.chunkX.toString(),
-                        "z" to claim.chunkZ.toString(),
-                        "world" to claim.world
-                    )
-                )
-            }
-        loggedTransaction { claim.chunk()?.let { claim.faction()?.unclaim(it) } }
+        val factionIds = getAssociatedFactionIds()
+        val placeholders = mapOf(
+                "x" to claimKey.chunkX.toString(),
+                "z" to claimKey.chunkZ.toString(),
+                "world" to claimKey.world
+            )
+        StorageManager.continueOnMain(GameStateCommands.unclaim(claimKey), {
+            broadcastToFactions(factionIds, "power.siege.unclaimed", placeholders)
+        }) { failure ->
+            ImprovedFactionsPlugin.instance.logger.warning("Unable to persist siege victory: ${failure.message}")
+        }
     }
 
     private fun handleSiegeFailure() {
         stopSiegeTask()
-        getAssociatedFactions()
-            .forEach {
-                it.broadcast(
-                    "power.siege.defended", mapOf(
-                        "x" to claim.chunkX.toString(),
-                        "z" to claim.chunkZ.toString(),
-                        "world" to claim.world
-                    )
-                )
-            }
+        broadcastToAssociatedPlayers(
+            "power.siege.defended", mapOf(
+                "x" to claimKey.chunkX.toString(),
+                "z" to claimKey.chunkZ.toString(),
+                "world" to claimKey.world
+            )
+        )
     }
 
     private fun handleSiegeStart() {
-        getAssociatedFactions()
-            .forEach {
-                it.broadcast(
-                    "power.siege.started", mapOf(
-                        "x" to claim.chunkX.toString(),
-                        "z" to claim.chunkZ.toString(),
-                        "world" to claim.world
-                    )
-                )
-            }
+        broadcastToAssociatedPlayers(
+            "power.siege.started", mapOf(
+                "x" to claimKey.chunkX.toString(),
+                "z" to claimKey.chunkZ.toString(),
+                "world" to claimKey.world
+            )
+        )
     }
+
+    private fun broadcastToAssociatedPlayers(key: String, placeholders: Map<String, String>) =
+        associatedOnlinePlayers().forEach { it.sendLocalized(key, placeholders) }
 
     private fun addPlayer(player: Player) {
         players.add(player.uniqueId)
         siegeProgressSpeed += if (isIntruder(player)) config.siegeBreachProgress else -config.siegeResistanceProgress
         player.toAudience().showBossBar(getBossBar(player))
 
-        getAssociatedFactions()
-            .flatMap { it.members().mapNotNull { user -> user.player() } }
-            .forEach { it.toAudience().showBossBar(getBossBar(it)) }
+        associatedOnlinePlayers().forEach { it.toAudience().showBossBar(getBossBar(it)) }
 
         if (players.size == 1)
             startSiegeTask()

@@ -7,7 +7,8 @@ import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.modules.chat.ChatModule
 import io.github.toberocat.improvedfactions.modules.chat.ChatModule.toggleChatMode
 import io.github.toberocat.improvedfactions.modules.chat.handles.ChatModuleHandle
-import io.github.toberocat.improvedfactions.user.factionUser
+import io.github.toberocat.improvedfactions.database.storage.cachedUser
+import io.github.toberocat.improvedfactions.database.storage.isInFaction
 import org.bukkit.entity.Player
 
 @GeneratedCommandMeta(
@@ -22,7 +23,7 @@ import org.bukkit.entity.Player
 abstract class ChatCommand : ChatCommandContext() {
 
     fun process(player: Player): CommandProcessResult {
-        if (!player.factionUser().isInFaction()) {
+        if (!player.cachedUser().isInFaction()) {
             return noFaction()
         }
 

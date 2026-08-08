@@ -4,11 +4,10 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
 import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.commands.respondAfter
+import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.modules.home.HomeModule
-import io.github.toberocat.improvedfactions.modules.home.HomeModule.setHome
 import io.github.toberocat.improvedfactions.permissions.Permissions
-import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.entity.Player
 
 @GeneratedCommandMeta(
@@ -24,8 +23,8 @@ import org.bukkit.entity.Player
 )
 abstract class HomeSetCommand : HomeSetCommandContext() {
 
-    fun process(player: Player): CommandProcessResult {
-        val factionUser = player.factionUser()
+    fun process(player: Player): CommandProcessResult? {
+        val factionUser = player.cachedUser()
         if (!factionUser.isInFaction()) {
             return notInFaction()
         }
@@ -34,7 +33,11 @@ abstract class HomeSetCommand : HomeSetCommandContext() {
             return noPermission()
         }
 
-        factionUser.faction()?.setHome(player.location) ?: return setHomeFailed()
-        return setHomeSuccess()
+        val faction = factionUser.faction() ?: return setHomeFailed()
+        if (StorageManager.cache.claim(player.location.claimKey())?.factionId != faction.id) return setHomeFailed()
+        val location = player.location
+        val world = location.world?.name ?: return setHomeFailed()
+        val home = HomeSnapshot(faction.id, world, location.x, location.y, location.z)
+        return player.respondAfter(GameStateCommands.setHome(faction.id, home)) { setHomeSuccess() }
     }
 }
