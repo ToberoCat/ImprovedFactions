@@ -219,7 +219,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
             factionId = factId
             this.rankId = rankId
             expirationDate = Clock.System.now()
-                .plus(5, DateTimeUnit.MINUTE)
+                .plus(BaseModule.config.inviteExpiresInMinutes, DateTimeUnit.MINUTE)
                 .toLocalDateTime(TimeZone.UTC)
         }
         Bukkit.getScheduler().runTaskLater(
@@ -231,7 +231,7 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
         broadcast(
             "base.faction.player-invited", mapOf(
                 "inviter" to (Bukkit.getPlayer(inviter)?.displayName ?: "§cNot found"),
-                "invited" to (Bukkit.getPlayer(invited)?.displayName ?: "§cNot found")
+                "invited" to (Bukkit.getOfflinePlayer(invited).name ?: "§cNot found")
             )
         )
 

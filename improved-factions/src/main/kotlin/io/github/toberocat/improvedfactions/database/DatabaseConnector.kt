@@ -24,6 +24,7 @@ class DatabaseConnector(private val plugin: ImprovedFactionsPlugin) {
         if (config.getBoolean("verbose-database-logging")) {
             verboseLogging = true
         }
+        DatabaseMigrator.migrate(plugin)
         initializeDatabase()
         return database
     }

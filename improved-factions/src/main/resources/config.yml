@@ -4,16 +4,16 @@
 update-checker: true
 config-version: ${buildIncrement}
 
-# Configure an mysql connection. If no connection was established, the plugin uses sqlite.
+# Configure a MariaDB/MySQL connection. SQLite is used by default for local storage.
 # This allows to use this plugin without a mysql server
-database: "sqlite" # ImprovedFactions supports H2, SQLite, and MySQL. H2 and SQLite are local databases
+database: "sqlite" # ImprovedFactions supports SQLite and MariaDB/MySQL
 verbose-database-logging: false # If set to true, the plugin will log all database queries. This is useful for debugging but can cause performance issues
 mysql:
   host: "localhost"
   port: 3306
   database: "improvedfactions"
   user: "root"
-  password: "1234"
+  password: ""
 
 modules:
   # This module is responsible for managing power, and it's associated side effects, like raids and over-claims.

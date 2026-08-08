@@ -2,13 +2,11 @@ package io.github.toberocat.improvedfactions.modules.home
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.commands.processor.homeCommandProcessors
-import io.github.toberocat.improvedfactions.database.DatabaseManager
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.modules.Module
 import io.github.toberocat.improvedfactions.modules.home.commands.HomeSetCommand
 import io.github.toberocat.improvedfactions.modules.home.commands.TeleportHomeCommand
-import io.github.toberocat.improvedfactions.modules.home.data.FactionHomes
 import io.github.toberocat.improvedfactions.modules.home.handles.DummyHomeModuleHandle
 import io.github.toberocat.improvedfactions.modules.home.handles.HomeModuleHandle
 import io.github.toberocat.improvedfactions.modules.home.impl.HomeModuleHandleImpl
@@ -27,10 +25,6 @@ object HomeModule : Module {
 
     override fun onEnable(plugin: ImprovedFactionsPlugin) {
         homeModuleHandle = HomeModuleHandleImpl()
-    }
-
-    override fun onLoadDatabase(plugin: ImprovedFactionsPlugin) {
-        loggedTransaction { DatabaseManager.createTables(FactionHomes) }
     }
 
     override fun getCommandProcessors(plugin: ImprovedFactionsPlugin) =

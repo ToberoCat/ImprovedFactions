@@ -8,6 +8,8 @@ kotlinx-datetime-version = "0.6.2"
 toberocore-version = "be356f9253"
 sqlite-jdbc-version = "3.49.1.0"
 h2-version = "2.3.232"
+flyway-version = "12.10.0"
+mariadb-java-client-version = "3.5.10"
 spigot-update-checker-version = "3.0.4"
 guiengine-version = "6c00296e4c"
 adventure-text-minimessages-version = "4.24.0"
@@ -39,6 +41,9 @@ kotlinx-datetime-jvm = { module = "org.jetbrains.kotlinx:kotlinx-datetime-jvm", 
 toberocore = { module = "com.github.ToberoCat:ToberoCore", version.ref = "toberocore-version" }
 sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite-jdbc-version" }
 h2 = { module = "com.h2database:h2", version.ref = "h2-version" }
+flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway-version" }
+flyway-mysql = { module = "org.flywaydb:flyway-mysql", version.ref = "flyway-version" }
+mariadb-java-client = { module = "org.mariadb.jdbc:mariadb-java-client", version.ref = "mariadb-java-client-version" }
 spigot-update-checker = { module = "com.jeff_media:SpigotUpdateChecker", version.ref = "spigot-update-checker-version" }
 guiengine = { module = "com.github.ToberoCat:GuiEngine", version.ref = "guiengine-version" }
 adventure-text-minimessage = { module = "net.kyori:adventure-text-minimessage", version.ref = "adventure-text-minimessages-version" }

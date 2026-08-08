@@ -2,13 +2,11 @@ package io.github.toberocat.improvedfactions.modules.relations
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.commands.processor.relationsCommandProcessors
-import io.github.toberocat.improvedfactions.database.DatabaseManager
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.modules.Module
 import io.github.toberocat.improvedfactions.modules.relations.commands.*
 import io.github.toberocat.improvedfactions.modules.relations.database.FactionAllyInvites
-import io.github.toberocat.improvedfactions.modules.relations.database.FactionRelations
 import io.github.toberocat.improvedfactions.modules.relations.handles.DummyRelationsModuleHandle
 import io.github.toberocat.improvedfactions.modules.relations.handles.RelationsModuleHandle
 import io.github.toberocat.improvedfactions.modules.relations.impl.RelationsModuleHandleImpl
@@ -30,13 +28,7 @@ object RelationsModule : Module {
         relationsCommandProcessors(plugin)
 
     override fun onLoadDatabase(plugin: ImprovedFactionsPlugin) {
-        loggedTransaction {
-            DatabaseManager.createTables(
-                FactionRelations,
-                FactionAllyInvites
-            )
-            FactionAllyInvites.scheduleInviteExpirations()
-        }
+        loggedTransaction { FactionAllyInvites.scheduleInviteExpirations() }
     }
 
     fun deleteFactionRelations(factionId: Int) {

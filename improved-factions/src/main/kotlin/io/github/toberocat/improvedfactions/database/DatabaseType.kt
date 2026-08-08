@@ -8,11 +8,6 @@ import java.sql.SQLException
 import java.sql.Statement
 
 enum class DatabaseType {
-    H2 {
-        override fun connect(plugin: ImprovedFactionsPlugin) = Database.connect(
-            "jdbc:h2:file:${plugin.dataFolder.absolutePath}/database.h2", driver = "org.h2.Driver"
-        )
-    },
     SQLITE {
         override fun connect(plugin: ImprovedFactionsPlugin) = Database.connect(
             "jdbc:sqlite:${plugin.dataFolder.absolutePath}/database.sqlite", driver = "org.sqlite.JDBC"
@@ -26,14 +21,14 @@ enum class DatabaseType {
             val host = config.getString("mysql.host")
             val db = config.getString("mysql.database")
             val user = config.getString("mysql.user") ?: "root"
-            val password = config.getString("mysql.password") ?: "1234"
+            val password = config.getString("mysql.password") ?: ""
             val port = config.getInt("mysql.port")
 
             if (isMySQLServerReachable(host, port, user, password)) {
                 try {
                     val database = Database.connect(
-                        "jdbc:mysql://$host:$port/$db",
-                        driver = "com.mysql.cj.jdbc.Driver",
+                        "jdbc:mariadb://$host:$port/$db",
+                        driver = "org.mariadb.jdbc.Driver",
                         user = user,
                         password = password
                     )
@@ -58,8 +53,8 @@ enum class DatabaseType {
             var connection: Connection? = null
 
             return try {
-                Class.forName("com.mysql.cj.jdbc.Driver")
-                val url = "jdbc:mysql://$host:$port"
+                Class.forName("org.mariadb.jdbc.Driver")
+                val url = "jdbc:mariadb://$host:$port"
                 connection = DriverManager.getConnection(url, username, password)
                 val statement: Statement = connection.createStatement()
                 val resultSet = statement.executeQuery("SELECT 1")
