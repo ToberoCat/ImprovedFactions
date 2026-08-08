@@ -2,13 +2,13 @@ package io.github.toberocat.improvedfactions.permission.generator
 
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.KSPLogger
-import io.github.toberocat.improvedfactions.annotations.permission.Permission
 import io.github.toberocat.improvedfactions.utils.writeDocumentation
+import io.github.toberocat.improvedfactions.permission.visitor.PermissionData
 
 class PermissionDocumentationGenerator(
     private val logger: KSPLogger,
     private val codeGenerator: CodeGenerator,
-    private val permissions: List<Permission>
+    private val permissions: List<PermissionData>
 ) {
 
     fun createPermissionsMd() {
@@ -25,7 +25,7 @@ class PermissionDocumentationGenerator(
         logger.info("Generated permissions.md successfully.")
     }
 
-    private fun buildMarkdown(permissions: List<Permission>): String {
+    private fun buildMarkdown(permissions: List<PermissionData>): String {
         val markdown = StringBuilder()
         markdown.appendLine("# Permissions")
         markdown.appendLine()

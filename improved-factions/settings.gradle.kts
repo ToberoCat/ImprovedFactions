@@ -9,6 +9,5 @@ plugins {
 }
 
 rootProject.name = "ImprovedFactions"
-include("improved-factions")
 include("shared")
 include("code-generation")

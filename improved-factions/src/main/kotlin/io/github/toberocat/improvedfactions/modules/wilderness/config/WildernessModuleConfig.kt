@@ -86,7 +86,7 @@ class WildernessModuleConfig(
         if (preventSpawnOverLiquids && location.block.isLiquid) {
             return false
         }
-        if (blacklistedBiomes.contains(location.block.biome.name)) {
+        if (blacklistedBiomes.contains(location.block.biome.key.key.uppercase())) {
             return false
         }
         if (!pluginConfig.allowedWorlds.contains(location.world?.name)) {

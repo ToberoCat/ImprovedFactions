@@ -19,6 +19,7 @@ object FactionAllyInvites : IntIdTable("faction_ally_invites") {
     val expirationDate = datetime("expiration_date")
 
     fun scheduleInviteExpirations() = FactionAllyInvite.all().forEach {
+        val inviteId = it.id.value
         val ticksTillExpired = (it.expirationDate.toInstant(TimeZone.UTC) - Clock.System.now()).inWholeSeconds * 20
         if (ticksTillExpired <= 0) {
             it.delete()
@@ -26,7 +27,9 @@ object FactionAllyInvites : IntIdTable("faction_ally_invites") {
         }
 
         Bukkit.getScheduler().runTaskLater(
-            ImprovedFactionsPlugin.instance, Runnable { loggedTransaction { it.delete() } }, ticksTillExpired
+            ImprovedFactionsPlugin.instance,
+            Runnable { loggedTransaction { FactionAllyInvite.findById(inviteId)?.delete() } },
+            ticksTillExpired
         )
     }
 }

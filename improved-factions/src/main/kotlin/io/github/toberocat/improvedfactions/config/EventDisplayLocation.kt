@@ -58,20 +58,6 @@ enum class EventDisplayLocation {
         subMessage: LocalizationKey?,
         placeholders: Map<String, String> = emptyMap()
     ) {
-        when (this) {
-            ACTIONBAR, CHAT -> display(
-                player,
-                subMessage!!,
-                null,
-                placeholders
-            )
-
-            else -> display(
-                player,
-                mainMessage,
-                subMessage,
-                placeholders
-            )
-        }
+        display(player, mainMessage, subMessage, placeholders)
     }
 }

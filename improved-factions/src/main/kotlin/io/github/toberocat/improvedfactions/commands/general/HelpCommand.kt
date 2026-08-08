@@ -47,11 +47,12 @@ abstract class HelpCommand : HelpCommandContext() {
             return helpSuccess()
         }
 
-        val processor = commands[command]
+        val normalizedCommand = command.lowercase()
+        val processor = commands[normalizedCommand]
 
         return when {
-            processor == null || command.startsWith("c:") -> {
-                val category = command.removePrefix("c:")
+            processor == null || normalizedCommand.startsWith("c:") -> {
+                val category = normalizedCommand.removePrefix("c:")
                 if (!categoryIndex.containsKey(category)) {
                     return helpCommandNotFound()
                 }
@@ -69,7 +70,10 @@ abstract class HelpCommand : HelpCommandContext() {
 
     private fun printCategoryOverview(sender: CommandSender) {
         sender.sendCommandResult(helpHeader())
-        categoryIndex.keys.forEach { category ->
+        categoryIndex.keys.sorted().forEach { category ->
+            if (categoryIndex[category].orEmpty().none { commands[it]?.canExecute(sender, emptyArray()) == true }) {
+                return@forEach
+            }
             val categoryLocale = categoryLocaleIndex[category] ?: category
             sender.sendCommandResult(
                 helpCategoryOverview(
@@ -106,8 +110,11 @@ abstract class HelpCommand : HelpCommandContext() {
 
     private fun printCategoryDetails(sender: CommandSender, category: String) {
         sender.sendCommandResult(helpHeader())
-        val commands = categoryIndex[category]?.mapNotNull { commands[it] } ?: return
+        val commands = categoryIndex[category]
+            ?.mapNotNull { commands[it] }
+            ?.filter { it.canExecute(sender, emptyArray()) }
+            ?: return
 
-        commands.forEach { printCommandDetails(sender, it) }
+        commands.sortedBy { it.label }.forEach { printCommandDetails(sender, it) }
     }
 }

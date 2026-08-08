@@ -4,6 +4,7 @@ import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import org.bukkit.Material
+import org.bukkit.inventory.ItemType
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -20,6 +21,7 @@ open class ImprovedFactionsTest {
     open fun setUp() {
         System.setProperty("bstats.relocatecheck", "false")
         server = MockBukkit.mock()
+        server.getRegistry(ItemType::class.java)!!.stream().count()
         plugin = MockBukkit.load(ImprovedFactionsPlugin::class.java)
     }
 

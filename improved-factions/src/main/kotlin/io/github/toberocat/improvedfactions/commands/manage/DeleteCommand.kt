@@ -36,7 +36,7 @@ abstract class DeleteCommand : DeleteCommandContext() {
         val faction = player.factionUser().faction()
             ?: return notInFaction()
 
-        if (!player.factionUser().faction()?.owner?.equals(player.uniqueId)!!) {
+        if (faction.owner != player.uniqueId) {
             return notFactionOwner()
         }
 

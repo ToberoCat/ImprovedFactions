@@ -25,7 +25,7 @@ class TeleportParticles(
             val x = center.x + helixRadius * cos(angle)
             val z = center.z + helixRadius * sin(angle)
             val location = Location(center.world, x, center.y + height, z)
-            location.world!!.spawnParticle(Particle.TOTEM, location, 1, 0.0, 0.0, 0.0, 0.0)
+            location.world!!.spawnParticle(Particle.TOTEM_OF_UNDYING, location, 1, 0.0, 0.0, 0.0, 0.0)
         }
     }
 }

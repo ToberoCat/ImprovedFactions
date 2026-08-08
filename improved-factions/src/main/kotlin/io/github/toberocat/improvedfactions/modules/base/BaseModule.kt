@@ -22,7 +22,6 @@ import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.utils.BStatsCollector
 import io.github.toberocat.improvedfactions.utils.FileUtils
 import io.github.toberocat.improvedfactions.utils.toOfflinePlayer
-import net.kyori.adventure.platform.bukkit.BukkitAudiences
 import org.bukkit.OfflinePlayer
 import org.jetbrains.exposed.sql.Database
 import java.util.logging.Logger
@@ -32,7 +31,6 @@ object BaseModule : Module {
     override val moduleName = MODULE_NAME
     override var isEnabled = false
 
-    lateinit var adventure: BukkitAudiences
     lateinit var config: ImprovedFactionsConfig
     lateinit var database: Database
     lateinit var claimChunkClusters: ClaimClusterDetector
@@ -44,7 +42,6 @@ object BaseModule : Module {
         this.plugin = plugin
         logger = plugin.logger
 
-        adventure = BukkitAudiences.create(plugin)
         claimChunkClusters = ClaimClusterDetector(DatabaseClaimQueryProvider())
         config = ImprovedFactionsConfig.createConfig(plugin)
 
@@ -71,10 +68,6 @@ object BaseModule : Module {
 
     override fun onLoadDatabase(plugin: ImprovedFactionsPlugin) {
         database = DatabaseConnector(plugin).createDatabase()
-    }
-
-    override fun onDisable(plugin: ImprovedFactionsPlugin) {
-        adventure.close()
     }
 
     @PapiPlaceholder("owner", MODULE_NAME, "The owner of the faction")

@@ -222,9 +222,10 @@ class Faction(id: EntityID<Int>) : IntEntity(id) {
                 .plus(5, DateTimeUnit.MINUTE)
                 .toLocalDateTime(TimeZone.UTC)
         }
+        val inviteId = invite.id.value
         Bukkit.getScheduler().runTaskLater(
             ImprovedFactionsPlugin.instance,
-            Runnable { loggedTransaction { invite.delete() } },
+            Runnable { loggedTransaction { FactionInvite.findById(inviteId)?.delete() } },
             BaseModule.config.inviteExpiresInMinutes * 60 * 20L
         )
 

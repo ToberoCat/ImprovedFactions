@@ -1,14 +1,14 @@
-import com.google.devtools.ksp.gradle.KspTask
 import java.nio.file.Files
 import java.util.*
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.devtools.ksp)
     id("maven-publish")
-    id("com.gradleup.shadow") version "9.0.0-beta13"
-    id("com.github.ben-manes.versions") version "0.52.0"
-    id("org.jetbrains.dokka") version "2.1.0"
+    id("com.gradleup.shadow") version "9.6.1"
+    id("io.github.ben-manes.versions") version "0.60.0"
+    id("org.jetbrains.dokka") version "2.2.0"
 }
 
 val versionPropsFile = file("version.properties")
@@ -31,13 +31,12 @@ group = "io.github.toberocat.improved-factions"
 version = versionName
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 repositories {
     mavenCentral()
-    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://jitpack.io")
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     maven("https://maven.paulem.net/releases/")
@@ -49,8 +48,8 @@ repositories {
 dependencies {
     implementation(project(":shared"))
 
-    // Spigot API
-    compileOnly(libs.spigot.api)
+    // Paper API
+    compileOnly(libs.paper.api)
 
     // Exposed ORM
     implementation(libs.exposed.core)
@@ -84,6 +83,7 @@ dependencies {
     testImplementation(libs.kotlin.test.junit)
     testImplementation(libs.kotlin.test)
     testImplementation(libs.junit.jupiter.params)
+    testImplementation(libs.paper.api)
     testImplementation(libs.mockbukkit)
     testImplementation(libs.snakeyaml)
     testImplementation(libs.gson)
@@ -99,8 +99,10 @@ tasks.named<Copy>("processResources") {
     }
 }
 
-tasks.withType<KspTask>().configureEach {
-    dependsOn(generateBuildConfig)
+tasks.configureEach {
+    if (name == "kspKotlin") {
+        dependsOn(generateBuildConfig)
+    }
 }
 
 dokka {
@@ -114,12 +116,12 @@ dokka {
 }
 
 tasks.shadowJar {
+    configurations = listOf(project.configurations.runtimeClasspath.get())
     archiveFileName.set("${project.name}-${project.version}.jar")
     if (System.getenv("CI") == null && System.getenv("JITPACK") == null) {
         destinationDirectory.set(file("../server/plugins"))
     }
     relocate("com.fasterxml.jackson", "io.github.toberocat.relocated.jackson")
-    relocate("net.kyori", "io.github.toberocat.relocated.kyori")
     relocate("dev.s7a", "io.github.toberocat.relocated.base64itemstack")
     relocate("org.bstats", "io.github.toberocat.relocated.bstats")
     relocate("com.jeff_media.updatechecker", "io.github.toberocat.relocated.updatechecker")
@@ -151,7 +153,8 @@ tasks {
 }
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(25)
+    compilerOptions.jvmTarget.set(JvmTarget.JVM_25)
 
     sourceSets.main {
         kotlin.srcDir("build/generated/ksp/main/kotlin")

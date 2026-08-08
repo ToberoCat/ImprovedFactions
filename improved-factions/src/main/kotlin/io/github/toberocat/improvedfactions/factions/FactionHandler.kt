@@ -14,6 +14,7 @@ import org.bukkit.Material
 import io.github.toberocat.improvedfactions.api.events.FactionCreateEvent
 import org.jetbrains.exposed.sql.SizedIterable
 import java.util.*
+import java.util.concurrent.CancellationException
 
 /**
  * Created: 04.08.2023
@@ -30,16 +31,19 @@ object FactionHandler {
                 icon = ItemBuilder().title("§e$factionName").material(Material.WOODEN_SWORD)
                     .create(ImprovedFactionsPlugin.instance)
             }
-            createListenersFor(faction)
-
             val ranks = createDefaultRanks(faction.id.value)
 
             faction.defaultRank = ranks.firstOrNull()?.id?.value ?: FactionRankHandler.guestRankId
             faction.join(ownerId, ranks.lastOrNull()?.id?.value ?: FactionRankHandler.guestRankId)
             faction.setAccumulatedPower(faction.maxPower, PowerAccumulationChangeReason.PASSIVE_ENERGY_ACCUMULATION)
+            val event = FactionCreateEvent(faction)
+            Bukkit.getPluginManager().callEvent(event)
+            if (event.isCancelled) {
+                throw CancellationException("Faction creation was cancelled")
+            }
+            createListenersFor(faction)
             return@loggedTransaction faction
         }
-        Bukkit.getPluginManager().callEvent(FactionCreateEvent(faction))
         return faction
     }
 

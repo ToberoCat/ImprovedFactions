@@ -1,12 +1,12 @@
 package io.github.toberocat.improvedfactions.placeholder.generator
 
 import com.google.devtools.ksp.processing.CodeGenerator
-import io.github.toberocat.improvedfactions.annotations.papi.PapiPlaceholder
+import io.github.toberocat.improvedfactions.placeholder.visitor.PlaceholderData
 import io.github.toberocat.improvedfactions.utils.writeDocumentation
 
 class PlaceholderDocumentationGenerator(
     private val codeGenerator: CodeGenerator,
-    private val placeholders: MutableList<PapiPlaceholder>
+    private val placeholders: MutableList<PlaceholderData>
 ) {
     fun createPlaceholdersMd() {
         codeGenerator.writeDocumentation(

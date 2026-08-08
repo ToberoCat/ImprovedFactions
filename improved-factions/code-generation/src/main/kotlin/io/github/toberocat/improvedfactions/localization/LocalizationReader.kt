@@ -17,6 +17,7 @@ class LocalizationReader(private val languageFolder: File, private val logger: K
         val propertiesFileName = "messages_en_US.properties"
         val properties = Properties()
         val file = File(languageFolder, propertiesFileName)
+
         if (!file.exists()) {
             logger.error("Localization file $propertiesFileName not found.")
             return properties
