@@ -14,7 +14,10 @@ import io.github.toberocat.improvedfactions.user.FactionUsers
 import io.github.toberocat.improvedfactions.utils.offline.KnownOfflinePlayers
 import io.github.toberocat.improvedfactions.utils.options.limit.PlayerUsageLimits
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.Transaction
+import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.sql.vendors.SQLiteDialect
 
 object DatabaseManager {
 
@@ -52,5 +55,9 @@ object DatabaseManager {
     }
 
     fun createTables(vararg tables: Table) =
-        SchemaUtils.createMissingTablesAndColumns(*tables, withLogs = verboseLogging)
+        if (TransactionManager.currentOrNull()?.db?.dialect is SQLiteDialect) {
+            SchemaUtils.create(*tables)
+        } else {
+            SchemaUtils.createMissingTablesAndColumns(*tables, withLogs = verboseLogging)
+        }
 }

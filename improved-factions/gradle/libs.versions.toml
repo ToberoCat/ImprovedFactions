@@ -1,24 +1,25 @@
 [versions]
 kotlin-version = "2.3.20"
 ksp-version = "2.3.11"
-paper-version = "1.21.11-R0.1-SNAPSHOT"
+paper-version = "26.1.2.build.72-stable"
 exposed-version = "0.61.0"
-jackson-version = "2.19.0"
+jackson-version = "2.22.1"
 kotlinx-datetime-version = "0.6.2"
 toberocore-version = "be356f9253"
-sqlite-jdbc-version = "3.49.1.0"
-h2-version = "2.3.232"
+sqlite-jdbc-version = "3.53.2.1"
+h2-version = "2.4.240"
 spigot-update-checker-version = "3.0.4"
-guiengine-version = "6c00296e4c"
-adventure-text-minimessages-version = "4.24.0"
-adventure-text-serializer-legacy-version = "4.24.0"
-bstats-bukkit-version = "3.1.0"
-placeholder-api-version = "2.11.6"
+guiengine-version = "1.4.3"
+adventure-text-minimessages-version = "4.26.1"
+adventure-text-serializer-legacy-version = "4.26.1"
+kyori-adventure-platform-bukkit-version = "4.4.1"
+bstats-bukkit-version = "3.2.1"
+placeholder-api-version = "2.12.3"
 dynmap-api-version = "3.7-beta-6"
-mockbukkit-version = "4.49.0"
-snakeyaml-version = "2.4"
-gson-version = "2.13.1"
-logback-classic-version = "1.5.18"
+mockbukkit-version = "4.115.0"
+snakeyaml-version = "2.6"
+gson-version = "2.14.0"
+logback-classic-version = "1.6.1"
 junit-jupiter-params-version = "5.11.0"
 
 [libraries]
@@ -42,10 +43,11 @@ spigot-update-checker = { module = "com.jeff_media:SpigotUpdateChecker", version
 guiengine = { module = "com.github.ToberoCat:GuiEngine", version.ref = "guiengine-version" }
 adventure-text-minimessage = { module = "net.kyori:adventure-text-minimessage", version.ref = "adventure-text-minimessages-version" }
 adventure-text-serializer-legacy = { module = "net.kyori:adventure-text-serializer-legacy", version.ref = "adventure-text-serializer-legacy-version" }
+kyori-adventure-platform-bukkit = { module = "net.kyori:adventure-platform-bukkit", version.ref = "kyori-adventure-platform-bukkit-version" }
 bstats-bukkit = { module = "org.bstats:bstats-bukkit", version.ref = "bstats-bukkit-version" }
 placeholderapi = { module = "me.clip:placeholderapi", version.ref = "placeholder-api-version" }
 dynmap-api = { module = "us.dynmap:DynmapCoreAPI", version.ref = "dynmap-api-version" }
-mockbukkit = { module = "org.mockbukkit.mockbukkit:mockbukkit-v1.21", version.ref = "mockbukkit-version" }
+mockbukkit = { module = "org.mockbukkit.mockbukkit:mockbukkit-v26.1.2", version.ref = "mockbukkit-version" }
 snakeyaml = { module = "org.yaml:snakeyaml", version.ref = "snakeyaml-version" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson-version" }
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-classic-version" }

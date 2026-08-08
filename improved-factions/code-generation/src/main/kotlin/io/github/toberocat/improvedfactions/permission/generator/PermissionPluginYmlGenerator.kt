@@ -74,7 +74,11 @@ class PermissionPluginYmlGenerator(
 
     private fun serializeNode(node: PermissionNode, builder: StringBuilder, indent: Int) {
         val indentStr = "  ".repeat(indent)
-        builder.append("$indentStr${node.name}: ${node.inlined}\n")
+        builder.append("$indentStr${node.name}:")
+        if (node.inlined.isNotEmpty()) {
+            builder.append(" ${node.inlined}")
+        }
+        builder.append('\n')
 
         if (node.default != null) {
             val defaultIndentStr = "  ".repeat(indent + 1)
