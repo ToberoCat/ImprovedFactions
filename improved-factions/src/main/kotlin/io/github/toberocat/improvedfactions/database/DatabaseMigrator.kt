@@ -4,6 +4,7 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.utils.getEnum
 import org.flywaydb.core.Flyway
 import org.flywaydb.core.api.output.MigrateResult
+import org.mariadb.jdbc.MariaDbDataSource
 import java.util.logging.Level
 import java.util.logging.Logger
 
@@ -48,9 +49,19 @@ object DatabaseMigrator {
         password: String? = null,
         logger: Logger? = null
     ): MigrateResult {
+        loadDriverFor(jdbcUrl)
         logger?.info("[Flyway] Starting migrations: location=$location, database=${jdbcUrl.substringBefore('?')}")
-        val flyway = Flyway.configure()
-            .dataSource(jdbcUrl, user ?: "", password ?: "")
+        val flywayConfiguration = Flyway.configure()
+        val configuredFlyway = if (jdbcUrl.startsWith("jdbc:mariadb:")) {
+            val dataSource = MariaDbDataSource(jdbcUrl).apply {
+                setUser(user ?: "")
+                setPassword(password ?: "")
+            }
+            flywayConfiguration.dataSource(dataSource)
+        } else {
+            flywayConfiguration.dataSource(jdbcUrl, user ?: "", password ?: "")
+        }
+        val flyway = configuredFlyway
             .locations(location)
             .baselineOnMigrate(true)
             .load()
@@ -86,6 +97,13 @@ object DatabaseMigrator {
         } catch (failure: Throwable) {
             logger?.log(Level.SEVERE, "[Flyway] Migration run failed", failure)
             throw failure
+        }
+    }
+
+    private fun loadDriverFor(jdbcUrl: String) {
+        when {
+            jdbcUrl.startsWith("jdbc:mariadb:") -> Class.forName("org.mariadb.jdbc.Driver")
+            jdbcUrl.startsWith("jdbc:sqlite:") -> Class.forName("org.sqlite.JDBC")
         }
     }
 }
