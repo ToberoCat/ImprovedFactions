@@ -14,6 +14,7 @@ mysql:
   database: "improvedfactions"
   user: "root"
   password: ""
+  maximum-pool-size: 4 # Bounded MariaDB/MySQL pool; values are clamped to 1..16
 
 modules:
   # This module is responsible for managing power, and it's associated side effects, like raids and over-claims.

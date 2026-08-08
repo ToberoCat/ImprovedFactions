@@ -6,10 +6,11 @@ import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommand
 import io.github.toberocat.improvedfactions.annotations.localization.Localization
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.commands.sendCommandResult
+import io.github.toberocat.improvedfactions.database.storage.GameStateCommands
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.wilderness.WildernessModule
 import io.github.toberocat.improvedfactions.utils.PlayerTeleporter
-import io.github.toberocat.improvedfactions.utils.options.limit.PlayerUsageLimits
 import io.github.toberocat.toberocore.util.CooldownManager
 import org.bukkit.Location
 import org.bukkit.entity.Player
@@ -75,6 +76,7 @@ abstract class WildernessCommand : WildernessCommandContext() {
 
     private fun cancelCommand(player: Player) {
         cooldownManager.removeCooldown(player.uniqueId)
-        PlayerUsageLimits.getUsageLimit("wilderness", player.uniqueId).used--
+        val used = StorageManager.cache.usage("wilderness", player.uniqueId) ?: 0
+        GameStateCommands.updateUsage("wilderness", player.uniqueId, (used - 1).coerceAtLeast(0))
     }
 }

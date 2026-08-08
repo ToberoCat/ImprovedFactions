@@ -4,10 +4,8 @@ import io.github.toberocat.improvedfactions.annotations.localization.Localizatio
 import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.ArgumentParsingException
 import io.github.toberocat.improvedfactions.commands.arguments.ParsingContext
-import io.github.toberocat.improvedfactions.factions.FactionHandler
-import io.github.toberocat.improvedfactions.invites.FactionInvite
-import io.github.toberocat.improvedfactions.invites.invites
-import io.github.toberocat.improvedfactions.user.factionUser
+import io.github.toberocat.improvedfactions.database.storage.InviteSnapshot
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
@@ -15,22 +13,21 @@ import org.bukkit.entity.Player
 @Localization("base.arguments.faction-invite.not-found")
 @Localization("base.arguments.faction-invite.not-invited")
 class FactionInviteArgumentParser : ArgumentParser {
-    override fun parse(sender: CommandSender, arg: String, args: Array<String>): FactionInvite {
+    override fun parse(sender: CommandSender, arg: String, args: Array<String>): InviteSnapshot {
         if (sender !is Player) {
             throw ArgumentParsingException("base.arguments.faction-invite.not-player")
         }
 
-        val faction = FactionHandler.getFaction(arg)
+        val faction = StorageManager.cache.factions().firstOrNull { it.name.equals(arg, ignoreCase = true) }
             ?: throw ArgumentParsingException("base.arguments.faction-invite.not-found")
 
-        val invite = sender.factionUser().invites().firstOrNull { it.factionId == faction.id.value }
+        val invite = StorageManager.cache.invites(sender.uniqueId).firstOrNull { it.factionId == faction.id }
             ?: throw ArgumentParsingException("base.arguments.faction-invite.not-invited")
         return invite
     }
 
     override fun rawTabComplete(pCtx: ParsingContext) = (pCtx.sender as? Player)
-        ?.factionUser()
-        ?.invites()
-        ?.mapNotNull { FactionHandler.getFaction(it.factionId)?.name }
+        ?.let { StorageManager.cache.invites(it.uniqueId) }
+        ?.mapNotNull { StorageManager.cache.faction(it.factionId)?.name }
         ?: emptyList()
 }

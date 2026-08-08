@@ -5,9 +5,8 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.commands.sendCommandResult
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
-import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import java.text.SimpleDateFormat
@@ -26,21 +25,20 @@ abstract class MembersCommand : MembersCommandContext() {
     private val dateFormat = SimpleDateFormat("dd/MM/yyyy")
 
     fun process(player: Player): CommandProcessResult {
-        val faction = player.factionUser().faction()
+        val faction = player.cachedUser().faction()
             ?: return notInFaction()
 
         player.sendCommandResult(membersHeader())
 
-        val details = loggedTransaction {
-            faction.members().map { member ->
-                val offlinePlayer = member.offlinePlayer()
+        val details = StorageManager.cache.factionMembers(faction.id).mapNotNull { memberId ->
+                val member = StorageManager.cache.user(memberId) ?: return@mapNotNull null
+                val offlinePlayer = org.bukkit.Bukkit.getOfflinePlayer(member.uniqueId)
                 memberDetail(
                     "name" to (offlinePlayer.name ?: "Unknown"),
                     "lastSeen" to getLastSeen(offlinePlayer),
-                    "rank" to member.rank().name
+                    "rank" to member.rankName
                 )
             }
-        }
 
         details.dropLast(1).forEach { player.sendCommandResult(it) }
         return details.lastOrNull() ?: membersHeader()

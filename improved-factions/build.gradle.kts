@@ -72,6 +72,7 @@ dependencies {
     implementation(libs.flyway.core)
     implementation(libs.flyway.mysql)
     implementation(libs.mariadb.java.client)
+    implementation(libs.hikari)
     implementation(libs.spigot.update.checker)
     compileOnly(libs.guiengine)
     implementation(libs.adventure.text.minimessage)

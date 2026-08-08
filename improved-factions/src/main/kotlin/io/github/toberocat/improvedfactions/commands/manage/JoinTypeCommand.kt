@@ -4,9 +4,10 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
 import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.commands.respondAfter
+import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.factions.FactionJoinType
 import io.github.toberocat.improvedfactions.permissions.Permissions
-import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -23,16 +24,16 @@ import org.bukkit.entity.Player
     ]
 )
 abstract class JoinTypeCommand : JoinTypeCommandContext() {
-    fun process(player: Player, joinType: FactionJoinType): CommandProcessResult {
-        return setJoinType(player, joinType)
+    fun process(player: Player, joinType: FactionJoinType): CommandProcessResult? {
+        return setJoinType(player, player, joinType)
     }
 
-    fun process(sender: CommandSender, target: OfflinePlayer, joinType: FactionJoinType): CommandProcessResult {
-        return setJoinType(target, joinType)
+    fun process(sender: CommandSender, target: OfflinePlayer, joinType: FactionJoinType): CommandProcessResult? {
+        return setJoinType(sender, target, joinType)
     }
 
-    private fun setJoinType(player: OfflinePlayer, joinType: FactionJoinType): CommandProcessResult {
-        val factionUser = player.factionUser()
+    private fun setJoinType(sender: CommandSender, player: OfflinePlayer, joinType: FactionJoinType): CommandProcessResult? {
+        val factionUser = player.cachedUser()
         val faction = factionUser.faction()
             ?: return notInFaction()
 
@@ -40,7 +41,8 @@ abstract class JoinTypeCommand : JoinTypeCommandContext() {
             return noPermission()
         }
 
-        faction.factionJoinType = joinType
-        return joinModeChanged("mode" to joinType.name.lowercase())
+        return sender.respondAfter(GameStateCommands.setJoinType(faction.id, joinType)) {
+            joinModeChanged("mode" to joinType.name.lowercase())
+        }
     }
 }

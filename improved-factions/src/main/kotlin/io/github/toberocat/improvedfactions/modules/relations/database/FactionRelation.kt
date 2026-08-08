@@ -5,7 +5,7 @@ import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 
-class FactionRelation(id: EntityID<Int>) : IntEntity(id) {
+internal class FactionRelation(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<FactionRelation>(FactionRelations)
 
     var sourceFaction by Faction referencedOn FactionRelations.sourceFaction

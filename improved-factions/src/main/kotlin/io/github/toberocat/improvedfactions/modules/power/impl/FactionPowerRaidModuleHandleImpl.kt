@@ -1,18 +1,10 @@
 package io.github.toberocat.improvedfactions.modules.power.impl
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.claims.FactionClaim
-import io.github.toberocat.improvedfactions.claims.clustering.cluster.Cluster
-import io.github.toberocat.improvedfactions.claims.clustering.cluster.FactionCluster
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import io.github.toberocat.improvedfactions.exceptions.NotEnoughPowerForClaimException
-import io.github.toberocat.improvedfactions.factions.Faction
-import io.github.toberocat.improvedfactions.factions.PowerAccumulationChangeReason
+import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.modules.power.config.PowerManagementConfig
 import io.github.toberocat.improvedfactions.modules.power.handles.FactionPowerRaidModuleHandle
-import io.github.toberocat.toberocore.util.MathUtils
 import org.bukkit.Bukkit
-import org.bukkit.Chunk
 import kotlin.math.*
 
 const val TICKS_TO_MS = 50
@@ -23,51 +15,6 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
     private var claimKeepCostTaskId: Int = 1
     private var lastAccumulationMs = System.currentTimeMillis()
     private var lastClaimKeepCostMs = System.currentTimeMillis()
-
-    override fun memberJoin(faction: Faction) {
-        faction.setMaxPower(faction.maxPower + ceil(calculatePowerChange(faction.members().count())).toInt())
-    }
-
-    override fun memberLeave(faction: Faction) {
-        faction.setMaxPower(faction.maxPower - floor(calculatePowerChange(faction.members().count() + 1)).toInt())
-    }
-
-    override fun claimChunk(chunk: Chunk, faction: Faction) {
-        val cost = getNextClaimCost(faction)
-        if (cost > faction.accumulatedPower) throw NotEnoughPowerForClaimException(chunk)
-        faction.setAccumulatedPower(faction.accumulatedPower - cost, PowerAccumulationChangeReason.CHUNK_CLAIMED)
-    }
-
-    override fun calculateUnprotectedChunks(cluster: Cluster): Set<FactionClaim> {
-        if (!config.allowOverclaim) return emptySet()
-        val faction = (cluster.findAdditionalType() as? FactionCluster)?.faction
-            ?: throw IllegalArgumentException("No faction cluster")
-        val totalClaims = faction.claims().count()
-        val claimMaintenanceCost = getClaimMaintenanceCost(totalClaims)
-
-        val clusterClaimsRatio = cluster.getClaims().size.toDouble() / totalClaims
-        val clusterPowerCost = claimMaintenanceCost * clusterClaimsRatio
-
-        val (centerX, centerY) = cluster.center.get()
-        val positionSrqDistances = cluster.getClaims().map { it.toPosition().distanceSquaredTo(centerX, centerY) }
-
-        val biggestDistance = positionSrqDistances.maxOrNull() ?: return emptySet()
-        val distancePercentages = positionSrqDistances.map { it / biggestDistance }
-        val totalDistancePercentageSum = distancePercentages.sum()
-
-        val claimPowerCost = clusterPowerCost / totalDistancePercentageSum
-        val threshold = sqrt(
-            (faction.maxPower + MathUtils.clamp(
-                faction.accumulatedPower - claimMaintenanceCost,
-                -faction.maxPower.toDouble(),
-                faction.maxPower.toDouble()
-            )) * clusterClaimsRatio
-        )
-
-        val positions = cluster.getClaims()
-        return distancePercentages.mapIndexedNotNull { index, element -> if (element * claimPowerCost >= threshold) positions[index] else null }
-            .toSet()
-    }
 
     fun nextAccumulationCycleTime() = lastAccumulationMs + config.accumulationTickDelay * TICKS_TO_MS
     fun nextClaimKeepCostCycleTime() = lastClaimKeepCostMs + config.accumulationTickDelay * TICKS_TO_MS
@@ -86,49 +33,58 @@ class FactionPowerRaidModuleHandleImpl(private val config: PowerManagementConfig
             ).taskId
     }
 
-    private fun claimKeepCostsCollector() = loggedTransaction {
+    private fun claimKeepCostsCollector() {
         lastClaimKeepCostMs = System.currentTimeMillis()
-        Faction.all().forEach {
-            it.setAccumulatedPower(
-                it.accumulatedPower - getClaimMaintenanceCost(it).toInt(), PowerAccumulationChangeReason.CHUNK_KEEP_COST
-            )
+        val updates = StorageManager.cache.factions().associate { faction ->
+            faction.id to (faction.accumulatedPower - getClaimMaintenanceCost(faction).toInt())
+                .coerceIn(-faction.maxPower, faction.maxPower)
         }
+        if (updates.isNotEmpty()) GameStateCommands.setAccumulatedPower(updates)
     }
 
-    private fun accumulateAll() = loggedTransaction {
+    private fun accumulateAll() {
         lastAccumulationMs = System.currentTimeMillis()
-        Faction.all().forEach {
-            it.setAccumulatedPower(
-                it.accumulatedPower + getPowerAccumulated(it).toInt(),
-                PowerAccumulationChangeReason.PASSIVE_ENERGY_ACCUMULATION
-            )
+        val updates = StorageManager.cache.factions().associate { faction ->
+            faction.id to (faction.accumulatedPower + getPowerAccumulated(faction).toInt())
+                .coerceIn(-faction.maxPower, faction.maxPower)
         }
+        if (updates.isNotEmpty()) GameStateCommands.setAccumulatedPower(updates)
     }
-
-    override fun getNextClaimCost(faction: Faction) =
-        floor(config.baseClaimPowerCost * config.claimPowerCostGrowth.pow(faction.claims().count().toInt())).toInt()
 
     override fun getPowerAccumulated(activeAccumulation: Double, inactiveAccumulation: Double) =
         config.baseAccumulation + max(activeAccumulation - inactiveAccumulation, 0.0)
 
-    fun getPowerAccumulated(faction: Faction) =
-        getPowerAccumulated(getActivePowerAccumulation(faction), getInactivePowerAccumulation(faction))
-
-    override fun getActivePowerAccumulation(faction: Faction) =
-        (1 + faction.countActiveMembers(config.accumulationTickDelay) / faction.members().count().toDouble()).pow(
-            config.activeAccumulationExponent
-        ) * config.accumulationMultiplier
-
-
-    override fun getClaimMaintenanceCost(faction: Faction) = getClaimMaintenanceCost(faction.claims().count())
-    override fun getInactivePowerAccumulation(faction: Faction) =
-        faction.countInactiveMembers(config.inactiveMilliseconds) * config.inactiveAccumulationMultiplier * config.accumulationMultiplier
-
-    private fun calculatePowerChange(members: Long) = config.baseMemberConstant * (1f / members)
     private fun getClaimMaintenanceCost(claims: Long) = claims * config.claimPowerKeep
-    fun playerDie(faction: Faction) {
-        faction.setAccumulatedPower(
-            faction.accumulatedPower - config.playerDeathCost, PowerAccumulationChangeReason.PLAYER_DEATH
+
+    fun playerDie(faction: FactionSnapshot) {
+        GameStateCommands.setPower(
+            faction.id,
+            accumulated = (faction.accumulatedPower - config.playerDeathCost)
+                .coerceIn(-faction.maxPower, faction.maxPower)
         )
     }
+
+    fun getNextClaimCost(faction: FactionSnapshot) =
+        floor(config.baseClaimPowerCost * config.claimPowerCostGrowth.pow(faction.claimCount)).toInt()
+
+    fun getClaimMaintenanceCost(faction: FactionSnapshot) = faction.claimCount * config.claimPowerKeep
+
+    fun getActivePowerAccumulation(faction: FactionSnapshot): Double {
+        val members = StorageManager.cache.factionMembers(faction.id)
+        if (members.isEmpty()) return 0.0
+        val minStamp = System.currentTimeMillis() - config.accumulationTickDelay / 20 * 1000
+        val active = members.count { id -> Bukkit.getOfflinePlayer(id).let { it.isOnline || it.lastPlayed > minStamp } }
+        return (1 + active / members.size.toDouble()).pow(config.activeAccumulationExponent) * config.accumulationMultiplier
+    }
+
+    fun getInactivePowerAccumulation(faction: FactionSnapshot): Double {
+        val minStamp = System.currentTimeMillis() - config.inactiveMilliseconds
+        val inactive = StorageManager.cache.factionMembers(faction.id).count { id ->
+            Bukkit.getOfflinePlayer(id).let { !it.isOnline && it.lastPlayed <= minStamp }
+        }
+        return inactive * config.inactiveAccumulationMultiplier * config.accumulationMultiplier
+    }
+
+    fun getPowerAccumulated(faction: FactionSnapshot) =
+        getPowerAccumulated(getActivePowerAccumulation(faction), getInactivePowerAccumulation(faction))
 }

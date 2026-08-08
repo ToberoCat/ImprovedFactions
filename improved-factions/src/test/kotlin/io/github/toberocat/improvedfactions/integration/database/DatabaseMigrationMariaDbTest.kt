@@ -27,9 +27,9 @@ class DatabaseMigrationMariaDbTest {
                     assertEquals(15, result.getInt(1))
                 }
 
-                statement.executeQuery("SELECT COUNT(*) FROM flyway_schema_history").use { result ->
+                statement.executeQuery("SELECT COUNT(*) FROM flyway_schema_history WHERE success = 1").use { result ->
                     check(result.next())
-                    assertEquals(1, result.getInt(1))
+                    assertEquals(2, result.getInt(1))
                 }
             }
         }

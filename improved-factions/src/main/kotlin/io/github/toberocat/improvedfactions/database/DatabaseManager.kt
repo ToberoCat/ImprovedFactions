@@ -5,6 +5,9 @@ import io.github.toberocat.improvedfactions.invites.FactionInvites
 import io.github.toberocat.improvedfactions.ranks.FactionRankHandler
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.sql.statements.StatementInterceptor
+import org.jetbrains.exposed.sql.transactions.TransactionManager
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
 
 object DatabaseManager {
 
@@ -18,11 +21,21 @@ object DatabaseManager {
         statement()
     }
 
+    fun refreshStorageCacheAfterCommit() {
+        val transaction = TransactionManager.currentOrNull() ?: run {
+            StorageManager.invalidateAndRefresh()
+            return
+        }
+        transaction.registerInterceptor(object : StatementInterceptor {
+            override fun afterCommit(transaction: Transaction) {
+                StorageManager.invalidateAndRefresh()
+            }
+        })
+    }
+
     fun initializeDatabase() {
         loggedTransaction {
-            Factions.handleQueues()
             FactionRankHandler.initRanks()
-            FactionInvites.scheduleInviteExpirations()
         }
     }
 }

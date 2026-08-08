@@ -2,9 +2,8 @@ package io.github.toberocat.improvedfactions.database
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.database.DatabaseManager.initializeDatabase
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.database.DatabaseManager.verboseLogging
-import io.github.toberocat.improvedfactions.utils.getEnum
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
 import org.bukkit.configuration.file.FileConfiguration
 import org.jetbrains.exposed.sql.Database
 import java.util.logging.Logger
@@ -19,25 +18,20 @@ class DatabaseConnector(private val plugin: ImprovedFactionsPlugin) {
     private val logger: Logger = plugin.logger
 
     fun createDatabase(): Database {
-        val database = connectDatabase()
+        val settings = DatabaseSettings.from(plugin)
+        logger.info("Using database ${settings.type} as database")
+
+        DatabaseMigrator.migrate(plugin)
+        val dataSource = createDataSource(settings)
+        val database = Database.connect(dataSource)
 
         if (config.getBoolean("verbose-database-logging")) {
             verboseLogging = true
         }
-        DatabaseMigrator.migrate(plugin)
         initializeDatabase()
-        return database
-    }
-
-    private fun connectDatabase(): Database {
-        val databaseType = config.getEnum<DatabaseType>("database").let {
-            if (it != null)
-                return@let it
-            logger.warning("No database specified. Using sqlite as default")
-            return@let DatabaseType.SQLITE
+        StorageManager.start(settings, dataSource, logger) { continuation ->
+            plugin.server.scheduler.runTask(plugin, continuation)
         }
-
-        logger.info("Using database $databaseType as database")
-        return databaseType.connect(plugin) ?: throw IllegalArgumentException("Database connection failed")
+        return database
     }
 }

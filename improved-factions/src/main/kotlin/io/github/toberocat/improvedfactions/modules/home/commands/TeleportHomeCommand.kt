@@ -4,10 +4,10 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
 import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.modules.home.HomeModule
 import io.github.toberocat.improvedfactions.modules.home.HomeModule.teleportToFactionHome
 import io.github.toberocat.improvedfactions.permissions.Permissions
-import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.entity.Player
 
 @GeneratedCommandMeta(
@@ -24,7 +24,7 @@ import org.bukkit.entity.Player
 abstract class TeleportHomeCommand : TeleportHomeCommandContext() {
 
     fun process(player: Player): CommandProcessResult {
-        val factionUser = player.factionUser()
+        val factionUser = player.cachedUser()
         if (!factionUser.isInFaction()) {
             return notInFaction()
         }

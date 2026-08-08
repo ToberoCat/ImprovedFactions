@@ -1,9 +1,10 @@
 package io.github.toberocat.improvedfactions.integration.commands.invite
 
 import org.mockbukkit.mockbukkit.entity.PlayerMock
-import io.github.toberocat.improvedfactions.factions.Faction
+import io.github.toberocat.improvedfactions.database.storage.FactionSnapshot
 import io.github.toberocat.improvedfactions.ImprovedFactionsTest
-import org.jetbrains.exposed.sql.transactions.transaction
+import io.github.toberocat.improvedfactions.database.storage.GameStateCommands
+import java.time.Instant
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -13,7 +14,7 @@ import kotlin.test.assertTrue
 class InviteAcceptCommandTest : ImprovedFactionsTest() {
 
     private lateinit var player1: PlayerMock
-    private lateinit var faction: Faction
+    private lateinit var faction: FactionSnapshot
 
     @BeforeEach
     override fun setUp() {
@@ -37,8 +38,16 @@ class InviteAcceptCommandTest : ImprovedFactionsTest() {
         server.onlineMode = onlineMode
 
         val testPlayer = createTestPlayer(playerName)
-        transaction { faction.invite(player1.uniqueId, testPlayer.uniqueId, faction.getDefaultRank().id.value) }
+        GameStateCommands.createInvite(
+            player1.uniqueId,
+            testPlayer.uniqueId,
+            faction.id,
+            faction.defaultRankId,
+            Instant.now().plusSeconds(300)
+        )
+        awaitStorage()
         assertTrue(server.dispatchCommand(testPlayer, "f inviteaccept ${faction.name}"))
+        awaitStorage()
         assertNotNull(testPlayer.nextMessage())
     }
 }

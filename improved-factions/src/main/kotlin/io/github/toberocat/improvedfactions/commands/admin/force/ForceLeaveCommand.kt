@@ -6,10 +6,15 @@ import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommand
 import io.github.toberocat.improvedfactions.annotations.command.PermissionConfig
 import io.github.toberocat.improvedfactions.annotations.permission.PermissionConfigurations
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
-import io.github.toberocat.improvedfactions.factions.Faction
-import io.github.toberocat.improvedfactions.user.factionUser
+import io.github.toberocat.improvedfactions.commands.cancelledCommandResult
+import io.github.toberocat.improvedfactions.commands.respondAfter
+import io.github.toberocat.improvedfactions.api.events.FactionDeleteEvent
+import io.github.toberocat.improvedfactions.api.events.FactionLeaveEvent
+import io.github.toberocat.improvedfactions.database.storage.*
+import io.github.toberocat.improvedfactions.user.noFactionId
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
+import org.bukkit.Bukkit
 
 @PermissionConfig(config = PermissionConfigurations.OP_ONLY)
 @GeneratedCommandMeta(
@@ -30,31 +35,42 @@ abstract class ForceLeaveCommand : ForceLeaveCommandContext() {
     fun processConsole(
         sender: CommandSender,
         target: OfflinePlayer,
-    ) = leaveFaction(target)
+    ) = leaveFaction(sender, target)
 
-    private fun leaveFaction(player: OfflinePlayer): CommandProcessResult {
-        val user = player.factionUser()
+    private fun leaveFaction(sender: CommandSender, player: OfflinePlayer): CommandProcessResult? {
+        val user = player.cachedUser()
         val faction = user.faction() ?: return factionNotFound()
 
         if (!user.isFactionOwner()) {
-            faction.leave(player.uniqueId)
-            return forceLeaveSuccess()
+            val event = FactionLeaveEvent(faction, user)
+            Bukkit.getPluginManager().callEvent(event)
+            if (event.isCancelled) return cancelledCommandResult()
+            return sender.respondAfter(GameStateCommands.setUserFaction(player.uniqueId, noFactionId, 0)) {
+                forceLeaveSuccess()
+            }
         }
 
         return when (val nextBestOwner = determineNextBestOwner(faction, player)) {
             null -> {
-                faction.delete()
-                factionDeleted()
+                val event = FactionDeleteEvent(faction)
+                Bukkit.getPluginManager().callEvent(event)
+                if (event.isCancelled) return cancelledCommandResult()
+                return sender.respondAfter(GameStateCommands.deleteFaction(faction.id)) { factionDeleted() }
             }
 
             else -> {
-                faction.transferOwnership(nextBestOwner.uniqueId)
-                ownershipTransferred("player" to (nextBestOwner.offlinePlayer().name ?: "Unknown"))
+                val nextOwnerName = org.bukkit.Bukkit.getOfflinePlayer(nextBestOwner.uniqueId).name ?: "Unknown"
+                return sender.respondAfter(GameStateCommands.transferOwnership(
+                    faction.id, player.uniqueId, nextBestOwner.uniqueId, removePreviousOwner = true
+                )) {
+                    ownershipTransferred("player" to nextOwnerName)
+                }
             }
         }
     }
 
-    private fun determineNextBestOwner(faction: Faction, target: OfflinePlayer) = faction.members()
-        .sortedBy { it.rank().priority }
+    private fun determineNextBestOwner(faction: FactionSnapshot, target: OfflinePlayer) = StorageManager.cache
+        .factionMembers(faction.id).mapNotNull(StorageManager.cache::user)
+        .sortedByDescending { it.rankPriority }
         .firstOrNull { it.uniqueId != target.uniqueId }
 }

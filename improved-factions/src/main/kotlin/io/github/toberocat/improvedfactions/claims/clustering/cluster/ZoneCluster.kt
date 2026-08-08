@@ -5,7 +5,7 @@ import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 
-class ZoneCluster(id: EntityID<Int>) : IntEntity(id), AdditionalClusterType {
+internal class ZoneCluster(id: EntityID<Int>) : IntEntity(id), AdditionalClusterType {
     companion object : IntEntityClass<ZoneCluster>(ZoneClusters)
 
     var zoneType by ZoneClusters.zoneType

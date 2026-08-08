@@ -1,7 +1,8 @@
 package io.github.toberocat.improvedfactions.integration.commands.invite
 
 import org.mockbukkit.mockbukkit.entity.PlayerMock
-import io.github.toberocat.improvedfactions.factions.Faction
+import io.github.toberocat.improvedfactions.database.storage.FactionSnapshot
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
 import io.github.toberocat.improvedfactions.ImprovedFactionsTest
 import io.github.toberocat.improvedfactions.messages.MessageBroker
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
@@ -10,7 +11,6 @@ import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
 import kotlinx.datetime.toInstant
-import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -24,7 +24,7 @@ class InviteCommandProcessorTest : ImprovedFactionsTest() {
 
     private lateinit var player1: PlayerMock
     private lateinit var player2: PlayerMock
-    private lateinit var faction: Faction
+    private lateinit var faction: FactionSnapshot
 
     @BeforeEach
     override fun setUp() {
@@ -43,6 +43,7 @@ class InviteCommandProcessorTest : ImprovedFactionsTest() {
         server.onlineMode = onlineMode
 
         assertTrue(server.dispatchCommand(player1, "f invite ${player2.name} Member"))
+        awaitStorage()
         assertNotNull(player1.nextMessage())
     }
 
@@ -52,14 +53,14 @@ class InviteCommandProcessorTest : ImprovedFactionsTest() {
         BaseModule.config.inviteExpiresInMinutes = configuredMinutes
         val beforeInvite = Clock.System.now()
 
-        val invite = transaction {
-            faction.invite(player1.uniqueId, player2.uniqueId, faction.getDefaultRank().id.value)
-        }
+        assertTrue(server.dispatchCommand(player1, "f invite ${player2.name} Member"))
+        awaitStorage()
+        val invite = StorageManager.cache.invites(player2.uniqueId).single()
 
         val expectedExpiration = beforeInvite.plus(configuredMinutes, DateTimeUnit.MINUTE)
-        val actualExpiration = invite.expirationDate.toInstant(TimeZone.UTC)
+        val actualExpiration = kotlinx.datetime.Instant.fromEpochMilliseconds(invite.expiresAtEpochMillis)
 
-        assertTrue(actualExpiration >= expectedExpiration)
+        assertTrue(actualExpiration.toEpochMilliseconds() + 1_000 >= expectedExpiration.toEpochMilliseconds())
         assertTrue(actualExpiration <= Clock.System.now().plus(configuredMinutes, DateTimeUnit.MINUTE))
     }
 
@@ -77,6 +78,7 @@ class InviteCommandProcessorTest : ImprovedFactionsTest() {
 
         val testPlayer = createTestPlayer(playerName)
         assertTrue(server.dispatchCommand(player1, "f invite ${testPlayer.name} Member"))
+        awaitStorage()
         assertNotNull(player1.nextMessage())
     }
 
@@ -87,13 +89,12 @@ class InviteCommandProcessorTest : ImprovedFactionsTest() {
         invitedPlayer.disconnect()
 
         var broadcastInvitedName: String? = null
-        MessageBroker.listenLocalized(faction.id.value) {
+        MessageBroker.listenLocalized(faction.id) {
             broadcastInvitedName = it.placeholders["invited"]
         }
 
-        transaction {
-            faction.invite(player1.uniqueId, invitedPlayer.uniqueId, faction.getDefaultRank().id.value)
-        }
+        assertTrue(server.dispatchCommand(player1, "f invite ${knownOfflinePlayer.name} Member"))
+        awaitStorage()
 
         assertEquals(knownOfflinePlayer.name, broadcastInvitedName)
     }

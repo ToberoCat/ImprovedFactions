@@ -53,5 +53,5 @@ data class ChunkPosition(val x: Int, val y: Int, val world: String) {
     }
 
     operator fun minus(cellFrom: ChunkPosition) = ChunkPosition(x - cellFrom.x, y - cellFrom.y, world)
-    fun getFactionClaim() = getFactionClaim(x, y, world)
+    internal fun getFactionClaim() = getFactionClaim(x, y, world)
 }

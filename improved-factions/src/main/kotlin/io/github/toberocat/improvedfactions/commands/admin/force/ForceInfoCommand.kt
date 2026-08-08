@@ -7,7 +7,8 @@ import io.github.toberocat.improvedfactions.annotations.command.PermissionConfig
 import io.github.toberocat.improvedfactions.annotations.permission.PermissionConfigurations
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.commands.sendCommandResult
-import io.github.toberocat.improvedfactions.user.factionUser
+import io.github.toberocat.improvedfactions.database.storage.cachedUser
+import io.github.toberocat.improvedfactions.database.storage.faction
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
 
@@ -33,11 +34,11 @@ abstract class ForceInfoCommand : ForceInfoCommandContext() {
         sender.sendCommandResult(
             details(
                 "Faction",
-                target.factionUser().faction()?.name ?: "No Faction",
-                "/f info ${target.factionUser().faction()?.name}"
+                target.cachedUser().faction()?.name ?: "No Faction",
+                "/f info ${target.cachedUser().faction()?.name}"
             )
         )
-        return details("Rank", target.factionUser().rank().name, "")
+        return details("Rank", target.cachedUser().rankName, "")
     }
 
     private fun details(key: String, value: String, cmd: String = "") = factionInfoDetail(

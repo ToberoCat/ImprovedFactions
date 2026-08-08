@@ -4,10 +4,10 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
 import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
+import io.github.toberocat.improvedfactions.commands.respondAfter
+import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.permissions.Permissions
-import io.github.toberocat.improvedfactions.ranks.FactionRank
-import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 
@@ -24,22 +24,22 @@ import org.bukkit.entity.Player
 )
 abstract class AssignRankCommand : AssignRankCommandContext() {
 
-    fun process(player: Player, target: OfflinePlayer, rank: FactionRank): CommandProcessResult {
-        if (!player.factionUser().isInFaction())
+    fun process(player: Player, target: OfflinePlayer, rank: RankSnapshot): CommandProcessResult? {
+        val user = player.cachedUser()
+        if (!user.isInFaction())
             return notInFaction()
 
-        if (!player.factionUser().hasPermission(Permissions.MANAGE_PERMISSIONS))
+        if (!user.hasPermission(Permissions.MANAGE_PERMISSIONS))
             return noPermission()
 
-        val targetUser = target.factionUser()
-        if (targetUser.faction() != player.factionUser().faction())
+        val targetUser = target.cachedUser()
+        if (targetUser.factionId != user.factionId)
             return notInSameFaction()
 
-        targetUser.assignedRank = rank.id.value
-
-        return rankAssigned(
-            "playerName" to (target.name ?: "Unknown"),
+        val targetName = target.name ?: "Unknown"
+        return player.respondAfter(GameStateCommands.assignRank(target.uniqueId, rank.id)) { rankAssigned(
+            "playerName" to targetName,
             "rankName" to rank.name
-        )
+        ) }
     }
 }

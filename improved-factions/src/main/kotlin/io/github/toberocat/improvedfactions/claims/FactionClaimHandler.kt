@@ -11,19 +11,19 @@ import org.jetbrains.exposed.sql.and
 import kotlin.math.ceil
 import kotlin.math.floor
 
-fun Block.getFactionClaim(): FactionClaim? = location.getFactionClaim()
-fun Location.getFactionClaim(): FactionClaim? = chunk.getFactionClaim()
-fun Chunk.getFactionClaim() = getFactionClaim(x, z, world.name)
+internal fun Block.getFactionClaim(): FactionClaim? = location.getFactionClaim()
+internal fun Location.getFactionClaim(): FactionClaim? = chunk.getFactionClaim()
+internal fun Chunk.getFactionClaim() = getFactionClaim(x, z, world.name)
 
-fun getFactionClaim(x: Int, z: Int, worldName: String) = FactionClaim.find {
+internal fun getFactionClaim(x: Int, z: Int, worldName: String) = FactionClaim.find {
     FactionClaims.chunkX eq x and
             (FactionClaims.chunkZ eq z) and
             (FactionClaims.world eq worldName)
 }.firstOrNull()
 
-fun canClaimInWorld(world: String): Boolean = world in BaseModule.config.allowedWorlds
+internal fun canClaimInWorld(world: String): Boolean = world in BaseModule.config.allowedWorlds
 
-fun squareClaimAction(
+internal fun squareClaimAction(
     centerChunk: Chunk,
     squareRadius: Int,
     action: (chunk: Chunk) -> Unit,

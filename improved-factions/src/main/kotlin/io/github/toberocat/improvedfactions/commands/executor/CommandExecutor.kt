@@ -17,12 +17,12 @@ import io.github.toberocat.improvedfactions.commands.arguments.primitives.String
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.enums.JoinTypeEnumArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.enums.PowerTypeArgumentParser
 import io.github.toberocat.improvedfactions.commands.sendCommandResult
-import io.github.toberocat.improvedfactions.factions.Faction
+import io.github.toberocat.improvedfactions.database.storage.FactionSnapshot
+import io.github.toberocat.improvedfactions.database.storage.InviteSnapshot
+import io.github.toberocat.improvedfactions.database.storage.RankSnapshot
 import io.github.toberocat.improvedfactions.factions.FactionJoinType
-import io.github.toberocat.improvedfactions.invites.FactionInvite
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.power.PowerType
-import io.github.toberocat.improvedfactions.ranks.FactionRank
 import io.github.toberocat.improvedfactions.translation.LocalizedException
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import io.github.toberocat.improvedfactions.zone.Zone
@@ -39,12 +39,12 @@ val DEFAULT_PARSERS = mapOf<Class<*>, ArgumentParser>(
     Boolean::class.java to BoolArgumentParser(),
     Player::class.java to PlayerArgumentParser(),
     OfflinePlayer::class.java to OfflinePlayerArgumentParser(),
-    Faction::class.java to FactionArgumentParser(),
+    FactionSnapshot::class.java to FactionArgumentParser(),
     FactionJoinType::class.java to JoinTypeEnumArgumentParser(),
     Zone::class.java to ZoneArgumentParser(),
     World::class.java to WorldArgumentParser(),
-    FactionInvite::class.java to FactionInviteArgumentParser(),
-    FactionRank::class.java to FactionRankArgumentParser(),
+    InviteSnapshot::class.java to FactionInviteArgumentParser(),
+    RankSnapshot::class.java to FactionRankArgumentParser(),
     PowerType::class.java to PowerTypeArgumentParser()
 )
 
@@ -144,7 +144,7 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
             }
         }.getOrNull() ?: return false
 
-        sender.sendCommandResult(result)
+        if (!result.deferred) sender.sendCommandResult(result)
         return true
     }
 

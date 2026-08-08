@@ -2,86 +2,171 @@
 
 Stand: 2026-08-08
 
-Scope: Paper/Bukkit-Main-Thread, Exposed/JDBC-Zugriffe, Scheduler, Async-Grenzen,
-Thread-Sicherheit und Plugin-Lifecycle. Flyway wurde bewusst nicht verändert.
+Scope: sämtliche laufenden Paper/Bukkit-Pfade, Storage-/Repository-Grenze,
+SQLite und MariaDB/MySQL, Cache-Konsistenz, Scheduler-Handoffs und Lifecycle.
 
 ## Ergebnis
 
-Die Anwendung verwendet Exposed derzeit synchron. `DatabaseManager.loggedTransaction`
-ist ein blockierendes `transaction { ... }`; es gibt keinen gemeinsamen Async-Executor
-oder eine Repository-Abstraktion. Deshalb sind die meisten Produktiv-Aufrufe aus
-Commands und synchronen Events Main-Thread-DB-Zugriffe.
+Die Big-Bang-Migration ist für die produktiv verdrahteten Serverpfade umgesetzt.
+Commands, Argumentparser, Invites, Power, Siege, Relations, Home, Wilderness,
+Claim-/Map-/Cluster-Darstellung, Listener, Placeholder und Charts treffen laufende
+Gameplay-Entscheidungen ausschließlich aus einem atomar publizierten
+`GameStateSnapshot`. Diese Objekte und ihre verschachtelten Collections werden vor
+der Publikation defensiv kopiert und enthalten weder Bukkit- noch Exposed-Typen.
 
-Paper dokumentiert, dass synchron ausgeführte Datenbankzugriffe die Serverperformance
-beeinträchtigen können und dass die Bukkit-API in Async-Tasks weitgehend nicht sicher
-ist. Daraus folgt: DB-only-Arbeit darf async laufen, Bukkit-/World-Zugriffe müssen auf
-dem zuständigen Serverthread bleiben.
+Alle laufenden DB-Zugriffe gehen durch `StorageManager` und
+`JdbcStorageRepository`/`KnownPlayerRepository`. `GameStateCommands` enthält die
+skalaren JDBC-Commands. Writes laufen in einer expliziten Transaktion; erst nach
+erfolgreichem Commit wird ein vollständiger Snapshot neu geladen und atomar
+publiziert. Bei Rollback oder fehlgeschlagenem Reload bleibt der zuletzt vollständig
+publizierte Zustand sichtbar. Generationsnummern verhindern, dass ein langsamerer
+älterer MariaDB-Reload einen neueren Snapshot überschreibt.
 
-## Konkrete Findings
+## Connection- und Worker-Policy
 
-| Schwere | Fundstelle | Befund |
-| --- | --- | --- |
-| Hoch | `listeners/move/MoveListener.kt` | `PlayerMoveEvent` (bei Chunkwechsel) startet synchron eine Transaktion, Claim-/Faction-/Cluster-DAOs und weitere Bukkit-Zugriffe. |
-| Hoch | `listeners/claim/ProtectionListener.kt` | Block-, Entity- und Interaktionsschutz fragt Claims, FactionUser und Cluster synchron im Event ab. Das betrifft häufige Gameplay-Events. |
-| Hoch | `listeners/claim/GeneralPvPListener.kt`, `InFactionPvPListener.kt` | PvP-Events öffnen synchron Transaktionen und laden Claims/FactionUser. |
-| Hoch | `listeners/claim/ClaimTntListener.kt`, `ClaimFullTntListener.kt` | Explosionen iterieren synchron über Blocklisten und führen pro Chunk Claim-Abfragen aus. |
-| Mittel | `modules/power/impl/FactionPowerRaidModuleHandleImpl.kt` | Wiederholte Tasks laufen synchron; `accumulateAll` und `claimKeepCostsCollector` führen DB-Schreib-/Lesearbeit aus. Blindes Umschalten auf Async wäre hier nicht sicher, weil die Berechnung anschließend Bukkit, Events, Broadcasts und Cluster/Dynmap-Pfade berührt. |
-| Mittel | `modules/claimparticle/handles/RenderParticlesTask.kt` | Synchroner Wiederholungs-Task kombiniert Cluster-/DAO-Zugriffe mit `Bukkit.getOnlinePlayers`, Player-Locations und Partikel-Rendering. Async ist wegen Bukkit nicht zulässig; die DB-Seite muss später von der Render-Phase getrennt werden. |
-| Mittel | `listeners/PlayerJoinListener.kt` | Join-Handler schreibt synchron in `KnownOfflinePlayer`. Ein Async-Versuch wurde verworfen, weil er mit den übrigen synchronen Exposed-Transaktionen SQLite-Locks/Rennen erzeugte; der Pfad bleibt offen für eine serialisierte DB-Queue. |
-| Mittel | `integrations/papi/PlaceholderIntegration.kt` | Placeholder-Auflösung öffnet synchron eine Transaktion. PlaceholderAPI ruft Expansionen typischerweise im Serverthread auf; bei vielen Placeholdern kann das den Tick blockieren. Caching/async Placeholder-Design ist offen. |
-| Mittel | `commands/general/InfoCommand.kt`, `ListFactionsCommand.kt` | Command-Ausführung läuft synchron; `members().count()`, `claims().count()`, Relations-Counts und Faction-Listen sind DB-Abfragen im Command-Tick. |
-| Mittel | `BaseModule.onEverythingEnabled` / `ClaimClusterDetector` | Cluster-Erkennung lädt und bearbeitet Daten synchron beim Enable-Abschluss. Das blockiert nicht den laufenden Tick dauerhaft, kann aber den Start verlängern; für eine Async-Verlagerung müssten alle Bukkit-/Dynmap-Übergänge getrennt werden. |
-| Niedrig | `DatabaseConnector`, `DatabaseManager` | DB-Verbindung, Connectivity-Check und `SchemaUtils.createMissingTablesAndColumns` laufen beim Enable synchron. Für Startup grundsätzlich zulässig, aber bei Remote-DB/Schemaänderungen potenziell lange Enable-Zeit. Flyway bleibt außerhalb dieses Audits. |
-| Niedrig | `FactionInvites.scheduleInviteExpirations`, `LazyUpdate` | Zeitgesteuerte Tasks werden synchron geplant und führen später teilweise DB-Arbeit synchron aus. Bukkit bindet die Tasks an das Plugin; explizite Task-Verwaltung ist trotzdem uneinheitlich. |
+- SQLite: Hikari `maximumPoolSize=1`, genau ein Storage-Worker, WAL und
+  `busy_timeout=10000`. Die zuvor bestehende SQLite-FK-Semantik wurde nicht verändert.
+- MariaDB/MySQL: Hikari und Storage-Worker besitzen dieselbe konfigurierte, auf 1 bis
+  16 begrenzte Parallelität (Standard 4).
+- Die Worker-Queue ist auf 1024 Elemente begrenzt und verwendet benannte Daemon-
+  Threads. Nach Shutdown werden neue Tasks abgewiesen und noch wartende Tasks
+  exceptional abgeschlossen.
+- `StorageManager.close()` entfernt Repositorys und Snapshot-Listener, beendet den
+  Dispatcher, schließt Hikari und löscht den Cache. Erwartete Rejections während des
+  Shutdowns werden nicht als irreführende Reload-Fehler geloggt.
 
-## Behobene Fälle
+## Startup und sicherer Bootstrap
 
-1. `ClaimParticleModule` speichert den Repeating-Task, lädt das Intervall vor dem
-   Scheduling und cancelt den Task beim Disable. Dafür gibt es Regressionstests.
+Flyway und das Exposed-Initialschema laufen weiterhin synchron während des
+Plugin-Starts. Der danach gestartete `StorageBootstrap` lädt den gesamten
+JDBC-Snapshot ausschließlich auf dem Storage-Worker. Erst die Main-Thread-
+Continuation aktiviert Faction-Listener und Integrationen. Bis zur erfolgreichen
+Publikation ist der Cache explizit `not ready`; Protection-/PvP-/TNT-Pfade verhalten
+sich in diesem Zustand fail-closed. Ein Bootstrap-Fehler publiziert keinen
+Teilzustand, wird geloggt und lässt den Cache sicher `not ready`.
 
-Der zunächst getestete Async-Join-Persistenzversuch wurde wegen realer SQLite-
-Nebenläufigkeitsfehlern zurückgenommen. Es bleibt damit kein unvollständig
-parallelisierter DB-Pfad im Produktivcode.
+MariaDB benötigt wegen der bestehenden FK-Definition von `faction_users.faction_id`
+einen internen factionlosen Sentinel. Migration
+`mysql/V2__add_factionless_sentinel.sql` legt deshalb Faction `-1` an; der Loader
+filtert diesen internen Datensatz aus Gameplay-Snapshots. SQLite wurde dabei nicht
+auf nachträgliche FK-Prüfung umgestellt.
 
-## Lifecycle-/Thread-Sicherheitsprüfung
+Die zwischenzeitliche SQLite-/Exposed-Regression hatte genau hier ihre Ursache:
+`PRAGMA foreign_keys=ON` ließ bestehende Legacy-Fixtures mit `faction_id=-1` ohne
+Parent-Faction fehlschlagen. Die gemeinsame Datasource behält deshalb für SQLite die
+bisherige FK-Policy bei; MariaDB erhält den benötigten Parent stattdessen sauber über
+Flyway V2.
 
-- `ImprovedFactionsPlugin.onDisable()` deaktiviert Module; Paper/Bukkit cancelt die
-  plugingebundenen Scheduler-Tasks. Der Claim-Particle-Task wird zusätzlich explizit
-  beendet.
-- `BaseModule.onDisable()` schließt Adventure, aber keine explizite DB-Ressource.
-  Exposed/SQLite-/MySQL-Verbindungslebenszyklus bleibt ein offener Punkt für die
-  spätere Storage-/Flyway-Arbeit.
-- Exposed-DAO-Objekte sind nicht als thread-sichere DTOs zu betrachten. Sie dürfen
-  nicht aus einer Transaktion in einen Async-Callback getragen und dort weiterverwendet
-  werden. Ein isolierter Async-Join-Callback wurde deshalb wegen SQLite-Locks mit den
-  übrigen synchronen Transaktionen wieder entfernt.
-- Async-Code darf keine Bukkit-Welt-, Entity-, Player-, Location-, Event- oder
-  Rendering-Operationen ausführen. Deshalb wurden Move-/Protection-/Particle-/Power-
-  Pfade nicht halbautomatisch async gemacht.
+## Thread-Grenzen
 
-## Offene Punkte
+- DB-Worker erhalten nur kopierte UUIDs, IDs, Strings, Zahlen und immutable DTOs.
+- `GameStateCommands.kt` importiert weder Bukkit noch Exposed.
+- Command-Antworten, Bukkit-Events, World-/Player-Zugriffe, Siege-Folgeschritte und
+  Dynmap-Rendering werden über `MainThreadContinuation` auf den klassischen
+  Bukkit-Scheduler zurückgeführt. Es werden keine Folia-only APIs verwendet.
+- Command-Sender werden vor der Worker-Phase als skalare Referenz erfasst und erst in
+  der Main-Thread-Continuation erneut aufgelöst.
+- Placeholder-Anfragen von Async-Consumern liefern den konfigurierten Fallback,
+  statt Bukkit-`OfflinePlayer`-Zustand anzufassen oder auf den Main Thread zu warten.
+- Die öffentlichen Faction-Events tragen nur `FactionSnapshot`, `UserSnapshot` oder
+  skalare Create-Daten. Exposed-DAOs verlassen die interne Schema-/Testschicht nicht.
+- Im produktiven Source-Set existiert kein `Future.get`, `join`, `runBlocking` oder
+  vergleichbares blockierendes Warten in einem Main-Thread-Workflow.
 
-- Claim-/Protection-Entscheidungen benötigen einen thread-sicheren, atomar aktualisierten
-  Snapshot/Cache oder eine vorgelagerte Datenhaltung. Eine reine Umstellung auf
-  `runTaskAsynchronously` würde Event-Cancellation zu spät ausführen und Bukkit-API
-  aus Async-Code aufrufen.
-- Commands brauchen langfristig async DB-Arbeit mit Main-Thread-Continuation für
-  Nachrichten, Events und Bukkit-Objekte.
-- Placeholder sollten gecacht oder über eine API mit explizitem async/sync-Verhalten
-  bereitgestellt werden.
-- Power-, Invite- und Cluster-Tasks brauchen einen einheitlichen Lifecycle-/Executor-
-  Besitz, bevor sie umfassend parallelisiert werden.
-- DB-Migrationen/Flyway, MariaDB/MySQL, SQLite-Schema und Connection-Pool sind bewusst
-  nicht Teil dieser Änderung.
+## Migrierte laufende Pfade
 
-## Verifikation
+- Claims/Unclaims, Zonenclaims, Force-Varianten, Claim-Map und Claim-Schutz
+- Create/Delete/Rename/Icon/Join-Type, Join/Leave/Kick/Ban/Unban/Ownership
+- Invites einschließlich Ablaufentscheidung und Main-Thread-Broadcast
+- Ranks, Permissions und Default-/Fallback-Rank-Workflows
+- Home setzen/lesen/teleportieren und Wilderness-Zielsuche
+- Relations, Ally-Invites, War/Peace sowie Relations-Listen
+- Power-Reads/-Writes, periodische Akkumulation/Kosten und Siege-Victory-Unclaim
+- Move, PvP, TNT, Partikel, Placeholder, Charts und Dynmap-Snapshot-Rendering
+- Known-player Upsert beim Join
 
-- TDD-Tests für Claim-Particle-Intervall und Disable-Cleanup: erfolgreich.
-- Der Async-Join-Test war zunächst grün, aber die Vollsuite zeigte 17 SQLite-
-  Nebenläufigkeitsfehler; Implementierung und Test wurden deshalb zurückgenommen.
-- Die vollständige Testsuite wird nach dieser Rücknahme erneut ausgeführt; `plugin.yml`
-  und `version.properties` sind dabei als bestehende Benutzeränderungen zu bewahren.
+Die alten mutierenden Home-, Dynmap-, Invite-, Power- und Cluster-Handles wurden
+entfernt. Exposed-Entity-Klassen sind `internal` und auf Schemaabbildung reduziert.
 
-Referenzen: [Paper: Using databases](https://docs.papermc.io/paper/dev/using-databases/),
-[Paper: Scheduling](https://docs.papermc.io/paper/dev/scheduler/),
-[Paper: Plugin lifecycle](https://docs.papermc.io/paper/dev/how-do-plugins-work/).
+## Repo-weite Sync-DB-Suche und Klassifikation
+
+Gesucht wurde in `src/main/kotlin` nach `loggedTransaction`, `transaction {`,
+`SizedIterable` sowie Exposed-DAO-Operationen (`find`, `findById`, `all`, `new`,
+`count`). Ergebnis:
+
+1. **Startup/Initialschema (zulässig):**
+   `database/DatabaseManager.kt` und `ranks/FactionRankHandler.kt`. Hier werden
+   Tabellen/Spalten und der Guest-Rank vor laufendem Gameplay initialisiert.
+2. **Interner Clustering-Testalgorithmus (nicht produktiv verdrahtet):**
+   `claims/clustering/detector/ClaimClusterDetector.kt`,
+   `claims/clustering/cluster/Cluster.kt`, `claims/FactionClaimHandler.kt` und die
+   zugehörigen internen Schema-Entities. Der frühere Runtime-Provider und sämtliche
+   Base-/Faction-/Dynmap-Aufrufe wurden entfernt. Dieser Code wird nur von
+   `ClaimClusterDetectorTest` verwendet; produktive Raidability und Renderingdaten
+   entstehen im JDBC-Snapshot-Lader.
+3. **Laufende Produktivpfade:** keine Fundstelle. Ein Source-Boundary-Test scannt
+   Commands, Listener, Module, Integrationen, Charts und API auf synchrone Exposed-
+   Tokens und schützt außerdem die interne DAO-/Snapshot-Event-Grenze.
+
+Damit verbleibt keine synchron erreichbare DB-Nische in einem laufenden Serverpfad.
+
+## Regressionstests
+
+Die ergänzten/erweiterten Tests decken ab:
+
+- atomare und defensive Snapshot-Publikation, Cache-Invarianten und abgelaufene Invites;
+- erfolgreicher/fehlgeschlagener Bootstrap und fail-closed MockBukkit-Protection;
+- SQLite-Serialisierung, begrenzte MariaDB-Parallelität, Queue-/Shutdown-Lifecycle;
+- Commit-vor-Publish, Rollback-ohne-Publish und konkurrierende Reload-Generationen;
+- vollständiges JDBC-Materialisieren für SQLite und MariaDB einschließlich Timestamp-
+  Varianten und factionlosem Sentinel;
+- vollständige GameStateCommands-Workflows für Factions, Claims, Home, Invites,
+  Relations, Usage-Limits und Ranks;
+- Hot-Paths ohne DB-Roundtrip/Blocking, Codegenerator-Grenze sowie explizite
+  Main-Thread-Continuations;
+- Snapshot-basierte/cancellable Bukkit-Events und bestehende Command-, Module- und
+  Clustering-Regressionen.
+
+Ausgeführt ausschließlich in frischen temporären Arbeitskopien:
+
+```text
+MARIADB_TEST_URL=jdbc:mariadb://127.0.0.1:3307/improvedfactions
+MARIADB_TEST_USER=improvedfactions
+MARIADB_TEST_PASSWORD=improvedfactions
+./gradlew test --no-daemon --console=plain
+
+BUILD SUCCESSFUL
+32 Testsuites, 96 Tests, 0 Failures, 0 Errors, 0 Skipped
+```
+
+Die MariaDB-Migrations-, Loader- und Write/Commit/Reload-Tests liefen tatsächlich und
+wurden nicht per Assumption übersprungen.
+
+## Verbleibende Risiken
+
+- Jeder erfolgreiche Write lädt derzeit den vollständigen Snapshot neu. Das ist klar
+  und konsistent, kann aber bei sehr großen Datenmengen zum nächsten Skalierungsengpass
+  werden; inkrementelle, versionierte Snapshot-Patches wären eine spätere Optimierung.
+- Abgelaufene Invite-Zeilen werden aus Entscheidungen gefiltert, aber nicht periodisch
+  physisch gelöscht. Lang laufende Server können daher Wartungsbedarf für diese Tabelle
+  entwickeln.
+- Der interne alte Cluster-Algorithmus bleibt für seine bestehenden Unit-Tests im
+  Main-Source-Set. Er ist `internal`, besitzt keinen Runtime-Aufrufer und wird durch den
+  Boundary-Test vor einer versehentlichen Rückverdrahtung geschützt; eine spätere
+  reine In-Memory-Neuimplementierung könnte diesen Test-Altbestand ganz entfernen.
+- Flyway/Exposed-Initialisierung bleibt bewusst synchron und kann bei einer langsamen
+  Remote-Datenbank den Plugin-Start verlängern. Der initiale Snapshot ist davon getrennt
+  und läuft async; Gameplay-Entscheidungen bleiben bis zur erfolgreichen Publikation
+  fail-closed.
+- Das Schema erzwingt Faction-Namen weiterhin nicht mit einem DB-Unique-Constraint.
+  Die Repository-Prüfung verhindert normale Duplikate, aber mehrere gleichzeitig auf
+  dieselbe Datenbank schreibende Serverinstanzen wären ohne Schema-Constraint nicht
+  vollständig abgesichert.
+- Die Event-API ist absichtlich Big-Bang-inkompatibel geändert: Handler, die bisher
+  Exposed-`Faction`/`FactionUser` erwarteten, müssen auf Snapshot-DTOs beziehungsweise
+  `ownerId`/`factionName` umgestellt werden. Das verhindert DAO-Leaks, erfordert aber
+  eine Anpassung externer Plugin-Integrationen beim Upgrade.
+
+`improved-factions/src/main/resources/plugin.yml` und
+`improved-factions/version.properties` wurden bei dieser Arbeit weder geändert noch
+wiederhergestellt; ihre bereits vorhandenen Worktree-Änderungen blieben unangetastet.

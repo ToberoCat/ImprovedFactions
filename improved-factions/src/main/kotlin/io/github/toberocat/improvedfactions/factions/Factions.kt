@@ -18,7 +18,4 @@ object Factions : IntIdTable("factions") {
     val factionJoinType = enumeration("join_type", FactionJoinType::class)
         .default(FactionJoinType.INVITE_ONLY)
 
-    fun handleQueues() {
-        Faction.all().forEach { FactionHandler.createListenersFor(it) }
-    }
 }
