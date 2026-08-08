@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedfactions.api.events
 
-import io.github.toberocat.improvedfactions.factions.Faction
-import io.github.toberocat.improvedfactions.user.FactionUser
+import io.github.toberocat.improvedfactions.database.storage.FactionSnapshot
+import io.github.toberocat.improvedfactions.database.storage.UserSnapshot
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
@@ -9,7 +9,7 @@ import org.bukkit.event.HandlerList
 /**
  * Fired when a player joins a faction.
  */
-class FactionJoinEvent(val faction: Faction, val user: FactionUser) : Event(), Cancellable {
+class FactionJoinEvent(val faction: FactionSnapshot, val user: UserSnapshot) : Event(), Cancellable {
     private var isCancelled = false
 
     override fun getHandlers(): HandlerList = handlerList

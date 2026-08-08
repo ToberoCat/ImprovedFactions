@@ -7,7 +7,9 @@ import io.github.toberocat.improvedfactions.claims.getFactionClaim
 import io.github.toberocat.improvedfactions.listeners.claim.ClaimProtectionListener
 import org.bukkit.Chunk
 import org.bukkit.configuration.ConfigurationSection
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
+import io.github.toberocat.improvedfactions.database.storage.GameStateCommands
+import io.github.toberocat.improvedfactions.database.storage.claimKey
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 
 object ZoneHandler {
@@ -45,16 +47,10 @@ object ZoneHandler {
 
     fun getZones(): Set<String> = knownZones.keys
 
-    fun getZoneClaims(): List<FactionClaim> = loggedTransaction {
-        FactionClaim
-            .find { FactionClaims.zoneType neq FACTION_ZONE_TYPE }
-            .toList()
-    }
+    fun getZoneClaims() = StorageManager.cache.snapshot()?.claims.orEmpty().values
+        .filter { it.zoneType != FACTION_ZONE_TYPE }
 
     fun unclaim(chunk: Chunk) {
-        chunk.getFactionClaim()?.let {
-            it.zoneType = FACTION_ZONE_TYPE
-            BaseModule.claimChunkClusters.removePosition(it)
-        }
+        GameStateCommands.setZone(listOf(chunk.claimKey()), FACTION_ZONE_TYPE)
     }
 }

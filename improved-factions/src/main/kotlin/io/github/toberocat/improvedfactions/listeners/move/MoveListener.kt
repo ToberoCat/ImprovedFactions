@@ -1,7 +1,8 @@
 package io.github.toberocat.improvedfactions.listeners.move
 
-import io.github.toberocat.improvedfactions.claims.getFactionClaim
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.claims.overclaim.ClaimSiegeManager
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
+import io.github.toberocat.improvedfactions.database.storage.claimKey
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.utils.toAudience
 import org.bukkit.event.EventHandler
@@ -18,21 +19,20 @@ class MoveListener : Listener {
         val from = event.from.chunk
         if (to == event.from.chunk) return
 
-        loggedTransaction {
-            val toClaim = to?.getFactionClaim()
-            val fromClaim = from.getFactionClaim()
-            val audience = event.player.toAudience()
+        val cache = StorageManager.cache
+        if (!cache.isReady()) return
+        val toClaim = to?.let { cache.claim(it.claimKey()) }
+        val fromClaim = cache.claim(from.claimKey())
+        val audience = event.player.toAudience()
 
-            val toFaction = toClaim?.faction()
-            val isRaidable = toClaim?.isRaidable() == true
+        val toFaction = toClaim?.let { cache.faction(it.factionId) }
+        val isRaidable = toClaim?.isRaidable == true
 
-            fromClaim?.siegeManager?.leaveClaimCombat(event.player)
-            if (isRaidable)
-                toClaim?.siegeManager?.enterClaimCombat(event.player)
+        fromClaim?.let(ClaimSiegeManager::getManager)?.leaveClaimCombat(event.player)
+        if (isRaidable) toClaim?.let(ClaimSiegeManager::getManager)?.enterClaimCombat(event.player)
 
-            raidableBossBar.claimChanged(isRaidable, event.player, audience)
-            territoryListener.claimChanged(toClaim, fromClaim, toFaction, isRaidable, event.player)
-        }
+        raidableBossBar.claimChanged(isRaidable, event.player, audience)
+        territoryListener.claimChanged(toClaim, fromClaim, toFaction, isRaidable, event.player)
     }
 
 

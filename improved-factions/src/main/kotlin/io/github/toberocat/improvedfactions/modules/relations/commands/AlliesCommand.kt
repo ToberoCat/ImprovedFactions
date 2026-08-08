@@ -5,11 +5,8 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.commands.sendCommandResult
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import io.github.toberocat.improvedfactions.factions.FactionHandler
+import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.modules.relations.RelationsModule
-import io.github.toberocat.improvedfactions.modules.relations.RelationsModule.allies
-import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.entity.Player
 
 @GeneratedCommandMeta(
@@ -26,15 +23,15 @@ import org.bukkit.entity.Player
 abstract class AlliesCommand : AlliesCommandContext() {
 
     fun process(player: Player): CommandProcessResult {
-        val faction = player.factionUser().faction() ?: return notInFaction()
+        val faction = player.cachedUser().faction() ?: return notInFaction()
 
-        val allies = faction.allies()
+        val allies = StorageManager.cache.relations(faction.id, "ALLY")
         if (allies.isEmpty()) {
             return noAllies()
         }
 
         val details = allies.map { allyId ->
-            val allyName = FactionHandler.getFaction(allyId)?.name ?: "Unknown"
+            val allyName = StorageManager.cache.faction(allyId)?.name ?: "Unknown"
             allyDetail("name" to allyName)
         }
 

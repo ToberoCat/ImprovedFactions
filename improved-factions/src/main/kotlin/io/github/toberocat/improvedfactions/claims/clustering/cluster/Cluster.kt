@@ -5,7 +5,6 @@ import io.github.toberocat.improvedfactions.claims.FactionClaims
 import io.github.toberocat.improvedfactions.claims.clustering.ClusterType
 import io.github.toberocat.improvedfactions.claims.clustering.position.WorldPosition
 import io.github.toberocat.improvedfactions.database.DatabaseManager
-import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import io.github.toberocat.improvedfactions.utils.DatabaseLazyUpdate
 import io.github.toberocat.improvedfactions.utils.LazyUpdate
 import org.jetbrains.exposed.dao.UUIDEntity
@@ -14,7 +13,7 @@ import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import java.util.*
 
-class Cluster(id: EntityID<UUID>) : UUIDEntity(id) {
+internal class Cluster(id: EntityID<UUID>) : UUIDEntity(id) {
     companion object : UUIDEntityClass<Cluster>(Clusters)
 
     private var cachedCenterX by Clusters.centerX
@@ -37,7 +36,6 @@ class Cluster(id: EntityID<UUID>) : UUIDEntity(id) {
     override fun delete() {
         getClaims().forEach { it.claimCluster = null }
         findAdditionalType()?.delete()
-        DynmapModule.dynmapModule().dynmapModuleHandle.clusterRemove(this)
         super.delete()
     }
 
@@ -69,7 +67,6 @@ class Cluster(id: EntityID<UUID>) : UUIDEntity(id) {
         center.scheduleUpdate()
         outerNodes.scheduleUpdate()
         findAdditionalType()?.scheduleUpdate()
-        DynmapModule.dynmapModule().dynmapModuleHandle.clusterChange(this)
     }
 
     fun findAdditionalType(): AdditionalClusterType? = when (type) {

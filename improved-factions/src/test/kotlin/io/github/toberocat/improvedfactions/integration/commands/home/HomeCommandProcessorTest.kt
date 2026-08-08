@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedfactions.integration.commands.home
 
 import org.mockbukkit.mockbukkit.entity.PlayerMock
-import io.github.toberocat.improvedfactions.factions.Faction
+import io.github.toberocat.improvedfactions.database.storage.FactionSnapshot
 import io.github.toberocat.improvedfactions.ImprovedFactionsTest
 import org.bukkit.Chunk
 import org.bukkit.World
@@ -14,7 +14,7 @@ class HomeCommandProcessorTest : ImprovedFactionsTest() {
 
     private lateinit var player1: PlayerMock
     private lateinit var player2: PlayerMock
-    private lateinit var faction: Faction
+    private lateinit var faction: FactionSnapshot
     private lateinit var world: World
     private lateinit var chunk: Chunk
 
@@ -37,7 +37,9 @@ class HomeCommandProcessorTest : ImprovedFactionsTest() {
 
         player1.location = chunk.getBlock(8, 8, 8).location
         assertTrue(server.dispatchCommand(player1, "f claim"))
+        awaitStorage()
         assertTrue(server.dispatchCommand(player1, "f sethome"))
+        awaitStorage()
         assertTrue(server.dispatchCommand(player1, "f home"))
         assertTrue(server.dispatchCommand(player2, "f home"))
     }

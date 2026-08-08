@@ -5,8 +5,7 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.commands.sendCommandResult
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import io.github.toberocat.improvedfactions.factions.FactionHandler
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
 import io.github.toberocat.improvedfactions.translation.sendLocalized
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -26,11 +25,11 @@ abstract class ListFactionsCommand : ListFactionsCommandContext() {
     fun process(sender: CommandSender): CommandProcessResult {
         sender.sendCommandResult(listHeader())
 
-        val factions = FactionHandler.getFactions().map { faction ->
+        val factions = StorageManager.cache.factions().map { faction ->
             listFaction(
                 "name" to faction.name,
                 "power" to faction.accumulatedPower.toString(),
-                "members" to faction.members().count().toString()
+                "members" to StorageManager.cache.factionMembers(faction.id).size.toString()
             )
         }
 

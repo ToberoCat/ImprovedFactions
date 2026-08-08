@@ -1,8 +1,8 @@
 package io.github.toberocat.improvedfactions.listeners.move
 
-import io.github.toberocat.improvedfactions.claims.FactionClaim
 import io.github.toberocat.improvedfactions.config.ImprovedFactionsConfig
-import io.github.toberocat.improvedfactions.factions.Faction
+import io.github.toberocat.improvedfactions.database.storage.ClaimSnapshot
+import io.github.toberocat.improvedfactions.database.storage.FactionSnapshot
 import io.github.toberocat.improvedfactions.user.noFactionId
 import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import org.bukkit.entity.Player
@@ -12,15 +12,15 @@ class TerritoryTitle(private val pluginConfig: ImprovedFactionsConfig) : Listene
 
 
     fun claimChanged(
-        toClaim: FactionClaim?,
-        fromClaim: FactionClaim?,
-        toFaction: Faction?,
+        toClaim: ClaimSnapshot?,
+        fromClaim: ClaimSnapshot?,
+        toFaction: FactionSnapshot?,
         isRaidable: Boolean,
         player: Player
     ) {
         if (hideTerritoryAnnouncement(toClaim, fromClaim)) return
 
-        val toZone = toClaim?.zone()
+        val toZone = toClaim?.zoneType?.let(ZoneHandler::getZone)
         val key = when {
             toFaction != null -> "base.claim-faction-territory"
             else -> toZone?.noFactionTitle ?: "base.zone.wilderness"
@@ -37,18 +37,17 @@ class TerritoryTitle(private val pluginConfig: ImprovedFactionsConfig) : Listene
         )
     }
 
-    private fun hideTerritoryAnnouncement(toClaim: FactionClaim?, fromClaim: FactionClaim?): Boolean {
-        val toZone = toClaim?.zone()
+    private fun hideTerritoryAnnouncement(toClaim: ClaimSnapshot?, fromClaim: ClaimSnapshot?): Boolean {
+        val toZone = toClaim?.zoneType?.let(ZoneHandler::getZone)
         if (toZone == null && pluginConfig.hideWildernessTitle) return false
         return when (toZone?.announceTitle) {
             false -> true
             else -> {
-                val toFaction = toClaim?.faction()
                 val fromFaction = fromClaim?.factionId ?: noFactionId
 
                 val fromZoneType = fromClaim?.zoneType ?: ZoneHandler.FACTION_ZONE_TYPE
                 val toZoneType = toZone?.type ?: ZoneHandler.FACTION_ZONE_TYPE
-                val toFactionId = toFaction?.id?.value ?: noFactionId
+                val toFactionId = toClaim?.factionId ?: noFactionId
                 return toFactionId == fromFaction && toZoneType == fromZoneType
             }
         }

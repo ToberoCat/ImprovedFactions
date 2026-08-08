@@ -5,11 +5,9 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.commands.sendCommandResult
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.permissions.Permissions
-import io.github.toberocat.improvedfactions.ranks.listRanks
-import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.entity.Player
 
 @GeneratedCommandMeta(
@@ -27,7 +25,7 @@ import org.bukkit.entity.Player
 abstract class RankCommandRoute : RankCommandRouteContext() {
 
     fun process(player: Player): CommandProcessResult {
-        val user = player.factionUser()
+        val user = player.cachedUser()
         val faction = user.faction() ?: return notInFaction()
 
         if (!user.hasPermission(Permissions.MANAGE_PERMISSIONS)) {
@@ -36,17 +34,15 @@ abstract class RankCommandRoute : RankCommandRouteContext() {
 
         player.sendCommandResult(rankHeader())
 
-        val ranks = loggedTransaction {
-            faction.listRanks()
+        val ranks = StorageManager.cache.ranks(faction.id)
                 .filter { user.canManage(it) }
                 .map {
                     rankOverview(
                         "name" to it.name,
                         "priority" to it.priority.toString(),
-                        "countAssignedUsers" to it.countAssignedUsers().toString()
+                        "countAssignedUsers" to StorageManager.cache.snapshot()?.users.orEmpty().values.count { user -> user.rankId == it.id }.toString()
                     )
                 }
-        }
 
         ranks.forEach { player.sendCommandResult(it) }
         return ranksListed()

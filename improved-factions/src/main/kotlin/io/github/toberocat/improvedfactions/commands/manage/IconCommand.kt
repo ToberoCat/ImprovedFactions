@@ -4,9 +4,10 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
 import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.commands.respondAfter
+import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.permissions.Permissions
-import io.github.toberocat.improvedfactions.user.factionUser
+import io.github.toberocat.improvedfactions.utils.Base64Item
 import org.bukkit.Material
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
@@ -26,18 +27,18 @@ import org.bukkit.entity.Player
 )
 abstract class IconCommand : IconCommandContext() {
 
-    fun process(player: Player) = setIcon(player)
+    fun process(player: Player) = setIcon(player, player)
 
-    fun process(sender: CommandSender, target: Player) = setIcon(target)
+    fun process(sender: CommandSender, target: Player) = setIcon(sender, target)
 
-    private fun setIcon(player: Player): CommandProcessResult {
+    private fun setIcon(sender: CommandSender, player: Player): CommandProcessResult? {
         val item = player.inventory.itemInMainHand.clone()
 
         if (item.type == Material.AIR) {
             return invalidIcon()
         }
 
-        val factionUser = player.factionUser()
+        val factionUser = player.cachedUser()
         val faction =factionUser.faction()
             ?: return factionNeeded()
 
@@ -45,11 +46,16 @@ abstract class IconCommand : IconCommandContext() {
             return notFactionOwner()
         }
 
-        if (factionUser.hasPermission(Permissions.SET_ICON)) {
+        if (!factionUser.hasPermission(Permissions.SET_ICON)) {
             return noPermission()
         }
 
-        faction.icon = item
-        return setIconSuccess("faction" to faction.name)
+        val encoded = runCatching { Base64Item.encode(item) }.getOrNull() ?: return invalidIcon()
+        if (encoded.length > io.github.toberocat.improvedfactions.modules.base.BaseModule.config.maxFactionIconLength) {
+            return invalidIcon()
+        }
+        return sender.respondAfter(GameStateCommands.setIcon(faction.id, encoded)) {
+            setIconSuccess("faction" to faction.name)
+        }
     }
 }

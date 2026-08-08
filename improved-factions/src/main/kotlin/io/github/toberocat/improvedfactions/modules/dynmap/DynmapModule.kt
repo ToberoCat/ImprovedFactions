@@ -10,6 +10,7 @@ import io.github.toberocat.improvedfactions.modules.dynmap.impl.FactionDynmapMod
 import org.bukkit.Bukkit
 import org.dynmap.DynmapCommonAPI
 import org.dynmap.DynmapCommonAPIListener
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
 
 class DynmapModule : Module {
     override val moduleName = MODULE_NAME
@@ -31,7 +32,8 @@ class DynmapModule : Module {
     }
 
     override fun onEverythingEnabled(plugin: ImprovedFactionsPlugin) {
-        dynmapModuleHandle.onInitialClusterLoad(BaseModule.claimChunkClusters.clusters)
+        dynmapModuleHandle.renderSnapshot()
+        StorageManager.addSnapshotListener(dynmapModuleHandle::renderSnapshot)
     }
 
 

@@ -3,12 +3,12 @@ package io.github.toberocat.improvedfactions.modules.power.commands
 import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
 import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
-import io.github.toberocat.improvedfactions.claims.getFactionClaim
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
+import io.github.toberocat.improvedfactions.database.storage.claimKey
+import io.github.toberocat.improvedfactions.claims.overclaim.ClaimSiegeManager
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.modules.power.impl.FactionPowerRaidModuleHandleImpl
-import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.user.noFactionId
 import org.bukkit.entity.Player
 
@@ -25,15 +25,15 @@ import org.bukkit.entity.Player
 abstract class SiegeCommand: SiegeCommandContext() {
 
     fun process(player: Player): CommandProcessResult {
-        val claim = player.location.getFactionClaim()
+        val claim = StorageManager.cache.claim(player.location.claimKey())
         if (claim == null || claim.factionId == noFactionId) {
             return notInClaim()
         }
-        if (claim.factionId == player.factionUser().factionId) {
+        if (claim.factionId == StorageManager.cache.user(player.uniqueId)?.factionId) {
             return ownClaim()
         }
 
-        claim.siegeManager.startSiege(player)
-        return siegeStarted("factionName" to (claim.faction()?.name ?: "Unknown"))
+        ClaimSiegeManager.getManager(claim).startSiege(player)
+        return siegeStarted("factionName" to (StorageManager.cache.faction(claim.factionId)?.name ?: "Unknown"))
     }
 }

@@ -30,6 +30,9 @@ started with customizing your factions experience.
 After installation, the plugin works out of the box with default settings. You can modify these settings to tailor the
 experience to your server.
 
+For external database storage, see the [MariaDB/MySQL database setup guide](database).
+SQLite remains the default for zero-configuration installations.
+
 ### **Default Configuration**
 
 1. Locate the `config.yml` file in the `plugins/ImprovedFactions` folder.

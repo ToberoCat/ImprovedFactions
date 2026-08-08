@@ -1,8 +1,8 @@
 package io.github.toberocat.improvedfactions.modules.wilderness.config
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
-import io.github.toberocat.improvedfactions.claims.FactionClaims
-import io.github.toberocat.improvedfactions.claims.getFactionClaim
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
+import io.github.toberocat.improvedfactions.database.storage.claimKey
 import io.github.toberocat.improvedfactions.config.ImprovedFactionsConfig
 import io.github.toberocat.improvedfactions.config.PluginConfig
 import io.github.toberocat.improvedfactions.user.noFactionId
@@ -10,7 +10,6 @@ import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.configuration.file.FileConfiguration
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import java.lang.Math.round
 import java.util.concurrent.TimeUnit
@@ -95,9 +94,8 @@ class WildernessModuleConfig(
 
         for (i in -claimDistanceCheck until claimDistanceCheck) {
             for (j in -claimDistanceCheck until claimDistanceCheck) {
-                val claim =
-                    loggedTransaction { location.clone().add(i.toDouble(), 0.0, j.toDouble()).getFactionClaim() }
-                        ?: continue
+                val claim = StorageManager.cache.claim(location.clone().add(i.toDouble(), 0.0, j.toDouble()).claimKey())
+                    ?: continue
                 val factionId = claim.factionId
                 val zoneId = claim.zoneType
                 if (factionId != noFactionId || zoneId !in includedZones) {

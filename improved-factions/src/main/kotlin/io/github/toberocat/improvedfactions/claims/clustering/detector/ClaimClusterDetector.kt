@@ -10,14 +10,12 @@ import io.github.toberocat.improvedfactions.claims.clustering.cluster.ZoneCluste
 import io.github.toberocat.improvedfactions.claims.clustering.query.ClaimQueryProvider
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.factions.Faction
-import io.github.toberocat.improvedfactions.factions.FactionHandler
-import io.github.toberocat.improvedfactions.modules.dynmap.DynmapModule
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.util.*
 
 // TODO: The clusting is still not working properly.
-class ClaimClusterDetector(
+internal class ClaimClusterDetector(
     private val queryProvider: ClaimQueryProvider,
     private val generateClusterId: () -> UUID = UUID::randomUUID
 ) {
@@ -51,7 +49,7 @@ class ClaimClusterDetector(
             }) { id, claims ->
                 val factionAdditional = FactionCluster.new {
                     this.faction =
-                        FactionHandler.getFaction(factionId) ?: throw IllegalArgumentException("Faction not found")
+                        Faction.findById(factionId) ?: throw IllegalArgumentException("Faction not found")
                 }
                 Cluster.new(id) {
                     type = ClusterType.FACTION
@@ -86,7 +84,7 @@ class ClaimClusterDetector(
 
     fun markFactionClusterForUpdate(faction: Faction) {
         loggedTransaction {
-            faction.claims()
+            FactionClaim.find { FactionClaims.factionId eq faction.id.value }
                 .mapNotNull { it.claimCluster }
                 .distinctBy { it.id.value }
                 .forEach { it.updateCluster() }
@@ -95,7 +93,7 @@ class ClaimClusterDetector(
 
     fun removeFactionClusters(faction: Faction) {
         loggedTransaction {
-            faction.claims()
+            FactionClaim.find { FactionClaims.factionId eq faction.id.value }
                 .mapNotNull { it.claimCluster }
                 .distinctBy { it.id.value }
                 .forEach { it.delete() }
@@ -110,8 +108,6 @@ class ClaimClusterDetector(
         loggedTransaction {
             val cluster = claim.claimCluster ?: return@loggedTransaction
             cluster.removeAll(setOf(claim))
-            DynmapModule.dynmapModule().dynmapModuleHandle.removeClaim(claim)
-
             val unreachablePositions = ClusterReachabilityChecker(cluster.getClaims().map { it.toPosition() }.toSet())
                 .getUnreachablePositions()
                 .mapNotNull { it.getFactionClaim() }

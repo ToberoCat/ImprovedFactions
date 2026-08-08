@@ -8,7 +8,6 @@ import io.github.toberocat.improvedfactions.annotations.permission.PermissionCon
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.managers.ByPassManager
 import io.github.toberocat.improvedfactions.permissions.Permissions
-import io.github.toberocat.improvedfactions.user.factionUser
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player

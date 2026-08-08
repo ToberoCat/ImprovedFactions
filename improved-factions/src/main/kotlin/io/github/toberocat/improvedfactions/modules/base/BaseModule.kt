@@ -8,20 +8,20 @@ import io.github.toberocat.improvedfactions.SPIGOT_RESOURCE_ID
 import io.github.toberocat.improvedfactions.annotations.papi.PapiPlaceholder
 import io.github.toberocat.improvedfactions.annotations.permission.Permission
 import io.github.toberocat.improvedfactions.annotations.permission.PermissionConfigurations
-import io.github.toberocat.improvedfactions.claims.clustering.detector.ClaimClusterDetector
-import io.github.toberocat.improvedfactions.claims.clustering.query.DatabaseClaimQueryProvider
 import io.github.toberocat.improvedfactions.commands.processor.baseCommandProcessors
 import io.github.toberocat.improvedfactions.config.ImprovedFactionsConfig
 import io.github.toberocat.improvedfactions.database.DatabaseConnector
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
+import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.integrations.Integrations
+import io.github.toberocat.improvedfactions.integrations.papi.PlaceholderIntegration
 import io.github.toberocat.improvedfactions.listeners.PlayerJoinListener
 import io.github.toberocat.improvedfactions.listeners.move.MoveListener
 import io.github.toberocat.improvedfactions.modules.Module
+import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.translation.updateLanguages
-import io.github.toberocat.improvedfactions.user.factionUser
 import io.github.toberocat.improvedfactions.utils.BStatsCollector
 import io.github.toberocat.improvedfactions.utils.FileUtils
-import io.github.toberocat.improvedfactions.utils.toOfflinePlayer
 import net.kyori.adventure.platform.bukkit.BukkitAudiences
 import org.bukkit.OfflinePlayer
 import org.jetbrains.exposed.sql.Database
@@ -35,7 +35,6 @@ object BaseModule : Module {
     lateinit var adventure: BukkitAudiences
     lateinit var config: ImprovedFactionsConfig
     lateinit var database: Database
-    lateinit var claimChunkClusters: ClaimClusterDetector
     lateinit var logger: Logger
     lateinit var plugin: ImprovedFactionsPlugin
     lateinit var integrations: Integrations
@@ -45,7 +44,6 @@ object BaseModule : Module {
         logger = plugin.logger
 
         adventure = BukkitAudiences.create(plugin)
-        claimChunkClusters = ClaimClusterDetector(DatabaseClaimQueryProvider())
         config = ImprovedFactionsConfig.createConfig(plugin)
 
         BStatsCollector(plugin)
@@ -65,8 +63,13 @@ object BaseModule : Module {
     override fun shouldEnable(plugin: ImprovedFactionsPlugin) = true
 
     override fun onEverythingEnabled(plugin: ImprovedFactionsPlugin) {
-        claimChunkClusters.detectClusters()
-        integrations.loadIntegrations()
+        val bootstrap = StorageManager.initializeSnapshotRepository(PowerRaidsModule.config, config.guestRankName)
+        StorageManager.continueOnMain(bootstrap, {
+            StorageManager.cache.factions().forEach { FactionHandler.createListenersFor(it.id) }
+            integrations.loadIntegrations()
+        }, { failure ->
+            logger.severe("Unable to initialize the storage snapshot; gameplay remains disabled until restart: ${failure.message}")
+        })
     }
 
     override fun onLoadDatabase(plugin: ImprovedFactionsPlugin) {
@@ -75,6 +78,7 @@ object BaseModule : Module {
 
     override fun onDisable(plugin: ImprovedFactionsPlugin) {
         adventure.close()
+        StorageManager.close()
     }
 
     @PapiPlaceholder("owner", MODULE_NAME, "The owner of the faction")
@@ -82,10 +86,9 @@ object BaseModule : Module {
     @PapiPlaceholder("rank", MODULE_NAME, "The rank of the player in the faction")
     @PapiPlaceholder("join_mode", MODULE_NAME, "The join mode of the faction")
     override fun onPlaceholder(placeholders: HashMap<String, (player: OfflinePlayer) -> String?>) {
-        placeholders["owner"] = { it.factionUser().faction()?.owner?.toOfflinePlayer()?.name }
-        placeholders["name"] = { it.factionUser().faction()?.name }
-        placeholders["rank"] = { it.factionUser().rank().name }
-        placeholders["join_mode"] = { it.factionUser().faction()?.factionJoinType?.toString() }
+        listOf("owner", "name", "rank", "join_mode").forEach { key ->
+            placeholders[key] = { PlaceholderIntegration.parsePlaceholder(it, key) }
+        }
     }
 
     @Permission("factions.updatechecker", config = PermissionConfigurations.OP_ONLY)

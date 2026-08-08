@@ -9,8 +9,7 @@ import io.github.toberocat.improvedfactions.modules.power.handles.DummyFactionPo
 import io.github.toberocat.improvedfactions.modules.power.handles.FactionPowerRaidModuleHandle
 import io.github.toberocat.improvedfactions.modules.power.impl.FactionPowerRaidModuleHandleImpl
 import io.github.toberocat.improvedfactions.modules.power.listener.PlayerDeathListener
-import io.github.toberocat.improvedfactions.user.factionUser
-import io.github.toberocat.improvedfactions.utils.toCountdownTime
+import io.github.toberocat.improvedfactions.integrations.papi.PlaceholderIntegration
 import org.bukkit.OfflinePlayer
 
 object PowerRaidsModule : Module {
@@ -39,11 +38,11 @@ object PowerRaidsModule : Module {
     @PapiPlaceholder("power", MODULE_NAME, "The power of your faction")
     @PapiPlaceholder("max_power", MODULE_NAME, "The maximum power of your faction")
     override fun onPlaceholder(placeholders: HashMap<String, (player: OfflinePlayer) -> String?>) {
-        placeholders["power"] = { it.factionUser().faction()?.accumulatedPower?.toString() }
-        placeholders["max_power"] = { it.factionUser().faction()?.maxPower?.toString() }
+        placeholders["power"] = { PlaceholderIntegration.parsePlaceholder(it, "power") }
+        placeholders["max_power"] = { PlaceholderIntegration.parsePlaceholder(it, "max_power") }
 
-        (powerModuleHandle as? FactionPowerRaidModuleHandleImpl)?.let {
-            registerPowerSpecificPlaceholders(it, placeholders)
+        if (powerModuleHandle is FactionPowerRaidModuleHandleImpl) {
+            registerPowerSpecificPlaceholders(placeholders)
         }
     }
 
@@ -80,26 +79,18 @@ object PowerRaidsModule : Module {
         "The time left until the next claim keep cost cycle"
     )
     private fun registerPowerSpecificPlaceholders(
-        handle: FactionPowerRaidModuleHandleImpl,
         placeholders: HashMap<String, (player: OfflinePlayer) -> String?>
     ) {
-        placeholders["next_power_gain"] =
-            { player -> player.factionUser().faction()?.let { String.format("%.2f", handle.getPowerAccumulated(it)) } }
-        placeholders["active_accumulation"] =
-            { player -> player.factionUser().faction()?.let { handle.getActivePowerAccumulation(it).toString() } }
-        placeholders["inactive_accumulation"] =
-            { player -> player.factionUser().faction()?.let { handle.getInactivePowerAccumulation(it).toString() } }
-        placeholders["claim_upkeep_cost"] =
-            { player -> player.factionUser().faction()?.let { handle.getClaimMaintenanceCost(it).toString() } }
-        placeholders["next_claim_cost"] =
-            { player -> player.factionUser().faction()?.let { handle.getNextClaimCost(it).toString() } }
-        placeholders["next_accumulation_cycle"] = {
-            val nextCycleMs = handle.nextAccumulationCycleTime()
-            (nextCycleMs - System.currentTimeMillis()).toCountdownTime()
-        }
-        placeholders["next_claim_keep_cost_cycle"] = {
-            val nextCycleMs = handle.nextClaimKeepCostCycleTime()
-            (nextCycleMs - System.currentTimeMillis()).toCountdownTime()
+        listOf(
+            "next_power_gain",
+            "active_accumulation",
+            "inactive_accumulation",
+            "claim_upkeep_cost",
+            "next_claim_cost",
+            "next_accumulation_cycle",
+            "next_claim_keep_cost_cycle"
+        ).forEach { key ->
+            placeholders[key] = { PlaceholderIntegration.parsePlaceholder(it, key) }
         }
     }
 }

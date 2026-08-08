@@ -8,10 +8,8 @@ import io.github.toberocat.improvedfactions.commands.arguments.bukkit.OfflinePla
 import io.github.toberocat.improvedfactions.commands.arguments.bukkit.PlayerArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.bukkit.WorldArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionArgumentParser
-import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionBanArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionInviteArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionRankArgumentParser
-import io.github.toberocat.improvedfactions.commands.arguments.faction.FactionUserArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.faction.ZoneArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.BoolArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.IntArgumentParser
@@ -19,17 +17,14 @@ import io.github.toberocat.improvedfactions.commands.arguments.primitives.String
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.enums.JoinTypeEnumArgumentParser
 import io.github.toberocat.improvedfactions.commands.arguments.primitives.enums.PowerTypeArgumentParser
 import io.github.toberocat.improvedfactions.commands.sendCommandResult
-import io.github.toberocat.improvedfactions.factions.Faction
+import io.github.toberocat.improvedfactions.database.storage.FactionSnapshot
+import io.github.toberocat.improvedfactions.database.storage.InviteSnapshot
+import io.github.toberocat.improvedfactions.database.storage.RankSnapshot
 import io.github.toberocat.improvedfactions.factions.FactionJoinType
-import io.github.toberocat.improvedfactions.factions.ban.FactionBan
-import io.github.toberocat.improvedfactions.invites.FactionInvite
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.power.PowerType
-import io.github.toberocat.improvedfactions.ranks.FactionRank
 import io.github.toberocat.improvedfactions.translation.LocalizedException
-import io.github.toberocat.improvedfactions.user.FactionUser
 import io.github.toberocat.improvedfactions.translation.sendLocalized
-import io.github.toberocat.toberocore.util.PlaceholderException
 import io.github.toberocat.improvedfactions.zone.Zone
 import org.bukkit.OfflinePlayer
 import org.bukkit.World
@@ -44,15 +39,13 @@ val DEFAULT_PARSERS = mapOf<Class<*>, ArgumentParser>(
     Boolean::class.java to BoolArgumentParser(),
     Player::class.java to PlayerArgumentParser(),
     OfflinePlayer::class.java to OfflinePlayerArgumentParser(),
-    Faction::class.java to FactionArgumentParser(),
-    FactionBan::class.java to FactionBanArgumentParser(),
+    FactionSnapshot::class.java to FactionArgumentParser(),
     FactionJoinType::class.java to JoinTypeEnumArgumentParser(),
     Zone::class.java to ZoneArgumentParser(),
     World::class.java to WorldArgumentParser(),
-    FactionInvite::class.java to FactionInviteArgumentParser(),
-    FactionRank::class.java to FactionRankArgumentParser(),
-    PowerType::class.java to PowerTypeArgumentParser(),
-    FactionUser::class.java to FactionUserArgumentParser()
+    InviteSnapshot::class.java to FactionInviteArgumentParser(),
+    RankSnapshot::class.java to FactionRankArgumentParser(),
+    PowerType::class.java to PowerTypeArgumentParser()
 )
 
 open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExecutor {
@@ -141,13 +134,6 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
         }.onFailure {
             if (it is LocalizedException) {
                 sender.sendLocalized(it.key, it.placeholders)
-            } else if (it is PlaceholderException) {
-                val key = it.message
-                if (key != null) {
-                    sender.sendLocalized(key, it.placeholders)
-                } else {
-                    sender.sendMessage("An error occurred")
-                }
             } else {
                 plugin.logger.warning(
                     "The command ${processor.label} used a non localized exception - This is the outdated way of handling exceptions." +
@@ -158,7 +144,7 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
             }
         }.getOrNull() ?: return false
 
-        sender.sendCommandResult(result)
+        if (!result.deferred) sender.sendCommandResult(result)
         return true
     }
 

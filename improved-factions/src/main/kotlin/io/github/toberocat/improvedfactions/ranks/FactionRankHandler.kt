@@ -1,26 +1,17 @@
 package io.github.toberocat.improvedfactions.ranks
 
-import io.github.toberocat.improvedfactions.factions.Faction
 import io.github.toberocat.improvedfactions.permissions.FactionPermission
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.user.noFactionId
 import io.github.toberocat.toberocore.command.exceptions.CommandException
-import org.jetbrains.exposed.sql.SizedIterable
-import org.jetbrains.exposed.sql.and
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 
-fun Faction.listRanks(): SizedIterable<FactionRank> = FactionRank.find { FactionRanks.factionId eq id.value }
-
-fun Faction.anyRank(name: String): FactionRank? =
-    FactionRank.find { FactionRanks.name eq name and (FactionRanks.factionId eq id.value) }.firstOrNull()
-
-
-object FactionRankHandler {
+internal object FactionRankHandler {
     var guestRankId: Int = 0
     lateinit var guestRank: FactionRank
 
-    fun createRank(
+    private fun createRank(
         factionId: Int, rankName: String, priority: Int, allowedPermissions: Collection<String>
     ): FactionRank {
         if (rankName.length > BaseModule.config.maxRankNameLength) throw CommandException(

@@ -4,12 +4,14 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
 import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
-import io.github.toberocat.improvedfactions.factions.Faction
-import io.github.toberocat.improvedfactions.factions.FactionHandler
-import io.github.toberocat.improvedfactions.factions.Factions
+import io.github.toberocat.improvedfactions.commands.cancelledCommandResult
+import io.github.toberocat.improvedfactions.commands.respondAfter
+import io.github.toberocat.improvedfactions.api.events.FactionCreateEvent
+import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
-import io.github.toberocat.improvedfactions.user.factionUser
+import io.github.toberocat.improvedfactions.permissions.Permissions
 import org.bukkit.OfflinePlayer
+import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
@@ -32,16 +34,16 @@ import org.bukkit.entity.Player
 )
 abstract class CreateCommand : CreateCommandContext() {
 
-    fun process(player: Player, name: String) = createFaction(player, name)
+    fun process(player: Player, name: String) = createFaction(player, player, name)
 
-    fun process(sender: CommandSender, owner: OfflinePlayer, name: String) = createFaction(owner, name)
+    fun process(sender: CommandSender, owner: OfflinePlayer, name: String) = createFaction(sender, owner, name)
 
-    private fun createFaction(owner: OfflinePlayer, name: String): CommandProcessResult {
-        if (FactionHandler.getFaction(name) != null) {
+    private fun createFaction(sender: CommandSender, owner: OfflinePlayer, name: String): CommandProcessResult? {
+        if (StorageManager.cache.factions().any { it.name.equals(name, ignoreCase = true) }) {
             return factionAlreadyExists()
         }
 
-        if (owner.factionUser().isInFaction()) {
+        if (owner.cachedUser().isInFaction()) {
             return alreadyInFaction()
         }
 
@@ -53,7 +55,26 @@ abstract class CreateCommand : CreateCommandContext() {
             return nameTooLong("max" to BaseModule.config.maxNameLength.toString())
         }
 
-        val faction: Faction = FactionHandler.createFaction(owner.uniqueId, name)
-        return createdFaction("faction" to faction.name)
+        val event = FactionCreateEvent(owner.uniqueId, name)
+        Bukkit.getPluginManager().callEvent(event)
+        if (event.isCancelled) return cancelledCommandResult()
+
+        val configuredRanks = BaseModule.plugin.config.getConfigurationSection("factions.default-faction-ranks")
+        val ranks = configuredRanks?.getKeys(false)?.map { rankName ->
+            GameStateCommands.DefaultRankSpec(
+                rankName,
+                configuredRanks.getInt("$rankName.priority"),
+                configuredRanks.getStringList("$rankName.default-permissions").toSet()
+            )
+        } ?: listOf(
+            GameStateCommands.DefaultRankSpec("Member", 1, setOf(Permissions.SEND_INVITES)),
+            GameStateCommands.DefaultRankSpec("Owner", 1000, Permissions.knownPermissions.keys)
+        )
+        return sender.respondAfter(
+            GameStateCommands.createFaction(owner.uniqueId, name, 50, ranks, Permissions.knownPermissions.keys)
+        ) { factionId ->
+            io.github.toberocat.improvedfactions.factions.FactionHandler.createListenersFor(factionId)
+            createdFaction("faction" to name)
+        }
     }
 }

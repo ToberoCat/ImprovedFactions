@@ -2,8 +2,9 @@ package io.github.toberocat.improvedfactions.integration.commands.create
 
 import io.github.toberocat.improvedfactions.factions.FactionHandler
 import io.github.toberocat.improvedfactions.ImprovedFactionsTest
-import io.github.toberocat.improvedfactions.user.factionUser
-import org.jetbrains.exposed.sql.transactions.transaction
+import io.github.toberocat.improvedfactions.database.storage.cachedUser
+import io.github.toberocat.improvedfactions.database.storage.isInFaction
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
@@ -26,9 +27,10 @@ class CreateCommandTest : ImprovedFactionsTest() {
     fun `creating a faction`(onlineMode: Boolean) {
         server.onlineMode = onlineMode
 
-        assertFalse(player1.factionUser().isInFaction())
+        assertFalse(player1.cachedUser().isInFaction())
         assertTrue(server.dispatchCommand(player1, "f create TestFaction"))
-        assertTrue(player1.factionUser().isInFaction())
+        awaitStorage()
+        assertTrue(player1.cachedUser().isInFaction())
     }
 
     @ParameterizedTest
@@ -36,15 +38,15 @@ class CreateCommandTest : ImprovedFactionsTest() {
     fun `fail if in faction`(onlineMode: Boolean) {
         server.onlineMode = onlineMode
 
-        transaction {
-            assertFalse(player1.factionUser().isInFaction())
-            assertTrue(server.dispatchCommand(player1, "f create TestFaction"))
-            assertTrue(player1.factionUser().isInFaction())
+        assertFalse(player1.cachedUser().isInFaction())
+        assertTrue(server.dispatchCommand(player1, "f create TestFaction"))
+        awaitStorage()
+        assertTrue(player1.cachedUser().isInFaction())
 
-            assertTrue(server.dispatchCommand(player1, "f create FailMe"))
-            assertTrue(player1.factionUser().isInFaction())
-            assertTrue(FactionHandler.getFactions().count() == 1L)
-        }
+        assertTrue(server.dispatchCommand(player1, "f create FailMe"))
+        awaitStorage()
+        assertTrue(player1.cachedUser().isInFaction())
+        assertTrue(StorageManager.cache.factions().size == 1)
     }
 
     @ParameterizedTest
@@ -52,11 +54,11 @@ class CreateCommandTest : ImprovedFactionsTest() {
     fun `fail with invalid name`(onlineMode: Boolean) {
         server.onlineMode = onlineMode
 
-        assertFalse(player1.factionUser().isInFaction())
+        assertFalse(player1.cachedUser().isInFaction())
         assertTrue(server.dispatchCommand(player1, "f create Hi There"))
         assertTrue(server.dispatchCommand(player1, "f create <Nope>"))
         assertTrue(server.dispatchCommand(player1, "f create Some-Name"))
         assertTrue(server.dispatchCommand(player1, "f create Still5Disallowed"))
-        assertFalse(player1.factionUser().isInFaction())
+        assertFalse(player1.cachedUser().isInFaction())
     }
 }

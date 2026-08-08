@@ -4,8 +4,8 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandCategory
 import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
-import io.github.toberocat.improvedfactions.invites.FactionInvite
+import io.github.toberocat.improvedfactions.commands.respondAfter
+import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import org.bukkit.entity.Player
 
@@ -20,9 +20,8 @@ import org.bukkit.entity.Player
 )
 abstract class InviteDiscardCommand : InviteDiscardCommandContext() {
 
-    fun process(player: Player, invite: FactionInvite): CommandProcessResult {
-        val inviteToDelete = FactionInvite.findById(invite.id) ?: return invalidInvite()
-        inviteToDelete.delete()
-        return inviteDiscarded("inviteId" to invite.id.toString())
-    }
+    fun process(player: Player, invite: InviteSnapshot): CommandProcessResult? =
+        player.respondAfter(GameStateCommands.deleteInvite(invite.id)) {
+            inviteDiscarded("inviteId" to invite.id.toString())
+        }
 }

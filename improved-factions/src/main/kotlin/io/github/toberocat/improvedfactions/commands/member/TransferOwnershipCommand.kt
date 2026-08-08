@@ -5,11 +5,10 @@ import io.github.toberocat.improvedfactions.annotations.command.CommandConfirmat
 import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
 import io.github.toberocat.improvedfactions.annotations.command.GeneratedCommandMeta
 import io.github.toberocat.improvedfactions.commands.CommandProcessResult
-import io.github.toberocat.improvedfactions.commands.sendCommandResult
-import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
+import io.github.toberocat.improvedfactions.commands.respondAfter
+import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
-import io.github.toberocat.improvedfactions.user.FactionUser
-import io.github.toberocat.improvedfactions.user.factionUser
+import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 
 @CommandConfirmation
@@ -25,18 +24,22 @@ import org.bukkit.entity.Player
 )
 abstract class TransferOwnershipCommand : TransferOwnershipCommandContext() {
 
-    fun process(player: Player, targetUser: FactionUser): CommandProcessResult {
-        val faction = player.factionUser().faction()
+    fun process(player: Player, targetUser: OfflinePlayer): CommandProcessResult? {
+        val user = player.cachedUser()
+        val faction = user.faction()
             ?: return notInFaction()
 
-        if (!player.factionUser().isFactionOwner()) {
+        if (!user.isFactionOwner()) {
             return notOwner()
         }
 
-        faction.transferOwnership(targetUser.uniqueId)
-        return ownershipTransferred(
-            "newOwner" to (targetUser.offlinePlayer().name ?: "Unknown"),
+        if (targetUser.cachedUser().factionId != faction.id) return notInFaction()
+        val targetName = targetUser.name ?: "Unknown"
+        return player.respondAfter(GameStateCommands.transferOwnership(
+            faction.id, player.uniqueId, targetUser.uniqueId
+        )) { ownershipTransferred(
+            "newOwner" to targetName,
             "factionName" to faction.name
-        )
+        ) }
     }
 }

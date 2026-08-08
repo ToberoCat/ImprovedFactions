@@ -38,6 +38,8 @@ ImprovedFactions is a lightweight and high-performance Minecraft faction plugin.
 ## Getting started
 Install instructions can be found [here](https://toberocat.github.io/ImprovedFactions/docs/getting-started)
 
+For MariaDB/MySQL setup, see the [database guide](https://toberocat.github.io/ImprovedFactions/docs/database).
+
 ## Contributing
 
 We welcome contributions from the community! If you'd like to contribute, please:
