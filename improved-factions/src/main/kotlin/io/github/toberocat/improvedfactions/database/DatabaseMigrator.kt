@@ -3,6 +3,9 @@ package io.github.toberocat.improvedfactions.database
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.utils.getEnum
 import org.flywaydb.core.Flyway
+import org.flywaydb.core.api.output.MigrateResult
+import java.util.logging.Level
+import java.util.logging.Logger
 
 /** Runs versioned schema migrations before Exposed starts using the database. */
 object DatabaseMigrator {
@@ -15,7 +18,8 @@ object DatabaseMigrator {
             DatabaseType.SQLITE -> {
                 migrate(
                     jdbcUrl = "jdbc:sqlite:${plugin.dataFolder.absolutePath}/database.sqlite",
-                    location = SQLITE_LOCATION
+                    location = SQLITE_LOCATION,
+                    logger = plugin.logger
                 )
             }
 
@@ -30,7 +34,8 @@ object DatabaseMigrator {
                     jdbcUrl = "jdbc:mariadb://$host:$port/$database",
                     user = user,
                     password = password,
-                    location = MYSQL_LOCATION
+                    location = MYSQL_LOCATION,
+                    logger = plugin.logger
                 )
             }
         }
@@ -40,13 +45,47 @@ object DatabaseMigrator {
         jdbcUrl: String,
         location: String,
         user: String? = null,
-        password: String? = null
-    ) {
-        Flyway.configure()
+        password: String? = null,
+        logger: Logger? = null
+    ): MigrateResult {
+        logger?.info("[Flyway] Starting migrations: location=$location, database=${jdbcUrl.substringBefore('?')}")
+        val flyway = Flyway.configure()
             .dataSource(jdbcUrl, user ?: "", password ?: "")
             .locations(location)
             .baselineOnMigrate(true)
             .load()
-            .migrate()
+
+        val pending = flyway.info().pending()
+        if (pending.isEmpty()) {
+            logger?.info("[Flyway] No pending migrations")
+        } else {
+            pending.forEach { migration ->
+                logger?.info(
+                    "[Flyway] Applying ${migration.version}: ${migration.description} " +
+                        "(${migration.script})"
+                )
+            }
+        }
+
+        return try {
+            flyway.migrate().also { result ->
+                result.getSuccessfulMigrations().forEach { migration ->
+                    logger?.info(
+                        "[Flyway] Applied ${migration.version ?: "<repeatable>"}: ${migration.description} " +
+                            "(${migration.filepath}) in ${migration.executionTime} ms"
+                    )
+                }
+                result.warnings.orEmpty().forEach { warning ->
+                    logger?.warning("[Flyway] Warning: $warning")
+                }
+                logger?.info(
+                    "[Flyway] Migration run completed: ${result.migrationsExecuted} migration(s), " +
+                        "success=${result.success}"
+                )
+            }
+        } catch (failure: Throwable) {
+            logger?.log(Level.SEVERE, "[Flyway] Migration run failed", failure)
+            throw failure
+        }
     }
 }

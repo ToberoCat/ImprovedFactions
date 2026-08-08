@@ -3,6 +3,10 @@ package io.github.toberocat.improvedfactions.integration.database
 import io.github.toberocat.improvedfactions.database.DatabaseMigrator
 import java.nio.file.Files
 import java.sql.DriverManager
+import java.util.logging.Handler
+import java.util.logging.Level
+import java.util.logging.LogRecord
+import java.util.logging.Logger
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -68,5 +72,32 @@ class DatabaseMigrationTest {
                 }
             }
         }
+    }
+
+    @Test
+    fun `migration logging reports applied and already current states`() {
+        val databaseFile = Files.createTempFile("improved-factions-migration-logging-", ".sqlite").toFile()
+        databaseFile.delete()
+        val url = "jdbc:sqlite:${databaseFile.absolutePath}"
+        val messages = mutableListOf<String>()
+        val logger = Logger.getLogger("flyway-test-${databaseFile.name}").apply {
+            useParentHandlers = false
+            level = Level.ALL
+            addHandler(object : Handler() {
+                override fun publish(record: LogRecord) {
+                    messages += record.message
+                }
+
+                override fun flush() = Unit
+                override fun close() = Unit
+            })
+        }
+
+        DatabaseMigrator.migrate(url, "classpath:db/migration/sqlite", logger = logger)
+        DatabaseMigrator.migrate(url, "classpath:db/migration/sqlite", logger = logger)
+
+        assertTrue(messages.any { it.contains("[Flyway] Applying 1") })
+        assertTrue(messages.any { it.contains("[Flyway] Applied 1") })
+        assertTrue(messages.any { it.contains("[Flyway] No pending migrations") })
     }
 }
