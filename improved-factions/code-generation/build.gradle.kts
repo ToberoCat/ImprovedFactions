@@ -7,6 +7,6 @@ repositories {
 }
 
 dependencies {
-    implementation("com.google.devtools.ksp:symbol-processing-api:2.3.9")
+    implementation("com.google.devtools.ksp:symbol-processing-api:${libs.versions.ksp.version.get()}")
     implementation(project(":shared"))
 }
