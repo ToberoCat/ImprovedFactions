@@ -8,6 +8,7 @@ import io.github.toberocat.improvedfactions.commands.respondAfter
 import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.modules.relations.RelationsModule
 import io.github.toberocat.improvedfactions.permissions.Permissions
+import io.github.toberocat.improvedfactions.translation.LocalizedException
 import org.bukkit.entity.Player
 
 @GeneratedCommandMeta(
@@ -17,7 +18,8 @@ import org.bukkit.entity.Player
     responses = [
         CommandResponse("allyAcceptSuccess"),
         CommandResponse("notInFaction"),
-        CommandResponse("noPermission")
+        CommandResponse("noPermission"),
+        CommandResponse("noInvite", "relations.exceptions.no-invite")
     ]
 )
 abstract class AllyAcceptCommand : AllyAcceptCommandContext() {
@@ -30,7 +32,9 @@ abstract class AllyAcceptCommand : AllyAcceptCommandContext() {
             return noPermission()
         }
 
-        require(StorageManager.cache.allyInvite(faction.id, targetFaction.id) != null) { "No alliance invite" }
+        if (StorageManager.cache.allyInvite(faction.id, targetFaction.id) == null) {
+            throw LocalizedException("relations.exceptions.no-invite")
+        }
         return player.respondAfter(GameStateCommands.acceptAllyInvite(faction.id, targetFaction.id)) {
             allyAcceptSuccess("factionName" to targetFaction.name)
         }

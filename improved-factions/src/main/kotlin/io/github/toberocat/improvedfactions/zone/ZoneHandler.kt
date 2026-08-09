@@ -51,6 +51,6 @@ object ZoneHandler {
         .filter { it.zoneType != FACTION_ZONE_TYPE }
 
     fun unclaim(chunk: Chunk) {
-        GameStateCommands.setZone(listOf(chunk.claimKey()), FACTION_ZONE_TYPE)
+        GameStateCommands.unclaimZone(listOf(chunk.claimKey()), FACTION_ZONE_TYPE)
     }
 }

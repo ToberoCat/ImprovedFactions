@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit
 import kotlin.test.assertEquals
 
 @EnabledIfEnvironmentVariable(named = "MARIADB_TEST_URL", matches = ".+")
+@io.github.toberocat.improvedfactions.testing.DatabaseTest
 class JdbcStorageRepositoryMariaDbTest {
     @Test
     fun `mariadb write commits and reloads the cache before completion`() {

@@ -6,6 +6,7 @@ import io.github.toberocat.improvedfactions.factions.defaultFactionRanks
 import io.github.toberocat.improvedfactions.factions.requiredDefaultFactionRanks
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import java.util.concurrent.CompletionStage
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.CancellationException
@@ -43,7 +44,13 @@ object ImprovedFactionsAPI {
             it.completeExceptionally(CancellationException("Faction creation was cancelled"))
         }
         val ranks = defaultFactionRanks(requiredDefaultFactionRanks(BaseModule.plugin.config))
-        return GameStateCommands.createFaction(ownerId, factionName, 50, ranks, Permissions.knownPermissions.keys)
+        return GameStateCommands.createFaction(
+            ownerId,
+            factionName,
+            PowerRaidsModule.config.initialMemberPower(),
+            ranks,
+            Permissions.knownPermissions.keys,
+        )
             .thenApply { id -> checkNotNull(StorageManager.cache.faction(id)) }
     }
 }

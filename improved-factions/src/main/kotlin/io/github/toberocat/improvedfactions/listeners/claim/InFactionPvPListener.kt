@@ -3,6 +3,7 @@ package io.github.toberocat.improvedfactions.listeners.claim
 import io.github.toberocat.improvedfactions.database.storage.StorageManager
 import io.github.toberocat.improvedfactions.database.storage.claimKey
 import org.bukkit.entity.Player
+import org.bukkit.entity.Projectile
 import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 
@@ -12,7 +13,11 @@ class InFactionPvPListener(zoneType: String) : ProtectionListener(zoneType) {
     @EventHandler
     fun pvp(event: EntityDamageByEntityEvent) {
         val damaged = event.entity as? Player
-        val damager = event.damager as? Player
+        val damager = when (val source = event.damager) {
+            is Player -> source
+            is Projectile -> source.shooter as? Player
+            else -> null
+        }
         if (damaged == null || damager == null) return
         if (!StorageManager.cache.isReady()) {
             event.isCancelled = true

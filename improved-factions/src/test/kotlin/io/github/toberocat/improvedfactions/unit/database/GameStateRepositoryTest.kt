@@ -13,6 +13,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
+@io.github.toberocat.improvedfactions.testing.UnitTest
 class GameStateRepositoryTest {
     @Test
     fun `cache changes only after successful asynchronous load`() {

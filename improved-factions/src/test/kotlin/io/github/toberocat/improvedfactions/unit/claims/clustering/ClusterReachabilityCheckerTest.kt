@@ -5,6 +5,7 @@ import io.github.toberocat.improvedfactions.claims.clustering.detector.ClusterRe
 import org.junit.jupiter.api.Assertions.assertEquals
 import kotlin.test.Test
 
+@io.github.toberocat.improvedfactions.testing.UnitTest
 class ClusterReachabilityCheckerTest {
     @Test
     fun `test get unreachable positions`() {

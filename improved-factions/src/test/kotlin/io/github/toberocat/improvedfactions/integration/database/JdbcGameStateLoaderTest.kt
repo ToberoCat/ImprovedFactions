@@ -18,6 +18,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 import java.util.concurrent.TimeUnit
 
+@io.github.toberocat.improvedfactions.testing.IntegrationTest
 class JdbcGameStateLoaderTest {
     @Test
     fun `sqlite loader materializes immutable values inside the database boundary`() {

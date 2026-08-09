@@ -15,6 +15,8 @@ import org.junit.jupiter.params.provider.ValueSource
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
+import org.awaitility.kotlin.await
+import java.time.Duration
 
 class HomeCommandProcessorTest : ImprovedFactionsTest() {
 
@@ -51,8 +53,13 @@ class HomeCommandProcessorTest : ImprovedFactionsTest() {
         assertTrue(server.dispatchCommand(player1, "f home"))
         player2.location = chunk.getBlock(12, 8, 12).location
         assertTrue(server.dispatchCommand(player2, "f home"))
-        Thread.sleep(5_100)
-        server.scheduler.performTicks(120)
+        await.pollInSameThread().atMost(Duration.ofSeconds(6)).pollInterval(Duration.ofMillis(50)).untilAsserted {
+            ticks(20)
+            assertEquals(homeLocation.world, player2.world)
+            assertEquals(homeLocation.x, player2.location.x)
+            assertEquals(homeLocation.y, player2.location.y)
+            assertEquals(homeLocation.z, player2.location.z)
+        }
 
         assertEquals(homeLocation.world, player2.world)
         assertEquals(homeLocation.x, player2.location.x)

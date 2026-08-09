@@ -2,22 +2,30 @@ package io.github.toberocat.improvedfactions.integration.database
 
 import io.github.toberocat.improvedfactions.database.DatabaseMigrator
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable
+import org.testcontainers.junit.jupiter.Container
+import org.testcontainers.junit.jupiter.Testcontainers
+import org.testcontainers.mariadb.MariaDBContainer
 import java.sql.DriverManager
 import kotlin.test.assertEquals
 
-@EnabledIfEnvironmentVariable(named = "MARIADB_TEST_URL", matches = ".+")
+@io.github.toberocat.improvedfactions.testing.DatabaseTest
+@Testcontainers(disabledWithoutDocker = true)
 class DatabaseMigrationMariaDbTest {
+    companion object {
+        @Container
+        @JvmField
+        val mariaDb = MariaDBContainer("mariadb:10.3.39")
+            .withDatabaseName("improved_factions")
+            .withUsername("improved_factions")
+            .withPassword("test-password")
+    }
+
     @Test
-    fun `mariadb migration creates the schema and is idempotent`() {
-        val url = requireNotNull(System.getenv("MARIADB_TEST_URL"))
-        val user = System.getenv("MARIADB_TEST_USER") ?: "root"
-        val password = System.getenv("MARIADB_TEST_PASSWORD") ?: ""
+    fun `mariadb 10_3 migration creates the schema and is idempotent`() {
+        DatabaseMigrator.migrate(mariaDb.jdbcUrl, "classpath:db/migration/mysql", mariaDb.username, mariaDb.password)
+        DatabaseMigrator.migrate(mariaDb.jdbcUrl, "classpath:db/migration/mysql", mariaDb.username, mariaDb.password)
 
-        DatabaseMigrator.migrate(url, "classpath:db/migration/mysql", user, password)
-        DatabaseMigrator.migrate(url, "classpath:db/migration/mysql", user, password)
-
-        DriverManager.getConnection(url, user, password).use { connection ->
+        DriverManager.getConnection(mariaDb.jdbcUrl, mariaDb.username, mariaDb.password).use { connection ->
             connection.createStatement().use { statement ->
                 statement.executeQuery(
                     "SELECT COUNT(*) FROM information_schema.tables " +

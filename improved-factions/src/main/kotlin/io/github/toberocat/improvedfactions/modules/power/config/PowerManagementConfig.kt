@@ -5,6 +5,7 @@ import io.github.toberocat.improvedfactions.utils.getUnsignedDouble
 import org.bukkit.configuration.file.FileConfiguration
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
+import kotlin.math.ceil
 
 data class PowerManagementConfig(
     var baseMemberConstant: Double = 50.0,
@@ -23,6 +24,8 @@ data class PowerManagementConfig(
     var siegeClaimRecoverySpeed: Double = 1.0,
     var allowOverclaim: Boolean = true
 ) {
+    fun initialMemberPower(): Int = ceil(baseMemberConstant).toInt()
+
     private val configPath = "factions.power-management"
     fun reload(config: FileConfiguration) {
         baseMemberConstant = config.getUnsignedDouble("$configPath.base-member-constant", baseMemberConstant)
@@ -48,6 +51,6 @@ data class PowerManagementConfig(
             config.getUnsignedDouble("$configPath.siege.resistance-progress", siegeResistanceProgress)
         siegeClaimRecoverySpeed =
             config.getUnsignedDouble("$configPath.siege.claim-recovery-speed", siegeClaimRecoverySpeed)
-        allowOverclaim = config.getBoolean("$configPath.allow-overclaim", allowOverclaim)
+        allowOverclaim = config.getBoolean("$configPath.allow-overclaiming", allowOverclaim)
     }
 }

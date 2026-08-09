@@ -281,6 +281,8 @@ zones:
       block-interaction: true # Prevent interacting with blocks in a claim
       trampling: false # Prevent farmland from being trampled in a claim
       bucket-usage: false # Prevent using buckets in a claim
+      piston-boundary: false # Prevent pistons/flying machines from moving blocks into protected claims
+      fluid-flow-boundary: false # Prevent water and lava from flowing into protected claims
 
       # Entity protection
       mob-destruction: false # Prevent mobs from destroying blocks in a claim
@@ -327,6 +329,8 @@ zones:
 
       trampling: true # Prevent farmland from being trampled in a claim
       bucket-usage: true # Prevent using buckets in a claim
+      piston-boundary: false # Prevent pistons/flying machines from moving blocks into protected claims
+      fluid-flow-boundary: false # Prevent water and lava from flowing into protected claims
       mob-spawn: true # Prevent mobs from spawning in a claim
       mob-destruction: true # Prevent mobs from destroying blocks in a claim
       creeper-explosion: true # Prevent creeper explosions in a claim
@@ -370,6 +374,8 @@ zones:
 
       trampling: true # Prevent farmland from being trampled in a claim
       bucket-usage: true # Prevent using buckets in a claim
+      piston-boundary: false # Prevent pistons/flying machines from moving blocks into protected claims
+      fluid-flow-boundary: false # Prevent water and lava from flowing into protected claims
       mob-spawn: false # Prevent mobs from spawning in a claim
       mob-destruction: true # Prevent mobs from destroying blocks in a claim
       creeper-explosion: true # Prevent creeper explosions in a claim
@@ -413,6 +419,8 @@ zones:
 
       trampling: false # Prevent farmland from being trampled in a claim
       bucket-usage: false # Prevent using buckets in a claim
+      piston-boundary: false # Prevent pistons/flying machines from moving blocks into protected claims
+      fluid-flow-boundary: false # Prevent water and lava from flowing into protected claims
       mob-spawn: false # Prevent mobs from spawning in a claim
       mob-destruction: false # Prevent mobs from destroying blocks in a claim
       creeper-explosion: false # Prevent creeper explosions in a claim

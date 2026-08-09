@@ -6,6 +6,7 @@ import java.nio.file.Path
 import kotlin.io.path.readText
 import kotlin.test.assertFalse
 
+@io.github.toberocat.improvedfactions.testing.UnitTest
 class HotPathDatabaseBoundaryTest {
     @Test
     fun `server-thread hot paths neither transact nor wait for futures`() {

@@ -15,6 +15,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
+@io.github.toberocat.improvedfactions.testing.UnitTest
 class ClaimStateCacheTest {
     @Test
     fun `cache publishes complete immutable snapshots atomically`() {

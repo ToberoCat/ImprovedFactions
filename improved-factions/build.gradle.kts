@@ -1,6 +1,7 @@
 import java.nio.file.Files
 import java.util.*
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.gradle.api.tasks.testing.Test
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
@@ -9,6 +10,14 @@ plugins {
     id("com.gradleup.shadow") version "9.6.1"
     id("io.github.ben-manes.versions") version "0.60.0"
     id("org.jetbrains.dokka") version "2.2.0"
+}
+
+// Allows verification on worktrees whose regular build directories are not writable.
+providers.gradleProperty("testingBuildDir").orNull?.let { redirectedRoot ->
+    allprojects {
+        val projectPath = path.removePrefix(":").replace(':', '/').ifEmpty { "root" }
+        layout.buildDirectory.set(file("$redirectedRoot/$projectPath"))
+    }
 }
 
 val versionPropsFile = file("version.properties")
@@ -92,6 +101,9 @@ dependencies {
     testImplementation(libs.snakeyaml)
     testImplementation(libs.gson)
     testImplementation(libs.logback.classic)
+    testImplementation(libs.awaitility)
+    testImplementation(libs.testcontainers.junit.jupiter)
+    testImplementation(libs.testcontainers.mariadb)
 
     // KSP
     ksp(project(":code-generation"))
@@ -152,8 +164,45 @@ tasks {
     }
 
     test {
-        useJUnitPlatform()
+        description = "Runs all unit and integration tests that do not require Docker."
+        useJUnitPlatform {
+            excludeTags("database")
+        }
     }
+}
+
+val unitTest by tasks.registering(Test::class) {
+    description = "Runs fast tests tagged 'unit'."
+    group = "verification"
+    testClassesDirs = sourceSets.test.get().output.classesDirs
+    classpath = sourceSets.test.get().runtimeClasspath
+    useJUnitPlatform {
+        includeTags("unit")
+    }
+    shouldRunAfter(tasks.test)
+}
+
+val integrationTest by tasks.registering(Test::class) {
+    description = "Runs MockBukkit and embedded-database tests tagged 'integration'."
+    group = "verification"
+    testClassesDirs = sourceSets.test.get().output.classesDirs
+    classpath = sourceSets.test.get().runtimeClasspath
+    useJUnitPlatform {
+        includeTags("integration")
+        excludeTags("database")
+    }
+    shouldRunAfter(unitTest)
+}
+
+val databaseTest by tasks.registering(Test::class) {
+    description = "Runs MariaDB tests tagged 'database' (Docker or configured external database required)."
+    group = "verification"
+    testClassesDirs = sourceSets.test.get().output.classesDirs
+    classpath = sourceSets.test.get().runtimeClasspath
+    useJUnitPlatform {
+        includeTags("database")
+    }
+    shouldRunAfter(integrationTest)
 }
 
 kotlin {
@@ -161,11 +210,11 @@ kotlin {
     compilerOptions.jvmTarget.set(JvmTarget.JVM_25)
 
     sourceSets.main {
-        kotlin.srcDir("build/generated/ksp/main/kotlin")
-        kotlin.srcDir("build/generated/source/buildConfig/kotlin")
+        kotlin.srcDir(layout.buildDirectory.dir("generated/ksp/main/kotlin"))
+        kotlin.srcDir(layout.buildDirectory.dir("generated/source/buildConfig/kotlin"))
     }
     sourceSets.test {
-        kotlin.srcDir("build/generated/ksp/test/kotlin")
+        kotlin.srcDir(layout.buildDirectory.dir("generated/ksp/test/kotlin"))
     }
 }
 

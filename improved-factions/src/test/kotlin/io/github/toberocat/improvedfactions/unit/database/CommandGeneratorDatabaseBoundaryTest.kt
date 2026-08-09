@@ -5,6 +5,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.test.assertFalse
 
+@io.github.toberocat.improvedfactions.testing.UnitTest
 class CommandGeneratorDatabaseBoundaryTest {
     @Test
     fun `generated command and tab completion never wrap gameplay in a transaction`() {

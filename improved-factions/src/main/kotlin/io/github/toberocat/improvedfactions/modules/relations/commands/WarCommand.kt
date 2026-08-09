@@ -8,6 +8,7 @@ import io.github.toberocat.improvedfactions.commands.respondAfter
 import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.modules.relations.RelationType
 import io.github.toberocat.improvedfactions.permissions.Permissions
+import io.github.toberocat.improvedfactions.translation.LocalizedException
 import org.bukkit.entity.Player
 
 @GeneratedCommandMeta(
@@ -17,7 +18,10 @@ import org.bukkit.entity.Player
     responses = [
         CommandResponse("warDeclared"),
         CommandResponse("notInFaction"),
-        CommandResponse("noPermission")
+        CommandResponse("noPermission"),
+        CommandResponse("cantDeclareWarOnYourself", "relations.exceptions.cant-declare-war-on-yourself"),
+        CommandResponse("alreadyAllied", "relations.exceptions.already-allied"),
+        CommandResponse("alreadyEnemy", "relations.exceptions.already-enemy")
     ]
 )
 abstract class WarCommand : WarCommandContext() {
@@ -30,9 +34,9 @@ abstract class WarCommand : WarCommandContext() {
             return noPermission()
         }
 
-        require(faction.id != targetFaction.id) { "Cannot declare war on your own faction" }
-        require(targetFaction.id !in StorageManager.cache.relations(faction.id, "ALLY")) { "Factions are allied" }
-        require(targetFaction.id !in StorageManager.cache.relations(faction.id, "ENEMY")) { "Factions are already enemies" }
+        if (faction.id == targetFaction.id) throw LocalizedException("relations.exceptions.cant-declare-war-on-yourself")
+        if (targetFaction.id in StorageManager.cache.relations(faction.id, "ALLY")) throw LocalizedException("relations.exceptions.already-allied")
+        if (targetFaction.id in StorageManager.cache.relations(faction.id, "ENEMY")) throw LocalizedException("relations.exceptions.already-enemy")
         return player.respondAfter(GameStateCommands.createRelation(faction.id, targetFaction.id, RelationType.ENEMY.ordinal)) {
             warDeclared("factionName" to targetFaction.name)
         }

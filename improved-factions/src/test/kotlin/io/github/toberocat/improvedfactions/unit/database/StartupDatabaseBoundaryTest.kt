@@ -6,6 +6,7 @@ import java.nio.file.Path
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
+@io.github.toberocat.improvedfactions.testing.UnitTest
 class StartupDatabaseBoundaryTest {
     @Test
     fun `startup snapshot is asynchronous and never awaited by Paper lifecycle code`() {

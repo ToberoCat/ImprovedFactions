@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.util.*
 
+@io.github.toberocat.improvedfactions.testing.UnitTest
 class PlayerUsageLimitsTest {
 
     private val registry = "testRegistry"

@@ -11,6 +11,7 @@ import io.github.toberocat.improvedfactions.commands.arguments.ParsingContext
 import io.github.toberocat.improvedfactions.commands.respondAfter
 import io.github.toberocat.improvedfactions.api.events.FactionJoinEvent
 import io.github.toberocat.improvedfactions.database.storage.*
+import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
 import org.bukkit.Bukkit
@@ -65,7 +66,9 @@ abstract class ForceJoinCommand : ForceJoinCommandContext() {
         if (event.isCancelled) return cancelledCommandResult()
 
         val targetName = target.name ?: "No Name"
-        return sender.respondAfter(GameStateCommands.setUserFaction(target.uniqueId, faction.id, rank.id)) {
+        return sender.respondAfter(GameStateCommands.setUserFaction(
+            target.uniqueId, faction.id, rank.id, PowerRaidsModule.config.baseMemberConstant
+        )) {
             success("player" to targetName, "faction" to faction.name)
         }
     }

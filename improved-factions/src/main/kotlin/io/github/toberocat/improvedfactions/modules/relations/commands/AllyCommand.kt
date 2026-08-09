@@ -7,6 +7,7 @@ import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.commands.respondAfter
 import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.permissions.Permissions
+import io.github.toberocat.improvedfactions.translation.LocalizedException
 import org.bukkit.entity.Player
 
 @GeneratedCommandMeta(
@@ -16,7 +17,11 @@ import org.bukkit.entity.Player
     responses = [
         CommandResponse("allyInviteSuccess"),
         CommandResponse("notInFaction"),
-        CommandResponse("noPermission")
+        CommandResponse("noPermission"),
+        CommandResponse("cantAllyYourself", "relations.exceptions.cant-ally-yourself"),
+        CommandResponse("alreadyAllied", "relations.exceptions.already-allied"),
+        CommandResponse("alreadyEnemy", "relations.exceptions.already-enemy"),
+        CommandResponse("alreadyInvited", "relations.exceptions.already-invited")
     ]
 )
 abstract class AllyCommand : AllyCommandContext() {
@@ -29,10 +34,10 @@ abstract class AllyCommand : AllyCommandContext() {
             return noPermission()
         }
 
-        require(faction.id != targetFaction.id) { "Cannot ally your own faction" }
-        require(targetFaction.id !in StorageManager.cache.relations(faction.id, "ALLY")) { "Factions are already allied" }
-        require(targetFaction.id !in StorageManager.cache.relations(faction.id, "ENEMY")) { "Factions are enemies" }
-        require(StorageManager.cache.allyInvite(faction.id, targetFaction.id) == null) { "Alliance invite already exists" }
+        if (faction.id == targetFaction.id) throw LocalizedException("relations.exceptions.cant-ally-yourself")
+        if (targetFaction.id in StorageManager.cache.relations(faction.id, "ALLY")) throw LocalizedException("relations.exceptions.already-allied")
+        if (targetFaction.id in StorageManager.cache.relations(faction.id, "ENEMY")) throw LocalizedException("relations.exceptions.already-enemy")
+        if (StorageManager.cache.allyInvite(faction.id, targetFaction.id) != null) throw LocalizedException("relations.exceptions.already-invited")
         return player.respondAfter(GameStateCommands.createAllyInvite(
             faction.id, targetFaction.id, java.time.Instant.now().plusSeconds(300)
         )) { allyInviteSuccess("factionName" to targetFaction.name) }

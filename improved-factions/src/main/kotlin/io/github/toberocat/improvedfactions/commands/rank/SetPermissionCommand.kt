@@ -32,6 +32,10 @@ abstract class SetPermissionCommand : SetPermissionCommandContext() {
             return noPermission()
         }
 
+        if (!user.canManage(rank)) {
+            return noPermission()
+        }
+
         return player.respondAfter(GameStateCommands.setPermission(rank.id, permission, value)) { permissionUpdated(
             "rank" to rank.name,
             "permission" to permission,

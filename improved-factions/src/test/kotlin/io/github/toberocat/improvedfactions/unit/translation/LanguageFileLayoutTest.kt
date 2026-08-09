@@ -3,6 +3,7 @@ package io.github.toberocat.improvedfactions.unit.translation
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
+@io.github.toberocat.improvedfactions.testing.UnitTest
 class LanguageFileLayoutTest {
     @Test
     fun `bundled language files use language codes without a messages prefix`() {

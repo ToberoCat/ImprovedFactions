@@ -11,6 +11,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
+@io.github.toberocat.improvedfactions.testing.IntegrationTest
 class DatabaseMigrationTest {
     @Test
     fun `fresh sqlite database receives the complete schema`() {

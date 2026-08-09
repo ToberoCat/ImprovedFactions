@@ -15,6 +15,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
+@io.github.toberocat.improvedfactions.testing.UnitTest
 class StorageBootstrapTest {
     @Test
     fun `bootstrap returns immediately and loads on the storage worker`() {

@@ -62,7 +62,7 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
 
 
     fun registerCommandProcessor(processor: CommandProcessor) {
-        if (commandProcessors.containsKey(processor.label)) {
+        if (commandProcessors.keys.any { it.equals(processor.label, ignoreCase = true) }) {
             throw IllegalArgumentException("Command processor with label ${processor.label} already registered")
         }
 
@@ -158,13 +158,17 @@ open class CommandExecutor(private val plugin: ImprovedFactionsPlugin) : TabExec
 
     private fun getPossibleProcessors(arg: String): Int {
         val normalized = arg.lowercase()
-        return commandProcessors.keys.count { it == normalized || it.startsWith("$normalized ") }
+        return commandProcessors.keys.count {
+            val route = it.lowercase()
+            route == normalized || route.startsWith("$normalized ")
+        }
     }
 
     private fun findProcessor(joinedCommand: String): CommandProcessor? {
         val normalized = joinedCommand.lowercase()
         return commandProcessors.entries.firstOrNull {
-            normalized == it.key || normalized.startsWith("${it.key} ")
+            val route = it.key.lowercase()
+            normalized == route || normalized.startsWith("$route ")
         }?.value
     }
 

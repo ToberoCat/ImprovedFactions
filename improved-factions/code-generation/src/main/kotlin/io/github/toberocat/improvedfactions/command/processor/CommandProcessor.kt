@@ -66,6 +66,21 @@ class CommandProcessor(
         import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
         import io.github.toberocat.improvedfactions.commands.executor.CommandExecutor
         import io.github.toberocat.improvedfactions.commands.CommandProcessor
+        import io.github.toberocat.improvedfactions.commands.contract.GeneratedCommandContract
+        import io.github.toberocat.improvedfactions.commands.contract.toGeneratedCommandContract
+        import io.github.toberocat.improvedfactions.commands.data.CommandData
+        import io.github.toberocat.improvedfactions.commands.data.CommandProcessFunction
+        import io.github.toberocat.improvedfactions.commands.data.CommandProcessFunctionParameter
+        import io.github.toberocat.improvedfactions.annotations.command.CommandResponse
+        import io.github.toberocat.improvedfactions.annotations.permission.PermissionConfigurations
+
+        /** Complete compile-time command contract registry; no plugin boot or reflection required. */
+        val generatedCommandContracts: List<GeneratedCommandContract> = listOf(
+            ${collectedCommandProcessors.sortedBy { it.label }.joinToString(",\n") { "$it.toGeneratedCommandContract()" }}
+        )
+
+        val generatedCommandContractsByLabel: Map<String, GeneratedCommandContract> =
+            generatedCommandContracts.associateBy(GeneratedCommandContract::label)
 
         $functions
         """.trimIndent()

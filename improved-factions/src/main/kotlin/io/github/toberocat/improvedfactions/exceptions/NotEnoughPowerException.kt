@@ -1,5 +1,5 @@
 package io.github.toberocat.improvedfactions.exceptions
 
-import io.github.toberocat.toberocore.command.exceptions.CommandException
+import io.github.toberocat.improvedfactions.translation.LocalizedException
 
-class NotEnoughPowerException : CommandException("power.exceptions.not-enough-power", emptyMap())
+class NotEnoughPowerException : LocalizedException("power.exceptions.not-enough-power")

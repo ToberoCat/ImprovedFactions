@@ -11,6 +11,7 @@ import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.factions.defaultFactionRanks
 import io.github.toberocat.improvedfactions.factions.requiredDefaultFactionRanks
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import org.bukkit.OfflinePlayer
 import org.bukkit.Bukkit
@@ -63,7 +64,13 @@ abstract class CreateCommand : CreateCommandContext() {
 
         val ranks = defaultFactionRanks(requiredDefaultFactionRanks(BaseModule.plugin.config))
         return sender.respondAfter(
-            GameStateCommands.createFaction(owner.uniqueId, name, 50, ranks, Permissions.knownPermissions.keys)
+            GameStateCommands.createFaction(
+                owner.uniqueId,
+                name,
+                PowerRaidsModule.config.initialMemberPower(),
+                ranks,
+                Permissions.knownPermissions.keys,
+            )
         ) { factionId ->
             io.github.toberocat.improvedfactions.factions.FactionHandler.createListenersFor(factionId)
             createdFaction("faction" to name)

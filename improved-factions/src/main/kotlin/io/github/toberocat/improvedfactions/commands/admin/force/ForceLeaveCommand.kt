@@ -11,6 +11,7 @@ import io.github.toberocat.improvedfactions.commands.respondAfter
 import io.github.toberocat.improvedfactions.api.events.FactionDeleteEvent
 import io.github.toberocat.improvedfactions.api.events.FactionLeaveEvent
 import io.github.toberocat.improvedfactions.database.storage.*
+import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.user.noFactionId
 import org.bukkit.OfflinePlayer
 import org.bukkit.command.CommandSender
@@ -45,7 +46,9 @@ abstract class ForceLeaveCommand : ForceLeaveCommandContext() {
             val event = FactionLeaveEvent(faction, user)
             Bukkit.getPluginManager().callEvent(event)
             if (event.isCancelled) return cancelledCommandResult()
-            return sender.respondAfter(GameStateCommands.setUserFaction(player.uniqueId, noFactionId, 0)) {
+            return sender.respondAfter(GameStateCommands.setUserFaction(
+                player.uniqueId, noFactionId, 0, PowerRaidsModule.config.baseMemberConstant
+            )) {
                 forceLeaveSuccess()
             }
         }
@@ -61,7 +64,11 @@ abstract class ForceLeaveCommand : ForceLeaveCommandContext() {
             else -> {
                 val nextOwnerName = org.bukkit.Bukkit.getOfflinePlayer(nextBestOwner.uniqueId).name ?: "Unknown"
                 return sender.respondAfter(GameStateCommands.transferOwnership(
-                    faction.id, player.uniqueId, nextBestOwner.uniqueId, removePreviousOwner = true
+                    faction.id,
+                    player.uniqueId,
+                    nextBestOwner.uniqueId,
+                    removePreviousOwner = true,
+                    memberPowerConstant = PowerRaidsModule.config.baseMemberConstant,
                 )) {
                     ownershipTransferred("player" to nextOwnerName)
                 }

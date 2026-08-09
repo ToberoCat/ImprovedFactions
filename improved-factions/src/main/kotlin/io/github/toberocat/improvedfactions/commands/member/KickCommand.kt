@@ -8,6 +8,7 @@ import io.github.toberocat.improvedfactions.commands.respondAfter
 import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.user.noFactionId
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
@@ -38,7 +39,9 @@ abstract class KickCommand : KickCommandContext() {
 
         if (target.cachedUser().factionId != faction.id) return invalidMember()
         val targetName = target.name ?: "Unknown"
-        return player.respondAfter(GameStateCommands.setUserFaction(target.uniqueId, noFactionId, 0)) {
+        return player.respondAfter(GameStateCommands.setUserFaction(
+            target.uniqueId, noFactionId, 0, PowerRaidsModule.config.baseMemberConstant
+        )) {
             kickedPlayer("playerName" to targetName)
         }
     }

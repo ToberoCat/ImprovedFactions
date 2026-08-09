@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
+@io.github.toberocat.improvedfactions.testing.IntegrationTest
 class JdbcStorageRepositoryTest {
     @Test
     fun `write commits before the refreshed snapshot becomes visible`() {

@@ -19,6 +19,7 @@ import org.bukkit.entity.Player
     responses = [
         CommandResponse("notInClaim"),
         CommandResponse("ownClaim"),
+        CommandResponse("notRaidable"),
         CommandResponse("siegeStarted")
     ]
 )
@@ -31,6 +32,9 @@ abstract class SiegeCommand: SiegeCommandContext() {
         }
         if (claim.factionId == StorageManager.cache.user(player.uniqueId)?.factionId) {
             return ownClaim()
+        }
+        if (!claim.isRaidable) {
+            return notRaidable()
         }
 
         ClaimSiegeManager.getManager(claim).startSiege(player)

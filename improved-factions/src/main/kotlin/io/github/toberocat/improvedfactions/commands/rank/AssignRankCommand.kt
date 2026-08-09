@@ -32,6 +32,9 @@ abstract class AssignRankCommand : AssignRankCommandContext() {
         if (!user.hasPermission(Permissions.MANAGE_PERMISSIONS))
             return noPermission()
 
+        if (!user.canManage(rank))
+            return noPermission()
+
         val targetUser = target.cachedUser()
         if (targetUser.factionId != user.factionId)
             return notInSameFaction()
