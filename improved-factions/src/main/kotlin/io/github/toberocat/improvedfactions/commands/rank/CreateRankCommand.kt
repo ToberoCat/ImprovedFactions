@@ -40,6 +40,10 @@ abstract class CreateRankCommand : CreateRankCommandContext() {
             return invalidPriority("priority" to priority.toString())
         }
 
+        if (priority >= user.rankPriority) {
+            return noPermission()
+        }
+
         return player.respondAfter(GameStateCommands.createRank(
             faction.id, rankName, priority, Permissions.knownPermissions.keys
         )) { rankCreated(

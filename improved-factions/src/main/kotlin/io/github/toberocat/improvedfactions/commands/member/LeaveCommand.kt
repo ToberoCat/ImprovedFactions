@@ -12,6 +12,7 @@ import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.exceptions.PlayerIsOwnerLeaveException
 import io.github.toberocat.improvedfactions.user.noFactionId
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import org.bukkit.entity.Player
 import org.bukkit.Bukkit
 
@@ -35,7 +36,9 @@ abstract class LeaveCommand : LeaveCommandContext() {
         val event = FactionLeaveEvent(faction, player.cachedUser())
         Bukkit.getPluginManager().callEvent(event)
         if (event.isCancelled) return cancelledCommandResult()
-        return player.respondAfter(GameStateCommands.setUserFaction(player.uniqueId, noFactionId, 0)) {
+        return player.respondAfter(GameStateCommands.setUserFaction(
+            player.uniqueId, noFactionId, 0, PowerRaidsModule.config.baseMemberConstant
+        )) {
             factionLeft("factionName" to faction.name)
         }
     }

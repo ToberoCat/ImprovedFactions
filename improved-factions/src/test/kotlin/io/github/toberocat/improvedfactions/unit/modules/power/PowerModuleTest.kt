@@ -3,10 +3,24 @@ package io.github.toberocat.improvedfactions.unit.modules.power
 import io.github.toberocat.improvedfactions.ImprovedFactionsTest
 import io.github.toberocat.improvedfactions.database.storage.GameStateCommands
 import io.github.toberocat.improvedfactions.database.storage.StorageManager
+import io.github.toberocat.improvedfactions.modules.power.config.PowerManagementConfig
+import org.bukkit.configuration.file.YamlConfiguration
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 
 class PowerModuleTest : ImprovedFactionsTest() {
+    @Test
+    fun `overclaim toggle uses the documented config key`() {
+        val config = PowerManagementConfig(allowOverclaim = true)
+
+        config.reload(YamlConfiguration().apply {
+            set("factions.power-management.allow-overclaiming", false)
+        })
+
+        assertFalse(config.allowOverclaim)
+    }
+
     @Test
     fun `test setting max power`() {
         val faction = testFaction()

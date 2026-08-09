@@ -30,6 +30,9 @@ abstract class DefaultRankCommand : DefaultRankCommandContext() {
         }
 
         val faction = user.faction() ?: return notInFaction()
+        if (!user.canManage(rank)) {
+            return noPermission()
+        }
         return player.respondAfter(GameStateCommands.setDefaultRank(faction.id, rank.id)) {
             defaultRankSet("rankName" to rank.name)
         }

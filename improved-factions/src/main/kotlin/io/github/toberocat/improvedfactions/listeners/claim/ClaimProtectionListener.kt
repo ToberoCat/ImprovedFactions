@@ -21,6 +21,8 @@ class ClaimProtectionListener(
         register(ClaimBlockInteractListener(zoneType))
         register(ClaimBucketListener(zoneType))
         register(ClaimTramplingListener(zoneType))
+        register(ClaimPistonBoundaryListener(zoneType))
+        register(ClaimFluidFlowBoundaryListener(zoneType))
 
         register(ClaimEntityInteractionListener(zoneType))
         register(ClaimEntityBreakHangingListener(zoneType))

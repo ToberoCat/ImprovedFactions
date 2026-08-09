@@ -36,8 +36,15 @@ abstract class DeleteRankCommand : DeleteRankCommandContext() {
             return rankIsDefault("rankName" to rank.name)
         }
 
+        if (!user.canManage(rank)) {
+            return noPermission()
+        }
+
         val fallBackOrDefault = fallbackRank ?: StorageManager.cache.rank(faction.defaultRankId)
             ?: return invalidRank()
+        if (!user.canManage(fallBackOrDefault)) {
+            return noPermission()
+        }
         return player.respondAfter(GameStateCommands.deleteRank(rank.id, fallBackOrDefault.id)) { rankDeleted(
             "rankName" to rank.name,
             "fallbackRankName" to fallBackOrDefault.name

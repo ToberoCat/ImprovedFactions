@@ -27,7 +27,7 @@ class ClaimTntListener(zoneType: String) : ProtectionListener(zoneType) {
             val block = iterator.next()
             val claim = cache.claim(block.claimKey()) ?: continue
             if (claim.zoneType != zoneType) continue
-            if (claim.factionId != sourceFaction) iterator.remove()
+            if (!claim.isRaidable && claim.factionId != sourceFaction) iterator.remove()
         }
     }
 }

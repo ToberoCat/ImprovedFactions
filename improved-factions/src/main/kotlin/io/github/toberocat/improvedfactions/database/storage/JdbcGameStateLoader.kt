@@ -274,6 +274,12 @@ class JdbcGameStateLoader(
                 val totalClaims = faction.claimCount
                 if (totalClaims <= 0) return@forEach
                 val maintenanceCost = totalClaims * config.claimPowerKeep
+                val availablePower = (faction.accumulatedPower - maintenanceCost)
+                    .coerceIn(-faction.maxPower.toDouble(), faction.maxPower.toDouble())
+                if (clusterClaims.size == 1) {
+                    if (availablePower < 0.0) raidable += clusterClaims.single().key
+                    return@forEach
+                }
                 val clusterRatio = clusterClaims.size.toDouble() / totalClaims
                 val clusterPowerCost = maintenanceCost * clusterRatio
                 val centerX = clusterClaims.map { it.key.chunkX }.average()
@@ -289,8 +295,6 @@ class JdbcGameStateLoader(
                 val distanceSum = distancePercentages.sum()
                 if (distanceSum == 0.0) return@forEach
                 val claimPowerCost = clusterPowerCost / distanceSum
-                val availablePower = (faction.accumulatedPower - maintenanceCost)
-                    .coerceIn(-faction.maxPower.toDouble(), faction.maxPower.toDouble())
                 val threshold = sqrt((faction.maxPower + availablePower) * clusterRatio)
                 distancePercentages.forEachIndexed { index, distance ->
                     if (distance * claimPowerCost >= threshold) raidable += clusterClaims[index].key

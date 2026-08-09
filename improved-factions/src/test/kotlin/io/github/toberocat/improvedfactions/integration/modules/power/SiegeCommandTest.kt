@@ -70,6 +70,26 @@ class SiegeCommandTest : FactionsIntegrationTest() {
         )
     }
 
+    @Test
+    fun `a single underpowered claim is raidable and can be sieged`() {
+        val attacker = player("single-claim-attacker")
+        val defender = player("single-claim-defender")
+        faction(attacker.uniqueId)
+        val targetFactionId = createDefenderFaction(defender)
+        val testWorld = world("single-raidable-siege")
+        val targetKey = ClaimKey(testWorld.name, 0, 0)
+        GameStateCommands.claimAll(listOf(targetKey), targetFactionId, accumulatedPower = -50).await()
+        awaitStorage()
+
+        assertTrue(requireNotNull(StorageManager.cache.claim(targetKey)).isRaidable)
+
+        attacker.location = Location(testWorld, 8.0, 64.0, 8.0)
+        command("/f siege")
+            .asPlayer(attacker)
+            .run()
+            .expectHandled()
+    }
+
     private fun createDefenderFaction(defender: org.bukkit.entity.Player): Int = GameStateCommands.createFaction(
         defender.uniqueId,
         "Defenders",

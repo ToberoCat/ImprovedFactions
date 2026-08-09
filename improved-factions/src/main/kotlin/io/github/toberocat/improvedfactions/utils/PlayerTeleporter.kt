@@ -21,6 +21,7 @@ class PlayerTeleporter(
     private val onTeleport: () -> Unit,
     private val standStillMs: Long = 5000,
     private val playAnimation: Boolean = true,
+    private val onCancelled: () -> Unit = { player.sendLocalized("base.player-teleport.cancel-message") },
 ) : BukkitRunnable() {
     private val audience = player.toAudience()
     private val startedLocation = player.location
@@ -82,7 +83,7 @@ class PlayerTeleporter(
 
         val distance = player.location.distanceSquared(startedLocation)
         if (distance > 0.01) {
-            player.sendLocalized("base.player-teleport.cancel-message")
+            onCancelled()
             audience.clearTitle()
             cancel()
         }

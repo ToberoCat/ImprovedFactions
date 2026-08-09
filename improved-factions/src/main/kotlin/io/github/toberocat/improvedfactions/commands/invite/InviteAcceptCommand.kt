@@ -9,6 +9,7 @@ import io.github.toberocat.improvedfactions.commands.respondAfter
 import io.github.toberocat.improvedfactions.api.events.FactionJoinEvent
 import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import org.bukkit.entity.Player
 import org.bukkit.Bukkit
 
@@ -19,17 +20,21 @@ import org.bukkit.Bukkit
     responses = [
         CommandResponse("inviteAccepted"),
         CommandResponse("factionDeleted"),
+        CommandResponse("alreadyInFaction", "factions.already-in-faction"),
     ]
 )
 abstract class InviteAcceptCommand : InviteAcceptCommandContext() {
 
     fun process(player: Player, invite: InviteSnapshot): CommandProcessResult? {
+        if (player.cachedUser().isInFaction()) return alreadyInFaction()
         val faction = StorageManager.cache.faction(invite.factionId) ?: return factionDeleted()
         val event = FactionJoinEvent(faction, player.cachedUser())
         Bukkit.getPluginManager().callEvent(event)
         if (event.isCancelled) return cancelledCommandResult()
         return player.respondAfter(
-            GameStateCommands.acceptInvite(invite.id, player.uniqueId, invite.factionId, invite.rankId)
+            GameStateCommands.acceptInvite(
+                invite.id, player.uniqueId, invite.factionId, invite.rankId, PowerRaidsModule.config.baseMemberConstant
+            )
         ) { inviteAccepted("factionName" to faction.name) }
     }
 }

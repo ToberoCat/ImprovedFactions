@@ -8,6 +8,8 @@ import java.sql.Timestamp
 import java.time.Instant
 import java.util.UUID
 import java.util.concurrent.CompletionStage
+import kotlin.math.ceil
+import kotlin.math.floor
 
 /** Runtime mutations expressed only in immutable scalar input and executed by [StorageManager]. */
 object GameStateCommands {
@@ -100,7 +102,8 @@ object GameStateCommands {
         factionId: Int,
         previousOwner: UUID,
         newOwner: UUID,
-        removePreviousOwner: Boolean = false
+        removePreviousOwner: Boolean = false,
+        memberPowerConstant: Double? = null,
     ): CompletionStage<Unit> = StorageManager.write { connection ->
         val ownerRank = connection.prepareStatement(
             "SELECT id FROM faction_ranks WHERE faction_id = ? ORDER BY priority DESC LIMIT 1"
@@ -122,6 +125,12 @@ object GameStateCommands {
             it.setInt(1, if (removePreviousOwner) noFactionId else factionId)
             it.setInt(2, if (removePreviousOwner) 0 else defaultRank)
             it.setInt(3, previousOwnerId); it.executeUpdate()
+        }
+        if (removePreviousOwner && memberPowerConstant != null) {
+            val remainingMembers = factionMemberCount(connection, factionId)
+            if (remainingMembers > 0) {
+                adjustMaximumPower(connection, factionId, -floor(memberPowerConstant / remainingMembers).toInt())
+            }
         }
     }
 
@@ -156,11 +165,20 @@ object GameStateCommands {
         }
     }
 
-    fun setUserFaction(uniqueId: UUID, factionId: Int, rankId: Int): CompletionStage<Unit> =
+    fun setUserFaction(
+        uniqueId: UUID,
+        factionId: Int,
+        rankId: Int,
+        memberPowerConstant: Double? = null,
+    ): CompletionStage<Unit> =
         StorageManager.write { connection ->
-            val userId = ensureUser(connection, uniqueId, factionId, rankId)
+            val userId = ensureUser(connection, uniqueId)
+            val previousFactionId = factionIdForUser(connection, userId)
             connection.prepareStatement("UPDATE faction_users SET faction_id = ?, rank_id = ? WHERE id = ?").use {
                 it.setInt(1, factionId); it.setInt(2, rankId); it.setInt(3, userId); it.executeUpdate()
+            }
+            if (memberPowerConstant != null && previousFactionId != factionId) {
+                updateMemberPoweredFactionMaxima(connection, previousFactionId, factionId, memberPowerConstant)
             }
         }
 
@@ -299,15 +317,25 @@ object GameStateCommands {
 
     fun deleteInvite(inviteId: Int): CompletionStage<Unit> = deleteById("faction_invites", inviteId)
 
-    fun acceptInvite(inviteId: Int, playerId: UUID, factionId: Int, rankId: Int): CompletionStage<Unit> =
+    fun acceptInvite(
+        inviteId: Int,
+        playerId: UUID,
+        factionId: Int,
+        rankId: Int,
+        memberPowerConstant: Double? = null,
+    ): CompletionStage<Unit> =
         StorageManager.write { connection ->
             val userId = ensureUser(connection, playerId)
             connection.prepareStatement("DELETE FROM faction_invites WHERE id = ? AND invited_id = ?").use {
                 it.setInt(1, inviteId); it.setInt(2, userId)
                 check(it.executeUpdate() == 1) { "Faction invite is no longer available" }
             }
+            val previousFactionId = factionIdForUser(connection, userId)
             connection.prepareStatement("UPDATE faction_users SET faction_id = ?, rank_id = ? WHERE id = ?").use {
                 it.setInt(1, factionId); it.setInt(2, rankId); it.setInt(3, userId); it.executeUpdate()
+            }
+            if (memberPowerConstant != null && previousFactionId != factionId) {
+                updateMemberPoweredFactionMaxima(connection, previousFactionId, factionId, memberPowerConstant)
             }
         }
 
@@ -525,6 +553,53 @@ object GameStateCommands {
             it.setString(1, key.world); it.setInt(2, key.chunkX); it.setInt(3, key.chunkZ)
             it.executeQuery().use { result -> if (result.next()) result.getInt(1) else null }
         }
+
+    private fun factionIdForUser(connection: Connection, userId: Int): Int = connection.prepareStatement(
+        "SELECT faction_id FROM faction_users WHERE id = ?"
+    ).use {
+        it.setInt(1, userId)
+        it.executeQuery().use { result -> check(result.next()); result.getInt(1) }
+    }
+
+    private fun factionMemberCount(connection: Connection, factionId: Int): Int = connection.prepareStatement(
+        "SELECT COUNT(*) FROM faction_users WHERE faction_id = ?"
+    ).use {
+        it.setInt(1, factionId)
+        it.executeQuery().use { result -> check(result.next()); result.getInt(1) }
+    }
+
+    private fun updateMemberPoweredFactionMaxima(
+        connection: Connection,
+        previousFactionId: Int,
+        newFactionId: Int,
+        memberPowerConstant: Double,
+    ) {
+        if (previousFactionId != noFactionId) {
+            val remainingMembers = factionMemberCount(connection, previousFactionId)
+            if (remainingMembers > 0) {
+                adjustMaximumPower(connection, previousFactionId, -floor(memberPowerConstant / remainingMembers).toInt())
+            }
+        }
+        if (newFactionId != noFactionId) {
+            val membersBeforeJoin = factionMemberCount(connection, newFactionId) - 1
+            if (membersBeforeJoin > 0) {
+                adjustMaximumPower(connection, newFactionId, ceil(memberPowerConstant / membersBeforeJoin).toInt())
+            }
+        }
+    }
+
+    private fun adjustMaximumPower(connection: Connection, factionId: Int, delta: Int) {
+        connection.prepareStatement(
+            "UPDATE factions SET max_power = MAX(0, max_power + ?), accumulated_power = " +
+                "CASE WHEN accumulated_power > MAX(0, max_power + ?) THEN MAX(0, max_power + ?) " +
+                "WHEN accumulated_power < -MAX(0, max_power + ?) THEN -MAX(0, max_power + ?) " +
+                "ELSE accumulated_power END WHERE id = ?"
+        ).use {
+            it.setInt(1, delta); it.setInt(2, delta); it.setInt(3, delta)
+            it.setInt(4, delta); it.setInt(5, delta); it.setInt(6, factionId)
+            it.executeUpdate()
+        }
+    }
 
     private fun UUID.bytes(): ByteArray = ByteBuffer.allocate(16)
         .putLong(mostSignificantBits).putLong(leastSignificantBits).array()

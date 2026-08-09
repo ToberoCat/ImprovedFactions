@@ -2,6 +2,8 @@ package io.github.toberocat.improvedfactions.unit.modules.wilderness
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsTest
 import io.github.toberocat.improvedfactions.claims.getFactionClaim
+import io.github.toberocat.improvedfactions.database.storage.ClaimKey
+import io.github.toberocat.improvedfactions.database.storage.GameStateCommands
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.wilderness.config.WildernessModuleConfig
 import org.bukkit.Location
@@ -145,6 +147,104 @@ class WildernessModuleTest : ImprovedFactionsTest() {
             assertTrue(location.x in 100.0..140.0, "x=${location.x} must remain inside the world border")
             assertTrue(location.z in -100.0..-60.0, "z=${location.z} must remain inside the world border")
         }
+    }
+
+    @Test
+    fun `configured wilderness region uses its configured world rather than the command world`() {
+        val regionWorld = server.addSimpleWorld("wilderness-region-world")
+        BaseModule.config.allowedWorlds += regionWorld.name
+        val config = YamlConfiguration().apply {
+            set("factions.wilderness.regions.target.min-x", 40)
+            set("factions.wilderness.regions.target.max-x", 40)
+            set("factions.wilderness.regions.target.min-z", -20)
+            set("factions.wilderness.regions.target.max-z", -20)
+            set("factions.wilderness.regions.target.world", regionWorld.name)
+            set("factions.wilderness.retry-limit", 1)
+            set("factions.wilderness.prevent-spawn-over-liquids", false)
+            set("factions.wilderness.blacklisted-biomes", emptyList<String>())
+        }
+        wildernessConfig.reload(plugin, config)
+
+        val destination = requireNotNull(wildernessConfig.getRandomLocation(Location(testWorld, 0.0, 64.0, 0.0)))
+
+        assertEquals(regionWorld, destination.world)
+        assertEquals(40.0, destination.x)
+        assertEquals(-20.0, destination.z)
+    }
+
+    @Test
+    fun `blacklisted wilderness worlds cannot be selected`() {
+        val config = YamlConfiguration().apply {
+            set("factions.wilderness.teleport-proximity", 0)
+            set("factions.wilderness.retry-limit", 3)
+            set("factions.wilderness.prevent-spawn-over-liquids", false)
+            set("factions.wilderness.blacklisted-biomes", emptyList<String>())
+            set("factions.wilderness.blacklisted-worlds", listOf(testWorld.name))
+        }
+        wildernessConfig.reload(plugin, config)
+
+        assertNull(wildernessConfig.getRandomLocation(Location(testWorld, 0.0, 64.0, 0.0)))
+    }
+
+    @Test
+    fun `reload without regions removes locations from a previous region configuration`() {
+        val regionWorld = server.addSimpleWorld("stale-wilderness-region-world")
+        BaseModule.config.allowedWorlds += regionWorld.name
+        wildernessConfig.reload(plugin, YamlConfiguration().apply {
+            set("factions.wilderness.regions.old.min-x", 900)
+            set("factions.wilderness.regions.old.max-x", 900)
+            set("factions.wilderness.regions.old.min-z", 900)
+            set("factions.wilderness.regions.old.max-z", 900)
+            set("factions.wilderness.regions.old.world", regionWorld.name)
+            set("factions.wilderness.retry-limit", 1)
+            set("factions.wilderness.prevent-spawn-over-liquids", false)
+            set("factions.wilderness.blacklisted-biomes", emptyList<String>())
+        })
+        requireNotNull(wildernessConfig.getRandomLocation(Location(testWorld, 0.0, 64.0, 0.0)))
+
+        wildernessConfig.reload(plugin, YamlConfiguration().apply {
+            set("factions.wilderness.teleport-proximity", 0)
+            set("factions.wilderness.retry-limit", 1)
+            set("factions.wilderness.prevent-spawn-over-liquids", false)
+            set("factions.wilderness.blacklisted-biomes", emptyList<String>())
+        })
+
+        val destination = requireNotNull(wildernessConfig.getRandomLocation(Location(testWorld, 0.0, 64.0, 0.0)))
+        assertEquals(testWorld, destination.world)
+        assertEquals(0.0, destination.x)
+        assertEquals(0.0, destination.z)
+    }
+
+    @Test
+    fun `claim distance check uses a square radius measured in chunks`() {
+        val candidateWorld = server.addSimpleWorld("wilderness-distance-world")
+        BaseModule.config.allowedWorlds += candidateWorld.name
+        val faction = faction()
+        GameStateCommands.claim(ClaimKey(candidateWorld.name, 1, 1), faction.id).await()
+        awaitStorage()
+
+        fun wildernessAt(x: Int, z: Int) = WildernessModuleConfig().apply {
+            reload(plugin, YamlConfiguration().apply {
+                set("factions.wilderness.regions.target.min-x", x)
+                set("factions.wilderness.regions.target.max-x", x)
+                set("factions.wilderness.regions.target.min-z", z)
+                set("factions.wilderness.regions.target.max-z", z)
+                set("factions.wilderness.regions.target.world", candidateWorld.name)
+                set("factions.wilderness.claim-distance-check", 1)
+                set("factions.wilderness.retry-limit", 1)
+                set("factions.wilderness.prevent-spawn-over-liquids", false)
+                set("factions.wilderness.blacklisted-biomes", emptyList<String>())
+            })
+        }
+
+        assertNull(
+            wildernessAt(0, 0).getRandomLocation(Location(candidateWorld, 0.0, 64.0, 0.0)),
+            "A diagonal claim one chunk away is inside the configured square radius",
+        )
+        assertNotNull(
+            wildernessAt(48, 0).getRandomLocation(Location(candidateWorld, 0.0, 64.0, 0.0)),
+            "A location two chunks away on the X axis is outside a radius of one chunk",
+        )
     }
 
 //    @Test

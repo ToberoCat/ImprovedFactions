@@ -20,11 +20,13 @@ import org.bukkit.entity.Player
         CommandResponse("ownershipTransferred"),
         CommandResponse("notOwner"),
         CommandResponse("notInFaction"),
+        CommandResponse("cantTransferToSelf"),
     ]
 )
 abstract class TransferOwnershipCommand : TransferOwnershipCommandContext() {
 
     fun process(player: Player, targetUser: OfflinePlayer): CommandProcessResult? {
+        if (targetUser.uniqueId == player.uniqueId) return cantTransferToSelf()
         val user = player.cachedUser()
         val faction = user.faction()
             ?: return notInFaction()

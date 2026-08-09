@@ -2,6 +2,7 @@ package io.github.toberocat.improvedfactions.modules.wilderness.config
 
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.database.storage.StorageManager
+import io.github.toberocat.improvedfactions.database.storage.ClaimKey
 import io.github.toberocat.improvedfactions.database.storage.claimKey
 import io.github.toberocat.improvedfactions.config.ImprovedFactionsConfig
 import io.github.toberocat.improvedfactions.config.PluginConfig
@@ -59,6 +60,7 @@ class WildernessModuleConfig(
             config.getStringList("$configPath.blacklisted-worlds").toSet()
         )
 
+        regions = emptyMap()
         val regionSection = config.getConfigurationSection("$configPath.regions") ?: return
         regions = regionSection.getKeys(false).associateWith { key ->
             Region().apply {
@@ -88,13 +90,14 @@ class WildernessModuleConfig(
         if (blacklistedBiomes.contains(location.block.biome.key.key.uppercase())) {
             return false
         }
-        if (!pluginConfig.allowedWorlds.contains(location.world?.name)) {
+        if (!allowedWorlds.contains(location.world?.name)) {
             return false
         }
 
-        for (i in -claimDistanceCheck until claimDistanceCheck) {
-            for (j in -claimDistanceCheck until claimDistanceCheck) {
-                val claim = StorageManager.cache.claim(location.clone().add(i.toDouble(), 0.0, j.toDouble()).claimKey())
+        val locationChunk = location.chunk
+        for (chunkX in locationChunk.x - claimDistanceCheck..locationChunk.x + claimDistanceCheck) {
+            for (chunkZ in locationChunk.z - claimDistanceCheck..locationChunk.z + claimDistanceCheck) {
+                val claim = StorageManager.cache.claim(ClaimKey(locationChunk.world.name, chunkX, chunkZ))
                     ?: continue
                 val factionId = claim.factionId
                 val zoneId = claim.zoneType
@@ -142,6 +145,6 @@ class WildernessModuleConfig(
             }
         }
         val y = world.getHighestBlockYAt(x, z)
-        return Location(location.world, x.toDouble(), y.toDouble(), z.toDouble())
+        return Location(world, x.toDouble(), y.toDouble(), z.toDouble())
     }
 }

@@ -10,6 +10,7 @@ import io.github.toberocat.improvedfactions.api.events.FactionJoinEvent
 import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.factions.FactionJoinType
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule
 import org.bukkit.entity.Player
 import org.bukkit.Bukkit
 
@@ -44,7 +45,9 @@ abstract class JoinCommand : JoinCommandContext() {
         Bukkit.getPluginManager().callEvent(event)
         if (event.isCancelled) return cancelledCommandResult()
 
-        return player.respondAfter(GameStateCommands.setUserFaction(player.uniqueId, faction.id, faction.defaultRankId)) {
+        return player.respondAfter(GameStateCommands.setUserFaction(
+            player.uniqueId, faction.id, faction.defaultRankId, PowerRaidsModule.config.baseMemberConstant
+        )) {
             joinedFaction("factionName" to faction.name)
         }
     }
