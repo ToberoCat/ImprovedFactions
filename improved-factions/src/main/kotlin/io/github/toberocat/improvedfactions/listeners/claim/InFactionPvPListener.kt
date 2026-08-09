@@ -1,7 +1,7 @@
 package io.github.toberocat.improvedfactions.listeners.claim
 
 import io.github.toberocat.improvedfactions.database.storage.StorageManager
-import io.github.toberocat.improvedfactions.database.storage.claimKey
+import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import org.bukkit.entity.Player
 import org.bukkit.entity.Projectile
 import org.bukkit.event.EventHandler
@@ -23,7 +23,7 @@ class InFactionPvPListener(zoneType: String) : ProtectionListener(zoneType) {
             event.isCancelled = true
             return
         }
-        if (StorageManager.cache.claim(damaged.location.claimKey())?.zoneType != zoneType) return
+        if (ZoneHandler.zoneTypeAt(damaged.location.chunk) != zoneType) return
         val damagerFaction = StorageManager.cache.user(damager.uniqueId)?.factionId
         val damagedFaction = StorageManager.cache.user(damaged.uniqueId)?.factionId
         if (damagerFaction == null || damagerFaction != damagedFaction) return

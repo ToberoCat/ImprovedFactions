@@ -295,7 +295,7 @@ zones:
 
       # Pvp protection
       general-pvp: false # Prevent general PvP in a claims. This means any sort of pvp
-      in-faction-pvp: true # Prevent PvP between faction members in a claim
+      in-faction-pvp: true # Prevent PvP between faction members in faction claims and unclaimed wilderness
 
       # Explosion protection
       creeper-explosion: false # Prevent creeper explosions in a claim

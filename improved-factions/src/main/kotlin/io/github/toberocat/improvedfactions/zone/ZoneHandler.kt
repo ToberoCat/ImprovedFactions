@@ -45,6 +45,13 @@ object ZoneHandler {
 
     fun getZone(type: String): Zone? = knownZones[type]
 
+    /**
+     * Returns the zone governing a chunk. Unclaimed chunks are wilderness and
+     * therefore use the default zone's protection settings.
+     */
+    fun zoneTypeAt(chunk: Chunk): String =
+        StorageManager.cache.claim(chunk.claimKey())?.zoneType ?: FACTION_ZONE_TYPE
+
     fun getZones(): Set<String> = knownZones.keys
 
     fun getZoneClaims() = StorageManager.cache.snapshot()?.claims.orEmpty().values
