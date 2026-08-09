@@ -3,7 +3,7 @@ package io.github.toberocat.improvedfactions.ranks
 import io.github.toberocat.improvedfactions.permissions.FactionPermission
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.user.noFactionId
-import io.github.toberocat.toberocore.command.exceptions.CommandException
+import io.github.toberocat.improvedfactions.translation.LocalizedException
 import io.github.toberocat.improvedfactions.database.DatabaseManager.loggedTransaction
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 
@@ -14,11 +14,11 @@ internal object FactionRankHandler {
     private fun createRank(
         factionId: Int, rankName: String, priority: Int, allowedPermissions: Collection<String>
     ): FactionRank {
-        if (rankName.length > BaseModule.config.maxRankNameLength) throw CommandException(
+        if (rankName.length > BaseModule.config.maxRankNameLength) throw LocalizedException(
             "base.exceptions.rank-name-exceeds-limit", emptyMap()
         )
         if (!BaseModule.config.rankNameRegex.matches(rankName))
-            throw CommandException("base.exceptions.rank-name-not-matching", emptyMap())
+            throw LocalizedException("base.exceptions.rank-name-not-matching", emptyMap())
 
         return loggedTransaction {
             val rank = FactionRank.new {

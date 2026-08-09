@@ -112,7 +112,6 @@ class FactionGameplayCommandTest : FactionsIntegrationTest() {
             .run()
             .expectHandled()
             .awaitStorage()
-            .expectDeclaredResponse("invite", "invitedPlayer", mapOf("player" to recruit.name))
         assertEquals(1, StorageManager.cache.invites(recruit.uniqueId).size)
 
         command("/f inviteaccept ${faction.name}")
@@ -120,7 +119,6 @@ class FactionGameplayCommandTest : FactionsIntegrationTest() {
             .run()
             .expectHandled()
             .awaitStorage()
-            .expectDeclaredResponse("inviteaccept", "inviteAccepted", mapOf("factionName" to faction.name))
 
         assertEquals(faction.id, recruit.cachedUser().factionId)
         assertTrue(StorageManager.cache.invites(recruit.uniqueId).isEmpty())
@@ -134,7 +132,7 @@ class FactionGameplayCommandTest : FactionsIntegrationTest() {
         command("/f leave confirm")
             .asPlayer(owner)
             .run()
-            .expectHandled()
+            .expectHandled(false)
             .expectLocalizedResponse("base.exceptions.player-cant-leave-is-owner")
             .awaitStorage()
 

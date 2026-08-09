@@ -1,5 +1,5 @@
 package io.github.toberocat.improvedfactions.exceptions
 
-import io.github.toberocat.toberocore.command.exceptions.CommandException
+import io.github.toberocat.improvedfactions.translation.LocalizedException
 
-class FactionDoesntHaveThisClaimException : CommandException("base.exceptions.faction-doesnt-have-claim", emptyMap())
+class FactionDoesntHaveThisClaimException : LocalizedException("base.exceptions.faction-doesnt-have-claim")

@@ -5,10 +5,10 @@ import io.github.toberocat.improvedfactions.database.storage.ClaimKey
 import io.github.toberocat.improvedfactions.database.storage.GameStateCommands
 import io.github.toberocat.improvedfactions.database.storage.StorageManager
 import io.github.toberocat.improvedfactions.permissions.Permissions
+import io.github.toberocat.improvedfactions.user.noFactionId
 import org.bukkit.Location
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 /**
@@ -63,7 +63,11 @@ class SiegeCommandTest : FactionsIntegrationTest() {
         ticks(1)
         awaitStorage()
 
-        assertNull(StorageManager.cache.claim(targetKey), "A successful siege must unclaim the raidable target")
+        assertEquals(
+            noFactionId,
+            requireNotNull(StorageManager.cache.claim(targetKey)).factionId,
+            "A successful siege must release the raidable target to wilderness",
+        )
     }
 
     private fun createDefenderFaction(defender: org.bukkit.entity.Player): Int = GameStateCommands.createFaction(

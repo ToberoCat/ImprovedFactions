@@ -4,7 +4,7 @@ import io.github.toberocat.improvedfactions.database.storage.GameStateCommands
 import io.github.toberocat.improvedfactions.database.storage.StorageManager
 import io.github.toberocat.improvedfactions.modules.relations.RelationType
 import io.github.toberocat.improvedfactions.modules.relations.handles.RelationsModuleHandle
-import io.github.toberocat.toberocore.command.exceptions.CommandException
+import io.github.toberocat.improvedfactions.translation.LocalizedException
 import java.time.Instant
 
 class RelationsModuleHandleImpl : RelationsModuleHandle {
@@ -57,5 +57,5 @@ class RelationsModuleHandleImpl : RelationsModuleHandle {
         if (source == target) fail(key)
     }
 
-    private fun fail(key: String): Nothing = throw CommandException(key, emptyMap())
+    private fun fail(key: String): Nothing = throw LocalizedException(key)
 }

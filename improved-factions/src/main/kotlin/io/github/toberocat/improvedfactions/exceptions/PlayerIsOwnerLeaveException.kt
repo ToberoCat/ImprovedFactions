@@ -1,5 +1,5 @@
 package io.github.toberocat.improvedfactions.exceptions
 
-import io.github.toberocat.toberocore.command.exceptions.CommandException
+import io.github.toberocat.improvedfactions.translation.LocalizedException
 
-class PlayerIsOwnerLeaveException : CommandException("base.exceptions.player-cant-leave-is-owner", emptyMap())
+class PlayerIsOwnerLeaveException : LocalizedException("base.exceptions.player-cant-leave-is-owner", emptyMap())
