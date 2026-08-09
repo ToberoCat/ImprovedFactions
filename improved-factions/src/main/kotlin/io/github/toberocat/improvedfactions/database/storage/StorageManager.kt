@@ -5,6 +5,7 @@ import io.github.toberocat.improvedfactions.database.DatabaseSettings
 import io.github.toberocat.improvedfactions.modules.power.config.PowerManagementConfig
 import java.util.UUID
 import java.util.concurrent.CompletionStage
+import java.util.concurrent.TimeUnit
 import java.sql.Connection
 import java.util.logging.Level
 import java.util.logging.Logger
@@ -130,10 +131,17 @@ object StorageManager {
         jdbcRepository = null
         mainThreadContinuation = null
         snapshotListeners.clear()
-        dispatcher?.close()
+        val currentDispatcher = dispatcher
         dispatcher = null
+        if (currentDispatcher != null && !currentDispatcher.close(SHUTDOWN_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+            logger?.warning(
+                "Timed out waiting for storage writes to finish during shutdown; remaining work was cancelled"
+            )
+        }
         dataSource?.close()
         dataSource = null
         cache.clear()
     }
+
+    private const val SHUTDOWN_TIMEOUT_SECONDS = 10L
 }
