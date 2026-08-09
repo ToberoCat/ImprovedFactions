@@ -2,14 +2,18 @@ package io.github.toberocat.improvedfactions.integration.commands.home
 
 import org.mockbukkit.mockbukkit.entity.PlayerMock
 import io.github.toberocat.improvedfactions.database.storage.FactionSnapshot
+import io.github.toberocat.improvedfactions.database.storage.GameStateCommands
 import io.github.toberocat.improvedfactions.ImprovedFactionsTest
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
+import io.github.toberocat.improvedfactions.permissions.Permissions
 import org.bukkit.Chunk
 import org.bukkit.World
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 class HomeCommandProcessorTest : ImprovedFactionsTest() {
@@ -54,5 +58,24 @@ class HomeCommandProcessorTest : ImprovedFactionsTest() {
         assertEquals(homeLocation.x, player2.location.x)
         assertEquals(homeLocation.y, player2.location.y)
         assertEquals(homeLocation.z, player2.location.z)
+    }
+
+    @Test
+    fun `member without home permission is not teleported`() {
+        player1.location = chunk.getBlock(8, 8, 8).location
+        assertTrue(server.dispatchCommand(player1, "f claim"))
+        awaitStorage()
+        assertTrue(server.dispatchCommand(player1, "f sethome"))
+        awaitStorage()
+        GameStateCommands.setPermission(faction.defaultRankId, Permissions.HOME, false)
+            .toCompletableFuture().get()
+        awaitStorage()
+
+        player2.location = chunk.getBlock(12, 8, 12).location
+        val originalLocation = player2.location.clone()
+        assertTrue(server.dispatchCommand(player2, "f home"))
+
+        assertEquals(originalLocation, player2.location)
+        assertTrue(assertNotNull(player2.nextMessage()).contains("required permission"))
     }
 }
