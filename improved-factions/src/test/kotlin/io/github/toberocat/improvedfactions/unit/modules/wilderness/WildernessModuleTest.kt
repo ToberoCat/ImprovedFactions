@@ -10,6 +10,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockbukkit.mockbukkit.world.WorldMock
+import java.util.concurrent.TimeUnit
 import kotlin.test.*
 
 class WildernessModuleTest : ImprovedFactionsTest() {
@@ -107,6 +108,43 @@ class WildernessModuleTest : ImprovedFactionsTest() {
         // The module should fail to find a valid location after retries
         val randomLocation = customConfig.getRandomLocation(startLocation)
         assertNull(randomLocation, "Should return null when no valid location can be found")
+    }
+
+    @Test
+    fun `reload honors wilderness cooldown value and unit independently`() {
+        val config = YamlConfiguration().apply {
+            set("factions.wilderness.cooldown-value", 17L)
+            set("factions.wilderness.cooldown-unit", "MINUTES")
+        }
+
+        wildernessConfig.reload(plugin, config)
+
+        assertEquals(17L, wildernessConfig.cooldown)
+        assertEquals(TimeUnit.MINUTES, wildernessConfig.timeUnit)
+    }
+
+    @Test
+    fun `world border wilderness locations stay within the configured border`() {
+        testWorld.worldBorder.apply {
+            center = Location(testWorld, 120.0, 64.0, -80.0)
+            size = 40.0
+        }
+        val config = YamlConfiguration().apply {
+            set("factions.wilderness.teleport-proximity", -1)
+            set("factions.wilderness.retry-limit", 100)
+            set("factions.wilderness.prevent-spawn-over-liquids", false)
+            set("factions.wilderness.blacklisted-biomes", emptyList<String>())
+            set("factions.wilderness.blacklisted-worlds", emptyList<String>())
+        }
+        wildernessConfig.reload(plugin, config)
+
+        repeat(25) {
+            val location = requireNotNull(wildernessConfig.getRandomLocation(Location(testWorld, 0.0, 64.0, 0.0)))
+
+            assertEquals(testWorld, location.world)
+            assertTrue(location.x in 100.0..140.0, "x=${location.x} must remain inside the world border")
+            assertTrue(location.z in -100.0..-60.0, "z=${location.z} must remain inside the world border")
+        }
     }
 
 //    @Test

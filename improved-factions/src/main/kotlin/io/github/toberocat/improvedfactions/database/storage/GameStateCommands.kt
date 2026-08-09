@@ -252,6 +252,38 @@ object GameStateCommands {
         }
     }
 
+    /**
+     * Removes an administrative zone without leaving a no-faction/default-zone
+     * claim behind. A faction claim that was temporarily made into a zone keeps
+     * its owner and simply returns to the default zone.
+     */
+    fun unclaimZone(keys: List<ClaimKey>, defaultZoneType: String): CompletionStage<Int> {
+        val copiedKeys = keys.toList()
+        return StorageManager.write { connection ->
+            var changed = 0
+            copiedKeys.forEach { key ->
+                val factionId = findClaimFaction(connection, key) ?: return@forEach
+                if (factionId == noFactionId) {
+                    connection.prepareStatement(
+                        "DELETE FROM faction_claims WHERE world = ? AND chunk_x = ? AND chunk_z = ?"
+                    ).use {
+                        it.setString(1, key.world); it.setInt(2, key.chunkX); it.setInt(3, key.chunkZ)
+                        changed += it.executeUpdate()
+                    }
+                } else {
+                    connection.prepareStatement(
+                        "UPDATE faction_claims SET zone_type = ?, cluster_id = NULL WHERE world = ? AND chunk_x = ? AND chunk_z = ?"
+                    ).use {
+                        it.setString(1, defaultZoneType); it.setString(2, key.world)
+                        it.setInt(3, key.chunkX); it.setInt(4, key.chunkZ)
+                        changed += it.executeUpdate()
+                    }
+                }
+            }
+            changed
+        }
+    }
+
     fun setHome(factionId: Int, home: HomeSnapshot): CompletionStage<Unit> = StorageManager.write { connection ->
         val updated = connection.prepareStatement("UPDATE faction_homes SET x = ?, y = ?, z = ?, world = ? WHERE id = ?").use {
             it.setDouble(1, home.x); it.setDouble(2, home.y); it.setDouble(3, home.z); it.setString(4, home.world)

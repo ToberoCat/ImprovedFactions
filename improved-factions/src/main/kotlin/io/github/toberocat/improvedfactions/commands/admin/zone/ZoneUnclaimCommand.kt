@@ -35,7 +35,7 @@ abstract class ZoneUnclaimCommand : ZoneUnclaimCommandContext() {
             for (x in center.x - distance..center.x + distance)
                 for (z in center.z - distance..center.z + distance) add(ClaimKey(center.world.name, x, z))
         }
-        return player.respondAfter(GameStateCommands.setZone(keys, ZoneHandler.FACTION_ZONE_TYPE)) { changed -> if (radius != null && radius > 0) {
+        return player.respondAfter(GameStateCommands.unclaimZone(keys, ZoneHandler.FACTION_ZONE_TYPE)) { changed -> if (radius != null && radius > 0) {
             zoneUnclaimedRadius(
                 "radius" to radius.toString(),
                 "successfulClaims" to changed.toString(),
