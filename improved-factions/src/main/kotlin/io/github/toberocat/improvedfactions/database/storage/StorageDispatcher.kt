@@ -35,10 +35,30 @@ class StorageDispatcher private constructor(parallelism: Int) : AutoCloseable {
     }
 
     override fun close() {
-        if (!closed.compareAndSet(false, true)) return
+        close(DEFAULT_SHUTDOWN_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+    }
+
+    /**
+     * Stops accepting new work and lets work already accepted by the dispatcher finish.
+     *
+     * @return true when all work finished before [timeout]; false when the forced-cancellation
+     * fallback was required.
+     */
+    fun close(timeout: Long, unit: TimeUnit): Boolean {
+        require(timeout >= 0) { "Shutdown timeout must not be negative" }
+        if (!closed.compareAndSet(false, true)) return executor.isTerminated
+
+        executor.shutdown()
+        try {
+            if (executor.awaitTermination(timeout, unit)) return true
+        } catch (_: InterruptedException) {
+            Thread.currentThread().interrupt()
+        }
+
         executor.shutdownNow().forEach { queued ->
             (queued as? StorageWork<*>)?.cancel()
         }
+        return false
     }
 
     private class StorageWork<T>(
@@ -63,6 +83,7 @@ class StorageDispatcher private constructor(parallelism: Int) : AutoCloseable {
     }
 
     companion object {
+        private const val DEFAULT_SHUTDOWN_TIMEOUT_SECONDS = 10L
         private val threadCounter = AtomicInteger()
 
         fun create(databaseType: DatabaseType, mysqlParallelism: Int): StorageDispatcher {
