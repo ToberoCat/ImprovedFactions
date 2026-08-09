@@ -8,6 +8,7 @@ import io.github.toberocat.improvedfactions.commands.cancelledCommandResult
 import io.github.toberocat.improvedfactions.commands.respondAfter
 import io.github.toberocat.improvedfactions.api.events.FactionCreateEvent
 import io.github.toberocat.improvedfactions.database.storage.*
+import io.github.toberocat.improvedfactions.factions.defaultFactionRanks
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import org.bukkit.OfflinePlayer
@@ -59,16 +60,8 @@ abstract class CreateCommand : CreateCommandContext() {
         Bukkit.getPluginManager().callEvent(event)
         if (event.isCancelled) return cancelledCommandResult()
 
-        val configuredRanks = BaseModule.plugin.config.getConfigurationSection("factions.default-faction-ranks")
-        val ranks = configuredRanks?.getKeys(false)?.map { rankName ->
-            GameStateCommands.DefaultRankSpec(
-                rankName,
-                configuredRanks.getInt("$rankName.priority"),
-                configuredRanks.getStringList("$rankName.default-permissions").toSet()
-            )
-        } ?: listOf(
-            GameStateCommands.DefaultRankSpec("Member", 1, setOf(Permissions.SEND_INVITES)),
-            GameStateCommands.DefaultRankSpec("Owner", 1000, Permissions.knownPermissions.keys)
+        val ranks = defaultFactionRanks(
+            BaseModule.plugin.config.getConfigurationSection("factions.default-faction-ranks")
         )
         return sender.respondAfter(
             GameStateCommands.createFaction(owner.uniqueId, name, 50, ranks, Permissions.knownPermissions.keys)

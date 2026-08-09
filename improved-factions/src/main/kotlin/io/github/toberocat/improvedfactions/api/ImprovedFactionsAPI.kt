@@ -2,6 +2,7 @@ package io.github.toberocat.improvedfactions.api
 
 import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.api.events.FactionCreateEvent
+import io.github.toberocat.improvedfactions.factions.defaultFactionRanks
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import java.util.concurrent.CompletionStage
@@ -40,16 +41,8 @@ object ImprovedFactionsAPI {
         if (event.isCancelled) return CompletableFuture<FactionSnapshot>().also {
             it.completeExceptionally(CancellationException("Faction creation was cancelled"))
         }
-        val configuredRanks = BaseModule.plugin.config.getConfigurationSection("factions.default-faction-ranks")
-        val ranks = configuredRanks?.getKeys(false)?.map { rankName ->
-            GameStateCommands.DefaultRankSpec(
-                rankName,
-                configuredRanks.getInt("$rankName.priority"),
-                configuredRanks.getStringList("$rankName.default-permissions").toSet()
-            )
-        } ?: listOf(
-            GameStateCommands.DefaultRankSpec("Member", 1, setOf(Permissions.SEND_INVITES)),
-            GameStateCommands.DefaultRankSpec("Owner", 1000, Permissions.knownPermissions.keys)
+        val ranks = defaultFactionRanks(
+            BaseModule.plugin.config.getConfigurationSection("factions.default-faction-ranks")
         )
         return GameStateCommands.createFaction(ownerId, factionName, 50, ranks, Permissions.knownPermissions.keys)
             .thenApply { id -> checkNotNull(StorageManager.cache.faction(id)) }

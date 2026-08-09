@@ -49,7 +49,9 @@ open class ImprovedFactionsTest {
 
     fun testFaction(owner: UUID = UUID.randomUUID(), vararg members: UUID): FactionSnapshot {
         val ranks = listOf(
-            GameStateCommands.DefaultRankSpec("Member", 1, setOf(Permissions.SEND_INVITES)),
+            GameStateCommands.DefaultRankSpec(
+                "Member", 1, setOf(Permissions.SEND_INVITES, Permissions.VIEW_POWER, Permissions.HOME)
+            ),
             GameStateCommands.DefaultRankSpec("Owner", 1000, Permissions.knownPermissions.keys)
         )
         val factionId = GameStateCommands.createFaction(owner, "TestFaction", 50, ranks, Permissions.knownPermissions.keys)
