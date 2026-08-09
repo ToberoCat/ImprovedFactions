@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit
 import java.util.logging.Logger
 import kotlin.test.*
 
+@io.github.toberocat.improvedfactions.testing.IntegrationTest
 class GameStateCommandsIntegrationTest {
     @Test
     fun `commands publish one complete snapshot after each committed workflow`() {

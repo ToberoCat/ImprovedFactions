@@ -4,39 +4,40 @@ import io.github.toberocat.improvedfactions.ImprovedFactionsTest
 import io.github.toberocat.improvedfactions.database.storage.GameStateCommands
 import io.github.toberocat.improvedfactions.database.storage.StorageManager
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
 class PowerModuleTest : ImprovedFactionsTest() {
     @Test
     fun `test setting max power`() {
         val faction = testFaction()
-        assert(faction.maxPower == 50)
-        assert(faction.accumulatedPower == 50)
+        assertEquals(50, faction.maxPower)
+        assertEquals(50, faction.accumulatedPower)
 
         GameStateCommands.setPower(faction.id, maximum = 70)
         awaitStorage()
-        assert(StorageManager.cache.faction(faction.id)?.maxPower == 70)
-        assert(StorageManager.cache.faction(faction.id)?.accumulatedPower == 50)
+        assertEquals(70, StorageManager.cache.faction(faction.id)?.maxPower)
+        assertEquals(50, StorageManager.cache.faction(faction.id)?.accumulatedPower)
 
         GameStateCommands.setPower(faction.id, maximum = 10)
         awaitStorage()
-        assert(StorageManager.cache.faction(faction.id)?.maxPower == 10)
-        assert(StorageManager.cache.faction(faction.id)?.accumulatedPower == 10)
+        assertEquals(10, StorageManager.cache.faction(faction.id)?.maxPower)
+        assertEquals(10, StorageManager.cache.faction(faction.id)?.accumulatedPower)
     }
 
     @Test
     fun `test setting accumulated power`() {
         val faction = testFaction()
-        assert(faction.maxPower == 50)
-        assert(faction.accumulatedPower == 50)
+        assertEquals(50, faction.maxPower)
+        assertEquals(50, faction.accumulatedPower)
 
         GameStateCommands.setPower(faction.id, accumulated = 70)
         awaitStorage()
-        assert(StorageManager.cache.faction(faction.id)?.maxPower == 50)
-        assert(StorageManager.cache.faction(faction.id)?.accumulatedPower == 50)
+        assertEquals(50, StorageManager.cache.faction(faction.id)?.maxPower)
+        assertEquals(50, StorageManager.cache.faction(faction.id)?.accumulatedPower)
 
         GameStateCommands.setPower(faction.id, accumulated = 10)
         awaitStorage()
-        assert(StorageManager.cache.faction(faction.id)?.maxPower == 50)
-        assert(StorageManager.cache.faction(faction.id)?.accumulatedPower == 10)
+        assertEquals(50, StorageManager.cache.faction(faction.id)?.maxPower)
+        assertEquals(10, StorageManager.cache.faction(faction.id)?.accumulatedPower)
     }
 }

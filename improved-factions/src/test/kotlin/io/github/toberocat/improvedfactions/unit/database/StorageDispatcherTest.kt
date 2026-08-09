@@ -10,6 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
+@io.github.toberocat.improvedfactions.testing.UnitTest
 class StorageDispatcherTest {
     @Test
     fun `sqlite work is serialized on a dedicated database thread`() {

@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration
 import org.junit.jupiter.api.Test
 import kotlin.test.assertTrue
 
+@io.github.toberocat.improvedfactions.testing.UnitTest
 class DefaultFactionRanksTest {
     @Test
     fun `configured member rank can use faction home`() {

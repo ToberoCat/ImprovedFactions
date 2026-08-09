@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import kotlin.test.Test
 
+@io.github.toberocat.improvedfactions.testing.UnitTest
 class ChunkPositionTest {
     @Test
     fun `test equals`() {

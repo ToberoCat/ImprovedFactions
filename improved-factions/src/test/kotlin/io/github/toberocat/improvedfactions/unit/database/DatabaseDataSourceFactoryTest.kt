@@ -8,6 +8,7 @@ import java.nio.file.Files
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
+@io.github.toberocat.improvedfactions.testing.UnitTest
 class DatabaseDataSourceFactoryTest {
     @Test
     fun `sqlite datasource has exactly one connection`() {

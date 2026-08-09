@@ -17,10 +17,12 @@ data class CompletionLevelNode(
     fun getCompletions(args: List<String>): List<String> {
         if (args.isEmpty()) return children.keys.toList()
 
-        val nextNode = children[args[0]] ?: return children.keys.toList()
+        val nextNode = children.entries
+            .firstOrNull { it.key.equals(args[0], ignoreCase = true) }
+            ?.value ?: return children.keys.toList()
 
-        if (args.size == 1 && children.keys.count { it.startsWith(args[0]) } > 0)
-            return children.keys.filter { it.startsWith(args[0]) }
+        if (args.size == 1 && children.keys.count { it.startsWith(args[0], ignoreCase = true) } > 0)
+            return children.keys.filter { it.startsWith(args[0], ignoreCase = true) }
         return nextNode.getPerNodeCompletions(args)
     }
 

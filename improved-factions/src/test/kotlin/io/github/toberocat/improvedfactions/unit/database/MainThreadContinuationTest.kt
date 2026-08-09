@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 
+@io.github.toberocat.improvedfactions.testing.UnitTest
 class MainThreadContinuationTest {
     @Test
     fun `completion only touches gameplay state through the scheduled continuation`() {

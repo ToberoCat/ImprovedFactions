@@ -11,6 +11,7 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable
 import kotlin.test.assertNotNull
 
 @EnabledIfEnvironmentVariable(named = "MARIADB_TEST_URL", matches = ".+")
+@io.github.toberocat.improvedfactions.testing.DatabaseTest
 class JdbcGameStateLoaderMariaDbTest {
     @Test
     fun `mariadb pool can load a migrated snapshot`() {

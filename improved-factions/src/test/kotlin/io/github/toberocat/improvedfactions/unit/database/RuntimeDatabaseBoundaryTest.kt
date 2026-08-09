@@ -6,6 +6,7 @@ import java.nio.file.Path
 import kotlin.io.path.extension
 import kotlin.test.assertEquals
 
+@io.github.toberocat.improvedfactions.testing.UnitTest
 class RuntimeDatabaseBoundaryTest {
     @Test
     fun `runtime gameplay packages contain no synchronous exposed queries`() {
