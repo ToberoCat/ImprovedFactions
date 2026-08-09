@@ -25,7 +25,7 @@ fun CommandSender.resolveLocalization(key: String, placeholders: Map<String, Str
 fun CommandSender.sendLocalized(key: String, placeholders: Map<String, String> = emptyMap()) {
     when (this) {
         is Player -> sendLocalized(key, placeholders)
-        else -> sendMessage(Locale.ENGLISH.localizeUnformatted(key, placeholders))
+        else -> sendMessage(Locale.ENGLISH.localize(key, placeholders))
     }
 }
 

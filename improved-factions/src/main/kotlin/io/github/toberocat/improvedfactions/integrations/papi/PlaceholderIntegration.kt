@@ -27,6 +27,10 @@ object PlaceholderIntegration {
             "name" -> faction?.name
             "rank" -> user.rankName
             "join_mode" -> faction?.joinType
+            "members_total" -> faction?.let { cache.factionMembers(it.id).size.toString() }
+            "members_online" -> faction?.let {
+                cache.factionMembers(it.id).count { memberId -> Bukkit.getPlayer(memberId) != null }.toString()
+            }
             "power" -> faction?.accumulatedPower?.toString()
             "max_power" -> faction?.maxPower?.toString()
             "next_power_gain" -> faction?.let(::nextPowerGain)?.let { String.format("%.2f", it) }
