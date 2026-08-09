@@ -10,6 +10,8 @@ import io.github.toberocat.improvedfactions.commands.respondAfter
 import io.github.toberocat.improvedfactions.database.storage.FactionSnapshot
 import io.github.toberocat.improvedfactions.database.storage.GameStateCommands
 import io.github.toberocat.improvedfactions.database.storage.claimKey
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
+import io.github.toberocat.improvedfactions.modules.home.HomeModule
 import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.command.CommandSender
@@ -43,8 +45,12 @@ abstract class ForceUnclaimCommand : ForceUnclaimCommandContext() {
         return unclaimFaction(sender, faction, location)
     }
 
-    private fun unclaimFaction(sender: CommandSender, faction: FactionSnapshot, location: Location): CommandProcessResult? =
-        sender.respondAfter(GameStateCommands.unclaim(location.claimKey())) {
+    private fun unclaimFaction(sender: CommandSender, faction: FactionSnapshot, location: Location): CommandProcessResult? {
+        val claimKey = location.claimKey()
+        val affectedFactionId = StorageManager.cache.claim(claimKey)?.factionId
+        return sender.respondAfter(GameStateCommands.unclaim(claimKey)) {
+            affectedFactionId?.let { HomeModule.warnIfHomeWasUnclaimed(it, listOf(claimKey)) }
             factionUnclaimed("faction" to faction.name)
         }
+    }
 }

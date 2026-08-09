@@ -10,6 +10,7 @@ import io.github.toberocat.improvedfactions.modules.power.PowerRaidsModule.power
 import io.github.toberocat.improvedfactions.translation.getLocaleEnum
 import io.github.toberocat.improvedfactions.translation.localize
 import io.github.toberocat.improvedfactions.translation.sendLocalized
+import io.github.toberocat.improvedfactions.modules.home.HomeModule
 import io.github.toberocat.improvedfactions.utils.toAudience
 import io.github.toberocat.toberocore.util.MathUtils
 import net.kyori.adventure.bossbar.BossBar
@@ -181,6 +182,7 @@ class ClaimSiegeManager(private val claimKey: ClaimKey, private val claimedFacti
                 "world" to claimKey.world
             )
         StorageManager.continueOnMain(GameStateCommands.unclaim(claimKey), {
+            HomeModule.warnIfHomeWasUnclaimed(claimedFactionId, listOf(claimKey))
             broadcastToFactions(factionIds, "power.siege.unclaimed", placeholders)
         }) { failure ->
             ImprovedFactionsPlugin.instance.logger.warning("Unable to persist siege victory: ${failure.message}")

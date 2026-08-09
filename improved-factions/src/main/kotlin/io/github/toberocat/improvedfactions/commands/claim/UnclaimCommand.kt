@@ -7,6 +7,7 @@ import io.github.toberocat.improvedfactions.commands.CommandProcessResult
 import io.github.toberocat.improvedfactions.commands.respondAfter
 import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.permissions.Permissions
+import io.github.toberocat.improvedfactions.modules.home.HomeModule
 import org.bukkit.entity.Player
 
 @GeneratedCommandMeta(
@@ -42,6 +43,7 @@ abstract class UnclaimCommand : UnclaimCommandContext() {
         }
         if (keys.any { StorageManager.cache.claim(it)?.factionId != faction.id }) return unclaimed()
         return player.respondAfter(GameStateCommands.unclaimAll(keys, faction.id)) { count ->
+            if (count > 0) HomeModule.warnIfHomeWasUnclaimed(faction.id, keys)
             if (radius == null) unclaimed() else unclaimedRadius(
                 "radius" to radius.toString(), "successful-claims" to count.toString(), "total-claims" to keys.size.toString()
             )

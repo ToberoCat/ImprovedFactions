@@ -11,6 +11,8 @@ import org.bukkit.Location
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import io.github.toberocat.improvedfactions.translation.sendLocalized
+import io.github.toberocat.improvedfactions.database.storage.ClaimKey
+import kotlin.math.floor
 
 object HomeModule : Module {
     const val MODULE_NAME = "home"
@@ -57,6 +59,13 @@ object HomeModule : Module {
         StorageManager.cache.factionMembers(factionId)
             .mapNotNull(Bukkit::getPlayer)
             .forEach { it.sendLocalized("home.commands.home.home-unreachable") }
+    }
+
+    /** Warn the faction once when an unclaim operation removes the saved home's chunk. */
+    fun warnIfHomeWasUnclaimed(factionId: Int, unclaimedKeys: Collection<ClaimKey>) {
+        val home = StorageManager.cache.home(factionId) ?: return
+        val homeKey = ClaimKey(home.world, floor(home.x).toInt() shr 4, floor(home.z).toInt() shr 4)
+        if (homeKey in unclaimedKeys) broadcastUnreachableHome(factionId)
     }
 
     fun homePair() = moduleName to this
