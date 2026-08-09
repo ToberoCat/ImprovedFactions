@@ -1,7 +1,8 @@
 package io.github.toberocat.improvedfactions.integration.commands.member
 
-import io.github.toberocat.improvedfactions.ImprovedFactionsTest
+import io.github.toberocat.improvedfactions.FactionsIntegrationTest
 import io.github.toberocat.improvedfactions.database.storage.GameStateCommands
+import io.github.toberocat.improvedfactions.database.storage.StorageManager
 import io.github.toberocat.improvedfactions.database.storage.cachedUser
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import org.junit.jupiter.api.Test
@@ -9,12 +10,12 @@ import java.util.concurrent.TimeUnit
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class BanCommandProcessorTest : ImprovedFactionsTest() {
+class BanCommandProcessorTest : FactionsIntegrationTest() {
     @Test
-    fun `banning a member of another faction does not remove them from their faction`() {
+    fun `ban cannot remove or ban a member of another faction`() {
         val executor = createTestPlayer("Executor")
         val target = createTestPlayer("Target")
-        testFaction(executor.uniqueId)
+        val executorFaction = testFaction(executor.uniqueId)
         val targetFactionId = GameStateCommands.createFaction(
             target.uniqueId,
             "TargetFaction",
@@ -26,9 +27,31 @@ class BanCommandProcessorTest : ImprovedFactionsTest() {
             Permissions.knownPermissions.keys
         ).toCompletableFuture().get(5, TimeUnit.SECONDS)
 
-        assertTrue(server.dispatchCommand(executor, "f ban ${target.name}"))
-        awaitStorage()
+        command("/f ban ${target.name}")
+            .asPlayer(executor)
+            .run()
+            .expectHandled()
+            .expectDeclaredResponse("ban", "notInFaction")
+            .awaitStorage()
 
         assertEquals(targetFactionId, target.cachedUser().factionId)
+        assertTrue(StorageManager.cache.bans(executorFaction.id).none { it.userId == target.cachedUser().id })
+    }
+
+    @Test
+    fun `ban removes and records a member of the executor faction`() {
+        val executor = createTestPlayer("Executor")
+        val target = createTestPlayer("Target")
+        val executorFaction = testFaction(executor.uniqueId, target.uniqueId)
+
+        command("/f ban ${target.name}")
+            .asPlayer(executor)
+            .run()
+            .expectHandled()
+            .awaitStorage()
+            .expectDeclaredResponse("ban", "bannedTarget", mapOf("target" to target.name))
+
+        assertEquals(-1, target.cachedUser().factionId)
+        assertTrue(StorageManager.cache.bans(executorFaction.id).any { it.userId == target.cachedUser().id })
     }
 }
