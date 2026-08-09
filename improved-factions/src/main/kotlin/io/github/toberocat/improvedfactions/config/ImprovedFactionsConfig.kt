@@ -3,6 +3,7 @@ package io.github.toberocat.improvedfactions.config
 import io.github.toberocat.improvedfactions.ImprovedFactionsPlugin
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.modules.base.BaseModule.config
+import io.github.toberocat.improvedfactions.factions.requiredDefaultFactionRanks
 import io.github.toberocat.improvedfactions.utils.getEnum
 import io.github.toberocat.improvedfactions.zone.ZoneHandler
 import org.bukkit.configuration.MemorySection
@@ -34,6 +35,7 @@ class ImprovedFactionsConfig(
 ) : PluginConfig() {
 
     override fun reload(plugin: ImprovedFactionsPlugin, config: FileConfiguration) {
+        requiredDefaultFactionRanks(config)
         territoryDisplayLocation = config.getEnum<EventDisplayLocation>("event-display-location")
             ?: territoryDisplayLocation
         defaultPlaceholders = config.generateDefaultPlaceholders()

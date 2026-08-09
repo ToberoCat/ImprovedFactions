@@ -9,6 +9,7 @@ import io.github.toberocat.improvedfactions.commands.respondAfter
 import io.github.toberocat.improvedfactions.api.events.FactionCreateEvent
 import io.github.toberocat.improvedfactions.database.storage.*
 import io.github.toberocat.improvedfactions.factions.defaultFactionRanks
+import io.github.toberocat.improvedfactions.factions.requiredDefaultFactionRanks
 import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import io.github.toberocat.improvedfactions.permissions.Permissions
 import org.bukkit.OfflinePlayer
@@ -60,9 +61,7 @@ abstract class CreateCommand : CreateCommandContext() {
         Bukkit.getPluginManager().callEvent(event)
         if (event.isCancelled) return cancelledCommandResult()
 
-        val ranks = defaultFactionRanks(
-            BaseModule.plugin.config.getConfigurationSection("factions.default-faction-ranks")
-        )
+        val ranks = defaultFactionRanks(requiredDefaultFactionRanks(BaseModule.plugin.config))
         return sender.respondAfter(
             GameStateCommands.createFaction(owner.uniqueId, name, 50, ranks, Permissions.knownPermissions.keys)
         ) { factionId ->
