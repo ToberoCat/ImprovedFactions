@@ -112,6 +112,23 @@ fun Locale.localizeUnformatted(
     return replacePlaceholders(localizedString, mutablePlaceholders)
 }
 
-fun Locale.getBundle(): ResourceBundle = ResourceBundle.getBundle(
-    "languages.messages", this, ExternalResourceBundleLoader(ImprovedFactionsPlugin.instance.dataFolder.absolutePath)
-)
+private const val DEFAULT_LANGUAGE_CODE = "en_us"
+
+fun Locale.getBundle(): ResourceBundle {
+    val loader = ExternalResourceBundleLoader(ImprovedFactionsPlugin.instance.dataFolder.absolutePath)
+    return languageCodes()
+        .firstNotNullOfOrNull { languageCode ->
+            runCatching {
+                ResourceBundle.getBundle("languages.$languageCode", Locale.ROOT, loader)
+            }.getOrNull()
+        }
+        ?: error("The default language file $DEFAULT_LANGUAGE_CODE.properties is missing")
+}
+
+private fun Locale.languageCodes(): List<String> = buildList {
+    val languageCode = language.lowercase(Locale.ROOT)
+    val countryCode = country.lowercase(Locale.ROOT)
+    if (languageCode.isNotEmpty() && countryCode.isNotEmpty()) add("${languageCode}_${countryCode}")
+    if (languageCode.isNotEmpty()) add(languageCode)
+    add(DEFAULT_LANGUAGE_CODE)
+}.distinct()

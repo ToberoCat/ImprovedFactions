@@ -10,8 +10,6 @@ import java.util.*
  * @author Tobias Madlberger (Tobias)
  */
 class ExternalResourceBundleLoader(private val bundlePath: String) : ResourceBundle.Control() {
-    private val fallbackLocale = Locale.US
-
     @Throws(IOException::class)
     override fun newBundle(
         baseName: String,
@@ -28,10 +26,5 @@ class ExternalResourceBundleLoader(private val bundlePath: String) : ResourceBun
         return super.newBundle(baseName, locale, format, loader, reload)
     }
 
-    override fun getFallbackLocale(baseName: String?, locale: Locale?): Locale? {
-        if (locale == null || locale == fallbackLocale) {
-            return null
-        }
-        return fallbackLocale
-    }
+    override fun getFallbackLocale(baseName: String?, locale: Locale?) = null
 }

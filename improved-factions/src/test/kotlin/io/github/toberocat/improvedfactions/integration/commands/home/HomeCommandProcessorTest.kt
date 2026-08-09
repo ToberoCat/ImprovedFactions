@@ -3,11 +3,13 @@ package io.github.toberocat.improvedfactions.integration.commands.home
 import org.mockbukkit.mockbukkit.entity.PlayerMock
 import io.github.toberocat.improvedfactions.database.storage.FactionSnapshot
 import io.github.toberocat.improvedfactions.ImprovedFactionsTest
+import io.github.toberocat.improvedfactions.modules.base.BaseModule
 import org.bukkit.Chunk
 import org.bukkit.World
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
+import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class HomeCommandProcessorTest : ImprovedFactionsTest() {
@@ -25,14 +27,15 @@ class HomeCommandProcessorTest : ImprovedFactionsTest() {
         player2 = createTestPlayer()
 
         faction = testFaction(player1.uniqueId, members = arrayOf(player2.uniqueId))
-        world = testWorld()
+        world = server.worlds.first()
+        BaseModule.config.allowedWorlds = BaseModule.config.allowedWorlds + world.name
 
         chunk = world.getChunkAt(0, 0)
     }
 
     @ParameterizedTest
     @ValueSource(booleans = [true, false])
-    fun `illegal state exception not scheduled yet`(onlineMode: Boolean) {
+    fun `members can teleport to their faction home`(onlineMode: Boolean) {
         server.onlineMode = onlineMode
 
         player1.location = chunk.getBlock(8, 8, 8).location
@@ -40,7 +43,16 @@ class HomeCommandProcessorTest : ImprovedFactionsTest() {
         awaitStorage()
         assertTrue(server.dispatchCommand(player1, "f sethome"))
         awaitStorage()
+        val homeLocation = player1.location.clone()
         assertTrue(server.dispatchCommand(player1, "f home"))
+        player2.location = chunk.getBlock(12, 8, 12).location
         assertTrue(server.dispatchCommand(player2, "f home"))
+        Thread.sleep(5_100)
+        server.scheduler.performTicks(120)
+
+        assertEquals(homeLocation.world, player2.world)
+        assertEquals(homeLocation.x, player2.location.x)
+        assertEquals(homeLocation.y, player2.location.y)
+        assertEquals(homeLocation.z, player2.location.z)
     }
 }
