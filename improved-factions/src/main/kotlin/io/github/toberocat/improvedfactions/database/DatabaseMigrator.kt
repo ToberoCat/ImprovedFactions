@@ -51,6 +51,7 @@ object DatabaseMigrator {
     ): MigrateResult {
         loadDriverFor(jdbcUrl)
         logger?.info("[Flyway] Starting migrations: location=$location, database=${jdbcUrl.substringBefore('?')}")
+        Thread.currentThread().contextClassLoader = DatabaseMigrator::class.java.classLoader
         val flywayConfiguration = Flyway.configure()
         val configuredFlyway = if (jdbcUrl.startsWith("jdbc:mariadb:")) {
             val dataSource = MariaDbDataSource(jdbcUrl).apply {

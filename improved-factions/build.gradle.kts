@@ -1,5 +1,6 @@
 import java.nio.file.Files
 import java.util.*
+import org.gradle.api.file.DuplicatesStrategy
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.gradle.api.tasks.testing.Test
 
@@ -133,6 +134,7 @@ dokka {
 
 tasks.shadowJar {
     configurations = listOf(project.configurations.runtimeClasspath.get())
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
     archiveFileName.set("${project.name}-${project.version}.jar")
     if (System.getenv("CI") == null && System.getenv("JITPACK") == null) {
         destinationDirectory.set(file("../server/plugins"))
@@ -146,6 +148,10 @@ tasks.shadowJar {
     exclude("META-INF/NOTICE*")
 
     mergeServiceFiles()
+}
+
+tasks.jar {
+    archiveClassifier.set("plain")
 }
 
 tasks {
@@ -165,6 +171,8 @@ tasks {
 
     test {
         description = "Runs all unit and integration tests that do not require Docker."
+        dependsOn(project.tasks.shadowJar)
+        systemProperty("shadowJar", project.tasks.shadowJar.get().archiveFile.get().asFile.absolutePath)
         useJUnitPlatform {
             excludeTags("database")
         }
