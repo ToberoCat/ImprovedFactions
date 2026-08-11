@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ImprovedFactions</title>
+    <link href="images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="scripts/sourceset_dependencies.js" async="async"></script>
+<link href="styles/style.css" rel="Stylesheet">
+<link href="styles/main.css" rel="Stylesheet">
+<link href="styles/prism.css" rel="Stylesheet">
+<link href="styles/logo-styles.css" rel="Stylesheet">
+<link href="ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="index.html" tabindex="1">
+                    ImprovedFactions
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+2.4.0        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":/main"
+                                       data-filter=":/main"/>
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    ImprovedFactions
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" id="content" pageIds="ImprovedFactions::////PointingToDeclaration//-251573632">
+  <div class="breadcrumbs"></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Improved</span><wbr></wbr><span><span>Factions</span></span></h1>
+  </div>
+  <h2 class="">Packages</h2>
+  <div class="table"><a data-name="-495874597%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions" id="-495874597%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions/index.html">io.github.toberocat.improvedfactions</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-495874597%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="848031111%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.api" id="848031111%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.api/index.html">io.github.toberocat.improvedfactions.api</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="848031111%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="994032804%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.api.events" id="994032804%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.api.events/index.html">io.github.toberocat.improvedfactions.api.events</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="994032804%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="253380108%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.charts" id="253380108%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.charts/index.html">io.github.toberocat.improvedfactions.charts</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="253380108%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1496787694%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.claims" id="1496787694%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.claims/index.html">io.github.toberocat.improvedfactions.claims</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1496787694%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1586778668%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.claims.clustering" id="1586778668%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.claims.clustering/index.html">io.github.toberocat.improvedfactions.claims.clustering</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1586778668%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1925894968%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.claims.clustering.cluster" id="1925894968%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.claims.clustering.cluster/index.html">io.github.toberocat.improvedfactions.claims.clustering.cluster</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1925894968%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="290026444%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.claims.clustering.detector" id="290026444%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.claims.clustering.detector/index.html">io.github.toberocat.improvedfactions.claims.clustering.detector</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="290026444%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="74133359%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.claims.clustering.position" id="74133359%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.claims.clustering.position/index.html">io.github.toberocat.improvedfactions.claims.clustering.position</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="74133359%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="559540968%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.claims.overclaim" id="559540968%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.claims.overclaim/index.html">io.github.toberocat.improvedfactions.claims.overclaim</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="559540968%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="62001471%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.commands" id="62001471%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.commands/index.html">io.github.toberocat.improvedfactions.commands</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="62001471%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1615036448%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.commands.admin" id="1615036448%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.commands.admin/index.html">io.github.toberocat.improvedfactions.commands.admin</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1615036448%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1303084765%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.commands.admin.force" id="1303084765%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.commands.admin.force/index.html">io.github.toberocat.improvedfactions.commands.admin.force</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1303084765%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="913385662%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.commands.admin.zone" id="913385662%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.commands.admin.zone/index.html">io.github.toberocat.improvedfactions.commands.admin.zone</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="913385662%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1501561881%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.commands.arguments" id="-1501561881%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.commands.arguments/index.html">io.github.toberocat.improvedfactions.commands.arguments</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1501561881%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="749294153%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.commands.arguments.bukkit" id="749294153%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.commands.arguments.bukkit/index.html">io.github.toberocat.improvedfactions.commands.arguments.bukkit</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="749294153%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-13315179%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.commands.arguments.faction" id="-13315179%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.commands.arguments.faction/index.html">io.github.toberocat.improvedfactions.commands.arguments.faction</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-13315179%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1899180887%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.commands.arguments.primitives" id="1899180887%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.commands.arguments.primitives/index.html">io.github.toberocat.improvedfactions.commands.arguments.primitives</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1899180887%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-114091333%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.commands.arguments.primitives.enums" id="-114091333%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.commands.arguments.primitives.enums/index.html">io.github.toberocat.improvedfactions.commands.arguments.primitives.enums</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-114091333%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1718265549%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.commands.claim" id="1718265549%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.commands.claim/index.html">io.github.toberocat.improvedfactions.commands.claim</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1718265549%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1162310886%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.commands.executor" id="1162310886%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.commands.executor/index.html">io.github.toberocat.improvedfactions.commands.executor</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1162310886%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-280897351%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.commands.general" id="-280897351%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.commands.general/index.html">io.github.toberocat.improvedfactions.commands.general</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-280897351%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-95929380%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.commands.invite" id="-95929380%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.commands.invite/index.html">io.github.toberocat.improvedfactions.commands.invite</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-95929380%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-2135609544%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.commands.manage" id="-2135609544%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.commands.manage/index.html">io.github.toberocat.improvedfactions.commands.manage</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2135609544%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="74929197%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.commands.member" id="74929197%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.commands.member/index.html">io.github.toberocat.improvedfactions.commands.member</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="74929197%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="998112127%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.commands.rank" id="998112127%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.commands.rank/index.html">io.github.toberocat.improvedfactions.commands.rank</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="998112127%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1313495367%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.config" id="-1313495367%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.config/index.html">io.github.toberocat.improvedfactions.config</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1313495367%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-19104142%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.database" id="-19104142%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.database/index.html">io.github.toberocat.improvedfactions.database</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-19104142%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="558889663%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.database.storage" id="558889663%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.database.storage/index.html">io.github.toberocat.improvedfactions.database.storage</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="558889663%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="351992955%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.exceptions" id="351992955%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.exceptions/index.html">io.github.toberocat.improvedfactions.exceptions</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="351992955%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1331717170%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.factions" id="-1331717170%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.factions/index.html">io.github.toberocat.improvedfactions.factions</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1331717170%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="703697839%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.factions.ban" id="703697839%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.factions.ban/index.html">io.github.toberocat.improvedfactions.factions.ban</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="703697839%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1028081002%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.integrations" id="-1028081002%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.integrations/index.html">io.github.toberocat.improvedfactions.integrations</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1028081002%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1431643782%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.integrations.papi" id="1431643782%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.integrations.papi/index.html">io.github.toberocat.improvedfactions.integrations.papi</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1431643782%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="888077431%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.invites" id="888077431%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.invites/index.html">io.github.toberocat.improvedfactions.invites</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="888077431%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1863647956%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.listeners" id="-1863647956%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.listeners/index.html">io.github.toberocat.improvedfactions.listeners</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1863647956%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="2066492666%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.listeners.claim" id="2066492666%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.listeners.claim/index.html">io.github.toberocat.improvedfactions.listeners.claim</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2066492666%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="908949271%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.listeners.move" id="908949271%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.listeners.move/index.html">io.github.toberocat.improvedfactions.listeners.move</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="908949271%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-837438563%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.managers" id="-837438563%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.managers/index.html">io.github.toberocat.improvedfactions.managers</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-837438563%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-88450301%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.messages" id="-88450301%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.messages/index.html">io.github.toberocat.improvedfactions.messages</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-88450301%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-105316556%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules" id="-105316556%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules/index.html">io.github.toberocat.improvedfactions.modules</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-105316556%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="2033878287%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.base" id="2033878287%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.base/index.html">io.github.toberocat.improvedfactions.modules.base</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2033878287%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="136570582%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.chat" id="136570582%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.chat/index.html">io.github.toberocat.improvedfactions.modules.chat</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="136570582%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-383475036%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.chat.commands" id="-383475036%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.chat.commands/index.html">io.github.toberocat.improvedfactions.modules.chat.commands</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-383475036%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1626819934%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.chat.config" id="1626819934%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.chat.config/index.html">io.github.toberocat.improvedfactions.modules.chat.config</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1626819934%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="275935219%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.chat.handles" id="275935219%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.chat.handles/index.html">io.github.toberocat.improvedfactions.modules.chat.handles</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="275935219%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-734734020%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.chat.impl" id="-734734020%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.chat.impl/index.html">io.github.toberocat.improvedfactions.modules.chat.impl</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-734734020%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1712996912%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.chat.listener" id="-1712996912%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.chat.listener/index.html">io.github.toberocat.improvedfactions.modules.chat.listener</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1712996912%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-700572664%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.claimparticle" id="-700572664%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.claimparticle/index.html">io.github.toberocat.improvedfactions.modules.claimparticle</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-700572664%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1239563244%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.claimparticle.config" id="1239563244%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.claimparticle.config/index.html">io.github.toberocat.improvedfactions.modules.claimparticle.config</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1239563244%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1155879717%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.claimparticle.handles" id="1155879717%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.claimparticle.handles/index.html">io.github.toberocat.improvedfactions.modules.claimparticle.handles</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1155879717%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1502716671%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.dynmap" id="-1502716671%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.dynmap/index.html">io.github.toberocat.improvedfactions.modules.dynmap</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1502716671%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="955162835%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.dynmap.config" id="955162835%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.dynmap.config/index.html">io.github.toberocat.improvedfactions.modules.dynmap.config</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="955162835%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="929401630%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.dynmap.handles" id="929401630%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.dynmap.handles/index.html">io.github.toberocat.improvedfactions.modules.dynmap.handles</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="929401630%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="962889201%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.dynmap.impl" id="962889201%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.dynmap.impl/index.html">io.github.toberocat.improvedfactions.modules.dynmap.impl</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="962889201%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="448716189%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.home" id="448716189%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.home/index.html">io.github.toberocat.improvedfactions.modules.home</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="448716189%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1684710467%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.home.commands" id="-1684710467%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.home.commands/index.html">io.github.toberocat.improvedfactions.modules.home.commands</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1684710467%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-951952417%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.home.data" id="-951952417%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.home.data/index.html">io.github.toberocat.improvedfactions.modules.home.data</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-951952417%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-14053237%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.power" id="-14053237%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.power/index.html">io.github.toberocat.improvedfactions.modules.power</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-14053237%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="995759247%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.power.commands" id="995759247%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.power.commands/index.html">io.github.toberocat.improvedfactions.modules.power.commands</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="995759247%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-2094645751%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.power.config" id="-2094645751%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.power.config/index.html">io.github.toberocat.improvedfactions.modules.power.config</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2094645751%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="874615976%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.power.handles" id="874615976%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.power.handles/index.html">io.github.toberocat.improvedfactions.modules.power.handles</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="874615976%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="271448231%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.power.impl" id="271448231%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.power.impl/index.html">io.github.toberocat.improvedfactions.modules.power.impl</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="271448231%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-333762629%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.power.listener" id="-333762629%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.power.listener/index.html">io.github.toberocat.improvedfactions.modules.power.listener</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-333762629%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="706023677%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.relations" id="706023677%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.relations/index.html">io.github.toberocat.improvedfactions.modules.relations</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="706023677%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1441598371%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.relations.commands" id="-1441598371%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.relations.commands/index.html">io.github.toberocat.improvedfactions.modules.relations.commands</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1441598371%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1522703984%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.relations.database" id="-1522703984%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.relations.database/index.html">io.github.toberocat.improvedfactions.modules.relations.database</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1522703984%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-2113502438%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.relations.handles" id="-2113502438%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.relations.handles/index.html">io.github.toberocat.improvedfactions.modules.relations.handles</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2113502438%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="788197237%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.relations.impl" id="788197237%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.relations.impl/index.html">io.github.toberocat.improvedfactions.modules.relations.impl</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="788197237%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1988857804%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.wilderness" id="1988857804%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.wilderness/index.html">io.github.toberocat.improvedfactions.modules.wilderness</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1988857804%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1351831954%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.wilderness.commands" id="-1351831954%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.wilderness.commands/index.html">io.github.toberocat.improvedfactions.modules.wilderness.commands</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1351831954%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-662453336%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.modules.wilderness.config" id="-662453336%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.modules.wilderness.config/index.html">io.github.toberocat.improvedfactions.modules.wilderness.config</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-662453336%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1312580495%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.permissions" id="-1312580495%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.permissions/index.html">io.github.toberocat.improvedfactions.permissions</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1312580495%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1069066292%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.ranks" id="1069066292%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.ranks/index.html">io.github.toberocat.improvedfactions.ranks</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1069066292%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-354874274%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.translation" id="-354874274%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.translation/index.html">io.github.toberocat.improvedfactions.translation</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-354874274%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1656899394%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.user" id="1656899394%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.user/index.html">io.github.toberocat.improvedfactions.user</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1656899394%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1383772514%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.utils" id="-1383772514%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.utils/index.html">io.github.toberocat.improvedfactions.utils</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1383772514%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1944369235%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.utils.offline" id="1944369235%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.utils.offline/index.html">io.github.toberocat.improvedfactions.utils.offline</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1944369235%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-982864293%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.utils.options.limit" id="-982864293%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.utils.options.limit/index.html">io.github.toberocat.improvedfactions.utils.options.limit</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-982864293%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="937011485%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.utils.particles" id="937011485%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.utils.particles/index.html">io.github.toberocat.improvedfactions.utils.particles</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="937011485%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1327331299%2FPackages%2F-251573632" anchor-label="io.github.toberocat.improvedfactions.zone" id="1327331299%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="-improved-factions/io.github.toberocat.improvedfactions.zone/index.html">io.github.toberocat.improvedfactions.zone</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1327331299%2FPackages%2F-251573632"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
