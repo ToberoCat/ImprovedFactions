@@ -146,6 +146,9 @@ tasks.shadowJar {
     
     exclude("META-INF/LICENSE*")
     exclude("META-INF/NOTICE*")
+    exclude("META-INF/FastDoubleParser-LICENSE")
+    exclude("META-INF/FastDoubleParser-ThirdParty-LICENSE")
+    exclude("META-INF/Schubfach-LICENSE")
 
     mergeServiceFiles()
 }

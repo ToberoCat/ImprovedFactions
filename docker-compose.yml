@@ -2,7 +2,7 @@ version: '3'
 
 services:
   mcserver:
-    image: itzg/minecraft-server:java21-alpine
+    image: itzg/minecraft-server:java25
     container_name: mcserver
     environment:
       TYPE: PAPER
@@ -10,7 +10,7 @@ services:
       INIT_MEMORY: 2G
       MAX_MEMORY: 4G
       EULA: TRUE
-      VERSION: 1.21.5
+      VERSION: 1.21.11
       PAPER_CHANNEL: "experimental"
       JVM_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
       DEBUG_EXEC: true
